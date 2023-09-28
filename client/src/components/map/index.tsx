@@ -145,7 +145,7 @@ export const Map: FC<CustomMapProps> = ({
         mapboxAccessToken={env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         onMove={handleMapMove}
         onLoad={handleMapLoad}
-        mapStyle="mapbox://styles/marxan/ckn4fr7d71qg817kgd9vuom4s"
+        mapStyle="mapbox://styles/layer-manager/clj8fgofm000t01pjcu21agsd"
         {...mapboxProps}
         {...localViewState}
       >
