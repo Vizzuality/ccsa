@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback } from "react";
 
 import { useSyncMapSettings } from "@/app/url-query-params";

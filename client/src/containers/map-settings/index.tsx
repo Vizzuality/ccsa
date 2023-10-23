@@ -1,3 +1,5 @@
+"use client";
+
 import Basemaps from "./basemaps";
 import Boundaries from "./boundaries";
 import Labels from "./labels";

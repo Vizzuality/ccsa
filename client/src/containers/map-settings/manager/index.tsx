@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect } from "react";
 
 import { useMap } from "react-map-gl";
