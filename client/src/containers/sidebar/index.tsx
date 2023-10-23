@@ -6,6 +6,8 @@ import { LuChevronLeft } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
 
+import Popup from "@/containers/popup";
+
 const Sidebar = ({ children }: PropsWithChildren): JSX.Element => {
   const [open, setOpen] = useState(true);
 
@@ -14,24 +16,30 @@ const Sidebar = ({ children }: PropsWithChildren): JSX.Element => {
   return (
     <aside
       className={cn({
-        "absolute left-20 top-0 z-10 h-full w-full max-w-md bg-white transition-transform duration-300 ease-in-out":
+        "absolute left-20 top-0 z-10 h-full w-full max-w-md transition-transform duration-300 ease-in-out":
           true,
         "-translate-x-full": !open,
       })}
     >
-      {children}
+      <div className="relative z-10 h-full w-full bg-white">{children}</div>
 
       <button
-        className="absolute left-full top-0 rounded-r-lg bg-white py-2.5"
+        className="absolute left-full top-0 z-10 rounded-r-lg bg-white py-2.5"
         onClick={toggleOpen}
       >
         <LuChevronLeft
           className={cn({
-            "h-5 w-5 transition-transform delay-300 duration-300 ease-in-out": true,
+            "h-5 w-5 transition-transform delay-200 duration-300 ease-in-out": true,
             "rotate-180": !open,
           })}
         />
       </button>
+
+      <Popup>
+        <div>
+          <h3 className="text-xs uppercase">Analyze country</h3>
+        </div>
+      </Popup>
     </aside>
   );
 };
