@@ -24,11 +24,11 @@
     },
     "geometry": {
       "type": "json",
-      "required": true
+      "required": false
     },
     "bbox": {
       "type": "json",
-      "required": true
+      "required": false
     }
   }
 }

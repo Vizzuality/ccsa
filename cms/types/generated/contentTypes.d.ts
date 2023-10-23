@@ -376,8 +376,8 @@ export interface ApiCountryCountry extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
     iso3: Attribute.String & Attribute.Required & Attribute.Unique;
-    geometry: Attribute.JSON & Attribute.Required;
-    bbox: Attribute.JSON & Attribute.Required;
+    geometry: Attribute.JSON;
+    bbox: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

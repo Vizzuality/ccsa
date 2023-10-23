@@ -14,7 +14,7 @@ export const API = <T>(
     ...config,
     ...options,
     cancelToken: source.token,
-  }).then(({ data }) => data);
+  });
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

@@ -4,6 +4,30 @@
   "type": "public",
   "permissions": [
     {
+      "action": "api::country.country.find"
+    },
+    {
+      "action": "api::country.country.findOne"
+    },
+    {
+      "action": "api::dataset.dataset.find"
+    },
+    {
+      "action": "api::dataset.dataset.findOne"
+    },
+    {
+      "action": "api::layer.layer.find"
+    },
+    {
+      "action": "api::layer.layer.findOne"
+    },
+    {
+      "action": "api::project.project.find"
+    },
+    {
+      "action": "api::project.project.findOne"
+    },
+    {
       "action": "plugin::users-permissions.auth.callback"
     },
     {

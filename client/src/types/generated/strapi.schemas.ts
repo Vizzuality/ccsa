@@ -1324,10 +1324,10 @@ export interface DatasetRequest {
 export type CountryResponseMeta = { [key: string]: any };
 
 export interface Country {
-  bbox: unknown;
+  bbox?: unknown;
   createdAt?: string;
   createdBy?: CountryCreatedBy;
-  geometry: unknown;
+  geometry?: unknown;
   iso3: string;
   name: string;
   publishedAt?: string;
@@ -1550,8 +1550,8 @@ export interface CountryListResponse {
 }
 
 export type CountryRequestData = {
-  bbox: unknown;
-  geometry: unknown;
+  bbox?: unknown;
+  geometry?: unknown;
   iso3: string;
   name: string;
 };

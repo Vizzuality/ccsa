@@ -11,7 +11,7 @@ const Navigation = (): JSX.Element => {
       <ul className="w-full text-xs">
         <li className="py-5 text-center">
           <Link className="flex flex-col items-center justify-center gap-1" href="/">
-            <Image alt="CCSA Logo" width={72} height={59} src="/logo.svg" />
+            <Image priority alt="CCSA Logo" width={72} height={59} src="/logo.svg" />
           </Link>
         </li>
         <li className="py-5 text-center">
