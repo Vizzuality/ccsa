@@ -1,6 +1,6 @@
 "use client";
 
-import { BASEMAPS } from "@/components/map/constants";
+import { BASEMAPS } from "@/constants/map";
 
 import BasemapItem from "./item";
 

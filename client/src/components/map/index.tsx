@@ -16,7 +16,8 @@ import env from "@/env.mjs";
 
 import { cn } from "@/lib/classnames";
 
-import { DEFAULT_VIEW_STATE } from "./constants";
+import { DEFAULT_VIEW_STATE } from "../../constants/map";
+
 import type { CustomMapProps } from "./types";
 
 export const Map: FC<CustomMapProps> = ({

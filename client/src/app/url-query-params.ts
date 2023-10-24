@@ -1,7 +1,11 @@
-import { useQueryState } from "next-usequerystate";
+import { parseAsArrayOf, parseAsFloat, useQueryState } from "next-usequerystate";
 import { parseAsJson } from "next-usequerystate/parsers";
 
-import { DEFAULT_MAP_SETTINGS } from "@/components/map/constants";
+import { DEFAULT_BBOX, DEFAULT_MAP_SETTINGS } from "@/constants/map";
+
+export const useSyncBbox = () => {
+  return useQueryState("bbox", parseAsArrayOf(parseAsFloat).withDefault(DEFAULT_BBOX));
+};
 
 export const useSyncMapSettings = () => {
   return useQueryState(

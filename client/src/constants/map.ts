@@ -6,6 +6,10 @@ export const DEFAULT_VIEW_STATE: Partial<ViewState> = {
   longitude: 0,
 };
 
+export const DEFAULT_BBOX: [number, number, number, number] = [
+  -118.3665, 1.1768, -53.9775, 32.7186,
+];
+
 export const BASEMAPS = [
   {
     label: "Light",

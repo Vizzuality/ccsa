@@ -8,7 +8,7 @@ import { cn } from "@/lib/classnames";
 
 import { useSyncMapSettings } from "@/app/url-query-params";
 
-import { BASEMAPS } from "@/components/map/constants";
+import { BASEMAPS } from "@/constants/map";
 
 const BasemapItem = ({
   label,

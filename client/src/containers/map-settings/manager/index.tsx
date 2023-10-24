@@ -8,7 +8,7 @@ import { AnyLayer } from "mapbox-gl";
 
 import { useSyncMapSettings } from "@/app/url-query-params";
 
-import { BASEMAPS } from "@/components/map/constants";
+import { BASEMAPS } from "@/constants/map";
 
 type AnyLayerWithMetadata = AnyLayer & {
   metadata: Record<string, unknown>;

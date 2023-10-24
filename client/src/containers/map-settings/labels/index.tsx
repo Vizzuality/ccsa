@@ -4,7 +4,8 @@ import { useCallback } from "react";
 
 import { useSyncMapSettings } from "@/app/url-query-params";
 
-import { LABELS } from "@/components/map/constants";
+import { LABELS } from "@/constants/map";
+
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 

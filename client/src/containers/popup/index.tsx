@@ -7,7 +7,7 @@ import { LuChevronLeft } from "react-icons/lu";
 import { cn } from "@/lib/classnames";
 
 const Popup = ({ children }: PropsWithChildren): JSX.Element => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen((prev) => !prev);
 
