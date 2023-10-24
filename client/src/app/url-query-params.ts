@@ -1,7 +1,23 @@
-import { parseAsArrayOf, parseAsFloat, useQueryState } from "next-usequerystate";
+import { parseAsArrayOf, parseAsFloat, parseAsInteger, useQueryState } from "next-usequerystate";
 import { parseAsJson } from "next-usequerystate/parsers";
 
 import { DEFAULT_BBOX, DEFAULT_MAP_SETTINGS } from "@/constants/map";
+
+export const useSyncLayers = () => {
+  return useQueryState("layers", parseAsArrayOf(parseAsInteger).withDefault([]));
+};
+
+export const useSyncLayersSettings = () => {
+  return useQueryState(
+    "layers-settings",
+    parseAsJson<{
+      [key: string]: {
+        opacity: number;
+        visibility: boolean;
+      };
+    }>().withDefault({}),
+  );
+};
 
 export const useSyncBbox = () => {
   return useQueryState("bbox", parseAsArrayOf(parseAsFloat).withDefault(DEFAULT_BBOX));
