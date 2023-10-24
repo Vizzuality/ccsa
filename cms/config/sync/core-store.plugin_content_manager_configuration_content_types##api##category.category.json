@@ -1,7 +1,7 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::dataset.dataset",
+  "key": "plugin_content_manager_configuration_content_types::api::category.category",
   "value": {
-    "uid": "api::dataset.dataset",
+    "uid": "api::category.category",
     "settings": {
       "bulkable": true,
       "filterable": true,
@@ -34,9 +34,9 @@
           "sortable": true
         }
       },
-      "layers": {
+      "datasets": {
         "edit": {
-          "label": "layers",
+          "label": "datasets",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -44,38 +44,9 @@
           "mainField": "name"
         },
         "list": {
-          "label": "layers",
+          "label": "datasets",
           "searchable": false,
           "sortable": false
-        }
-      },
-      "datum": {
-        "edit": {
-          "label": "datum",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "datum",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "category": {
-        "edit": {
-          "label": "category",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "category",
-          "searchable": true,
-          "sortable": true
         }
       },
       "createdAt": {
@@ -142,28 +113,16 @@
         "id",
         "name",
         "createdAt",
-        "updatedAt"
+        "datasets"
       ],
       "edit": [
         [
           {
             "name": "name",
             "size": 6
-          }
-        ],
-        [
-          {
-            "name": "datum",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "layers",
-            "size": 6
           },
           {
-            "name": "category",
+            "name": "datasets",
             "size": 6
           }
         ]

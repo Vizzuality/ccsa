@@ -12,7 +12,7 @@ import { useGetLayersId } from "@/types/generated/layer";
 import { LayerResponseDataObject } from "@/types/generated/strapi.schemas";
 import { Config, LayerTyped } from "@/types/layers";
 
-import DeckJsonLayer from "@/components/map/layers/deck-json-layer";
+import DeckLayer from "@/components/map/layers/deck-layer";
 import MapboxLayer from "@/components/map/layers/mapbox-layer";
 
 interface LayerManagerItemProps extends Required<Pick<LayerResponseDataObject, "id">> {
@@ -105,7 +105,7 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
       settings,
     });
 
-    return <DeckJsonLayer id={`${id}-layer`} beforeId={beforeId} config={c} />;
+    return <DeckLayer id={`${id}-layer`} beforeId={beforeId} config={c} />;
   }
 };
 

@@ -7,24 +7,19 @@ import { LayerProps } from "@/types/layers";
 import { useDeckMapboxOverlayContext } from "@/components/map/provider";
 
 export type DeckLayerProps<T> = LayerProps &
-  T & {
+  Partial<T> & {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    type: any;
+    config: any;
   };
 
-const DeckLayer = <T,>({ id, type, ...props }: DeckLayerProps<T>) => {
-  // Render deck layer
+const DeckJsonLayer = <T,>({ id, config }: DeckLayerProps<T>) => {
+  // Render deck config
   const i = `${id}-deck`;
   const { addLayer, removeLayer } = useDeckMapboxOverlayContext();
 
   useEffect(() => {
-    const ly = new type({
-      ...props,
-      id: i,
-      beforeId: id,
-    });
-    addLayer(ly);
-  }, [i, id, type, props, addLayer]);
+    addLayer(config.clone({ id: i, beforeId: id }));
+  }, [i, id, config, addLayer]);
 
   useEffect(() => {
     return () => {
@@ -35,4 +30,4 @@ const DeckLayer = <T,>({ id, type, ...props }: DeckLayerProps<T>) => {
   return null;
 };
 
-export default DeckLayer;
+export default DeckJsonLayer;

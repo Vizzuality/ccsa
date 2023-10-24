@@ -6,6 +6,56 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::category.category",
+      "properties": {
+        "fields": [
+          "name",
+          "datasets"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::category.category",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::category.category",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::category.category",
+      "properties": {
+        "fields": [
+          "name",
+          "datasets"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::category.category",
+      "properties": {
+        "fields": [
+          "name",
+          "datasets"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
         "fields": [
@@ -67,7 +117,8 @@
         "fields": [
           "name",
           "layers",
-          "datum"
+          "datum",
+          "category"
         ]
       },
       "conditions": []
@@ -94,7 +145,8 @@
         "fields": [
           "name",
           "layers",
-          "datum"
+          "datum",
+          "category"
         ]
       },
       "conditions": []
@@ -107,7 +159,8 @@
         "fields": [
           "name",
           "layers",
-          "datum"
+          "datum",
+          "category"
         ]
       },
       "conditions": []
