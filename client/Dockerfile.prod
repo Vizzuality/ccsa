@@ -13,7 +13,7 @@ COPY .yarn ./.yarn
 COPY public ./public
 COPY src ./src
 
-COPY .browserlistrc \
+COPY .browserslistrc \
      .yarnrc.yml \
      components.json \
      entrypoint.sh \
