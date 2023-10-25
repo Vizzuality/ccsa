@@ -1,5 +1,6 @@
 name: Client E2E tests
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'client/**'
