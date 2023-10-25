@@ -22,7 +22,7 @@ COPY .browserslistrc \
      package.json \
      postcss.config.js \
      README.md \
-     tailwind.config.js \
+     tailwind.config.ts \
      tsconfig.json \
      yarn.lock \
      .env.local \
