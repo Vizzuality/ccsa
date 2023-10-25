@@ -1,4 +1,4 @@
-name: e2e_client
+name: Client E2E tests
 on:
   push:
     paths:
@@ -8,10 +8,9 @@ on:
 
 jobs:
   e2e_client:
+    name: Client E2E tests
     timeout-minutes: 15
     runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
     defaults:
       run:
         working-directory: client
