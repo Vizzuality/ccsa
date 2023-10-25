@@ -203,8 +203,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.PIPELINE_USER_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.PIPELINE_USER_SECRET_ACCESS_KEY }}
-          application_name: orcasa-${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}
-          environment_name: orcasa-${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}-environment
+          application_name: ccsa-${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}
+          environment_name: ccsa-${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}-environment
           region: ${{ vars.AWS_REGION }}
           version_label: ${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
           deployment_package: infrastructure/source_bundle/deploy.zip
