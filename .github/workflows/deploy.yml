@@ -155,6 +155,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.PIPELINE_USER_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
 
+      - name: Extract branch name
+        run: |
+          {
+            branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+            echo "branch=${branch}"
+            echo "branch_upper=${branch^^}"
+          } >> $GITHUB_OUTPUT
+        id: extract_branch
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
