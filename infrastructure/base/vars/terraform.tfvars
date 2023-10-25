@@ -16,3 +16,5 @@ beanstalk_tier     = "WebServer"
 ec2_instance_type  = "t3a.small"
 rds_engine_version = "15.4"
 rds_instance_class = "db.t3.micro"
+
+mapbox_api_token = "pk.eyJ1IjoibGF5ZXItbWFuYWdlciIsImEiOiJjazA2dTJnMG0zc3lwM251dGM0aXhiYTVxIn0.AaoErQTRezfQshqnEKIg8A"

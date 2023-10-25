@@ -72,6 +72,12 @@ variable "ga_tracking_id" {
   description = "Google Analytics tracking id"
 }
 
+variable "mapbox_api_token" {
+  type        = string
+  default     = ""
+  description = "Mapbox API id"
+}
+
 variable "cms_url" {
   type        = string
   default     = ""
