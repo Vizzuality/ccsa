@@ -4,8 +4,6 @@ import { LngLatBoundsLike, useMap } from "react-map-gl";
 
 import { useSyncBbox } from "@/app/url-query-params";
 
-import { DEFAULT_BBOX } from "@/constants/map";
-
 import LayerManager from "@/containers/map/layer-manager";
 import MapSettingsManagerPanel from "@/containers/map-settings";
 import MapSettingsManager from "@/containers/map-settings/manager";
@@ -39,7 +37,6 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
       initialViewState={{
         bounds: bbox as LngLatBoundsLike,
       }}
-      maxBounds={DEFAULT_BBOX}
       onMapViewStateChange={onMapViewStateChange}
     >
       <Controls className="absolute right-6 top-4">
