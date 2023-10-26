@@ -88,6 +88,6 @@ export const DEFAULT_MAP_SETTINGS: {
 } = {
   basemap: "basemap-light",
   labels: "labels-dark",
-  boundaries: true,
-  roads: true,
+  boundaries: false,
+  roads: false,
 };

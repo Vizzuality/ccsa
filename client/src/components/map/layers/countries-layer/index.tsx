@@ -27,7 +27,8 @@ const CountriesLayer = ({ beforeId, dataset, config, onAdd, onRemove }: Countrie
       data: {
         type: "FeatureCollection",
         features: countriesData.data.data.map((c) => ({
-          ...(c.attributes?.geometry as Feature),
+          type: "Feature",
+          geometry: c.attributes?.geometry as Feature["geometry"],
           properties: {
             id: c.id,
             name: c.attributes?.name,
