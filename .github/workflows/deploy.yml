@@ -1,0 +1,219 @@
+name: Run deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+#      - main
+      - staging
+    paths:
+      - 'client/**'
+      - 'cms/**'
+      - '.github/workflows/*'
+      - 'infrastructure/**'
+
+jobs:
+  build_client_image:
+    name: Build Client image and push to Amazon ECR
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: client-changes
+        with:
+          filters: |
+            client:
+              - 'client/**'
+              - '.github/workflows/**'
+
+      - name: Extract branch name
+        if: steps.client-changes.outputs.client == 'true'
+        run: |
+          {
+            branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+            echo "branch=${branch}"
+            echo "branch_upper=${branch^^}"
+          } >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Copy env variables to docker
+        if: steps.client-changes.outputs.client == 'true'
+        run: |
+          echo "${{ steps.extract_branch.outputs.branch == 'main' && secrets.PRODUCTION_CLIENT_ENV_FILE || secrets[format('{0}_CLIENT_ENV_FILE', steps.extract_branch.outputs.branch_upper)] }}" > client/.env.local
+
+      - name: Configure AWS credentials
+        if: steps.client-changes.outputs.client == 'true'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.PIPELINE_USER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PIPELINE_USER_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        if: steps.client-changes.outputs.client == 'true'
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: 'true'
+
+      - name: Set up Docker Buildx
+        if: steps.client-changes.outputs.client == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build, tag, and push Client image to Amazon ECR
+        if: steps.client-changes.outputs.client == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./client
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          file: ./client/Dockerfile.prod
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ secrets.CLIENT_REPOSITORY_NAME }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ secrets.CLIENT_REPOSITORY_NAME }}:${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}
+
+  build_cms_image:
+    name: Build CMS image and push to Amazon ECR
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: cms-changes
+        with:
+          filters: |
+            cms:
+              - 'cms/**'
+              - '.github/workflows/**'
+
+      - name: Extract branch name
+        if: steps.cms-changes.outputs.cms == 'true'
+        run: |
+          {
+            branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+            echo "branch=${branch}"
+            echo "branch_upper=${branch^^}"
+          } >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Copy env variables to docker
+        if: steps.cms-changes.outputs.cms == 'true'
+        run: |
+          echo "${{ steps.extract_branch.outputs.branch == 'main' && secrets.PRODUCTION_CMS_ENV_FILE || secrets[format('{0}_CMS_ENV_FILE', steps.extract_branch.outputs.branch_upper)] }}" > cms/.env
+
+      - name: Configure AWS credentials
+        if: steps.cms-changes.outputs.cms == 'true'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.PIPELINE_USER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PIPELINE_USER_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        if: steps.cms-changes.outputs.cms == 'true'
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: 'true'
+
+      - name: Set up Docker Buildx
+        if: steps.cms-changes.outputs.cms == 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build, tag, and push API image to Amazon ECR
+        if: steps.cms-changes.outputs.cms == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cms
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          file: ./cms/Dockerfile.prod
+          push: true
+          tags: |
+            ${{ steps.login-ecr.outputs.registry }}/${{ secrets.CMS_REPOSITORY_NAME }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ secrets.CMS_REPOSITORY_NAME }}:${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}
+
+  deploy:
+    name: Deploy Client and CMS to Amazon EB
+    needs: [build_client_image, build_cms_image]
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.PIPELINE_USER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PIPELINE_USER_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Extract branch name
+        run: |
+          {
+            branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+            echo "branch=${branch}"
+            echo "branch_upper=${branch^^}"
+          } >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: 'true'
+
+      - name: Generate docker compose file
+        working-directory: infrastructure/source_bundle
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY_CLIENT: ${{ secrets.CLIENT_REPOSITORY_NAME }}
+          ECR_REPOSITORY_CMS: ${{ secrets.CMS_REPOSITORY_NAME }}
+          IMAGE_TAG: ${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}
+        run: |
+          echo "version: '3.3'" > docker-compose.yml
+          echo "services:" >> docker-compose.yml
+          echo "  client:" >> docker-compose.yml
+          echo "    image: $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG" >> docker-compose.yml
+          echo "    restart: always" >> docker-compose.yml
+          echo "    ports:" >> docker-compose.yml
+          echo "      - 3000:3000" >> docker-compose.yml
+          echo "  cms:" >> docker-compose.yml
+          echo "    image: $ECR_REGISTRY/$ECR_REPOSITORY_CMS:$IMAGE_TAG" >> docker-compose.yml
+          echo "    restart: always" >> docker-compose.yml
+          echo "    ports:" >> docker-compose.yml
+          echo "      - 1337:1337" >> docker-compose.yml
+          echo "  nginx:" >> docker-compose.yml
+          echo "    image: nginx" >> docker-compose.yml
+          echo "    restart: always" >> docker-compose.yml
+          echo "    volumes:" >> docker-compose.yml
+          echo "      - ./proxy/conf.d:/etc/nginx/conf.d" >> docker-compose.yml
+          echo "      - \"\${EB_LOG_BASE_DIR}/nginx:/var/log/nginx\"" >> docker-compose.yml
+          echo "    ports:" >> docker-compose.yml
+          echo "      - 80:80" >> docker-compose.yml
+          echo "    depends_on:" >> docker-compose.yml
+          echo "      - cms" >> docker-compose.yml
+          echo "      - client" >> docker-compose.yml
+
+      - name: Generate zip file
+        working-directory: infrastructure/source_bundle
+        run: |
+          zip -r deploy.zip * .[^.]*
+
+      - name: Deploy to Amazon EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.PIPELINE_USER_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.PIPELINE_USER_SECRET_ACCESS_KEY }}
+          application_name: ccsa-${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}
+          environment_name: ccsa-${{ steps.extract_branch.outputs.branch == 'main' && 'production' || steps.extract_branch.outputs.branch }}-environment
+          region: ${{ vars.AWS_REGION }}
+          version_label: ${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          deployment_package: infrastructure/source_bundle/deploy.zip
