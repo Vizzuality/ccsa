@@ -36,7 +36,7 @@ const Home = () => {
   return (
     <div className="h-full overflow-auto">
       <div className="px-5 py-10">
-        <h1 className="text-3xl">Explore datasets</h1>
+        <h1 className="font-metropolis text-3xl text-gray-800">Explore Datasets</h1>
 
         {/* List of datasets */}
         <Accordion
@@ -53,7 +53,10 @@ const Home = () => {
 
             return (
               <AccordionItem key={category?.data?.id} value={`${category?.data?.id}`}>
-                <AccordionTrigger>{category?.data?.attributes?.name}</AccordionTrigger>
+                <AccordionTrigger className="text-xl">
+                  {category?.data?.attributes?.name}
+                </AccordionTrigger>
+
                 <AccordionContent>
                   <ul className="space-y-5">
                     {DATASETS?.map((dataset) => {
