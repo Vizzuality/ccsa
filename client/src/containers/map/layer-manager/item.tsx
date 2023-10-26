@@ -12,6 +12,7 @@ import { useGetLayersId } from "@/types/generated/layer";
 import { LayerResponseDataObject } from "@/types/generated/strapi.schemas";
 import { Config, LayerTyped } from "@/types/layers";
 
+import CountriesLayer from "@/components/map/layers/countries-layer";
 import DeckLayer from "@/components/map/layers/deck-layer";
 import MapboxLayer from "@/components/map/layers/mapbox-layer";
 
@@ -22,7 +23,7 @@ interface LayerManagerItemProps extends Required<Pick<LayerResponseDataObject, "
 
 const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => {
   const { data } = useGetLayersId(id, {
-    populate: "metadata",
+    populate: "dataset,metadata",
   });
   const layersInteractive = useAtomValue(layersInteractiveAtom);
   const setLayersInteractive = useSetAtom(layersInteractiveAtom);
@@ -88,6 +89,29 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
     return (
       <MapboxLayer
         id={`${id}-layer`}
+        beforeId={beforeId}
+        config={c}
+        onAdd={handleAddMapboxLayer}
+        onRemove={handleRemoveMapboxLayer}
+      />
+    );
+  }
+
+  if (type === "countries") {
+    const { config, params_config, dataset } = data.data.data.attributes;
+
+    const c = parseConfig<Config>({
+      config,
+      params_config,
+      settings,
+    });
+
+    if (!c) return null;
+
+    return (
+      <CountriesLayer
+        id={`${id}-layer`}
+        dataset={dataset}
         beforeId={beforeId}
         config={c}
         onAdd={handleAddMapboxLayer}

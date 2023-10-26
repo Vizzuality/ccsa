@@ -1,15 +1,11 @@
-import "./globals.css";
+import "@/styles/globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import { PropsWithChildren } from "react";
 
 import type { Metadata } from "next";
 
-import { Inter } from "next/font/google";
-
 import LayoutProviders from "./layout-providers";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CCSA",
@@ -20,7 +16,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <LayoutProviders>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body>{children}</body>
       </html>
     </LayoutProviders>
   );

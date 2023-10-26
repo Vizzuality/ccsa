@@ -646,7 +646,7 @@ export type LayerType = (typeof LayerType)[keyof typeof LayerType];
 export const LayerType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
-  carto: "carto",
+  countries: "countries",
 } as const;
 
 export type LayerDatasetData = {
@@ -740,7 +740,7 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesType =
 export const LayerDatasetDataAttributesLayersDataItemAttributesType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
-  carto: "carto",
+  countries: "countries",
 } as const;
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetDataAttributes = {
@@ -1047,7 +1047,7 @@ export type LayerRequestDataType = (typeof LayerRequestDataType)[keyof typeof La
 export const LayerRequestDataType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
-  carto: "carto",
+  countries: "countries",
 } as const;
 
 export type LayerRequestDataDataset = number | string;
@@ -1128,7 +1128,7 @@ export type DatasetLayersDataItemAttributesType =
 export const DatasetLayersDataItemAttributesType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
-  carto: "carto",
+  countries: "countries",
 } as const;
 
 export type DatasetLayersDataItemAttributes = {
@@ -1842,7 +1842,7 @@ export type CategoryDatasetsDataItemAttributesLayersDataItemAttributesType =
 export const CategoryDatasetsDataItemAttributesLayersDataItemAttributesType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
-  carto: "carto",
+  countries: "countries",
 } as const;
 
 export type CategoryDatasetsDataItemAttributesLayersDataItemAttributesDatasetDataAttributes = {

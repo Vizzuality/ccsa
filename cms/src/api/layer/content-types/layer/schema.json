@@ -20,7 +20,7 @@
       "enum": [
         "mapbox",
         "deckgl",
-        "carto"
+        "countries"
       ],
       "required": true,
       "default": "mapbox"

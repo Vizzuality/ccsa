@@ -7,7 +7,10 @@ export const DEFAULT_VIEW_STATE: Partial<ViewState> = {
 };
 
 export const DEFAULT_BBOX: [number, number, number, number] = [
-  -118.3665, 1.1768, -53.9775, 32.7186,
+  -118.3665 * 1.1,
+  1.1768 * 1.1,
+  -53.9775 * 1.1,
+  32.7186 * 1.1,
 ];
 
 export const BASEMAPS = [
@@ -85,6 +88,6 @@ export const DEFAULT_MAP_SETTINGS: {
 } = {
   basemap: "basemap-light",
   labels: "labels-dark",
-  boundaries: true,
-  roads: true,
+  boundaries: false,
+  roads: false,
 };
