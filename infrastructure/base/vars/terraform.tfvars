@@ -7,8 +7,8 @@ staging_domain                      = "staging.ccsa.dev-vizzuality.com"
 staging_ec2_instance_type           = "t3a.small"
 staging_rds_backup_retention_period = 3
 
-production_domain                      = "ccsa.dev-vizzuality.com"
-production_ec2_instance_type           = "t3a.small"
+production_domain                      = "map.caribbeanaccelerator.org"
+production_ec2_instance_type           = "c6a.large"
 production_rds_backup_retention_period = 7
 
 beanstalk_platform = "64bit Amazon Linux 2023 v4.1.0 running Docker"
