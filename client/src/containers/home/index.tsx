@@ -27,8 +27,7 @@ const Home = () => {
 
     const categories = datasetsData.data.data.map((dataset) => dataset?.attributes?.category);
 
-    const categories_map = new Map(categories.map((d) => [d?.data?.id, d]));
-    return [...categories_map.values()];
+    return Array.from(new Set(categories));
   }, [datasetsData]);
 
   if (CATEGORIES.length === 0) return null;
@@ -36,7 +35,7 @@ const Home = () => {
   return (
     <div className="h-full overflow-auto">
       <div className="px-5 py-10">
-        <h1 className="font-metropolis text-3xl text-gray-800">Explore Datasets</h1>
+        <h1 className="text-3xl">Explore datasets</h1>
 
         {/* List of datasets */}
         <Accordion
@@ -53,50 +52,45 @@ const Home = () => {
 
             return (
               <AccordionItem key={category?.data?.id} value={`${category?.data?.id}`}>
-                <AccordionTrigger className="text-xl">
-                  {category?.data?.attributes?.name}
-                </AccordionTrigger>
-
+                <AccordionTrigger>{category?.data?.attributes?.name}</AccordionTrigger>
                 <AccordionContent>
-                  <ul className="space-y-5">
-                    {DATASETS?.map((dataset) => {
-                      if (!dataset?.attributes) return null;
+                  {DATASETS?.map((dataset) => {
+                    if (!dataset?.attributes) return null;
 
-                      const lysIds = dataset?.attributes?.layers?.data?.map((l) => l.id);
+                    const lysIds = dataset?.attributes?.layers?.data?.map((l) => l.id);
 
-                      return (
-                        <li
-                          key={dataset?.id}
-                          className="flex items-center justify-start space-x-2.5"
-                        >
-                          <Switch
-                            defaultChecked={layers?.some((l) => lysIds?.includes(l))}
-                            onCheckedChange={(c: boolean) => {
-                              const lys = dataset?.attributes?.layers;
+                    return (
+                      <div
+                        key={dataset?.id}
+                        className="flex items-center justify-start space-x-2.5"
+                      >
+                        <Switch
+                          defaultChecked={layers?.some((l) => lysIds?.includes(l))}
+                          onCheckedChange={(c: boolean) => {
+                            const lys = dataset?.attributes?.layers;
 
-                              if (!lys) return;
+                            if (!lys) return;
 
-                              setLayers((prev) => {
-                                const ids = lys?.data?.map((l) => {
-                                  return l.id as number;
-                                });
-
-                                if (c && ids) return [...ids, ...prev];
-                                if (!c && ids) {
-                                  return prev.filter((id) => !ids.includes(id));
-                                }
-
-                                return prev;
+                            setLayers((prev) => {
+                              const ids = lys?.data?.map((l) => {
+                                return l.id as number;
                               });
-                            }}
-                          />
-                          <div>
-                            <h2>{dataset?.attributes?.name}</h2>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
+
+                              if (c && ids) return [...prev, ...ids];
+                              if (!c && ids) {
+                                return prev.filter((id) => !ids.includes(id));
+                              }
+
+                              return prev;
+                            });
+                          }}
+                        />
+                        <div>
+                          <h2>{dataset?.attributes?.name}</h2>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </AccordionContent>
               </AccordionItem>
             );

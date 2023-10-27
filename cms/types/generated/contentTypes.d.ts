@@ -802,7 +802,7 @@ export interface ApiLayerLayer extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    type: Attribute.Enumeration<['mapbox', 'deckgl', 'countries']> &
+    type: Attribute.Enumeration<['mapbox', 'deckgl', 'carto']> &
       Attribute.Required &
       Attribute.DefaultTo<'mapbox'>;
     dataset: Attribute.Relation<
