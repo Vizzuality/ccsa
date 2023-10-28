@@ -30,9 +30,9 @@ const AccordionTrigger = React.forwardRef<
       )}
       {...props}
     >
-      <button className="mr-4 flex h-6 w-6 items-center justify-center rounded-sm bg-gray-100">
+      <span className="mr-4 flex h-6 w-6 items-center justify-center rounded-sm bg-gray-100">
         <LuChevronDown className="h-4 w-4 shrink-0 text-foreground transition-transform duration-200" />
-      </button>
+      </span>
       {children}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
@@ -45,10 +45,7 @@ const AccordionContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className={cn(
-      "overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-      className,
-    )}
+    className={cn("overflow-hidden text-sm transition-all", className)}
     {...props}
   >
     <div className="pb-4 pt-0">{children}</div>
