@@ -34,21 +34,6 @@
           "sortable": true
         }
       },
-      "layers": {
-        "edit": {
-          "label": "layers",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "layers",
-          "searchable": false,
-          "sortable": false
-        }
-      },
       "datum": {
         "edit": {
           "label": "datum",
@@ -76,6 +61,35 @@
           "label": "category",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "layers": {
+        "edit": {
+          "label": "layers",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "layers",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -138,17 +152,23 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "createdAt",
-        "updatedAt"
-      ],
       "edit": [
         [
           {
             "name": "name",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "category",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
           }
         ],
         [
@@ -161,12 +181,14 @@
           {
             "name": "layers",
             "size": 6
-          },
-          {
-            "name": "category",
-            "size": 6
           }
         ]
+      ],
+      "list": [
+        "id",
+        "name",
+        "createdAt",
+        "updatedAt"
       ]
     }
   },

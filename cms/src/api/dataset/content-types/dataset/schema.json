@@ -16,11 +16,6 @@
       "type": "string",
       "required": true
     },
-    "layers": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::layer.layer"
-    },
     "datum": {
       "type": "json",
       "required": true
@@ -30,6 +25,16 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "datasets"
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "layers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::layer.layer",
+      "mappedBy": "dataset"
     }
   }
 }

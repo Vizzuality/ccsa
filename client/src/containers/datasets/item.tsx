@@ -1,11 +1,15 @@
 "use client";
 
+import Markdown from "react-markdown";
+
 import { LuInfo } from "react-icons/lu";
 
 import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
 
 import { useSyncLayers } from "@/app/url-query-params";
 
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
 
 const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
@@ -39,12 +43,22 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
             });
           }}
         />
-        <div>
+        <button>
           <h2>{attributes?.name}</h2>
-        </div>
+        </button>
       </div>
 
-      <LuInfo className="h-5 w-5" />
+      <Dialog>
+        <DialogTrigger>
+          <LuInfo className="h-5 w-5" />
+        </DialogTrigger>
+
+        <DialogContent>
+          <ScrollArea className="h-[80svh]">
+            <Markdown className="prose">{attributes?.description}</Markdown>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -760,16 +760,17 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    layers: Attribute.Relation<
-      'api::dataset.dataset',
-      'oneToMany',
-      'api::layer.layer'
-    >;
     datum: Attribute.JSON & Attribute.Required;
     category: Attribute.Relation<
       'api::dataset.dataset',
       'manyToOne',
       'api::category.category'
+    >;
+    description: Attribute.RichText & Attribute.Required;
+    layers: Attribute.Relation<
+      'api::dataset.dataset',
+      'oneToMany',
+      'api::layer.layer'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -805,15 +806,15 @@ export interface ApiLayerLayer extends Schema.CollectionType {
     type: Attribute.Enumeration<['mapbox', 'deckgl', 'countries']> &
       Attribute.Required &
       Attribute.DefaultTo<'mapbox'>;
-    dataset: Attribute.Relation<
-      'api::layer.layer',
-      'oneToOne',
-      'api::dataset.dataset'
-    >;
     config: Attribute.JSON & Attribute.Required;
     params_config: Attribute.JSON & Attribute.Required;
     legend_config: Attribute.JSON & Attribute.Required;
     interaction_config: Attribute.JSON & Attribute.Required;
+    dataset: Attribute.Relation<
+      'api::layer.layer',
+      'manyToOne',
+      'api::dataset.dataset'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

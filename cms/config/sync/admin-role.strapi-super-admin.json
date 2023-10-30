@@ -116,9 +116,10 @@
       "properties": {
         "fields": [
           "name",
-          "layers",
           "datum",
-          "category"
+          "category",
+          "description",
+          "layers"
         ]
       },
       "conditions": []
@@ -144,9 +145,10 @@
       "properties": {
         "fields": [
           "name",
-          "layers",
           "datum",
-          "category"
+          "category",
+          "description",
+          "layers"
         ]
       },
       "conditions": []
@@ -158,9 +160,10 @@
       "properties": {
         "fields": [
           "name",
-          "layers",
           "datum",
-          "category"
+          "category",
+          "description",
+          "layers"
         ]
       },
       "conditions": []
@@ -173,11 +176,11 @@
         "fields": [
           "name",
           "type",
-          "dataset",
           "config",
           "params_config",
           "legend_config",
-          "interaction_config"
+          "interaction_config",
+          "dataset"
         ]
       },
       "conditions": []
@@ -204,11 +207,11 @@
         "fields": [
           "name",
           "type",
-          "dataset",
           "config",
           "params_config",
           "legend_config",
-          "interaction_config"
+          "interaction_config",
+          "dataset"
         ]
       },
       "conditions": []
@@ -221,11 +224,11 @@
         "fields": [
           "name",
           "type",
-          "dataset",
           "config",
           "params_config",
           "legend_config",
-          "interaction_config"
+          "interaction_config",
+          "dataset"
         ]
       },
       "conditions": []
