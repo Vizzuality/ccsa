@@ -183,7 +183,7 @@ locals {
     ADMIN_JWT_SECRET    = random_password.production_admin_jwt_secret.result
     TRANSFER_TOKEN_SALT = random_password.production_transfer_token_salt.result
     JWT_SECRET          = random_password.production_jwt_secret.result
-    API_BASE_URL        = "https://${var.production_domain}/cms/"
+    CMS_URL             = "https://${var.production_domain}/cms/"
 
     # Database
     DATABASE_CLIENT                  = "postgres"
