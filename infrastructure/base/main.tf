@@ -175,7 +175,7 @@ locals {
     NEXT_PUBLIC_MAPBOX_API_TOKEN = var.mapbox_api_token
     LOG_LEVEL                    = "info"
   }
-  production_api_env = {
+  production_cms_env = {
     HOST                = "0.0.0.0"
     PORT                = 1337
     APP_KEYS            = random_password.production_app_key.result
@@ -183,7 +183,7 @@ locals {
     ADMIN_JWT_SECRET    = random_password.production_admin_jwt_secret.result
     TRANSFER_TOKEN_SALT = random_password.production_transfer_token_salt.result
     JWT_SECRET          = random_password.production_jwt_secret.result
-    API_BASE_URL        = "https://${var.production_domain}/cms/"
+    CMS_URL             = "https://${var.production_domain}/cms/"
 
     # Database
     DATABASE_CLIENT                  = "postgres"
@@ -221,7 +221,7 @@ module "github_values" {
     STAGING_CMS_ENV_FILE            = join("\n", [for key, value in local.staging_cms_env : "${key}=${value}"])
     STAGING_CLIENT_ENV_FILE         = join("\n", [for key, value in local.staging_client_env : "${key}=${value}"])
     STAGING_DOMAIN                  = var.staging_domain
-    PRODUCTION_API_ENV_FILE         = join("\n", [for key, value in local.production_api_env : "${key}=${value}"])
+    PRODUCTION_CMS_ENV_FILE         = join("\n", [for key, value in local.production_cms_env : "${key}=${value}"])
     PRODUCTION_CLIENT_ENV_FILE      = join("\n", [for key, value in local.production_client_env : "${key}=${value}"])
     PRODUCTION_DOMAIN               = var.production_domain
   }
