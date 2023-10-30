@@ -11,11 +11,11 @@
     "config-sync": "config-sync"
   },
   "dependencies": {
-    "@strapi/plugin-documentation": "^4.14.5",
-    "@strapi/plugin-i18n": "4.14.5",
-    "@strapi/plugin-users-permissions": "4.14.5",
-    "@strapi/provider-email-amazon-ses": "4.14.5",
-    "@strapi/strapi": "4.14.5",
+    "@strapi/plugin-documentation": "^4.15.0",
+    "@strapi/plugin-i18n": "4.15.0",
+    "@strapi/plugin-users-permissions": "4.15.0",
+    "@strapi/provider-email-amazon-ses": "4.15.0",
+    "@strapi/strapi": "4.15.0",
     "pg": "8.8.0",
     "strapi-plugin-config-sync": "^1.2.1",
     "strapi-plugin-import-export-entries": "^1.21.1"
