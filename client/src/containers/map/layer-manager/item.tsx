@@ -25,15 +25,16 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
   const { data } = useGetLayersId(id, {
     populate: "dataset,metadata",
   });
+
   const layersInteractive = useAtomValue(layersInteractiveAtom);
   const setLayersInteractive = useSetAtom(layersInteractiveAtom);
   const setLayersInteractiveIds = useSetAtom(layersInteractiveIdsAtom);
 
   const handleAddMapboxLayer = useCallback(
     ({ styles }: Config) => {
-      if (!data?.data?.data?.attributes) return null;
+      if (!data?.data?.attributes) return null;
 
-      const { interaction_config } = data.data.data.attributes as LayerTyped;
+      const { interaction_config } = data.data.attributes as LayerTyped;
 
       if (interaction_config?.enabled) {
         const ids = styles.map((l) => l.id);
@@ -46,20 +47,14 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
         setLayersInteractiveIds((prev) => [...prev, ...ids]);
       }
     },
-    [
-      data?.data?.data?.attributes,
-      id,
-      layersInteractive,
-      setLayersInteractive,
-      setLayersInteractiveIds,
-    ],
+    [data?.data?.attributes, id, layersInteractive, setLayersInteractive, setLayersInteractiveIds],
   );
 
   const handleRemoveMapboxLayer = useCallback(
     ({ styles }: Config) => {
-      if (!data?.data?.data?.attributes) return null;
+      if (!data?.data?.attributes) return null;
 
-      const { interaction_config } = data.data.data.attributes as LayerTyped;
+      const { interaction_config } = data.data.attributes as LayerTyped;
 
       if (interaction_config?.enabled) {
         const ids = styles.map((l) => l.id);
@@ -68,15 +63,15 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
         setLayersInteractiveIds((prev) => prev.filter((i) => !ids.includes(`${i}`)));
       }
     },
-    [data?.data?.data?.attributes, id, setLayersInteractive, setLayersInteractiveIds],
+    [data?.data?.attributes, id, setLayersInteractive, setLayersInteractiveIds],
   );
 
-  if (!data?.data?.data?.attributes) return null;
+  if (!data?.data?.attributes) return null;
 
-  const { type } = data.data.data.attributes as LayerTyped;
+  const { type } = data.data.attributes as LayerTyped;
 
   if (type === "mapbox") {
-    const { config, params_config } = data.data.data.attributes;
+    const { config, params_config } = data.data.attributes;
 
     const c = parseConfig<Config>({
       config,
@@ -98,7 +93,7 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
   }
 
   if (type === "countries") {
-    const { config, params_config, dataset } = data.data.data.attributes;
+    const { config, params_config, dataset } = data.data.attributes;
 
     const c = parseConfig<Config>({
       config,
@@ -121,7 +116,7 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
   }
 
   if (type === "deckgl") {
-    const { config, params_config } = data.data.data.attributes;
+    const { config, params_config } = data.data.attributes;
     const c = parseConfig({
       // TODO: type
       config,

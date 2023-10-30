@@ -9,15 +9,16 @@ import { Accordion } from "@/components/ui/accordion";
 const Categories = () => {
   const { data: categoriesData } = useGetCategories({
     "pagination[pageSize]": 100,
+    populate: "datasets",
   });
 
   return (
     <Accordion
       type="multiple"
       className="mt-5"
-      defaultValue={categoriesData?.data?.data?.map((c) => `${c?.id}`)}
+      defaultValue={categoriesData?.data?.map((c) => `${c?.id}`)}
     >
-      {categoriesData?.data?.data?.map((category) => {
+      {categoriesData?.data?.map((category) => {
         if (!category.id) return null;
 
         return <CategoriesItem key={category.id} {...category} />;

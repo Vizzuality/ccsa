@@ -20,13 +20,13 @@ const CountriesLayer = ({ beforeId, dataset, config, onAdd, onRemove }: Countrie
   });
 
   const SOURCE = useMemo(() => {
-    if (!countriesData?.data?.data) return null;
+    if (!countriesData?.data) return null;
 
     return {
       type: "geojson",
       data: {
         type: "FeatureCollection",
-        features: countriesData.data.data.map((c) => ({
+        features: countriesData.data.map((c) => ({
           type: "Feature",
           geometry: c.attributes?.geometry as Feature["geometry"],
           properties: {

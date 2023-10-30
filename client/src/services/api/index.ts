@@ -1,20 +1,17 @@
-import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import Axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 import env from "@/env.mjs";
 
 export const AXIOS_INSTANCE = Axios.create({ baseURL: env.NEXT_PUBLIC_API_URL });
 
-export const API = <T>(
-  config: AxiosRequestConfig,
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<T>> => {
+export const API = <T>(config: AxiosRequestConfig, options?: AxiosRequestConfig): Promise<T> => {
   const source = Axios.CancelToken.source();
 
   const promise = AXIOS_INSTANCE({
     ...config,
     ...options,
     cancelToken: source.token,
-  });
+  }).then((response) => response.data);
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

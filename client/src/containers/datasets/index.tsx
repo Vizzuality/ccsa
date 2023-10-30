@@ -19,7 +19,7 @@ const Datasets = ({ categoryId }: DatasetsProps) => {
 
   return (
     <div className="space-y-2.5">
-      {datasetsData?.data?.data?.map((dataset) => {
+      {datasetsData?.data?.map((dataset) => {
         return <DatasetsItem key={dataset?.id} {...dataset} />;
       })}
     </div>
