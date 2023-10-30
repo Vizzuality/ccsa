@@ -60,12 +60,12 @@
     "tailwind-merge": "1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "1.0.7",
+    "@tailwindcss/typography": "^0.5.10",
     "typescript": "5.2.2",
     "zod": "3.22.2"
   },
   "devDependencies": {
     "@playwright/test": "1.38.1",
-    "@tailwindcss/typography": "^0.5.10",
     "@tanstack/eslint-plugin-query": "4.34.1",
     "@types/express": "4.17.18",
     "@types/geojson": "^7946.0.12",
