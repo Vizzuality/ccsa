@@ -10,6 +10,7 @@ const Categories = () => {
   const { data: categoriesData } = useGetCategories({
     "pagination[pageSize]": 100,
     populate: "datasets",
+    sort: "name:asc",
   });
 
   return (

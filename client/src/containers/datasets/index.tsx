@@ -15,6 +15,7 @@ const Datasets = ({ categoryId }: DatasetsProps) => {
       category: categoryId,
     },
     populate: "*",
+    sort: "name:asc",
   });
 
   return (

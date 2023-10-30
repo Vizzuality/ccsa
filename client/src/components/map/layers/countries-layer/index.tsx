@@ -17,6 +17,7 @@ export type CountriesLayerProps = LayerProps & {
 const CountriesLayer = ({ beforeId, dataset, config, onAdd, onRemove }: CountriesLayerProps) => {
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
+    sort: "name:asc",
   });
 
   const SOURCE = useMemo(() => {

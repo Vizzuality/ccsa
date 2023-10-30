@@ -5,6 +5,7 @@ import { Hydrate, dehydrate } from "@tanstack/react-query";
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
 import { getGetCategoriesQueryKey, getGetCategoriesQueryOptions } from "@/types/generated/category";
+import { getGetCountriesQueryOptions } from "@/types/generated/country";
 import { getGetDatasetsQueryOptions } from "@/types/generated/dataset";
 import { CategoryListResponse } from "@/types/generated/strapi.schemas";
 
@@ -17,11 +18,20 @@ import LayoutProviders from "./layout-providers";
 export default async function AppLayout({ children }: PropsWithChildren) {
   const queryClient = getQueryClient();
 
+  // Prefetch countries
+  await queryClient.prefetchQuery({
+    ...getGetCountriesQueryOptions({
+      "pagination[pageSize]": 100,
+      sort: "name:asc",
+    }),
+  });
+
   // Prefetch categories
   await queryClient.prefetchQuery({
     ...getGetCategoriesQueryOptions({
       "pagination[pageSize]": 100,
       populate: "datasets",
+      sort: "name:asc",
     }),
   });
 
@@ -29,6 +39,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
     getGetCategoriesQueryKey({
       "pagination[pageSize]": 100,
       populate: "datasets",
+      sort: "name:asc",
     }),
   );
 
@@ -43,6 +54,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
           category: category.id,
         },
         populate: "*",
+        sort: "name:asc",
       }),
     });
   }
