@@ -10,7 +10,7 @@ const CategoriesItem = (category: CategoryListResponseDataItem) => {
   return (
     <AccordionItem key={category?.id} value={`${category?.id}`}>
       <AccordionTrigger>{category?.attributes?.name}</AccordionTrigger>
-      <AccordionContent>
+      <AccordionContent className="mt-5">
         {!!category?.id && <Datasets categoryId={category?.id} />}
       </AccordionContent>
     </AccordionItem>

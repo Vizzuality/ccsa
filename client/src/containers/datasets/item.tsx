@@ -54,7 +54,7 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
         </DialogTrigger>
 
         <DialogContent>
-          <ScrollArea className="h-[80svh]">
+          <ScrollArea className="h-[80svh] p-6">
             <Markdown className="prose">{attributes?.description}</Markdown>
           </ScrollArea>
         </DialogContent>
