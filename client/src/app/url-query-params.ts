@@ -11,10 +11,7 @@ export const useSyncLayersSettings = () => {
   return useQueryState(
     "layers-settings",
     parseAsJson<{
-      [key: string]: {
-        opacity: number;
-        visibility: boolean;
-      };
+      [key: string]: Record<string, unknown>;
     }>().withDefault({}),
   );
 };

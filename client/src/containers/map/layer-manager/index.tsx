@@ -43,7 +43,7 @@ const LayerManager = () => {
               key={l}
               id={l}
               beforeId={beforeId}
-              settings={layersSettings[l] ?? { opacity: 1, visibility: true, expand: true }}
+              settings={layersSettings[l] ?? { opacity: 1, visibility: true }}
             />
           );
         })}
