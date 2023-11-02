@@ -61,7 +61,7 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
     const l = parseConfig<LegendConfig | ReactElement | null>({
       config: legend_config,
       params_config,
-      settings: layersSettings[`${id}`] ?? {},
+      settings: (layersSettings && layersSettings[`${id}`]) ?? {},
     });
 
     if (!l) return null;

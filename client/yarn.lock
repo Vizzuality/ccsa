@@ -3903,7 +3903,7 @@ __metadata:
     lodash-es: ^4.17.21
     mapbox-gl: 2.15.0
     next: 13.5.3
-    next-usequerystate: ^1.8.4
+    next-usequerystate: ^1.9.1
     orval: ^6.19.0
     pino: 8.15.1
     pino-http: 8.5.0
@@ -7953,14 +7953,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-usequerystate@npm:^1.8.4":
-  version: 1.8.4
-  resolution: "next-usequerystate@npm:1.8.4"
+"next-usequerystate@npm:^1.9.1":
+  version: 1.9.1
+  resolution: "next-usequerystate@npm:1.9.1"
   dependencies:
     mitt: ^3.0.1
   peerDependencies:
-    next: ^13.4
-  checksum: 4ab19aa11fd32058246375bdcd7c76fdff357e15a460e80a30835b972b7458ab99e59e8ae38be26b32d27727b156b655c2a0105c200b994408fb26366133b496
+    next: ^13.4 || ^14
+  checksum: bb82e85ba2e1085b91d402878ce5b1d4eba37838c2e5f7ffba3a4e5b07f28fc1c78a077e130a1ec2d8e240e72b953ded85311020231e8e7660440baa53a54b40
   languageName: node
   linkType: hard
 

@@ -12,7 +12,7 @@ export const useSyncLayersSettings = () => {
     "layers-settings",
     parseAsJson<{
       [key: string]: Record<string, unknown>;
-    }>().withDefault({}),
+    }>(),
   );
 };
 

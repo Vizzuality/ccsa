@@ -29,7 +29,7 @@ const MapLegend = ({ className = "" }) => {
       setLayersSettings((prev) => ({
         ...prev,
         [id]: {
-          ...prev[id],
+          ...(prev && prev[id]),
           opacity,
         },
       })),
@@ -41,7 +41,7 @@ const MapLegend = ({ className = "" }) => {
       setLayersSettings((prev) => ({
         ...prev,
         [id]: {
-          ...prev[id],
+          ...(prev && prev[id]),
           visibility,
         },
       })),
@@ -52,7 +52,10 @@ const MapLegend = ({ className = "" }) => {
 
   const ITEMS = useMemo(() => {
     return layers.map((layer) => {
-      const settings = layersSettings[layer] ?? { opacity: 1, visibility: true };
+      const settings = (layersSettings && layersSettings[layer]) ?? {
+        opacity: 1,
+        visibility: true,
+      };
 
       return (
         <MapLegendItem
