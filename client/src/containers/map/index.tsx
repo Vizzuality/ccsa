@@ -5,6 +5,7 @@ import { LngLatBoundsLike, useMap } from "react-map-gl";
 import { useSyncBbox } from "@/app/url-query-params";
 
 import LayerManager from "@/containers/map/layer-manager";
+import Legend from "@/containers/map/legend";
 import MapSettingsManagerPanel from "@/containers/map-settings";
 import MapSettingsManager from "@/containers/map-settings/manager";
 
@@ -44,9 +45,12 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
         <SettingsControl>
           <MapSettingsManagerPanel />
         </SettingsControl>
-
-        <LayerManager />
       </Controls>
+
+      <LayerManager />
+
+      <Legend />
+
       <MapSettingsManager />
     </Map>
   );

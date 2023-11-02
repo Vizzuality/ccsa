@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { Layer } from "react-map-gl";
 
 import { useSyncLayers, useSyncLayersSettings } from "@/app/url-query-params";
@@ -10,7 +12,29 @@ import { DeckMapboxOverlayProvider } from "@/components/map/provider";
 
 const LayerManager = () => {
   const [layers] = useSyncLayers();
-  const [layersSettings] = useSyncLayersSettings();
+  const [layersSettings, setLayersSettings] = useSyncLayersSettings();
+
+  // Sync layers settings with layers
+  useMemo(() => {
+    if (!layers?.length && !layersSettings) return;
+
+    if (!layers?.length && layersSettings) {
+      setLayersSettings(null);
+      return;
+    }
+
+    const lSettingsKeys = Object.keys(layersSettings || {});
+
+    lSettingsKeys.forEach((key) => {
+      if (layers.includes(Number(key))) return;
+
+      setLayersSettings((prev) => {
+        const current = { ...prev };
+        delete current[key];
+        return current;
+      });
+    });
+  }, [layers, layersSettings, setLayersSettings]);
 
   return (
     <DeckMapboxOverlayProvider>
@@ -43,7 +67,7 @@ const LayerManager = () => {
               key={l}
               id={l}
               beforeId={beforeId}
-              settings={layersSettings[l] ?? { opacity: 1, visibility: true, expand: true }}
+              settings={(layersSettings && layersSettings[l]) ?? { opacity: 1, visibility: true }}
             />
           );
         })}

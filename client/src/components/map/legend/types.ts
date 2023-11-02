@@ -14,26 +14,22 @@ type Sortable = {
 type OnChangeOrder = (id: string[]) => void;
 type OnChangeOpacity = (opacity: number) => void;
 type OnChangeVisibility = (visibility: boolean) => void;
-type OnChangeExpand = (expand: boolean) => void;
 type OnChangeColumn = (column: string) => void;
 
 export type Settings = Record<string, unknown> & {
   opacity?: number;
   visibility?: boolean;
-  expand?: boolean;
 };
 
 export type SettingsManager = {
   opacity?: boolean;
   visibility?: boolean;
-  expand?: boolean;
   info?: boolean;
 };
 
 export type LegendItemEvents = {
   onChangeOpacity?: OnChangeOpacity;
   onChangeVisibility?: OnChangeVisibility;
-  onChangeExpand?: OnChangeExpand;
   onChangeColumn?: OnChangeColumn;
 };
 /*
