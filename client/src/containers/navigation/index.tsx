@@ -32,6 +32,7 @@ const Navigation = (): JSX.Element => {
           <Link
             className={cn({
               "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
+              "bg-primary/10": pathname === "/",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/",
             })}
             href="/"
@@ -58,6 +59,7 @@ const Navigation = (): JSX.Element => {
           <Link
             className={cn({
               "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
+              "bg-primary/10": pathname === "/projects",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/projects",
             })}
             href="/projects"
