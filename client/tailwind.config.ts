@@ -51,6 +51,9 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontSize: {
+        xxs: ["0.625rem", "0.75rem"],
+      },
       fontFamily: {
         "open-sans": ["var(--font-open-sans)"],
         metropolis: ["var(--font-metropolis)"],
