@@ -19,7 +19,7 @@ const Datasets = ({ categoryId }: DatasetsProps) => {
     "pagination[pageSize]": 100,
     filters: {
       category: categoryId,
-      ...(datasetSearch && {
+      ...(!!datasetSearch && {
         name: {
           $containsi: datasetSearch,
         },

@@ -32,6 +32,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
       "pagination[pageSize]": 100,
       populate: "datasets",
       sort: "name:asc",
+      filters: {},
     }),
   });
 
@@ -40,6 +41,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
       "pagination[pageSize]": 100,
       populate: "datasets",
       sort: "name:asc",
+      filters: {},
     }),
   );
 
