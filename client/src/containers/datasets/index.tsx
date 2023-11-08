@@ -15,19 +15,26 @@ type DatasetsProps = {
 const Datasets = ({ categoryId }: DatasetsProps) => {
   const datasetSearch = useAtomValue(datasetSearchAtom);
 
-  const { data: datasetsData } = useGetDatasets({
-    "pagination[pageSize]": 100,
-    filters: {
-      category: categoryId,
-      ...(!!datasetSearch && {
-        name: {
-          $containsi: datasetSearch,
-        },
-      }),
+  const { data: datasetsData } = useGetDatasets(
+    {
+      "pagination[pageSize]": 100,
+      filters: {
+        category: categoryId,
+        ...(!!datasetSearch && {
+          name: {
+            $containsi: datasetSearch,
+          },
+        }),
+      },
+      populate: "*",
+      sort: "name:asc",
     },
-    populate: "*",
-    sort: "name:asc",
-  });
+    {
+      query: {
+        keepPreviousData: true,
+      },
+    },
+  );
 
   return (
     <div className="space-y-2.5">

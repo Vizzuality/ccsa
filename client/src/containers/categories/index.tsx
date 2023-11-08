@@ -16,20 +16,27 @@ const Categories = () => {
   const [values, setValues] = useState<string[]>();
   const datasetSearch = useAtomValue(datasetSearchAtom);
 
-  const { data: categoriesData } = useGetCategories({
-    "pagination[pageSize]": 100,
-    populate: "datasets",
-    sort: "name:asc",
-    filters: {
-      ...(!!datasetSearch && {
-        datasets: {
-          name: {
-            $containsi: datasetSearch,
+  const { data: categoriesData } = useGetCategories(
+    {
+      "pagination[pageSize]": 100,
+      populate: "datasets",
+      sort: "name:asc",
+      filters: {
+        ...(!!datasetSearch && {
+          datasets: {
+            name: {
+              $containsi: datasetSearch,
+            },
           },
-        },
-      }),
+        }),
+      },
     },
-  });
+    {
+      query: {
+        keepPreviousData: true,
+      },
+    },
+  );
 
   const VALUE = useMemo(() => {
     if (!values) return categoriesData?.data?.map((c) => `${c?.id}`);

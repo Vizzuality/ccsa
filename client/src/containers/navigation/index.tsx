@@ -14,7 +14,7 @@ const Navigation = (): JSX.Element => {
 
   return (
     <nav className="relative z-20 block h-full w-20 shrink-0 border-r-2 border-gray-300/20 bg-white">
-      <ul className="text-xxs w-full">
+      <ul className="w-full text-xxs">
         <li className="py-5 text-center">
           <Link className="flex flex-col items-center justify-center gap-1" href="/">
             <Image priority alt="CCSA Logo" width={72} height={59} src="/logo.svg" />

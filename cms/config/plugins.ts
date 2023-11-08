@@ -36,13 +36,35 @@ module.exports = ({ env }) => ({
       "x-strapi-config": {
         mutateDocumentation: (generatedDocumentationDraft) => {
           Object.keys(generatedDocumentationDraft.paths).forEach((path) => {
+            // mutate `fields` to string array
+            if (generatedDocumentationDraft.paths[path].get?.parameters) {
+              const fields = generatedDocumentationDraft.paths[path].get.parameters.find((param) => param.name === "fields");
+
+              if (fields) {
+                const fieldsIndex = generatedDocumentationDraft.paths[path].get.parameters.findIndex((param) => param.name === "fields");
+                generatedDocumentationDraft.paths[path].get.parameters[fieldsIndex] = {
+                  "name": "fields",
+                  "in": "query",
+                  "description": "Fields to return (ex: ['title','author'])",
+                  "deprecated": false,
+                  "required": false,
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                };
+              }
+            }
+
             // check if it has {id} in the path
             if (path.includes("{id}")) {
               // add `populate` as params
               if (generatedDocumentationDraft.paths[path].get) {
-                const hasPopulate = generatedDocumentationDraft.paths[path].get.parameters.find((param) => param.name === "populate");
+                const populate = generatedDocumentationDraft.paths[path].get.parameters.find((param) => param.name === "populate");
 
-                if (!hasPopulate) {
+                if (!populate) {
                   generatedDocumentationDraft.paths[path].get.parameters.push(
                     {
                       "name": "populate",

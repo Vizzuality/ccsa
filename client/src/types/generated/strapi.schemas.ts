@@ -37,9 +37,9 @@ export type GetProjectsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: title,author)
+   * Fields to return (ex: ['title','author'])
    */
-  fields?: string;
+  fields?: string[];
   /**
    * Relations to return
    */
@@ -87,9 +87,9 @@ export type GetLayersParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: title,author)
+   * Fields to return (ex: ['title','author'])
    */
-  fields?: string;
+  fields?: string[];
   /**
    * Relations to return
    */
@@ -137,9 +137,9 @@ export type GetDatasetsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: title,author)
+   * Fields to return (ex: ['title','author'])
    */
-  fields?: string;
+  fields?: string[];
   /**
    * Relations to return
    */
@@ -187,9 +187,9 @@ export type GetCountriesParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: title,author)
+   * Fields to return (ex: ['title','author'])
    */
-  fields?: string;
+  fields?: string[];
   /**
    * Relations to return
    */
@@ -237,9 +237,9 @@ export type GetCategoriesParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: title,author)
+   * Fields to return (ex: ['title','author'])
    */
-  fields?: string;
+  fields?: string[];
   /**
    * Relations to return
    */
