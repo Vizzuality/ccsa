@@ -29,3 +29,5 @@ export const useSyncMapSettings = () => {
 };
 
 export const datasetSearchAtom = atom<string>("");
+export const layersInteractiveAtom = atom<(number | string)[]>([]);
+export const layersInteractiveIdsAtom = atom<(number | string)[]>([]);

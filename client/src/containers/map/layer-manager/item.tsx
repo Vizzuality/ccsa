@@ -6,11 +6,11 @@ import { useAtomValue, useSetAtom } from "jotai";
 
 import { parseConfig } from "@/lib/json-converter";
 
-import { layersInteractiveAtom, layersInteractiveIdsAtom } from "@/store/map";
-
 import { useGetLayersId } from "@/types/generated/layer";
 import { LayerResponseDataObject } from "@/types/generated/strapi.schemas";
 import { Config, LayerTyped } from "@/types/layers";
+
+import { layersInteractiveAtom, layersInteractiveIdsAtom } from "@/app/store";
 
 import CountriesLayer from "@/components/map/layers/countries-layer";
 import DeckLayer from "@/components/map/layers/deck-layer";
