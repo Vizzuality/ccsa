@@ -6,7 +6,7 @@ import { LuInfo } from "react-icons/lu";
 
 import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
 
-import { useSyncLayers } from "@/app/url-query-params";
+import { useSyncLayers } from "@/app/store";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";

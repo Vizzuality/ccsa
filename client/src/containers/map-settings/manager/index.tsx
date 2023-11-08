@@ -6,7 +6,7 @@ import { useMap } from "react-map-gl";
 
 import { AnyLayer } from "mapbox-gl";
 
-import { useSyncMapSettings } from "@/app/url-query-params";
+import { useSyncMapSettings } from "@/app/store";
 
 import { BASEMAPS } from "@/constants/map";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncLayers } from "@/app/url-query-params";
+import { useSyncLayers } from "@/app/store";
 
 const HomeHeader = () => {
   const [layers] = useSyncLayers();

@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { Layer } from "react-map-gl";
 
-import { useSyncLayers, useSyncLayersSettings } from "@/app/url-query-params";
+import { useSyncLayers, useSyncLayersSettings } from "@/app/store";
 
 import LayerManagerItem from "@/containers/map/layer-manager/item";
 

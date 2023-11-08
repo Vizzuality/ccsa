@@ -7,7 +7,7 @@ import { useGetLayersId } from "@/types/generated/layer";
 import { LayerTyped, LegendConfig } from "@/types/layers";
 import { LegendType } from "@/types/legend";
 
-import { useSyncLayersSettings } from "@/app/url-query-params";
+import { useSyncLayersSettings } from "@/app/store";
 
 import LegendItem from "@/components/map/legend/item";
 import {

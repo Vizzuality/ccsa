@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 
-import { useSyncMapSettings } from "@/app/url-query-params";
+import { useSyncMapSettings } from "@/app/store";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";

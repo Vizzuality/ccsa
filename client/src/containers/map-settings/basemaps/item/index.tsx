@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { cn } from "@/lib/classnames";
 
-import { useSyncMapSettings } from "@/app/url-query-params";
+import { useSyncMapSettings } from "@/app/store";
 
 import { BASEMAPS } from "@/constants/map";
 

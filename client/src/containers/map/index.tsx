@@ -2,7 +2,7 @@
 
 import { LngLatBoundsLike, useMap } from "react-map-gl";
 
-import { useSyncBbox } from "@/app/url-query-params";
+import { useSyncBbox } from "@/app/store";
 
 import LayerManager from "@/containers/map/layer-manager";
 import Legend from "@/containers/map/legend";

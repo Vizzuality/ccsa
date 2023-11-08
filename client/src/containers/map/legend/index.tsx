@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react";
 
 import { cn } from "@/lib/classnames";
 
-import { useSyncLayers, useSyncLayersSettings } from "@/app/url-query-params";
+import { useSyncLayers, useSyncLayersSettings } from "@/app/store";
 
 import MapLegendItem from "@/containers/map/legend/item";
 

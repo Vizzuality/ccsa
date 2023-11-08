@@ -1,3 +1,4 @@
+import { atom } from "jotai";
 import { parseAsArrayOf, parseAsFloat, parseAsInteger, useQueryState } from "next-usequerystate";
 import { parseAsJson } from "next-usequerystate/parsers";
 
@@ -26,3 +27,5 @@ export const useSyncMapSettings = () => {
     parseAsJson<typeof DEFAULT_MAP_SETTINGS>().withDefault(DEFAULT_MAP_SETTINGS),
   );
 };
+
+export const datasetSearchAtom = atom<string>("");

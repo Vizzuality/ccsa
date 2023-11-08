@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 
-import { useSyncMapSettings } from "@/app/url-query-params";
+import { useSyncMapSettings } from "@/app/store";
 
 import { LABELS } from "@/constants/map";
 
