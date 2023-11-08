@@ -16,7 +16,7 @@ const Categories = () => {
   return (
     <Accordion
       type="multiple"
-      className="mt-5 space-y-5"
+      className="space-y-5"
       defaultValue={categoriesData?.data?.map((c) => `${c?.id}`)}
     >
       {categoriesData?.data?.map((category) => {

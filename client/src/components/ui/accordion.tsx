@@ -3,7 +3,6 @@
 import * as React from "react";
 
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { LuChevronDown } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
 
@@ -24,15 +23,9 @@ const AccordionTrigger = React.forwardRef<
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
-      className={cn(
-        "flex flex-1 items-center justify-start font-medium text-primary transition-all hover:underline [&[data-state=open]>button>svg]:rotate-180",
-        className,
-      )}
+      className={cn("flex flex-1 items-center justify-start", className)}
       {...props}
     >
-      <span className="mr-4 flex h-6 w-6 items-center justify-center rounded-sm bg-gray-100">
-        <LuChevronDown className="h-4 w-4 shrink-0 text-foreground transition-transform duration-200" />
-      </span>
       {children}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
@@ -48,7 +41,7 @@ const AccordionContent = React.forwardRef<
     className={cn("overflow-hidden text-sm transition-all", className)}
     {...props}
   >
-    <div className="pb-4 pt-0">{children}</div>
+    {children}
   </AccordionPrimitive.Content>
 ));
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
