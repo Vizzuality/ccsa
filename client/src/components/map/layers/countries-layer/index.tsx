@@ -14,7 +14,14 @@ export type CountriesLayerProps = LayerProps & {
   beforeId?: string;
 };
 
-const CountriesLayer = ({ beforeId, dataset, config, onAdd, onRemove }: CountriesLayerProps) => {
+const CountriesLayer = ({
+  id,
+  beforeId,
+  dataset,
+  config,
+  onAdd,
+  onRemove,
+}: CountriesLayerProps) => {
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
     sort: "name:asc",
@@ -24,15 +31,20 @@ const CountriesLayer = ({ beforeId, dataset, config, onAdd, onRemove }: Countrie
     if (!countriesData?.data) return null;
 
     return {
+      // @ts-expect-error GeoJSONSourceRaw doesn't have id but it works
+      id: `${id}-source`,
       type: "geojson",
+      promoteId: "id",
       data: {
         type: "FeatureCollection",
         features: countriesData.data.map((c) => ({
           type: "Feature",
+          id: c.id,
           geometry: c.attributes?.geometry as Feature["geometry"],
           properties: {
             id: c.id,
             name: c.attributes?.name,
+            iso3: c.attributes?.iso3,
             ...(dataset?.data?.attributes?.datum as Record<string, unknown>[])?.find(
               (d) => d.iso3 === c.attributes?.iso3,
             ),
@@ -40,7 +52,7 @@ const CountriesLayer = ({ beforeId, dataset, config, onAdd, onRemove }: Countrie
         })),
       },
     } satisfies GeoJSONSourceRaw;
-  }, [countriesData, dataset?.data?.attributes?.datum]);
+  }, [id, countriesData, dataset?.data?.attributes?.datum]);
 
   const STYLES = config.styles;
 

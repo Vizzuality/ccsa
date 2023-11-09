@@ -3,7 +3,7 @@
 
 import { createContext, PropsWithChildren, useCallback, useContext, useMemo, useRef } from "react";
 
-import { useControl } from "react-map-gl";
+import { useControl, useMap } from "react-map-gl";
 
 import { MapboxOverlay, MapboxOverlayProps } from "@deck.gl/mapbox/typed";
 
@@ -26,7 +26,15 @@ function useMapboxOverlay(
     interleaved?: boolean;
   },
 ) {
-  const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay(props));
+  const { default: map } = useMap();
+  map?.getCanvas().style.cursor;
+  const overlay = useControl<MapboxOverlay>(
+    () =>
+      new MapboxOverlay({
+        ...props,
+        getCursor: () => map?.getCanvas().style.cursor || "",
+      }),
+  );
   overlay.setProps(props);
 
   return overlay;

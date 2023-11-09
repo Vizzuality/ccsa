@@ -4,15 +4,17 @@ import { useMemo } from "react";
 
 import { Layer } from "react-map-gl";
 
-import { useSyncLayers, useSyncLayersSettings } from "@/app/store";
+import { useSyncCountry, useSyncLayers, useSyncLayersSettings } from "@/app/store";
 
 import LayerManagerItem from "@/containers/map/layer-manager/item";
 
+import CountriesLayer from "@/components/map/layers/countries-layer";
 import { DeckMapboxOverlayProvider } from "@/components/map/provider";
 
 const LayerManager = () => {
   const [layers] = useSyncLayers();
   const [layersSettings, setLayersSettings] = useSyncLayersSettings();
+  const [country] = useSyncCountry();
 
   // Sync layers settings with layers
   useMemo(() => {
@@ -39,6 +41,37 @@ const LayerManager = () => {
   return (
     <DeckMapboxOverlayProvider>
       <>
+        <CountriesLayer
+          id="countries"
+          config={{
+            styles: [
+              {
+                id: "countries-layer-fill",
+                type: "fill",
+                paint: {
+                  "fill-color": "#000",
+                  "fill-opacity": 0,
+                },
+              },
+              {
+                id: "countries-layer-line",
+                type: "line",
+                paint: {
+                  "line-color": "#000",
+                  "line-opacity": 1,
+                  "line-width": [
+                    "case",
+                    ["==", ["get", "iso3"], country],
+                    2,
+                    ["boolean", ["feature-state", "hover"], false],
+                    1,
+                    0.5,
+                  ],
+                },
+              },
+            ],
+          }}
+        />
         {/*
           Generate all transparent backgrounds to be able to sort by layers without an error
           - https://github.com/visgl/react-map-gl/issues/939#issuecomment-625290200

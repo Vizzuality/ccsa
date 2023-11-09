@@ -1,5 +1,11 @@
 import { atom } from "jotai";
-import { parseAsArrayOf, parseAsFloat, parseAsInteger, useQueryState } from "next-usequerystate";
+import {
+  parseAsArrayOf,
+  parseAsFloat,
+  parseAsInteger,
+  parseAsString,
+  useQueryState,
+} from "next-usequerystate";
 import { parseAsJson } from "next-usequerystate/parsers";
 
 import { DEFAULT_BBOX, DEFAULT_MAP_SETTINGS } from "@/constants/map";
@@ -26,6 +32,10 @@ export const useSyncMapSettings = () => {
     "mapSettings",
     parseAsJson<typeof DEFAULT_MAP_SETTINGS>().withDefault(DEFAULT_MAP_SETTINGS),
   );
+};
+
+export const useSyncCountry = () => {
+  return useQueryState("country", parseAsString.withDefault(""));
 };
 
 export const datasetSearchAtom = atom<string | null>(null);

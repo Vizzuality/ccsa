@@ -36,7 +36,7 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
 
       const { interaction_config } = data.data.attributes as LayerTyped;
 
-      if (interaction_config?.enabled) {
+      if (interaction_config?.enabled && styles) {
         const ids = styles.map((l) => l.id);
 
         if (layersInteractive.includes(id)) {
@@ -56,7 +56,7 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
 
       const { interaction_config } = data.data.attributes as LayerTyped;
 
-      if (interaction_config?.enabled) {
+      if (interaction_config?.enabled && styles) {
         const ids = styles.map((l) => l.id);
 
         setLayersInteractive((prev) => prev.filter((i) => i !== id));

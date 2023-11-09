@@ -5,8 +5,8 @@ import { FormatProps } from "@/lib/utils/formats";
 import type { Layer } from "@/types/generated/strapi.schemas";
 
 export type Config = {
-  source: AnySource;
-  styles: AnyLayer[];
+  source?: AnySource;
+  styles?: AnyLayer[];
 };
 
 export type ParamsConfigValue = {
