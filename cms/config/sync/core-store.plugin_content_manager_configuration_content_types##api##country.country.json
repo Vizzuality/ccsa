@@ -136,18 +136,14 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "iso3",
-        "createdAt"
-      ],
       "edit": [
         [
           {
             "name": "name",
             "size": 6
-          },
+          }
+        ],
+        [
           {
             "name": "iso3",
             "size": 6
@@ -165,6 +161,12 @@
             "size": 12
           }
         ]
+      ],
+      "list": [
+        "id",
+        "name",
+        "iso3",
+        "createdAt"
       ]
     }
   },

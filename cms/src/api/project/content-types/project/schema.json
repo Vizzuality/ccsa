@@ -4,7 +4,8 @@
   "info": {
     "singularName": "project",
     "pluralName": "projects",
-    "displayName": "Project"
+    "displayName": "Project",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,27 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::country.country"
+    },
+    "pillar": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pillar.pillar",
+      "inversedBy": "projects"
+    },
+    "highlight": {
+      "type": "richtext"
+    },
+    "account": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "float"
+    },
+    "sdgs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sdg.sdg",
+      "inversedBy": "projects"
     }
   }
 }

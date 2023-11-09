@@ -834,12 +834,49 @@ export interface ApiLayerLayer extends Schema.CollectionType {
   };
 }
 
+export interface ApiPillarPillar extends Schema.CollectionType {
+  collectionName: 'pillars';
+  info: {
+    singularName: 'pillar';
+    pluralName: 'pillars';
+    displayName: 'Pillar';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    projects: Attribute.Relation<
+      'api::pillar.pillar',
+      'oneToMany',
+      'api::project.project'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pillar.pillar',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pillar.pillar',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProjectProject extends Schema.CollectionType {
   collectionName: 'projects';
   info: {
     singularName: 'project';
     pluralName: 'projects';
     displayName: 'Project';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -850,6 +887,19 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'api::project.project',
       'oneToMany',
       'api::country.country'
+    >;
+    pillar: Attribute.Relation<
+      'api::project.project',
+      'manyToOne',
+      'api::pillar.pillar'
+    >;
+    highlight: Attribute.RichText;
+    account: Attribute.String;
+    amount: Attribute.Float;
+    sdgs: Attribute.Relation<
+      'api::project.project',
+      'manyToMany',
+      'api::sdg.sdg'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -865,6 +915,34 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSdgSdg extends Schema.CollectionType {
+  collectionName: 'sdgs';
+  info: {
+    singularName: 'sdg';
+    pluralName: 'sdgs';
+    displayName: 'SDG';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    projects: Attribute.Relation<
+      'api::sdg.sdg',
+      'manyToMany',
+      'api::project.project'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::sdg.sdg', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::sdg.sdg', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -889,7 +967,9 @@ declare module '@strapi/types' {
       'api::country.country': ApiCountryCountry;
       'api::dataset.dataset': ApiDatasetDataset;
       'api::layer.layer': ApiLayerLayer;
+      'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;
+      'api::sdg.sdg': ApiSdgSdg;
     }
   }
 }

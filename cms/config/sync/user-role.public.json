@@ -28,10 +28,22 @@
       "action": "api::layer.layer.findOne"
     },
     {
+      "action": "api::pillar.pillar.find"
+    },
+    {
+      "action": "api::pillar.pillar.findOne"
+    },
+    {
       "action": "api::project.project.find"
     },
     {
       "action": "api::project.project.findOne"
+    },
+    {
+      "action": "api::sdg.sdg.find"
+    },
+    {
+      "action": "api::sdg.sdg.findOne"
     },
     {
       "action": "plugin::users-permissions.auth.callback"

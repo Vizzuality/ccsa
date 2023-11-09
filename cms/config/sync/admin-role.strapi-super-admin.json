@@ -239,11 +239,66 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::pillar.pillar",
+      "properties": {
+        "fields": [
+          "name",
+          "projects"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::pillar.pillar",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::pillar.pillar",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::pillar.pillar",
+      "properties": {
+        "fields": [
+          "name",
+          "projects"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::pillar.pillar",
+      "properties": {
+        "fields": [
+          "name",
+          "projects"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::project.project",
       "properties": {
         "fields": [
           "name",
-          "countries"
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs"
         ]
       },
       "conditions": []
@@ -269,7 +324,12 @@
       "properties": {
         "fields": [
           "name",
-          "countries"
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs"
         ]
       },
       "conditions": []
@@ -281,7 +341,62 @@
       "properties": {
         "fields": [
           "name",
-          "countries"
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::sdg.sdg",
+      "properties": {
+        "fields": [
+          "name",
+          "projects"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::sdg.sdg",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::sdg.sdg",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::sdg.sdg",
+      "properties": {
+        "fields": [
+          "name",
+          "projects"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::sdg.sdg",
+      "properties": {
+        "fields": [
+          "name",
+          "projects"
         ]
       },
       "conditions": []
