@@ -35,6 +35,10 @@
       "relation": "oneToMany",
       "target": "api::layer.layer",
       "mappedBy": "dataset"
+    },
+    "unit": {
+      "type": "string",
+      "required": true
     }
   }
 }

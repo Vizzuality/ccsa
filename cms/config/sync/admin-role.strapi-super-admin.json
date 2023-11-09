@@ -119,7 +119,8 @@
           "datum",
           "category",
           "description",
-          "layers"
+          "layers",
+          "unit"
         ]
       },
       "conditions": []
@@ -148,7 +149,8 @@
           "datum",
           "category",
           "description",
-          "layers"
+          "layers",
+          "unit"
         ]
       },
       "conditions": []
@@ -163,7 +165,8 @@
           "datum",
           "category",
           "description",
-          "layers"
+          "layers",
+          "unit"
         ]
       },
       "conditions": []

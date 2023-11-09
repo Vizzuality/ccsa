@@ -772,6 +772,7 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'oneToMany',
       'api::layer.layer'
     >;
+    unit: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

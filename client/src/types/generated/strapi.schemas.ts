@@ -693,6 +693,7 @@ export type LayerDatasetDataAttributes = {
   layers?: LayerDatasetDataAttributesLayers;
   name?: string;
   publishedAt?: string;
+  unit?: string;
   updatedAt?: string;
   updatedBy?: LayerDatasetDataAttributesUpdatedBy;
 };
@@ -1080,6 +1081,7 @@ export interface Dataset {
   layers?: DatasetLayers;
   name: string;
   publishedAt?: string;
+  unit: string;
   updatedAt?: string;
   updatedBy?: DatasetUpdatedBy;
 }
@@ -1183,6 +1185,7 @@ export type DatasetCategoryDataAttributesDatasetsDataItemAttributes = {
   layers?: DatasetCategoryDataAttributesDatasetsDataItemAttributesLayers;
   name?: string;
   publishedAt?: string;
+  unit?: string;
   updatedAt?: string;
   updatedBy?: DatasetCategoryDataAttributesDatasetsDataItemAttributesUpdatedBy;
 };
@@ -1507,6 +1510,7 @@ export type DatasetRequestData = {
   description: string;
   layers?: DatasetRequestDataLayersItem[];
   name: string;
+  unit: string;
 };
 
 export interface DatasetRequest {
@@ -1794,6 +1798,7 @@ export type CategoryDatasetsDataItemAttributes = {
   layers?: CategoryDatasetsDataItemAttributesLayers;
   name?: string;
   publishedAt?: string;
+  unit?: string;
   updatedAt?: string;
   updatedBy?: CategoryDatasetsDataItemAttributesUpdatedBy;
 };
