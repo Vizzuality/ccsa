@@ -6,11 +6,15 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/classnames";
 
+import { useSyncSearchParams } from "@/app/store";
+
 import ExploreSVG from "@/svgs/explore.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
+
+  const sp = useSyncSearchParams();
 
   return (
     <nav className="relative z-20 block h-full w-20 shrink-0 border-r-2 border-gray-300/20 bg-white">
@@ -35,7 +39,7 @@ const Navigation = (): JSX.Element => {
               "bg-primary/10": pathname === "/",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/",
             })}
-            href="/"
+            href={`/?${decodeURIComponent(sp.toString())}`}
           >
             <ExploreSVG
               className={cn({
@@ -62,7 +66,7 @@ const Navigation = (): JSX.Element => {
               "bg-primary/10": pathname === "/projects",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/projects",
             })}
-            href="/projects"
+            href={`/projects?${decodeURIComponent(sp.toString())}`}
           >
             <ProjectsSVG
               className={cn({
