@@ -9,7 +9,7 @@ import { cn } from "@/lib/classnames";
 const Popup = ({
   visibleKey,
   children,
-}: PropsWithChildren<{ visibleKey: string }>): JSX.Element => {
+}: PropsWithChildren<{ visibleKey: string | number | null }>): JSX.Element => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen((prev) => !prev);
@@ -24,7 +24,7 @@ const Popup = ({
         "absolute left-full top-0 z-0 h-80 w-full max-w-md rounded-br-3xl  shadow transition-transform duration-300 ease-in-out":
           true,
         "-translate-x-full": !open && visibleKey,
-        "translate-x-[calc(-100%_-_theme(spacing.5))]": !open && !visibleKey,
+        "translate-x-[calc(-100%_-_theme(spacing.6))]": !open && !visibleKey,
       })}
     >
       <div className="relative z-10 h-full w-full rounded-br-3xl bg-gray-100 py-12 pl-10">

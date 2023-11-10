@@ -8,7 +8,7 @@ const ProjectPopup = () => {
   const [project] = useSyncProject();
 
   return (
-    <Popup visibleKey={`${project}`}>
+    <Popup visibleKey={project}>
       <div>
         <h3 className="text-xxs uppercase text-gray-500">Project detail</h3>
         <h2 className="text-xl">Project title</h2>
