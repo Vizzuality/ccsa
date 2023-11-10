@@ -6,8 +6,6 @@ import { LuChevronLeft } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
 
-import Popup from "@/containers/popup";
-
 const Sidebar = ({ children }: PropsWithChildren): JSX.Element => {
   const [open, setOpen] = useState(true);
 
@@ -21,10 +19,10 @@ const Sidebar = ({ children }: PropsWithChildren): JSX.Element => {
         "-translate-x-full": !open,
       })}
     >
-      <div className="relative z-10 h-full w-full bg-white">{children}</div>
+      {children}
 
       <button
-        className="absolute left-full top-0 z-10 rounded-r-lg bg-white py-2.5"
+        className="absolute left-full top-0 z-0 rounded-r-lg bg-white py-2.5 shadow"
         onClick={toggleOpen}
       >
         <LuChevronLeft
@@ -34,12 +32,6 @@ const Sidebar = ({ children }: PropsWithChildren): JSX.Element => {
           })}
         />
       </button>
-
-      <Popup>
-        <div>
-          <h3 className="text-xs uppercase">Analyze country</h3>
-        </div>
-      </Popup>
     </aside>
   );
 };
