@@ -38,6 +38,10 @@ export const useSyncCountry = () => {
   return useQueryState("country", parseAsString.withDefault(""));
 };
 
+export const useSyncProject = () => {
+  return useQueryState("project", parseAsInteger);
+};
+
 export const datasetSearchAtom = atom<string | null>(null);
 export const layersInteractiveAtom = atom<(number | string)[]>([]);
 export const layersInteractiveIdsAtom = atom<(number | string)[]>([]);

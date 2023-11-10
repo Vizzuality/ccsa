@@ -1,6 +1,6 @@
 "use client";
 
-import Popup from "@/containers/popup";
+import ProjectPopup from "@/containers/projects/popup";
 
 const Projects = (): JSX.Element => {
   return (
@@ -13,11 +13,7 @@ const Projects = (): JSX.Element => {
         </div>
       </div>
 
-      <Popup visibleKey="">
-        <div>
-          <h3 className="text-xs uppercase">Analyze project</h3>
-        </div>
-      </Popup>
+      <ProjectPopup />
     </>
   );
 };
