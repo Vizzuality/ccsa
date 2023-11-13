@@ -2,7 +2,7 @@
 
 import { useSyncLayers } from "@/app/store";
 
-const HomeHeader = () => {
+const DatasetsHeader = () => {
   const [layers] = useSyncLayers();
 
   return (
@@ -19,4 +19,4 @@ const HomeHeader = () => {
   );
 };
 
-export default HomeHeader;
+export default DatasetsHeader;

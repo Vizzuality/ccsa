@@ -1,25 +1,46 @@
 "use client";
 
-import ProjectPopup from "@/containers/projects/popup";
-import ProjectsSearch from "@/containers/projects/search";
+import { useAtomValue } from "jotai";
 
-const Projects = (): JSX.Element => {
+import { useGetProjects } from "@/types/generated/project";
+
+import { projectSearchAtom } from "@/app/store";
+
+import ProjectsItem from "@/containers/projects/item";
+
+const Projects = () => {
+  const projectSearch = useAtomValue(projectSearchAtom);
+
+  const { data: projectsData } = useGetProjects(
+    {
+      "pagination[pageSize]": 200,
+      populate: "sdgs,pillar",
+      sort: "name:asc",
+      filters: {
+        ...(!!projectSearch && {
+          name: {
+            $containsi: projectSearch,
+          },
+        }),
+      },
+    },
+    {
+      query: {
+        keepPreviousData: true,
+      },
+    },
+  );
+
+  console.log(projectsData);
+
   return (
-    <>
-      <div className="relative z-10 h-full w-full bg-white">
-        <div className="h-full overflow-auto">
-          <div className="space-y-5 px-5 py-10">
-            <h1 className="font-metropolis text-3xl tracking-tight">Projects</h1>
+    <ul>
+      {projectsData?.data?.map((p) => {
+        if (!p.id) return null;
 
-            <div className="space-y-5">
-              <ProjectsSearch />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ProjectPopup />
-    </>
+        return <ProjectsItem key={p.id} {...p} />;
+      })}
+    </ul>
   );
 };
 

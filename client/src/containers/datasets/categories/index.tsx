@@ -8,11 +8,11 @@ import { useGetCategories } from "@/types/generated/category";
 
 import { datasetSearchAtom } from "@/app/store";
 
-import CategoriesItem from "@/containers/categories/item";
+import CategoriesItem from "@/containers/datasets/categories/item";
 
 import { Accordion } from "@/components/ui/accordion";
 
-const Categories = () => {
+const DatasetsCategories = () => {
   const [values, setValues] = useState<string[]>();
   const datasetSearch = useAtomValue(datasetSearchAtom);
 
@@ -60,4 +60,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default DatasetsCategories;
