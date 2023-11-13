@@ -50,7 +50,9 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
   const handleMouseMove = (e: mapboxgl.MapLayerMouseEvent) => {
     if (e.features) {
       // find the layer on hover where to add the feature state
-      const CountryFeature = e.features.find((f) => f.layer.source === "countries-source");
+      const CountryFeature = e.features.find(
+        (f) => f.layer.source === "countries-source" || f.layer.source === "projects-source",
+      );
 
       if (CountryFeature) {
         if (HOVER.current !== null && typeof HOVER.current.layer.source === "string") {
@@ -91,7 +93,9 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
 
   const handleClick = (e: mapboxgl.MapLayerMouseEvent) => {
     if (e.features) {
-      const COUNTRY_FEATURE = e.features.find((f) => f.layer.source === "countries-source");
+      const COUNTRY_FEATURE = e.features.find(
+        (f) => f.layer.source === "countries-source" || f.layer.source === "projects-source",
+      );
 
       if (COUNTRY_FEATURE) {
         setCountry(COUNTRY_FEATURE?.properties?.iso3);
@@ -106,7 +110,12 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
         bounds: bbox as LngLatBoundsLike,
       }}
       cursor={cursor}
-      interactiveLayerIds={["countries-layer-fill", "countries-layer-line"]}
+      interactiveLayerIds={[
+        "countries-layer-fill",
+        "countries-layer-line",
+        "projects-layer-circle",
+        "projects-layer-label",
+      ]}
       onMapViewStateChange={handleMapViewStateChange}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
