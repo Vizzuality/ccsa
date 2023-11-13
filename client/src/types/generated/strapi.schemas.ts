@@ -4,12 +4,16 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
+export type GetProjectsIdPopulateOneOf = { [key: string]: any };
+
 export type GetProjectsIdParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetProjectsIdPopulateOneOf;
 };
+
+export type GetProjectsPopulateOneOf = { [key: string]: any };
 
 export type GetProjectsParams = {
   /**
@@ -43,7 +47,7 @@ export type GetProjectsParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetProjectsPopulateOneOf;
   /**
    * Filters to apply
    */
@@ -54,12 +58,16 @@ export type GetProjectsParams = {
   locale?: string;
 };
 
+export type GetLayersIdPopulateOneOf = { [key: string]: any };
+
 export type GetLayersIdParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetLayersIdPopulateOneOf;
 };
+
+export type GetLayersPopulateOneOf = { [key: string]: any };
 
 export type GetLayersParams = {
   /**
@@ -93,7 +101,7 @@ export type GetLayersParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetLayersPopulateOneOf;
   /**
    * Filters to apply
    */
@@ -104,12 +112,16 @@ export type GetLayersParams = {
   locale?: string;
 };
 
+export type GetDatasetsIdPopulateOneOf = { [key: string]: any };
+
 export type GetDatasetsIdParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetDatasetsIdPopulateOneOf;
 };
+
+export type GetDatasetsPopulateOneOf = { [key: string]: any };
 
 export type GetDatasetsParams = {
   /**
@@ -143,7 +155,7 @@ export type GetDatasetsParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetDatasetsPopulateOneOf;
   /**
    * Filters to apply
    */
@@ -154,12 +166,16 @@ export type GetDatasetsParams = {
   locale?: string;
 };
 
+export type GetCountriesIdPopulateOneOf = { [key: string]: any };
+
 export type GetCountriesIdParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetCountriesIdPopulateOneOf;
 };
+
+export type GetCountriesPopulateOneOf = { [key: string]: any };
 
 export type GetCountriesParams = {
   /**
@@ -193,7 +209,7 @@ export type GetCountriesParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetCountriesPopulateOneOf;
   /**
    * Filters to apply
    */
@@ -204,12 +220,16 @@ export type GetCountriesParams = {
   locale?: string;
 };
 
+export type GetCategoriesIdPopulateOneOf = { [key: string]: any };
+
 export type GetCategoriesIdParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetCategoriesIdPopulateOneOf;
 };
+
+export type GetCategoriesPopulateOneOf = { [key: string]: any };
 
 export type GetCategoriesParams = {
   /**
@@ -243,7 +263,7 @@ export type GetCategoriesParams = {
   /**
    * Relations to return
    */
-  populate?: string;
+  populate?: string | GetCategoriesPopulateOneOf;
   /**
    * Filters to apply
    */

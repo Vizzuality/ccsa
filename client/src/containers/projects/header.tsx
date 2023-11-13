@@ -6,28 +6,16 @@ import { useGetProjects } from "@/types/generated/project";
 
 import { projectSearchAtom } from "@/app/store";
 
+import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
+
 const ProjectsHeader = () => {
   const projectSearch = useAtomValue(projectSearchAtom);
 
-  const { data } = useGetProjects(
-    {
-      "pagination[pageSize]": -1,
-      populate: "sdgs,pillar",
-      sort: "name:asc",
-      filters: {
-        ...(!!projectSearch && {
-          name: {
-            $containsi: projectSearch,
-          },
-        }),
-      },
+  const { data } = useGetProjects(GET_PROJECTS_OPTIONS(projectSearch), {
+    query: {
+      keepPreviousData: true,
     },
-    {
-      query: {
-        keepPreviousData: true,
-      },
-    },
-  );
+  });
 
   return (
     <header className="flex items-center justify-between">

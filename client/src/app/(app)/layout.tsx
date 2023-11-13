@@ -7,7 +7,10 @@ import getQueryClient from "@/lib/react-query/getQueryClient";
 import { getGetCategoriesQueryKey, getGetCategoriesQueryOptions } from "@/types/generated/category";
 import { getGetCountriesQueryOptions } from "@/types/generated/country";
 import { getGetDatasetsQueryOptions } from "@/types/generated/dataset";
+import { getGetProjectsQueryOptions } from "@/types/generated/project";
 import { CategoryListResponse } from "@/types/generated/strapi.schemas";
+
+import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 
 import Map from "@/containers/map";
 import Navigation from "@/containers/navigation";
@@ -60,6 +63,12 @@ export default async function AppLayout({ children }: PropsWithChildren) {
       }),
     });
   }
+
+  // Prefetch projects
+
+  await queryClient.prefetchQuery({
+    ...getGetProjectsQueryOptions(GET_PROJECTS_OPTIONS("")),
+  });
 
   const dehydratedState = dehydrate(queryClient);
 

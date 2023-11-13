@@ -14,7 +14,7 @@ const Sidebar = ({ children }: PropsWithChildren): JSX.Element => {
   return (
     <aside
       className={cn({
-        "absolute left-20 top-0 z-10 h-full w-full max-w-md shadow transition-transform duration-300 ease-in-out":
+        "absolute left-20 top-0 z-10 h-full w-full max-w-lg shadow transition-transform duration-300 ease-in-out":
           true,
         "-translate-x-full": !open,
       })}

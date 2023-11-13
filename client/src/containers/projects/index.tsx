@@ -6,39 +6,29 @@ import { useGetProjects } from "@/types/generated/project";
 
 import { projectSearchAtom } from "@/app/store";
 
+import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
+
 import ProjectsItem from "@/containers/projects/item";
 
 const Projects = () => {
   const projectSearch = useAtomValue(projectSearchAtom);
 
-  const { data: projectsData } = useGetProjects(
-    {
-      "pagination[pageSize]": 200,
-      populate: "sdgs,pillar",
-      sort: "name:asc",
-      filters: {
-        ...(!!projectSearch && {
-          name: {
-            $containsi: projectSearch,
-          },
-        }),
-      },
+  const { data: projectsData } = useGetProjects(GET_PROJECTS_OPTIONS(projectSearch), {
+    query: {
+      keepPreviousData: true,
     },
-    {
-      query: {
-        keepPreviousData: true,
-      },
-    },
-  );
-
-  console.log(projectsData);
+  });
 
   return (
-    <ul>
+    <ul className="grid grid-cols-1 gap-2.5">
       {projectsData?.data?.map((p) => {
         if (!p.id) return null;
 
-        return <ProjectsItem key={p.id} {...p} />;
+        return (
+          <li key={p.id} className="col-span-1">
+            <ProjectsItem {...p} />
+          </li>
+        );
       })}
     </ul>
   );
