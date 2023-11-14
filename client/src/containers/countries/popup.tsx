@@ -1,5 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/classnames";
+
 import { useGetCountries } from "@/types/generated/country";
 
 import { useSyncCountry } from "@/app/store";
@@ -18,10 +20,14 @@ const CountryPopup = () => {
 
   return (
     <Popup visibleKey={country}>
-      <div>
-        <h3 className="text-xxs uppercase text-gray-500">Country selected</h3>
-        <h2 className="text-xl">{COUNTRY?.attributes?.name}</h2>
-      </div>
+      <header
+        className={cn({
+          "space-y-5 bg-gradient-to-r px-10 py-12": true,
+        })}
+      >
+        <h3 className="text-xxs uppercase">Country selected</h3>
+        <h2 className="font-metropolis text-3xl">{COUNTRY?.attributes?.name}</h2>
+      </header>
     </Popup>
   );
 };

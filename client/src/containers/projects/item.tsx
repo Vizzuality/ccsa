@@ -6,6 +6,8 @@ import { ProjectListResponseDataItem } from "@/types/generated/strapi.schemas";
 
 import { useSyncProject } from "@/app/store";
 
+import { PROJECT_PILLARS } from "@/constants/projects";
+
 const ProjectsItem = (project: ProjectListResponseDataItem) => {
   const { id, attributes } = project;
   const [, setProject] = useSyncProject();
@@ -23,14 +25,7 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
     <div
       className={cn({
         "group cursor-pointer space-y-2 rounded-xl bg-gradient-to-r p-5 text-white": true,
-        "from-[#E10098] to-[#E5838A]":
-          pillar?.data?.attributes?.name === "30 x 30 Nature Based Solutions",
-        "from-[#48A02D] to-[#EECC45]":
-          pillar?.data?.attributes?.name ===
-          "1.5% New Green Jobs for Physical & Economic Resilience",
-        "from-[#F7A600] to-[#F87]":
-          pillar?.data?.attributes?.name === "90% Renewable Energy for All",
-        "from-[#01B6DE] to-[#00BFB3]": pillar?.data?.attributes?.name === "Climate Smart Map",
+        [PROJECT_PILLARS[`${pillar?.data?.attributes?.name}`]?.color]: true,
       })}
       onClick={handleClick}
     >
