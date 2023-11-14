@@ -36,6 +36,7 @@
     "@t3-oss/env-nextjs": "0.6.1",
     "@tailwindcss/typography": "^0.5.10",
     "@tanstack/react-query": "4.35.3",
+    "@turf/centroid": "7.0.0-alpha.2",
     "@typescript-eslint/eslint-plugin": "6.7.3",
     "@typescript-eslint/parser": "6.7.3",
     "autoprefixer": "10.4.16",

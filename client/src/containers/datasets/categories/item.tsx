@@ -8,7 +8,7 @@ import Datasets from "@/containers/datasets";
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const CategoriesItem = (category: CategoryListResponseDataItem) => {
+const DatasetsCategoriesItem = (category: CategoryListResponseDataItem) => {
   return (
     <AccordionItem key={category?.id} value={`${category?.id}`}>
       <AccordionTrigger className="group text-xl text-gray-900 transition-all hover:underline">
@@ -25,4 +25,4 @@ const CategoriesItem = (category: CategoryListResponseDataItem) => {
   );
 };
 
-export default CategoriesItem;
+export default DatasetsCategoriesItem;

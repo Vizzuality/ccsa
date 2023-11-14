@@ -1,25 +1,36 @@
 "use client";
 
-import ProjectPopup from "@/containers/projects/popup";
-import ProjectsSearch from "@/containers/projects/search";
+import { useAtomValue } from "jotai";
 
-const Projects = (): JSX.Element => {
+import { useGetProjects } from "@/types/generated/project";
+
+import { projectSearchAtom } from "@/app/store";
+
+import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
+
+import ProjectsItem from "@/containers/projects/item";
+
+const Projects = () => {
+  const projectSearch = useAtomValue(projectSearchAtom);
+
+  const { data: projectsData } = useGetProjects(GET_PROJECTS_OPTIONS(projectSearch), {
+    query: {
+      keepPreviousData: true,
+    },
+  });
+
   return (
-    <>
-      <div className="relative z-10 h-full w-full bg-white">
-        <div className="h-full overflow-auto">
-          <div className="space-y-5 px-5 py-10">
-            <h1 className="font-metropolis text-3xl tracking-tight">Projects</h1>
+    <ul className="grid grid-cols-1 gap-2.5">
+      {projectsData?.data?.map((p) => {
+        if (!p.id) return null;
 
-            <div className="space-y-5">
-              <ProjectsSearch />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ProjectPopup />
-    </>
+        return (
+          <li key={p.id} className="col-span-1">
+            <ProjectsItem {...p} />
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 

@@ -4149,6 +4149,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@turf/centroid@npm:7.0.0-alpha.2":
+  version: 7.0.0-alpha.2
+  resolution: "@turf/centroid@npm:7.0.0-alpha.2"
+  dependencies:
+    "@turf/helpers": ^7.0.0-alpha.2
+    "@turf/meta": ^7.0.0-alpha.2
+    tslib: ^2.3.0
+  checksum: 2eb43aab183803224282e0f0c5112db36a6fc7900de5bb46ba47259cdb9a3c1ffc5670ca58b312a2d5b30f9f6ef7ab954125807b4cc276a45e694f3a2423af82
+  languageName: node
+  linkType: hard
+
 "@turf/clone@npm:^5.1.5":
   version: 5.1.5
   resolution: "@turf/clone@npm:5.1.5"
@@ -4162,6 +4173,15 @@ __metadata:
   version: 5.1.5
   resolution: "@turf/helpers@npm:5.1.5"
   checksum: a4de202ae18c02bd4f67a13b0aa07ec0460be3c2655e2e7abc334a75f5acd659f13984ba5cdf9653229ff6179aff7454482c7590a6c6c09d83812a5fca9f2cd9
+  languageName: node
+  linkType: hard
+
+"@turf/helpers@npm:^7.0.0-alpha.2":
+  version: 7.0.0-alpha.2
+  resolution: "@turf/helpers@npm:7.0.0-alpha.2"
+  dependencies:
+    tslib: ^2.3.0
+  checksum: ea1451acdc71bcdd77601291b5da3814575f5aa08d24318f1d91b56db0e3e74713529452d11221cc804aa74dea8ab0f475f95da93ce9daa3bfcbbbce9c9e3c1c
   languageName: node
   linkType: hard
 
@@ -4180,6 +4200,15 @@ __metadata:
   dependencies:
     "@turf/helpers": ^5.1.5
   checksum: f2946bfc2283c34ca5e590027180edc950e9602702ea55a147003a86d33c72533ac4574043a4ee31b4ed38bcc5cdbb995368fc5a0a12d38a615bda811ec28969
+  languageName: node
+  linkType: hard
+
+"@turf/meta@npm:^7.0.0-alpha.2":
+  version: 7.0.0-alpha.2
+  resolution: "@turf/meta@npm:7.0.0-alpha.2"
+  dependencies:
+    "@turf/helpers": ^7.0.0-alpha.2
+  checksum: 256185aac789606ff50ade3b71b6f41e5df1b645b010229a7ac8af965a46ffac6fde846dce29e0f904bb43f4f0263046c0f06b46621a8a0a74dc989f85d6379f
   languageName: node
   linkType: hard
 
@@ -5522,6 +5551,7 @@ __metadata:
     "@tailwindcss/typography": ^0.5.10
     "@tanstack/eslint-plugin-query": 4.34.1
     "@tanstack/react-query": 4.35.3
+    "@turf/centroid": 7.0.0-alpha.2
     "@types/express": 4.17.18
     "@types/geojson": ^7946.0.12
     "@types/lodash-es": ^4.17.10

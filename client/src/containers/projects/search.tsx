@@ -17,7 +17,7 @@ const ProjectsSearch = () => {
     setValueDebounced(e.target.value);
   };
 
-  return <Search placeholder="Search poject by name" onChange={handleSearch} />;
+  return <Search placeholder="Search project by name" onChange={handleSearch} />;
 };
 
 export default ProjectsSearch;
