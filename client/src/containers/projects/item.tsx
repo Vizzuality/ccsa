@@ -24,17 +24,24 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
   return (
     <div
       className={cn({
-        "group cursor-pointer space-y-2 rounded-xl bg-gradient-to-r p-5 text-white": true,
-        [PROJECT_PILLARS[`${pillar?.data?.attributes?.name}`]?.color]: true,
+        "group cursor-pointer space-y-2 pt-5": true,
       })}
       onClick={handleClick}
     >
-      <h3 className="text-xs">{pillar?.data?.attributes?.name}</h3>
-      <h2 className="font-metropolis text-lg font-black tracking-tight group-hover:underline">
+      <h3 className="text-xs">
+        <div
+          className={cn({
+            "mr-1 inline-block h-2 w-2 rounded-full bg-gradient-to-r": true,
+            [PROJECT_PILLARS[`${pillar?.data?.attributes?.name}`]?.color]: true,
+          })}
+        />
+        {pillar?.data?.attributes?.name}
+      </h3>
+      <h2 className="pl-3 text-xl font-semibold text-gray-900 group-hover:underline">
         {project?.attributes?.name}
       </h2>
 
-      <div className="text-xxs">
+      <div className="pl-3 text-xxs">
         {countries?.data
           ?.map((c) => {
             if (!c.id || !c.attributes) return null;

@@ -20,7 +20,7 @@ const Projects = () => {
   });
 
   return (
-    <ul className="grid grid-cols-1 gap-2.5">
+    <ul className="grid grid-cols-1 gap-5 divide-y divide-gray-200">
       {projectsData?.data?.map((p) => {
         if (!p.id) return null;
 
