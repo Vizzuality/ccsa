@@ -10,7 +10,7 @@ import { PROJECT_PILLARS } from "@/constants/projects";
 
 const ProjectsItem = (project: ProjectListResponseDataItem) => {
   const { id, attributes } = project;
-  const [, setProject] = useSyncProject();
+  const [p, setProject] = useSyncProject();
 
   if (!attributes) return null;
 
@@ -24,24 +24,25 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
   return (
     <div
       className={cn({
-        "group cursor-pointer space-y-2 pt-5": true,
+        "group cursor-pointer space-y-2 p-5": true,
+        "bg-gray-50": p === id,
       })}
       onClick={handleClick}
     >
-      <h3 className="text-xs">
+      <h3 className="flex items-center text-xs">
         <div
           className={cn({
-            "mr-1 inline-block h-2 w-2 rounded-full bg-gradient-to-r": true,
+            "mr-1.5 inline-block h-3 w-3 rounded-full bg-gradient-to-r": true,
             [PROJECT_PILLARS[`${pillar?.data?.attributes?.name}`]?.color]: true,
           })}
         />
-        {pillar?.data?.attributes?.name}
+        <span className="block">{pillar?.data?.attributes?.name}</span>
       </h3>
-      <h2 className="pl-3 text-xl font-semibold text-gray-900 group-hover:underline">
+      <h2 className="pl-4 text-xl font-semibold text-gray-900 group-hover:underline">
         {project?.attributes?.name}
       </h2>
 
-      <div className="pl-3 text-xxs">
+      <div className="pl-4 text-xxs">
         {countries?.data
           ?.map((c) => {
             if (!c.id || !c.attributes) return null;
