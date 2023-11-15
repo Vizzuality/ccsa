@@ -1,4 +1,4 @@
-export const GET_PROJECTS_OPTIONS = (projectSearch: string | null) => ({
+export const GET_PROJECTS_OPTIONS = (projectSearch: string | undefined) => ({
   "pagination[pageSize]": 200,
   populate: {
     pillar: {
