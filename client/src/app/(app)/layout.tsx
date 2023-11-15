@@ -10,6 +10,7 @@ import { getGetDatasetsQueryOptions } from "@/types/generated/dataset";
 import { getGetProjectsQueryOptions } from "@/types/generated/project";
 import { CategoryListResponse } from "@/types/generated/strapi.schemas";
 
+import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 
 import Map from "@/containers/map";
@@ -23,10 +24,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
 
   // Prefetch countries
   await queryClient.prefetchQuery({
-    ...getGetCountriesQueryOptions({
-      "pagination[pageSize]": 100,
-      sort: "name:asc",
-    }),
+    ...getGetCountriesQueryOptions(GET_COUNTRIES_OPTIONS),
   });
 
   // Prefetch categories

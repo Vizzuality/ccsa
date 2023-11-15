@@ -35,12 +35,17 @@ export const useSyncBbox = () => {
 const mapSettingsParser =
   parseAsJson<typeof DEFAULT_MAP_SETTINGS>().withDefault(DEFAULT_MAP_SETTINGS);
 export const useSyncMapSettings = () => {
-  return useQueryState("mapSettings", mapSettingsParser);
+  return useQueryState("map-settings", mapSettingsParser);
 };
 
 const countryParser = parseAsString.withDefault("");
 export const useSyncCountry = () => {
   return useQueryState("country", countryParser);
+};
+
+const countriesComparisonParser = parseAsArrayOf(parseAsString).withDefault([]);
+export const useSyncCountriesComparison = () => {
+  return useQueryState("countries-comparison", countriesComparisonParser);
 };
 
 export const useSyncProject = () => {
@@ -54,6 +59,7 @@ export const useSyncSearchParams = () => {
   const [bbox] = useSyncBbox();
   const [mapSettings] = useSyncMapSettings();
   const [country] = useSyncCountry();
+  const [countriesComparison] = useSyncCountriesComparison();
   const [project] = useSyncProject();
 
   const sp = new URLSearchParams();
@@ -65,8 +71,12 @@ export const useSyncSearchParams = () => {
   if (bboxParser.defaultValue !== bbox) sp.set("bbox", bboxParser.serialize(bbox));
 
   if (mapSettingsParser.defaultValue !== mapSettings)
-    sp.set("mapSettings", mapSettingsParser.serialize(mapSettings));
+    sp.set("map-settings", mapSettingsParser.serialize(mapSettings));
+
+  // Countries
   if (countryParser.defaultValue !== country) sp.set("country", countryParser.serialize(country));
+  if (countriesComparisonParser.defaultValue !== countriesComparison)
+    sp.set("countries-comparison", countriesComparisonParser.serialize(countriesComparison));
 
   // No default values
   if (layersSettings) sp.set("layers-settings", layersSettingsParser.serialize(layersSettings));
