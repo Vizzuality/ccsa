@@ -6,20 +6,32 @@ import { LuInfo } from "react-icons/lu";
 
 import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
 
-import { useSyncLayers } from "@/app/store";
+import { useSyncDatasets, useSyncLayers } from "@/app/store";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
 
 const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
-  const lysIds = attributes?.layers?.data?.map((l) => l.id as number);
-  const [layers, setLayers] = useSyncLayers();
+  const [datasets, setDatasets] = useSyncDatasets();
+  const [, setLayers] = useSyncLayers();
 
   const handleToogle = () => {
     const lys = attributes?.layers;
 
     if (!lys) return;
+
+    setDatasets((prev) => {
+      if (id) {
+        if (prev.includes(id)) {
+          return prev.filter((d) => d !== id);
+        }
+
+        return [...prev, id];
+      }
+
+      return prev;
+    });
 
     setLayers((prev) => {
       const ids = lys?.data?.map((l) => {
@@ -46,7 +58,7 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
       onClick={handleToogle}
     >
       <div className="flex items-center justify-start space-x-2.5">
-        <Switch checked={layers?.some((l) => lysIds?.includes(l))} />
+        <Switch checked={datasets?.includes(id ?? 0)} />
         <h2>{attributes?.name}</h2>
       </div>
 

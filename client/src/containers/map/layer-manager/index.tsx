@@ -80,89 +80,116 @@ const LayerManager = () => {
         )}
 
         {pathname === "/projects" && (
-          <ProjectsLayer
-            id="projects"
-            config={{
-              styles: [
-                {
-                  id: "projects-layer-circle",
-                  type: "circle",
-                  paint: {
-                    "circle-color": [
-                      "case",
-                      ["==", ["get", "iso3"], country],
-                      "#5dc22c",
-                      ["boolean", ["feature-state", "hover"], false],
-                      "#5dc22c",
-                      "#78D64B",
-                    ],
-                    "circle-radius": [
-                      "interpolate",
-                      ["linear"],
-                      ["get", "projects"],
-                      0,
-                      10,
-                      100,
-                      20,
-                    ],
-                    "circle-stroke-color": "#fff",
-                    "circle-stroke-width": 2,
-                    "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
-                    "circle-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
+          <>
+            <CountriesLayer
+              id="project-countries"
+              config={{
+                styles: [
+                  {
+                    id: "p-countries-layer-line",
+                    type: "line",
+                    paint: {
+                      "line-color": "#000",
+                      "line-opacity": 1,
+                      "line-width": 0.5,
+                    },
                   },
-                },
-                {
-                  id: "projects-layer-label",
-                  type: "symbol",
-                  paint: {
-                    "text-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
+                ],
+              }}
+            />
+
+            <ProjectsLayer
+              id="projects"
+              config={{
+                styles: [
+                  {
+                    id: "projects-layer-circle",
+                    type: "circle",
+                    paint: {
+                      "circle-color": [
+                        "case",
+                        ["==", ["get", "iso3"], country],
+                        "#5dc22c",
+                        ["boolean", ["feature-state", "hover"], false],
+                        "#5dc22c",
+                        "#78D64B",
+                      ],
+                      "circle-radius": [
+                        "interpolate",
+                        ["linear"],
+                        ["get", "projects"],
+                        0,
+                        10,
+                        100,
+                        20,
+                      ],
+                      "circle-stroke-color": "#fff",
+                      "circle-stroke-width": 2,
+                      "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
+                      "circle-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
+                    },
                   },
-                  layout: {
-                    "text-field": ["get", "projects"],
-                    "text-size": 12,
-                    "text-allow-overlap": false,
-                    "text-ignore-placement": false,
+                  {
+                    id: "projects-layer-label",
+                    type: "symbol",
+                    paint: {
+                      "text-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
+                    },
+                    layout: {
+                      "text-field": ["get", "projects"],
+                      "text-size": 12,
+                      "text-allow-overlap": false,
+                      "text-ignore-placement": false,
+                    },
                   },
-                },
-                {
-                  id: "projects-heat",
-                  type: "heatmap",
-                  maxzoom: 9,
-                  paint: {
-                    // Increase the heatmap weight based on frequency and property magnitude
-                    "heatmap-weight": ["interpolate", ["linear"], ["get", "projects"], 0, 0, 5, 1],
-                    // Increase the heatmap color weight weight by zoom level
-                    // heatmap-intensity is a multiplier on top of heatmap-weight
-                    "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 0, 1, 9, 3],
-                    // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-                    // Begin color ramp at 0-stop with a 0-transparancy color
-                    // to create a blur-like effect.
-                    "heatmap-color": [
-                      "interpolate",
-                      ["linear"],
-                      ["heatmap-density"],
-                      0,
-                      "rgba(255,255,0,0)",
-                      0.2,
-                      "rgb(240,235,255)",
-                      0.4,
-                      "rgb(209,229,255)",
-                      0.6,
-                      "rgb(219,253,199)",
-                      0.8,
-                      "rgb(138,239,98)",
-                      1,
-                      "rgb(24,178,43)",
-                    ],
-                    // Adjust the heatmap radius by zoom level
-                    "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 0, 20, 4, 40],
-                    // Transition from heatmap to circle layer by zoom level
-                    "heatmap-opacity": ["interpolate", ["linear"], ["zoom"], 3, 1, 4, 0],
+                  {
+                    id: "projects-heat",
+                    type: "heatmap",
+                    maxzoom: 9,
+                    paint: {
+                      // Increase the heatmap weight based on frequency and property magnitude
+                      "heatmap-weight": [
+                        "interpolate",
+                        ["linear"],
+                        ["get", "projects"],
+                        0,
+                        0,
+                        5,
+                        1,
+                      ],
+                      // Increase the heatmap color weight weight by zoom level
+                      // heatmap-intensity is a multiplier on top of heatmap-weight
+                      "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 0, 1, 9, 3],
+                      // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+                      // Begin color ramp at 0-stop with a 0-transparancy color
+                      // to create a blur-like effect.
+                      "heatmap-color": [
+                        "interpolate",
+                        ["linear"],
+                        ["heatmap-density"],
+                        0,
+                        "rgba(255,255,0,0)",
+                        0.2,
+                        "rgb(240,235,255)",
+                        0.4,
+                        "rgb(209,229,255)",
+                        0.6,
+                        "rgb(219,253,199)",
+                        0.8,
+                        "rgb(138,239,98)",
+                        1,
+                        "rgb(24,178,43)",
+                      ],
+                      // Adjust the heatmap radius by zoom level
+                      "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 0, 20, 4, 40],
+                      // Transition from heatmap to circle layer by zoom level
+                      "heatmap-opacity": ["interpolate", ["linear"], ["zoom"], 3, 1, 4, 0],
+                    },
                   },
-                },
-              ],
-            }}
-          />
+                ],
+              }}
+            />
+          </>
         )}
 
         {/*

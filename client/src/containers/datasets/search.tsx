@@ -2,7 +2,7 @@
 
 import { ChangeEventHandler } from "react";
 
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useDebounce } from "rooks";
 
 import { datasetSearchAtom } from "@/app/store";
@@ -10,6 +10,7 @@ import { datasetSearchAtom } from "@/app/store";
 import { Search } from "@/components/ui/search";
 
 const DatasetsSearch = () => {
+  const datasetSearch = useAtomValue(datasetSearchAtom);
   const setDatasetSearch = useSetAtom(datasetSearchAtom);
   const setValueDebounced = useDebounce(setDatasetSearch, 500);
 
@@ -17,7 +18,13 @@ const DatasetsSearch = () => {
     setValueDebounced(e.target.value);
   };
 
-  return <Search placeholder="Search dataset by name" onChange={handleSearch} />;
+  return (
+    <Search
+      defaultValue={datasetSearch}
+      placeholder="Search dataset by name"
+      onChange={handleSearch}
+    />
+  );
 };
 
 export default DatasetsSearch;

@@ -10,6 +10,11 @@ import { parseAsJson } from "next-usequerystate/parsers";
 
 import { DEFAULT_BBOX, DEFAULT_MAP_SETTINGS } from "@/constants/map";
 
+const datasetsParser = parseAsArrayOf(parseAsInteger).withDefault([]);
+export const useSyncDatasets = () => {
+  return useQueryState("datasets", datasetsParser);
+};
+
 const layersParser = parseAsArrayOf(parseAsInteger).withDefault([]);
 export const useSyncLayers = () => {
   return useQueryState("layers", layersParser);
@@ -43,6 +48,7 @@ export const useSyncProject = () => {
 };
 
 export const useSyncSearchParams = () => {
+  const [datasets] = useSyncDatasets();
   const [layers] = useSyncLayers();
   const [layersSettings] = useSyncLayersSettings();
   const [bbox] = useSyncBbox();
@@ -53,6 +59,8 @@ export const useSyncSearchParams = () => {
   const sp = new URLSearchParams();
 
   // Default
+  if (datasetsParser.defaultValue !== datasets)
+    sp.set("datasets", datasetsParser.serialize(datasets));
   if (layersParser.defaultValue !== layers) sp.set("layers", layersParser.serialize(layers));
   if (bboxParser.defaultValue !== bbox) sp.set("bbox", bboxParser.serialize(bbox));
 
@@ -67,9 +75,9 @@ export const useSyncSearchParams = () => {
   return sp;
 };
 
-export const datasetSearchAtom = atom<string | null>(null);
+export const datasetSearchAtom = atom<string | undefined>(undefined);
 
-export const projectSearchAtom = atom<string | null>(null);
+export const projectSearchAtom = atom<string | undefined>(undefined);
 
 export const layersInteractiveAtom = atom<(number | string)[]>([]);
 export const layersInteractiveIdsAtom = atom<(number | string)[]>([]);

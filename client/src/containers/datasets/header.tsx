@@ -1,9 +1,9 @@
 "use client";
 
-import { useSyncLayers } from "@/app/store";
+import { useSyncDatasets } from "@/app/store";
 
 const DatasetsHeader = () => {
-  const [layers] = useSyncLayers();
+  const [datasets] = useSyncDatasets();
 
   return (
     <header className="flex items-center justify-between">
@@ -12,7 +12,7 @@ const DatasetsHeader = () => {
       <div className="flex translate-y-0.5 items-center space-x-1.5 text-xxs">
         <span className="font-semibold uppercase text-gray-400">Active layers:</span>
         <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 font-semibold">
-          {layers.length}
+          {datasets.length}
         </span>
       </div>
     </header>

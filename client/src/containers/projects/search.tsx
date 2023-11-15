@@ -2,7 +2,7 @@
 
 import { ChangeEventHandler } from "react";
 
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useDebounce } from "rooks";
 
 import { projectSearchAtom } from "@/app/store";
@@ -10,6 +10,7 @@ import { projectSearchAtom } from "@/app/store";
 import { Search } from "@/components/ui/search";
 
 const ProjectsSearch = () => {
+  const projectsSearch = useAtomValue(projectSearchAtom);
   const setProjectsSearch = useSetAtom(projectSearchAtom);
   const setValueDebounced = useDebounce(setProjectsSearch, 500);
 
@@ -17,7 +18,13 @@ const ProjectsSearch = () => {
     setValueDebounced(e.target.value);
   };
 
-  return <Search placeholder="Search project by name" onChange={handleSearch} />;
+  return (
+    <Search
+      defaultValue={projectsSearch}
+      placeholder="Search project by name"
+      onChange={handleSearch}
+    />
+  );
 };
 
 export default ProjectsSearch;
