@@ -45,43 +45,41 @@ const LayerManager = () => {
   return (
     <DeckMapboxOverlayProvider>
       <>
-        {pathname === "/" && (
-          <CountriesLayer
-            id="countries"
-            config={{
-              styles: [
-                {
-                  id: "countries-layer-fill",
-                  type: "fill",
-                  paint: {
-                    "fill-color": "#000",
-                    "fill-opacity": 0,
-                  },
+        <CountriesLayer
+          id="countries"
+          config={{
+            styles: [
+              {
+                id: "countries-layer-fill",
+                type: "fill",
+                paint: {
+                  "fill-color": "#000",
+                  "fill-opacity": 0,
                 },
-                {
-                  id: "countries-layer-line",
-                  type: "line",
-                  paint: {
-                    "line-color": "#000",
-                    "line-opacity": 1,
-                    "line-width": [
-                      "case",
-                      ["==", ["get", "iso3"], country],
-                      2,
-                      ["boolean", ["feature-state", "hover"], false],
-                      1,
-                      0.5,
-                    ],
-                  },
+              },
+              {
+                id: "countries-layer-line",
+                type: "line",
+                paint: {
+                  "line-color": "#000",
+                  "line-opacity": 1,
+                  "line-width": [
+                    "case",
+                    ["==", ["get", "iso3"], country],
+                    2,
+                    ["boolean", ["feature-state", "hover"], false],
+                    1,
+                    0.5,
+                  ],
                 },
-              ],
-            }}
-          />
-        )}
+              },
+            ],
+          }}
+        />
 
         {pathname === "/projects" && (
           <>
-            <CountriesLayer
+            {/* <CountriesLayer
               id="project-countries"
               config={{
                 styles: [
@@ -91,12 +89,19 @@ const LayerManager = () => {
                     paint: {
                       "line-color": "#000",
                       "line-opacity": 1,
-                      "line-width": 0.5,
+                      "line-width": [
+                        "case",
+                        ["==", ["get", "iso3"], country],
+                        2,
+                        ["boolean", ["feature-state", "hover"], false],
+                        1,
+                        0.5,
+                      ],
                     },
                   },
                 ],
               }}
-            />
+            /> */}
 
             <ProjectsLayer
               id="projects"
@@ -138,8 +143,8 @@ const LayerManager = () => {
                     layout: {
                       "text-field": ["get", "projects"],
                       "text-size": 12,
-                      "text-allow-overlap": false,
-                      "text-ignore-placement": false,
+                      "text-allow-overlap": true,
+                      "text-ignore-placement": true,
                     },
                   },
                   {

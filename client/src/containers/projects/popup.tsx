@@ -70,7 +70,7 @@ const ProjectPopup = () => {
           {!!pillar?.data?.attributes?.name && (
             <div className="space-y-2.5">
               <h3 className="text-xxs uppercase text-gray-500">Pillar</h3>
-              <div className="text-xs">{pillar?.data?.attributes?.name}</div>
+              <div className="text-sm">{pillar?.data?.attributes?.name}</div>
             </div>
           )}
 
@@ -78,7 +78,7 @@ const ProjectPopup = () => {
           {!!data?.data?.attributes?.account && (
             <div className="space-y-2.5">
               <h3 className="text-xxs uppercase text-gray-500">Account</h3>
-              <div className="text-xs">{data?.data?.attributes?.account}</div>
+              <div className="text-sm">{data?.data?.attributes?.account}</div>
             </div>
           )}
 
@@ -86,7 +86,7 @@ const ProjectPopup = () => {
           {!!data?.data?.attributes?.amount && (
             <div className="space-y-2.5">
               <h3 className="text-xxs uppercase text-gray-500">Amount</h3>
-              <div className="text-xs">{format(data?.data?.attributes?.amount)}</div>
+              <div className="text-sm">{format(data?.data?.attributes?.amount)}</div>
             </div>
           )}
 
@@ -94,7 +94,7 @@ const ProjectPopup = () => {
           {!!countries?.data?.length && (
             <div className="space-y-2.5">
               <h3 className="text-xxs uppercase text-gray-500">Countries</h3>
-              <div className="text-xs">
+              <div className="text-sm">
                 {countries?.data
                   ?.map((c) => {
                     if (!c.id || !c.attributes) return null;
@@ -109,12 +109,12 @@ const ProjectPopup = () => {
           {!!sdgs?.data?.length && (
             <div className="space-y-2.5">
               <h3 className="text-xxs uppercase text-gray-500">SDGs</h3>
-              <ul>
+              <ul className="space-y-0.5">
                 {sdgs?.data?.map((sdg) => {
                   if (!sdg?.attributes) return null;
 
                   return (
-                    <li key={sdg.id} className="text-xs">
+                    <li key={sdg.id} className="text-sm">
                       {sdg?.attributes?.name}
                     </li>
                   );
