@@ -12,7 +12,7 @@ import { useGetCountries } from "@/types/generated/country";
 import { useGetProjects } from "@/types/generated/project";
 import { Config, LayerProps } from "@/types/layers";
 
-import { projectSearchAtom, useSyncPillars } from "@/app/store";
+import { projectSearchAtom, useSyncCountry, useSyncPillars } from "@/app/store";
 
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 
@@ -24,9 +24,12 @@ export type ProjectsLayerProps = LayerProps & {
 const ProjectsLayer = ({ id, beforeId, config, onAdd, onRemove }: ProjectsLayerProps) => {
   const projectSearch = useAtomValue(projectSearchAtom);
   const [pillars] = useSyncPillars();
+  const [country] = useSyncCountry();
+
   const { data: projectsData } = useGetProjects(
     GET_PROJECTS_OPTIONS(projectSearch, {
       pillars,
+      country,
     }),
   );
   const { data: countriesData } = useGetCountries({

@@ -2,6 +2,7 @@ export const GET_PROJECTS_OPTIONS = (
   projectSearch: string | undefined,
   filters: {
     pillars: number[];
+    country: string;
   },
 ) => ({
   "pagination[pageSize]": 200,
@@ -23,8 +24,13 @@ export const GET_PROJECTS_OPTIONS = (
         $containsi: projectSearch,
       },
     }),
-    ...(!!filters?.pillars.length && {
+    ...(!!filters?.pillars?.length && {
       pillar: filters?.pillars,
+    }),
+    ...(!!filters?.country && {
+      countries: {
+        iso3: filters?.country,
+      },
     }),
   },
 });
