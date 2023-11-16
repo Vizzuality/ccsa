@@ -8,6 +8,7 @@ import { useDebounce } from "rooks";
 import { projectSearchAtom } from "@/app/store";
 
 import ProjectsFiltersDialog from "@/containers/projects/filters/dialog";
+import ProjectsSelected from "@/containers/projects/filters/selected";
 
 import { Search } from "@/components/ui/search";
 
@@ -21,15 +22,19 @@ const ProjectsFilters = () => {
   };
 
   return (
-    <div className="flex space-x-1">
-      <Search
-        defaultValue={projectsSearch}
-        placeholder="Search project by name"
-        onChange={handleSearch}
-      />
+    <>
+      <div className="flex space-x-1">
+        <Search
+          defaultValue={projectsSearch}
+          placeholder="Search project by name"
+          onChange={handleSearch}
+        />
 
-      <ProjectsFiltersDialog />
-    </div>
+        <ProjectsFiltersDialog />
+      </div>
+
+      <ProjectsSelected />
+    </>
   );
 };
 

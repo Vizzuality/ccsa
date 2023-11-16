@@ -14,6 +14,7 @@ import { useGetPillars } from "@/types/generated/pillar";
 import { useSyncCountry, useSyncPillars } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
+import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -60,7 +61,7 @@ const ProjectsFiltersDialog = () => {
 
     setOpen(false);
   }
-  const { data: pillarsData } = useGetPillars();
+  const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS);
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
   useMemo(() => {
@@ -71,7 +72,8 @@ const ProjectsFiltersDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary">
+        <Button variant="secondary" className="space-x-1">
+          <span>Filter</span>
           <LuFilter className="h-4 w-4" />
         </Button>
       </DialogTrigger>
