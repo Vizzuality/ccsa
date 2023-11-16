@@ -18,7 +18,6 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -68,9 +67,6 @@ const ProjectsFiltersDialog = () => {
                   <FormItem>
                     <div className="mb-4">
                       <FormLabel className="text-base">Pillars</FormLabel>
-                      <FormDescription>
-                        Select the Pillars you want to display in the sidebar.
-                      </FormDescription>
                     </div>
 
                     {pillarsData?.data?.map((item) => {

@@ -8,6 +8,8 @@ import { useGetCategories } from "@/types/generated/category";
 
 import { datasetSearchAtom } from "@/app/store";
 
+import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
+
 import CategoriesItem from "@/containers/datasets/categories/item";
 
 import { Accordion } from "@/components/ui/accordion";
@@ -16,27 +18,11 @@ const DatasetsCategories = () => {
   const [values, setValues] = useState<string[]>();
   const datasetSearch = useAtomValue(datasetSearchAtom);
 
-  const { data: categoriesData } = useGetCategories(
-    {
-      "pagination[pageSize]": 100,
-      populate: "datasets",
-      sort: "name:asc",
-      filters: {
-        ...(!!datasetSearch && {
-          datasets: {
-            name: {
-              $containsi: datasetSearch,
-            },
-          },
-        }),
-      },
+  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(datasetSearch), {
+    query: {
+      keepPreviousData: true,
     },
-    {
-      query: {
-        keepPreviousData: true,
-      },
-    },
-  );
+  });
 
   const VALUE = useMemo(() => {
     if (!values) return categoriesData?.data?.map((c) => `${c?.id}`);

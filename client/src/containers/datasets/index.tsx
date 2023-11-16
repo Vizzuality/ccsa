@@ -6,6 +6,8 @@ import { useGetDatasets } from "@/types/generated/dataset";
 
 import { datasetSearchAtom } from "@/app/store";
 
+import { GET_DATASETS_OPTIONS } from "@/constants/datasets";
+
 import DatasetsItem from "@/containers/datasets/item";
 
 type DatasetsProps = {
@@ -15,26 +17,11 @@ type DatasetsProps = {
 const Datasets = ({ categoryId }: DatasetsProps) => {
   const datasetSearch = useAtomValue(datasetSearchAtom);
 
-  const { data: datasetsData } = useGetDatasets(
-    {
-      "pagination[pageSize]": 100,
-      filters: {
-        category: categoryId,
-        ...(!!datasetSearch && {
-          name: {
-            $containsi: datasetSearch,
-          },
-        }),
-      },
-      populate: "*",
-      sort: "name:asc",
+  const { data: datasetsData } = useGetDatasets(GET_DATASETS_OPTIONS(datasetSearch, categoryId), {
+    query: {
+      keepPreviousData: true,
     },
-    {
-      query: {
-        keepPreviousData: true,
-      },
-    },
-  );
+  });
 
   return (
     <div className="space-y-2.5">

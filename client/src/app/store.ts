@@ -1,58 +1,50 @@
 import { atom } from "jotai";
+import { useQueryState } from "next-usequerystate";
+
 import {
-  parseAsArrayOf,
-  parseAsFloat,
-  parseAsInteger,
-  parseAsString,
-  useQueryState,
-} from "next-usequerystate";
-import { parseAsJson } from "next-usequerystate/parsers";
+  bboxParser,
+  countriesComparisonParser,
+  countryParser,
+  datasetsParser,
+  layersParser,
+  layersSettingsParser,
+  mapSettingsParser,
+  pillarsParser,
+  projectParser,
+} from "@/app/parsers";
 
-import { DEFAULT_BBOX, DEFAULT_MAP_SETTINGS } from "@/constants/map";
-
-const datasetsParser = parseAsArrayOf(parseAsInteger).withDefault([]);
 export const useSyncDatasets = () => {
   return useQueryState("datasets", datasetsParser);
 };
 
-const layersParser = parseAsArrayOf(parseAsInteger).withDefault([]);
 export const useSyncLayers = () => {
   return useQueryState("layers", layersParser);
 };
 
-const layersSettingsParser = parseAsJson<{
-  [key: string]: Record<string, unknown>;
-}>();
 export const useSyncLayersSettings = () => {
   return useQueryState("layers-settings", layersSettingsParser);
 };
 
-const bboxParser = parseAsArrayOf(parseAsFloat).withDefault(DEFAULT_BBOX);
 export const useSyncBbox = () => {
   return useQueryState("bbox", bboxParser);
 };
 
-const mapSettingsParser =
-  parseAsJson<typeof DEFAULT_MAP_SETTINGS>().withDefault(DEFAULT_MAP_SETTINGS);
 export const useSyncMapSettings = () => {
   return useQueryState("map-settings", mapSettingsParser);
 };
 
-const countryParser = parseAsString.withDefault("");
 export const useSyncCountry = () => {
   return useQueryState("country", countryParser);
 };
 
-const countriesComparisonParser = parseAsArrayOf(parseAsString).withDefault([]);
 export const useSyncCountriesComparison = () => {
   return useQueryState("countries-comparison", countriesComparisonParser);
 };
 
 export const useSyncProject = () => {
-  return useQueryState("project", parseAsInteger);
+  return useQueryState("project", projectParser);
 };
 
-const pillarsParser = parseAsArrayOf(parseAsInteger).withDefault([]);
 export const useSyncPillars = () => {
   return useQueryState("pillars", pillarsParser);
 };
@@ -89,7 +81,7 @@ export const useSyncSearchParams = () => {
     sp.set("countries-comparison", countriesComparisonParser.serialize(countriesComparison));
 
   // Project
-  if (project) sp.set("project", parseAsInteger.serialize(project));
+  if (project) sp.set("project", projectParser.serialize(project));
   if (pillarsParser.defaultValue !== pillars) sp.set("pillars", pillarsParser.serialize(pillars));
 
   return sp;
