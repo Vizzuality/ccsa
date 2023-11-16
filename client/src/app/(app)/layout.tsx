@@ -63,9 +63,12 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   }
 
   // Prefetch projects
-
   await queryClient.prefetchQuery({
-    ...getGetProjectsQueryOptions(GET_PROJECTS_OPTIONS("")),
+    ...getGetProjectsQueryOptions(
+      GET_PROJECTS_OPTIONS("", {
+        pillars: [],
+      }),
+    ),
   });
 
   const dehydratedState = dehydrate(queryClient);

@@ -1,7 +1,7 @@
 import Projects from "@/containers/projects";
+import ProjectsFilters from "@/containers/projects/filters";
 import ProjectsHeader from "@/containers/projects/header";
 import ProjectPopup from "@/containers/projects/popup";
-import ProjectsSearch from "@/containers/projects/search";
 
 export default function ProjectsPage() {
   return (
@@ -12,7 +12,7 @@ export default function ProjectsPage() {
             <h1 className="font-metropolis text-3xl tracking-tight">Projects</h1>
 
             <div className="space-y-5">
-              <ProjectsSearch />
+              <ProjectsFilters />
               <ProjectsHeader />
               <Projects />
             </div>

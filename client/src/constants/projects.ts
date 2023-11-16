@@ -1,4 +1,9 @@
-export const GET_PROJECTS_OPTIONS = (projectSearch: string | undefined) => ({
+export const GET_PROJECTS_OPTIONS = (
+  projectSearch: string | undefined,
+  filters: {
+    pillars: number[];
+  },
+) => ({
   "pagination[pageSize]": 200,
   populate: {
     pillar: {
@@ -17,6 +22,9 @@ export const GET_PROJECTS_OPTIONS = (projectSearch: string | undefined) => ({
       name: {
         $containsi: projectSearch,
       },
+    }),
+    ...(!!filters?.pillars.length && {
+      pillar: filters?.pillars,
     }),
   },
 });

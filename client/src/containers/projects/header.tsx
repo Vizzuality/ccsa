@@ -4,18 +4,24 @@ import { useAtomValue } from "jotai";
 
 import { useGetProjects } from "@/types/generated/project";
 
-import { projectSearchAtom } from "@/app/store";
+import { projectSearchAtom, useSyncPillars } from "@/app/store";
 
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 
 const ProjectsHeader = () => {
   const projectSearch = useAtomValue(projectSearchAtom);
+  const [pillars] = useSyncPillars();
 
-  const { data } = useGetProjects(GET_PROJECTS_OPTIONS(projectSearch), {
-    query: {
-      keepPreviousData: true,
+  const { data } = useGetProjects(
+    GET_PROJECTS_OPTIONS(projectSearch, {
+      pillars,
+    }),
+    {
+      query: {
+        keepPreviousData: true,
+      },
     },
-  });
+  );
 
   return (
     <header className="flex items-center justify-between">
