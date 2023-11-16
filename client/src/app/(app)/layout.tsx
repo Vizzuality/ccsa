@@ -1,6 +1,9 @@
 import { PropsWithChildren } from "react";
 
+import { headers } from "next/headers";
+
 import { Hydrate, dehydrate } from "@tanstack/react-query";
+import { parseAsArrayOf, parseAsInteger } from "next-usequerystate";
 
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
@@ -20,6 +23,11 @@ import Sidebar from "@/containers/sidebar";
 import LayoutProviders from "./layout-providers";
 
 export default async function AppLayout({ children }: PropsWithChildren) {
+  const url = new URL(headers().get("x-url")!);
+  const searchParams = url.searchParams;
+
+  const pillarsParser = parseAsArrayOf(parseAsInteger).withDefault([]);
+
   const queryClient = getQueryClient();
 
   // Prefetch countries
@@ -66,7 +74,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   await queryClient.prefetchQuery({
     ...getGetProjectsQueryOptions(
       GET_PROJECTS_OPTIONS("", {
-        pillars: [],
+        pillars: pillarsParser.parseServerSide(searchParams.get("pillars") || []),
       }),
     ),
   });

@@ -51,6 +51,7 @@ export const useSyncCountriesComparison = () => {
 export const useSyncProject = () => {
   return useQueryState("project", parseAsInteger);
 };
+
 const pillarsParser = parseAsArrayOf(parseAsInteger).withDefault([]);
 export const useSyncPillars = () => {
   return useQueryState("pillars", pillarsParser);
