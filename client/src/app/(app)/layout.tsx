@@ -9,14 +9,18 @@ import getQueryClient from "@/lib/react-query/getQueryClient";
 import { getGetCategoriesQueryKey, getGetCategoriesQueryOptions } from "@/types/generated/category";
 import { getGetCountriesQueryOptions } from "@/types/generated/country";
 import { getGetDatasetsQueryOptions } from "@/types/generated/dataset";
+import { getGetPillarsQueryOptions } from "@/types/generated/pillar";
 import { getGetProjectsQueryOptions } from "@/types/generated/project";
+import { getGetSdgsQueryOptions } from "@/types/generated/sdg";
 import { CategoryListResponse } from "@/types/generated/strapi.schemas";
 
 import { countryParser, pillarsParser } from "@/app/parsers";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_CATEGORIES_OPTIONS, GET_DATASETS_OPTIONS } from "@/constants/datasets";
+import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
+import { GET_SDGs_OPTIONS } from "@/constants/sdgs";
 
 import Map from "@/containers/map";
 import Navigation from "@/containers/navigation";
@@ -31,14 +35,10 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   const queryClient = getQueryClient();
 
   // Prefetch countries
-  await queryClient.prefetchQuery({
-    ...getGetCountriesQueryOptions(GET_COUNTRIES_OPTIONS),
-  });
+  await queryClient.prefetchQuery(getGetCountriesQueryOptions(GET_COUNTRIES_OPTIONS));
 
   // Prefetch categories
-  await queryClient.prefetchQuery({
-    ...getGetCategoriesQueryOptions(GET_CATEGORIES_OPTIONS()),
-  });
+  await queryClient.prefetchQuery(getGetCategoriesQueryOptions(GET_CATEGORIES_OPTIONS()));
 
   const CATEGORIES = queryClient.getQueryData<CategoryListResponse>(
     getGetCategoriesQueryKey(GET_CATEGORIES_OPTIONS()),
@@ -48,20 +48,26 @@ export default async function AppLayout({ children }: PropsWithChildren) {
     if (!category.id) continue;
 
     // Prefetch datasets
-    await queryClient.prefetchQuery({
-      ...getGetDatasetsQueryOptions(GET_DATASETS_OPTIONS("", category.id)),
-    });
+    await queryClient.prefetchQuery(
+      getGetDatasetsQueryOptions(GET_DATASETS_OPTIONS("", category.id)),
+    );
   }
 
   // Prefetch projects
-  await queryClient.prefetchQuery({
-    ...getGetProjectsQueryOptions(
+  await queryClient.prefetchQuery(
+    getGetProjectsQueryOptions(
       GET_PROJECTS_OPTIONS("", {
         pillars: pillarsParser.parseServerSide(searchParams.get("pillars") || []),
         country: countryParser.parseServerSide(searchParams.get("country") || ""),
       }),
     ),
-  });
+  );
+
+  // Prefetch pillars
+  await queryClient.prefetchQuery(getGetPillarsQueryOptions(GET_PILLARS_OPTIONS));
+
+  // Prefetch sdgs
+  await queryClient.prefetchQuery(getGetSdgsQueryOptions(GET_SDGs_OPTIONS));
 
   const dehydratedState = dehydrate(queryClient);
 
