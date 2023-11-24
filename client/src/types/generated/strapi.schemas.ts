@@ -2342,7 +2342,7 @@ export interface Dataset {
   layers?: DatasetLayers;
   name: string;
   publishedAt?: string;
-  unit: string;
+  unit?: string;
   updatedAt?: string;
   updatedBy?: DatasetUpdatedBy;
 }
@@ -2755,7 +2755,7 @@ export type DatasetRequestData = {
   description: string;
   layers?: DatasetRequestDataLayersItem[];
   name: string;
-  unit: string;
+  unit?: string;
 };
 
 export interface DatasetRequest {
