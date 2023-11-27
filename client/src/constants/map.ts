@@ -17,7 +17,7 @@ export const BASEMAPS = [
   {
     label: "Light",
     value: "basemap-light" as const,
-    preview: `/images/map/light.jpeg`,
+    preview: `/images/map/light.jpg`,
     settings: {
       labels: "labels-dark",
       boundaries: "boundaries-dark",
@@ -27,7 +27,7 @@ export const BASEMAPS = [
   {
     label: "Satellite",
     value: "basemap-satellite" as const,
-    preview: `/images/map/satellite.jpeg`,
+    preview: `/images/map/satellite.jpg`,
     settings: {
       labels: "labels-light",
       boundaries: "boundaries-light",
