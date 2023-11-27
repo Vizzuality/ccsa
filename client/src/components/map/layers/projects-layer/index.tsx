@@ -48,12 +48,17 @@ const ProjectsLayer = ({ id, beforeId, config, onAdd, onRemove }: ProjectsLayerP
       data: {
         type: "FeatureCollection",
         features: countriesData.data
-          .filter(
-            (c) =>
-              projectsData?.data?.filter(
-                (p) => p.attributes?.countries?.data?.map((c1) => c1.id).includes(c.id),
-              ).length,
-          )
+          .filter((c) => {
+            return projectsData?.data?.filter(
+              (p) => p.attributes?.countries?.data?.map((c1) => c1.id).includes(c.id),
+            ).length;
+          })
+          .filter((c) => {
+            if (country) {
+              return c.attributes?.iso3 === country;
+            }
+            return true;
+          })
           .map((c) => {
             const CENTROID = centroid(c.attributes?.geometry as Feature["geometry"]);
 
@@ -74,7 +79,7 @@ const ProjectsLayer = ({ id, beforeId, config, onAdd, onRemove }: ProjectsLayerP
           }),
       },
     } satisfies GeoJSONSourceRaw;
-  }, [id, countriesData, projectsData]);
+  }, [id, country, countriesData, projectsData]);
 
   const STYLES = config.styles;
 

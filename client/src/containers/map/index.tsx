@@ -97,7 +97,7 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
         (f) => f.layer.source === "countries-source" || f.layer.source === "projects-source",
       );
 
-      setCountry(COUNTRY_FEATURE?.properties?.iso3);
+      setCountry(COUNTRY_FEATURE?.properties?.iso3 || null);
     }
   };
 

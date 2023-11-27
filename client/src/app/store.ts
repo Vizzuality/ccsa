@@ -76,7 +76,8 @@ export const useSyncSearchParams = () => {
     sp.set("map-settings", mapSettingsParser.serialize(mapSettings));
 
   // Countries
-  if (countryParser.defaultValue !== country) sp.set("country", countryParser.serialize(country));
+  if (!!country) sp.set("country", countryParser.serialize(country));
+
   if (countriesComparisonParser.defaultValue !== countriesComparison)
     sp.set("countries-comparison", countriesComparisonParser.serialize(countriesComparison));
 

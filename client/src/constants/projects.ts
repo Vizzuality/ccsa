@@ -2,7 +2,7 @@ export const GET_PROJECTS_OPTIONS = (
   projectSearch: string | undefined,
   filters: {
     pillars: number[];
-    country: string;
+    country?: string | null;
   },
 ) => ({
   "pagination[pageSize]": 200,

@@ -19,7 +19,7 @@ export const bboxParser = parseAsArrayOf(parseAsFloat).withDefault(DEFAULT_BBOX)
 export const mapSettingsParser =
   parseAsJson<typeof DEFAULT_MAP_SETTINGS>().withDefault(DEFAULT_MAP_SETTINGS);
 
-export const countryParser = parseAsString.withDefault("");
+export const countryParser = parseAsString;
 export const countriesComparisonParser = parseAsArrayOf(parseAsString).withDefault([]);
 
 export const projectParser = parseAsInteger;
