@@ -28,12 +28,12 @@ const Projects = () => {
   );
 
   return (
-    <ul className="grid grid-cols-1 divide-y divide-gray-100">
+    <ul className="grid grid-cols-1 space-y-1.5">
       {projectsData?.data?.map((p) => {
         if (!p.id) return null;
 
         return (
-          <li key={p.id} className="col-span-1 -mx-5">
+          <li key={p.id} className="col-span-1">
             <ProjectsItem {...p} />
           </li>
         );

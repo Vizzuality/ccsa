@@ -49,7 +49,7 @@ const ProjectsFiltersDialog = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       pillars,
-      country,
+      country: country ?? undefined,
     },
   });
 
@@ -66,7 +66,7 @@ const ProjectsFiltersDialog = () => {
 
   useMemo(() => {
     form.setValue("pillars", pillars);
-    form.setValue("country", country);
+    form.setValue("country", country ?? undefined);
   }, [form, pillars, country]);
 
   return (

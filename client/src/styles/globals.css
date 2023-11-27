@@ -4,6 +4,9 @@
 
 @layer base {
   :root {
+    --brand1: 196 100% 40%;
+    --brand2: 101 63% 57%;
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 

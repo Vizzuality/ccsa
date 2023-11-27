@@ -28,7 +28,7 @@ const Navigation = (): JSX.Element => {
         <li className="group relative text-center">
           <div
             className={cn({
-              "absolute left-0 top-0 h-full w-1 -translate-x-full bg-primary transition-transform":
+              "absolute left-0 top-0 h-full w-1 -translate-x-full bg-brand1 transition-transform":
                 true,
               "translate-x-0": pathname === "/",
             })}
@@ -36,7 +36,7 @@ const Navigation = (): JSX.Element => {
           <Link
             className={cn({
               "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
-              "bg-primary/10": pathname === "/",
+              "bg-brand1/10": pathname === "/",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/",
             })}
             href={`/?${decodeURIComponent(sp.toString())}`}
@@ -45,7 +45,7 @@ const Navigation = (): JSX.Element => {
               className={cn({
                 "h-6 w-6 fill-none ": true,
                 "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/",
-                "stroke-primary": pathname === "/",
+                "stroke-brand1": pathname === "/",
               })}
             />
             <span>Explore Datasets</span>
@@ -55,7 +55,7 @@ const Navigation = (): JSX.Element => {
         <li className="group relative text-center">
           <div
             className={cn({
-              "absolute left-0 top-0 h-full w-1 -translate-x-full bg-primary transition-transform":
+              "absolute left-0 top-0 h-full w-1 -translate-x-full bg-brand2 transition-transform":
                 true,
               "translate-x-0": pathname === "/projects",
             })}
@@ -63,7 +63,7 @@ const Navigation = (): JSX.Element => {
           <Link
             className={cn({
               "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
-              "bg-primary/10": pathname === "/projects",
+              "bg-brand2/10": pathname === "/projects",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/projects",
             })}
             href={`/projects?${decodeURIComponent(sp.toString())}`}
@@ -72,7 +72,7 @@ const Navigation = (): JSX.Element => {
               className={cn({
                 "h-6 w-6 fill-none ": true,
                 "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/projects",
-                "stroke-primary": pathname === "/projects",
+                "stroke-brand2": pathname === "/projects",
               })}
             />
             <span>Projects</span>
