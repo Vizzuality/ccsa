@@ -61,7 +61,7 @@ const LayerManager = () => {
                 id: "countries-layer-line",
                 type: "line",
                 paint: {
-                  "line-color": "#000",
+                  "line-color": ["case", ["==", ["get", "iso3"], country], "#0095CB", "#000"],
                   "line-opacity": 1,
                   "line-width": [
                     "case",
