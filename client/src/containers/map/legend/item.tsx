@@ -59,6 +59,13 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
 
   const settingsManager = getSettingsManager(attributes);
 
+  const LEGEND_NAME = useMemo(() => {
+    if (attributes?.dataset?.data?.attributes?.unit) {
+      return `${attributes?.name} (${attributes?.dataset?.data?.attributes?.unit})`;
+    }
+    return attributes?.name;
+  }, [attributes]);
+
   const LEGEND_COMPONENT = useMemo(() => {
     const l = parseConfig<LegendConfig | ReactElement | null>({
       config: legend_config,
@@ -91,7 +98,7 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
     >
       <LegendItem
         id={id}
-        name={attributes?.name}
+        name={LEGEND_NAME}
         settingsManager={settingsManager}
         {...props}
         onRemove={() => {

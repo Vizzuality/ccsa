@@ -1,6 +1,7 @@
 import React from "react";
 
 import { cn } from "@/lib/classnames";
+import { formatNumber } from "@/lib/utils/formats";
 
 import { LegendTypeProps } from "../../types";
 
@@ -33,7 +34,7 @@ export const LegendTypeChoropleth: React.FC<LegendTypeProps> = ({ className = ""
               width: `${100 / items.length}%`,
             }}
           >
-            {value}
+            {formatNumber(value)}
           </li>
         ))}
       </ul>

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { cn } from "@/lib/classnames";
+import { formatNumber } from "@/lib/utils/formats";
 
 import { LegendTypeProps } from "../../types";
 
@@ -20,7 +21,7 @@ export const LegendTypeBasic: React.FC<LegendTypeProps> = ({ className = "", ite
                 backgroundColor: color,
               }}
             />
-            <div>{value}</div>
+            <div>{formatNumber(value)}</div>
           </li>
         ))}
       </ul>

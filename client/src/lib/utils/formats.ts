@@ -1,3 +1,24 @@
+export function formatNumber(value: unknown, options?: Intl.NumberFormatOptions) {
+  const { format } = Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+    ...options,
+  });
+
+  if (typeof value === "number" || typeof value === "string") {
+    const v = +value;
+
+    if (Number.isNaN(v)) {
+      return value;
+    }
+
+    return format(v);
+  }
+
+  return `${value}`;
+}
+
 export function formatPercentage(value: number, options?: Intl.NumberFormatOptions) {
   const v = Intl.NumberFormat("en-US", {
     minimumFractionDigits: 0,

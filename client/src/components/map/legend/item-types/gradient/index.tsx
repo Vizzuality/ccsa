@@ -1,6 +1,7 @@
 import React from "react";
 
 import { cn } from "@/lib/classnames";
+import { formatNumber } from "@/lib/utils/formats";
 
 import { LegendTypeProps } from "../../types";
 
@@ -30,7 +31,7 @@ export const LegendTypeGradient: React.FC<LegendTypeProps> = ({ className = "", 
                 "flex-shrink-0 text-xs": true,
               })}
             >
-              {value}
+              {formatNumber(value)}
             </li>
           ))}
       </ul>
