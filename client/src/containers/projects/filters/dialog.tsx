@@ -11,7 +11,7 @@ import * as z from "zod";
 import { useGetCountries } from "@/types/generated/country";
 import { useGetPillars } from "@/types/generated/pillar";
 
-import { useSyncCountry, useSyncPillars } from "@/app/store";
+import { useSyncAvailableForFunding, useSyncCountry, useSyncPillars } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
@@ -38,18 +38,21 @@ import {
 const FormSchema = z.object({
   pillars: z.array(z.number()),
   country: z.string().optional(),
+  available_for_funding: z.boolean().optional(),
 });
 
 const ProjectsFiltersDialog = () => {
   const [open, setOpen] = useState(false);
   const [country, setCountry] = useSyncCountry();
   const [pillars, setPillars] = useSyncPillars();
+  const [availableForFunding, setAvailableForFunding] = useSyncAvailableForFunding();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       pillars,
       country: country ?? undefined,
+      available_for_funding: availableForFunding ?? undefined,
     },
   });
 
@@ -59,6 +62,8 @@ const ProjectsFiltersDialog = () => {
     if (data.country === "all") setCountry(null);
     else setCountry(data.country ?? null);
 
+    setAvailableForFunding(!!data.available_for_funding);
+
     setOpen(false);
   }
   const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS);
@@ -67,7 +72,8 @@ const ProjectsFiltersDialog = () => {
   useMemo(() => {
     form.setValue("pillars", pillars);
     form.setValue("country", country ?? undefined);
-  }, [form, pillars, country]);
+    form.setValue("available_for_funding", availableForFunding ?? undefined);
+  }, [form, pillars, country, availableForFunding]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -90,7 +96,7 @@ const ProjectsFiltersDialog = () => {
                 name="pillars"
                 render={() => (
                   <FormItem>
-                    <div className="mb-4">
+                    <div className="mb-3">
                       <FormLabel className="text-base">Pillars</FormLabel>
                     </div>
 
@@ -137,13 +143,41 @@ const ProjectsFiltersDialog = () => {
                 )}
               />
 
+              {/* AVAILABLE FOR FUNDING */}
+              <FormField
+                control={form.control}
+                name="available_for_funding"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="mb-3">
+                      <FormLabel className="text-base">Available for funding</FormLabel>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <FormControl>
+                        <Checkbox
+                          className="cursor-pointer"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormLabel className="cursor-pointer text-sm font-normal">
+                        Only show projects available for funding
+                      </FormLabel>
+                    </div>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               {/* COUNTRY */}
               <FormField
                 control={form.control}
                 name="country"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Country</FormLabel>
+                    <FormLabel className="text-base">Country</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>

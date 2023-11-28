@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { useQueryState } from "next-usequerystate";
 
 import {
+  availableForFundingParser,
   bboxParser,
   countriesComparisonParser,
   countryParser,
@@ -49,6 +50,10 @@ export const useSyncPillars = () => {
   return useQueryState("pillars", pillarsParser);
 };
 
+export const useSyncAvailableForFunding = () => {
+  return useQueryState("available_for_funding", availableForFundingParser);
+};
+
 export const useSyncSearchParams = () => {
   const [datasets] = useSyncDatasets();
   const [layers] = useSyncLayers();
@@ -59,6 +64,7 @@ export const useSyncSearchParams = () => {
   const [countriesComparison] = useSyncCountriesComparison();
   const [project] = useSyncProject();
   const [pillars] = useSyncPillars();
+  const [availableForFunding] = useSyncAvailableForFunding();
 
   const sp = new URLSearchParams();
 
@@ -84,6 +90,11 @@ export const useSyncSearchParams = () => {
   // Project
   if (project) sp.set("project", projectParser.serialize(project));
   if (pillarsParser.defaultValue !== pillars) sp.set("pillars", pillarsParser.serialize(pillars));
+
+  // Available for funding
+  if (availableForFundingParser.defaultValue !== availableForFunding) {
+    sp.set("available_for_funding", availableForFundingParser.serialize(!!availableForFunding));
+  }
 
   return sp;
 };

@@ -4,6 +4,7 @@ import {
   parseAsInteger,
   parseAsString,
   parseAsJson,
+  parseAsBoolean,
 } from "next-usequerystate/parsers";
 
 import { DEFAULT_BBOX, DEFAULT_MAP_SETTINGS } from "@/constants/map";
@@ -24,3 +25,4 @@ export const countriesComparisonParser = parseAsArrayOf(parseAsString).withDefau
 
 export const projectParser = parseAsInteger;
 export const pillarsParser = parseAsArrayOf(parseAsInteger).withDefault([]);
+export const availableForFundingParser = parseAsBoolean.withDefault(false);
