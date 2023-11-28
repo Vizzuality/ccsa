@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/classnames";
+import { formatNumber } from "@/lib/utils/formats";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasets } from "@/types/generated/dataset";
@@ -65,12 +66,6 @@ const CountryPopup = () => {
       };
     });
 
-  const { format } = Intl.NumberFormat("en-US", {
-    style: "decimal",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  });
-
   return (
     <Popup visibleKey={country}>
       <header
@@ -119,7 +114,7 @@ const CountryPopup = () => {
                           return (
                             <td key={v.iso3} className="p-3">
                               <span className="whitespace-nowrap text-sm leading-none">
-                                {v.value ? format(+v.value) : "-"}
+                                {v.value ? formatNumber(v.value) : "-"}
                               </span>
                             </td>
                           );

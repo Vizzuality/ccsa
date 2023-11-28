@@ -1,5 +1,7 @@
 "use client";
 
+import { formatNumber } from "@/lib/utils/formats";
+
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasets } from "@/types/generated/dataset";
 
@@ -54,12 +56,6 @@ const CountryDialog = () => {
       };
     });
 
-  const { format } = Intl.NumberFormat("en-US", {
-    style: "decimal",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  });
-
   return (
     <div className="max-h-[90svh] overflow-auto p-10">
       <section className="space-y-2.5">
@@ -94,7 +90,7 @@ const CountryDialog = () => {
                         return (
                           <td key={v.iso3} className="p-3">
                             <span className="whitespace-nowrap text-sm leading-none">
-                              {v.value ? format(+v.value) : "-"}
+                              {v.value ? formatNumber(v.value) : "-"}
                             </span>
                           </td>
                         );
