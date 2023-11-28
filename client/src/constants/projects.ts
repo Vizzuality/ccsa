@@ -20,9 +20,20 @@ export const GET_PROJECTS_OPTIONS = (
   sort: "name:asc",
   filters: {
     ...(!!projectSearch && {
-      name: {
-        $containsi: projectSearch,
-      },
+      $or: [
+        {
+          name: {
+            $containsi: projectSearch,
+          },
+        },
+        {
+          countries: {
+            name: {
+              $containsi: projectSearch,
+            },
+          },
+        },
+      ],
     }),
     ...(!!filters?.pillars?.length && {
       pillar: filters?.pillars,
