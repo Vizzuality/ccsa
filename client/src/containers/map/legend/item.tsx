@@ -7,7 +7,7 @@ import { useGetLayersId } from "@/types/generated/layer";
 import { LayerTyped, LegendConfig } from "@/types/layers";
 import { LegendType } from "@/types/legend";
 
-import { useSyncLayersSettings } from "@/app/store";
+import { useSyncDatasets, useSyncLayers, useSyncLayersSettings } from "@/app/store";
 
 import LegendItem from "@/components/map/legend/item";
 import {
@@ -45,10 +45,12 @@ const getSettingsManager = (data: LayerTyped = {} as LayerTyped): SettingsManage
 };
 
 const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
+  const [, setLayers] = useSyncLayers();
+  const [, setDatasets] = useSyncDatasets();
   const [layersSettings] = useSyncLayersSettings();
 
   const { data, isError, isFetched, isFetching, isPlaceholderData } = useGetLayersId(id, {
-    populate: "metadata",
+    populate: "metadata,dataset",
   });
 
   const attributes = data?.data?.attributes as LayerTyped;
@@ -92,6 +94,24 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
         name={attributes?.name}
         settingsManager={settingsManager}
         {...props}
+        onRemove={() => {
+          setDatasets((prev) => {
+            const current = [...prev];
+            const index = current.indexOf(attributes?.dataset?.data?.id as number);
+            if (index > -1) {
+              current.splice(index, 1);
+            }
+            return current;
+          });
+          setLayers((prev) => {
+            const current = [...prev];
+            const index = current.indexOf(id);
+            if (index > -1) {
+              current.splice(index, 1);
+            }
+            return current;
+          });
+        }}
         // InfoContent={!!metadata && <Metadata {...attributes} />}
       >
         {LEGEND_COMPONENT}

@@ -28,6 +28,7 @@ export const LegendItem: React.FC<PropsWithChildren & LegendItemProps> = ({
   // events
   onChangeOpacity,
   onChangeVisibility,
+  onRemove,
 }) => {
   const validChildren = useMemo(() => {
     const chldn = Children.map(children, (Child) => {
@@ -78,6 +79,7 @@ export const LegendItem: React.FC<PropsWithChildren & LegendItemProps> = ({
               settingsManager={settingsManager}
               onChangeOpacity={onChangeOpacity}
               onChangeVisibility={onChangeVisibility}
+              onRemove={onRemove}
               InfoContent={InfoContent}
             />
           </header>

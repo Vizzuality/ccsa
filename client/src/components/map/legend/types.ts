@@ -15,6 +15,7 @@ type OnChangeOrder = (id: string[]) => void;
 type OnChangeOpacity = (opacity: number) => void;
 type OnChangeVisibility = (visibility: boolean) => void;
 type OnChangeColumn = (column: string) => void;
+type OnRemove = () => void;
 
 export type Settings = Record<string, unknown> & {
   opacity?: number;
@@ -31,6 +32,7 @@ export type LegendItemEvents = {
   onChangeOpacity?: OnChangeOpacity;
   onChangeVisibility?: OnChangeVisibility;
   onChangeColumn?: OnChangeColumn;
+  onRemove?: OnRemove;
 };
 /*
  * Legend

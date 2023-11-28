@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { PopoverArrow } from "@radix-ui/react-popover";
-import { LuEye, LuEyeOff, LuDroplet, LuInfo } from "react-icons/lu";
+import { LuEye, LuEyeOff, LuDroplet, LuInfo, LuX } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
 
@@ -17,6 +17,7 @@ export const LegendItemToolbar: React.FC<LegendItemToolbarProps> = ({
   InfoContent,
   settings,
   settingsManager,
+  onRemove,
   onChangeOpacity,
   onChangeVisibility,
 }: LegendItemToolbarProps) => {
@@ -132,6 +133,31 @@ export const LegendItemToolbar: React.FC<LegendItemToolbarProps> = ({
                 </DialogContent>
               </Tooltip>
             </Dialog>
+          </div>
+        )}
+
+        {onRemove && (
+          <div className="flex items-start">
+            <Tooltip delayDuration={500}>
+              <TooltipTrigger
+                type="button"
+                aria-label="Show info"
+                className={cn({
+                  "pointer-events-none": popoverOpen,
+                })}
+                onClick={() => {
+                  if (onRemove) onRemove();
+                }}
+              >
+                <LegendItemButton Icon={LuX} />
+              </TooltipTrigger>
+
+              <TooltipContent side="top" align="end" alignOffset={-10}>
+                <div className="text-xxs">Remove layer</div>
+
+                <TooltipArrow className="fill-white" width={10} height={5} />
+              </TooltipContent>
+            </Tooltip>
           </div>
         )}
       </div>
