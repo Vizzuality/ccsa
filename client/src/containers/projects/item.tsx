@@ -41,7 +41,7 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
         <span className="block">{pillar?.data?.attributes?.name}</span>
       </h3>
 
-      <h2 className="font-metropolis text-lg font-semibold text-gray-800 group-hover:underline">
+      <h2 className="font-metropolis font-semibold text-gray-700 group-hover:underline">
         {project?.attributes?.name}
       </h2>
 

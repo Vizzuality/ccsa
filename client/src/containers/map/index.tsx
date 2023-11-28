@@ -21,7 +21,7 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
   const { [id]: map } = useMap();
 
   const [bbox, setBbox] = useSyncBbox();
-  const [, setCountry] = useSyncCountry();
+  const [country, setCountry] = useSyncCountry();
   const HOVER = useRef<mapboxgl.MapboxGeoJSONFeature | null>(null);
 
   const handleMapViewStateChange = () => {
@@ -96,6 +96,12 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
       const COUNTRY_FEATURE = e.features.find(
         (f) => f.layer.source === "countries-source" || f.layer.source === "projects-source",
       );
+
+      if (!COUNTRY_FEATURE) return;
+
+      if (country === COUNTRY_FEATURE?.properties?.iso3) {
+        return setCountry(null);
+      }
 
       setCountry(COUNTRY_FEATURE?.properties?.iso3 || null);
     }

@@ -9,7 +9,7 @@ export default function ProjectsPage() {
       <div className="relative z-10 h-full w-full bg-white">
         <div className="h-full overflow-auto">
           <div className="space-y-5 px-5 py-10">
-            <h1 className="font-metropolis text-3xl tracking-tight">Projects</h1>
+            <h1 className="font-metropolis text-3xl tracking-tight text-gray-700">Projects</h1>
 
             <div className="space-y-5">
               <ProjectsFilters />
