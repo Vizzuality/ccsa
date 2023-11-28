@@ -7,8 +7,12 @@ import { useGetDatasets } from "@/types/generated/dataset";
 
 import { useSyncCountriesComparison, useSyncCountry, useSyncDatasets } from "@/app/store";
 
+import CountryDialog from "@/containers/countries/dialog";
 import { MultiCombobox } from "@/containers/countries/multicombobox";
 import Popup from "@/containers/popup";
+
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const CountryPopup = () => {
   const [country] = useSyncCountry();
@@ -55,10 +59,17 @@ const CountryPopup = () => {
 
       return {
         id,
+        unit: attributes?.unit,
         name: attributes?.name,
         values,
       };
     });
+
+  const { format } = Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
 
   return (
     <Popup visibleKey={country}>
@@ -100,13 +111,15 @@ const CountryPopup = () => {
                     return (
                       <tr key={t?.id} className="border-t">
                         <td className="py-3 pr-3">
-                          <span className="whitespace-nowrap text-sm leading-none">{t?.name}</span>
+                          <span className="whitespace-nowrap text-sm leading-none">
+                            {t?.name} {!!t?.unit ? `(${t?.unit})` : ""}
+                          </span>
                         </td>
                         {t?.values?.map((v) => {
                           return (
                             <td key={v.iso3} className="p-3">
                               <span className="whitespace-nowrap text-sm leading-none">
-                                {v.value ?? "-"}
+                                {v.value ? format(+v.value) : "-"}
                               </span>
                             </td>
                           );
@@ -118,6 +131,15 @@ const CountryPopup = () => {
               </table>
             )}
           </div>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="primary-outline">Open Table detail</Button>
+            </DialogTrigger>
+            <DialogContent className="block max-w-[90svw] md:w-auto">
+              <CountryDialog />
+            </DialogContent>
+          </Dialog>
         </section>
       </div>
     </Popup>
