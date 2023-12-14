@@ -1,5 +1,5 @@
 module.exports = {
-  hrt: {
+  ccsa: {
     output: {
       mode: "tags",
       client: "react-query",
