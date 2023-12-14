@@ -31,6 +31,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 const CSV_CONFIG = mkConfig({
+  filename: `CCSA-data-`,
   useKeysAsHeaders: true,
 });
 
@@ -200,7 +201,10 @@ const CountryDownloadDialog = () => {
                 <Button
                   onClick={() => {
                     if (!CSV_DATA) return;
-                    download(CSV_CONFIG)(CSV_DATA);
+                    download({
+                      ...CSV_CONFIG,
+                      filename: `${CSV_CONFIG.filename}${new Date().toISOString()}.csv`,
+                    })(CSV_DATA);
                   }}
                 >
                   Download
