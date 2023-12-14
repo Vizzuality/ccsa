@@ -5833,6 +5833,7 @@ __metadata:
     eslint-config-next: 13.5.3
     eslint-config-prettier: 9.0.0
     eslint-plugin-prettier: 5.0.0
+    export-to-csv: 1.2.1
     express: 4.18.2
     husky: 8.0.3
     jotai: ^2.5.0
@@ -7550,6 +7551,13 @@ __metadata:
   version: 3.1.1
   resolution: "exponential-backoff@npm:3.1.1"
   checksum: 3d21519a4f8207c99f7457287291316306255a328770d320b401114ec8481986e4e467e854cb9914dd965e0a1ca810a23ccb559c642c88f4c7f55c55778a9b48
+  languageName: node
+  linkType: hard
+
+"export-to-csv@npm:1.2.1":
+  version: 1.2.1
+  resolution: "export-to-csv@npm:1.2.1"
+  checksum: 42cbdda3db5e2cb2f97bb32e0a3af221eed6d74c36c155e6d7f212fccd1e7c8e5924fd813ce3f14b9dedd571a6db111355da0467e565f8df537bfa73e4e8c0bb
   languageName: node
   linkType: hard
 
