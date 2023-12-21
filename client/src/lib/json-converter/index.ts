@@ -7,6 +7,9 @@ import FUNCTIONS from "@/lib/utils";
 
 import { ParamsConfig } from "@/types/layers";
 
+import LegendTreeCoverLoss from "@/containers/map/legend/custom/tree-cover-loss";
+
+import DecodeLayer from "@/components/map/layers/decode-layer";
 import {
   LegendTypeBasic,
   LegendTypeChoropleth,
@@ -20,6 +23,7 @@ export const JSON_CONFIGURATION = new JSONConfiguration({
     {},
     require("@deck.gl/layers"),
     require("@deck.gl/aggregation-layers"),
+    { DecodeLayer },
   ),
   functions: FUNCTIONS,
   enumerations: {},
@@ -27,6 +31,7 @@ export const JSON_CONFIGURATION = new JSONConfiguration({
     LegendTypeBasic,
     LegendTypeChoropleth,
     LegendTypeGradient,
+    LegendTreeCoverLoss,
   },
 });
 
