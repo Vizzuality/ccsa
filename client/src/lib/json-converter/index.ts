@@ -10,6 +10,7 @@ import { ParamsConfig } from "@/types/layers";
 import LegendTreeCoverLoss from "@/containers/map/legend/custom/tree-cover-loss";
 
 import DecodeLayer from "@/components/map/layers/decode-layer";
+import DecodeLayerComponent from "@/components/map/layers/decode-layer/component";
 import {
   LegendTypeBasic,
   LegendTypeChoropleth,
@@ -28,6 +29,7 @@ export const JSON_CONFIGURATION = new JSONConfiguration({
   functions: FUNCTIONS,
   enumerations: {},
   reactComponents: {
+    DecodeLayerComponent,
     LegendTypeBasic,
     LegendTypeChoropleth,
     LegendTypeGradient,

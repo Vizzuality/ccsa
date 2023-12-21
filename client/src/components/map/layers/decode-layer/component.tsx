@@ -1,13 +1,19 @@
+import { useMemo } from "react";
+
 import { GeoBoundingBox, TileLayer } from "@deck.gl/geo-layers/typed";
 import { BitmapLayer } from "@deck.gl/layers/typed";
 import GL from "@luma.gl/constants";
+import { Layer } from "deck.gl/typed";
 import { RasterSource } from "mapbox-gl";
 
-import { LayerProps } from "@/types/layers";
+import { useGetCategories } from "@/types/generated/category";
 
 import DecodeExtension from "@/components/map/layers/decode-layer/extension";
+import { useDeckMapboxOverlay } from "@/components/map/provider";
 
-export interface DecodeLayerProps extends LayerProps {
+export interface DecodeLayerComponentProps {
+  id: string;
+  beforeId: string;
   source: RasterSource;
   opacity: number;
   visibility: boolean;
@@ -15,15 +21,19 @@ export interface DecodeLayerProps extends LayerProps {
   decodeParams: Record<string, unknown>;
 }
 
-class DecodeLayer {
-  constructor({ id, source, visibility, opacity, decodeFunction, decodeParams }: DecodeLayerProps) {
-    return new TileLayer<
-      unknown,
-      {
-        decodeFunction: DecodeLayerProps["decodeFunction"];
-        decodeParams: DecodeLayerProps["decodeParams"];
-      }
-    >({
+export default function DecodeLayerComponent({
+  id,
+  source,
+  visibility,
+  opacity,
+  decodeFunction,
+  decodeParams,
+}: DecodeLayerComponentProps) {
+  const { data } = useGetCategories();
+  console.info(data);
+
+  const layer: Layer = useMemo(() => {
+    return new TileLayer<unknown, DecodeLayerComponentProps>({
       id,
       data: source.tiles,
       tileSize: source.tileSize ?? 256,
@@ -72,7 +82,12 @@ class DecodeLayer {
         return null;
       },
     });
-  }
-}
+  }, [id, decodeFunction, decodeParams, source, opacity, visibility]);
 
-export default DecodeLayer;
+  useDeckMapboxOverlay({
+    id,
+    layer,
+  });
+
+  return null;
+}

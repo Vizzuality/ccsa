@@ -1,11 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { createContext, PropsWithChildren, useCallback, useContext, useMemo, useRef } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 
 import { useControl, useMap } from "react-map-gl";
 
 import { MapboxOverlay, MapboxOverlayProps } from "@deck.gl/mapbox/typed";
+import { Layer } from "deck.gl/typed";
 
 interface DeckMapboxOverlayContext {
   addLayer: (layer: any) => void;
@@ -90,4 +99,27 @@ export const useDeckMapboxOverlayContext = () => {
   }
 
   return context;
+};
+
+export const useDeckMapboxOverlay = ({ id, layer }: { id: string; layer: Layer | null }) => {
+  const i = `${id}-deck`;
+  const { addLayer, removeLayer } = useDeckMapboxOverlayContext();
+
+  useEffect(() => {
+    if (!layer) return;
+    // Give the map a chance to load the background layer before adding the Deck layer
+    setTimeout(() => {
+      // @ts-expect-error not typed
+      addLayer(layer.clone({ id: i, beforeId: id }));
+    }, 10);
+  }, [i, id, layer, addLayer]);
+
+  useEffect(() => {
+    if (!layer) return;
+    return () => {
+      removeLayer(i);
+    };
+  }, [i, removeLayer]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return { addLayer, removeLayer };
 };
