@@ -8,7 +8,6 @@ import { useDeckMapboxOverlay } from "@/components/map/provider";
 
 export type DeckLayerProps<T> = LayerProps &
   Partial<T> & {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     config: Layer | null;
   };
 
