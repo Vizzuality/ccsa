@@ -22,8 +22,8 @@ export default class RingExtension extends LayerExtension {
           vRandom = aRandom;
         `,
         "vs:DECKGL_FILTER_SIZE": `
-          const float timespan = 1.5;
-          float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + vRandom)) / timespan));
+          float timespan = 1.5 + vRandom;
+          float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + (vRandom * 1000.0))) / timespan));
           // float wave = sin(uTime * 2.0) * 0.5 + 0.5;
           size *= wave * 3.0;`,
         "fs:#decl": `
@@ -33,12 +33,12 @@ export default class RingExtension extends LayerExtension {
         `,
 
         "fs:DECKGL_FILTER_COLOR": `
-          const float timespan = 1.5;
-          float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + vRandom)) / timespan));
+          float timespan = 1.5 + vRandom;
+          float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + (vRandom * 1000.0))) / timespan));
           // float wave = sin(uTime * 2.0) * 0.5 + 0.5;
           float circle = (geometry.uv.x * geometry.uv.x + geometry.uv.y * geometry.uv.y);
-          vec4 color1 = vec4(1.0, 1.0, 1.0, 0.6);
-          vec4 color2 = vec4(1.0, 0.0, 0.0, 0.8);
+          vec4 color1 = vec4(0.5, 0.5, 0.5, 0.6);
+          vec4 color2 = vec4(0.5, 0.5, 0.5, 0.8);
           color = mix(color1, color2, circle + wave);;
           color.a = 1. - wave;
         `,
