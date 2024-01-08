@@ -1,4 +1,4 @@
-import { Layer, LayerExtension } from "@deck.gl/core/typed";
+import { Layer, LayerExtension, LayerContext } from "@deck.gl/core/typed";
 
 type RingExtensionType = Layer<{
   decodeFunction: string;
@@ -15,20 +15,26 @@ export default class RingExtension extends LayerExtension {
         "vs:#decl": `
           uniform float uTime;
           uniform float uStartTime;
+          attribute float aRandom;
+          varying float vRandom;
+        `,
+        "vs:#main-start": `
+          vRandom = aRandom;
         `,
         "vs:DECKGL_FILTER_SIZE": `
           const float timespan = 1.5;
-          float wave = smoothstep(0.0, 1.0, fract((uTime - uStartTime) / timespan));
+          float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + vRandom)) / timespan));
           // float wave = sin(uTime * 2.0) * 0.5 + 0.5;
           size *= wave * 3.0;`,
         "fs:#decl": `
           uniform float uTime;
           uniform float uStartTime;
+          varying float vRandom;
         `,
 
         "fs:DECKGL_FILTER_COLOR": `
           const float timespan = 1.5;
-          float wave = smoothstep(0.0, 1.0, fract((uTime - uStartTime) / timespan));
+          float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + vRandom)) / timespan));
           // float wave = sin(uTime * 2.0) * 0.5 + 0.5;
           float circle = (geometry.uv.x * geometry.uv.x + geometry.uv.y * geometry.uv.y);
           vec4 color1 = vec4(1.0, 1.0, 1.0, 0.6);
@@ -41,8 +47,6 @@ export default class RingExtension extends LayerExtension {
   }
 
   draw(this: Layer, params: Record<string, unknown>, extension: this): void {
-    // const { uniforms } = params;
-
     for (const model of this.getModels()) {
       model.setUniforms({
         uTime: performance.now() / 1000,
@@ -55,16 +59,23 @@ export default class RingExtension extends LayerExtension {
     super.draw(params, extension);
   }
 
-  // initializeState(this: Layer, context: LayerContext, extension: this): void {
-  //   super.initializeState(context, extension);
+  initializeState(this: Layer, context: LayerContext, extension: this): void {
+    super.initializeState(context, extension);
 
-  //   for (const model of this.getModels()) {
-  //     model.setUniforms({
-  //       uTime: performance.now() / 1000,
-  //       uStartTime: performance.now() / 1000,
-  //     });
-  //   }
-  // }
+    const attributeManager = this.getAttributeManager();
+
+    attributeManager!.addInstanced({
+      random: {
+        size: 1,
+        accessor: "getRandom",
+        shaderAttributes: {
+          aRandom: {
+            vertexOffset: 0,
+          },
+        },
+      },
+    });
+  }
 
   // updateState(this: RingExtensionType) {
   //   // const { decodeParams = {}, zoom } = this.props;

@@ -2,6 +2,7 @@ import { useMemo } from "react";
 
 import { ScatterplotLayer } from "@deck.gl/layers/typed";
 import { Layer } from "deck.gl/typed";
+import { Feature, FeatureCollection } from "geojson";
 import { RasterSource } from "mapbox-gl";
 
 import { useGetCategories } from "@/types/generated/category";
@@ -17,6 +18,7 @@ const GEOSJON = {
       properties: {
         name: "Tokyo",
         country: "Japan",
+        random: Math.random(),
       },
       geometry: {
         type: "Point",
@@ -28,6 +30,7 @@ const GEOSJON = {
       properties: {
         name: "Paris",
         country: "France",
+        random: Math.random(),
       },
       geometry: {
         type: "Point",
@@ -39,6 +42,7 @@ const GEOSJON = {
       properties: {
         name: "Washington, D.C.",
         country: "United States",
+        random: Math.random(),
       },
       geometry: {
         type: "Point",
@@ -50,6 +54,7 @@ const GEOSJON = {
       properties: {
         name: "Cape Town",
         country: "South Africa",
+        random: Math.random(),
       },
       geometry: {
         type: "Point",
@@ -57,7 +62,7 @@ const GEOSJON = {
       },
     },
   ],
-};
+} satisfies FeatureCollection;
 
 export interface RingLayerComponentProps {
   id: string;
@@ -94,6 +99,7 @@ export default function RingLayerComponent({ id, visibility, opacity }: RingLaye
       visible: visibility ?? true,
       getPosition: (d) => d.geometry.coordinates,
       getFillColor: [255, 0, 0],
+      getRandom: (d: Feature) => d.properties!.random * 1000,
       getRadius: 10,
       radiusUnits: "pixels",
       extensions: [new RingExtension()],
