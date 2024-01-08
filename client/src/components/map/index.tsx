@@ -16,7 +16,7 @@ import env from "@/env.mjs";
 
 import { cn } from "@/lib/classnames";
 
-import { DEFAULT_VIEW_STATE } from "../../constants/map";
+import { DEFAULT_VIEW_STATE, MAPBOX_STYLE } from "../../constants/map";
 
 import type { CustomMapProps } from "./types";
 
@@ -146,7 +146,7 @@ export const Map: FC<CustomMapProps> = ({
         mapboxAccessToken={env.NEXT_PUBLIC_MAPBOX_API_TOKEN}
         onMove={handleMapMove}
         onLoad={handleMapLoad}
-        mapStyle="mapbox://styles/layer-manager/clj8fgofm000t01pjcu21agsd"
+        mapStyle={MAPBOX_STYLE}
         {...mapboxProps}
         {...localViewState}
       >
