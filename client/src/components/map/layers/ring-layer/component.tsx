@@ -81,8 +81,12 @@ export default function RingLayerComponent({ id, visibility, opacity }: RingLaye
       opacity: opacity ?? 1,
       visible: visibility ?? true,
       getPosition: (d) => d.geometry.coordinates,
-      getFillColor: [125, 125, 125],
-      getRadius: 8,
+      getFillColor: (d) => [
+        (1 - Math.abs(d.geometry.coordinates[1] / 90)) * 255,
+        (1 - Math.abs(d.geometry.coordinates[0] / 180)) * 255,
+        0,
+      ],
+      getRadius: 2,
       radiusUnits: "pixels",
       pickable: true,
       onClick: (props) => {
@@ -108,14 +112,14 @@ export default function RingLayerComponent({ id, visibility, opacity }: RingLaye
 
   useDeckMapboxOverlay({
     id,
-    did: "1",
-    layer: layer1,
+    did: "2",
+    layer: layer2,
   });
 
   useDeckMapboxOverlay({
     id,
-    did: "2",
-    layer: layer2,
+    did: "1",
+    layer: layer1,
   });
 
   return null;
