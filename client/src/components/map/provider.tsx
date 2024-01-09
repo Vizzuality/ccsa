@@ -101,8 +101,16 @@ export const useDeckMapboxOverlayContext = () => {
   return context;
 };
 
-export const useDeckMapboxOverlay = ({ id, layer }: { id: string; layer: Layer | null }) => {
-  const i = `${id}-deck`;
+export const useDeckMapboxOverlay = ({
+  id,
+  layer,
+  did,
+}: {
+  id: string;
+  layer: Layer | null;
+  did?: string;
+}) => {
+  const i = did ?? `${id}-deck`;
   const { addLayer, removeLayer } = useDeckMapboxOverlayContext();
 
   useEffect(() => {

@@ -10,7 +10,7 @@ export default class DecodeExtension extends LayerExtension {
   getShaders(this: DecodeExtensionType) {
     return {
       inject: {
-        "fs:#decl": `
+        "fs:#decl": /*glsl*/ `
           uniform float zoom;
           uniform float startYear;
           uniform float endYear;
