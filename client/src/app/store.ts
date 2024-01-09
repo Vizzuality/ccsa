@@ -104,7 +104,7 @@ export const useSyncSearchParams = () => {
 
   // Preview
   if (publicationStateParser.defaultValue !== publicationState)
-    sp.set("preview", publicationStateParser.serialize(publicationState));
+    sp.set("publicationState", publicationStateParser.serialize(publicationState));
 
   return sp;
 };

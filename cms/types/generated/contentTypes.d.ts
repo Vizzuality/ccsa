@@ -836,9 +836,7 @@ export interface ApiLayerLayer extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    type: Attribute.Enumeration<
-      ['mapbox', 'deckgl', 'countries', 'component']
-    > &
+    type: Attribute.Enumeration<['mapbox', 'deckgl', 'countries']> &
       Attribute.Required &
       Attribute.DefaultTo<'mapbox'>;
     config: Attribute.JSON & Attribute.Required;
