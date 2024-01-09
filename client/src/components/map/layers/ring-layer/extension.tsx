@@ -12,30 +12,48 @@ export default class RingExtension extends LayerExtension {
   getShaders(this: RingExtensionType) {
     return {
       inject: {
-        "vs:#decl": `
+        // VERTEX SHADER
+        "vs:#decl": /*glsl*/ `
           uniform float uTime;
           uniform float uStartTime;
+
           attribute float aRandom;
+
           varying float vRandom;
           varying vec3 vWorldPosition;
         `,
-        "vs:#main-start": `
+        "vs:#main-end": /*glsl*/ `
           vRandom = aRandom;
-        `,
-        "vs:DECKGL_FILTER_SIZE": `
           vWorldPosition = geometry.worldPosition;
-          float timespan = 1.5 + vRandom;
-          float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + (vRandom * 1000.0))) / timespan));
-          // float wave = sin(uTime * 2.0) * 0.5 + 0.5;
-          size *= wave * (1.0 + (3.0 * (1.0 - abs(vWorldPosition.x / 180.0))));`,
-        "fs:#decl": `
+        `,
+        "vs:DECKGL_FILTER_SIZE": /*glsl*/ `
+          float timespan = 1.5 + aRandom;
+          float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + (aRandom * 1000.0))) / timespan));
+
+          // Based on world positions
+          // float a = clamp(abs((vWorldPosition.y * 1.5 / 90.0)), 0.0, 1.0);
+          // float a = clamp(abs(((vWorldPosition.y - 40.0) * 5.0) / 90.0), 0.0, 1.0);
+
+          // Based on current viewport
+          // We dont't have access to the geometry.position.y because at this moment the position in not projected yet
+          vec4 common_pos = project_position(vec4(geometry.worldPosition, 1.0));
+          vec4 pos = project_common_position_to_clipspace(common_pos);
+          float ax = abs(pos.x);
+          float ay = abs(pos.y);
+          float a = clamp((ax + ay) / 2.0, 0.0, 1.0);
+
+          size *= wave * (1.0 + (3.0 * (1.0 - a)));`,
+
+        // FRAGMENT SHADER
+        "fs:#decl": /*glsl*/ `
           uniform float uTime;
           uniform float uStartTime;
+
           varying float vRandom;
           varying vec3 vWorldPosition;
         `,
 
-        "fs:DECKGL_FILTER_COLOR": `
+        "fs:DECKGL_FILTER_COLOR": /*glsl*/ `
           float timespan = 1.5 + vRandom;
           float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + (vRandom * 1000.0))) / timespan));
           // float wave = sin(uTime * 2.0) * 0.5 + 0.5;
