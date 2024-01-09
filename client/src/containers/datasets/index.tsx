@@ -4,7 +4,7 @@ import { useAtomValue } from "jotai";
 
 import { useGetDatasets } from "@/types/generated/dataset";
 
-import { datasetSearchAtom } from "@/app/store";
+import { datasetSearchAtom, useSyncPublicationState } from "@/app/store";
 
 import { GET_DATASETS_OPTIONS } from "@/constants/datasets";
 
@@ -16,12 +16,16 @@ type DatasetsProps = {
 
 const Datasets = ({ categoryId }: DatasetsProps) => {
   const datasetSearch = useAtomValue(datasetSearchAtom);
+  const [publicationState] = useSyncPublicationState();
 
-  const { data: datasetsData } = useGetDatasets(GET_DATASETS_OPTIONS(datasetSearch, categoryId), {
-    query: {
-      keepPreviousData: true,
+  const { data: datasetsData } = useGetDatasets(
+    GET_DATASETS_OPTIONS(datasetSearch, categoryId, publicationState),
+    {
+      query: {
+        keepPreviousData: true,
+      },
     },
-  });
+  );
 
   return (
     <div className="space-y-2.5">

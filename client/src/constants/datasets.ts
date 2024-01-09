@@ -1,4 +1,4 @@
-export function GET_CATEGORIES_OPTIONS(search?: string) {
+export function GET_CATEGORIES_OPTIONS(search?: string, publicationState?: string) {
   return {
     "pagination[pageSize]": 100,
     populate: "datasets",
@@ -12,10 +12,15 @@ export function GET_CATEGORIES_OPTIONS(search?: string) {
         },
       }),
     },
+    publicationState: publicationState || "live",
   };
 }
 
-export function GET_DATASETS_OPTIONS(search?: string, categoryId?: number) {
+export function GET_DATASETS_OPTIONS(
+  search?: string,
+  categoryId?: number,
+  publicationState?: string,
+) {
   return {
     "pagination[pageSize]": 100,
     filters: {
@@ -28,5 +33,6 @@ export function GET_DATASETS_OPTIONS(search?: string, categoryId?: number) {
     },
     populate: "*",
     sort: "name:asc",
+    publicationState: publicationState || "live",
   };
 }

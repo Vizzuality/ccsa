@@ -27,11 +27,12 @@ export default class RingExtension extends LayerExtension {
           vWorldPosition = geometry.worldPosition;
         `,
         "vs:DECKGL_FILTER_SIZE": /*glsl*/ `
+          vWorldPosition = geometry.worldPosition;
           float timespan = 1.5 + aRandom;
           float wave = smoothstep(0.0, 1.0, fract((uTime - (uStartTime + (aRandom * 10.0))) / timespan));
 
           // Based on world positions
-          // float a = clamp(abs((vWorldPosition.y * 1.5 / 90.0)), 0.0, 1.0);
+          // float a = clamp(abs((vWorldPosition.y / 90.0)), 0.0, 1.0);
           // float a = clamp(abs(((vWorldPosition.y - 40.0) * 5.0) / 90.0), 0.0, 1.0);
 
           // Based on current viewport
