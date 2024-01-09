@@ -42,11 +42,13 @@ const CountryPopup = () => {
 
   const COUNTRY = countriesData?.data?.find((c) => c.attributes?.iso3 === country);
 
-  const TABLE_COLUMNS_DATA = [country, ...countriesComparison].map((c) => {
-    const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
+  const TABLE_COLUMNS_DATA = [country, ...countriesComparison]
+    .map((c) => {
+      const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
 
-    return C?.attributes?.name;
-  });
+      return C?.attributes?.name;
+    })
+    .filter((c) => !!c);
 
   const TABLE_ROWS_DATA = datasetsData?.data
     ?.sort((a, b) => {

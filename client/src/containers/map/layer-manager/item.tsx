@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback } from "react";
+import { ReactElement, cloneElement, useCallback } from "react";
 
+import { Layer } from "deck.gl/typed";
 import { useAtomValue, useSetAtom } from "jotai";
 
 import { parseConfig } from "@/lib/json-converter";
@@ -117,14 +118,25 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
 
   if (type === "deckgl") {
     const { config, params_config } = data.data.attributes;
-    const c = parseConfig({
-      // TODO: type
+    const c = parseConfig<Layer>({
       config,
       params_config,
       settings,
     });
 
     return <DeckLayer id={`${id}-layer`} beforeId={beforeId} config={c} />;
+  }
+
+  if (type === "component") {
+    const { config, params_config } = data.data.attributes;
+    const c = parseConfig<ReactElement>({
+      config,
+      params_config,
+      settings,
+    });
+
+    if (!c) return null;
+    return cloneElement(c, { id: `${id}-layer`, beforeId });
   }
 };
 
