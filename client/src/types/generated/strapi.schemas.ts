@@ -1941,6 +1941,7 @@ export const LayerType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
   countries: "countries",
+  component: "component",
 } as const;
 
 export interface Layer {
@@ -2027,6 +2028,7 @@ export const LayerDatasetDataAttributesLayersDataItemAttributesType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
   countries: "countries",
+  component: "component",
 } as const;
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetDataAttributes = {
@@ -2350,6 +2352,7 @@ export const LayerRequestDataType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
   countries: "countries",
+  component: "component",
 } as const;
 
 export type LayerRequestDataDataset = number | string;
@@ -2756,6 +2759,7 @@ export const DatasetCategoryDataAttributesDatasetsDataItemAttributesLayersDataIt
   mapbox: "mapbox",
   deckgl: "deckgl",
   countries: "countries",
+  component: "component",
 } as const;
 
 export type DatasetCategoryDataAttributesDatasetsDataItemAttributesLayersDataItemAttributes = {
@@ -3388,6 +3392,7 @@ export const CategoryDatasetsDataItemAttributesLayersDataItemAttributesType = {
   mapbox: "mapbox",
   deckgl: "deckgl",
   countries: "countries",
+  component: "component",
 } as const;
 
 export type CategoryDatasetsDataItemAttributesLayersDataItemAttributes = {
