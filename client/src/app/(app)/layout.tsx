@@ -38,10 +38,12 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   await queryClient.prefetchQuery(getGetCountriesQueryOptions(GET_COUNTRIES_OPTIONS));
 
   // Prefetch categories
-  await queryClient.prefetchQuery(getGetCategoriesQueryOptions(GET_CATEGORIES_OPTIONS()));
+  await queryClient.prefetchQuery(
+    getGetCategoriesQueryOptions(GET_CATEGORIES_OPTIONS("", searchParams.get("preview") || "")),
+  );
 
   const CATEGORIES = queryClient.getQueryData<CategoryListResponse>(
-    getGetCategoriesQueryKey(GET_CATEGORIES_OPTIONS()),
+    getGetCategoriesQueryKey(GET_CATEGORIES_OPTIONS("", searchParams.get("preview") || "")),
   );
 
   for (const category of CATEGORIES?.data || []) {
@@ -49,7 +51,9 @@ export default async function AppLayout({ children }: PropsWithChildren) {
 
     // Prefetch datasets
     await queryClient.prefetchQuery(
-      getGetDatasetsQueryOptions(GET_DATASETS_OPTIONS("", category.id)),
+      getGetDatasetsQueryOptions(
+        GET_DATASETS_OPTIONS("", category.id, searchParams.get("preview") || ""),
+      ),
     );
   }
 

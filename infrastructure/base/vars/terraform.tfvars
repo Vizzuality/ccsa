@@ -17,4 +17,4 @@ ec2_instance_type  = "m5a.large"
 rds_engine_version = "15.4"
 rds_instance_class = "db.t3.micro"
 
-mapbox_api_token = "pk.eyJ1IjoibGF5ZXItbWFuYWdlciIsImEiOiJjazA2dTJnMG0zc3lwM251dGM0aXhiYTVxIn0.AaoErQTRezfQshqnEKIg8A"
+mapbox_api_token = "pk.eyJ1IjoiY2FyaWJiZWFuYWNjZWxlcmF0b3IiLCJhIjoiY2xvZWRkcTh1MGNvdzJrcnIwNnRzMWR1bCJ9.0rdNVly6MY_jibnGpdqYvA"

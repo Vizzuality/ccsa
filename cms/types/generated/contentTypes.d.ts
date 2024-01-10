@@ -791,6 +791,38 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
   };
 }
 
+export interface ApiDownloadEmailDownloadEmail extends Schema.CollectionType {
+  collectionName: 'download_emails';
+  info: {
+    singularName: 'download-email';
+    pluralName: 'download-emails';
+    displayName: 'Download Email';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    downloads: Attribute.Integer & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::download-email.download-email',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::download-email.download-email',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiLayerLayer extends Schema.CollectionType {
   collectionName: 'layers';
   info: {
@@ -804,7 +836,9 @@ export interface ApiLayerLayer extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    type: Attribute.Enumeration<['mapbox', 'deckgl', 'countries']> &
+    type: Attribute.Enumeration<
+      ['mapbox', 'deckgl', 'countries', 'component']
+    > &
       Attribute.Required &
       Attribute.DefaultTo<'mapbox'>;
     config: Attribute.JSON & Attribute.Required;
@@ -966,6 +1000,7 @@ declare module '@strapi/types' {
       'api::category.category': ApiCategoryCategory;
       'api::country.country': ApiCountryCountry;
       'api::dataset.dataset': ApiDatasetDataset;
+      'api::download-email.download-email': ApiDownloadEmailDownloadEmail;
       'api::layer.layer': ApiLayerLayer;
       'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;

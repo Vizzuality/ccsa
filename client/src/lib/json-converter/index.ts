@@ -7,6 +7,11 @@ import FUNCTIONS from "@/lib/utils";
 
 import { ParamsConfig } from "@/types/layers";
 
+import LegendTreeCoverLoss from "@/containers/map/legend/custom/tree-cover-loss";
+
+import DecodeLayer from "@/components/map/layers/decode-layer";
+import DecodeLayerComponent from "@/components/map/layers/decode-layer/component";
+import RingLayerComponent from "@/components/map/layers/ring-layer/component";
 import {
   LegendTypeBasic,
   LegendTypeChoropleth,
@@ -20,13 +25,17 @@ export const JSON_CONFIGURATION = new JSONConfiguration({
     {},
     require("@deck.gl/layers"),
     require("@deck.gl/aggregation-layers"),
+    { DecodeLayer },
   ),
   functions: FUNCTIONS,
   enumerations: {},
   reactComponents: {
+    DecodeLayerComponent,
+    RingLayerComponent,
     LegendTypeBasic,
     LegendTypeChoropleth,
     LegendTypeGradient,
+    LegendTreeCoverLoss,
   },
 });
 

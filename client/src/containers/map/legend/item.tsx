@@ -1,10 +1,10 @@
 "use-client";
-import { ReactElement, createElement, isValidElement, useMemo } from "react";
+import { ReactElement, cloneElement, createElement, isValidElement, useMemo } from "react";
 
 import { parseConfig } from "@/lib/json-converter";
 
 import { useGetLayersId } from "@/types/generated/layer";
-import { LayerTyped, LegendConfig } from "@/types/layers";
+import { LayerTyped, LegendConfig, ParamsConfig } from "@/types/layers";
 import { LegendType } from "@/types/legend";
 
 import { useSyncDatasets, useSyncLayers, useSyncLayersSettings } from "@/app/store";
@@ -47,7 +47,7 @@ const getSettingsManager = (data: LayerTyped = {} as LayerTyped): SettingsManage
 const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
   const [, setLayers] = useSyncLayers();
   const [, setDatasets] = useSyncDatasets();
-  const [layersSettings] = useSyncLayersSettings();
+  const [layersSettings, setLayersSettings] = useSyncLayersSettings();
 
   const { data, isError, isFetched, isFetching, isPlaceholderData } = useGetLayersId(id, {
     populate: "metadata,dataset",
@@ -67,7 +67,14 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
   }, [attributes]);
 
   const LEGEND_COMPONENT = useMemo(() => {
-    const l = parseConfig<LegendConfig | ReactElement | null>({
+    const l = parseConfig<
+      | LegendConfig
+      | ReactElement<{
+          paramsConfig: ParamsConfig;
+          onChangeSettings: (settings: Record<string, unknown>) => unknown;
+        }>
+      | null
+    >({
       config: legend_config,
       params_config,
       settings: (layersSettings && layersSettings[`${id}`]) ?? {},
@@ -76,7 +83,18 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
     if (!l) return null;
 
     if (isValidElement(l)) {
-      return l;
+      return cloneElement(l, {
+        paramsConfig: params_config,
+        onChangeSettings: (settings: Record<string, unknown>) => {
+          setLayersSettings((prev) => ({
+            ...prev,
+            [`${id}`]: {
+              ...((prev ?? {})[`${id}`] ?? {}),
+              ...settings,
+            },
+          }));
+        },
+      });
     }
 
     if (!isValidElement(l) && "items" in l) {
@@ -85,7 +103,7 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
     }
 
     return null;
-  }, [id, legend_config, params_config, layersSettings]);
+  }, [id, legend_config, params_config, layersSettings, setLayersSettings]);
 
   return (
     <ContentLoader

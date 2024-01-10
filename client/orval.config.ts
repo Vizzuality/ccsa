@@ -22,7 +22,16 @@ module.exports = {
     input: {
       target: "../cms/src/extensions/documentation/documentation/1.0.0/full_documentation.json",
       filters: {
-        tags: ["Project", "Dataset", "Layer", "Country", "Category", "Pillar", "Sdg"],
+        tags: [
+          "Project",
+          "Dataset",
+          "Layer",
+          "Country",
+          "Category",
+          "Pillar",
+          "Sdg",
+          "Download-email",
+        ],
       },
     },
   },
