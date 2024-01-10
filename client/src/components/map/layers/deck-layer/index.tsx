@@ -1,31 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
+import { Layer } from "deck.gl/typed";
 
 import { LayerProps } from "@/types/layers";
 
-import { useDeckMapboxOverlayContext } from "@/components/map/provider";
+import { useDeckMapboxOverlay } from "@/components/map/provider";
 
 export type DeckLayerProps<T> = LayerProps &
   Partial<T> & {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    config: any;
+    config: Layer | null;
   };
 
 const DeckJsonLayer = <T,>({ id, config }: DeckLayerProps<T>) => {
-  // Render deck config
-  const i = `${id}-deck`;
-  const { addLayer, removeLayer } = useDeckMapboxOverlayContext();
-
-  useEffect(() => {
-    addLayer(config.clone({ id: i, beforeId: id }));
-  }, [i, id, config, addLayer]);
-
-  useEffect(() => {
-    return () => {
-      removeLayer(i);
-    };
-  }, [i, removeLayer]);
+  useDeckMapboxOverlay({
+    id: `${id}`,
+    layer: config,
+  });
 
   return null;
 };

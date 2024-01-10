@@ -7,7 +7,7 @@ import { useGetDatasets } from "@/types/generated/dataset";
 
 import { useSyncCountriesComparison, useSyncCountry, useSyncDatasets } from "@/app/store";
 
-const CountryDialog = () => {
+const CountryDataDialog = () => {
   const [country] = useSyncCountry();
   const [countriesComparison] = useSyncCountriesComparison();
   const [datasets] = useSyncDatasets();
@@ -107,4 +107,4 @@ const CountryDialog = () => {
   );
 };
 
-export default CountryDialog;
+export default CountryDataDialog;

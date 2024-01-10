@@ -11,6 +11,7 @@ import {
   layersSettingsParser,
   mapSettingsParser,
   pillarsParser,
+  publicationStateParser,
   projectParser,
 } from "@/app/parsers";
 
@@ -54,6 +55,10 @@ export const useSyncAvailableForFunding = () => {
   return useQueryState("available_for_funding", availableForFundingParser);
 };
 
+export const useSyncPublicationState = () => {
+  return useQueryState("publicationState", publicationStateParser);
+};
+
 export const useSyncSearchParams = () => {
   const [datasets] = useSyncDatasets();
   const [layers] = useSyncLayers();
@@ -65,6 +70,7 @@ export const useSyncSearchParams = () => {
   const [project] = useSyncProject();
   const [pillars] = useSyncPillars();
   const [availableForFunding] = useSyncAvailableForFunding();
+  const [publicationState] = useSyncPublicationState();
 
   const sp = new URLSearchParams();
 
@@ -95,6 +101,10 @@ export const useSyncSearchParams = () => {
   if (availableForFundingParser.defaultValue !== availableForFunding) {
     sp.set("available_for_funding", availableForFundingParser.serialize(!!availableForFunding));
   }
+
+  // Preview
+  if (publicationStateParser.defaultValue !== publicationState)
+    sp.set("publicationState", publicationStateParser.serialize(publicationState));
 
   return sp;
 };

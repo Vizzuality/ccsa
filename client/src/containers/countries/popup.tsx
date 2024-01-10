@@ -8,7 +8,8 @@ import { useGetDatasets } from "@/types/generated/dataset";
 
 import { useSyncCountriesComparison, useSyncCountry, useSyncDatasets } from "@/app/store";
 
-import CountryDialog from "@/containers/countries/dialog";
+import CountryDataDialog from "@/containers/countries/data-dialog";
+import CountryDownloadDialog from "@/containers/countries/download-dialog";
 import { MultiCombobox } from "@/containers/countries/multicombobox";
 import Popup from "@/containers/popup";
 
@@ -41,11 +42,13 @@ const CountryPopup = () => {
 
   const COUNTRY = countriesData?.data?.find((c) => c.attributes?.iso3 === country);
 
-  const TABLE_COLUMNS_DATA = [country, ...countriesComparison].map((c) => {
-    const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
+  const TABLE_COLUMNS_DATA = [country, ...countriesComparison]
+    .map((c) => {
+      const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
 
-    return C?.attributes?.name;
-  });
+      return C?.attributes?.name;
+    })
+    .filter((c) => !!c);
 
   const TABLE_ROWS_DATA = datasetsData?.data
     ?.sort((a, b) => {
@@ -127,14 +130,25 @@ const CountryPopup = () => {
             )}
           </div>
 
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="primary-outline">Open Table detail</Button>
-            </DialogTrigger>
-            <DialogContent className="block max-w-[90svw] md:w-auto">
-              <CountryDialog />
-            </DialogContent>
-          </Dialog>
+          <div className="flex space-x-2.5">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="primary-outline">Open Table detail</Button>
+              </DialogTrigger>
+              <DialogContent className="block max-w-[90svw] md:w-auto">
+                <CountryDataDialog />
+              </DialogContent>
+            </Dialog>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="primary-outline">Download data</Button>
+              </DialogTrigger>
+              <DialogContent className="block max-w-[90svw] md:w-auto">
+                <CountryDownloadDialog />
+              </DialogContent>
+            </Dialog>
+          </div>
         </section>
       </div>
     </Popup>

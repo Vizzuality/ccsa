@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "download_emails",
+  "info": {
+    "singularName": "download-email",
+    "pluralName": "download-emails",
+    "displayName": "Download Email",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "downloads": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

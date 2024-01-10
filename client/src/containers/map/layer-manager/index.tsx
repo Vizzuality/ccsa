@@ -25,7 +25,10 @@ const LayerManager = () => {
     if (!layers?.length && !layersSettings) return;
 
     if (!layers?.length && layersSettings) {
-      setLayersSettings(null);
+      setTimeout(() => {
+        setLayersSettings(null);
+      }, 0);
+
       return;
     }
 
@@ -34,11 +37,13 @@ const LayerManager = () => {
     lSettingsKeys.forEach((key) => {
       if (layers.includes(Number(key))) return;
 
-      setLayersSettings((prev) => {
-        const current = { ...prev };
-        delete current[key];
-        return current;
-      });
+      setTimeout(() => {
+        setLayersSettings((prev) => {
+          const current = { ...prev };
+          delete current[key];
+          return current;
+        });
+      }, 0);
     });
   }, [layers, layersSettings, setLayersSettings]);
 

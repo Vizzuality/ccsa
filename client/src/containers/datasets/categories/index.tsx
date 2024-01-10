@@ -6,7 +6,7 @@ import { useAtomValue } from "jotai";
 
 import { useGetCategories } from "@/types/generated/category";
 
-import { datasetSearchAtom } from "@/app/store";
+import { datasetSearchAtom, useSyncPublicationState } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
@@ -17,12 +17,16 @@ import { Accordion } from "@/components/ui/accordion";
 const DatasetsCategories = () => {
   const [values, setValues] = useState<string[]>();
   const datasetSearch = useAtomValue(datasetSearchAtom);
+  const [publicationState] = useSyncPublicationState();
 
-  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(datasetSearch), {
-    query: {
-      keepPreviousData: true,
+  const { data: categoriesData } = useGetCategories(
+    GET_CATEGORIES_OPTIONS(datasetSearch, publicationState),
+    {
+      query: {
+        keepPreviousData: true,
+      },
     },
-  });
+  );
 
   const VALUE = useMemo(() => {
     if (!values) return categoriesData?.data?.map((c) => `${c?.id}`);
