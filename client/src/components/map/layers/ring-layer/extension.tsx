@@ -54,6 +54,7 @@ export default class RingExtension extends LayerExtension {
         "fs:#decl": /*glsl*/ `
           uniform float uTime;
           uniform float uStartTime;
+          uniform float opacity;
 
           varying float vRandom;
           varying vec3 vWorldPosition;
@@ -71,7 +72,7 @@ export default class RingExtension extends LayerExtension {
           vec4 color2 = vec4(r, g, 0.0, 0.8);
 
           color = mix(color1, color2, circle + wave);
-          color.a = 1. - wave;
+          color.a = (1. - wave) * opacity;
         `,
       },
     };

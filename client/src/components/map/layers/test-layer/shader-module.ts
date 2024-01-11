@@ -23,6 +23,7 @@ import type { Viewport, _ShaderModule as ShaderModule } from "@deck.gl/core/type
 
 type ShaderModuleSettings = {
   uRadius?: number;
+  uStartTime: number;
   // From layer context
   viewport: Viewport;
   mousePosition?: { x: number; y: number };
@@ -84,6 +85,7 @@ const fs = /* glsl */ `
   uniform bool uEnabled;
   uniform float uTime;
   uniform float uStartTime;
+  uniform float opacity;
 
   in float isVisible;
 
@@ -148,7 +150,7 @@ const inject = {
 
     // float wave = sin(uTime * 2.0) * 0.5 + 0.5;
     color = mix(color1, color2, circle + wave);
-    color.a = 1. - wave;
+    color.a = (1. - wave) * opacity;
   `,
 };
 
@@ -162,11 +164,13 @@ export default {
     if (!opts || !("viewport" in opts)) {
       return {};
     }
-    const { uRadius = 5000000, mousePosition, viewport } = opts;
+    const { uRadius = 5000000, uStartTime, mousePosition, viewport } = opts;
 
     return {
       uEnabled: Boolean(mousePosition && viewport.containsPixel(mousePosition)),
       uRadius: uRadius,
+      uStartTime: uStartTime,
+      uTime: performance.now() / 1000,
       uMousePos: mousePosition
         ? viewport.unproject([mousePosition.x - viewport.x, mousePosition.y - viewport.y])
         : [0, 0],

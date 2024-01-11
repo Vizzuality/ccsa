@@ -15,6 +15,8 @@ export interface TestLayerComponentProps {
 }
 
 export default function TestLayerComponent({ id, visibility, opacity }: TestLayerComponentProps) {
+  const uStartTime = useMemo(() => performance.now() / 1000, []);
+
   const layer1: Layer = useMemo(() => {
     return new ScatterplotLayer({
       id,
@@ -47,9 +49,10 @@ export default function TestLayerComponent({ id, visibility, opacity }: TestLaye
       getRandom: () => Math.random(),
       getRadius: 8,
       radiusUnits: "pixels",
+      uStartTime,
       extensions: [new TestExtension()],
     });
-  }, [id, opacity, visibility]);
+  }, [id, opacity, visibility, uStartTime]);
 
   useDeckMapboxOverlay({
     id,

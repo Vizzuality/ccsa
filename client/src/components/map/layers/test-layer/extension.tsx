@@ -7,8 +7,6 @@ type TestExtensionType = Layer<{
 }>;
 
 export default class TestExtension extends LayerExtension {
-  startTime = performance.now() / 1000;
-
   getShaders(this: TestExtensionType) {
     return {
       modules: [shaderModule],
@@ -59,13 +57,6 @@ export default class TestExtension extends LayerExtension {
   }
 
   draw(this: Layer, params: Record<string, unknown>, extension: this): void {
-    for (const model of this.getModels()) {
-      model.setUniforms({
-        uTime: performance.now() / 1000,
-        uStartTime: extension.startTime,
-      });
-    }
-
     this.setNeedsRedraw();
 
     super.draw(params, extension);
