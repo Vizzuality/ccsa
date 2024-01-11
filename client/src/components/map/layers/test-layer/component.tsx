@@ -53,13 +53,13 @@ export default function TestLayerComponent({ id, visibility, opacity }: TestLaye
 
   useDeckMapboxOverlay({
     id,
-    did: "2",
+    did: "test-2",
     layer: layer2,
   });
 
   useDeckMapboxOverlay({
     id,
-    did: "1",
+    did: "test-1",
     layer: layer1,
   });
 
