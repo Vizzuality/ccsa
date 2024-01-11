@@ -12,6 +12,7 @@ import LegendTreeCoverLoss from "@/containers/map/legend/custom/tree-cover-loss"
 import DecodeLayer from "@/components/map/layers/decode-layer";
 import DecodeLayerComponent from "@/components/map/layers/decode-layer/component";
 import RingLayerComponent from "@/components/map/layers/ring-layer/component";
+import TestLayerComponent from "@/components/map/layers/test-layer/component";
 import {
   LegendTypeBasic,
   LegendTypeChoropleth,
@@ -32,6 +33,7 @@ export const JSON_CONFIGURATION = new JSONConfiguration({
   reactComponents: {
     DecodeLayerComponent,
     RingLayerComponent,
+    TestLayerComponent,
     LegendTypeBasic,
     LegendTypeChoropleth,
     LegendTypeGradient,
