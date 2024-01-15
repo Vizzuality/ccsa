@@ -4,19 +4,19 @@ import { useAtomValue } from "jotai";
 
 import { useGetProjects } from "@/types/generated/project";
 
-import { projectSearchAtom, useSyncCountry, useSyncPillars } from "@/app/store";
+import { projectSearchAtom, useSyncCountries, useSyncPillars } from "@/app/store";
 
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 
 const ProjectsHeader = () => {
   const projectSearch = useAtomValue(projectSearchAtom);
   const [pillars] = useSyncPillars();
-  const [country] = useSyncCountry();
+  const [countries] = useSyncCountries();
 
   const { data } = useGetProjects(
     GET_PROJECTS_OPTIONS(projectSearch, {
       pillars,
-      country,
+      countries,
     }),
     {
       query: {

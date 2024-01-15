@@ -4,7 +4,9 @@ import { useCallback, useRef, useState } from "react";
 
 import { LngLatBoundsLike, useMap } from "react-map-gl";
 
-import { useSyncBbox, useSyncCountry } from "@/app/store";
+import { usePathname } from "next/navigation";
+
+import { useSyncBbox, useSyncCountries, useSyncCountry } from "@/app/store";
 
 import LayerManager from "@/containers/map/layer-manager";
 import Legend from "@/containers/map/legend";
@@ -20,8 +22,11 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
   const [cursor, setCursor] = useState<string>("");
   const { [id]: map } = useMap();
 
+  const pathname = usePathname();
+
   const [bbox, setBbox] = useSyncBbox();
   const [country, setCountry] = useSyncCountry();
+  const [, setCountries] = useSyncCountries();
   const HOVER = useRef<mapboxgl.MapboxGeoJSONFeature | null>(null);
 
   const handleMapViewStateChange = () => {
@@ -96,6 +101,16 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
       const COUNTRY_FEATURE = e.features.find(
         (f) => f.layer.source === "countries-source" || f.layer.source === "projects-source",
       );
+
+      if (pathname === "/projects") {
+        if (!COUNTRY_FEATURE) return setCountries([]);
+
+        const countryISO = COUNTRY_FEATURE?.properties?.iso3;
+
+        if (!countryISO) return setCountries([]);
+
+        return setCountries([countryISO]);
+      }
 
       if (country === COUNTRY_FEATURE?.properties?.iso3 || !COUNTRY_FEATURE) {
         return setCountry(null);

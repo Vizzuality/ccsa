@@ -14,7 +14,7 @@ import { getGetProjectsQueryOptions } from "@/types/generated/project";
 import { getGetSdgsQueryOptions } from "@/types/generated/sdg";
 import { CategoryListResponse } from "@/types/generated/strapi.schemas";
 
-import { countryParser, pillarsParser } from "@/app/parsers";
+import { countriesParser, pillarsParser } from "@/app/parsers";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_CATEGORIES_OPTIONS, GET_DATASETS_OPTIONS } from "@/constants/datasets";
@@ -62,7 +62,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
     getGetProjectsQueryOptions(
       GET_PROJECTS_OPTIONS("", {
         pillars: pillarsParser.parseServerSide(searchParams.get("pillars") || []),
-        country: countryParser.parseServerSide(searchParams.get("country") || ""),
+        countries: countriesParser.parseServerSide(searchParams.get("countries") || []),
       }),
     ),
   );

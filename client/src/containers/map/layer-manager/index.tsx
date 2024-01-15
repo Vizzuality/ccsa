@@ -6,7 +6,12 @@ import { Layer } from "react-map-gl";
 
 import { usePathname } from "next/navigation";
 
-import { useSyncCountry, useSyncLayers, useSyncLayersSettings } from "@/app/store";
+import {
+  useSyncCountries,
+  useSyncCountry,
+  useSyncLayers,
+  useSyncLayersSettings,
+} from "@/app/store";
 
 import LayerManagerItem from "@/containers/map/layer-manager/item";
 
@@ -19,6 +24,7 @@ const LayerManager = () => {
   const [layers] = useSyncLayers();
   const [layersSettings, setLayersSettings] = useSyncLayersSettings();
   const [country] = useSyncCountry();
+  const [countries] = useSyncCountries();
 
   // Sync layers settings with layers
   useMemo(() => {
@@ -52,6 +58,7 @@ const LayerManager = () => {
       <>
         <CountriesLayer
           id="countries"
+          beforeId="custom-layers"
           config={{
             styles: [
               {
@@ -66,14 +73,24 @@ const LayerManager = () => {
                 id: "countries-layer-line",
                 type: "line",
                 paint: {
-                  "line-color": ["case", ["==", ["get", "iso3"], country], "#333", "#777"],
+                  "line-color": [
+                    "case",
+                    ...(pathname === "/" ? [["==", ["get", "iso3"], country], "#333"] : []),
+                    ...(pathname === "/projects" && countries?.length
+                      ? countries.map((c) => [["==", ["get", "iso3"], c], "#333"]).flat()
+                      : [true, "#777"]),
+                    "#777",
+                  ],
                   "line-opacity": 1,
                   "line-width": [
                     "case",
-                    ["==", ["get", "iso3"], country],
-                    2,
                     ["boolean", ["feature-state", "hover"], false],
                     2,
+                    ...(pathname === "/" ? [["==", ["get", "iso3"], country], 2] : []),
+                    ...(pathname === "/projects" && countries?.length
+                      ? countries.map((c) => [["==", ["get", "iso3"], c], 2]).flat()
+                      : []),
+
                     1.5,
                   ],
                 },
@@ -93,8 +110,6 @@ const LayerManager = () => {
                   paint: {
                     "circle-color": [
                       "case",
-                      ["==", ["get", "iso3"], country],
-                      "#5dc22c",
                       ["boolean", ["feature-state", "hover"], false],
                       "#5dc22c",
                       "#78D64B",
@@ -110,15 +125,15 @@ const LayerManager = () => {
                     ],
                     "circle-stroke-color": "#fff",
                     "circle-stroke-width": 2,
-                    "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
-                    "circle-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
+                    "circle-stroke-opacity": ["interpolate", ["linear"], ["zoom"], 2, 0, 3, 1],
+                    "circle-opacity": ["interpolate", ["linear"], ["zoom"], 2, 0, 3, 1],
                   },
                 },
                 {
                   id: "projects-layer-label",
                   type: "symbol",
                   paint: {
-                    "text-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4, 1],
+                    "text-opacity": ["interpolate", ["linear"], ["zoom"], 2, 0, 3, 1],
                   },
                   layout: {
                     "text-field": ["get", "projects"],
@@ -160,7 +175,7 @@ const LayerManager = () => {
                     // Adjust the heatmap radius by zoom level
                     "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 0, 20, 4, 40],
                     // Transition from heatmap to circle layer by zoom level
-                    "heatmap-opacity": ["interpolate", ["linear"], ["zoom"], 3, 1, 4, 0],
+                    "heatmap-opacity": ["interpolate", ["linear"], ["zoom"], 2, 1, 3, 0],
                   },
                 },
               ],

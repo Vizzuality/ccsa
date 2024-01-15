@@ -11,7 +11,7 @@ import * as z from "zod";
 import { useGetCountries } from "@/types/generated/country";
 import { useGetPillars } from "@/types/generated/pillar";
 
-import { useSyncAvailableForFunding, useSyncCountry, useSyncPillars } from "@/app/store";
+import { useSyncAvailableForFunding, useSyncCountries, useSyncPillars } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
@@ -27,31 +27,26 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { MultiCombobox } from "@/components/ui/multicombobox";
 
 const FormSchema = z.object({
   pillars: z.array(z.number()),
-  country: z.string().optional(),
+  countries: z.array(z.string()).optional(),
   available_for_funding: z.boolean().optional(),
 });
 
 const ProjectsFiltersDialog = () => {
   const [open, setOpen] = useState(false);
-  const [country, setCountry] = useSyncCountry();
+
   const [pillars, setPillars] = useSyncPillars();
   const [availableForFunding, setAvailableForFunding] = useSyncAvailableForFunding();
+  const [countries, setCountries] = useSyncCountries();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       pillars,
-      country: undefined,
+      countries: [],
       available_for_funding: undefined,
     },
   });
@@ -59,8 +54,7 @@ const ProjectsFiltersDialog = () => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setPillars(data.pillars);
 
-    if (data.country === "all") setCountry(null);
-    else setCountry(data.country ?? null);
+    setCountries(data.countries ?? null);
 
     setAvailableForFunding(!!data.available_for_funding);
 
@@ -69,11 +63,22 @@ const ProjectsFiltersDialog = () => {
   const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS);
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
+  const OPTIONS = useMemo(() => {
+    if (!countriesData?.data) return [];
+
+    return countriesData.data.map((c) => {
+      return {
+        value: c.attributes?.iso3 ?? "",
+        label: c.attributes?.name ?? "",
+      };
+    });
+  }, [countriesData]);
+
   useMemo(() => {
     form.setValue("pillars", pillars);
-    form.setValue("country", country ?? undefined);
+    form.setValue("countries", countries ?? undefined);
     form.setValue("available_for_funding", availableForFunding ?? undefined);
-  }, [form, pillars, country, availableForFunding]);
+  }, [form, pillars, countries, availableForFunding]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -174,33 +179,17 @@ const ProjectsFiltersDialog = () => {
               {/* COUNTRY */}
               <FormField
                 control={form.control}
-                name="country"
+                name="countries"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-base">Country</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a country" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {/* @ts-expect-error I know what I'm doing */}
-                        <SelectItem value={null}>All</SelectItem>
 
-                        {countriesData?.data?.map((item) => {
-                          if (!!item.attributes?.iso3) {
-                            const countryIso = item.attributes?.iso3;
-
-                            return (
-                              <SelectItem key={countryIso} value={countryIso}>
-                                {item.attributes?.name}
-                              </SelectItem>
-                            );
-                          }
-                        })}
-                      </SelectContent>
-                    </Select>
+                    <MultiCombobox
+                      values={field.value}
+                      options={OPTIONS}
+                      placeholder="Select a country..."
+                      onChange={field.onChange}
+                    />
 
                     <FormMessage />
                   </FormItem>
