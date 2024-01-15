@@ -32,7 +32,7 @@ const ProjectsHeader = () => {
       <div className="flex translate-y-0.5 items-center space-x-1.5 text-xxs">
         <span className="font-semibold uppercase text-gray-400">Total number of projects:</span>
         <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-green-200/50 font-semibold">
-          {data?.meta?.pagination?.total || "-"}
+          {data?.meta?.pagination?.total ?? "-"}
         </span>
       </div>
     </header>

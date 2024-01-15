@@ -31,6 +31,11 @@ const ProjectsLayer = ({ id, beforeId, config, onAdd, onRemove }: ProjectsLayerP
       pillars,
       countries,
     }),
+    {
+      query: {
+        keepPreviousData: true,
+      },
+    },
   );
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
