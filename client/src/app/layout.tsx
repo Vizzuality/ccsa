@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 
 import PoweredBy from "@/containers/powered-by";
 
+import { metropolis, openSans } from "@/styles/fonts";
+
 import LayoutProviders from "./layout-providers";
 
 export const metadata: Metadata = {
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <LayoutProviders>
-      <html lang="en">
+      <html lang="en" className={`${openSans.variable} ${metropolis.variable}`}>
         <body>
           {children}
 
