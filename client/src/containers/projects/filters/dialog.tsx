@@ -51,8 +51,8 @@ const ProjectsFiltersDialog = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       pillars,
-      country: country ?? undefined,
-      available_for_funding: availableForFunding ?? undefined,
+      country: undefined,
+      available_for_funding: undefined,
     },
   });
 
