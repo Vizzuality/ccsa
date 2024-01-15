@@ -58,17 +58,9 @@ const LayerManager = () => {
       <>
         <CountriesLayer
           id="countries"
-          beforeId="custom-layers"
+          beforeId="priority-layers"
           config={{
             styles: [
-              {
-                id: "countries-layer-fill",
-                type: "fill",
-                paint: {
-                  "fill-color": "#000",
-                  "fill-opacity": 0,
-                },
-              },
               {
                 id: "countries-layer-line",
                 type: "line",
@@ -93,6 +85,14 @@ const LayerManager = () => {
 
                     1.5,
                   ],
+                },
+              },
+              {
+                id: "countries-layer-fill",
+                type: "fill",
+                paint: {
+                  "fill-color": "#000",
+                  "fill-opacity": 0,
                 },
               },
             ],
