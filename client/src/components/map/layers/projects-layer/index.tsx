@@ -12,7 +12,7 @@ import { useGetCountries } from "@/types/generated/country";
 import { useGetProjects } from "@/types/generated/project";
 import { Config, LayerProps } from "@/types/layers";
 
-import { projectSearchAtom, useSyncCountry, useSyncPillars } from "@/app/store";
+import { projectSearchAtom, useSyncCountries, useSyncPillars } from "@/app/store";
 
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 
@@ -24,13 +24,18 @@ export type ProjectsLayerProps = LayerProps & {
 const ProjectsLayer = ({ id, beforeId, config, onAdd, onRemove }: ProjectsLayerProps) => {
   const projectSearch = useAtomValue(projectSearchAtom);
   const [pillars] = useSyncPillars();
-  const [country] = useSyncCountry();
+  const [countries] = useSyncCountries();
 
   const { data: projectsData } = useGetProjects(
     GET_PROJECTS_OPTIONS(projectSearch, {
       pillars,
-      country,
+      countries,
     }),
+    {
+      query: {
+        keepPreviousData: true,
+      },
+    },
   );
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
@@ -54,8 +59,8 @@ const ProjectsLayer = ({ id, beforeId, config, onAdd, onRemove }: ProjectsLayerP
             ).length;
           })
           .filter((c) => {
-            if (country) {
-              return c.attributes?.iso3 === country;
+            if (countries?.length) {
+              return countries.includes(`${c.attributes?.iso3}`);
             }
             return true;
           })
@@ -79,7 +84,7 @@ const ProjectsLayer = ({ id, beforeId, config, onAdd, onRemove }: ProjectsLayerP
           }),
       },
     } satisfies GeoJSONSourceRaw;
-  }, [id, country, countriesData, projectsData]);
+  }, [id, countries, countriesData, projectsData]);
 
   const STYLES = config.styles;
 
