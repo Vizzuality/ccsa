@@ -22,6 +22,10 @@
       "relation": "oneToMany",
       "target": "api::project.project",
       "mappedBy": "pillar"
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
     }
   }
 }

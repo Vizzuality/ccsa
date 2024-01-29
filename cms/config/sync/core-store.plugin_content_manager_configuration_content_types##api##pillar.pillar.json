@@ -49,6 +49,20 @@
           "sortable": false
         }
       },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -109,6 +123,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "name",
+        "createdAt",
+        "updatedAt"
+      ],
       "edit": [
         [
           {
@@ -121,13 +141,13 @@
             "name": "projects",
             "size": 6
           }
+        ],
+        [
+          {
+            "name": "description",
+            "size": 12
+          }
         ]
-      ],
-      "list": [
-        "id",
-        "name",
-        "createdAt",
-        "updatedAt"
       ]
     }
   },

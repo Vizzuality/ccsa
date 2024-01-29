@@ -70,7 +70,10 @@ const ProjectPopup = () => {
           {!!pillar?.data?.attributes?.name && (
             <div className="space-y-2.5">
               <h3 className="text-xxs uppercase text-gray-500">Pillar</h3>
-              <div className="text-sm">{pillar?.data?.attributes?.name}</div>
+              <div className="space-y-1 text-sm">
+                <p>{pillar?.data?.attributes?.name}:</p>
+                <p className="text-gray-500">{pillar?.data?.attributes?.description}</p>
+              </div>
             </div>
           )}
 
