@@ -18,3 +18,4 @@ rds_engine_version = "15.4"
 rds_instance_class = "db.t3.micro"
 
 mapbox_api_token = "pk.eyJ1IjoiY2FyaWJiZWFuYWNjZWxlcmF0b3IiLCJhIjoiY2xvZWRkcTh1MGNvdzJrcnIwNnRzMWR1bCJ9.0rdNVly6MY_jibnGpdqYvA"
+ga_tracking_id   = "G-4VYFTFZEY1"
