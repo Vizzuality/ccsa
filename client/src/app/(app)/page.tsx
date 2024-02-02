@@ -13,6 +13,26 @@ export default function HomePage() {
               Explore datasets
             </h1>
 
+            <div className="space-y-2.5">
+              <p className="text-sm text-gray-700">
+                To start using this tool, select some datasets from the list below and click on the
+                map to see country details. Then, go to the country detail that will appear to
+                compare with other countries and download data.
+              </p>
+
+              <p className="text-sm text-gray-700">
+                If you have any other questions email us at{" "}
+                <a
+                  className="text-brand1"
+                  href="mailto:hello@caribbeanaccelerator.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  hello@caribbeanaccelerator.org
+                </a>
+              </p>
+            </div>
+
             <div className="space-y-5">
               <DatasetsSearch />
               <DatasetsHeader />

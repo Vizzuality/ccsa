@@ -22,16 +22,10 @@
       "action": "api::dataset.dataset.findOne"
     },
     {
-      "action": "api::download-email.download-email.create"
-    },
-    {
       "action": "api::download-email.download-email.find"
     },
     {
       "action": "api::download-email.download-email.findOne"
-    },
-    {
-      "action": "api::download-email.download-email.update"
     },
     {
       "action": "api::layer.layer.find"

@@ -31,11 +31,16 @@ const CountryDataDialog = () => {
     },
   );
 
-  const TABLE_COLUMNS_DATA = [country, ...countriesComparison].map((c) => {
-    const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
+  const TABLE_COLUMNS_DATA = [country, ...countriesComparison]
+    .map((c) => {
+      const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
 
-    return C?.attributes?.name;
-  });
+      return C?.attributes?.name;
+    })
+    .sort((a, b) => {
+      if (!a || !b) return 0;
+      return a.localeCompare(b);
+    });
 
   const TABLE_ROWS_DATA = datasetsData?.data
     ?.sort((a, b) => {

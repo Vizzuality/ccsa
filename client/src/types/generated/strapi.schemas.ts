@@ -638,6 +638,7 @@ export type SdgProjectsDataItemAttributesSdgsDataItemAttributesCreatedBy = {
 export type SdgProjectsDataItemAttributesPillarDataAttributes = {
   createdAt?: string;
   createdBy?: SdgProjectsDataItemAttributesPillarDataAttributesCreatedBy;
+  description?: string;
   name?: string;
   projects?: SdgProjectsDataItemAttributesPillarDataAttributesProjects;
   publishedAt?: string;
@@ -1039,6 +1040,7 @@ export type ProjectPillarDataAttributesUpdatedBy = {
 export type ProjectPillarDataAttributes = {
   createdAt?: string;
   createdBy?: ProjectPillarDataAttributesCreatedBy;
+  description?: string;
   name?: string;
   projects?: ProjectPillarDataAttributesProjects;
   publishedAt?: string;
@@ -1467,6 +1469,7 @@ export interface PillarResponse {
 export interface Pillar {
   createdAt?: string;
   createdBy?: PillarCreatedBy;
+  description: string;
   name: string;
   projects?: PillarProjects;
   publishedAt?: string;
@@ -1586,6 +1589,7 @@ export type PillarProjectsDataItemAttributesSdgsDataItemAttributesCreatedBy = {
 export type PillarProjectsDataItemAttributesPillarDataAttributes = {
   createdAt?: string;
   createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesCreatedBy;
+  description?: string;
   name?: string;
   projects?: PillarProjectsDataItemAttributesPillarDataAttributesProjects;
   publishedAt?: string;
@@ -1908,6 +1912,7 @@ export interface PillarListResponse {
 export type PillarRequestDataProjectsItem = number | string;
 
 export type PillarRequestData = {
+  description: string;
   name: string;
   projects?: PillarRequestDataProjectsItem[];
 };

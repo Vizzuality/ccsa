@@ -48,7 +48,11 @@ const CountryPopup = () => {
 
       return C?.attributes?.name;
     })
-    .filter((c) => !!c);
+    .filter((c) => !!c)
+    .sort((a, b) => {
+      if (!a || !b) return 0;
+      return a.localeCompare(b);
+    });
 
   const TABLE_ROWS_DATA = datasetsData?.data
     ?.sort((a, b) => {

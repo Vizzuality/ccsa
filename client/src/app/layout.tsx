@@ -5,7 +5,13 @@ import { PropsWithChildren } from "react";
 
 import type { Metadata } from "next";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
+
+import env from "@/env.mjs";
+
 import PoweredBy from "@/containers/powered-by";
+
+import { metropolis, openSans } from "@/styles/fonts";
 
 import LayoutProviders from "./layout-providers";
 
@@ -17,7 +23,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <LayoutProviders>
-      <html lang="en">
+      <html lang="en" className={`${openSans.variable} ${metropolis.variable}`}>
         <body>
           {children}
 
@@ -25,6 +31,8 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             <PoweredBy />
           </div>
         </body>
+
+        <GoogleAnalytics gaId={env.NEXT_PUBLIC_GA_TRACKING_ID} />
       </html>
     </LayoutProviders>
   );

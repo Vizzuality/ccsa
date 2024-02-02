@@ -10,6 +10,7 @@ import {
   layersParser,
   layersSettingsParser,
   mapSettingsParser,
+  countriesParser,
   pillarsParser,
   publicationStateParser,
   projectParser,
@@ -47,6 +48,10 @@ export const useSyncProject = () => {
   return useQueryState("project", projectParser);
 };
 
+export const useSyncCountries = () => {
+  return useQueryState("countries", countriesParser);
+};
+
 export const useSyncPillars = () => {
   return useQueryState("pillars", pillarsParser);
 };
@@ -69,6 +74,7 @@ export const useSyncSearchParams = () => {
   const [countriesComparison] = useSyncCountriesComparison();
   const [project] = useSyncProject();
   const [pillars] = useSyncPillars();
+  const [countries] = useSyncCountries();
   const [availableForFunding] = useSyncAvailableForFunding();
   const [publicationState] = useSyncPublicationState();
 
@@ -96,6 +102,8 @@ export const useSyncSearchParams = () => {
   // Project
   if (project) sp.set("project", projectParser.serialize(project));
   if (pillarsParser.defaultValue !== pillars) sp.set("pillars", pillarsParser.serialize(pillars));
+  if (countriesParser.defaultValue !== countries)
+    sp.set("countries", countriesParser.serialize(countries));
 
   // Available for funding
   if (availableForFundingParser.defaultValue !== availableForFunding) {

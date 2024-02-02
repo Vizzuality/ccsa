@@ -68,7 +68,6 @@ variable "rds_backup_retention_period" {
 
 variable "ga_tracking_id" {
   type        = string
-  default     = ""
   description = "Google Analytics tracking id"
 }
 

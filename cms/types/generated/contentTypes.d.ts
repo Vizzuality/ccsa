@@ -886,6 +886,7 @@ export interface ApiPillarPillar extends Schema.CollectionType {
       'oneToMany',
       'api::project.project'
     >;
+    description: Attribute.RichText & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
