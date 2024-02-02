@@ -41,7 +41,7 @@ export type GetSdgsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -95,7 +95,7 @@ export type GetProjectsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -149,7 +149,7 @@ export type GetPillarsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -257,7 +257,7 @@ export type GetLayersParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -311,7 +311,7 @@ export type GetDownloadEmailsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -419,7 +419,7 @@ export type GetDatasetsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -473,7 +473,7 @@ export type GetCountriesParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -527,7 +527,7 @@ export type GetCategoriesParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
