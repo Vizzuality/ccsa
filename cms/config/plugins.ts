@@ -45,7 +45,7 @@ module.exports = ({ env }) => ({
                 generatedDocumentationDraft.paths[path].get.parameters[fieldsIndex] = {
                   "name": "fields",
                   "in": "query",
-                  "description": "Fields to return (ex: ['title','author'])",
+                  "description": "Fields to return (ex: ['title','author','test'])",
                   "deprecated": false,
                   "required": false,
                   "schema": {
