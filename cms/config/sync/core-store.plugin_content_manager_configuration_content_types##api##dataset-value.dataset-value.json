@@ -167,12 +167,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "dataset",
-        "country",
-        "value_text"
-      ],
+      "list": ["id", "dataset", "country", "value_text"],
       "edit": [
         [
           {
