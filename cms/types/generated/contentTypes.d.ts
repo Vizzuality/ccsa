@@ -802,85 +802,6 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
   };
 }
 
-export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
-  collectionName: "collaborators";
-  info: {
-    singularName: "collaborator";
-    pluralName: "collaborators";
-    displayName: "Collaborator";
-    description: "";
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    link: Attribute.String;
-    type: Attribute.Enumeration<["donor", "collaborator"]> & Attribute.Required;
-    collaborator_edit_suggestions: Attribute.Relation<
-      "api::collaborator.collaborator",
-      "oneToMany",
-      "api::collaborator-edit-suggestion.collaborator-edit-suggestion"
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      "api::collaborator.collaborator",
-      "oneToOne",
-      "admin::user"
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      "api::collaborator.collaborator",
-      "oneToOne",
-      "admin::user"
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
-  extends Schema.CollectionType {
-  collectionName: "collaborator_edit_suggestions";
-  info: {
-    singularName: "collaborator-edit-suggestion";
-    pluralName: "collaborator-edit-suggestions";
-    displayName: "Collaborator Edit Suggestion";
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    link: Attribute.String;
-    type: Attribute.Enumeration<["donor", "collaborator"]>;
-    collaborator: Attribute.Relation<
-      "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
-      "manyToOne",
-      "api::collaborator.collaborator"
-    >;
-    review_status: Attribute.Enumeration<["pending", "approved", "declined"]> &
-      Attribute.Required &
-      Attribute.DefaultTo<"pending">;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
-      "oneToOne",
-      "admin::user"
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
-      "oneToOne",
-      "admin::user"
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiCountryCountry extends Schema.CollectionType {
   collectionName: "countries";
   info: {
@@ -942,7 +863,6 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       "api::layer.layer"
     >;
     unit: Attribute.String;
-<<<<<<< HEAD
     value_type: Attribute.Enumeration<
       ["text", "number", "boolean", "resource"]
     > &
@@ -952,10 +872,6 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       "oneToMany",
       "api::dataset-edit-suggestion.dataset-edit-suggestion"
     >;
-=======
-    value_type: Attribute.Enumeration<['text', 'number', 'boolean']> &
-      Attribute.Required;
->>>>>>> 58af0de (Added value_type to datasets)
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -2068,6 +1984,38 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
       Attribute.Private;
     updatedBy: Attribute.Relation<
       "api::project-edit-suggestion.project-edit-suggestion",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiResourceResource extends Schema.CollectionType {
+  collectionName: "resources";
+  info: {
+    singularName: "resource";
+    pluralName: "resources";
+    displayName: "Resource";
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    link_title: Attribute.String & Attribute.Required;
+    link_url: Attribute.Text & Attribute.Required;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      "api::resource.resource",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      "api::resource.resource",
       "oneToOne",
       "admin::user"
     > &
