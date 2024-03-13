@@ -8,10 +8,7 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": [
-          "name",
-          "datasets"
-        ]
+        "fields": ["name", "datasets"]
       },
       "conditions": []
     },
@@ -34,10 +31,7 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": [
-          "name",
-          "datasets"
-        ]
+        "fields": ["name", "datasets"]
       },
       "conditions": []
     },
@@ -46,10 +40,7 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": [
-          "name",
-          "datasets"
-        ]
+        "fields": ["name", "datasets"]
       },
       "conditions": []
     },
@@ -58,13 +49,7 @@
       "actionParameters": {},
       "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator",
-          "review_status"
-        ]
+        "fields": ["name", "link", "type", "collaborator", "review_status"]
       },
       "conditions": []
     },
@@ -87,13 +72,7 @@
       "actionParameters": {},
       "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator",
-          "review_status"
-        ]
+        "fields": ["name", "link", "type", "collaborator", "review_status"]
       },
       "conditions": []
     },
@@ -102,13 +81,7 @@
       "actionParameters": {},
       "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator",
-          "review_status"
-        ]
+        "fields": ["name", "link", "type", "collaborator", "review_status"]
       },
       "conditions": []
     },
@@ -117,12 +90,7 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator_edit_suggestions"
-        ]
+        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
       },
       "conditions": []
     },
@@ -145,12 +113,7 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator_edit_suggestions"
-        ]
+        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
       },
       "conditions": []
     },
@@ -159,12 +122,7 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator_edit_suggestions"
-        ]
+        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
       },
       "conditions": []
     },
@@ -173,13 +131,7 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "name",
-          "iso3",
-          "geometry",
-          "bbox",
-          "link"
-        ]
+        "fields": ["name", "iso3", "geometry", "bbox", "link"]
       },
       "conditions": []
     },
@@ -202,13 +154,7 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "name",
-          "iso3",
-          "geometry",
-          "bbox",
-          "link"
-        ]
+        "fields": ["name", "iso3", "geometry", "bbox", "link"]
       },
       "conditions": []
     },
@@ -217,13 +163,7 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "name",
-          "iso3",
-          "geometry",
-          "bbox",
-          "link"
-        ]
+        "fields": ["name", "iso3", "geometry", "bbox", "link"]
       },
       "conditions": []
     },
@@ -420,10 +360,7 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": [
-          "email",
-          "downloads"
-        ]
+        "fields": ["email", "downloads"]
       },
       "conditions": []
     },
@@ -446,10 +383,7 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": [
-          "email",
-          "downloads"
-        ]
+        "fields": ["email", "downloads"]
       },
       "conditions": []
     },
@@ -458,10 +392,7 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": [
-          "email",
-          "downloads"
-        ]
+        "fields": ["email", "downloads"]
       },
       "conditions": []
     },
@@ -525,7 +456,263 @@
           "params_config",
           "legend_config",
           "interaction_config",
-          "dataset"
+          "dataset",
+          "new_dataset_suggestion",
+          "dataset_edit_suggestion"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::new-collaborator-suggestion.new-collaborator-suggestion",
+      "properties": {
+        "fields": ["name", "link", "type", "review_status"]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::new-collaborator-suggestion.new-collaborator-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::new-collaborator-suggestion.new-collaborator-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::new-collaborator-suggestion.new-collaborator-suggestion",
+      "properties": {
+        "fields": ["name", "link", "type", "review_status"]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::new-collaborator-suggestion.new-collaborator-suggestion",
+      "properties": {
+        "fields": ["name", "link", "type", "review_status"]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::new-dataset-suggestion.new-dataset-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "datum",
+          "category",
+          "description",
+          "layers",
+          "unit",
+          "value_type",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::new-dataset-suggestion.new-dataset-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::new-dataset-suggestion.new-dataset-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::new-dataset-suggestion.new-dataset-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "datum",
+          "category",
+          "description",
+          "layers",
+          "unit",
+          "value_type",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::new-dataset-suggestion.new-dataset-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "datum",
+          "category",
+          "description",
+          "layers",
+          "unit",
+          "value_type",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::new-project-suggestion.new-project-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::new-project-suggestion.new-project-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::new-project-suggestion.new-project-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::new-project-suggestion.new-project-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::new-project-suggestion.new-project-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::new-tool-suggestion.new-tool-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tools_category",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::new-tool-suggestion.new-tool-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::new-tool-suggestion.new-tool-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::new-tool-suggestion.new-tool-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tools_category",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::new-tool-suggestion.new-tool-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tools_category",
+          "review_status"
         ]
       },
       "conditions": []
@@ -594,9 +781,7 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": [
-          "name"
-        ]
+        "fields": ["name"]
       },
       "conditions": []
     },
@@ -619,9 +804,7 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": [
-          "name"
-        ]
+        "fields": ["name"]
       },
       "conditions": []
     },
@@ -630,9 +813,7 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": [
-          "name"
-        ]
+        "fields": ["name"]
       },
       "conditions": []
     },
@@ -641,11 +822,7 @@
       "actionParameters": {},
       "subject": "api::pillar.pillar",
       "properties": {
-        "fields": [
-          "name",
-          "projects",
-          "description"
-        ]
+        "fields": ["name", "projects", "description"]
       },
       "conditions": []
     },
@@ -668,11 +845,7 @@
       "actionParameters": {},
       "subject": "api::pillar.pillar",
       "properties": {
-        "fields": [
-          "name",
-          "projects",
-          "description"
-        ]
+        "fields": ["name", "projects", "description"]
       },
       "conditions": []
     },
@@ -681,11 +854,7 @@
       "actionParameters": {},
       "subject": "api::pillar.pillar",
       "properties": {
-        "fields": [
-          "name",
-          "projects",
-          "description"
-        ]
+        "fields": ["name", "projects", "description"]
       },
       "conditions": []
     },
@@ -860,11 +1029,7 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },
@@ -887,11 +1052,7 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },
@@ -900,11 +1061,7 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },
@@ -913,10 +1070,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "projects"
-        ]
+        "fields": ["name", "projects"]
       },
       "conditions": []
     },
@@ -939,10 +1093,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "projects"
-        ]
+        "fields": ["name", "projects"]
       },
       "conditions": []
     },
@@ -951,10 +1102,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "projects"
-        ]
+        "fields": ["name", "projects"]
       },
       "conditions": []
     },
@@ -963,13 +1111,7 @@
       "actionParameters": {},
       "subject": "api::tool-edit-suggestion.tool-edit-suggestion",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "other_tool",
-          "review_status"
-        ]
+        "fields": ["name", "description", "link", "other_tool", "review_status"]
       },
       "conditions": []
     },
@@ -992,13 +1134,7 @@
       "actionParameters": {},
       "subject": "api::tool-edit-suggestion.tool-edit-suggestion",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "other_tool",
-          "review_status"
-        ]
+        "fields": ["name", "description", "link", "other_tool", "review_status"]
       },
       "conditions": []
     },
@@ -1007,13 +1143,7 @@
       "actionParameters": {},
       "subject": "api::tool-edit-suggestion.tool-edit-suggestion",
       "properties": {
-        "fields": [
-          "name",
-          "description",
-          "link",
-          "other_tool",
-          "review_status"
-        ]
+        "fields": ["name", "description", "link", "other_tool", "review_status"]
       },
       "conditions": []
     },

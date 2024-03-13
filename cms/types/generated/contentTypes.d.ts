@@ -942,6 +942,7 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       "api::layer.layer"
     >;
     unit: Attribute.String;
+<<<<<<< HEAD
     value_type: Attribute.Enumeration<
       ["text", "number", "boolean", "resource"]
     > &
@@ -951,6 +952,10 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       "oneToMany",
       "api::dataset-edit-suggestion.dataset-edit-suggestion"
     >;
+=======
+    value_type: Attribute.Enumeration<['text', 'number', 'boolean']> &
+      Attribute.Required;
+>>>>>>> 58af0de (Added value_type to datasets)
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
