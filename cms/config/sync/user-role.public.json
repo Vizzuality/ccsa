@@ -52,6 +52,12 @@
       "action": "api::project.project.findOne"
     },
     {
+      "action": "api::resource.resource.find"
+    },
+    {
+      "action": "api::resource.resource.findOne"
+    },
+    {
       "action": "api::sdg.sdg.find"
     },
     {
