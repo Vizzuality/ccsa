@@ -39,6 +39,15 @@
     "unit": {
       "type": "string",
       "required": false
+    },
+    "value_type": {
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "number",
+        "boolean"
+      ],
+      "required": true
     }
   }
 }

@@ -120,7 +120,8 @@
           "category",
           "description",
           "layers",
-          "unit"
+          "unit",
+          "value_type"
         ]
       },
       "conditions": []
@@ -150,7 +151,8 @@
           "category",
           "description",
           "layers",
-          "unit"
+          "unit",
+          "value_type"
         ]
       },
       "conditions": []
@@ -166,7 +168,8 @@
           "category",
           "description",
           "layers",
-          "unit"
+          "unit",
+          "value_type"
         ]
       },
       "conditions": []

@@ -773,6 +773,8 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'api::layer.layer'
     >;
     unit: Attribute.String;
+    value_type: Attribute.Enumeration<['text', 'number', 'boolean']> &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
