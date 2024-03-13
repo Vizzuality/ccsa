@@ -956,6 +956,38 @@ export interface ApiProjectProject extends Schema.CollectionType {
   };
 }
 
+export interface ApiResourceResource extends Schema.CollectionType {
+  collectionName: 'resources';
+  info: {
+    singularName: 'resource';
+    pluralName: 'resources';
+    displayName: 'Resource';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    link_title: Attribute.String & Attribute.Required;
+    link_url: Attribute.Text & Attribute.Required;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSdgSdg extends Schema.CollectionType {
   collectionName: 'sdgs';
   info: {
@@ -1007,6 +1039,7 @@ declare module '@strapi/types' {
       'api::layer.layer': ApiLayerLayer;
       'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;
+      'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;
     }
   }

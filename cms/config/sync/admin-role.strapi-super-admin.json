@@ -410,6 +410,59 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
         "fields": [
