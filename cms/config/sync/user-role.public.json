@@ -16,6 +16,12 @@
       "action": "api::country.country.findOne"
     },
     {
+      "action": "api::dataset-value.dataset-value.find"
+    },
+    {
+      "action": "api::dataset-value.dataset-value.findOne"
+    },
+    {
       "action": "api::dataset.dataset.find"
     },
     {
