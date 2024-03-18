@@ -53,60 +53,74 @@ export function MultiCombobox() {
   }, [OPTIONS, comparisonCountries]);
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between"
-        >
-          {SELECTED}
-          <LuChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="popover-content-width-same-as-its-trigger p-0">
-        <Command className="w-full">
-          <CommandInput placeholder="Search country..." className="h-9" />
-          <CommandEmpty>No country found.</CommandEmpty>
-          <CommandGroup>
-            <CommandItem
-              key="clear"
-              value="Clear"
-              className="text-sm font-medium text-primary"
-              onSelect={() => {
-                setComparisonCountries([]);
-              }}
-            >
-              Clear
-            </CommandItem>
-          </CommandGroup>
-          <CommandGroup className="max-h-[30vh] overflow-auto border-t">
-            {OPTIONS.map((o) => (
+    <div className="flex gap-4">
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between"
+          >
+            {SELECTED}
+            <LuChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="popover-content-width-same-as-its-trigger p-0">
+          <Command className="w-full">
+            <CommandInput placeholder="Search country..." className="h-9" />
+            <CommandEmpty>No country found.</CommandEmpty>
+            {/* <CommandGroup>
               <CommandItem
-                key={o.value}
-                value={o.label}
+                key="clear"
+                value="Clear"
+                className="text-sm font-medium text-primary"
                 onSelect={() => {
-                  if (comparisonCountries.includes(o.value)) {
-                    setComparisonCountries(comparisonCountries.filter((c) => c !== o.value));
-                  } else {
-                    setComparisonCountries([...comparisonCountries, o.value]);
-                  }
+                  setComparisonCountries([]);
                 }}
               >
-                {o.label}
-
-                <LuCheck
-                  className={cn(
-                    "ml-auto h-4 w-4",
-                    comparisonCountries.includes(o.value) ? "opacity-100" : "opacity-0",
-                  )}
-                />
+                Clear
               </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+            </CommandGroup> */}
+            <CommandGroup className="max-h-[30vh] overflow-auto border-t">
+              {OPTIONS.map((o) => (
+                <CommandItem
+                  key={o.value}
+                  value={o.label}
+                  onSelect={() => {
+                    if (comparisonCountries.includes(o.value)) {
+                      setComparisonCountries(comparisonCountries.filter((c) => c !== o.value));
+                    } else {
+                      setComparisonCountries([...comparisonCountries, o.value]);
+                    }
+                  }}
+                >
+                  {o.label}
+
+                  <LuCheck
+                    className={cn(
+                      "ml-auto h-4 w-4",
+                      comparisonCountries.includes(o.value) ? "opacity-100" : "opacity-0",
+                    )}
+                  />
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      <Button
+        key="clear"
+        value="Clear"
+        disabled={!comparisonCountries.length}
+        variant="destructive"
+        className="text-sm font-medium"
+        onClick={() => {
+          setComparisonCountries([]);
+        }}
+      >
+        Clear
+      </Button>
+    </div>
   );
 }

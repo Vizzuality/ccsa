@@ -183,13 +183,23 @@ const ProjectsFiltersDialog = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-base">Country</FormLabel>
+                    <div className="flex gap-4">
+                      <MultiCombobox
+                        values={field.value}
+                        options={OPTIONS}
+                        placeholder="Select a country..."
+                        onChange={field.onChange}
+                      />
 
-                    <MultiCombobox
-                      values={field.value}
-                      options={OPTIONS}
-                      placeholder="Select a country..."
-                      onChange={field.onChange}
-                    />
+                      <Button
+                        variant="destructive"
+                        type="button"
+                        disabled={!field.value?.length}
+                        onClick={() => form.setValue("countries", [])}
+                      >
+                        Clear
+                      </Button>
+                    </div>
 
                     <FormMessage />
                   </FormItem>

@@ -58,7 +58,7 @@ export function MultiCombobox({
         <Command className="w-full">
           <CommandInput placeholder="Search country..." className="h-9" />
           <CommandEmpty>No country found.</CommandEmpty>
-          <CommandGroup>
+          {/* <CommandGroup>
             <CommandItem
               key="clear"
               value="Clear"
@@ -69,7 +69,7 @@ export function MultiCombobox({
             >
               Clear
             </CommandItem>
-          </CommandGroup>
+          </CommandGroup> */}
           <CommandGroup className="flex max-h-[30vh] flex-col overflow-auto border-t">
             {options.map((o) => (
               <CommandItem
