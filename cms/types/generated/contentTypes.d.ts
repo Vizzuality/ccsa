@@ -868,6 +868,75 @@ export interface ApiLayerLayer extends Schema.CollectionType {
   };
 }
 
+export interface ApiOtherToolOtherTool extends Schema.CollectionType {
+  collectionName: 'other_tools';
+  info: {
+    singularName: 'other-tool';
+    pluralName: 'other-tools';
+    displayName: 'Other Tools';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.String;
+    link: Attribute.String & Attribute.Required;
+    other_tools_category: Attribute.Relation<
+      'api::other-tool.other-tool',
+      'oneToOne',
+      'api::other-tools-category.other-tools-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::other-tool.other-tool',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::other-tool.other-tool',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOtherToolsCategoryOtherToolsCategory
+  extends Schema.CollectionType {
+  collectionName: 'other_tools_categories';
+  info: {
+    singularName: 'other-tools-category';
+    pluralName: 'other-tools-categories';
+    displayName: 'Other Tools Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::other-tools-category.other-tools-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::other-tools-category.other-tools-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPillarPillar extends Schema.CollectionType {
   collectionName: 'pillars';
   info: {
@@ -1003,6 +1072,8 @@ declare module '@strapi/types' {
       'api::dataset.dataset': ApiDatasetDataset;
       'api::download-email.download-email': ApiDownloadEmailDownloadEmail;
       'api::layer.layer': ApiLayerLayer;
+      'api::other-tool.other-tool': ApiOtherToolOtherTool;
+      'api::other-tools-category.other-tools-category': ApiOtherToolsCategoryOtherToolsCategory;
       'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;
       'api::sdg.sdg': ApiSdgSdg;
