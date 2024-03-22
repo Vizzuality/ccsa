@@ -773,6 +773,8 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'api::layer.layer'
     >;
     unit: Attribute.String;
+    value_type: Attribute.Enumeration<['text', 'number', 'boolean']> &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -784,6 +786,56 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::dataset.dataset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDatasetValueDatasetValue extends Schema.CollectionType {
+  collectionName: 'dataset_values';
+  info: {
+    singularName: 'dataset-value';
+    pluralName: 'dataset-values';
+    displayName: 'DatasetValue';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    dataset: Attribute.Relation<
+      'api::dataset-value.dataset-value',
+      'oneToOne',
+      'api::dataset.dataset'
+    >;
+    country: Attribute.Relation<
+      'api::dataset-value.dataset-value',
+      'oneToOne',
+      'api::country.country'
+    >;
+    value_text: Attribute.String;
+    value_number: Attribute.Decimal &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
+    value_boolean: Attribute.Boolean;
+    resources: Attribute.Relation<
+      'api::dataset-value.dataset-value',
+      'oneToMany',
+      'api::resource.resource'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::dataset-value.dataset-value',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::dataset-value.dataset-value',
       'oneToOne',
       'admin::user'
     > &
@@ -861,6 +913,75 @@ export interface ApiLayerLayer extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::layer.layer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOtherToolOtherTool extends Schema.CollectionType {
+  collectionName: 'other_tools';
+  info: {
+    singularName: 'other-tool';
+    pluralName: 'other-tools';
+    displayName: 'Other Tools';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.String;
+    link: Attribute.String & Attribute.Required;
+    other_tools_category: Attribute.Relation<
+      'api::other-tool.other-tool',
+      'oneToOne',
+      'api::other-tools-category.other-tools-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::other-tool.other-tool',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::other-tool.other-tool',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOtherToolsCategoryOtherToolsCategory
+  extends Schema.CollectionType {
+  collectionName: 'other_tools_categories';
+  info: {
+    singularName: 'other-tools-category';
+    pluralName: 'other-tools-categories';
+    displayName: 'Other Tools Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::other-tools-category.other-tools-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::other-tools-category.other-tools-category',
       'oneToOne',
       'admin::user'
     > &
@@ -954,6 +1075,38 @@ export interface ApiProjectProject extends Schema.CollectionType {
   };
 }
 
+export interface ApiResourceResource extends Schema.CollectionType {
+  collectionName: 'resources';
+  info: {
+    singularName: 'resource';
+    pluralName: 'resources';
+    displayName: 'Resource';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    link_title: Attribute.String & Attribute.Required;
+    link_url: Attribute.Text & Attribute.Required;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSdgSdg extends Schema.CollectionType {
   collectionName: 'sdgs';
   info: {
@@ -1001,10 +1154,14 @@ declare module '@strapi/types' {
       'api::category.category': ApiCategoryCategory;
       'api::country.country': ApiCountryCountry;
       'api::dataset.dataset': ApiDatasetDataset;
+      'api::dataset-value.dataset-value': ApiDatasetValueDatasetValue;
       'api::download-email.download-email': ApiDownloadEmailDownloadEmail;
       'api::layer.layer': ApiLayerLayer;
+      'api::other-tool.other-tool': ApiOtherToolOtherTool;
+      'api::other-tools-category.other-tools-category': ApiOtherToolsCategoryOtherToolsCategory;
       'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;
+      'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;
     }
   }

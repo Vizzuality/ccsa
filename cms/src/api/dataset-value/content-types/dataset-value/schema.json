@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dataset_values",
+  "info": {
+    "singularName": "dataset-value",
+    "pluralName": "dataset-values",
+    "displayName": "DatasetValue",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "dataset": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::dataset.dataset"
+    },
+    "country": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::country.country"
+    },
+    "value_text": {
+      "type": "string"
+    },
+    "value_number": {
+      "type": "decimal",
+      "min": 0,
+      "column": {
+        "defaultTo": 0,
+        "type": "decimal",
+        "args": [
+          12,
+          2
+        ]
+      }
+    },
+    "value_boolean": {
+      "type": "boolean"
+    },
+    "resources": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::resource.resource"
+    }
+  }
+}

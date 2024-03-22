@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "other_tools_categories",
+  "info": {
+    "singularName": "other-tools-category",
+    "pluralName": "other-tools-categories",
+    "displayName": "Other Tools Category"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

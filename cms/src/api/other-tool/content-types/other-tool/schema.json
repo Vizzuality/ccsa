@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "other_tools",
+  "info": {
+    "singularName": "other-tool",
+    "pluralName": "other-tools",
+    "displayName": "Other Tools",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string",
+      "required": true,
+      "regex": "(https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z0-9]{2,}(\\.[a-zA-Z0-9]{2,})(\\.[a-zA-Z0-9]{2,})?"
+    },
+    "other_tools_category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::other-tools-category.other-tools-category"
+    }
+  }
+}
