@@ -203,7 +203,7 @@ export type GetOtherToolsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -365,7 +365,7 @@ export type GetDatasetValuesParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -527,7 +527,7 @@ export type GetCollaboratorsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
