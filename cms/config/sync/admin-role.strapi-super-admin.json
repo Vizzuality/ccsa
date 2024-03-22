@@ -119,7 +119,7 @@
           "country",
           "value_text",
           "value_number",
-          "value_bool",
+          "value_boolean",
           "resources"
         ]
       },
@@ -142,7 +142,7 @@
           "country",
           "value_text",
           "value_number",
-          "value_bool",
+          "value_boolean",
           "resources"
         ]
       },
@@ -158,7 +158,7 @@
           "country",
           "value_text",
           "value_number",
-          "value_bool",
+          "value_boolean",
           "resources"
         ]
       },
@@ -340,6 +340,109 @@
           "legend_config",
           "interaction_config",
           "dataset"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::other-tool.other-tool",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tools_category"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::other-tool.other-tool",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::other-tool.other-tool",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::other-tool.other-tool",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tools_category"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::other-tool.other-tool",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tools_category"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::other-tools-category.other-tools-category",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::other-tools-category.other-tools-category",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::other-tools-category.other-tools-category",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::other-tools-category.other-tools-category",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::other-tools-category.other-tools-category",
+      "properties": {
+        "fields": [
+          "name"
         ]
       },
       "conditions": []

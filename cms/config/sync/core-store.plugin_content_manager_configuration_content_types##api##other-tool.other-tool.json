@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::dataset-value.dataset-value",
+  "key": "plugin_content_manager_configuration_content_types::api::other-tool.other-tool",
   "value": {
-    "uid": "api::dataset-value.dataset-value",
+    "uid": "api::other-tool.other-tool",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "value_text",
-      "defaultSortBy": "value_text",
+      "mainField": "name",
+      "defaultSortBy": "name",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,9 +20,51 @@
           "sortable": true
         }
       },
-      "dataset": {
+      "name": {
         "edit": {
-          "label": "dataset",
+          "label": "name",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "name",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "link": {
+        "edit": {
+          "label": "link",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "link",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "other_tools_category": {
+        "edit": {
+          "label": "other_tools_category",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -30,81 +72,9 @@
           "mainField": "name"
         },
         "list": {
-          "label": "dataset",
+          "label": "other_tools_category",
           "searchable": true,
           "sortable": true
-        }
-      },
-      "country": {
-        "edit": {
-          "label": "country",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "country",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "value_text": {
-        "edit": {
-          "label": "value_text",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "value_text",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "value_number": {
-        "edit": {
-          "label": "value_number",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "value_number",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "value_boolean": {
-        "edit": {
-          "label": "value_boolean",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "value_boolean",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "resources": {
-        "edit": {
-          "label": "resources",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "link_title"
-        },
-        "list": {
-          "label": "resources",
-          "searchable": false,
-          "sortable": false
         }
       },
       "createdAt": {
@@ -169,39 +139,29 @@
     "layouts": {
       "list": [
         "id",
-        "dataset",
-        "country",
-        "value_text"
+        "name",
+        "description",
+        "link"
       ],
       "edit": [
         [
           {
-            "name": "dataset",
+            "name": "name",
             "size": 6
           },
           {
-            "name": "country",
+            "name": "description",
             "size": 6
           }
         ],
         [
           {
-            "name": "value_text",
+            "name": "link",
             "size": 6
           },
           {
-            "name": "value_number",
-            "size": 4
-          }
-        ],
-        [
-          {
-            "name": "resources",
+            "name": "other_tools_category",
             "size": 6
-          },
-          {
-            "name": "value_boolean",
-            "size": 4
           }
         ]
       ]
