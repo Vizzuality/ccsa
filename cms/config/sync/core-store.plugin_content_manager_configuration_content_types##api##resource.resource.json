@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::dataset.dataset",
+  "key": "plugin_content_manager_configuration_content_types::api::resource.resource",
   "value": {
-    "uid": "api::dataset.dataset",
+    "uid": "api::resource.resource",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "name",
-      "defaultSortBy": "name",
+      "mainField": "link_title",
+      "defaultSortBy": "link_title",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,45 +20,30 @@
           "sortable": true
         }
       },
-      "name": {
+      "link_title": {
         "edit": {
-          "label": "name",
+          "label": "link_title",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "name",
+          "label": "link_title",
           "searchable": true,
           "sortable": true
         }
       },
-      "datum": {
+      "link_url": {
         "edit": {
-          "label": "datum",
+          "label": "link_url",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "datum",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "category": {
-        "edit": {
-          "label": "category",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "category",
+          "label": "link_url",
           "searchable": true,
           "sortable": true
         }
@@ -73,49 +58,6 @@
         },
         "list": {
           "label": "description",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "layers": {
-        "edit": {
-          "label": "layers",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "layers",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "unit": {
-        "edit": {
-          "label": "unit",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "unit",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "value_type": {
-        "edit": {
-          "label": "value_type",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "value_type",
           "searchable": true,
           "sortable": true
         }
@@ -182,48 +124,24 @@
     "layouts": {
       "list": [
         "id",
-        "name",
-        "createdAt",
-        "updatedAt"
+        "link_title",
+        "link_url",
+        "description"
       ],
       "edit": [
         [
           {
-            "name": "name",
+            "name": "link_title",
             "size": 6
-          }
-        ],
-        [
+          },
           {
-            "name": "category",
+            "name": "link_url",
             "size": 6
           }
         ],
         [
           {
             "name": "description",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "unit",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "datum",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "layers",
-            "size": 6
-          },
-          {
-            "name": "value_type",
             "size": 6
           }
         ]

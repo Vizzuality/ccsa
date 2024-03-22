@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "resources",
+  "info": {
+    "singularName": "resource",
+    "pluralName": "resources",
+    "displayName": "Resource"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "link_title": {
+      "type": "string",
+      "required": true
+    },
+    "link_url": {
+      "type": "text",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}
