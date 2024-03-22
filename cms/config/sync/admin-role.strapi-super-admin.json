@@ -290,61 +290,6 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
-      "subject": "api::dataset-value.dataset-value",
-      "properties": {
-        "fields": [
-          "dataset",
-          "country",
-          "value_text",
-          "value_number",
-          "value_bool",
-          "resources"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.delete",
-      "actionParameters": {},
-      "subject": "api::dataset-value.dataset-value",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.read",
-      "actionParameters": {},
-      "subject": "api::dataset-value.dataset-value",
-      "properties": {
-        "fields": [
-          "dataset",
-          "country",
-          "value_text",
-          "value_number",
-          "value_bool",
-          "resources"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.update",
-      "actionParameters": {},
-      "subject": "api::dataset-value.dataset-value",
-      "properties": {
-        "fields": [
-          "dataset",
-          "country",
-          "value_text",
-          "value_number",
-          "value_bool",
-          "resources"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.create",
-      "actionParameters": {},
       "subject": "api::dataset.dataset",
       "properties": {
         "fields": [
