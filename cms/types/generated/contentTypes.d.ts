@@ -803,12 +803,12 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
 }
 
 export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
-  collectionName: 'collaborators';
+  collectionName: "collaborators";
   info: {
-    singularName: 'collaborator';
-    pluralName: 'collaborators';
-    displayName: 'Collaborator';
-    description: '';
+    singularName: "collaborator";
+    pluralName: "collaborators";
+    displayName: "Collaborator";
+    description: "";
   };
   options: {
     draftAndPublish: true;
@@ -816,20 +816,53 @@ export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     link: Attribute.String;
-    type: Attribute.Enumeration<['donor', 'collaborator']> & Attribute.Required;
+    type: Attribute.Enumeration<["donor", "collaborator"]> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::collaborator.collaborator',
-      'oneToOne',
-      'admin::user'
+      "api::collaborator.collaborator",
+      "oneToOne",
+      "admin::user"
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::collaborator.collaborator',
-      'oneToOne',
-      'admin::user'
+      "api::collaborator.collaborator",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
+  collectionName: "collaborators";
+  info: {
+    singularName: "collaborator";
+    pluralName: "collaborators";
+    displayName: "Collaborator";
+    description: "";
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    link: Attribute.String;
+    type: Attribute.Enumeration<["donor", "collaborator"]> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      "api::collaborator.collaborator",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      "api::collaborator.collaborator",
+      "oneToOne",
+      "admin::user"
     > &
       Attribute.Private;
   };
@@ -897,7 +930,7 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
     >;
     unit: Attribute.String;
     value_type: Attribute.Enumeration<
-      ['text', 'number', 'boolean', 'resource']
+      ["text", "number", "boolean", "resource"]
     > &
       Attribute.Required;
     dataset_edit_suggestions: Attribute.Relation<
@@ -1136,26 +1169,26 @@ export interface ApiDatasetValueDatasetValue extends Schema.CollectionType {
 }
 
 export interface ApiDatasetValueDatasetValue extends Schema.CollectionType {
-  collectionName: 'dataset_values';
+  collectionName: "dataset_values";
   info: {
-    singularName: 'dataset-value';
-    pluralName: 'dataset-values';
-    displayName: 'DatasetValue';
-    description: '';
+    singularName: "dataset-value";
+    pluralName: "dataset-values";
+    displayName: "DatasetValue";
+    description: "";
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
     dataset: Attribute.Relation<
-      'api::dataset-value.dataset-value',
-      'oneToOne',
-      'api::dataset.dataset'
+      "api::dataset-value.dataset-value",
+      "oneToOne",
+      "api::dataset.dataset"
     >;
     country: Attribute.Relation<
-      'api::dataset-value.dataset-value',
-      'oneToOne',
-      'api::country.country'
+      "api::dataset-value.dataset-value",
+      "oneToOne",
+      "api::country.country"
     >;
     value_text: Attribute.String;
     value_number: Attribute.Decimal &
@@ -1164,22 +1197,72 @@ export interface ApiDatasetValueDatasetValue extends Schema.CollectionType {
       }>;
     value_boolean: Attribute.Boolean;
     resources: Attribute.Relation<
-      'api::dataset-value.dataset-value',
-      'oneToMany',
-      'api::resource.resource'
+      "api::dataset-value.dataset-value",
+      "oneToMany",
+      "api::resource.resource"
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::dataset-value.dataset-value',
-      'oneToOne',
-      'admin::user'
+      "api::dataset-value.dataset-value",
+      "oneToOne",
+      "admin::user"
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::dataset-value.dataset-value',
-      'oneToOne',
-      'admin::user'
+      "api::dataset-value.dataset-value",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDatasetValueDatasetValue extends Schema.CollectionType {
+  collectionName: "dataset_values";
+  info: {
+    singularName: "dataset-value";
+    pluralName: "dataset-values";
+    displayName: "DatasetValue";
+    description: "";
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    dataset: Attribute.Relation<
+      "api::dataset-value.dataset-value",
+      "oneToOne",
+      "api::dataset.dataset"
+    >;
+    country: Attribute.Relation<
+      "api::dataset-value.dataset-value",
+      "oneToOne",
+      "api::country.country"
+    >;
+    value_text: Attribute.String;
+    value_number: Attribute.Decimal &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
+    value_boolean: Attribute.Boolean;
+    resources: Attribute.Relation<
+      "api::dataset-value.dataset-value",
+      "oneToMany",
+      "api::resource.resource"
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      "api::dataset-value.dataset-value",
+      "oneToOne",
+      "admin::user"
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      "api::dataset-value.dataset-value",
+      "oneToOne",
+      "admin::user"
     > &
       Attribute.Private;
   };
@@ -1885,17 +1968,6 @@ export interface ApiProjectProject extends Schema.CollectionType {
       "oneToMany",
       "api::project-edit-suggestion.project-edit-suggestion"
     >;
-    status: Attribute.String;
-    funding: Attribute.String;
-    source_country: Attribute.String;
-    organization_type: Attribute.String;
-    objective: Attribute.Text;
-    info: Attribute.String;
-    project_edit_suggestions: Attribute.Relation<
-      "api::project.project",
-      "oneToMany",
-      "api::project-edit-suggestion.project-edit-suggestion"
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -2273,7 +2345,6 @@ export interface ApiToolEditSuggestionToolEditSuggestion
 declare module "@strapi/types" {
   export module Shared {
     export interface ContentTypes {
-<<<<<<< HEAD
       "admin::permission": AdminPermission;
       "admin::user": AdminUser;
       "admin::role": AdminRole;
@@ -2308,32 +2379,6 @@ declare module "@strapi/types" {
       "api::resource.resource": ApiResourceResource;
       "api::sdg.sdg": ApiSdgSdg;
       "api::tool-edit-suggestion.tool-edit-suggestion": ApiToolEditSuggestionToolEditSuggestion;
-=======
-      'admin::permission': AdminPermission;
-      'admin::user': AdminUser;
-      'admin::role': AdminRole;
-      'admin::api-token': AdminApiToken;
-      'admin::api-token-permission': AdminApiTokenPermission;
-      'admin::transfer-token': AdminTransferToken;
-      'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'plugin::upload.file': PluginUploadFile;
-      'plugin::upload.folder': PluginUploadFolder;
-      'plugin::i18n.locale': PluginI18NLocale;
-      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
-      'plugin::users-permissions.role': PluginUsersPermissionsRole;
-      'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::category.category': ApiCategoryCategory;
-      'api::collaborator.collaborator': ApiCollaboratorCollaborator;
-      'api::country.country': ApiCountryCountry;
-      'api::dataset.dataset': ApiDatasetDataset;
-      'api::dataset-value.dataset-value': ApiDatasetValueDatasetValue;
-      'api::download-email.download-email': ApiDownloadEmailDownloadEmail;
-      'api::layer.layer': ApiLayerLayer;
-      'api::pillar.pillar': ApiPillarPillar;
-      'api::project.project': ApiProjectProject;
-      'api::resource.resource': ApiResourceResource;
-      'api::sdg.sdg': ApiSdgSdg;
->>>>>>> b5d30d6 (Added dataset_value model)
     }
   }
 }
