@@ -36,7 +36,7 @@ output "staging_dns_entries" {
       record_name  = var.staging_domain
       record_value = module.staging.beanstalk_environment_cname
     }
-  ], [
+    ], [
     for token in module.staging.dkim_tokens : {
       record_type  = "CNAME"
       record_name  = "${token}._domainkey.${var.staging_domain}"

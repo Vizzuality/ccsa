@@ -1,7 +1,7 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::dataset.dataset",
+  "key": "plugin_content_manager_configuration_content_types::api::other-tool.other-tool",
   "value": {
-    "uid": "api::dataset.dataset",
+    "uid": "api::other-tool.other-tool",
     "settings": {
       "bulkable": true,
       "filterable": true,
@@ -34,35 +34,6 @@
           "sortable": true
         }
       },
-      "datum": {
-        "edit": {
-          "label": "datum",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "datum",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "category": {
-        "edit": {
-          "label": "category",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "category",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "description": {
         "edit": {
           "label": "description",
@@ -73,13 +44,27 @@
         },
         "list": {
           "label": "description",
-          "searchable": false,
-          "sortable": false
+          "searchable": true,
+          "sortable": true
         }
       },
-      "layers": {
+      "link": {
         "edit": {
-          "label": "layers",
+          "label": "link",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "link",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "other_tools_category": {
+        "edit": {
+          "label": "other_tools_category",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -87,35 +72,7 @@
           "mainField": "name"
         },
         "list": {
-          "label": "layers",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "unit": {
-        "edit": {
-          "label": "unit",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "unit",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "value_type": {
-        "edit": {
-          "label": "value_type",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "value_type",
+          "label": "other_tools_category",
           "searchable": true,
           "sortable": true
         }
@@ -183,47 +140,27 @@
       "list": [
         "id",
         "name",
-        "createdAt",
-        "updatedAt"
+        "description",
+        "link"
       ],
       "edit": [
         [
           {
             "name": "name",
             "size": 6
-          }
-        ],
-        [
-          {
-            "name": "category",
-            "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "description",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "unit",
             "size": 6
           }
         ],
         [
           {
-            "name": "datum",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "layers",
+            "name": "link",
             "size": 6
           },
           {
-            "name": "value_type",
+            "name": "other_tools_category",
             "size": 6
           }
         ]
