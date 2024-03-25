@@ -31,6 +31,7 @@ module.exports = {
           "Pillar",
           "Sdg",
           "Download-email",
+          "Other-tool"
         ],
       },
     },
