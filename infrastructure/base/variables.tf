@@ -66,23 +66,6 @@ variable "rds_backup_retention_period" {
   description = "Time in days to keep db backups"
 }
 
-variable "ga_tracking_id" {
-  type        = string
-  description = "Google Analytics tracking id"
-}
-
-variable "mapbox_api_token" {
-  type        = string
-  default     = ""
-  description = "Mapbox API id"
-}
-
-variable "cms_url" {
-  type        = string
-  default     = ""
-  description = "URL for the CMS application"
-}
-
 # Staging configuration
 variable "staging_domain" {
   type = string
