@@ -64,6 +64,10 @@ export const useSyncPublicationState = () => {
   return useQueryState("publicationState", publicationStateParser);
 };
 
+export const useSyncOtherToolsSearch = () => {
+  return useQueryState("other-tools-search", { defaultValue: "" });
+}
+
 export const useSyncSearchParams = () => {
   const [datasets] = useSyncDatasets();
   const [layers] = useSyncLayers();
