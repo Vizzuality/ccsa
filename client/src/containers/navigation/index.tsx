@@ -78,6 +78,33 @@ const Navigation = (): JSX.Element => {
             <span>Projects</span>
           </Link>
         </li>
+
+        <li className="group relative text-center">
+          <div
+            className={cn({
+              "absolute left-0 top-0 h-full w-1 -translate-x-full bg-[#E44491] transition-transform":
+                true,
+              "translate-x-0": pathname === "/other-tools",
+            })}
+          />
+          <Link
+            className={cn({
+              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
+              "bg-[#E44491]/10": pathname === "/other-tools",
+              "text-gray-400 group-hover:text-gray-900": pathname !== "/other-tools",
+            })}
+            href="/other-tools"
+          >
+            <ProjectsSVG
+              className={cn({
+                "h-6 w-6 fill-none ": true,
+                "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/other-tools",
+                "stroke-[#E44491]": pathname === "/other-tools",
+              })}
+            />
+            <span>Other Tools</span>
+          </Link>
+        </li>
       </ul>
     </nav>
   );
