@@ -3,9 +3,13 @@
 import { formatNumber } from "@/lib/utils/formats";
 
 import { useGetCountries } from "@/types/generated/country";
-import { useGetDatasets } from "@/types/generated/dataset";
 
 import { useSyncCountriesComparison, useSyncCountry, useSyncDatasets } from "@/app/store";
+import { useGetDatasetValues } from "@/types/generated/dataset-value";
+import { groupBy } from "lodash-es";
+import { useMemo } from "react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { DatasetValueResourcesDataItemAttributes } from "@/types/generated/strapi.schemas";
 
 const CountryDataDialog = () => {
   const [country] = useSyncCountry();
@@ -17,49 +21,63 @@ const CountryDataDialog = () => {
     sort: "name:asc",
   });
 
-  const { data: datasetsData } = useGetDatasets(
+  const { data: datasetValueData } = useGetDatasetValues(
     {
       filters: {
-        id: datasets,
+        dataset: { id: { $in: datasets } },
+        country: { iso3: { $in: [country, ...countriesComparison] } },
       },
+      populate: "dataset,country,resources",
     },
     {
       query: {
-        enabled: !!datasets && !!datasets.length,
+        enabled: !!datasets.length,
         keepPreviousData: !!datasets && !!datasets.length,
       },
     },
   );
 
-  const TABLE_COLUMNS_DATA = [country, ...countriesComparison]
-    .map((c) => {
-      const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
+  const countries = [country, ...countriesComparison].sort((a, b) => {
+    if (!a || !b) return 0;
+    return a.localeCompare(b);
+  });
 
-      return C?.attributes?.name;
-    })
-    .sort((a, b) => {
-      if (!a || !b) return 0;
-      return a.localeCompare(b);
-    });
+  const TABLE_COLUMNS_DATA = countries.map((c) => {
+    const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
 
-  const TABLE_ROWS_DATA = datasetsData?.data
-    ?.sort((a, b) => {
-      if (!a.id || !b.id) return 0;
-      return datasets.indexOf(b.id) - datasets.indexOf(a.id);
-    })
-    ?.map((d) => {
-      const { id, attributes } = d;
-      const values = (attributes?.datum as Record<string, string | number>[]).filter((d1) =>
-        [country, ...countriesComparison].includes(`${d1.iso3}`),
-      );
+    return C?.attributes?.name;
+  });
+
+  const TABLE_ROWS_DATA = useMemo(() => {
+    const dataSetGroups = groupBy(datasetValueData?.data, "attributes.dataset.data.id");
+    return Object.entries(dataSetGroups).map(([key, values]) => {
+      const dataset = values?.[0]?.attributes?.dataset?.data?.attributes;
+      const dataType = dataset?.value_type;
 
       return {
-        id,
-        unit: attributes?.unit,
-        name: attributes?.name,
-        values,
+        id: key,
+        unit: dataset?.unit,
+        name: dataset?.name,
+        values: countries.map((c) => {
+          const countryValue = values.find(
+            (v) => v?.attributes?.country?.data?.attributes?.iso3 === c,
+          )?.attributes;
+
+          const resources = countryValue?.resources?.data;
+          const value = resources?.length
+            ? resources.map((r) => r.attributes)
+            : countryValue && dataType
+            ? countryValue[`value_${dataType}`]
+            : [];
+          return {
+            value,
+            iso3: c,
+            isResource: !!resources?.length,
+          };
+        }),
       };
     });
+  }, [datasetValueData?.data]);
 
   return (
     <div className="max-h-[90svh] overflow-auto p-10">
@@ -93,10 +111,27 @@ const CountryDataDialog = () => {
                       </td>
                       {t?.values?.map((v) => {
                         return (
-                          <td key={v.iso3} className="p-3">
-                            <span className="whitespace-nowrap text-sm leading-none">
-                              {v.value ? formatNumber(v.value) : "-"}
-                            </span>
+                          <td key={v.iso3} className="space-y-1.5 p-3">
+                            {v.isResource ? (
+                              (v.value as DatasetValueResourcesDataItemAttributes[])?.map((r) => (
+                                <Popover key={r.link_title}>
+                                  <PopoverTrigger className="whitespace-nowrap rounded border border-brand1 bg-brand1/20 px-2.5 data-[state='open']:bg-brand1">
+                                    {r.link_title}
+                                  </PopoverTrigger>
+                                  <PopoverContent>
+                                    <div className="space-y-2 p-3">
+                                      <h4 className="text-sm font-bold">{r.link_title}</h4>
+                                      <p className="text-sm">{r.description}</p>
+                                      <p className="text-sm">{r.link_url}</p>
+                                    </div>
+                                  </PopoverContent>
+                                </Popover>
+                              ))
+                            ) : (
+                              <span className="whitespace-nowrap text-sm leading-none">
+                                {v.value ? formatNumber(v.value) : "-"}
+                              </span>
+                            )}
                           </td>
                         );
                       })}
