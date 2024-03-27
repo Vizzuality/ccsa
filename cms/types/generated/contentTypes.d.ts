@@ -864,7 +864,7 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
     >;
     unit: Attribute.String;
     value_type: Attribute.Enumeration<
-      ["text", "number", "boolean", "resource"]
+      ['text', 'number', 'boolean', 'resource']
     > &
       Attribute.Required;
     dataset_edit_suggestions: Attribute.Relation<
