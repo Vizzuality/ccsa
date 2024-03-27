@@ -3,7 +3,12 @@ import { useGetDatasets } from "@/types/generated/dataset";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import { DatasetValueResourcesDataItemAttributes } from "@/types/generated/strapi.schemas";
 
-import { useSyncCountry, useSyncCountriesComparison, useSyncDatasets, useSyncPublicationState } from "@/app/store";
+import {
+  useSyncCountry,
+  useSyncCountriesComparison,
+  useSyncDatasets,
+  useSyncPublicationState,
+} from "@/app/store";
 
 type TableRowsDataItem = {
   id: number;
@@ -36,45 +41,43 @@ const useTableData = () => {
     sort: "name:asc",
   });
 
-  const { data: datasetsData } = useGetDatasets(
-    {
-      fields: ["id", "name", "unit", "value_type"],
-      // Orval don't recognize publicationState
-      // @ts-ignore 
-      publicationState
+  const getDatasetParams = {
+    params: {
+      publicationState,
     },
-    {
+    options: {
       query: {
-        enabled: !!datasets?.length && !!country,
-        keepPreviousData: !!datasets?.length,
+        enabled: !!datasets.length,
+        keepPreviousData: !!datasets && !!datasets.length,
       },
     },
+  };
+
+  const { data: datasetsData } = useGetDatasets(
+    {
+      ...getDatasetParams.params,
+      fields: ["id", "name", "unit", "value_type"],
+    },
+    getDatasetParams.options,
   );
 
   const { data: datasetValueData } = useGetDatasetValues(
     {
-      // Orval don't recognize publicationState
-      // @ts-ignore 
-      publicationState,
+      ...getDatasetParams.params,
       filters: {
         dataset: { id: { $in: datasets } },
         country: { iso3: { $in: [country, ...countriesComparison] } },
       },
       populate: "dataset,country,resources",
     },
-    {
-      query: {
-        enabled: !!datasets.length,
-        keepPreviousData: !!datasets && !!datasets.length,
-      },
-    },
+    getDatasetParams.options,
   );
 
   const countries = country
     ? [country, ...countriesComparison].sort((a, b) => {
-      if (!a || !b) return 0;
-      return a.localeCompare(b);
-    })
+        if (!a || !b) return 0;
+        return a.localeCompare(b);
+      })
     : [];
 
   const TABLE_COLUMNS_DATA = countries.map((c) => {
@@ -102,10 +105,10 @@ const useTableData = () => {
               const isResource = attributes?.value_type === "resource";
               const resources = isResource
                 ? datasetValue?.attributes?.resources?.data?.reduce(
-                  (acc: DatasetValueResourcesDataItemAttributes[], r) =>
-                    r.attributes ? [...acc, r.attributes] : acc,
-                  [],
-                )
+                    (acc: DatasetValueResourcesDataItemAttributes[], r) =>
+                      r.attributes ? [...acc, r.attributes] : acc,
+                    [],
+                  )
                 : undefined;
 
               // If is not a resource dataset get the value
