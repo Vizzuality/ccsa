@@ -4,26 +4,23 @@ import { cn } from "@/lib/classnames";
 import { formatNumber } from "@/lib/utils/formats";
 
 import { useGetCountries } from "@/types/generated/country";
+import { DatasetValueResourcesDataItemAttributes } from "@/types/generated/strapi.schemas";
 
-import { useSyncCountriesComparison, useSyncCountry, useSyncDatasets } from "@/app/store";
+import { useSyncCountry } from "@/app/store";
 
 import CountryDataDialog from "@/containers/countries/data-dialog";
 import CountryDownloadDialog from "@/containers/countries/download-dialog";
 import { MultiCombobox } from "@/containers/countries/multicombobox";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import Popup from "@/containers/popup";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { useGetDatasetValues } from "@/types/generated/dataset-value";
-import { groupBy } from "lodash-es";
-import { useMemo } from "react";
-import { DatasetValueResourcesDataItemAttributes } from "@/types/generated/strapi.schemas";
-import Popup from "@/containers/popup";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
+import useTableData from "./utils";
 
 const CountryPopup = () => {
   const [country] = useSyncCountry();
-  const [countriesComparison] = useSyncCountriesComparison();
-  const [datasets] = useSyncDatasets();
 
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
@@ -32,65 +29,7 @@ const CountryPopup = () => {
 
   const COUNTRY = countriesData?.data?.find((c) => c.attributes?.iso3 === country);
 
-  const { data: datasetValueData } = useGetDatasetValues(
-    {
-      filters: {
-        dataset: { id: { $in: datasets } },
-        country: { iso3: { $in: [country, ...countriesComparison] } },
-      },
-      populate: "dataset,country,resources",
-    },
-    {
-      query: {
-        enabled: !!datasets.length,
-        keepPreviousData: !!datasets && !!datasets.length,
-      },
-    },
-  );
-
-  // all countries in the comparison ordered by name
-  const countries = [country, ...countriesComparison].sort((a, b) => {
-    if (!a || !b) return 0;
-    return a.localeCompare(b);
-  });
-
-  const TABLE_COLUMNS_DATA = countries
-    .map((c) => {
-      const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
-      return C?.attributes?.name;
-    })
-    .filter((c) => !!c);
-
-  const TABLE_ROWS_DATA = useMemo(() => {
-    const dataSetGroups = groupBy(datasetValueData?.data, "attributes.dataset.data.id");
-    return Object.entries(dataSetGroups).map(([key, values]) => {
-      const dataset = values?.[0]?.attributes?.dataset?.data?.attributes;
-      const dataType = dataset?.value_type;
-
-      return {
-        id: key,
-        unit: dataset?.unit,
-        name: dataset?.name,
-        values: countries.map((c) => {
-          const countryValue = values.find(
-            (v) => v?.attributes?.country?.data?.attributes?.iso3 === c,
-          )?.attributes;
-
-          const resources = countryValue?.resources?.data;
-          const value = resources?.length
-            ? resources.map((r) => r.attributes)
-            : countryValue && dataType
-            ? countryValue[`value_${dataType}`]
-            : [];
-          return {
-            value,
-            iso3: c,
-            isResource: !!resources?.length,
-          };
-        }),
-      };
-    });
-  }, [datasetValueData?.data]);
+  const { TABLE_COLUMNS_DATA, TABLE_ROWS_DATA } = useTableData();
 
   return (
     <Popup visibleKey={country}>
