@@ -3,7 +3,7 @@ import { useGetDatasets } from "@/types/generated/dataset";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import { DatasetValueResourcesDataItemAttributes } from "@/types/generated/strapi.schemas";
 
-import { useSyncCountry, useSyncCountriesComparison, useSyncDatasets } from "@/app/store";
+import { useSyncCountry, useSyncCountriesComparison, useSyncDatasets, useSyncPublicationState } from "@/app/store";
 
 type TableRowsDataItem = {
   id: number;
@@ -29,6 +29,7 @@ const useTableData = () => {
   const [country] = useSyncCountry();
   const [countriesComparison] = useSyncCountriesComparison();
   const [datasets] = useSyncDatasets();
+  const [publicationState] = useSyncPublicationState();
 
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
@@ -36,7 +37,12 @@ const useTableData = () => {
   });
 
   const { data: datasetsData } = useGetDatasets(
-    { fields: ["id", "name", "unit", "value_type"] },
+    {
+      fields: ["id", "name", "unit", "value_type"],
+      // Orval don't recognize publicationState
+      // @ts-ignore 
+      publicationState
+    },
     {
       query: {
         enabled: !!datasets?.length && !!country,
@@ -47,6 +53,9 @@ const useTableData = () => {
 
   const { data: datasetValueData } = useGetDatasetValues(
     {
+      // Orval don't recognize publicationState
+      // @ts-ignore 
+      publicationState,
       filters: {
         dataset: { id: { $in: datasets } },
         country: { iso3: { $in: [country, ...countriesComparison] } },
@@ -63,9 +72,9 @@ const useTableData = () => {
 
   const countries = country
     ? [country, ...countriesComparison].sort((a, b) => {
-        if (!a || !b) return 0;
-        return a.localeCompare(b);
-      })
+      if (!a || !b) return 0;
+      return a.localeCompare(b);
+    })
     : [];
 
   const TABLE_COLUMNS_DATA = countries.map((c) => {
@@ -93,10 +102,10 @@ const useTableData = () => {
               const isResource = attributes?.value_type === "resource";
               const resources = isResource
                 ? datasetValue?.attributes?.resources?.data?.reduce(
-                    (acc: DatasetValueResourcesDataItemAttributes[], r) =>
-                      r.attributes ? [...acc, r.attributes] : acc,
-                    [],
-                  )
+                  (acc: DatasetValueResourcesDataItemAttributes[], r) =>
+                    r.attributes ? [...acc, r.attributes] : acc,
+                  [],
+                )
                 : undefined;
 
               // If is not a resource dataset get the value
