@@ -2,8 +2,6 @@
 
 import { formatNumber } from "@/lib/utils/formats";
 
-import { DatasetValueResourcesDataItemAttributes } from "@/types/generated/strapi.schemas";
-
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import useTableData from "./utils";
@@ -44,7 +42,7 @@ const CountryDataDialog = () => {
                         return (
                           <td key={v.iso3} className="space-y-1.5 p-3">
                             {v.isResource ? (
-                              (v.value as DatasetValueResourcesDataItemAttributes[])?.map((r) => (
+                              v.resources?.map((r) => (
                                 <Popover key={r.link_title}>
                                   <PopoverTrigger className="whitespace-nowrap rounded border border-brand1 bg-brand1/20 px-2.5 data-[state='open']:bg-brand1">
                                     {r.link_title}

@@ -4,7 +4,6 @@ import { cn } from "@/lib/classnames";
 import { formatNumber } from "@/lib/utils/formats";
 
 import { useGetCountries } from "@/types/generated/country";
-import { DatasetValueResourcesDataItemAttributes } from "@/types/generated/strapi.schemas";
 
 import { useSyncCountry } from "@/app/store";
 
@@ -79,7 +78,7 @@ const CountryPopup = () => {
                           return (
                             <td key={v.iso3} className="space-y-1.5 p-3">
                               {v.isResource ? (
-                                (v.value as DatasetValueResourcesDataItemAttributes[])?.map((r) => (
+                                v.resources?.map((r) => (
                                   <Popover key={r.link_title}>
                                     <PopoverTrigger className="whitespace-nowrap rounded border border-brand1 bg-brand1/20 px-2.5 data-[state='open']:bg-brand1">
                                       {r.link_title}

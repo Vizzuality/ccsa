@@ -45,7 +45,8 @@
       "enum": [
         "text",
         "number",
-        "boolean"
+        "boolean",
+        "resource"
       ],
       "required": true
     }

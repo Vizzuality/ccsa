@@ -1,5 +1,3 @@
-import { isEmpty } from "lodash-es";
-
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasets } from "@/types/generated/dataset";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
@@ -14,12 +12,8 @@ type TableRowsDataItem = {
   values: {
     iso3: string;
     isResource: boolean;
-    value:
-      | string
-      | number
-      | boolean
-      | (DatasetValueResourcesDataItemAttributes | undefined)[]
-      | undefined;
+    resources?: DatasetValueResourcesDataItemAttributes[];
+    value: string | number | boolean | undefined;
   }[];
 };
 
@@ -95,17 +89,27 @@ const useTableData = () => {
                   v?.attributes?.dataset?.data?.id === id &&
                   v?.attributes?.country?.data?.attributes?.iso3 === c,
               );
-              const valueType = attributes?.value_type && `value_${attributes?.value_type}`;
-              const resources = datasetValue?.attributes?.resources?.data
-                ?.map((r) => r.attributes)
-                .filter((r) => !!r && !isEmpty(r));
+              // If is resource dataset get the resources
+              const isResource = attributes?.value_type === "resource";
+              const resources = isResource
+                ? datasetValue?.attributes?.resources?.data?.reduce(
+                    (acc: DatasetValueResourcesDataItemAttributes[], r) =>
+                      r.attributes ? [...acc, r.attributes] : acc,
+                    [],
+                  )
+                : undefined;
 
+              // If is not a resource dataset get the value
+              const valueType = attributes?.value_type && `value_${attributes?.value_type}`;
               const value =
-                isDatasetValueProperty(valueType) && datasetValue?.attributes?.[valueType];
+                !isResource &&
+                isDatasetValueProperty(valueType) &&
+                datasetValue?.attributes?.[valueType];
               return {
                 iso3: c,
-                isResource: !!resources?.length,
-                value: resources?.length ? resources : value,
+                isResource,
+                resources,
+                value,
               };
             }),
           },
