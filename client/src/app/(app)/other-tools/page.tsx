@@ -2,6 +2,7 @@ import { dehydrate, Hydrate } from "@tanstack/react-query";
 import { getGetOtherToolsQueryOptions } from "@/types/generated/other-tool";
 import getQueryClient from "@/lib/react-query/getQueryClient";
 import OtherToolsList from "@/containers/other-tools";
+import PageTitle from "@/components/ui/page-title";
 
 async function prefetchQueries() {
   const queryClient = getQueryClient();
@@ -30,7 +31,8 @@ export default async function OtherTools() {
       <>
         <div className="relative z-10 h-full w-full bg-white">
           <div className="h-full overflow-auto">
-            <div className="space-y-5 px-5 py-10">
+            <PageTitle />
+            <div className="space-y-5 px-5 pb-10 pt-[30px]">
               <h1 className="font-metropolis text-3xl tracking-tight text-gray-700">Other Tools</h1>
 
               <div className="space-y-5">
