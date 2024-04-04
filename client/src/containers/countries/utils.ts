@@ -16,6 +16,7 @@ type TableRowsDataItem = {
   name?: string;
   values: {
     iso3: string;
+    countryName?: string;
     isResource: boolean;
     resources?: DatasetValueResourcesDataItemAttributes[];
     value: string | number | boolean | undefined;
@@ -119,6 +120,8 @@ const useTableData = () => {
                 datasetValue?.attributes?.[valueType];
               return {
                 iso3: c,
+                countryName: countriesData?.data?.find((c1) => c1.attributes?.iso3 === c)
+                  ?.attributes?.name,
                 isResource,
                 resources,
                 value,
