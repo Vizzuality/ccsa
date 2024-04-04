@@ -16,6 +16,7 @@ type TableRowsDataItem = {
   name?: string;
   values: {
     iso3: string;
+    countryName?: string;
     isResource: boolean;
     resources?: DatasetValueResourcesDataItemAttributes[];
     value: string | number | boolean | undefined;
@@ -75,9 +76,9 @@ const useTableData = () => {
 
   const countries = country
     ? [country, ...countriesComparison].sort((a, b) => {
-        if (!a || !b) return 0;
-        return a.localeCompare(b);
-      })
+      if (!a || !b) return 0;
+      return a.localeCompare(b);
+    })
     : [];
 
   const TABLE_COLUMNS_DATA = countries.map((c) => {
@@ -105,10 +106,10 @@ const useTableData = () => {
               const isResource = attributes?.value_type === "resource";
               const resources = isResource
                 ? datasetValue?.attributes?.resources?.data?.reduce(
-                    (acc: DatasetValueResourcesDataItemAttributes[], r) =>
-                      r.attributes ? [...acc, r.attributes] : acc,
-                    [],
-                  )
+                  (acc: DatasetValueResourcesDataItemAttributes[], r) =>
+                    r.attributes ? [...acc, r.attributes] : acc,
+                  [],
+                )
                 : undefined;
 
               // If is not a resource dataset get the value
@@ -119,6 +120,7 @@ const useTableData = () => {
                 datasetValue?.attributes?.[valueType];
               return {
                 iso3: c,
+                countryName: countriesData?.data?.find((c1) => c1.attributes?.iso3 === c)?.attributes?.name,
                 isResource,
                 resources,
                 value,
