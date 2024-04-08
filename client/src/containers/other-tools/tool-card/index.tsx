@@ -1,23 +1,79 @@
+"use client";
+import { useState } from "react";
+
+import { LuExternalLink, LuInfo } from "react-icons/lu";
+
+import { cn } from "@/lib/classnames";
+
 import { OtherTool } from "@/types/generated/strapi.schemas";
+
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipArrow,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 type ToolCardProps = {
   tool?: OtherTool;
 };
 
 const ToolCard = ({ tool }: ToolCardProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className="flex items-center space-x-5 rounded-lg border border-gray-200 p-5">
-      <a href={tool?.link} target="_blank" rel="noopener noreferrer">
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <h2 className="font-metropolis font-semibold text-gray-800">{tool?.name}</h2>
-            <div className="rounded-lg bg-gray-100 px-2 text-sm">
-              {tool?.other_tools_category?.data?.attributes?.name}
+      <div className="w-full space-y-2">
+        <div className="font-open-sans text-sm">
+          {tool?.other_tools_category?.data?.attributes?.name}
+        </div>
+        <div className="flex w-full justify-between">
+          <h2 className="font-metropolis text-lg font-[900] text-gray-800">{tool?.name}</h2>
+          <div className="flex h-6 items-center gap-2 ">
+            <TooltipProvider delayDuration={100}>
+              <Tooltip disableHoverableContent={!tool?.description}>
+                <TooltipTrigger>
+                  <LuInfo className="h-5 w-5" />
+                </TooltipTrigger>
+                <TooltipContent className="border-bg-gray-800 w-64 border bg-gray-800 p-2.5 text-sm text-white">
+                  <div>{tool?.description}</div>
+                  <TooltipArrow />
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <div
+              className={cn(
+                "flex items-center gap-1 overflow-hidden py-1 transition-all  duration-500",
+                {
+                  "w-24 rounded-md bg-zinc-200 bg-opacity-100 px-2": isHovered,
+                  "w-6 bg-white bg-opacity-0": !isHovered,
+                },
+              )}
+              onMouseLeave={() => setIsHovered(false)}
+              onMouseEnter={() => setIsHovered(true)}
+            >
+              <div>
+                <LuExternalLink className="h-5 w-5" />
+              </div>
+              <a
+                href={tool?.link}
+                className={cn(
+                  "whitespace-nowrap font-open-sans text-xs font-semibold leading-tight duration-300",
+                  {
+                    "opacity-0": !isHovered,
+                    "opacity-100": isHovered,
+                  },
+                )}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Visit tool
+              </a>
             </div>
           </div>
-          <p className="text-sm text-gray-600">{tool?.description}</p>
         </div>
-      </a>
+      </div>
     </div>
   );
 };
