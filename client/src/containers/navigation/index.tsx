@@ -106,6 +106,33 @@ const Navigation = (): JSX.Element => {
             <span>Other Tools</span>
           </Link>
         </li>
+
+        <li className="group relative text-center">
+          <div
+            className={cn({
+              "absolute left-0 top-0 h-full w-1 -translate-x-full bg-[#FF7816] transition-transform":
+                true,
+              "translate-x-0": pathname === "/collaborators",
+            })}
+          />
+          <Link
+            className={cn({
+              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
+              "bg-[#FF7816]/10": pathname === "/collaborators",
+              "text-gray-400 group-hover:text-gray-900": pathname !== "/collaborators",
+            })}
+            href="/collaborators"
+          >
+            <OtherToolsSvg
+              className={cn({
+                "h-6 w-6 fill-none ": true,
+                "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/collaborators",
+                "stroke-[#FF7816]": pathname === "/collaborators",
+              })}
+            />
+            <span>Collaborators</span>
+          </Link>
+        </li>
       </ul>
     </nav>
   );

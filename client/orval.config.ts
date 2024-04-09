@@ -32,7 +32,8 @@ module.exports = {
           "Sdg",
           "Download-email",
           "Other-tool",
-          "Dataset-value"
+          "Dataset-value",
+          "Collaborator",
         ],
       },
     },

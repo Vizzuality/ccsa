@@ -1,3 +1,3 @@
-const fullSidebarPages = ["other-tools", "partners"];
+const fullSidebarPages = ["other-tools", "collaborators"];
 
 export { fullSidebarPages };
