@@ -9,6 +9,7 @@ import { cn } from "@/lib/classnames";
 import { useSyncSearchParams } from "@/app/store";
 
 import ExploreSVG from "@/svgs/explore.svg";
+import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
 
 const Navigation = (): JSX.Element => {
@@ -95,7 +96,7 @@ const Navigation = (): JSX.Element => {
             })}
             href="/other-tools"
           >
-            <ProjectsSVG
+            <OtherToolsSvg
               className={cn({
                 "h-6 w-6 fill-none ": true,
                 "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/other-tools",
