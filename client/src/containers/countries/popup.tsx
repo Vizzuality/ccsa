@@ -4,9 +4,8 @@ import { cn } from "@/lib/classnames";
 import { formatNumber } from "@/lib/utils/formats";
 
 import { useGetCountries } from "@/types/generated/country";
-import { useGetDatasets } from "@/types/generated/dataset";
 
-import { useSyncCountriesComparison, useSyncCountry, useSyncDatasets } from "@/app/store";
+import { useSyncCountry } from "@/app/store";
 
 import CountryDataDialog from "@/containers/countries/data-dialog";
 import CountryDownloadDialog from "@/containers/countries/download-dialog";
@@ -15,63 +14,21 @@ import Popup from "@/containers/popup";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
+import useTableData from "./utils";
 
 const CountryPopup = () => {
   const [country] = useSyncCountry();
-  const [countriesComparison] = useSyncCountriesComparison();
-  const [datasets] = useSyncDatasets();
 
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
     sort: "name:asc",
   });
 
-  const { data: datasetsData } = useGetDatasets(
-    {
-      filters: {
-        id: datasets,
-      },
-    },
-    {
-      query: {
-        enabled: !!datasets && !!datasets.length,
-        keepPreviousData: !!datasets && !!datasets.length,
-      },
-    },
-  );
-
   const COUNTRY = countriesData?.data?.find((c) => c.attributes?.iso3 === country);
 
-  const TABLE_COLUMNS_DATA = [country, ...countriesComparison]
-    .map((c) => {
-      const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
-
-      return C?.attributes?.name;
-    })
-    .filter((c) => !!c)
-    .sort((a, b) => {
-      if (!a || !b) return 0;
-      return a.localeCompare(b);
-    });
-
-  const TABLE_ROWS_DATA = datasetsData?.data
-    ?.sort((a, b) => {
-      if (!a.id || !b.id) return 0;
-      return datasets.indexOf(b.id) - datasets.indexOf(a.id);
-    })
-    ?.map((d) => {
-      const { id, attributes } = d;
-      const values = (attributes?.datum as Record<string, string | number>[]).filter((d1) =>
-        [country, ...countriesComparison].includes(`${d1.iso3}`),
-      );
-
-      return {
-        id,
-        unit: attributes?.unit,
-        name: attributes?.name,
-        values,
-      };
-    });
+  const { TABLE_COLUMNS_DATA, TABLE_ROWS_DATA } = useTableData();
 
   return (
     <Popup visibleKey={country}>
@@ -119,10 +76,27 @@ const CountryPopup = () => {
                         </td>
                         {t?.values?.map((v) => {
                           return (
-                            <td key={v.iso3} className="p-3">
-                              <span className="whitespace-nowrap text-sm leading-none">
-                                {v.value ? formatNumber(v.value) : "-"}
-                              </span>
+                            <td key={v.iso3} className="space-y-1.5 p-3">
+                              {v.isResource ? (
+                                v.resources?.map((r) => (
+                                  <Popover key={r.link_title}>
+                                    <PopoverTrigger className="whitespace-nowrap rounded border border-brand1 bg-brand1/20 px-2.5 data-[state='open']:bg-brand1">
+                                      {r.link_title}
+                                    </PopoverTrigger>
+                                    <PopoverContent>
+                                      <div className="space-y-2 p-3">
+                                        <h4 className="text-sm font-bold">{r.link_title}</h4>
+                                        <p className="text-sm">{r.description}</p>
+                                        <p className="text-sm">{r.link_url}</p>
+                                      </div>
+                                    </PopoverContent>
+                                  </Popover>
+                                ))
+                              ) : (
+                                <span className="whitespace-nowrap text-sm leading-none">
+                                  {v.value ? formatNumber(v.value) : "-"}
+                                </span>
+                              )}
                             </td>
                           );
                         })}

@@ -166,6 +166,60 @@ export type GetPillarsParams = {
   locale?: string;
 };
 
+export type GetOtherToolsIdPopulateOneOf = { [key: string]: any };
+
+export type GetOtherToolsIdParams = {
+  /**
+   * Relations to return
+   */
+  populate?: string | GetOtherToolsIdPopulateOneOf;
+};
+
+export type GetOtherToolsPopulateOneOf = { [key: string]: any };
+
+export type GetOtherToolsParams = {
+  /**
+   * Sort by attributes ascending (asc) or descending (desc)
+   */
+  sort?: string;
+  /**
+   * Return page/pageSize (default: true)
+   */
+  "pagination[withCount]"?: boolean;
+  /**
+   * Page number (default: 0)
+   */
+  "pagination[page]"?: number;
+  /**
+   * Page size (default: 25)
+   */
+  "pagination[pageSize]"?: number;
+  /**
+   * Offset value (default: 0)
+   */
+  "pagination[start]"?: number;
+  /**
+   * Number of entities to return (default: 25)
+   */
+  "pagination[limit]"?: number;
+  /**
+   * Fields to return (ex: ['title','author'])
+   */
+  fields?: string[];
+  /**
+   * Relations to return
+   */
+  populate?: string | GetOtherToolsPopulateOneOf;
+  /**
+   * Filters to apply
+   */
+  filters?: { [key: string]: any };
+  /**
+   * Locale to apply
+   */
+  locale?: string;
+};
+
 export type GetLayersIdPopulateOneOf = { [key: string]: any };
 
 export type GetLayersIdParams = {
@@ -264,6 +318,60 @@ export type GetDownloadEmailsParams = {
    * Relations to return
    */
   populate?: string | GetDownloadEmailsPopulateOneOf;
+  /**
+   * Filters to apply
+   */
+  filters?: { [key: string]: any };
+  /**
+   * Locale to apply
+   */
+  locale?: string;
+};
+
+export type GetDatasetValuesIdPopulateOneOf = { [key: string]: any };
+
+export type GetDatasetValuesIdParams = {
+  /**
+   * Relations to return
+   */
+  populate?: string | GetDatasetValuesIdPopulateOneOf;
+};
+
+export type GetDatasetValuesPopulateOneOf = { [key: string]: any };
+
+export type GetDatasetValuesParams = {
+  /**
+   * Sort by attributes ascending (asc) or descending (desc)
+   */
+  sort?: string;
+  /**
+   * Return page/pageSize (default: true)
+   */
+  "pagination[withCount]"?: boolean;
+  /**
+   * Page number (default: 0)
+   */
+  "pagination[page]"?: number;
+  /**
+   * Page size (default: 25)
+   */
+  "pagination[pageSize]"?: number;
+  /**
+   * Offset value (default: 0)
+   */
+  "pagination[start]"?: number;
+  /**
+   * Number of entities to return (default: 25)
+   */
+  "pagination[limit]"?: number;
+  /**
+   * Fields to return (ex: ['title','author'])
+   */
+  fields?: string[];
+  /**
+   * Relations to return
+   */
+  populate?: string | GetDatasetValuesPopulateOneOf;
   /**
    * Filters to apply
    */
@@ -2741,6 +2849,7 @@ export const LayerDatasetDataAttributesValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type LayerDatasetDataAttributes = {
@@ -3473,6 +3582,7 @@ export const DatasetValueDatasetDataAttributesValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type DatasetValueDatasetDataAttributesUpdatedByDataAttributes = { [key: string]: any };
@@ -3930,6 +4040,7 @@ export const DatasetValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export interface Dataset {
@@ -4032,6 +4143,7 @@ export const DatasetCategoryDataAttributesDatasetsDataItemAttributesValueType = 
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type DatasetCategoryDataAttributesDatasetsDataItemAttributesUpdatedByDataAttributes = {
@@ -4385,6 +4497,7 @@ export const DatasetRequestDataValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type DatasetRequestDataLayersItem = number | string;
@@ -4671,6 +4784,7 @@ export const CategoryDatasetsDataItemAttributesValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type CategoryDatasetsDataItemAttributes = {
