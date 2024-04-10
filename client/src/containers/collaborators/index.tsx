@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import Image from "next/image";
 
@@ -36,16 +36,14 @@ const CollaboratorsList = () => {
     isFetched,
     isError,
   } = useGetCollaborators({
-    filters: { name: { $containsi: search } },
+    ...(search ? { filters: { name: { $containsi: search } } } : {}),
   });
 
   const collaborators = useMemo(
     () => groupBy(collaboratorsData?.data, "attributes.type"),
     [collaboratorsData?.data],
   );
-  const defaultKeys = useMemo(() => Object.keys(collaborators), [collaborators]);
   const data = useMemo(() => Object.entries(collaborators), [collaborators]);
-  const [openKeys, setOpenKeys] = useState(defaultKeys);
 
   return (
     <div className="relative z-10 h-full w-full bg-white">
@@ -71,10 +69,9 @@ const CollaboratorsList = () => {
             isError={isError}
           >
             <Accordion
-              value={openKeys}
-              onValueChange={(v) => setOpenKeys(v)}
               className="space-y-4"
               type="multiple"
+              defaultValue={["collaborator", "donor"]}
             >
               {data.map(([key, value]) => (
                 <AccordionItem key={key} value={key} className="space-y-4">

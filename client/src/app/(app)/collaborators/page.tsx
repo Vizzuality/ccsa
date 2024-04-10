@@ -1,5 +1,6 @@
-import PageTitle from "@/components/ui/page-title";
 import CollaboratorsList from "@/containers/collaborators";
+
+import PageTitle from "@/components/ui/page-title";
 
 export default function CollaboratorsPage() {
   return (

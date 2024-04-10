@@ -11,6 +11,7 @@ import { useSyncSearchParams } from "@/app/store";
 import ExploreSVG from "@/svgs/explore.svg";
 import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
+import CollaboratorsSvg from "@/svgs/collaborators.svg";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
@@ -123,7 +124,7 @@ const Navigation = (): JSX.Element => {
             })}
             href="/collaborators"
           >
-            <OtherToolsSvg
+            <CollaboratorsSvg
               className={cn({
                 "h-6 w-6 fill-none ": true,
                 "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/collaborators",
