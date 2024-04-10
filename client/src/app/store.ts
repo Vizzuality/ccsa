@@ -68,6 +68,10 @@ export const useSyncOtherToolsSearch = () => {
   return useQueryState("other-tools-search", { defaultValue: "" });
 };
 
+export const useSyncCollaboratorsSearch = () => {
+  return useQueryState("collaborators-search", { defaultValue: "" });
+};
+
 export const useSyncSearchParams = () => {
   const [datasets] = useSyncDatasets();
   const [layers] = useSyncLayers();
