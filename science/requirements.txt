@@ -2,3 +2,5 @@ polars
 typer
 click
 python-dotenv
+xlsx2csv
+openpyxl
