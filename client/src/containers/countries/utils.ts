@@ -81,11 +81,14 @@ const useTableData = () => {
       })
     : [];
 
-  const TABLE_COLUMNS_DATA = countries.map((c) => {
-    const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
+  type TableColumnData = { name: string; iso3: string };
 
-    return C?.attributes?.name;
-  });
+  const TABLE_COLUMNS_DATA = countries.reduce<TableColumnData[]>((acc, curr) => {
+    const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === curr);
+    if (!C || !C.attributes?.name) return acc;
+
+    return [...acc, { name: C.attributes?.name, iso3: curr }];
+  }, []);
 
   const TABLE_ROWS_DATA = datasetsData?.data?.reduce<TableRowsDataItem[]>(
     (prev, { attributes, id }) => {
