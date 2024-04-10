@@ -25,6 +25,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+
 import useTableData from "./utils";
 
 const CSV_CONFIG = mkConfig({
@@ -55,20 +56,24 @@ const CountryDownloadDialog = () => {
         d.values.reduce(
           (acc, curr) => {
             const value = curr.isResource
-              ? curr.resources?.map((r) => r.link_title).join(", ")
-              : curr.value;
+              ? curr.resources?.length
+                ? curr.resources?.map((r) => r.link_title).join(", ")
+                : undefined
+              : typeof curr.value === "number" || typeof curr.value === "string"
+              ? curr.value
+              : undefined;
             return {
               ...acc,
               ...(curr.countryName ? { [curr.countryName]: value } : {}),
             };
           },
-          { dataset: d.name, "dataset unit": d.unit },
+          { dataset: d.name, "dataset unit": d.unit || undefined },
         ),
       ) ?? [];
     const CSV = generateCsv(CSV_CONFIG)(data);
 
     return CSV;
-  }, []);
+  }, [TABLE_ROWS_DATA]);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     // check if email exists
@@ -166,7 +171,7 @@ const CountryDownloadDialog = () => {
                     if (!csvData) return;
                     download({
                       ...CSV_CONFIG,
-                      filename: `${CSV_CONFIG.filename}${new Date().toISOString()}.csv`,
+                      filename: `${CSV_CONFIG.filename}${new Date().toISOString()}`,
                     })(csvData);
                   }}
                 >
