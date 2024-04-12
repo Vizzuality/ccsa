@@ -107,7 +107,7 @@ const CountriesTable = () => {
                                 <PopoverPortal>
                                   <PopoverContent
                                     id={`popover-${t.name}`}
-                                    className="w-fit min-w-[240px] space-y-3 border-none bg-gray-700 text-white"
+                                    className="w-fit min-w-[240px] max-w-[500px] space-y-3 border-none bg-gray-700 text-white"
                                   >
                                     <PopoverArrow className="fill-gray-700" />
 
