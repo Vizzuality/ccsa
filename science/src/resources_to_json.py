@@ -1,13 +1,22 @@
+import json
 import logging
 import os
 from enum import Enum
 from functools import lru_cache
-from typing import Annotated
+from typing import Annotated, Any
 
 import httpx
 import polars as pl
 import typer
-from pydantic import BaseModel, Field, HttpUrl, field_validator
+from pydantic import (
+    BaseModel,
+    Field,
+    HttpUrl,
+    SerializationInfo,
+    SerializerFunctionWrapHandler,
+    field_validator,
+    model_serializer,
+)
 from rich.logging import RichHandler
 
 log = logging.getLogger(__name__)
@@ -38,6 +47,15 @@ class Resource(BaseModel):
 class Resources(BaseModel):
     resource: list[Resource]
 
+    @model_serializer(mode="wrap")
+    def ser_model(
+        self, handler: SerializerFunctionWrapHandler, info: SerializationInfo
+    ) -> list[int] | Any:
+        if info.context.get("use_id"):
+            return [r.id for r in self.resource]
+        else:
+            return handler(self)
+
 
 class Category(BaseModel):
     name: str
@@ -51,14 +69,23 @@ class Dataset(BaseModel):
     unit: str | None = None
     value_type: ValueType
 
+    @model_serializer(mode="wrap")
+    def ser_model(
+        self, handler: SerializerFunctionWrapHandler, info: SerializationInfo
+    ) -> int | dict[str, Any]:
+        if info.context.get("use_id"):
+            return self.id
+        else:
+            return handler(self)
+
 
 class DatasetValue(BaseModel):
     dataset: Dataset
-    country_id: str
+    country_id: str | int = Field(serialization_alias="country")
     value_text: str | None = None
     value_number: float | None = None
     value_boolean: bool | None = None
-    resources: list[Resource] | None = None
+    resources: Resources | None = None
 
 
 class DatasetValues(BaseModel):
@@ -118,7 +145,7 @@ def get_dataset(file: str, use_id: bool = False) -> Dataset:
         _id = query_strapi_ids("datasets", "name").get(data["name"])
         if _id is None:
             log.error(f"Dataset \"{data['name']}\" not found in strapi")
-        data["id"] = query_strapi_ids("datasets", "name").get(data["name"])
+        data["id"] = _id
     return Dataset(**data)
 
 
@@ -138,9 +165,15 @@ def get_dataset_value(file: str, use_id: bool = False) -> DatasetValues:
             if use_id:
                 resource.id = query_strapi_ids("resources", "link_title").get(name)
             resources.append(resource)
+
+        country = row["ISO3"]
+        if use_id:
+            country = query_strapi_ids("countries", "name")[country]
         data_values.append(
             DatasetValue(
-                dataset=get_dataset(file, use_id), resources=resources, country_id=row["ISO3"]
+                dataset=get_dataset(file, use_id),
+                resources=Resources(resource=resources),
+                country_id=country,
             )
         )
     return DatasetValues(dataset_values=data_values)
@@ -160,21 +193,8 @@ def main(
             print(data.model_dump_json(indent=4))
         case "values":
             data = get_dataset_value(input, use_id)
-            if use_id:
-                print(
-                    data.model_dump_json(
-                        indent=4,
-                        include={
-                            "dataset_values": {
-                                "__all__": {"country_id", "resource", "dataset"},
-                                "resource": {"__all__": {"id"}},
-                                "dataset": {"__all__": {"id"}},
-                            }
-                        },
-                    )
-                )
-            else:
-                print(data.model_dump_json(indent=4))
+            # print(json.dumps(data, indent=4))
+            print(data.model_dump_json(context={"use_id": use_id}, by_alias=True))
         case "resources":
             data = get_dataset_value(input)
             resources = []
