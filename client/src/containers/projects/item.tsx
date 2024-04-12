@@ -1,16 +1,21 @@
 "use client";
 
+import { useAtomValue } from "jotai";
+
 import { cn } from "@/lib/classnames";
 
 import { ProjectListResponseDataItem } from "@/types/generated/strapi.schemas";
 
-import { useSyncProject } from "@/app/store";
+import { projectSearchAtom, useSyncProject } from "@/app/store";
 
 import { PROJECT_PILLARS } from "@/constants/projects";
+
+import SearchHighlight from "@/components/ui/search-highlight";
 
 const ProjectsItem = (project: ProjectListResponseDataItem) => {
   const { id, attributes } = project;
   const [p, setProject] = useSyncProject();
+  const projectSearch = useAtomValue(projectSearchAtom);
 
   if (!attributes) return null;
 
@@ -42,7 +47,7 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
       </h3>
 
       <h2 className="font-metropolis font-semibold text-gray-700 group-hover:underline">
-        {project?.attributes?.name}
+        <SearchHighlight query={projectSearch}>{project?.attributes?.name}</SearchHighlight>
       </h2>
 
       <div className="text-xxs">

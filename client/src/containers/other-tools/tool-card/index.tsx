@@ -14,6 +14,9 @@ import {
   TooltipArrow,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import { useAtomValue } from "jotai";
+import { otherToolsSearchAtom } from "@/app/store";
+import SearchHighlight from "@/components/ui/search-highlight";
 
 type ToolCardProps = {
   tool?: OtherTool;
@@ -21,15 +24,20 @@ type ToolCardProps = {
 
 const ToolCard = ({ tool }: ToolCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const search = useAtomValue(otherToolsSearchAtom);
 
   return (
     <div className="flex items-center space-x-5 rounded-lg border border-gray-200 p-5">
       <div className="w-full space-y-2">
         <div className="font-open-sans text-sm">
-          {tool?.other_tools_category?.data?.attributes?.name}
+          <SearchHighlight query={search}>
+            {tool?.other_tools_category?.data?.attributes?.name}
+          </SearchHighlight>
         </div>
         <div className="flex w-full justify-between">
-          <h2 className="font-metropolis text-lg font-[900] text-gray-800">{tool?.name}</h2>
+          <h2 className="font-metropolis text-lg font-[900] text-gray-800">
+            <SearchHighlight query={search}>{tool?.name}</SearchHighlight>
+          </h2>
           <div className="flex h-6 items-center gap-2 ">
             <TooltipProvider delayDuration={100}>
               <Tooltip disableHoverableContent={!tool?.description}>

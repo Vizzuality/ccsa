@@ -1,8 +1,10 @@
 "use client";
 
+import { useAtom } from "jotai";
+
 import { useGetOtherTools } from "@/types/generated/other-tool";
 
-import { useSyncOtherToolsSearch } from "@/app/store";
+import { otherToolsSearchAtom } from "@/app/store";
 
 import ContentLoader from "@/components/ui/loader";
 import { Search } from "@/components/ui/search";
@@ -10,7 +12,7 @@ import { Search } from "@/components/ui/search";
 import ToolCard from "./tool-card";
 
 const OtherTools = () => {
-  const [search, setSearch] = useSyncOtherToolsSearch();
+  const [search, setSearch] = useAtom(otherToolsSearchAtom);
 
   const {
     data: otherTools,
@@ -25,7 +27,6 @@ const OtherTools = () => {
           filters: {
             $or: [
               { name: { $containsi: search } },
-              { description: { $containsi: search } },
               { other_tools_category: { name: { $containsi: search } } },
             ],
           },
@@ -35,8 +36,7 @@ const OtherTools = () => {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    // Remove search param from url if empty
-    setSearch(!value ? null : value);
+    setSearch(value);
   };
 
   return (
