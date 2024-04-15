@@ -24,6 +24,8 @@ const ProjectPopup = () => {
         countries: {
           fields: ["name"],
         },
+        project_status: true,
+        project_type_of_funding: true,
       },
     },
     {
@@ -37,6 +39,8 @@ const ProjectPopup = () => {
   const pillar = data?.data?.attributes?.pillar;
   const sdgs = data?.data?.attributes?.sdgs;
   const countries = data?.data?.attributes?.countries;
+  const projectStatus = data?.data?.attributes?.project_status;
+  const projectTypeOfFunding = data?.data?.attributes?.project_type_of_funding;
 
   const { format } = Intl.NumberFormat("en-US", {
     style: "currency",
@@ -123,6 +127,22 @@ const ProjectPopup = () => {
                   );
                 })}
               </ul>
+            </div>
+          )}
+
+          {/* STATUS */}
+          {!!projectStatus?.data?.attributes?.name && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Status</h3>
+              <div className="text-sm">{projectStatus?.data?.attributes?.name}</div>
+            </div>
+          )}
+
+          {/* TYPE OF FUNDING */}
+          {!!projectTypeOfFunding?.data?.attributes?.name && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Type of funding</h3>
+              <div className="text-sm">{projectTypeOfFunding?.data?.attributes?.name}</div>
             </div>
           )}
         </section>
