@@ -55,7 +55,7 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
           if (!c.id || !c.attributes) return null;
 
           return (
-            <span>
+            <span key={c.id}>
               <SearchHighlight query={projectSearch}>{c.attributes.name}</SearchHighlight>
               {!!countries?.data?.length && i < countries.data.length - 1 && <span>, </span>}
             </span>
