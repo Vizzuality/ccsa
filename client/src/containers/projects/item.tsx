@@ -50,14 +50,17 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
         <SearchHighlight query={projectSearch}>{project?.attributes?.name}</SearchHighlight>
       </h2>
 
-      <div className="text-xxs">
-        {countries?.data
-          ?.map((c) => {
-            if (!c.id || !c.attributes) return null;
+      <div className="space-x-px text-xxs">
+        {countries?.data?.map((c, i) => {
+          if (!c.id || !c.attributes) return null;
 
-            return c.attributes.name;
-          })
-          .join(", ")}
+          return (
+            <span>
+              <SearchHighlight query={projectSearch}>{c.attributes.name}</SearchHighlight>
+              {!!countries?.data?.length && i < countries.data.length - 1 && <span>, </span>}
+            </span>
+          );
+        })}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const SearchHighlight = ({ children, query }: SearchHighlightProps) => {
 
   return parts.map((part, i) =>
     regex.test(part) ? (
-      <span className="bg-brand2/50" key={i}>
+      <span className="rounded bg-brand1/50" key={i}>
         {part}
       </span>
     ) : (
