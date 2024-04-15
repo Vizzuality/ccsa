@@ -1,9 +1,9 @@
-import json
 import logging
 import os
 from enum import Enum
 from functools import lru_cache
 from typing import Annotated, Any
+from urllib.parse import urlparse
 
 import httpx
 import polars as pl
@@ -42,6 +42,16 @@ class Resource(BaseModel):
     description: str
     link: HttpUrl = Field(serialization_alias="link_url")
     country_id: str = Field(exclude=True)
+
+    @field_validator("link", mode="wrap")
+    @classmethod
+    def validate_link(cls, v: str, handler) -> str:
+        """Adds https scheme to link if not present and runs normal validation"""
+        url = urlparse(v)
+        if not url.scheme:
+            log.warning("Link URL does not contain any scheme, adding https scheme.")
+            v = url._replace(scheme="https").geturl()
+        return handler(v)
 
 
 class Resources(BaseModel):
@@ -103,21 +113,6 @@ class DatasetValues(BaseModel):
 
 
 @lru_cache
-def get_country_to_iso3(file: str) -> dict[str, str]:
-    """Get the ISO3 code of the country from the file."""
-    df = pl.read_excel(
-        file,
-        sheet_name="_config",
-        read_options={"has_header": False, "new_columns": ["field", "value"]},
-    )
-    return {row["country name"]: row["iso3"] for row in df.iter_rows()}
-
-
-def country_to_iso3(file: str, country: str) -> str:
-    return get_country_to_iso3(file)[country]
-
-
-@lru_cache
 def query_strapi_ids(plural_api_id: str, field_name: str) -> dict[str, int]:
     """Get Strapi IDs for model"""
     res = httpx.get(
@@ -168,7 +163,7 @@ def get_dataset_value(file: str, use_id: bool = False) -> DatasetValues:
 
         country = row["ISO3"]
         if use_id:
-            country = query_strapi_ids("countries", "name")[country]
+            country = query_strapi_ids("countries", "iso3")[country]
         data_values.append(
             DatasetValue(
                 dataset=get_dataset(file, use_id),
@@ -180,21 +175,23 @@ def get_dataset_value(file: str, use_id: bool = False) -> DatasetValues:
 
 
 def main(
-    input: Annotated[str, typer.Argument(...)],
-    output: Annotated[Output, typer.Option("--output", "-o")],
+    input: Annotated[str, typer.Argument()],
+    output: Annotated[str, typer.Argument()],
+    res_type: Annotated[Output, typer.Option("--res-type", "-t")],
     use_id: Annotated[
         bool,
         typer.Option(is_flag=True, help="Use db ids from strapi instead of full model"),
     ] = False,
 ):
-    match output:
+    match res_type:
         case "dataset":
             data = get_dataset(input, use_id)
-            print(data.model_dump_json(indent=4))
+            with open(output, "w") as f:
+                f.write(data.model_dump_json(indent=4))
         case "values":
             data = get_dataset_value(input, use_id)
-            # print(json.dumps(data, indent=4))
-            print(data.model_dump_json(context={"use_id": use_id}, by_alias=True))
+            with open(output, "w") as f:
+                f.write(data.model_dump_json(context={"use_id": use_id}, by_alias=True))
         case "resources":
             data = get_dataset_value(input)
             resources = []
@@ -202,9 +199,10 @@ def main(
                 for resource in value.resources:
                     resources.append(resource)
             data = Resources(resource=resources)
-            print(data.model_dump_json(indent=4, by_alias=True))
+            with open(output, "w") as f:
+                f.write(data.model_dump_json(indent=4, by_alias=True))
         case _:
-            raise ValueError(f"Invalid output: {output}")
+            raise ValueError(f"Invalid output: {res_type}")
 
 
 if __name__ == "__main__":
