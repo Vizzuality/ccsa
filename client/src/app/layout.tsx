@@ -16,7 +16,7 @@ import { metropolis, openSans } from "@/styles/fonts";
 import LayoutProviders from "./layout-providers";
 
 export const metadata: Metadata = {
-  title: "CCSA",
+  title: { template: "%s | CCSA", default: "CCSA" },
   description: "Caribbean Climate smart map",
 };
 

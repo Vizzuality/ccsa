@@ -4,6 +4,10 @@ import getQueryClient from "@/lib/react-query/getQueryClient";
 import OtherToolsList from "@/containers/other-tools";
 import PageTitle from "@/components/ui/page-title";
 
+export const metadata = {
+  title: "Other Tools",
+};
+
 async function prefetchQueries() {
   const queryClient = getQueryClient();
   try {

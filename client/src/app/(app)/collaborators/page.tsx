@@ -2,6 +2,10 @@ import CollaboratorsList from "@/containers/collaborators";
 
 import PageTitle from "@/components/ui/page-title";
 
+export const metadata = {
+  title: "Collaborators",
+};
+
 export default function CollaboratorsPage() {
   return (
     <div className="relative z-10 h-full w-full bg-white">
@@ -11,10 +15,7 @@ export default function CollaboratorsPage() {
           <h1 className="font-metropolis text-3xl tracking-tight text-gray-700">Collaborators</h1>
 
           <div className="space-y-5">
-            {
-              <CollaboratorsList />
-              /* <OtherToolsList /> */
-            }
+            <CollaboratorsList />
           </div>
         </div>
       </div>
