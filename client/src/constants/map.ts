@@ -7,7 +7,7 @@ export const DEFAULT_VIEW_STATE: Partial<ViewState> = {
 };
 
 export const MAPBOX_STYLE =
-  "mapbox://styles/caribbeanaccelerator/clp6tnp8s00fr01qx2saz77ph?fresh=1";
+  "mapbox://styles/caribbeanaccelerator/clp6tnp8s00fr01qx2saz77ph";
 
 export const DEFAULT_BBOX: [number, number, number, number] = [
   -118.3665 * 1.1,
