@@ -1092,6 +1092,16 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'manyToMany',
       'api::sdg.sdg'
     >;
+    project_status: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::project-status.project-status'
+    >;
+    project_type_of_funding: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::project-type-of-funding.project-type-of-funding'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1103,6 +1113,69 @@ export interface ApiProjectProject extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::project.project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProjectStatusProjectStatus extends Schema.CollectionType {
+  collectionName: 'project_statuses';
+  info: {
+    singularName: 'project-status';
+    pluralName: 'project-statuses';
+    displayName: 'Project Status';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::project-status.project-status',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::project-status.project-status',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProjectTypeOfFundingProjectTypeOfFunding
+  extends Schema.CollectionType {
+  collectionName: 'project_type_of_fundings';
+  info: {
+    singularName: 'project-type-of-funding';
+    pluralName: 'project-type-of-fundings';
+    displayName: 'Project Type of Funding';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::project-type-of-funding.project-type-of-funding',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::project-type-of-funding.project-type-of-funding',
       'oneToOne',
       'admin::user'
     > &
@@ -1197,6 +1270,8 @@ declare module '@strapi/types' {
       'api::other-tools-category.other-tools-category': ApiOtherToolsCategoryOtherToolsCategory;
       'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;
+      'api::project-status.project-status': ApiProjectStatusProjectStatus;
+      'api::project-type-of-funding.project-type-of-funding': ApiProjectTypeOfFundingProjectTypeOfFunding;
       'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;
     }
