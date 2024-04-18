@@ -9,7 +9,7 @@ import { isDatasetValueProperty } from "@/lib/datasets";
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import { LayerDataset } from "@/types/generated/strapi.schemas";
-import { Config, LayerProps } from "@/types/layers";
+import { Config, LayerProps, ParamsConfigValue } from "@/types/layers";
 
 import { useSyncLayersSettings } from "@/app/store";
 
@@ -17,6 +17,7 @@ export type CountriesLayerProps = LayerProps & {
   config: Config;
   dataset?: LayerDataset;
   beforeId?: string;
+  paramsConfig?: unknown;
 };
 
 const CountriesLayer = ({
@@ -24,6 +25,7 @@ const CountriesLayer = ({
   beforeId,
   dataset,
   config,
+  paramsConfig,
   onAdd,
   onRemove,
 }: CountriesLayerProps) => {
@@ -44,7 +46,10 @@ const CountriesLayer = ({
   useEffect(() => {
     const datasetValueT = dataset?.data?.attributes?.value_type;
     const isResource = datasetValueT === "resource";
-    if (isResource && id) {
+    const useParamsConfig =
+      Array.isArray(paramsConfig) &&
+      paramsConfig?.some((c: ParamsConfigValue) => c.key === "minValue" || c.key === "maxValue");
+    if (isResource && id && useParamsConfig) {
       const layerId = id.replace("-layer", "");
 
       const maxMin = datasetValues?.data?.reduce(
@@ -67,7 +72,7 @@ const CountriesLayer = ({
         },
       }));
     }
-  }, [dataset?.data?.attributes?.value_type, datasetValues, id, setLayersSettings]);
+  }, [dataset?.data?.attributes?.value_type, datasetValues, id, paramsConfig, setLayersSettings]);
 
   const SOURCE = useMemo(() => {
     if (!countriesData?.data || !datasetValues?.data) return null;

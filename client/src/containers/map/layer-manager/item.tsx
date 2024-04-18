@@ -110,6 +110,7 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
         dataset={dataset}
         beforeId={beforeId}
         config={c}
+        paramsConfig={params_config}
         onAdd={handleAddMapboxLayer}
         onRemove={handleRemoveMapboxLayer}
       />
