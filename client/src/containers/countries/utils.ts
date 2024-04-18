@@ -1,3 +1,5 @@
+import { isDatasetValueProperty } from "@/lib/datasets";
+
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasets } from "@/types/generated/dataset";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
@@ -21,14 +23,6 @@ type TableRowsDataItem = {
     resources?: DatasetValueResourcesDataItemAttributes[];
     value: string | number | boolean | undefined;
   }[];
-};
-
-const dataValueType = ["value_boolean", "value_number", "value_text"] as const;
-
-type DataValueType = (typeof dataValueType)[number];
-
-const isDatasetValueProperty = (v?: string): v is DataValueType => {
-  return !!v && dataValueType.includes(v as DataValueType);
 };
 
 const useTableData = () => {
