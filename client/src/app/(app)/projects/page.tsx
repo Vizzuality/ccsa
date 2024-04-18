@@ -4,6 +4,10 @@ import ProjectsFilters from "@/containers/projects/filters";
 import ProjectsHeader from "@/containers/projects/header";
 import ProjectPopup from "@/containers/projects/popup";
 
+export const metadata = {
+  title: "Projects",
+};
+
 export default function ProjectsPage() {
   return (
     <>
