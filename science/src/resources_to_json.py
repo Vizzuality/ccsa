@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 from enum import Enum
@@ -30,7 +31,7 @@ class ValueType(str, Enum):
     resource = "resource"
 
 
-class Output(str, Enum):
+class OutputType(str, Enum):
     dataset = "dataset"
     values = "values"
     resources = "resources"
@@ -149,6 +150,7 @@ def get_dataset_value(file: str, use_id: bool = False) -> DatasetValues:
         file,
         sheet_name="Data",
     )
+    df = df.with_columns(pl.col("name").str.strip_chars())
     df = df.group_by("ISO3").agg(pl.all())
     data_values = []
     for row in df.iter_rows(named=True):
@@ -177,7 +179,7 @@ def get_dataset_value(file: str, use_id: bool = False) -> DatasetValues:
 def main(
     input: Annotated[str, typer.Argument()],
     output: Annotated[str, typer.Argument()],
-    res_type: Annotated[Output, typer.Option("--res-type", "-t")],
+    res_type: Annotated[OutputType, typer.Option("--res-type", "-t")],
     use_id: Annotated[
         bool,
         typer.Option(is_flag=True, help="Use db ids from strapi instead of full model"),
@@ -187,20 +189,28 @@ def main(
         case "dataset":
             data = get_dataset(input, use_id)
             with open(output, "w") as f:
-                f.write(data.model_dump_json(indent=4))
+                f.write(data.model_dump_json(context={"use_id": use_id}, indent=4))
         case "values":
             data = get_dataset_value(input, use_id)
             with open(output, "w") as f:
-                f.write(data.model_dump_json(context={"use_id": use_id}, by_alias=True))
+                f.write(data.model_dump_json(context={"use_id": use_id}, indent=4, by_alias=True))
         case "resources":
             data = get_dataset_value(input)
-            resources = []
+            resources_uniques = []
+            seen = set()
             for value in data.dataset_values:
-                for resource in value.resources:
-                    resources.append(resource)
-            data = Resources(resource=resources)
+                for resources in value.resources:
+                    for resource in resources[1]:
+                        if resource.title in seen:
+                            continue
+                        else:
+                            resources_uniques.append(resource)
+                            seen.add(resource.title)
+            res = Resources(resource=resources_uniques)
             with open(output, "w") as f:
-                f.write(data.model_dump_json(indent=4, by_alias=True))
+                f.write(res.model_dump_json(context={"use_id": use_id}, indent=4, by_alias=True,
+                                            exclude={"resource": {"__all__": {"id",}}}
+                                            ))
         case _:
             raise ValueError(f"Invalid output: {res_type}")
 
