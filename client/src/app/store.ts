@@ -64,14 +64,6 @@ export const useSyncPublicationState = () => {
   return useQueryState("publicationState", publicationStateParser);
 };
 
-export const useSyncOtherToolsSearch = () => {
-  return useQueryState("other-tools-search", { defaultValue: "" });
-};
-
-export const useSyncCollaboratorsSearch = () => {
-  return useQueryState("collaborators-search", { defaultValue: "" });
-};
-
 export const useSyncSearchParams = () => {
   const [datasets] = useSyncDatasets();
   const [layers] = useSyncLayers();
@@ -131,3 +123,6 @@ export const projectSearchAtom = atom<string | undefined>(undefined);
 
 export const layersInteractiveAtom = atom<(number | string)[]>([]);
 export const layersInteractiveIdsAtom = atom<(number | string)[]>([]);
+
+export const otherToolsSearchAtom = atom<string | undefined>(undefined);
+export const collaboratorsSearchAtom = atom<string | undefined>(undefined);
