@@ -26,13 +26,13 @@ export const GET_PROJECTS_OPTIONS = (
             $containsi: projectSearch,
           },
         },
-        {
-          countries: {
-            name: {
-              $containsi: projectSearch,
-            },
-          },
-        },
+        // {
+        //   countries: {
+        //     name: {
+        //       $containsi: projectSearch,
+        //     },
+        //   },
+        // },
       ],
     }),
     ...(!!filters?.pillars?.length && {
