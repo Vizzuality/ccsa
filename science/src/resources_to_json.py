@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 from enum import Enum
@@ -196,21 +195,29 @@ def main(
                 f.write(data.model_dump_json(context={"use_id": use_id}, indent=4, by_alias=True))
         case "resources":
             data = get_dataset_value(input)
-            resources_uniques = []
+            resources_unique = []
             seen = set()
+            # deduplicate the resources (based on name) to create the strapi entries
+            # for Resource. Then DatasetValues can be related with n existing resources
+            # via id. ( the triple loop is because of the nesting in the models )
             for value in data.dataset_values:
                 for resources in value.resources:
                     for resource in resources[1]:
                         if resource.title in seen:
                             continue
                         else:
-                            resources_uniques.append(resource)
+                            resources_unique.append(resource)
                             seen.add(resource.title)
-            res = Resources(resource=resources_uniques)
+            res = Resources(resource=resources_unique)
             with open(output, "w") as f:
-                f.write(res.model_dump_json(context={"use_id": use_id}, indent=4, by_alias=True,
-                                            exclude={"resource": {"__all__": {"id",}}}
-                                            ))
+                f.write(
+                    res.model_dump_json(
+                        context={"use_id": use_id},
+                        indent=4,
+                        by_alias=True,
+                        exclude={"resource": {"__all__": {"id"}}},
+                    )
+                )
         case _:
             raise ValueError(f"Invalid output: {res_type}")
 
