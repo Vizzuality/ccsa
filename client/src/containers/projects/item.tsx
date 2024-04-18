@@ -51,16 +51,12 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
       </h2>
 
       <div className="space-x-px text-xxs">
-        {countries?.data?.map((c, i) => {
-          if (!c.id || !c.attributes) return null;
-
-          return (
-            <span key={c.id}>
-              <SearchHighlight query={projectSearch}>{c.attributes.name}</SearchHighlight>
-              {!!countries?.data?.length && i < countries.data.length - 1 && <span>, </span>}
-            </span>
-          );
-        })}
+        {countries?.data
+          ?.reduce<string[]>((acc, curr) => {
+            if (!curr.id || !curr.attributes?.name) return acc;
+            return [...acc, curr.attributes.name];
+          }, [])
+          .join(", ")}
       </div>
     </div>
   );
