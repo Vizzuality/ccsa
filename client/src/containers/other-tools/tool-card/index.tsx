@@ -39,17 +39,19 @@ const ToolCard = ({ tool }: ToolCardProps) => {
             <SearchHighlight query={search}>{tool?.name}</SearchHighlight>
           </h2>
           <div className="flex h-6 items-center gap-2 ">
-            <TooltipProvider delayDuration={100}>
-              <Tooltip disableHoverableContent={!tool?.description}>
-                <TooltipTrigger>
-                  <LuInfo className="h-5 w-5" />
-                </TooltipTrigger>
-                <TooltipContent className="border-bg-gray-800 w-64 border bg-gray-800 p-2.5 text-sm text-white">
-                  <div>{tool?.description}</div>
-                  <TooltipArrow />
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {!!tool?.description && (
+              <TooltipProvider delayDuration={100}>
+                <Tooltip>
+                  <TooltipTrigger disabled={!tool?.description}>
+                    <LuInfo className="h-5 w-5" />
+                  </TooltipTrigger>
+                  <TooltipContent className="border-bg-gray-800 max-w-[256px] border bg-gray-800 p-2.5 text-sm text-white">
+                    <div>{tool?.description}</div>
+                    <TooltipArrow />
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
             <div
               className={cn(
                 "flex items-center gap-1 overflow-hidden py-1 transition-all  duration-500",
