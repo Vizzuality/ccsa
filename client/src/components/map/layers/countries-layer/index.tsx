@@ -5,32 +5,28 @@ import { Source, Layer, GeoJSONSourceRaw } from "react-map-gl";
 import { Feature } from "geojson";
 
 import { isDatasetValueProperty } from "@/lib/datasets";
+import { parseConfig } from "@/lib/json-converter";
+import { getResourceParamConfig } from "@/lib/utils/layer-config";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
-import { LayerDataset } from "@/types/generated/strapi.schemas";
-import { Config, LayerProps, ParamsConfigValue } from "@/types/layers";
-
-import { useSyncLayersSettings } from "@/app/store";
+import { Layer as LayerConfig } from "@/types/generated/strapi.schemas";
+import { Config, LayerProps } from "@/types/layers";
 
 export type CountriesLayerProps = LayerProps & {
-  config: Config;
-  dataset?: LayerDataset;
   beforeId?: string;
-  paramsConfig?: unknown;
+  layer?: LayerConfig;
+  settings: Record<string, unknown>;
 };
 
 const CountriesLayer = ({
   id,
   beforeId,
-  dataset,
-  config,
-  paramsConfig,
+  layer,
+  settings,
   onAdd,
   onRemove,
 }: CountriesLayerProps) => {
-  const [, setLayersSettings] = useSyncLayersSettings();
-
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
     sort: "name:asc",
@@ -38,45 +34,28 @@ const CountriesLayer = ({
 
   const { data: datasetValues } = useGetDatasetValues({
     filters: {
-      dataset: dataset?.data?.id,
+      dataset: layer?.dataset?.data?.id,
     },
     populate: ["country", "resources"],
   });
 
-  useEffect(() => {
-    const datasetValueT = dataset?.data?.attributes?.value_type;
-    const isResource = datasetValueT === "resource";
-    const useParamsConfig =
-      Array.isArray(paramsConfig) &&
-      paramsConfig?.some((c: ParamsConfigValue) => c.key === "minValue" || c.key === "maxValue");
-    if (isResource && id && useParamsConfig) {
-      const layerId = id.replace("-layer", "");
+  const config = useMemo(() => {
+    const paramsConfig = getResourceParamConfig({
+      dataset: layer?.dataset,
+      datasetValues,
+      params_config: layer?.params_config as Record<string, unknown>[] | undefined,
+    });
 
-      const maxMin = datasetValues?.data?.reduce(
-        (acc, curr) => {
-          const resources = curr.attributes?.resources?.data?.length || 0;
-          return {
-            maxValue: Math.max(acc.maxValue, resources),
-            minValue: Math.min(acc.minValue, resources),
-          };
-        },
-        { maxValue: 0, minValue: Infinity },
-      );
-
-      setLayersSettings((prev) => ({
-        ...prev,
-        [layerId]: {
-          ...prev?.[layerId],
-          minValue: maxMin?.minValue,
-          maxValue: maxMin?.maxValue,
-        },
-      }));
-    }
-  }, [dataset?.data?.attributes?.value_type, datasetValues, id, paramsConfig, setLayersSettings]);
+    return parseConfig<Config>({
+      config: layer?.config,
+      params_config: paramsConfig,
+      settings,
+    });
+  }, [datasetValues, layer?.config, layer?.dataset, layer?.params_config, settings]);
 
   const SOURCE = useMemo(() => {
     if (!countriesData?.data || !datasetValues?.data) return null;
-    const datasetValueT = dataset?.data?.attributes?.value_type;
+    const datasetValueT = layer?.dataset?.data?.attributes?.value_type;
     const isResource = datasetValueT === "resource";
     const valueName = `value_${datasetValueT}`;
 
@@ -113,9 +92,9 @@ const CountriesLayer = ({
         }),
       },
     } satisfies GeoJSONSourceRaw;
-  }, [countriesData?.data, dataset?.data?.attributes?.value_type, id, datasetValues?.data]);
+  }, [countriesData?.data, datasetValues?.data, layer?.dataset?.data?.attributes?.value_type, id]);
 
-  const STYLES = config.styles;
+  const STYLES = config?.styles;
 
   useEffect(() => {
     if (SOURCE && STYLES && onAdd) {
