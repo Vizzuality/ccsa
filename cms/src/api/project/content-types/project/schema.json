@@ -42,15 +42,11 @@
       "target": "api::sdg.sdg",
       "inversedBy": "projects"
     },
-    "project_status": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::project-status.project-status"
+    "status": {
+      "type": "string"
     },
-    "project_type_of_funding": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::project-type-of-funding.project-type-of-funding"
+    "funding": {
+      "type": "string"
     }
   }
 }

@@ -121,32 +121,30 @@
           "sortable": false
         }
       },
-      "project_status": {
+      "status": {
         "edit": {
-          "label": "project_status",
+          "label": "status",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "project_status",
+          "label": "status",
           "searchable": true,
           "sortable": true
         }
       },
-      "project_type_of_funding": {
+      "funding": {
         "edit": {
-          "label": "project_type_of_funding",
+          "label": "funding",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "project_type_of_funding",
+          "label": "funding",
           "searchable": true,
           "sortable": true
         }
@@ -260,13 +258,13 @@
             "size": 6
           },
           {
-            "name": "project_status",
+            "name": "status",
             "size": 6
           }
         ],
         [
           {
-            "name": "project_type_of_funding",
+            "name": "funding",
             "size": 6
           }
         ]

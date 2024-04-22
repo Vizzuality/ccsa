@@ -29,6 +29,9 @@
     "bbox": {
       "type": "json",
       "required": false
+    },
+    "link": {
+      "type": "string"
     }
   }
 }
