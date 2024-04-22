@@ -96,7 +96,7 @@ const CountriesTable = () => {
                   </td>
                   {t?.values?.map((v) => {
                     return (
-                      <td key={v.iso3} className="space-y-1.5 p-3">
+                      <td key={v.iso3} className="space-x-1 space-y-1.5 p-3">
                         {v.isResource ? (
                           v.resources?.length ? (
                             v.resources?.map((r) => (

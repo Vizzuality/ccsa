@@ -50,9 +50,11 @@ const CountryPopup = () => {
         <section className="space-y-2.5">
           <div className="flex gap-2">
             <MultiCombobox />
-            <Button onClick={() => setComparisonCountries([])} variant="destructive-outline">
-              Clear
-            </Button>
+            {!!countriesComparison?.length && (
+              <Button onClick={() => setComparisonCountries([])} variant="destructive-outline">
+                Clear
+              </Button>
+            )}
           </div>
 
           <CountriesTable />
