@@ -19,7 +19,7 @@ import CountriesTable from "./countries-table";
 
 const CountryPopup = () => {
   const [country] = useSyncCountry();
-  const [countriesComparison] = useSyncCountriesComparison();
+  const [countriesComparison, setComparisonCountries] = useSyncCountriesComparison();
 
   const { data: countriesData } = useGetCountries({
     "pagination[pageSize]": 100,
@@ -48,7 +48,14 @@ const CountryPopup = () => {
 
       <div className="divide-y divide-gray-200 px-10 py-5">
         <section className="space-y-2.5">
-          <MultiCombobox />
+          <div className="flex gap-2">
+            <MultiCombobox />
+            {!!countriesComparison?.length && (
+              <Button onClick={() => setComparisonCountries([])} variant="destructive-outline">
+                Clear
+              </Button>
+            )}
+          </div>
 
           <CountriesTable />
 
