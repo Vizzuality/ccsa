@@ -4,21 +4,26 @@ import { Source, Layer, GeoJSONSourceRaw } from "react-map-gl";
 
 import { Feature } from "geojson";
 
+import { isDatasetValueProperty } from "@/lib/datasets";
+import { parseConfig } from "@/lib/json-converter";
+import { getResourceParamConfig } from "@/lib/utils/layer-config";
+
 import { useGetCountries } from "@/types/generated/country";
-import { LayerDataset } from "@/types/generated/strapi.schemas";
+import { useGetDatasetValues } from "@/types/generated/dataset-value";
+import { Layer as LayerConfig } from "@/types/generated/strapi.schemas";
 import { Config, LayerProps } from "@/types/layers";
 
 export type CountriesLayerProps = LayerProps & {
-  config: Config;
-  dataset?: LayerDataset;
   beforeId?: string;
+  layer?: LayerConfig;
+  settings: Record<string, unknown>;
 };
 
 const CountriesLayer = ({
   id,
   beforeId,
-  dataset,
-  config,
+  layer,
+  settings,
   onAdd,
   onRemove,
 }: CountriesLayerProps) => {
@@ -27,8 +32,32 @@ const CountriesLayer = ({
     sort: "name:asc",
   });
 
+  const { data: datasetValues } = useGetDatasetValues({
+    filters: {
+      dataset: layer?.dataset?.data?.id,
+    },
+    populate: ["country", "resources"],
+  });
+
+  const config = useMemo(() => {
+    const paramsConfig = getResourceParamConfig({
+      dataset: layer?.dataset,
+      datasetValues,
+      params_config: layer?.params_config as Record<string, unknown>[] | undefined,
+    });
+
+    return parseConfig<Config>({
+      config: layer?.config,
+      params_config: paramsConfig,
+      settings,
+    });
+  }, [datasetValues, layer?.config, layer?.dataset, layer?.params_config, settings]);
+
   const SOURCE = useMemo(() => {
-    if (!countriesData?.data) return null;
+    if (!countriesData?.data || !datasetValues?.data) return null;
+    const datasetValueT = layer?.dataset?.data?.attributes?.value_type;
+    const isResource = datasetValueT === "resource";
+    const valueName = `value_${datasetValueT}`;
 
     return {
       // @ts-expect-error GeoJSONSourceRaw doesn't have id but it works
@@ -37,24 +66,35 @@ const CountriesLayer = ({
       promoteId: "id",
       data: {
         type: "FeatureCollection",
-        features: countriesData.data.map((c) => ({
-          type: "Feature",
-          id: c.id,
-          geometry: c.attributes?.geometry as Feature["geometry"],
-          properties: {
+        features: countriesData.data.map((c) => {
+          const datasetValue = datasetValues?.data?.find(
+            (v) => v.attributes?.country?.data?.id === c.id,
+          );
+          const resourceValue = datasetValue?.attributes?.resources?.data?.length || 0;
+          const v =
+            !isResource &&
+            !!isDatasetValueProperty(valueName) &&
+            datasetValue?.attributes?.[valueName];
+          // Convert boolean to yes/no
+          const value = !isResource && valueName === "value_boolean" ? (v ? "yes" : "no") : v;
+
+          return {
+            type: "Feature",
             id: c.id,
-            name: c.attributes?.name,
-            iso3: c.attributes?.iso3,
-            ...(dataset?.data?.attributes?.datum as Record<string, unknown>[])?.find(
-              (d) => d.iso3 === c.attributes?.iso3,
-            ),
-          },
-        })),
+            geometry: c.attributes?.geometry as Feature["geometry"],
+            properties: {
+              id: c.id,
+              name: c.attributes?.name,
+              iso3: c.attributes?.iso3,
+              value: isResource ? resourceValue : value,
+            },
+          };
+        }),
       },
     } satisfies GeoJSONSourceRaw;
-  }, [id, countriesData, dataset?.data?.attributes?.datum]);
+  }, [countriesData?.data, datasetValues?.data, layer?.dataset?.data?.attributes?.value_type, id]);
 
-  const STYLES = config.styles;
+  const STYLES = config?.styles;
 
   useEffect(() => {
     if (SOURCE && STYLES && onAdd) {

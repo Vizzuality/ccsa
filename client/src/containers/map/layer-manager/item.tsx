@@ -94,24 +94,14 @@ const LayerManagerItem = ({ id, beforeId, settings }: LayerManagerItemProps) => 
   }
 
   if (type === "countries") {
-    const { config, params_config, dataset } = data.data.attributes;
-
-    const c = parseConfig<Config>({
-      config,
-      params_config,
-      settings,
-    });
-
-    if (!c) return null;
-
     return (
       <CountriesLayer
+        layer={data.data.attributes}
         id={`${id}-layer`}
-        dataset={dataset}
         beforeId={beforeId}
-        config={c}
         onAdd={handleAddMapboxLayer}
         onRemove={handleRemoveMapboxLayer}
+        settings={settings}
       />
     );
   }
