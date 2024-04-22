@@ -59,7 +59,9 @@ const CountryDownloadDialog = () => {
               ? curr.resources?.length
                 ? curr.resources?.map((r) => r.link_title).join(", ")
                 : undefined
-              : typeof curr.value === "number" || typeof curr.value === "string"
+              : typeof curr.value === "number" ||
+                typeof curr.value === "string" ||
+                typeof curr.value === "boolean"
               ? curr.value
               : undefined;
             return {
@@ -70,7 +72,20 @@ const CountryDownloadDialog = () => {
           { dataset: d.name, "dataset unit": d.unit || undefined },
         ),
       ) ?? [];
-    const CSV = generateCsv(CSV_CONFIG)(data);
+
+    const countries =
+      TABLE_ROWS_DATA?.[0]?.values.reduce(
+        (acc, curr) =>
+          !!curr.countryName ? { ...acc, [curr.countryName]: curr.countryLink } : acc,
+        {},
+      ) ?? [];
+
+    const dataWithCoutryLinks = [
+      ...data,
+      { dataset: "CCSA link", "dataset unit": "", ...countries },
+    ];
+
+    const CSV = generateCsv(CSV_CONFIG)(dataWithCoutryLinks);
 
     return CSV;
   }, [TABLE_ROWS_DATA]);
