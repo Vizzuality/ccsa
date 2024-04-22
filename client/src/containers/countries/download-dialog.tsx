@@ -49,7 +49,6 @@ const CountryDownloadDialog = () => {
   const mutationPutDownloadEmails = usePutDownloadEmailsId();
 
   const { TABLE_ROWS_DATA } = useTableData();
-  console.log(TABLE_ROWS_DATA);
 
   const csvData = useMemo(() => {
     const data =
@@ -85,7 +84,6 @@ const CountryDownloadDialog = () => {
       ...data,
       { dataset: "CCSA link", "dataset unit": "", ...countries },
     ];
-    console.log(dataWithCoutryLinks);
 
     const CSV = generateCsv(CSV_CONFIG)(dataWithCoutryLinks);
 
