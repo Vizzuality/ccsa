@@ -14,3 +14,8 @@ select = [
 ]
 
 ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = [
+    "B018", # Useless expression. Used in notebooks to display data
+]
