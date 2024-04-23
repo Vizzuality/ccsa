@@ -280,12 +280,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "countries",
-        "createdAt"
-      ],
+      "list": ["id", "name", "countries", "createdAt"],
       "edit": [
         [
           {
