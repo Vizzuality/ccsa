@@ -56,13 +56,67 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
         "fields": [
           "name",
           "iso3",
           "geometry",
-          "bbox"
+          "bbox",
+          "link"
         ]
       },
       "conditions": []
@@ -90,7 +144,8 @@
           "name",
           "iso3",
           "geometry",
-          "bbox"
+          "bbox",
+          "link"
         ]
       },
       "conditions": []
@@ -104,7 +159,63 @@
           "name",
           "iso3",
           "geometry",
-          "bbox"
+          "bbox",
+          "link"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::dataset-value.dataset-value",
+      "properties": {
+        "fields": [
+          "dataset",
+          "country",
+          "value_text",
+          "value_number",
+          "value_boolean",
+          "resources"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::dataset-value.dataset-value",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::dataset-value.dataset-value",
+      "properties": {
+        "fields": [
+          "dataset",
+          "country",
+          "value_text",
+          "value_number",
+          "value_boolean",
+          "resources"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::dataset-value.dataset-value",
+      "properties": {
+        "fields": [
+          "dataset",
+          "country",
+          "value_text",
+          "value_number",
+          "value_boolean",
+          "resources"
         ]
       },
       "conditions": []
@@ -512,7 +623,9 @@
           "highlight",
           "account",
           "amount",
-          "sdgs"
+          "sdgs",
+          "status",
+          "funding"
         ]
       },
       "conditions": []
@@ -543,7 +656,9 @@
           "highlight",
           "account",
           "amount",
-          "sdgs"
+          "sdgs",
+          "status",
+          "funding"
         ]
       },
       "conditions": []
@@ -560,7 +675,62 @@
           "highlight",
           "account",
           "amount",
-          "sdgs"
+          "sdgs",
+          "status",
+          "funding"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::resource.resource",
+      "properties": {
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
         ]
       },
       "conditions": []

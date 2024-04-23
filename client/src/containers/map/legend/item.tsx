@@ -2,7 +2,9 @@
 import { ReactElement, cloneElement, createElement, isValidElement, useMemo } from "react";
 
 import { parseConfig } from "@/lib/json-converter";
+import { getResourceParamConfig } from "@/lib/utils/layer-config";
 
+import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import { useGetLayersId } from "@/types/generated/layer";
 import { LayerTyped, LegendConfig, ParamsConfig } from "@/types/layers";
 import { LegendType } from "@/types/legend";
@@ -44,6 +46,14 @@ const getSettingsManager = (data: LayerTyped = {} as LayerTyped): SettingsManage
   };
 };
 
+type ConfigType =
+  | LegendConfig
+  | ReactElement<{
+      paramsConfig: ParamsConfig;
+      onChangeSettings: (settings: Record<string, unknown>) => unknown;
+    }>
+  | null;
+
 const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
   const [, setLayers] = useSyncLayers();
   const [, setDatasets] = useSyncDatasets();
@@ -53,9 +63,49 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
     populate: "metadata,dataset",
   });
 
+  const isResourceDataset =
+    data?.data?.attributes?.dataset?.data?.attributes?.value_type === "resource";
+
+  const { data: datasetValues } = useGetDatasetValues(
+    {
+      filters: {
+        dataset: data?.data?.attributes?.dataset?.data?.id,
+      },
+      populate: ["resources"],
+    },
+    {
+      query: {
+        enabled: isResourceDataset,
+      },
+    },
+  );
+
   const attributes = data?.data?.attributes as LayerTyped;
   const legend_config = attributes?.legend_config;
   const params_config = attributes?.params_config;
+
+  const config = useMemo(() => {
+    const paramsConfig = getResourceParamConfig({
+      dataset: data?.data?.attributes?.dataset,
+      datasetValues,
+      params_config,
+    });
+
+    const settings = (layersSettings && layersSettings[`${id}`]) ?? {};
+
+    return parseConfig<ConfigType>({
+      config: legend_config,
+      params_config: paramsConfig,
+      settings,
+    });
+  }, [
+    data?.data?.attributes?.dataset,
+    datasetValues,
+    id,
+    layersSettings,
+    legend_config,
+    params_config,
+  ]);
 
   const settingsManager = getSettingsManager(attributes);
 
@@ -67,19 +117,7 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
   }, [attributes]);
 
   const LEGEND_COMPONENT = useMemo(() => {
-    const l = parseConfig<
-      | LegendConfig
-      | ReactElement<{
-          paramsConfig: ParamsConfig;
-          onChangeSettings: (settings: Record<string, unknown>) => unknown;
-        }>
-      | null
-    >({
-      config: legend_config,
-      params_config,
-      settings: (layersSettings && layersSettings[`${id}`]) ?? {},
-    });
-
+    const l = config;
     if (!l) return null;
 
     if (isValidElement(l)) {
@@ -103,7 +141,7 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
     }
 
     return null;
-  }, [id, legend_config, params_config, layersSettings, setLayersSettings]);
+  }, [config, params_config, setLayersSettings, id]);
 
   return (
     <ContentLoader

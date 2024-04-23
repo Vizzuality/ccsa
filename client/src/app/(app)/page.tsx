@@ -1,3 +1,4 @@
+import PageTitle from "@/components/ui/page-title";
 import CountryPopup from "@/containers/countries/popup";
 import DatasetsCategories from "@/containers/datasets/categories";
 import DatasetsHeader from "@/containers/datasets/header";
@@ -8,7 +9,8 @@ export default function HomePage() {
     <>
       <div className="relative z-10 h-full w-full bg-white">
         <div className="h-full overflow-auto">
-          <div className="space-y-5 px-5 py-10">
+          <PageTitle />
+          <div className="space-y-5 px-5 pb-10 pt-[30px]">
             <h1 className="font-metropolis text-3xl tracking-tight text-gray-700">
               Explore datasets
             </h1>

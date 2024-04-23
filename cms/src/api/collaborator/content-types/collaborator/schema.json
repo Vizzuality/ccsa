@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collaborators",
+  "info": {
+    "singularName": "collaborator",
+    "pluralName": "collaborators",
+    "displayName": "Collaborator",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "donor",
+        "collaborator"
+      ],
+      "required": true
+    }
+  }
+}

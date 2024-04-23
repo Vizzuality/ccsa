@@ -713,6 +713,39 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
+  collectionName: 'collaborators';
+  info: {
+    singularName: 'collaborator';
+    pluralName: 'collaborators';
+    displayName: 'Collaborator';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    link: Attribute.String;
+    type: Attribute.Enumeration<['donor', 'collaborator']> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::collaborator.collaborator',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::collaborator.collaborator',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCountryCountry extends Schema.CollectionType {
   collectionName: 'countries';
   info: {
@@ -729,6 +762,7 @@ export interface ApiCountryCountry extends Schema.CollectionType {
     iso3: Attribute.String & Attribute.Required & Attribute.Unique;
     geometry: Attribute.JSON;
     bbox: Attribute.JSON;
+    link: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -773,7 +807,9 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'api::layer.layer'
     >;
     unit: Attribute.String;
-    value_type: Attribute.Enumeration<['text', 'number', 'boolean']> &
+    value_type: Attribute.Enumeration<
+      ['text', 'number', 'boolean', 'resource']
+    > &
       Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1057,6 +1093,8 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'manyToMany',
       'api::sdg.sdg'
     >;
+    status: Attribute.String;
+    funding: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1152,6 +1190,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::category.category': ApiCategoryCategory;
+      'api::collaborator.collaborator': ApiCollaboratorCollaborator;
       'api::country.country': ApiCountryCountry;
       'api::dataset.dataset': ApiDatasetDataset;
       'api::dataset-value.dataset-value': ApiDatasetValueDatasetValue;

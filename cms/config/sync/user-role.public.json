@@ -10,6 +10,12 @@
       "action": "api::category.category.findOne"
     },
     {
+      "action": "api::collaborator.collaborator.find"
+    },
+    {
+      "action": "api::collaborator.collaborator.findOne"
+    },
+    {
       "action": "api::country.country.find"
     },
     {
@@ -44,6 +50,18 @@
     },
     {
       "action": "api::layer.layer.findOne"
+    },
+    {
+      "action": "api::other-tool.other-tool.find"
+    },
+    {
+      "action": "api::other-tool.other-tool.findOne"
+    },
+    {
+      "action": "api::other-tools-category.other-tools-category.find"
+    },
+    {
+      "action": "api::other-tools-category.other-tools-category.findOne"
     },
     {
       "action": "api::pillar.pillar.find"
