@@ -47,6 +47,18 @@
     },
     "funding": {
       "type": "string"
+    },
+    "source_country": {
+      "type": "string"
+    },
+    "organization_type": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "text"
+    },
+    "info": {
+      "type": "string"
     }
   }
 }
