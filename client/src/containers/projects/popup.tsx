@@ -41,6 +41,9 @@ const ProjectPopup = () => {
   const countries = data?.data?.attributes?.countries;
   const projectStatus = data?.data?.attributes?.status;
   const projectTypeOfFunding = data?.data?.attributes?.funding;
+  const organizationType = (data?.data?.attributes as any)?.organization_type;
+  const sourceCountry = (data?.data?.attributes as any)?.source_country;
+  const objective = (data?.data?.attributes as any)?.objective;
 
   const { format } = Intl.NumberFormat("en-US", {
     style: "currency",
@@ -80,7 +83,6 @@ const ProjectPopup = () => {
               </div>
             </div>
           )}
-
           {/* ACCOUNT */}
           {!!data?.data?.attributes?.account && (
             <div className="space-y-2.5">
@@ -88,7 +90,6 @@ const ProjectPopup = () => {
               <div className="text-sm">{data?.data?.attributes?.account}</div>
             </div>
           )}
-
           {/* AMOUNT */}
           {!!data?.data?.attributes?.amount && (
             <div className="space-y-2.5">
@@ -96,7 +97,6 @@ const ProjectPopup = () => {
               <div className="text-sm">{format(data?.data?.attributes?.amount)}</div>
             </div>
           )}
-
           {/* COUNTRIES */}
           {!!countries?.data?.length && (
             <div className="space-y-2.5">
@@ -129,7 +129,6 @@ const ProjectPopup = () => {
               </ul>
             </div>
           )}
-
           {/* STATUS */}
           {!!projectStatus && (
             <div className="space-y-2.5">
@@ -137,12 +136,34 @@ const ProjectPopup = () => {
               <div className="text-sm">{projectStatus}</div>
             </div>
           )}
-
           {/* TYPE OF FUNDING */}
           {!!projectTypeOfFunding && (
             <div className="space-y-2.5">
               <h3 className="text-xxs uppercase text-gray-500">Type of funding</h3>
               <div className="text-sm">{projectTypeOfFunding}</div>
+            </div>
+          )}
+          {/* Organization Type */}
+          {!!organizationType && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Organization Type</h3>
+              <div className="text-sm">{organizationType}</div>
+            </div>
+          )}
+
+          {/* Source Country */}
+          {!!sourceCountry && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Source Country</h3>
+              <div className="text-sm">{sourceCountry}</div>
+            </div>
+          )}
+
+          {/* Objective */}
+          {!!objective && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Objective</h3>
+              <div className="text-sm">{objective}</div>
             </div>
           )}
         </section>
