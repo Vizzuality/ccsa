@@ -2945,6 +2945,7 @@ export const LayerDatasetDataAttributesValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type LayerDatasetDataAttributesUpdatedByDataAttributes = { [key: string]: any };
@@ -3668,6 +3669,7 @@ export const DatasetValueDatasetDataAttributesValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type DatasetValueDatasetDataAttributesUpdatedByDataAttributes = { [key: string]: any };
@@ -4131,6 +4133,7 @@ export const DatasetValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type DatasetUpdatedByDataAttributes = { [key: string]: any };
@@ -4228,6 +4231,7 @@ export const DatasetCategoryDataAttributesDatasetsDataItemAttributesValueType = 
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type DatasetCategoryDataAttributesDatasetsDataItemAttributesUpdatedByDataAttributes = {
@@ -4581,6 +4585,7 @@ export const DatasetRequestDataValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type DatasetRequestDataLayersItem = number | string;
@@ -5134,6 +5139,7 @@ export const CategoryDatasetsDataItemAttributesValueType = {
   text: "text",
   number: "number",
   boolean: "boolean",
+  resource: "resource",
 } as const;
 
 export type CategoryDatasetsDataItemAttributes = {

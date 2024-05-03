@@ -1,12 +1,16 @@
 "use client";
 import { useState } from "react";
 
+import { useAtomValue } from "jotai";
 import { LuExternalLink, LuInfo } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
 
 import { OtherTool } from "@/types/generated/strapi.schemas";
 
+import { otherToolsSearchAtom } from "@/app/store";
+
+import SearchHighlight from "@/components/ui/search-highlight";
 import {
   Tooltip,
   TooltipTrigger,
@@ -14,9 +18,6 @@ import {
   TooltipArrow,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { useAtomValue } from "jotai";
-import { otherToolsSearchAtom } from "@/app/store";
-import SearchHighlight from "@/components/ui/search-highlight";
 
 type ToolCardProps = {
   tool?: OtherTool;
