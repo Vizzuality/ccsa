@@ -31,6 +31,7 @@ import useTableData from "./utils";
 const CSV_CONFIG = mkConfig({
   filename: `CCSA-data-`,
   useKeysAsHeaders: true,
+  boolDisplay: { false: "No", true: "Yes" },
 });
 
 const FormSchema = z.object({
