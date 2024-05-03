@@ -36,3 +36,5 @@ export function GET_DATASETS_OPTIONS(
     publicationState: publicationState || "live",
   };
 }
+
+export const dataValueType = ["value_boolean", "value_number", "value_text"] as const;

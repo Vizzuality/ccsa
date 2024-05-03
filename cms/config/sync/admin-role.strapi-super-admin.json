@@ -56,13 +56,67 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::collaborator.collaborator",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
         "fields": [
           "name",
           "iso3",
           "geometry",
-          "bbox"
+          "bbox",
+          "link"
         ]
       },
       "conditions": []
@@ -90,7 +144,8 @@
           "name",
           "iso3",
           "geometry",
-          "bbox"
+          "bbox",
+          "link"
         ]
       },
       "conditions": []
@@ -104,7 +159,8 @@
           "name",
           "iso3",
           "geometry",
-          "bbox"
+          "bbox",
+          "link"
         ]
       },
       "conditions": []
@@ -512,7 +568,13 @@
           "highlight",
           "account",
           "amount",
-          "sdgs"
+          "sdgs",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info"
         ]
       },
       "conditions": []
@@ -543,7 +605,13 @@
           "highlight",
           "account",
           "amount",
-          "sdgs"
+          "sdgs",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info"
         ]
       },
       "conditions": []
@@ -560,7 +628,13 @@
           "highlight",
           "account",
           "amount",
-          "sdgs"
+          "sdgs",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info"
         ]
       },
       "conditions": []

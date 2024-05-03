@@ -59,44 +59,52 @@ const LayerManager = () => {
         <CountriesLayer
           id="countries"
           beforeId="priority-layers"
-          config={{
-            styles: [
-              {
-                id: "countries-layer-line",
-                type: "line",
-                paint: {
-                  "line-color": [
-                    "case",
-                    ...(pathname === "/" ? [["==", ["get", "iso3"], country], "#333"] : []),
-                    ...(pathname === "/projects" && countries?.length
-                      ? countries.map((c) => [["==", ["get", "iso3"], c], "#333"]).flat()
-                      : [true, "#777"]),
-                    "#777",
-                  ],
-                  "line-opacity": 1,
-                  "line-width": [
-                    "case",
-                    ["boolean", ["feature-state", "hover"], false],
-                    2,
-                    ...(pathname === "/" ? [["==", ["get", "iso3"], country], 2] : []),
-                    ...(pathname === "/projects" && countries?.length
-                      ? countries.map((c) => [["==", ["get", "iso3"], c], 2]).flat()
-                      : []),
+          layer={{
+            dataset: { data: { id: 0 } },
+            legend_config: {},
+            params_config: [],
+            interaction_config: {},
+            type: "countries",
+            config: {
+              styles: [
+                {
+                  id: "countries-layer-line",
+                  type: "line",
+                  paint: {
+                    "line-color": [
+                      "case",
+                      ...(pathname === "/" ? [["==", ["get", "iso3"], country], "#333"] : []),
+                      ...(pathname === "/projects" && countries?.length
+                        ? countries.map((c) => [["==", ["get", "iso3"], c], "#333"]).flat()
+                        : [true, "#777"]),
+                      "#777",
+                    ],
+                    "line-opacity": 1,
+                    "line-width": [
+                      "case",
+                      ["boolean", ["feature-state", "hover"], false],
+                      2,
+                      ...(pathname === "/" ? [["==", ["get", "iso3"], country], 2] : []),
+                      ...(pathname === "/projects" && countries?.length
+                        ? countries.map((c) => [["==", ["get", "iso3"], c], 2]).flat()
+                        : []),
 
-                    1.5,
-                  ],
+                      1.5,
+                    ],
+                  },
                 },
-              },
-              {
-                id: "countries-layer-fill",
-                type: "fill",
-                paint: {
-                  "fill-color": "#000",
-                  "fill-opacity": 0,
+                {
+                  id: "countries-layer-fill",
+                  type: "fill",
+                  paint: {
+                    "fill-color": "#000",
+                    "fill-opacity": 0,
+                  },
                 },
-              },
-            ],
+              ],
+            },
           }}
+          settings={{ opacity: 1, visibility: true }}
         />
 
         {pathname === "/projects" && (

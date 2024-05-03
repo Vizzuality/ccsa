@@ -123,3 +123,6 @@ export const projectSearchAtom = atom<string | undefined>(undefined);
 
 export const layersInteractiveAtom = atom<(number | string)[]>([]);
 export const layersInteractiveIdsAtom = atom<(number | string)[]>([]);
+
+export const otherToolsSearchAtom = atom<string | undefined>(undefined);
+export const collaboratorsSearchAtom = atom<string | undefined>(undefined);

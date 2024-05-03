@@ -76,6 +76,20 @@
           "sortable": false
         }
       },
+      "link": {
+        "edit": {
+          "label": "link",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "link",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -136,6 +150,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "name",
+        "iso3",
+        "createdAt"
+      ],
       "edit": [
         [
           {
@@ -160,13 +180,13 @@
             "name": "bbox",
             "size": 12
           }
+        ],
+        [
+          {
+            "name": "link",
+            "size": 6
+          }
         ]
-      ],
-      "list": [
-        "id",
-        "name",
-        "iso3",
-        "createdAt"
       ]
     }
   },

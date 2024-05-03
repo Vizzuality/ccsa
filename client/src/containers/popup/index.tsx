@@ -27,12 +27,12 @@ const Popup = ({
         "translate-x-0": open && visibleKey,
       })}
     >
-      <div className="relative z-10 h-full max-h-screen w-full overflow-auto rounded-br-3xl bg-gray-100">
+      <div className="relative z-10 h-full max-h-screen w-full overflow-auto rounded-br-3xl bg-white">
         {children}
       </div>
 
       <button
-        className="absolute left-full top-12 z-0 rounded-r-lg bg-gray-100  py-2.5 shadow"
+        className="absolute left-full top-12 z-0 rounded-r-lg bg-white  py-2.5 shadow"
         onClick={toggleOpen}
       >
         <LuChevronLeft

@@ -27,6 +27,7 @@ import Navigation from "@/containers/navigation";
 import Sidebar from "@/containers/sidebar";
 
 import LayoutProviders from "./layout-providers";
+import { getGetCollaboratorsQueryOptions } from "@/types/generated/collaborator";
 
 export default async function AppLayout({ children }: PropsWithChildren) {
   const url = new URL(headers().get("x-url")!);
@@ -72,6 +73,9 @@ export default async function AppLayout({ children }: PropsWithChildren) {
 
   // Prefetch sdgs
   await queryClient.prefetchQuery(getGetSdgsQueryOptions(GET_SDGs_OPTIONS));
+
+  // Prefetch collaborators
+  await queryClient.prefetchQuery(getGetCollaboratorsQueryOptions());
 
   const dehydratedState = dehydrate(queryClient);
 

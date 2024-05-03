@@ -41,6 +41,24 @@
       "relation": "manyToMany",
       "target": "api::sdg.sdg",
       "inversedBy": "projects"
+    },
+    "status": {
+      "type": "string"
+    },
+    "funding": {
+      "type": "string"
+    },
+    "source_country": {
+      "type": "string"
+    },
+    "organization_type": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "text"
+    },
+    "info": {
+      "type": "string"
     }
   }
 }
