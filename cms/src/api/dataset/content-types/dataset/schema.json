@@ -42,12 +42,7 @@
     },
     "value_type": {
       "type": "enumeration",
-      "enum": [
-        "text",
-        "number",
-        "boolean",
-        "resource"
-      ],
+      "enum": ["text", "number", "boolean", "resource"],
       "required": true
     }
   }

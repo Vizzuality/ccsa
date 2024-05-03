@@ -41,7 +41,7 @@ export type GetSdgsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -95,7 +95,7 @@ export type GetProjectsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -149,7 +149,7 @@ export type GetPillarsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -203,7 +203,7 @@ export type GetOtherToolsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -257,7 +257,7 @@ export type GetLayersParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -311,7 +311,7 @@ export type GetDownloadEmailsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -365,7 +365,7 @@ export type GetDatasetValuesParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -419,7 +419,7 @@ export type GetDatasetsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -473,7 +473,7 @@ export type GetCountriesParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -527,7 +527,7 @@ export type GetCollaboratorsParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -581,7 +581,7 @@ export type GetCategoriesParams = {
    */
   "pagination[limit]"?: number;
   /**
-   * Fields to return (ex: ['title','author'])
+   * Fields to return (ex: ['title','author','test'])
    */
   fields?: string[];
   /**
@@ -741,10 +741,14 @@ export type SdgProjectsDataItemAttributes = {
   createdBy?: SdgProjectsDataItemAttributesCreatedBy;
   funding?: string;
   highlight?: string;
+  info?: string;
   name?: string;
+  objective?: string;
+  organization_type?: string;
   pillar?: SdgProjectsDataItemAttributesPillar;
   publishedAt?: string;
   sdgs?: SdgProjectsDataItemAttributesSdgs;
+  source_country?: string;
   status?: string;
   updatedAt?: string;
   updatedBy?: SdgProjectsDataItemAttributesUpdatedBy;
@@ -1421,10 +1425,14 @@ export interface Project {
   createdBy?: ProjectCreatedBy;
   funding?: string;
   highlight?: string;
+  info?: string;
   name: string;
+  objective?: string;
+  organization_type?: string;
   pillar?: ProjectPillar;
   publishedAt?: string;
   sdgs?: ProjectSdgs;
+  source_country?: string;
   status?: string;
   updatedAt?: string;
   updatedBy?: ProjectUpdatedBy;
@@ -1460,10 +1468,14 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributes = {
   createdBy?: ProjectPillarDataAttributesProjectsDataItemAttributesCreatedBy;
   funding?: string;
   highlight?: string;
+  info?: string;
   name?: string;
+  objective?: string;
+  organization_type?: string;
   pillar?: ProjectPillarDataAttributesProjectsDataItemAttributesPillar;
   publishedAt?: string;
   sdgs?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgs;
+  source_country?: string;
   status?: string;
   updatedAt?: string;
   updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesUpdatedBy;
@@ -1858,9 +1870,13 @@ export type ProjectRequestData = {
   countries?: ProjectRequestDataCountriesItem[];
   funding?: string;
   highlight?: string;
+  info?: string;
   name: string;
+  objective?: string;
+  organization_type?: string;
   pillar?: ProjectRequestDataPillar;
   sdgs?: ProjectRequestDataSdgsItem[];
+  source_country?: string;
   status?: string;
 };
 
@@ -1914,10 +1930,14 @@ export type PillarProjectsDataItemAttributes = {
   createdBy?: PillarProjectsDataItemAttributesCreatedBy;
   funding?: string;
   highlight?: string;
+  info?: string;
   name?: string;
+  objective?: string;
+  organization_type?: string;
   pillar?: PillarProjectsDataItemAttributesPillar;
   publishedAt?: string;
   sdgs?: PillarProjectsDataItemAttributesSdgs;
+  source_country?: string;
   status?: string;
   updatedAt?: string;
   updatedBy?: PillarProjectsDataItemAttributesUpdatedBy;
