@@ -40,6 +40,7 @@ const useTableData = () => {
   const getDatasetParams = {
     params: {
       publicationState,
+      "pagination[pageSize]": 300,
     },
     options: {
       query: {
