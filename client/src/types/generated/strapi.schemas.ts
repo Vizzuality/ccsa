@@ -4,6 +4,69 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
+export type PostAuthSendEmailConfirmation200Sent =
+  (typeof PostAuthSendEmailConfirmation200Sent)[keyof typeof PostAuthSendEmailConfirmation200Sent];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostAuthSendEmailConfirmation200Sent = {
+  true: "true",
+} as const;
+
+export type PostAuthSendEmailConfirmation200 = {
+  email?: string;
+  sent?: PostAuthSendEmailConfirmation200Sent;
+};
+
+export type PostAuthSendEmailConfirmationBody = {
+  email?: string;
+};
+
+export type GetAuthEmailConfirmationParams = {
+  /**
+   * confirmation token received by email
+   */
+  confirmation?: string;
+};
+
+export type PostAuthChangePasswordBody = {
+  currentPassword: string;
+  password: string;
+  passwordConfirmation: string;
+};
+
+export type PostAuthResetPasswordBody = {
+  code?: string;
+  password?: string;
+  passwordConfirmation?: string;
+};
+
+export type PostAuthForgotPassword200Ok =
+  (typeof PostAuthForgotPassword200Ok)[keyof typeof PostAuthForgotPassword200Ok];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const PostAuthForgotPassword200Ok = {
+  true: "true",
+} as const;
+
+export type PostAuthForgotPassword200 = {
+  ok?: PostAuthForgotPassword200Ok;
+};
+
+export type PostAuthForgotPasswordBody = {
+  email?: string;
+};
+
+export type PostAuthLocalRegisterBody = {
+  email?: string;
+  password?: string;
+  username?: string;
+};
+
+export type PostAuthLocalBody = {
+  identifier?: string;
+  password?: string;
+};
+
 export type GetSdgsIdPopulateOneOf = { [key: string]: any };
 
 export type GetSdgsIdParams = {
