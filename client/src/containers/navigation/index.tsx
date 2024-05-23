@@ -4,14 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { LuUser2 } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
 
 import { useSyncSearchParams } from "@/app/store";
-
-import { Button } from "@/components/ui/button";
 
 import CollaboratorsSvg from "@/svgs/collaborators.svg";
 import ExploreSVG from "@/svgs/explore.svg";
@@ -167,12 +165,7 @@ const Navigation = (): JSX.Element => {
               "stroke-[#FF7816]": pathname === "/collaborators",
             })}
           />
-          <span className="text-xxs font-light">{session ? session.user?.username : "Log in"}</span>
-          {session && (
-            <Button size="sm" className="p-1 text-xxs text-white" onClick={() => signOut()}>
-              Log out
-            </Button>
-          )}
+          <span className="text-xxs">{session ? session.user?.username : "Log in"}</span>
         </Link>
       </div>
     </nav>
