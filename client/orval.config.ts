@@ -34,6 +34,7 @@ module.exports = {
           "Other-tool",
           "Dataset-value",
           "Collaborator",
+          "Users-Permissions - Auth",
         ],
       },
     },
