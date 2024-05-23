@@ -23,36 +23,20 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const formSchema = z
-  .object({
-    username: z.string().min(1, { message: "Please enter your name" }),
-    email: z.string().email({ message: "Please enter your email address" }),
-    password: z.string().nonempty({ message: "Please enter your password" }).min(6, {
-      message: "Please enter a password with at least 6 characters",
-    }),
-    "confirm-password": z
-      .string()
-      .nonempty({ message: "Please enter your confirmed password" })
-      .min(6, { message: "Please enter a password with at least 6 characters" }),
-  })
-  .refine((data) => data.password === data["confirm-password"], {
-    message: "Passwords do not match",
-    path: ["confirm-password"],
-  });
+const formSchema = z.object({
+  email: z.string().email({ message: "Please enter your email address" }),
+  password: z.string().nonempty({ message: "Please enter your password" }),
+});
 
 export default function Signin() {
-  const { replace } = useRouter();
   const searchParams = useSearchParams();
-  const signupMutation = usePostAuthLocalRegister();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       email: "",
       password: "",
-      "confirm-password": "",
     },
   });
 
@@ -60,29 +44,12 @@ export default function Signin() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-
-    // 3. Submit the form.
-    signupMutation.mutate(
-      {
-        data: values,
-      },
-      {
-        onSuccess: () => {
-          signIn("credentials", {
-            email: values.email,
-            password: values.password,
-            callbackUrl: searchParams.get("callbackUrl") ?? "/",
-          });
-        },
-        onError: (error) => {
-          const searchParams = new URLSearchParams();
-          searchParams.set("error", error?.response?.data?.error?.message ?? "Unknown error");
-          replace(`/auth/signup?${searchParams.toString()}`);
-        },
-      },
-    );
+    signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      callbackUrl: searchParams.get("callbackUrl") ?? "/",
+    });
   }
-
 
   return (
     <Card className="min-w-[380px]">

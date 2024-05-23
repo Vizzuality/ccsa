@@ -50,6 +50,7 @@
     "clsx": "2.0.0",
     "cmdk": "^0.2.0",
     "deck.gl": "^8.9.31",
+    "eslint-plugin-import": "2.29.1",
     "export-to-csv": "1.2.1",
     "express": "4.18.2",
     "glslify": "^7.1.1",

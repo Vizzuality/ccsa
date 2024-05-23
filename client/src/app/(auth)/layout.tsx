@@ -1,12 +1,14 @@
 import { redirect } from "next/navigation";
 
+import { dehydrate } from "@tanstack/react-query";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
 import Navigation from "@/containers/navigation";
+
 import getQueryClient from "@/lib/react-query/getQueryClient";
-import { dehydrate } from "@tanstack/react-query";
+
 
 import { Hydrate } from "@tanstack/react-query";
 

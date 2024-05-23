@@ -3,20 +3,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { useSession, signOut } from "next-auth/react";
 import { LuUser2 } from "react-icons/lu";
+
 import { cn } from "@/lib/classnames";
 
 import { useSyncSearchParams } from "@/app/store";
 
+import { Button } from "@/components/ui/button";
+
+import CollaboratorsSvg from "@/svgs/collaborators.svg";
 import ExploreSVG from "@/svgs/explore.svg";
 import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
-import CollaboratorsSvg from "@/svgs/collaborators.svg";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
 
   const sp = useSyncSearchParams();
+
+  const { data: session } = useSession();
 
   return (
     <nav className="relative z-20 flex h-full w-20 shrink-0 flex-col justify-between border-r-2 border-gray-300/20 bg-white">
@@ -144,7 +151,7 @@ const Navigation = (): JSX.Element => {
           })}
         />
         <Link
-          href="/signin"
+          href={!session ? "/signin" : "/profile"}
           className={cn({
             "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
             "bg-[#FF7816]/10": pathname === "/collaborators",
@@ -159,7 +166,12 @@ const Navigation = (): JSX.Element => {
               "stroke-[#FF7816]": pathname === "/collaborators",
             })}
           />
-          <span className="text-xxs">Log in</span>
+          <span className="text-xxs">{session ? session.user?.username : "Log in"}</span>
+          {session && (
+            <Button size="sm" className="p-1 text-xxs text-white" onClick={() => signOut()}>
+              Log out
+            </Button>
+          )}
         </Link>
       </div>
     </nav>

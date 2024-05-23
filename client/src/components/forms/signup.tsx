@@ -52,6 +52,7 @@ export default function Signup() {
     defaultValues: {
       username: "",
       email: "",
+      organization: "",
       password: "",
       "confirm-password": "",
     },
@@ -60,8 +61,7 @@ export default function Signup() {
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // ✅ This will be type-safe and validated.
-
-  // 3. Submit the form.
+    // 3. Submit the form.
     signupMutation.mutate(
       {
         data: values,
@@ -75,10 +75,9 @@ export default function Signup() {
           });
         },
         onError: (error) => {
-
           const searchParams = new URLSearchParams();
           searchParams.set("error", error?.response?.data?.error?.message ?? "Unknown error");
-          replace(`/auth/signup?${searchParams.toString()}`);
+          replace(`/signup?${searchParams.toString()}`);
         },
       },
     );

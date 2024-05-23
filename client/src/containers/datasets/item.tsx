@@ -3,12 +3,14 @@
 import Markdown from "react-markdown";
 
 import { useAtomValue } from "jotai";
+import { useSession } from "next-auth/react";
 import { LuInfo } from "react-icons/lu";
 
 import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
 
 import { datasetSearchAtom, useSyncDatasets, useSyncLayers } from "@/app/store";
 
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SearchHighlight from "@/components/ui/search-highlight";
@@ -18,6 +20,8 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
   const [datasets, setDatasets] = useSyncDatasets();
   const [, setLayers] = useSyncLayers();
   const datasetSearch = useAtomValue(datasetSearchAtom);
+
+  const { data: user } = useSession();
 
   const handleToogle = () => {
     const lys = attributes?.layers;
@@ -66,6 +70,11 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
           <SearchHighlight query={datasetSearch}>{attributes?.name}</SearchHighlight>
         </h2>
       </div>
+      {user && (
+        <Button size="sm" className="p-1 text-xxs">
+          Edit
+        </Button>
+      )}
 
       <Dialog>
         <DialogTrigger onClick={(e) => e.stopPropagation()}>
