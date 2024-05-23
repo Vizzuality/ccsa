@@ -27,6 +27,7 @@ const formSchema = z
   .object({
     username: z.string().min(1, { message: "Please enter your name" }),
     email: z.string().email({ message: "Please enter your email address" }),
+    organization: z.string().min(1, { message: "Please enter your organization name" }),
     password: z.string().nonempty({ message: "Please enter your password" }).min(6, {
       message: "Please enter a password with at least 6 characters",
     }),
@@ -44,7 +45,6 @@ export default function Signup() {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const signupMutation = usePostAuthLocalRegister();
-  console.log(signupMutation)
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,19 +59,15 @@ export default function Signup() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    console.log('on submit', values)
-
-    // 3. Submit the form.
+  // 3. Submit the form.
     signupMutation.mutate(
       {
         data: values,
       },
       {
         onSuccess: () => {
-          console.log('sign up success')
           signIn("credentials", {
             email: values.email,
             password: values.password,
@@ -79,11 +75,10 @@ export default function Signup() {
           });
         },
         onError: (error) => {
-          console.log('sign up error', error)
 
           const searchParams = new URLSearchParams();
           searchParams.set("error", error?.response?.data?.error?.message ?? "Unknown error");
-          // replace(`/auth/signup?${searchParams.toString()}`);
+          replace(`/auth/signup?${searchParams.toString()}`);
         },
       },
     );
@@ -124,6 +119,19 @@ export default function Signup() {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="organization"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Organization name</FormLabel>
+                    <FormControl>
+                      <Input type="test" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

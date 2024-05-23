@@ -83,7 +83,7 @@ export default function Signin() {
     );
   }
 
-  console.log("sign in form");
+
   return (
     <Card className="min-w-[380px]">
       <CardHeader>
