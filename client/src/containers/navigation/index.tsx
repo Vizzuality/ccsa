@@ -3,20 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { useSession } from "next-auth/react";
 import { LuUser2 } from "react-icons/lu";
+
 import { cn } from "@/lib/classnames";
 
 import { useSyncSearchParams } from "@/app/store";
 
+import CollaboratorsSvg from "@/svgs/collaborators.svg";
 import ExploreSVG from "@/svgs/explore.svg";
 import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
-import CollaboratorsSvg from "@/svgs/collaborators.svg";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
 
   const sp = useSyncSearchParams();
+
+  const { data: session } = useSession();
 
   return (
     <nav className="relative z-20 flex h-full w-20 shrink-0 flex-col justify-between border-r-2 border-gray-300/20 bg-white">
@@ -159,7 +164,7 @@ const Navigation = (): JSX.Element => {
               "stroke-[#FF7816]": pathname === "/collaborators",
             })}
           />
-          <span className="text-xxs">Log in</span>
+          <span className="text-xxs">{session ? session.user?.username : "Log in"}</span>
         </Link>
       </div>
     </nav>
