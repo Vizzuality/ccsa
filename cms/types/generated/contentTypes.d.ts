@@ -1095,6 +1095,10 @@ export interface ApiProjectProject extends Schema.CollectionType {
     >;
     status: Attribute.String;
     funding: Attribute.String;
+    source_country: Attribute.String;
+    organization_type: Attribute.String;
+    objective: Attribute.Text;
+    info: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
