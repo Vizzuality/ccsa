@@ -170,7 +170,7 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
-      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "subject": "api::dataset-value.dataset-value",
       "properties": {
         "fields": [
           "name",
@@ -179,7 +179,12 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "country",
+          "value_text",
+          "value_number",
+          "value_boolean",
+          "resources"
         ]
       },
       "conditions": []
@@ -187,21 +192,14 @@
     {
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
-      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.publish",
-      "actionParameters": {},
-      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "subject": "api::dataset-value.dataset-value",
       "properties": {},
       "conditions": []
     },
     {
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
-      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "subject": "api::dataset-value.dataset-value",
       "properties": {
         "fields": [
           "name",
@@ -210,7 +208,12 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "country",
+          "value_text",
+          "value_number",
+          "value_boolean",
+          "resources"
         ]
       },
       "conditions": []
@@ -218,7 +221,7 @@
     {
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
-      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "subject": "api::dataset-value.dataset-value",
       "properties": {
         "fields": [
           "name",
@@ -227,7 +230,12 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "country",
+          "value_text",
+          "value_number",
+          "value_boolean",
+          "resources"
         ]
       },
       "conditions": []
@@ -869,13 +877,7 @@
           "account",
           "amount",
           "status",
-          "funding",
-          "source_country",
-          "organization_type",
-          "objective",
-          "info",
-          "review_status",
-          "project"
+          "funding"
         ]
       },
       "conditions": []
@@ -905,13 +907,7 @@
           "account",
           "amount",
           "status",
-          "funding",
-          "source_country",
-          "organization_type",
-          "objective",
-          "info",
-          "review_status",
-          "project"
+          "funding"
         ]
       },
       "conditions": []
@@ -927,13 +923,7 @@
           "account",
           "amount",
           "status",
-          "funding",
-          "source_country",
-          "organization_type",
-          "objective",
-          "info",
-          "review_status",
-          "project"
+          "funding"
         ]
       },
       "conditions": []
@@ -941,86 +931,41 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
-      "subject": "api::project.project",
+      "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "name",
-          "countries",
-          "pillar",
-          "highlight",
-          "account",
-          "amount",
-          "sdgs",
-          "status",
-          "funding",
-          "source_country",
-          "organization_type",
-          "objective",
-          "info",
-          "project_edit_suggestions"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },
     {
       "action": "plugin::content-manager.explorer.delete",
       "actionParameters": {},
-      "subject": "api::project.project",
+      "subject": "api::resource.resource",
       "properties": {},
       "conditions": []
     },
     {
       "action": "plugin::content-manager.explorer.publish",
       "actionParameters": {},
-      "subject": "api::project.project",
+      "subject": "api::resource.resource",
       "properties": {},
       "conditions": []
     },
     {
       "action": "plugin::content-manager.explorer.read",
       "actionParameters": {},
-      "subject": "api::project.project",
+      "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "name",
-          "countries",
-          "pillar",
-          "highlight",
-          "account",
-          "amount",
-          "sdgs",
-          "status",
-          "funding",
-          "source_country",
-          "organization_type",
-          "objective",
-          "info",
-          "project_edit_suggestions"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },
     {
       "action": "plugin::content-manager.explorer.update",
       "actionParameters": {},
-      "subject": "api::project.project",
+      "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "name",
-          "countries",
-          "pillar",
-          "highlight",
-          "account",
-          "amount",
-          "sdgs",
-          "status",
-          "funding",
-          "source_country",
-          "organization_type",
-          "objective",
-          "info",
-          "project_edit_suggestions"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },

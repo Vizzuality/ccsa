@@ -149,77 +149,6 @@
           "sortable": true
         }
       },
-      "source_country": {
-        "edit": {
-          "label": "source_country",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "source_country",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "organization_type": {
-        "edit": {
-          "label": "organization_type",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "organization_type",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "objective": {
-        "edit": {
-          "label": "objective",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "objective",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "info": {
-        "edit": {
-          "label": "info",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "info",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "project_edit_suggestions": {
-        "edit": {
-          "label": "project_edit_suggestions",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "project_edit_suggestions",
-          "searchable": false,
-          "sortable": false
-        }
-      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -331,30 +260,6 @@
         [
           {
             "name": "funding",
-            "size": 6
-          },
-          {
-            "name": "source_country",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "organization_type",
-            "size": 6
-          },
-          {
-            "name": "objective",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "info",
-            "size": 6
-          },
-          {
-            "name": "project_edit_suggestions",
             "size": 6
           }
         ]
