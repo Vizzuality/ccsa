@@ -4,7 +4,97 @@
   "type": "authenticated",
   "permissions": [
     {
+      "action": "api::category.category.find"
+    },
+    {
+      "action": "api::category.category.findOne"
+    },
+    {
+      "action": "api::collaborator.collaborator.find"
+    },
+    {
+      "action": "api::collaborator.collaborator.findOne"
+    },
+    {
+      "action": "api::country.country.find"
+    },
+    {
+      "action": "api::country.country.findOne"
+    },
+    {
+      "action": "api::dataset-value.dataset-value.find"
+    },
+    {
+      "action": "api::dataset-value.dataset-value.findOne"
+    },
+    {
+      "action": "api::dataset.dataset.find"
+    },
+    {
+      "action": "api::dataset.dataset.findOne"
+    },
+    {
+      "action": "api::download-email.download-email.find"
+    },
+    {
+      "action": "api::download-email.download-email.findOne"
+    },
+    {
+      "action": "api::layer.layer.find"
+    },
+    {
+      "action": "api::layer.layer.findOne"
+    },
+    {
+      "action": "api::other-tool.other-tool.find"
+    },
+    {
+      "action": "api::other-tool.other-tool.findOne"
+    },
+    {
+      "action": "api::other-tools-category.other-tools-category.find"
+    },
+    {
+      "action": "api::other-tools-category.other-tools-category.findOne"
+    },
+    {
+      "action": "api::pillar.pillar.find"
+    },
+    {
+      "action": "api::pillar.pillar.findOne"
+    },
+    {
+      "action": "api::project.project.find"
+    },
+    {
+      "action": "api::project.project.findOne"
+    },
+    {
+      "action": "api::resource.resource.find"
+    },
+    {
+      "action": "api::resource.resource.findOne"
+    },
+    {
+      "action": "api::sdg.sdg.find"
+    },
+    {
+      "action": "api::sdg.sdg.findOne"
+    },
+    {
       "action": "plugin::users-permissions.auth.changePassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.forgotPassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.resetPassword"
+    },
+    {
+      "action": "plugin::users-permissions.role.find"
+    },
+    {
+      "action": "plugin::users-permissions.role.findOne"
     },
     {
       "action": "plugin::users-permissions.user.me"
