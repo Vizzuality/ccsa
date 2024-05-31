@@ -8,10 +8,10 @@ import { cn } from "@/lib/classnames";
 
 import { useSyncSearchParams } from "@/app/store";
 
+import CollaboratorsSvg from "@/svgs/collaborators.svg";
 import ExploreSVG from "@/svgs/explore.svg";
 import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
-import CollaboratorsSvg from "@/svgs/collaborators.svg";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();

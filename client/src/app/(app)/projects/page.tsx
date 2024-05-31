@@ -1,8 +1,9 @@
-import PageTitle from "@/components/ui/page-title";
 import Projects from "@/containers/projects";
 import ProjectsFilters from "@/containers/projects/filters";
 import ProjectsHeader from "@/containers/projects/header";
 import ProjectPopup from "@/containers/projects/popup";
+
+import PageTitle from "@/components/ui/page-title";
 
 export const metadata = {
   title: "Projects",

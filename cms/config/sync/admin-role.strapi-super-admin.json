@@ -223,61 +223,6 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
-      "subject": "api::dataset-value.dataset-value",
-      "properties": {
-        "fields": [
-          "dataset",
-          "country",
-          "value_text",
-          "value_number",
-          "value_boolean",
-          "resources"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.delete",
-      "actionParameters": {},
-      "subject": "api::dataset-value.dataset-value",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.read",
-      "actionParameters": {},
-      "subject": "api::dataset-value.dataset-value",
-      "properties": {
-        "fields": [
-          "dataset",
-          "country",
-          "value_text",
-          "value_number",
-          "value_boolean",
-          "resources"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.update",
-      "actionParameters": {},
-      "subject": "api::dataset-value.dataset-value",
-      "properties": {
-        "fields": [
-          "dataset",
-          "country",
-          "value_text",
-          "value_number",
-          "value_boolean",
-          "resources"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.create",
-      "actionParameters": {},
       "subject": "api::dataset.dataset",
       "properties": {
         "fields": [
@@ -625,7 +570,11 @@
           "amount",
           "sdgs",
           "status",
-          "funding"
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info"
         ]
       },
       "conditions": []
@@ -658,7 +607,11 @@
           "amount",
           "sdgs",
           "status",
-          "funding"
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info"
         ]
       },
       "conditions": []
@@ -677,60 +630,11 @@
           "amount",
           "sdgs",
           "status",
-          "funding"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.create",
-      "actionParameters": {},
-      "subject": "api::resource.resource",
-      "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.delete",
-      "actionParameters": {},
-      "subject": "api::resource.resource",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.publish",
-      "actionParameters": {},
-      "subject": "api::resource.resource",
-      "properties": {},
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.read",
-      "actionParameters": {},
-      "subject": "api::resource.resource",
-      "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
-        ]
-      },
-      "conditions": []
-    },
-    {
-      "action": "plugin::content-manager.explorer.update",
-      "actionParameters": {},
-      "subject": "api::resource.resource",
-      "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info"
         ]
       },
       "conditions": []

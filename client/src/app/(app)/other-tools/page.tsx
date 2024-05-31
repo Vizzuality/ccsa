@@ -1,7 +1,11 @@
 import { dehydrate, Hydrate } from "@tanstack/react-query";
-import { getGetOtherToolsQueryOptions } from "@/types/generated/other-tool";
+
 import getQueryClient from "@/lib/react-query/getQueryClient";
+
+import { getGetOtherToolsQueryOptions } from "@/types/generated/other-tool";
+
 import OtherToolsList from "@/containers/other-tools";
+
 import PageTitle from "@/components/ui/page-title";
 
 export const metadata = {
