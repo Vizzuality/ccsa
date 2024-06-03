@@ -33,7 +33,7 @@ const DatasetsHeader = () => {
     request: {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.apiToken}`,
+        Authorization: `Bearer ${user?.apiToken}`,
       },
     },
   });

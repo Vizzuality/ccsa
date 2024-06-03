@@ -9,8 +9,9 @@ export const metadata: Metadata = {
 
 export default function SignupPage() {
   return (
-    <section className="flex grow flex-col items-center justify-center space-y-5 py-24">
+    <>
+      <h1 className="py-10 text-3xl font-bold -tracking-[0.0375rem]">Sign up</h1>
       <Signup />
-    </section>
+    </>
   );
 }

@@ -84,100 +84,107 @@ export default function Signup() {
   }
 
   return (
-    <Card className="min-w-[380px]">
-      <CardHeader>
-        <CardTitle>Sign up</CardTitle>
-        {!!searchParams.get("error") && (
-          <div className="rounded-md bg-destructive/90 p-3 text-sm text-destructive-foreground">
-            {searchParams.get("error")}
+    <div className="min-w-[380px]">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <fieldset className="space-y-4">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem className="space-y-1.5">
+                  <FormLabel className="text-xs">Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                      placeholder="Name"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="organization"
+              render={({ field }) => (
+                <FormItem className="space-y-1.5">
+                  <FormLabel className="text-xs">Organization name</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="test"
+                      {...field}
+                      className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                      placeholder="Organization name"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="space-y-1.5">
+                  <FormLabel className="text-xs">Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                      placeholder="Email"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="space-y-1.5">
+                  <FormLabel className="text-xs">Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      {...field}
+                      className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                      placeholder="Password"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirm-password"
+              render={({ field }) => (
+                <FormItem className="space-y-1.5">
+                  <FormLabel className="text-xs">Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      {...field}
+                      className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                      placeholder="Password"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </fieldset>
+          <div className="pb-6">
+            <Button className="w-full" type="submit">
+              Sign up
+            </Button>
           </div>
-        )}
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-            <fieldset className="space-y-2">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="organization"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Organization name</FormLabel>
-                    <FormControl>
-                      <Input type="test" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirm-password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </fieldset>
-            <div className="space-y-3">
-              <Button className="w-full" type="submit">
-                Sign up
-              </Button>
-              <p className="text-center text-sm">
-                Already have an account?{" "}
-                <Link className="text-primary hover:underline" href="/signin">
-                  Sign in
-                </Link>{" "}
-                instead.
-              </p>
-            </div>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+        </form>
+      </Form>
+    </div>
   );
 }
