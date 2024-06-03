@@ -1,16 +1,15 @@
 import { redirect } from "next/navigation";
 
 import { dehydrate } from "@tanstack/react-query";
+import { Hydrate } from "@tanstack/react-query";
 import { getServerSession } from "next-auth";
-
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-
-import Header from "@/containers/header";
-import Footer from "@/containers/footer";
 
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
-import { Hydrate } from "@tanstack/react-query";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+
+import Footer from "@/containers/footer";
+import Header from "@/containers/header";
 
 import LayoutProviders from "../layout-providers";
 
