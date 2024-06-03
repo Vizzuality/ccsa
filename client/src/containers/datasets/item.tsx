@@ -8,8 +8,11 @@ import { LuInfo } from "react-icons/lu";
 
 import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
 
+import { GET_DATASETS_OPTIONS } from "@/constants/datasets";
+
 import { datasetSearchAtom, useSyncDatasets, useSyncLayers } from "@/app/store";
 
+import { useGetDatasetValuesId } from "@/types/generated/dataset-value";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -22,6 +25,12 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
   const datasetSearch = useAtomValue(datasetSearchAtom);
 
   const { data: user } = useSession();
+
+  const { data: datasetsData } = useGetDatasetValuesId(id, {
+    query: {
+      keepPreviousData: true,
+    },
+  });
 
   const handleToogle = () => {
     const lys = attributes?.layers;
@@ -70,23 +79,25 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
           <SearchHighlight query={datasetSearch}>{attributes?.name}</SearchHighlight>
         </h2>
       </div>
-      {user && (
-        <Button size="sm" className="p-1 text-xxs">
-          Edit
-        </Button>
-      )}
+      <div className="flex items-center space-x-2.5">
+        {user && (
+          <Button size="sm" className="text-xxs">
+            Edit
+          </Button>
+        )}
 
-      <Dialog>
-        <DialogTrigger onClick={(e) => e.stopPropagation()}>
-          <LuInfo className="h-5 w-5" />
-        </DialogTrigger>
+        <Dialog>
+          <DialogTrigger onClick={(e) => e.stopPropagation()}>
+            <LuInfo className="h-5 w-5" />
+          </DialogTrigger>
 
-        <DialogContent>
-          <ScrollArea className="max-h-[80svh] p-6">
-            <Markdown className="prose">{attributes?.description}</Markdown>
-          </ScrollArea>
-        </DialogContent>
-      </Dialog>
+          <DialogContent>
+            <ScrollArea className="max-h-[80svh] p-6">
+              <Markdown className="prose">{attributes?.description}</Markdown>
+            </ScrollArea>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };
