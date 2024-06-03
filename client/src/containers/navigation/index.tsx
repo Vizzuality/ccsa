@@ -161,12 +161,13 @@ const Navigation = (): JSX.Element => {
           <LuUser2
             title="Log in"
             className={cn({
-              "mx-auto h-6 w-6 rounded-full border fill-none hover:border-gray-900": true,
+              "mx-auto h-6 w-6 rounded-full border-2 border-gray-400 fill-none group-hover:border-gray-900":
+                true,
               "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/collaborators",
               "stroke-[#FF7816]": pathname === "/collaborators",
             })}
           />
-          <span className="text-xxs">{session ? session.user?.username : "Log in"}</span>
+          <span className="text-xxs font-light">{session ? session.user?.username : "Log in"}</span>
           {session && (
             <Button size="sm" className="p-1 text-xxs text-white" onClick={() => signOut()}>
               Log out

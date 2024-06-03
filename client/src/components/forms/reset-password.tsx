@@ -2,14 +2,11 @@
 
 import { useForm } from "react-hook-form";
 
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
-
-import { usePostAuthLocalRegister } from "@/types/generated/users-permissions-auth";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,10 +21,9 @@ import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter your email address" }),
-  password: z.string().nonempty({ message: "Please enter your password" }),
 });
 
-export default function Signin() {
+export default function ResetPassword() {
   const searchParams = useSearchParams();
 
   // 1. Define your form.
@@ -35,7 +31,6 @@ export default function Signin() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
@@ -45,7 +40,6 @@ export default function Signin() {
     // ✅ This will be type-safe and validated.
     signIn("credentials", {
       email: values.email,
-      password: values.password,
       callbackUrl: searchParams.get("callbackUrl") ?? "/",
     });
   }
@@ -72,34 +66,11 @@ export default function Signin() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="space-y-1.5">
-                  <FormLabel className="text-xs">Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      {...field}
-                      className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                      placeholder="Password"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </fieldset>
           <Button className="m-0 w-full" type="submit">
-            Sign in
+            Send link
           </Button>
         </form>
-        <p className="py-6 text-center text-sm font-semibold">
-          <Link className="text-primary underline" href="/reset-password">
-            Forgot your password?
-          </Link>
-        </p>
       </Form>
     </div>
   );
