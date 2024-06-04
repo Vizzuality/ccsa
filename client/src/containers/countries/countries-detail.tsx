@@ -16,7 +16,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 import CountriesTable from "./countries-table";
 
-const CountryDetail = () => {
+const CountryDetail = ({ embed }: { embed?: boolean }) => {
   const [country] = useSyncCountry();
   const [countriesComparison, setComparisonCountries] = useSyncCountriesComparison();
 
@@ -26,6 +26,8 @@ const CountryDetail = () => {
   });
 
   const COUNTRY = countriesData?.data?.find((c) => c.attributes?.iso3 === country);
+
+  if (!COUNTRY && embed) return null;
 
   return (
     <>
@@ -37,7 +39,7 @@ const CountryDetail = () => {
         <h3 className="font-open-sans text-xxs font-semibold uppercase text-gray-400">
           Country selected
         </h3>
-        {!countriesComparison?.length && (
+        {!!COUNTRY && (
           <div className="flex items-center gap-3">
             {!!country && <Flag code={country} className="h-5 w-8 rounded" />}
             <h2 className="font-open text-xl text-gray-700">{COUNTRY?.attributes?.name}</h2>
