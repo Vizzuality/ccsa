@@ -1,12 +1,12 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::layer.layer",
+  "key": "plugin_content_manager_configuration_content_types::api::new-collaborator-suggestion.new-collaborator-suggestion",
   "value": {
-    "uid": "api::layer.layer",
+    "uid": "api::new-collaborator-suggestion.new-collaborator-suggestion",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
-      "pageSize": 20,
+      "pageSize": 10,
       "mainField": "name",
       "defaultSortBy": "name",
       "defaultSortOrder": "ASC"
@@ -34,6 +34,20 @@
           "sortable": true
         }
       },
+      "link": {
+        "edit": {
+          "label": "link",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "link",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "type": {
         "edit": {
           "label": "type",
@@ -48,103 +62,16 @@
           "sortable": true
         }
       },
-      "config": {
+      "review_status": {
         "edit": {
-          "label": "config",
+          "label": "review_status",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "config",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "params_config": {
-        "edit": {
-          "label": "params_config",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "params_config",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "legend_config": {
-        "edit": {
-          "label": "legend_config",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "legend_config",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "interaction_config": {
-        "edit": {
-          "label": "interaction_config",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "interaction_config",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "dataset": {
-        "edit": {
-          "label": "dataset",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "dataset",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "new_dataset_suggestion": {
-        "edit": {
-          "label": "new_dataset_suggestion",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "new_dataset_suggestion",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "dataset_edit_suggestion": {
-        "edit": {
-          "label": "dataset_edit_suggestion",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "dataset_edit_suggestion",
+          "label": "review_status",
           "searchable": true,
           "sortable": true
         }
@@ -212,13 +139,17 @@
       "list": [
         "id",
         "name",
-        "type",
-        "updatedAt"
+        "link",
+        "type"
       ],
       "edit": [
         [
           {
             "name": "name",
+            "size": 6
+          },
+          {
+            "name": "link",
             "size": 6
           }
         ],
@@ -226,45 +157,9 @@
           {
             "name": "type",
             "size": 6
-          }
-        ],
-        [
-          {
-            "name": "dataset",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "config",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "params_config",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "legend_config",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "interaction_config",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "new_dataset_suggestion",
-            "size": 6
           },
           {
-            "name": "dataset_edit_suggestion",
+            "name": "review_status",
             "size": 6
           }
         ]
