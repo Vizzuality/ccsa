@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "datasets",
+  "collectionName": "dataset_edit_suggestions",
   "info": {
-    "singularName": "dataset",
-    "pluralName": "datasets",
-    "displayName": "Dataset",
+    "singularName": "dataset-edit-suggestion",
+    "pluralName": "dataset-edit-suggestions",
+    "displayName": "Dataset Edit Suggestion",
     "description": ""
   },
   "options": {
@@ -13,32 +13,28 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "datum": {
-      "type": "json",
-      "required": true
+      "type": "json"
     },
     "category": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::category.category",
-      "inversedBy": "datasets"
+      "inversedBy": "dataset_edit_suggestions"
     },
     "description": {
-      "type": "richtext",
-      "required": true
+      "type": "richtext"
     },
     "layers": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::layer.layer",
-      "mappedBy": "dataset"
+      "mappedBy": "dataset_edit_suggestion"
     },
     "unit": {
-      "type": "string",
-      "required": false
+      "type": "string"
     },
     "value_type": {
       "type": "enumeration",
@@ -47,14 +43,23 @@
         "number",
         "boolean",
         "resource"
+      ]
+    },
+    "review_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
       ],
+      "default": "pending",
       "required": true
     },
-    "dataset_edit_suggestions": {
+    "dataset": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
-      "mappedBy": "dataset"
+      "relation": "manyToOne",
+      "target": "api::dataset.dataset",
+      "inversedBy": "dataset_edit_suggestions"
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "datasets",
+  "collectionName": "new_dataset_suggestions",
   "info": {
-    "singularName": "dataset",
-    "pluralName": "datasets",
-    "displayName": "Dataset",
+    "singularName": "new-dataset-suggestion",
+    "pluralName": "new-dataset-suggestions",
+    "displayName": "New Dataset Suggestion",
     "description": ""
   },
   "options": {
@@ -24,7 +24,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::category.category",
-      "inversedBy": "datasets"
+      "inversedBy": "new_dataset_suggestions"
     },
     "description": {
       "type": "richtext",
@@ -34,11 +34,10 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::layer.layer",
-      "mappedBy": "dataset"
+      "mappedBy": "new_dataset_suggestion"
     },
     "unit": {
-      "type": "string",
-      "required": false
+      "type": "string"
     },
     "value_type": {
       "type": "enumeration",
@@ -50,11 +49,15 @@
       ],
       "required": true
     },
-    "dataset_edit_suggestions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
-      "mappedBy": "dataset"
+    "review_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
+      "default": "pending",
+      "required": true
     }
   }
 }

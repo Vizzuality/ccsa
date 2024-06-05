@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "projects",
+  "collectionName": "new_project_suggestions",
   "info": {
-    "singularName": "project",
-    "pluralName": "projects",
-    "displayName": "Project",
+    "singularName": "new-project-suggestion",
+    "pluralName": "new-project-suggestions",
+    "displayName": "New Project Suggestion",
     "description": ""
   },
   "options": {
@@ -25,7 +25,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::pillar.pillar",
-      "inversedBy": "projects"
+      "inversedBy": "new_project_suggestions"
     },
     "highlight": {
       "type": "richtext"
@@ -40,7 +40,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::sdg.sdg",
-      "inversedBy": "projects"
+      "inversedBy": "new_project_suggestions"
     },
     "status": {
       "type": "string"
@@ -60,11 +60,15 @@
     "info": {
       "type": "string"
     },
-    "project_edit_suggestions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::project-edit-suggestion.project-edit-suggestion",
-      "mappedBy": "project"
+    "review_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
+      "default": "pending",
+      "required": true
     }
   }
 }

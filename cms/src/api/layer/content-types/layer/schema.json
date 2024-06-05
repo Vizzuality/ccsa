@@ -47,6 +47,18 @@
       "relation": "manyToOne",
       "target": "api::dataset.dataset",
       "inversedBy": "layers"
+    },
+    "new_dataset_suggestion": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::new-dataset-suggestion.new-dataset-suggestion",
+      "inversedBy": "layers"
+    },
+    "dataset_edit_suggestion": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "inversedBy": "layers"
     }
   }
 }

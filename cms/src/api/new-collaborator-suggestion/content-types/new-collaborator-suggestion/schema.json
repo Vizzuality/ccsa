@@ -1,11 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "collaborators",
+  "collectionName": "new_collaborator_suggestions",
   "info": {
-    "singularName": "collaborator",
-    "pluralName": "collaborators",
-    "displayName": "Collaborator",
-    "description": ""
+    "singularName": "new-collaborator-suggestion",
+    "pluralName": "new-collaborator-suggestions",
+    "displayName": "New Collaborator Suggestion"
   },
   "options": {
     "draftAndPublish": true
@@ -27,11 +26,15 @@
       ],
       "required": true
     },
-    "collaborator_edit_suggestions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
-      "mappedBy": "collaborator"
+    "review_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
+      "default": "pending",
+      "required": true
     }
   }
 }

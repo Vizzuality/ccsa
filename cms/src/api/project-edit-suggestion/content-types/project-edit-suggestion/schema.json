@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "projects",
+  "collectionName": "project_edit_suggestions",
   "info": {
-    "singularName": "project",
-    "pluralName": "projects",
-    "displayName": "Project",
+    "singularName": "project-edit-suggestion",
+    "pluralName": "project-edit-suggestions",
+    "displayName": "Project Edit Suggestion",
     "description": ""
   },
   "options": {
@@ -14,7 +14,7 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "countries": {
       "type": "relation",
@@ -25,7 +25,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::pillar.pillar",
-      "inversedBy": "projects"
+      "inversedBy": "project_edit_suggestions"
     },
     "highlight": {
       "type": "richtext"
@@ -40,7 +40,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::sdg.sdg",
-      "inversedBy": "projects"
+      "inversedBy": "project_edit_suggestions"
     },
     "status": {
       "type": "string"
@@ -60,11 +60,21 @@
     "info": {
       "type": "string"
     },
-    "project_edit_suggestions": {
+    "review_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
+      "default": "pending",
+      "required": true
+    },
+    "project": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::project-edit-suggestion.project-edit-suggestion",
-      "mappedBy": "project"
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "project_edit_suggestions"
     }
   }
 }
