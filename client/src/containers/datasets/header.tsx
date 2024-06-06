@@ -4,17 +4,21 @@ import { useCallback } from "react";
 
 import { useSession } from "next-auth/react";
 
+import { usePostDatasets } from "@/types/generated/dataset";
+
 import { useSyncDatasets } from "@/app/store";
 
 import { Button } from "@/components/ui/button";
-import { usePostDatasets } from "@/types/generated/dataset";
 
 const DatasetsHeader = () => {
   const [datasets] = useSyncDatasets();
 
   const { data: user } = useSession();
 
-  const { mutate, isLoading, isError, data, error } = usePostDatasets({
+  const {
+    mutate,
+    // isLoading, isError, data, error
+  } = usePostDatasets({
     mutation: {
       onSuccess: (data) => {
         console.log("Dataset created successfully:", data);
@@ -31,7 +35,7 @@ const DatasetsHeader = () => {
     },
   });
 
-  const handleDatasets = () => {
+  const handleDatasets = useCallback(() => {
     mutate({
       data: {
         data: {
@@ -44,7 +48,7 @@ const DatasetsHeader = () => {
         },
       },
     });
-  };
+  }, []);
 
   return (
     <header className="flex items-center justify-between">
