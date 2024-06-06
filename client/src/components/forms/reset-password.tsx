@@ -2,10 +2,7 @@
 
 import { useForm } from "react-hook-form";
 
-import { useSearchParams } from "next/navigation";
-
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -19,13 +16,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { usePostAuthForgotPassword } from "@/types/generated/users-permissions-auth";
+
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter your email address" }),
 });
 
 export default function ResetPassword() {
-  const searchParams = useSearchParams();
-
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,14 +31,23 @@ export default function ResetPassword() {
     },
   });
 
+  const {
+    mutate,
+    // isLoading, isError, data, error
+  } = usePostAuthForgotPassword({
+    mutation: {
+      onSuccess: (data) => {
+        console.log("Dataset created successfully:", data);
+      },
+      onError: (error) => {
+        console.error("Error creating dataset:", error);
+      },
+    },
+  });
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    signIn("credentials", {
-      email: values.email,
-      callbackUrl: searchParams.get("callbackUrl") ?? "/",
-    });
+    mutate({ data: { email: values.email } });
   }
 
   return (
