@@ -7,19 +7,12 @@ import { useSession } from "next-auth/react";
 import { useSyncDatasets } from "@/app/store";
 
 import { Button } from "@/components/ui/button";
-import { postDatasets, useGetDatasets, usePostDatasets } from "@/types/generated/dataset";
-import { apiBaseUrl } from "next-auth/client/_utils";
+import { usePostDatasets } from "@/types/generated/dataset";
 
 const DatasetsHeader = () => {
   const [datasets] = useSyncDatasets();
 
   const { data: user } = useSession();
-
-  const { data: datasetsData } = useGetDatasets(undefined, {
-    query: {
-      keepPreviousData: true,
-    },
-  });
 
   const { mutate, isLoading, isError, data, error } = usePostDatasets({
     mutation: {
@@ -42,7 +35,7 @@ const DatasetsHeader = () => {
     mutate({
       data: {
         data: {
-          name: "nueva airline",
+          name: "airline testing",
           category: 3,
           description: "new dataset description",
           value_type: "resource",

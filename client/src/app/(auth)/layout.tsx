@@ -19,10 +19,6 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
 
   const dehydratedState = dehydrate(queryClient);
 
-  if (session) {
-    redirect("/signin");
-  }
-
   return (
     <LayoutProviders session={session}>
       <Hydrate state={dehydratedState}>

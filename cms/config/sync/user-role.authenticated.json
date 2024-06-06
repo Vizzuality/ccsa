@@ -28,10 +28,16 @@
       "action": "api::dataset-value.dataset-value.findOne"
     },
     {
+      "action": "api::dataset.dataset.create"
+    },
+    {
       "action": "api::dataset.dataset.find"
     },
     {
       "action": "api::dataset.dataset.findOne"
+    },
+    {
+      "action": "api::dataset.dataset.update"
     },
     {
       "action": "api::download-email.download-email.find"

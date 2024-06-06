@@ -6,7 +6,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
 import Header from "@/containers/header";
-import Footer from "@/containers/footer";
 
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
