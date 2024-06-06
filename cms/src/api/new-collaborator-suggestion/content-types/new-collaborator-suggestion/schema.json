@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "new_collaborator_suggestions",
+  "info": {
+    "singularName": "new-collaborator-suggestion",
+    "pluralName": "new-collaborator-suggestions",
+    "displayName": "New Collaborator Suggestion"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "donor",
+        "collaborator"
+      ],
+      "required": true
+    },
+    "review_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
+      "default": "pending",
+      "required": true
+    }
+  }
+}

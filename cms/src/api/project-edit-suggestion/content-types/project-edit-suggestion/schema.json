@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "project_edit_suggestions",
+  "info": {
+    "singularName": "project-edit-suggestion",
+    "pluralName": "project-edit-suggestions",
+    "displayName": "Project Edit Suggestion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "countries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::country.country"
+    },
+    "pillar": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pillar.pillar",
+      "inversedBy": "project_edit_suggestions"
+    },
+    "highlight": {
+      "type": "richtext"
+    },
+    "account": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "float"
+    },
+    "sdgs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sdg.sdg",
+      "inversedBy": "project_edit_suggestions"
+    },
+    "status": {
+      "type": "string"
+    },
+    "funding": {
+      "type": "string"
+    },
+    "source_country": {
+      "type": "string"
+    },
+    "organization_type": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "text"
+    },
+    "info": {
+      "type": "string"
+    },
+    "review_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
+      "default": "pending",
+      "required": true
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "project_edit_suggestions"
+    }
+  }
+}

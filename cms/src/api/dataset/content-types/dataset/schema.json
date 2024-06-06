@@ -42,8 +42,19 @@
     },
     "value_type": {
       "type": "enumeration",
-      "enum": ["text", "number", "boolean", "resource"],
+      "enum": [
+        "text",
+        "number",
+        "boolean",
+        "resource"
+      ],
       "required": true
+    },
+    "dataset_edit_suggestions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "mappedBy": "dataset"
     }
   }
 }
