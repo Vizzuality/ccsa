@@ -7,6 +7,7 @@ import { Hydrate, dehydrate } from "@tanstack/react-query";
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
 import { getGetCategoriesQueryKey, getGetCategoriesQueryOptions } from "@/types/generated/category";
+import { getGetCollaboratorsQueryOptions } from "@/types/generated/collaborator";
 import { getGetCountriesQueryOptions } from "@/types/generated/country";
 import { getGetDatasetsQueryOptions } from "@/types/generated/dataset";
 import { getGetPillarsQueryOptions } from "@/types/generated/pillar";
@@ -27,7 +28,6 @@ import Navigation from "@/containers/navigation";
 import Sidebar from "@/containers/sidebar";
 
 import LayoutProviders from "./layout-providers";
-import { getGetCollaboratorsQueryOptions } from "@/types/generated/collaborator";
 
 export default async function AppLayout({ children }: PropsWithChildren) {
   const url = new URL(headers().get("x-url")!);

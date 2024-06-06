@@ -8,11 +8,8 @@ import { LuInfo } from "react-icons/lu";
 
 import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
 
-import { GET_DATASETS_OPTIONS } from "@/constants/datasets";
-
 import { datasetSearchAtom, useSyncDatasets, useSyncLayers } from "@/app/store";
 
-import { useGetDatasetValuesId } from "@/types/generated/dataset-value";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -25,12 +22,6 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
   const datasetSearch = useAtomValue(datasetSearchAtom);
 
   const { data: user } = useSession();
-
-  const { data: datasetsData } = useGetDatasetValuesId(id, {
-    query: {
-      keepPreviousData: true,
-    },
-  });
 
   const handleToogle = () => {
     const lys = attributes?.layers;

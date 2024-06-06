@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +11,6 @@ import { z } from "zod";
 import { usePostAuthLocalRegister } from "@/types/generated/users-permissions-auth";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,

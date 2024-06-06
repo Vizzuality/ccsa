@@ -11,7 +11,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 export default function LayoutProviders({
   children,
   session,
-}: PropsWithChildren<{ session: Session | null }>) {
+}: PropsWithChildren<{ session?: Session | null }>) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (

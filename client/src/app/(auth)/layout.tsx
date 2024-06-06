@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 import { dehydrate } from "@tanstack/react-query";
 import { Hydrate } from "@tanstack/react-query";
 import { getServerSession } from "next-auth";

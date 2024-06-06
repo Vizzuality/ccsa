@@ -3,13 +3,11 @@
 import { useForm } from "react-hook-form";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
-
-import { usePostAuthLocalRegister } from "@/types/generated/users-permissions-auth";
 
 import { Button } from "@/components/ui/button";
 import {
