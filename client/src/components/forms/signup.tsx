@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
@@ -20,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useEffect } from "react";
 
 const formSchema = z
   .object({
@@ -33,16 +36,34 @@ const formSchema = z
       .string()
       .nonempty({ message: "Please enter your confirmed password" })
       .min(6, { message: "Please enter a password with at least 6 characters" }),
+    captcha: z.string().nonempty({ message: "Please enter the captcha" }),
   })
-  .refine((data) => data.password === data["confirm-password"], {
-    message: "Passwords do not match",
-    path: ["confirm-password"],
+  .superRefine((data, ctx) => {
+    if (data.password !== data["confirm-password"]) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Passwords do not match",
+        path: ["confirm-password"], // Path to the specific field
+      });
+    }
+
+    if (!validateCaptcha(data.captcha)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Captcha does not match",
+        path: ["captcha"], // Path to the specific field
+      });
+    }
   });
 
 export default function Signup() {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const signupMutation = usePostAuthLocalRegister();
+
+  useEffect(() => {
+    loadCaptchaEnginge(6, "transparent");
+  }, []);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,11 +74,13 @@ export default function Signup() {
       organization: "",
       password: "",
       "confirm-password": "",
+      captcha: "",
     },
   });
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
+    // if (!!validateCaptcha(values.captcha)) {
     // ✅ This will be type-safe and validated.
     // 3. Submit the form.
     signupMutation.mutate(
@@ -79,6 +102,9 @@ export default function Signup() {
         },
       },
     );
+    // } else {
+    //   console.log("wrong captcha");
+    // }
   }
 
   return (
@@ -175,6 +201,30 @@ export default function Signup() {
                 </FormItem>
               )}
             />
+
+            <div className="grid grid-cols-2 gap-2 rounded bg-gray-300/20 p-2.5">
+              <div className="flex justify-center rounded bg-white pt-2 text-center text-xxs">
+                <LoadCanvasTemplate reloadColor="#0996CC" style={{ color: "red" }} />
+              </div>
+              <FormField
+                control={form.control}
+                name="captcha"
+                render={({ field }) => (
+                  <FormItem className="space-y-0">
+                    <FormLabel className="sr-only text-xs">Type image values</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        {...field}
+                        className="border-none bg-transparent placeholder:text-gray-300/95"
+                        placeholder="Type image values"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </fieldset>
           <div className="pb-6">
             <Button className="w-full" type="submit">

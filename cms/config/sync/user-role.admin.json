@@ -1,0 +1,6 @@
+{
+  "name": "Admin",
+  "description": "Role with permissions to edit, delete, and create data.",
+  "type": "admin",
+  "permissions": []
+}

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "react-simple-captcha": "^9.3.1"
+  }
+}

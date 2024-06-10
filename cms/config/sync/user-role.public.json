@@ -88,6 +88,9 @@
       "action": "api::sdg.sdg.findOne"
     },
     {
+      "action": "plugin::email.email.send"
+    },
+    {
       "action": "plugin::users-permissions.auth.callback"
     },
     {

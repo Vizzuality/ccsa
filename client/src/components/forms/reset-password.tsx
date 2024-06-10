@@ -2,6 +2,8 @@
 
 import { useForm } from "react-hook-form";
 
+import { useRouter } from "next/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -23,6 +25,8 @@ const formSchema = z.object({
 });
 
 export default function ResetPassword() {
+  const { replace } = useRouter();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,13 +35,12 @@ export default function ResetPassword() {
     },
   });
 
-  const {
-    mutate,
-    // isLoading, isError, data, error
-  } = usePostAuthForgotPassword({
+  const { mutate } = usePostAuthForgotPassword({
     mutation: {
       onSuccess: (data) => {
-        console.log("Dataset created successfully:", data);
+        console.log("Success creating dataset:", data);
+        const searchParams = new URLSearchParams();
+        replace(`/signin?${searchParams.toString()}`);
       },
       onError: (error) => {
         console.error("Error creating dataset:", error);
