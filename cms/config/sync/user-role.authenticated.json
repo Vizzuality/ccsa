@@ -1,8 +1,17 @@
 {
-  "name": "Authenticated",
-  "description": "Default role given to authenticated user.",
+  "name": "Contributor",
+  "description": "Default role with permissions limited to suggesting changes to the data.",
   "type": "authenticated",
   "permissions": [
+    {
+      "action": "api::csv.csv.csvToJson"
+    },
+    {
+      "action": "api::csv.csv.jsonToCsv"
+    },
+    {
+      "action": "plugin::email.email.send"
+    },
     {
       "action": "plugin::users-permissions.auth.changePassword"
     },
