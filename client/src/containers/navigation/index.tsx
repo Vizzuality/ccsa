@@ -149,7 +149,7 @@ const Navigation = (): JSX.Element => {
           })}
         />
         <Link
-          href={!session ? "/signin" : "/profile"}
+          href={!session ? "/signin" : "/dashboard"}
           className={cn({
             "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
             "bg-[#FF7816]/10": pathname === "/collaborators",
