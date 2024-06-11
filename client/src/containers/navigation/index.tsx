@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { LuUser2 } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
@@ -151,7 +151,7 @@ const Navigation = (): JSX.Element => {
           })}
         />
         <Link
-          href={!session ? "/signin" : "/profile"}
+          href={!session ? "/signin" : "/dashboard"}
           className={cn({
             "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
             "bg-[#FF7816]/10": pathname === "/collaborators",
@@ -168,11 +168,6 @@ const Navigation = (): JSX.Element => {
             })}
           />
           <span className="text-xxs font-light">{session ? session.user?.username : "Log in"}</span>
-          {session && (
-            <Button size="sm" className="p-1 text-xxs text-white" onClick={() => signOut()}>
-              Log out
-            </Button>
-          )}
         </Link>
       </div>
     </nav>

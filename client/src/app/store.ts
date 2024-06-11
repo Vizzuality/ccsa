@@ -126,3 +126,5 @@ export const layersInteractiveIdsAtom = atom<(number | string)[]>([]);
 
 export const otherToolsSearchAtom = atom<string | undefined>(undefined);
 export const collaboratorsSearchAtom = atom<string | undefined>(undefined);
+
+export const personalDetailsAtom = atom<"account" | "changes">("changes");
