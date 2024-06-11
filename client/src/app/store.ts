@@ -14,6 +14,7 @@ import {
   pillarsParser,
   publicationStateParser,
   projectParser,
+  newDatasetParser,
 } from "@/app/parsers";
 
 export const useSyncDatasets = () => {
@@ -62,6 +63,10 @@ export const useSyncAvailableForFunding = () => {
 
 export const useSyncPublicationState = () => {
   return useQueryState("publicationState", publicationStateParser);
+};
+
+export const useSyncNewDatasetState = () => {
+  return useQueryState("new-dataset", newDatasetParser);
 };
 
 export const useSyncSearchParams = () => {

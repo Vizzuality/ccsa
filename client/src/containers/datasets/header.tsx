@@ -57,7 +57,7 @@ const DatasetsHeader = () => {
 
         {user && (
           <Link
-            href="/new-dataset"
+            href="/new-dataset/settings"
             className="inline-flex h-8 items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
           >
             Add new
