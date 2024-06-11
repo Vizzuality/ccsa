@@ -132,3 +132,5 @@ export const otherToolsSearchAtom = atom<string | undefined>(undefined);
 export const collaboratorsSearchAtom = atom<string | undefined>(undefined);
 
 export const personalDetailsAtom = atom<"account" | "changes">("changes");
+
+export const datasetFormStepAtom = atom<number>(1);

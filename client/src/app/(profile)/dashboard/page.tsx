@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import PersonalData from "@/containers/personal-data";
-import DatasetsChanges from "@/containers/datasets-changes";
+import DatasetsChanges from "@/containers/datasets/suggestions";
 
 export const metadata: Metadata = {
   title: "Dashboard | Caribbean Climate smart map",

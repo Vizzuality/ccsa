@@ -3,7 +3,7 @@ import { NextFetchEvent, NextResponse } from "next/server";
 
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 
-const privatePaths = ["/dashboard/*"];
+const privatePaths = ["/dashboard/:*"];
 
 const dataMiddleware = async (request: Request) => {
   // Store current request url in a custom header, which you can read later

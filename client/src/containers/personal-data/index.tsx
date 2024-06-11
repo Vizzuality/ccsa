@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 
 import {
   usePostAuthForgotPassword,
-  usePostAuthChangePassword,
+  // usePostAuthChangePassword,
 } from "@/types/generated/users-permissions-auth";
 
 const formSchema = z.object({
@@ -46,8 +46,6 @@ export default function PersonalDataForm() {
 
   const { data: session } = useSession();
   const user = session?.user;
-
-  console.log(user);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -75,7 +73,7 @@ export default function PersonalDataForm() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const fieldsToUpdate = form.formState.dirtyFields;
+    // const fieldsToUpdate = form.formState.dirtyFields;
     mutate({ data: { email: values.email } });
   }
 

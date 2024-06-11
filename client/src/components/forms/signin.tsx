@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter your email address" }),
-  password: z.string().nonempty({ message: "Please enter your password" }),
+  password: z.string().min(1, { message: "Please enter your password" }),
 });
 
 export default function Signin() {
