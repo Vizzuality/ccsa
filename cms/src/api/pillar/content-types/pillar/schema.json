@@ -26,18 +26,6 @@
     "description": {
       "type": "richtext",
       "required": true
-    },
-    "new_project_suggestions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::new-project-suggestion.new-project-suggestion",
-      "mappedBy": "pillar"
-    },
-    "project_edit_suggestions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::project-edit-suggestion.project-edit-suggestion",
-      "mappedBy": "pillar"
     }
   }
 }

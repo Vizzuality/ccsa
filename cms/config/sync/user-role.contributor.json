@@ -70,66 +70,6 @@
       "action": "api::layer.layer.findOne"
     },
     {
-      "action": "api::new-collaborator-suggestion.new-collaborator-suggestion.create"
-    },
-    {
-      "action": "api::new-collaborator-suggestion.new-collaborator-suggestion.delete"
-    },
-    {
-      "action": "api::new-collaborator-suggestion.new-collaborator-suggestion.find"
-    },
-    {
-      "action": "api::new-collaborator-suggestion.new-collaborator-suggestion.findOne"
-    },
-    {
-      "action": "api::new-collaborator-suggestion.new-collaborator-suggestion.update"
-    },
-    {
-      "action": "api::new-dataset-suggestion.new-dataset-suggestion.create"
-    },
-    {
-      "action": "api::new-dataset-suggestion.new-dataset-suggestion.delete"
-    },
-    {
-      "action": "api::new-dataset-suggestion.new-dataset-suggestion.find"
-    },
-    {
-      "action": "api::new-dataset-suggestion.new-dataset-suggestion.findOne"
-    },
-    {
-      "action": "api::new-dataset-suggestion.new-dataset-suggestion.update"
-    },
-    {
-      "action": "api::new-project-suggestion.new-project-suggestion.create"
-    },
-    {
-      "action": "api::new-project-suggestion.new-project-suggestion.delete"
-    },
-    {
-      "action": "api::new-project-suggestion.new-project-suggestion.find"
-    },
-    {
-      "action": "api::new-project-suggestion.new-project-suggestion.findOne"
-    },
-    {
-      "action": "api::new-project-suggestion.new-project-suggestion.update"
-    },
-    {
-      "action": "api::new-tool-suggestion.new-tool-suggestion.create"
-    },
-    {
-      "action": "api::new-tool-suggestion.new-tool-suggestion.delete"
-    },
-    {
-      "action": "api::new-tool-suggestion.new-tool-suggestion.find"
-    },
-    {
-      "action": "api::new-tool-suggestion.new-tool-suggestion.findOne"
-    },
-    {
-      "action": "api::new-tool-suggestion.new-tool-suggestion.update"
-    },
-    {
       "action": "api::other-tool.other-tool.find"
     },
     {
