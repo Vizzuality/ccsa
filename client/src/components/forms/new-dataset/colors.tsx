@@ -19,6 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectTrigger,
@@ -26,6 +27,7 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
+import ColorPicker from "@/components/ui/colorpicker";
 
 const OPTIONS = [
   {
@@ -99,18 +101,14 @@ export default function NewDatasetColorsForm({ data, onClick }) {
                     <FormItem className="w-[260px] space-y-1.5">
                       <FormLabel className="text-xs">Type of value</FormLabel>
                       <FormControl>
-                        <Select onValueChange={field.onChange} value={field.value || ""}>
-                          <SelectTrigger className="h-10 w-full">
-                            <SelectValue placeholder="Select one" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {OPTIONS?.map(({ label, value }) => (
-                              <SelectItem key={value} value={value as string}>
-                                {label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                        <ColorPicker
+                          id="color"
+                          value={field.value}
+                          onChange={(e) => {
+                            console.log(e.target.value, field.value);
+                            return field.onChange(e.target.value);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -123,18 +121,14 @@ export default function NewDatasetColorsForm({ data, onClick }) {
                     <FormItem className="w-[260px] space-y-1.5">
                       <FormLabel className="text-xs">Type of value</FormLabel>
                       <FormControl>
-                        <Select onValueChange={field.onChange} value={field.value || ""}>
-                          <SelectTrigger className="h-10 w-full">
-                            <SelectValue placeholder="Select one" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {OPTIONS?.map(({ label, value }) => (
-                              <SelectItem key={value} value={value as string}>
-                                {label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                        <ColorPicker
+                          id="color"
+                          value={field.value}
+                          onChange={(e) => {
+                            console.log(e.target.value, field.value);
+                            return field.onChange(e.target.value);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

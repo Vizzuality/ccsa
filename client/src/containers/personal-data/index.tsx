@@ -61,7 +61,6 @@ export default function PersonalDataForm() {
   const { mutate } = usePostAuthForgotPassword({
     mutation: {
       onSuccess: (data) => {
-        console.log("Success creating dataset:", data);
         const searchParams = new URLSearchParams();
         replace(`/signin?${searchParams.toString()}`);
       },
