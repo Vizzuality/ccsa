@@ -34,36 +34,6 @@
           "sortable": true
         }
       },
-      "countries": {
-        "edit": {
-          "label": "countries",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "countries",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "pillar": {
-        "edit": {
-          "label": "pillar",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "pillar",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "highlight": {
         "edit": {
           "label": "highlight",
@@ -104,21 +74,6 @@
           "label": "amount",
           "searchable": true,
           "sortable": true
-        }
-      },
-      "sdgs": {
-        "edit": {
-          "label": "sdgs",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "sdgs",
-          "searchable": false,
-          "sortable": false
         }
       },
       "status": {
@@ -296,24 +251,12 @@
     "layouts": {
       "list": [
         "id",
-        "name",
-        "countries",
-        "pillar"
+        "name"
       ],
       "edit": [
         [
           {
             "name": "name",
-            "size": 6
-          },
-          {
-            "name": "countries",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "pillar",
             "size": 6
           }
         ],
@@ -334,10 +277,6 @@
           }
         ],
         [
-          {
-            "name": "sdgs",
-            "size": 6
-          },
           {
             "name": "status",
             "size": 6

@@ -48,21 +48,6 @@
           "sortable": false
         }
       },
-      "category": {
-        "edit": {
-          "label": "category",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "category",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "description": {
         "edit": {
           "label": "description",
@@ -73,21 +58,6 @@
         },
         "list": {
           "label": "description",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "layers": {
-        "edit": {
-          "label": "layers",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "layers",
           "searchable": false,
           "sortable": false
         }
@@ -211,9 +181,7 @@
     "layouts": {
       "list": [
         "id",
-        "name",
-        "category",
-        "layers"
+        "name"
       ],
       "edit": [
         [
@@ -230,21 +198,11 @@
         ],
         [
           {
-            "name": "category",
-            "size": 6
-          }
-        ],
-        [
-          {
             "name": "description",
             "size": 12
           }
         ],
         [
-          {
-            "name": "layers",
-            "size": 6
-          },
           {
             "name": "unit",
             "size": 6

@@ -22,18 +22,6 @@
       "relation": "oneToMany",
       "target": "api::dataset.dataset",
       "mappedBy": "category"
-    },
-    "new_dataset_suggestions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::new-dataset-suggestion.new-dataset-suggestion",
-      "mappedBy": "category"
-    },
-    "dataset_edit_suggestions": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
-      "mappedBy": "category"
     }
   }
 }

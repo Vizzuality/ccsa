@@ -16,17 +16,6 @@
       "type": "string",
       "required": false
     },
-    "countries": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::country.country"
-    },
-    "pillar": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::pillar.pillar",
-      "inversedBy": "project_edit_suggestions"
-    },
     "highlight": {
       "type": "richtext"
     },
@@ -35,12 +24,6 @@
     },
     "amount": {
       "type": "float"
-    },
-    "sdgs": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::sdg.sdg",
-      "inversedBy": "project_edit_suggestions"
     },
     "status": {
       "type": "string"
