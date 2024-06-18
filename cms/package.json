@@ -16,6 +16,8 @@
     "@strapi/plugin-users-permissions": "4.15.0",
     "@strapi/provider-email-amazon-ses": "4.15.0",
     "@strapi/strapi": "4.15.0",
+    "csv-parser": "^3.0.0",
+    "json2csv": "^6.0.0-alpha.2",
     "pg": "8.8.0",
     "strapi-plugin-config-sync": "^1.2.1",
     "strapi-plugin-import-export-entries": "^1.21.1"
