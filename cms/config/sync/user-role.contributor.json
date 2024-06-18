@@ -37,6 +37,12 @@
       "action": "api::country.country.findOne"
     },
     {
+      "action": "api::csv.csv.csvToJson"
+    },
+    {
+      "action": "api::csv.csv.jsonToCsv"
+    },
+    {
       "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.create"
     },
     {
