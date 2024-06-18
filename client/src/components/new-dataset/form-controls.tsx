@@ -20,12 +20,6 @@ export const NewDatasetFormControls = ({ onClick }) => {
       .optional(),
   });
 
-  const context = useFormContext();
-
-  const onSubmit = (data) => {
-    console.log(data, "datos");
-  };
-
   return (
     <div className="flex items-center space-x-2 text-sm sm:flex-row">
       <Button size="sm" variant="primary-outline">

@@ -1,22 +1,19 @@
 "use client";
 
-import { useRef, useImperativeHandle } from "react";
-
 import { isEmpty } from "lodash-es";
+
+import { useRef, useImperativeHandle, useCallback, useMemo } from "react";
+import { useAtom } from "jotai";
+import { datasetFormStepAtom } from "@/app/store";
 import { useForm } from "react-hook-form";
-
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-
 import { useGetCountries } from "@/types/generated/country";
-import { useGetDatasets } from "@/types/generated/dataset";
-import { useGetDatasetValues } from "@/types/generated/dataset-value";
-
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
-
+import NewDatasetDataFormWrapper from "./wrapper";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
   TableBody,
@@ -25,53 +22,62 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import { DATA_COLUMNS_TYPE } from "./constants";
-import type { DATA_COLUMN } from "./constants";
-
-const getFormSchema = (valueType) => {
-  switch (valueType) {
-    case "number":
-      return z.object({
-        number: z.number().nonnegative({ message: "Please enter a valid number" }),
-      });
-    case "resources":
-      return z.object({
-        title: z.string().min(1, { message: "Please enter a title" }),
-        description: z.string().min(1, { message: "Please enter a description" }),
-        link: z.string().url({ message: "Please enter a valid URL" }),
-      });
-    case "string":
-    default:
-      return z.object({
-        string: z.string().min(1, { message: "Please enter a string" }),
-      });
-  }
-};
+import type { VALUE_TYPE, FormSchemaType } from "./types";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { getFormSchema } from "./data-form-schema";
 
 export default function NewDatasetDataForm({ data, onClick, enableNavigation }) {
-  const formSchema = getFormSchema(data.settings.valueType);
-  const defaultValues = (() => {
-    switch (data.settings.valueType) {
-      case "number":
-        return { number: "" };
-      case "resources":
-        return { title: "", description: "", link: "" };
-      case "string":
-      default:
-        return { string: "" };
-    }
-  })();
+  const [currentStep, setStep] = useAtom(datasetFormStepAtom);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const { data: countriesData, isLoading } = useGetCountries(GET_COUNTRIES_OPTIONS);
+
+  const countries2 = useMemo(
+    () =>
+      countriesData?.data
+        ? (countriesData.data.map((country) => country.attributes?.iso3) as string[])
+        : [],
+    [countriesData],
+  );
+
+  const countries = ["VIR", "AIA"] as string[];
+
+  const valueType = "boolean"; // TO - DO - || data.settings.valueType
+
+  const formSchema = useMemo(
+    () => getFormSchema(valueType as VALUE_TYPE, countries),
+    [valueType, countries],
+  );
+
+  // const defaultValues = useMemo(() => {
+  //   return countries.reduce((acc, country) => {
+  //     acc[country] =
+  //       valueType === "resource"
+  //         ? { title: "", description: "", link: "" }
+  //         : valueType === "number"
+  //         ? 0
+  //         : valueType === "boolean"
+  //         ? false
+  //         : "";
+  //     return acc;
+  //   }, {} as FormSchemaType);
+  // }, [countries, valueType]);
+
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    // defaultValues,
   });
 
-  const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    onClick({ ...data, settings: { ...values } });
+  function onSubmit(values: FormSchemaType) {
+    onClick({ ...data, data: { ...values } });
   }
 
   const formRef = useRef<{ submitForm: () => void } | null>(null);
@@ -81,45 +87,29 @@ export default function NewDatasetDataForm({ data, onClick, enableNavigation }) 
       form.handleSubmit(onSubmit)();
     },
   }));
+  console.log(data);
+  const handleStep = useCallback(() => {
+    formRef.current?.submitForm();
+    if (form.formState.isValid) {
+      setStep(3);
+    }
+  }, [setStep, form.formState.isValid]);
 
-  console.log("data.settings.data", data.settings, countriesData);
-  if (data.settings.valueType) {
-  }
-
-  const getDatasetParams = {
-    params: {
-      "pagination[pageSize]": 300,
-    },
-  };
-
-  const { data: datasetsData } = useGetDatasets({
-    ...getDatasetParams.params,
-    fields: ["id", "name", "unit", "value_type"],
-  });
-
-  const { data: datasetValueData } = useGetDatasetValues({
-    "pagination[pageSize]": 300,
-    populate: "dataset,country,resources",
-  });
-
-  console.log(datasetValueData);
-
-  const COLUMNS: DATA_COLUMN[] = DATA_COLUMNS_TYPE["resource"];
-  // data.settings.valueType as keyof typeof DATA_COLUMNS_TYPE];
+  const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
 
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 ">
+      <div className="flex items-center justify-between border-b border-gray-300/20 py-4">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline">
             Cancel
           </Button>
-          {isEmpty(data.data) && (
-            <Button size="sm" onClick={() => formRef.current?.submitForm()}>
+          {
+            <Button size="sm" onClick={handleStep}>
               Continue
             </Button>
-          )}
+          }
           {!isEmpty(data.settings) && !isEmpty(data.data) && !isEmpty(data.colors) && (
             <Button size="sm" onClick={() => formRef.current?.submitForm()}>
               Submit
@@ -127,28 +117,72 @@ export default function NewDatasetDataForm({ data, onClick, enableNavigation }) 
           )}
         </div>
       </div>
-      <section className="flex grow flex-col items-center justify-center">
-        <div className="space-y-10 py-10">
-          <NewDatasetNavigation enableNavigation={enableNavigation} />
-          <StepDescription />
-          <Table>
-            <TableHeader>
-              <TableRow>
-                {COLUMNS.map(({ value, label }) => (
-                  <TableHead key={value}>{label}</TableHead>
+      <NewDatasetDataFormWrapper>
+        <NewDatasetNavigation enableNavigation={enableNavigation} />
+        <StepDescription />
+        <Form {...form}>
+          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  {COLUMNS.map(({ value, label }) => (
+                    <TableHead key={value}>{label}</TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {countries.map((country) => (
+                  <TableRow key={country}>
+                    {COLUMNS.map((c) => {
+                      const { label, value, valueType: valuetype2 } = c;
+
+                      return value === "country_id" ? (
+                        <TableCell>{country}</TableCell>
+                      ) : (
+                        <TableCell key={value}>
+                          <FormField
+                            control={form.control}
+                            name={`${country}-${value}`}
+                            render={({ field }) => {
+                              return (
+                                <FormItem className="col-span-2 space-y-1.5">
+                                  <FormLabel className="hidden text-xs">{`${country}-${label}`}</FormLabel>
+                                  <FormControl>
+                                    <>
+                                      {value !== "boolean" && (
+                                        <Input
+                                          {...field}
+                                          value={field.value}
+                                          className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                        />
+                                      )}
+
+                                      {value === "boolean" && (
+                                        <Checkbox
+                                          {...field}
+                                          value={field.value}
+                                          onCheckedChange={(bool) =>
+                                            field.onChange(bool ? "on" : "off")
+                                          }
+                                        />
+                                      )}
+                                    </>
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              );
+                            }}
+                          />
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
                 ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                {COLUMNS.map(({ value, label }) => (
-                  <TableCell key={value}>{label}</TableCell>
-                ))}
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
-      </section>
+              </TableBody>
+            </Table>
+          </form>
+        </Form>
+      </NewDatasetDataFormWrapper>
     </>
   );
 }

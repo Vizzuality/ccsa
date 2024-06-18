@@ -19,33 +19,41 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/select";
+
+import NewDatasetDataFormWrapper from "./wrapper";
 import ColorPicker from "@/components/ui/colorpicker";
 
-const OPTIONS = [
-  {
-    label: "color1",
-    value: "color1",
-  },
-  { label: "color2", value: "color2" },
-  { label: "color2", value: "color2" },
-];
+const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
-const formSchema = z.object({
-  maxValue: z.string().min(1, { message: "Please enter your name" }),
-  minValue: z.string().refine((val) => val === "" || (val && typeof val === "string"), {
-    message: "Please enter a valid unit",
-  }),
-});
+const getFormSchema = (valueType) => {
+  switch (valueType) {
+    case "number":
+      return z.object({
+        minValue: z
+          .string()
+          .min(4, { message: "Please select a color" })
+          .regex(hexColorRegex, { message: "Please enter a valid hex color" }),
+        maxValue: z
+          .string()
+          .min(4, { message: "Please select a color" })
+          .regex(hexColorRegex, { message: "Please enter a valid hex color" }),
+      });
+    case "resources":
+      return z.object({
+        title: z.string().min(1, { message: "Please enter a title" }),
+        description: z.string().min(1, { message: "Please enter a description" }),
+        link: z.string().url({ message: "Please enter a valid URL" }),
+      });
+    case "string":
+    default:
+      return z.object({
+        string: z.string().min(1, { message: "Please enter a string" }),
+      });
+  }
+};
 
 export default function NewDatasetColorsForm({ data, onClick }) {
+  const formSchema = getFormSchema(data.valueType);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,9 +74,10 @@ export default function NewDatasetColorsForm({ data, onClick }) {
       form.handleSubmit(onSubmit)();
     },
   }));
+
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 ">
+      <div className="flex items-center justify-between border-b border-gray-300/20 py-4">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline">
@@ -86,62 +95,58 @@ export default function NewDatasetColorsForm({ data, onClick }) {
           )}
         </div>
       </div>
-      <section className="flex grow flex-col items-center justify-center">
-        <div className="space-y-10 py-10">
-          <NewDatasetNavigation enableNavigation />
-          <StepDescription />
+      <NewDatasetDataFormWrapper>
+        <NewDatasetNavigation enableNavigation />
+        <StepDescription />
 
-          <Form {...form}>
-            <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-              <fieldset className="w-full max-w-5xl sm:grid sm:grid-cols-2 sm:gap-4">
-                <FormField
-                  control={form.control}
-                  name="minValue"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs">Type of value</FormLabel>
-                      <FormControl>
-                        <ColorPicker
-                          id="color"
-                          value={field.value}
-                          onChange={(e) => {
-                            console.log(e.target.value, field.value);
-                            return field.onChange(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="maxValue"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs">Type of value</FormLabel>
-                      <FormControl>
-                        <ColorPicker
-                          id="color"
-                          value={field.value}
-                          onChange={(e) => {
-                            console.log(e.target.value, field.value);
-                            return field.onChange(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </fieldset>
-              <Button type="submit" className="hidden">
-                Submit
-              </Button>
-            </form>
-          </Form>
-        </div>
-      </section>
+        <Form {...form}>
+          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+            <fieldset className="w-full max-w-5xl sm:grid sm:grid-cols-2 sm:gap-4">
+              <FormField
+                control={form.control}
+                name="minValue"
+                render={({ field }) => (
+                  <FormItem className="w-[260px] space-y-1.5">
+                    <FormLabel className="text-xs">Type of value</FormLabel>
+                    <FormControl>
+                      <ColorPicker
+                        id="color"
+                        value={field.value}
+                        onChange={(e) => {
+                          return field.onChange(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="maxValue"
+                render={({ field }) => (
+                  <FormItem className="w-[260px] space-y-1.5">
+                    <FormLabel className="text-xs">Type of value</FormLabel>
+                    <FormControl>
+                      <ColorPicker
+                        id="color"
+                        value={field.value}
+                        onChange={(e) => {
+                          return field.onChange(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </fieldset>
+            <Button type="submit" className="hidden">
+              Submit
+            </Button>
+          </form>
+        </Form>
+      </NewDatasetDataFormWrapper>
     </>
   );
 }

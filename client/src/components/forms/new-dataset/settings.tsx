@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { isEmpty } from "lodash-es";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
 
@@ -36,7 +35,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { usePostDatasets } from "@/types/generated/dataset";
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
-
+import NewDatasetDataFormWrapper from "./wrapper";
 import { useGetCategories } from "@/types/generated/category";
 
 export default function NewDatasetSettingsForm({ data, onClick }) {
@@ -119,17 +118,14 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
 
   const handleStep = useCallback(() => {
     formRef.current?.submitForm();
-    console.log(form.formState.isValid);
     if (form.formState.isValid) {
       setStep(2);
     }
   }, [setStep, form.formState.isValid]);
 
-  console.log(data);
-
   return (
-    <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 ">
+    <div className="">
+      <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline">
@@ -147,121 +143,122 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
           )}
         </div>
       </div>
-      <section className="flex grow flex-col items-center justify-center">
-        <div className="space-y-10 py-10">
-          <NewDatasetNavigation enableNavigation data={data} />
-          <StepDescription />
+      <NewDatasetDataFormWrapper>
+        <NewDatasetNavigation enableNavigation data={data} />
+        <StepDescription />
 
-          <Form {...form}>
-            <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-              <fieldset className="w-full max-w-5xl sm:grid sm:grid-cols-2 sm:gap-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs">Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                          placeholder={data.settings.name || "Name"}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="valueType"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs">Type of value</FormLabel>
-                      <FormControl>
-                        <Select onValueChange={field.onChange} value={field.value || ""}>
-                          <SelectTrigger className="h-10 w-full">
-                            <SelectValue placeholder="Select one" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {valueTypesOptions?.map(({ label, value }) => (
-                              <SelectItem key={value} value={value as string}>
-                                {label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="category"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs">Category</FormLabel>
-                      <FormControl>
-                        <Select onValueChange={field.onChange} value={field.value || ""}>
-                          <SelectTrigger className="h-10 w-full">
-                            <SelectValue placeholder="Select one" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {categoriesOptions?.map(({ label, value }) => (
-                              <SelectItem key={value} value={value as string}>
-                                {label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="unit"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs">Unit</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                          placeholder="unit"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem className="col-span-2 space-y-1.5">
-                      <FormLabel className="text-xs">Description</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          {...field}
-                          className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                          placeholder="Add a description"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </fieldset>
-              <Button type="submit" className="hidden">
-                Submit
-              </Button>
-            </form>
-          </Form>
-        </div>
-      </section>
-    </>
+        <Form {...form}>
+          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+            <fieldset className="w-full max-w-5xl sm:grid sm:grid-cols-2 sm:gap-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="w-[260px] space-y-1.5">
+                    <FormLabel className="text-xs font-semibold">Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                        placeholder={data.settings.name || "Name"}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="valueType"
+                render={({ field }) => (
+                  <FormItem className="w-[260px] space-y-1.5">
+                    <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
+                    <FormControl>
+                      <Select onValueChange={field.onChange} value={field.value || ""}>
+                        <SelectTrigger className="h-10 w-full">
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {valueTypesOptions?.map(({ label, value }) => (
+                            <SelectItem key={value} value={value as string}>
+                              {label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem className="w-[260px] space-y-1.5">
+                    <FormLabel className="text-xs font-semibold">Category</FormLabel>
+                    <FormControl>
+                      <Select onValueChange={field.onChange} value={field.value || ""}>
+                        <SelectTrigger className="h-10 w-full">
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categoriesOptions?.map(({ label, value }) => (
+                            <SelectItem key={value} value={value as string}>
+                              {label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="unit"
+                render={({ field }) => (
+                  <FormItem className="w-[260px] space-y-1.5">
+                    <FormLabel className="flex justify-between text-xs">
+                      <span className="font-semibold">Unit</span>
+                      <span className="text-gray-500">(optional)</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                        placeholder="unit"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 space-y-1.5">
+                    <FormLabel className="text-xs font-semibold">Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                        placeholder="Add a description"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </fieldset>
+            <Button type="submit" className="hidden">
+              Submit
+            </Button>
+          </form>
+        </Form>
+      </NewDatasetDataFormWrapper>
+    </div>
   );
 }

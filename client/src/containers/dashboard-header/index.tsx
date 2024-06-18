@@ -1,13 +1,19 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { LuLogOut } from "react-icons/lu";
 
+import { cn } from "@/lib/classnames";
+
+import { useSyncSearchParams } from "@/app/store";
+import { buttonVariants } from "@/components/ui/button";
+
 const DashboardHeader = (): JSX.Element => {
   const { data: session } = useSession();
+
+  const URLparams = useSyncSearchParams();
 
   return (
     <div className="relative z-20 m-auto flex h-24 w-full justify-between bg-white p-4 sm:px-10 md:px-24 lg:px-32">
@@ -24,7 +30,12 @@ const DashboardHeader = (): JSX.Element => {
             <LuLogOut />
           </button>
         </div>
-        <Button>Open Map</Button>
+        <Link
+          className={cn(buttonVariants({ variant: "default" }))}
+          href={`/?${decodeURIComponent(URLparams.toString())}`}
+        >
+          Open Map
+        </Link>
       </div>
     </div>
   );

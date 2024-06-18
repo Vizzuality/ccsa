@@ -4,10 +4,34 @@
   "type": "authenticated",
   "permissions": [
     {
+      "action": "api::category.category.find"
+    },
+    {
+      "action": "api::category.category.findOne"
+    },
+    {
       "action": "api::csv.csv.csvToJson"
     },
     {
       "action": "api::csv.csv.jsonToCsv"
+    },
+    {
+      "action": "api::dataset-value.dataset-value.find"
+    },
+    {
+      "action": "api::dataset-value.dataset-value.findOne"
+    },
+    {
+      "action": "api::dataset.dataset.find"
+    },
+    {
+      "action": "api::dataset.dataset.findOne"
+    },
+    {
+      "action": "api::layer.layer.find"
+    },
+    {
+      "action": "api::layer.layer.findOne"
     },
     {
       "action": "plugin::email.email.send"

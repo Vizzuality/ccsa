@@ -29,8 +29,8 @@ const STEPS = [
 
 const Navigation = ({ enableNavigation }: { enableNavigation: boolean }): JSX.Element => {
   const [currentStep, setStep] = useAtom(datasetFormStepAtom);
-  console.log(currentStep);
   const handleStep = useCallback((step: number) => setStep(step), []);
+
   return (
     <nav className="relative z-20 flex w-full shrink-0">
       <ul className="flex w-full justify-between space-x-2 text-xs">

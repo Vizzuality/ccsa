@@ -18,7 +18,7 @@ export const authOptions: AuthOptions = {
             identifier: credentials?.email,
             password: credentials?.password,
           });
-
+          console.log(u);
           const { jwt: apiToken, user } = u;
 
           if (user) {

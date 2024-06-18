@@ -24,8 +24,8 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
   return (
     <LayoutProviders>
       <Hydrate state={dehydratedState}>
-        <main className="h-[100svh] w-full sm:px-10 md:px-24 lg:px-32">
-          <div className="relative z-20 flex w-full flex-col space-y-8 p-4 ">
+        <main className="h-[100svh] w-full ">
+          <div className="relative z-20 flex w-full flex-col space-y-8 p-4 sm:px-10 md:px-24 lg:px-32">
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -46,7 +46,6 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-
           {children}
         </main>
       </Hydrate>

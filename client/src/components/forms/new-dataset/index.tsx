@@ -49,7 +49,6 @@ export default function NewDatasetForm() {
 
     mutate({ data: { email: values.email } });
   }
-  console.log(!isEmpty(newDatasetForm.settings));
   return (
     <>
       {currentStep === 1 && (

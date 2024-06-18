@@ -12,7 +12,6 @@ type ColorPickerProps = {
 };
 
 const ColorPicker: FC<ColorPickerProps> = ({ id, value, onChange }: ColorPickerProps) => {
-  console.log(value, "picker");
   return (
     <div className="relative flex items-center justify-center">
       <Input
