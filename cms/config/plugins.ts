@@ -36,7 +36,7 @@ module.exports = ({ env }) => ({
       "x-strapi-config": {
         mutateDocumentation: (generatedDocumentationDraft) => {
           // Custom CSV endpoints
-          generatedDocumentationDraft.paths['/csv-upload'] = {
+          generatedDocumentationDraft.paths['/csv/parse-csv'] = {
             post: {
               tags: ['CSV'],
               summary: 'Upload a CSV file and parse it',
@@ -76,7 +76,7 @@ module.exports = ({ env }) => ({
             },
           };
 
-          generatedDocumentationDraft.paths['/json-to-csv'] = {
+          generatedDocumentationDraft.paths['/csv/json-to-csv'] = {
             post: {
               tags: ['CSV'],
               summary: 'Convert JSON to CSV',
