@@ -5,14 +5,14 @@ import { Parser } from 'json2csv';
 
 // Function to fetch valid country IDs
 async function fetchValidCountryIds() {
-  const countries: any[] = await strapi.entityService.findMany('api::country.country', {
+  const countries: any = await strapi.entityService.findMany('api::country.country', {
     fields: ['iso3'],
   });
   return countries.map(country => country.iso3);
 }
 
 // Helper functions for CSV validation
-function validateNumberCsv(data: any[], validCountryIds: string[]) {
+function validateNumberCsv(data, validCountryIds) {
   for (const row of data) {
     if (!validCountryIds.includes(row.country_id)) return false;
     if (isNaN(Number(row.number))) return false;
@@ -20,7 +20,7 @@ function validateNumberCsv(data: any[], validCountryIds: string[]) {
   return true;
 }
 
-function validateTextCsv(data: any[], validCountryIds: string[]) {
+function validateTextCsv(data, validCountryIds) {
   for (const row of data) {
     if (!validCountryIds.includes(row.country_id)) return false;
     if (typeof row.text !== 'string') return false;
@@ -28,7 +28,7 @@ function validateTextCsv(data: any[], validCountryIds: string[]) {
   return true;
 }
 
-function validateBooleanCsv(data: any[], validCountryIds: string[]) {
+function validateBooleanCsv(data, validCountryIds) {
   for (const row of data) {
     if (!validCountryIds.includes(row.country_id)) return false;
     if (typeof row.boolean !== 'boolean') return false;
@@ -36,7 +36,7 @@ function validateBooleanCsv(data: any[], validCountryIds: string[]) {
   return true;
 }
 
-function validateLinkCsv(data: any[], validCountryIds: string[]) {
+function validateLinkCsv(data, validCountryIds) {
   for (const row of data) {
     if (!validCountryIds.includes(row.country_id)) return false;
     if (typeof row.link_title !== 'string') return false;
@@ -47,8 +47,8 @@ function validateLinkCsv(data: any[], validCountryIds: string[]) {
 }
 
 // Refactored function to determine CSV type and validate structure
-function determineCsvTypeAndValidateStructure(columns: string[]) {
-  const csvTypeMapping: { [key: string]: string } = {
+function determineCsvTypeAndValidateStructure(columns) {
+  const csvTypeMapping = {
     'country_id,number': 'number',
     'country_id,text': 'text',
     'country_id,boolean': 'boolean',
@@ -69,9 +69,8 @@ export default {
     }
 
     try {
-      // Fetch valid country IDs
       const validCountryIds = await fetchValidCountryIds();
-      const results: any[] = [];
+      const results = [];
 
       return new Promise<void>((resolve, reject) => {
         const readStream = fs.createReadStream(files.csv.path);
