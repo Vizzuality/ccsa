@@ -28,6 +28,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::other-tools-category.other-tools-category"
+    },
+    "tool_edit_suggestions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tool-edit-suggestion.tool-edit-suggestion",
+      "mappedBy": "other_tool"
     }
   }
 }

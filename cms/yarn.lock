@@ -2995,6 +2995,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@streamparser/json@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@streamparser/json@npm:0.0.6"
+  checksum: 48eff9d7395859fa395f5c8ea3f510db085c3f55206310d7855249eab39a7dbdb4432d1a9fde073f8a2ca726967c0171fa14032a3968e403b2fd6f25f89924ed
+  languageName: node
+  linkType: hard
+
 "@swc/helpers@npm:^0.5.0":
   version: 0.5.3
   resolution: "@swc/helpers@npm:0.5.3"
@@ -4694,6 +4701,8 @@ __metadata:
     "@strapi/plugin-users-permissions": 4.15.0
     "@strapi/provider-email-amazon-ses": 4.15.0
     "@strapi/strapi": 4.15.0
+    csv-parser: ^3.0.0
+    json2csv: ^6.0.0-alpha.2
     pg: 8.8.0
     strapi-plugin-config-sync: ^1.2.1
     strapi-plugin-import-export-entries: ^1.21.1
@@ -5167,6 +5176,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^6.2.0":
+  version: 6.2.1
+  resolution: "commander@npm:6.2.1"
+  checksum: d7090410c0de6bc5c67d3ca41c41760d6d268f3c799e530aafb73b7437d1826bbf0d2a3edac33f8b57cc9887b4a986dce307fa5557e109be40eadb7c43b21742
+  languageName: node
+  linkType: hard
+
 "common-path-prefix@npm:^3.0.0":
   version: 3.0.0
   resolution: "common-path-prefix@npm:3.0.0"
@@ -5553,6 +5569,17 @@ __metadata:
   version: 3.1.2
   resolution: "csstype@npm:3.1.2"
   checksum: e1a52e6c25c1314d6beef5168da704ab29c5186b877c07d822bd0806717d9a265e8493a2e35ca7e68d0f5d472d43fac1cdce70fd79fd0853dff81f3028d857b5
+  languageName: node
+  linkType: hard
+
+"csv-parser@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "csv-parser@npm:3.0.0"
+  dependencies:
+    minimist: ^1.2.0
+  bin:
+    csv-parser: bin/csv-parser
+  checksum: adc9d67d9f185249825570778c24d13004625301655330f6b735a052b9fdfbe1a239a014afb1f89939e0626ee573718f71f9f14164db7c17e4bcb2f38d6a162b
   languageName: node
   linkType: hard
 
@@ -8993,6 +9020,19 @@ __metadata:
   version: 5.0.1
   resolution: "json-stringify-safe@npm:5.0.1"
   checksum: 48ec0adad5280b8a96bb93f4563aa1667fd7a36334f79149abd42446d0989f2ddc58274b479f4819f1f00617957e6344c886c55d05a4e15ebb4ab931e4a6a8ee
+  languageName: node
+  linkType: hard
+
+"json2csv@npm:^6.0.0-alpha.2":
+  version: 6.0.0-alpha.2
+  resolution: "json2csv@npm:6.0.0-alpha.2"
+  dependencies:
+    "@streamparser/json": ^0.0.6
+    commander: ^6.2.0
+    lodash.get: ^4.4.2
+  bin:
+    json2csv: bin/json2csv.js
+  checksum: 6f9ff361efe3cfd534c59eddca0c32a2d61b9ccf8f6865a8478801c4101dda287c5caa0f4065ffc49f250cbe8baf80afb250ebce8b9f384484a046b45a93f824
   languageName: node
   linkType: hard
 

@@ -62,6 +62,21 @@
           "sortable": true
         }
       },
+      "collaborator_edit_suggestions": {
+        "edit": {
+          "label": "collaborator_edit_suggestions",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "collaborator_edit_suggestions",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -142,6 +157,10 @@
         [
           {
             "name": "type",
+            "size": 6
+          },
+          {
+            "name": "collaborator_edit_suggestions",
             "size": 6
           }
         ]

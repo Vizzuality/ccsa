@@ -56,12 +56,72 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "collaborator",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "collaborator",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "collaborator",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
         "fields": [
           "name",
           "link",
-          "type"
+          "type",
+          "collaborator_edit_suggestions"
         ]
       },
       "conditions": []
@@ -88,7 +148,8 @@
         "fields": [
           "name",
           "link",
-          "type"
+          "type",
+          "collaborator_edit_suggestions"
         ]
       },
       "conditions": []
@@ -101,7 +162,8 @@
         "fields": [
           "name",
           "link",
-          "type"
+          "type",
+          "collaborator_edit_suggestions"
         ]
       },
       "conditions": []
@@ -161,6 +223,71 @@
           "geometry",
           "bbox",
           "link"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "datum",
+          "description",
+          "unit",
+          "value_type",
+          "review_status",
+          "dataset"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "datum",
+          "description",
+          "unit",
+          "value_type",
+          "review_status",
+          "dataset"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "datum",
+          "description",
+          "unit",
+          "value_type",
+          "review_status",
+          "dataset"
         ]
       },
       "conditions": []
@@ -232,7 +359,8 @@
           "description",
           "layers",
           "unit",
-          "value_type"
+          "value_type",
+          "dataset_edit_suggestions"
         ]
       },
       "conditions": []
@@ -263,7 +391,8 @@
           "description",
           "layers",
           "unit",
-          "value_type"
+          "value_type",
+          "dataset_edit_suggestions"
         ]
       },
       "conditions": []
@@ -280,7 +409,8 @@
           "description",
           "layers",
           "unit",
-          "value_type"
+          "value_type",
+          "dataset_edit_suggestions"
         ]
       },
       "conditions": []
@@ -409,7 +539,8 @@
           "name",
           "description",
           "link",
-          "other_tools_category"
+          "other_tools_category",
+          "tool_edit_suggestions"
         ]
       },
       "conditions": []
@@ -437,7 +568,8 @@
           "name",
           "description",
           "link",
-          "other_tools_category"
+          "other_tools_category",
+          "tool_edit_suggestions"
         ]
       },
       "conditions": []
@@ -451,7 +583,8 @@
           "name",
           "description",
           "link",
-          "other_tools_category"
+          "other_tools_category",
+          "tool_edit_suggestions"
         ]
       },
       "conditions": []
@@ -559,6 +692,86 @@
     {
       "action": "plugin::content-manager.explorer.create",
       "actionParameters": {},
+      "subject": "api::project-edit-suggestion.project-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "highlight",
+          "account",
+          "amount",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info",
+          "review_status",
+          "project"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project-edit-suggestion.project-edit-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project-edit-suggestion.project-edit-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-edit-suggestion.project-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "highlight",
+          "account",
+          "amount",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info",
+          "review_status",
+          "project"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project-edit-suggestion.project-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "highlight",
+          "account",
+          "amount",
+          "status",
+          "funding",
+          "source_country",
+          "organization_type",
+          "objective",
+          "info",
+          "review_status",
+          "project"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
       "subject": "api::project.project",
       "properties": {
         "fields": [
@@ -574,7 +787,8 @@
           "source_country",
           "organization_type",
           "objective",
-          "info"
+          "info",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -611,7 +825,8 @@
           "source_country",
           "organization_type",
           "objective",
-          "info"
+          "info",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -634,7 +849,8 @@
           "source_country",
           "organization_type",
           "objective",
-          "info"
+          "info",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -738,6 +954,65 @@
         "fields": [
           "name",
           "projects"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::tool-edit-suggestion.tool-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tool",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::tool-edit-suggestion.tool-edit-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::tool-edit-suggestion.tool-edit-suggestion",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::tool-edit-suggestion.tool-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tool",
+          "review_status"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::tool-edit-suggestion.tool-edit-suggestion",
+      "properties": {
+        "fields": [
+          "name",
+          "description",
+          "link",
+          "other_tool",
+          "review_status"
         ]
       },
       "conditions": []

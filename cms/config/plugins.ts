@@ -35,6 +35,78 @@ module.exports = ({ env }) => ({
     config: {
       "x-strapi-config": {
         mutateDocumentation: (generatedDocumentationDraft) => {
+          // Custom CSV endpoints
+          generatedDocumentationDraft.paths['/csv/parse-csv'] = {
+            post: {
+              tags: ['CSV'],
+              summary: 'Upload a CSV file and parse it',
+              operationId: 'uploadCsv',
+              requestBody: {
+                content: {
+                  'multipart/form-data': {
+                    schema: {
+                      type: 'object',
+                      properties: {
+                        files: {
+                          type: 'string',
+                          format: 'binary',
+                        },
+                      },
+                      required: ['files'],
+                    },
+                  },
+                },
+                required: true,
+              },
+              responses: {
+                '200': {
+                  description: 'Parsed CSV data',
+                  content: {
+                    'application/json': {
+                      schema: {
+                        type: 'array',
+                        items: {
+                          type: 'object',
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          };
+
+          generatedDocumentationDraft.paths['/csv/json-to-csv'] = {
+            post: {
+              tags: ['CSV'],
+              summary: 'Convert JSON to CSV',
+              operationId: 'jsonToCsv',
+              requestBody: {
+                content: {
+                  'application/json': {
+                    schema: {
+                      type: 'object',
+                    },
+                  },
+                },
+                required: true,
+              },
+              responses: {
+                '200': {
+                  description: 'Converted CSV data',
+                  content: {
+                    'text/csv': {
+                      schema: {
+                        type: 'string',
+                        format: 'csv',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          };
+
           Object.keys(generatedDocumentationDraft.paths).forEach((path) => {
             // mutate `fields` to string array
             if (generatedDocumentationDraft.paths[path].get?.parameters) {

@@ -109,6 +109,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "name",
+        "createdAt",
+        "datasets"
+      ],
       "edit": [
         [
           {
@@ -122,12 +128,6 @@
             "size": 4
           }
         ]
-      ],
-      "list": [
-        "id",
-        "name",
-        "createdAt",
-        "datasets"
       ]
     }
   },

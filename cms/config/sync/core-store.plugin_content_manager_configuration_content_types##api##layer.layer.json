@@ -48,21 +48,6 @@
           "sortable": true
         }
       },
-      "dataset": {
-        "edit": {
-          "label": "dataset",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "dataset",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "config": {
         "edit": {
           "label": "config",
@@ -117,6 +102,21 @@
           "label": "interaction_config",
           "searchable": false,
           "sortable": false
+        }
+      },
+      "dataset": {
+        "edit": {
+          "label": "dataset",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "dataset",
+          "searchable": true,
+          "sortable": true
         }
       },
       "createdAt": {
@@ -179,6 +179,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "name",
+        "type",
+        "updatedAt"
+      ],
       "edit": [
         [
           {
@@ -222,12 +228,6 @@
             "size": 12
           }
         ]
-      ],
-      "list": [
-        "id",
-        "name",
-        "type",
-        "updatedAt"
       ]
     }
   },
