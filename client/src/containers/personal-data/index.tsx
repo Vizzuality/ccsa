@@ -145,7 +145,7 @@ export default function PersonalDataForm() {
       acc[key] = values[key];
       return acc;
     }, {} as Partial<FormSchemaData>);
-    console.log(user, infoToUpdate);
+
     if (user?.id) {
       updateUserData({ id: user.id.toString(), data: { ...user, ...infoToUpdate } });
     }

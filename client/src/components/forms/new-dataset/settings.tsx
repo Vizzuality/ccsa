@@ -54,7 +54,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
   const { data: session } = useSession();
   const user = session?.user;
 
-  const { data: categoriesData, isLoading } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
+  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
     query: {
       keepPreviousData: true,
     },
@@ -127,14 +127,16 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
     },
   }));
 
-  const handleStep = useCallback(() => {
+  const handleScreen = useCallback(() => {
+    console.log("settings", data.settings, form.getValues());
     const areEqualValues = compareData(form.getValues(), data.settings);
-
-    if (isEmpty(data.settings)) {
+    if (!!isEmpty(data.settings)) {
+      console.log("is empty");
       formRef.current?.submitForm();
     }
 
     if (!areEqualValues) {
+      console.log("ya hay valores");
       const currentValues = form.getValues();
       const fieldsToUpdate = form.formState.dirtyFields; // Assuming dirtyFields indicates modified fields
 
@@ -146,15 +148,16 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
         }
       });
       formRef.current?.submitForm();
+      setStep(2);
     }
 
-    if (form.formState.isValid) {
+    if (form.formState.isValid || areEqualValues) {
       setStep(2);
     }
   }, [setStep, form.formState.isValid]);
-
+  console.log(form, typeof form);
   return (
-    <div className="">
+    <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
@@ -162,7 +165,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
             Cancel
           </Button>
           {(isEmpty(data.settings) || isEmpty(data.data) || isEmpty(data.colors)) && (
-            <Button size="sm" onClick={handleStep}>
+            <Button size="sm" onClick={handleScreen}>
               Continue
             </Button>
           )}
@@ -174,7 +177,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
         </div>
       </div>
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={data} />
+        <NewDatasetNavigation data={data} handleStep={handleScreen} form={form} />
         <StepDescription />
 
         <Form {...form}>
@@ -298,6 +301,6 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
           </form>
         </Form>
       </NewDatasetDataFormWrapper>
-    </div>
+    </>
   );
 }

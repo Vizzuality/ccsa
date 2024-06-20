@@ -17,7 +17,6 @@ import { datasetFormStepAtom } from "@/app/store";
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
-
 import { usePostDatasets } from "@/types/generated/dataset";
 import { usePostAuthForgotPassword } from "@/types/generated/users-permissions-auth";
 
@@ -25,9 +24,9 @@ export default function NewDatasetForm() {
   const { replace } = useRouter();
   const [currentStep] = useAtom(datasetFormStepAtom);
   const [newDatasetForm, setFormValues] = useState({
-    settings: "",
-    data: "",
-    colors: "",
+    settings: {},
+    data: {},
+    colors: {},
   });
 
   const { mutate } = usePostAuthForgotPassword({

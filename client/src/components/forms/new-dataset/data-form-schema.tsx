@@ -3,7 +3,6 @@ import { z } from "zod";
 import type { VALUE_TYPE } from "./types";
 
 export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
-  console.log(valueType, countries);
   if (valueType === "number") {
     return z.object(
       countries.reduce(

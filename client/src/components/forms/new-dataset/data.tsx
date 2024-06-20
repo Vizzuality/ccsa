@@ -47,7 +47,7 @@ export default function NewDatasetDataForm({ data, onClick }) {
         : [],
     [countriesData],
   );
-  console.log(data, data.settings.valueType, "data");
+  console.log(data, data.settings.valueType, countries);
   const valueType = data.settings.valueType;
 
   const formSchema = useMemo(
@@ -55,23 +55,26 @@ export default function NewDatasetDataForm({ data, onClick }) {
     [valueType, countries],
   );
 
-  // const defaultValues = useMemo(() => {
-  //   return countries.reduce((acc, country) => {
-  //     acc[country] =
-  //       valueType === "resource"
-  //         ? { title: "", description: "", link: "" }
-  //         : valueType === "number"
-  //         ? 0
-  //         : valueType === "boolean"
-  //         ? false
-  //         : "";
-  //     return acc;
-  //   }, {} as FormSchemaType);
-  // }, [countries, valueType]);
-  // if (!data.settings.valueType) return null;
+  const defaultValues = useMemo(() => {
+    return countries.reduce(
+      (acc, country) => {
+        acc[`${country}-${valueType}`] =
+          valueType === "resource"
+            ? { title: "", description: "", link: "" }
+            : valueType === "number"
+            ? 0
+            : valueType === "boolean"
+            ? false
+            : "";
+        return acc;
+      },
+      {} as Record<string, any>,
+    );
+  }, [countries, valueType]);
+
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
-    // defaultValues,
+    defaultValues,
   });
 
   function onSubmit(values: FormSchemaType) {
@@ -95,7 +98,7 @@ export default function NewDatasetDataForm({ data, onClick }) {
   const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 py-4">
+      <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline">

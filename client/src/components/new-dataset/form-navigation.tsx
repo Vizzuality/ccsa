@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 import isEmpty from "lodash-es/isEmpty";
 
-import { useSetAtom } from "jotai";
+import { useSetAtom, useAtom } from "jotai";
 import { SlPencil } from "react-icons/sl";
 
 import { datasetFormStepAtom } from "@/app/store";
@@ -31,8 +31,16 @@ const STEPS = [
   },
 ];
 
-const Navigation = ({ data }: { data: any }): JSX.Element => {
-  const setStep = useSetAtom(datasetFormStepAtom);
+const Navigation = ({
+  data,
+  // handleStep,
+  form,
+}: {
+  data: any;
+  form: any;
+}): JSX.Element => {
+  // const setStep = useSetAtom(datasetFormStepAtom);
+  const [step, setStep] = useAtom(datasetFormStepAtom);
 
   const handleStep = useCallback((step: number) => setStep(step), []);
 
