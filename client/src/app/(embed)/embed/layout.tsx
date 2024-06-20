@@ -24,12 +24,10 @@ import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 import { GET_SDGs_OPTIONS } from "@/constants/sdgs";
 
 import Map from "@/containers/map";
-import Navigation from "@/containers/navigation";
-import Sidebar from "@/containers/sidebar";
 
 import LayoutProviders from "./layout-providers";
 
-export default async function AppLayout({ children }: PropsWithChildren) {
+export default async function EmbedLayout({ children }: PropsWithChildren) {
   const url = new URL(headers().get("x-url")!);
   const searchParams = url.searchParams;
 
@@ -83,9 +81,8 @@ export default async function AppLayout({ children }: PropsWithChildren) {
     <LayoutProviders>
       <Hydrate state={dehydratedState}>
         <main className="flex h-[100svh] w-full justify-between">
-          <Navigation />
-          <Sidebar>{children}</Sidebar>
-          <Map />
+          {children}
+          <Map embed />
         </main>
       </Hydrate>
     </LayoutProviders>

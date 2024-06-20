@@ -181,7 +181,9 @@
     "layouts": {
       "list": [
         "id",
-        "name"
+        "name",
+        "unit",
+        "value_type"
       ],
       "edit": [
         [
@@ -206,19 +208,17 @@
           {
             "name": "unit",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "value_type",
             "size": 6
-          },
-          {
-            "name": "review_status",
-            "size": 6
           }
         ],
         [
+          {
+            "name": "review_status",
+            "size": 6
+          },
           {
             "name": "dataset",
             "size": 6

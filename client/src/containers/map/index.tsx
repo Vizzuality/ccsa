@@ -15,10 +15,17 @@ import MapSettingsManager from "@/containers/map-settings/manager";
 
 import Map from "@/components/map";
 import Controls from "@/components/map/controls";
+import EmbedControl from "@/components/map/controls/embed";
 import SettingsControl from "@/components/map/controls/settings";
 import ZoomControl from "@/components/map/controls/zoom";
 
-export default function MapContainer({ id = "default" }: { id?: string }) {
+export default function MapContainer({
+  id = "default",
+  embed = false,
+}: {
+  id?: string;
+  embed?: boolean;
+}) {
   const [cursor, setCursor] = useState<string>("");
   const { [id]: map } = useMap();
 
@@ -141,9 +148,16 @@ export default function MapContainer({ id = "default" }: { id?: string }) {
     >
       <Controls className="absolute right-6 top-4">
         <ZoomControl />
-        <SettingsControl>
-          <MapSettingsManagerPanel />
-        </SettingsControl>
+        {!embed && (
+          <SettingsControl>
+            <MapSettingsManagerPanel />
+          </SettingsControl>
+        )}
+        {!embed && (
+          <EmbedControl>
+            <div>Embed</div>
+          </EmbedControl>
+        )}
       </Controls>
 
       <LayerManager />

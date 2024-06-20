@@ -251,7 +251,9 @@
     "layouts": {
       "list": [
         "id",
-        "name"
+        "name",
+        "account",
+        "amount"
       ],
       "edit": [
         [
@@ -280,39 +282,37 @@
           {
             "name": "status",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "funding",
             "size": 6
-          },
+          }
+        ],
+        [
           {
             "name": "source_country",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "organization_type",
             "size": 6
-          },
+          }
+        ],
+        [
           {
             "name": "objective",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "info",
             "size": 6
-          },
-          {
-            "name": "review_status",
-            "size": 6
           }
         ],
         [
+          {
+            "name": "review_status",
+            "size": 6
+          },
           {
             "name": "project",
             "size": 6

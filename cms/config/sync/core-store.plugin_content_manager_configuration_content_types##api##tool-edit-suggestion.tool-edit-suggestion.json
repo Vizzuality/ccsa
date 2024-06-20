@@ -172,13 +172,13 @@
           {
             "name": "link",
             "size": 6
-          }
-        ],
-        [
+          },
           {
             "name": "other_tool",
             "size": 6
-          },
+          }
+        ],
+        [
           {
             "name": "review_status",
             "size": 6
