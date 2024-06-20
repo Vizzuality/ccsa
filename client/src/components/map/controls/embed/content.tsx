@@ -13,7 +13,9 @@ const EmbedContent = () => {
   const [copiedUrl, setCopiedUrl] = useState(false);
   const [copiedIframe, setCopiedIframe] = useState(false);
 
-  const URL = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` || env.NEXT_PUBLIC_URL;
+  const URL = process.env.NEXT_PUBLIC_VERCEL_URL
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    : env.NEXT_PUBLIC_URL;
 
   return (
     <div className="space-y-3">
