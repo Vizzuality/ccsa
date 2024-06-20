@@ -38,6 +38,17 @@ import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 import NewDatasetDataFormWrapper from "./wrapper";
 import { useGetCategories } from "@/types/generated/category";
 
+function compareData(obj1, obj2) {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  if (keys1.length !== keys2.length) {
+    return false; // Objects have different number of properties
+  }
+
+  return keys1.every((key) => obj1[key] === obj2[key]);
+}
+
 export default function NewDatasetSettingsForm({ data, onClick }) {
   const [currentStep, setStep] = useAtom(datasetFormStepAtom);
   const { data: session } = useSession();
@@ -104,7 +115,6 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
   // });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(data, values);
     onClick({ ...data, settings: { ...data.settings, ...values } });
     // mutateDatasets({ data: values });
   }
@@ -118,17 +128,30 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
   }));
 
   const handleStep = useCallback(() => {
-    console.log(form.formState.dirtyFields, data.settings);
-    if (isEmpty(form.formState.dirtyFields) && isEmpty(data.settings)) {
-      console.log("lanzamos form");
+    const areEqualValues = compareData(form.getValues(), data.settings);
+
+    if (isEmpty(data.settings)) {
       formRef.current?.submitForm();
     }
+
+    if (!areEqualValues) {
+      const currentValues = form.getValues();
+      const fieldsToUpdate = form.formState.dirtyFields; // Assuming dirtyFields indicates modified fields
+
+      Object.keys(currentValues).forEach((key) => {
+        if (fieldsToUpdate[key]) {
+          form.setValue(key, currentValues[key]);
+        } else {
+          form.setValue(key, data.settings[key]);
+        }
+      });
+      formRef.current?.submitForm();
+    }
+
     if (form.formState.isValid) {
       setStep(2);
     }
   }, [setStep, form.formState.isValid]);
-
-  const disabledForm = form.formState.isValid;
 
   return (
     <div className="">
@@ -156,12 +179,12 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
 
         <Form {...form}>
           <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-            <fieldset className="w-full max-w-5xl sm:grid sm:grid-cols-2 sm:gap-4">
+            <fieldset className="w-full max-w-5xl gap-4 sm:grid sm:grid-cols-2 md:gap-6">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem className="w-[260px] space-y-1.5">
+                  <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Name</FormLabel>
                     <FormControl>
                       <Input
@@ -179,12 +202,12 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                 control={form.control}
                 name="valueType"
                 render={({ field }) => (
-                  <FormItem className="w-[260px] space-y-1.5">
+                  <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
-                        value={data.settings.valueType || field.value}
+                        value={field.value || data.settings.valueType}
                       >
                         <SelectTrigger className="h-10 w-full">
                           <SelectValue placeholder={data.settings.valueType || "Select one"} />
@@ -206,12 +229,12 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                 control={form.control}
                 name="category"
                 render={({ field }) => (
-                  <FormItem className="w-[260px] space-y-1.5">
+                  <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Category</FormLabel>
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
-                        value={data.settings.category || field.value}
+                        value={field.value || data.settings.category}
                       >
                         <SelectTrigger className="h-10 w-full">
                           <SelectValue placeholder={data.settings.category || "Select one"} />
@@ -233,7 +256,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                 control={form.control}
                 name="unit"
                 render={({ field }) => (
-                  <FormItem className="w-[260px] space-y-1.5">
+                  <FormItem className="space-y-1.5">
                     <FormLabel className="flex justify-between text-xs">
                       <span className="font-semibold">Unit</span>
                       <span className="text-gray-500">(optional)</span>
@@ -241,7 +264,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                     <FormControl>
                       <Input
                         {...field}
-                        value={data.settings.unit || field.value}
+                        value={field.value || data.settings.unit}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
                         placeholder={data.settings.unit || "unit"}
                       />
@@ -259,7 +282,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                     <FormControl>
                       <Textarea
                         {...field}
-                        value={data.settings.description || field.value}
+                        value={field.value || data.settings.description}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
                         placeholder={data.settings.description || "Add a description"}
                       />

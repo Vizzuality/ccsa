@@ -40,8 +40,7 @@ const Navigation = ({ data }: { data: any }): JSX.Element => {
     <nav className="relative z-20 flex w-full shrink-0">
       <ul className="flex w-full justify-between space-x-2 text-xs">
         {STEPS.map(({ step, title, value }, i) => {
-          const prevScreen = STEPS[i].value;
-
+          const prevScreen = STEPS[i - 1]?.value;
           return (
             <li
               key={step}
@@ -50,8 +49,7 @@ const Navigation = ({ data }: { data: any }): JSX.Element => {
               <button
                 type="button"
                 onClick={() => handleStep(step)}
-                // disabled={true}
-                // disabled={!isEmpty(data[prevScreen])}
+                disabled={!!(prevScreen && isEmpty(data?.[prevScreen]))}
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white"
               >
                 {!isEmpty(data?.[value]) ? <SlPencil /> : step}
