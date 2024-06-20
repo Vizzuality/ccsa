@@ -71,7 +71,7 @@ export default function PersonalData() {
               name="username"
               render={({ field }) => (
                 <FormItem className="space-y-1.5">
-                  <FormLabel className="text-xs">Name</FormLabel>
+                  <FormLabel className="text-xs font-semibold">Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -88,7 +88,7 @@ export default function PersonalData() {
               name="email"
               render={({ field }) => (
                 <FormItem className="space-y-1.5">
-                  <FormLabel className="text-xs">Email</FormLabel>
+                  <FormLabel className="text-xs font-semibold">Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -105,7 +105,7 @@ export default function PersonalData() {
               name="organization"
               render={({ field }) => (
                 <FormItem className="space-y-1.5">
-                  <FormLabel className="text-xs">Organization name</FormLabel>
+                  <FormLabel className="text-xs font-semibold">Organization name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -122,7 +122,7 @@ export default function PersonalData() {
               name="password"
               render={({ field }) => (
                 <FormItem className="space-y-1.5">
-                  <FormLabel className="text-xs">Password</FormLabel>
+                  <FormLabel className="text-xs font-semibold">Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}

@@ -104,7 +104,8 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
   // });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    onClick({ ...data, settings: { ...values } });
+    console.log(data, values);
+    onClick({ ...data, settings: { ...data.settings, ...values } });
     // mutateDatasets({ data: values });
   }
 
@@ -117,11 +118,17 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
   }));
 
   const handleStep = useCallback(() => {
-    formRef.current?.submitForm();
+    console.log(form.formState.dirtyFields, data.settings);
+    if (isEmpty(form.formState.dirtyFields) && isEmpty(data.settings)) {
+      console.log("lanzamos form");
+      formRef.current?.submitForm();
+    }
     if (form.formState.isValid) {
       setStep(2);
     }
   }, [setStep, form.formState.isValid]);
+
+  const disabledForm = form.formState.isValid;
 
   return (
     <div className="">
@@ -144,7 +151,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
         </div>
       </div>
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation enableNavigation data={data} />
+        <NewDatasetNavigation data={data} />
         <StepDescription />
 
         <Form {...form}>
@@ -159,6 +166,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                     <FormControl>
                       <Input
                         {...field}
+                        value={field.value || data.settings.name}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
                         placeholder={data.settings.name || "Name"}
                       />
@@ -174,9 +182,12 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                   <FormItem className="w-[260px] space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value || ""}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={data.settings.valueType || field.value}
+                      >
                         <SelectTrigger className="h-10 w-full">
-                          <SelectValue placeholder="Select one" />
+                          <SelectValue placeholder={data.settings.valueType || "Select one"} />
                         </SelectTrigger>
                         <SelectContent>
                           {valueTypesOptions?.map(({ label, value }) => (
@@ -198,9 +209,12 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                   <FormItem className="w-[260px] space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Category</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value || ""}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={data.settings.category || field.value}
+                      >
                         <SelectTrigger className="h-10 w-full">
-                          <SelectValue placeholder="Select one" />
+                          <SelectValue placeholder={data.settings.category || "Select one"} />
                         </SelectTrigger>
                         <SelectContent>
                           {categoriesOptions?.map(({ label, value }) => (
@@ -227,8 +241,9 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                     <FormControl>
                       <Input
                         {...field}
+                        value={data.settings.unit || field.value}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder="unit"
+                        placeholder={data.settings.unit || "unit"}
                       />
                     </FormControl>
                     <FormMessage />
@@ -244,8 +259,9 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                     <FormControl>
                       <Textarea
                         {...field}
+                        value={data.settings.description || field.value}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder="Add a description"
+                        placeholder={data.settings.description || "Add a description"}
                       />
                     </FormControl>
                     <FormMessage />

@@ -54,13 +54,7 @@ export default function NewDatasetForm() {
       {currentStep === 1 && (
         <NewDatasetSettingsForm data={newDatasetForm} onClick={setFormValues} />
       )}
-      {currentStep === 2 && (
-        <NewDatasetDataForm
-          data={newDatasetForm}
-          onClick={setFormValues}
-          enableNavigation={!isEmpty(newDatasetForm.settings)}
-        />
-      )}
+      {currentStep === 2 && <NewDatasetDataForm data={newDatasetForm} onClick={setFormValues} />}
       {currentStep === 3 && <NewDatasetColorsForm data={newDatasetForm} onClick={setFormValues} />}
     </>
   );

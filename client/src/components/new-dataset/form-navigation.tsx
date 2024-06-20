@@ -2,12 +2,16 @@
 
 import { useCallback } from "react";
 
-import { useAtom } from "jotai";
+import isEmpty from "lodash-es/isEmpty";
+
+import { useSetAtom } from "jotai";
 import { SlPencil } from "react-icons/sl";
 
 import { datasetFormStepAtom } from "@/app/store";
 
 import { Separator } from "@/components/ui/separator";
+
+type Steps = "settings" | "data" | "colors";
 
 const STEPS = [
   {
@@ -27,15 +31,16 @@ const STEPS = [
   },
 ];
 
-const Navigation = ({ enableNavigation }: { enableNavigation: boolean }): JSX.Element => {
-  const [currentStep, setStep] = useAtom(datasetFormStepAtom);
+const Navigation = ({ data }: { data: any }): JSX.Element => {
+  const setStep = useSetAtom(datasetFormStepAtom);
+
   const handleStep = useCallback((step: number) => setStep(step), []);
 
   return (
     <nav className="relative z-20 flex w-full shrink-0">
       <ul className="flex w-full justify-between space-x-2 text-xs">
-        {STEPS.map(({ step, title }, i) => {
-          const editionMode = step === currentStep;
+        {STEPS.map(({ step, title, value }, i) => {
+          const prevScreen = STEPS[i].value;
 
           return (
             <li
@@ -45,10 +50,11 @@ const Navigation = ({ enableNavigation }: { enableNavigation: boolean }): JSX.El
               <button
                 type="button"
                 onClick={() => handleStep(step)}
-                // disabled={currentStep > step && !enableNavigation}
+                // disabled={true}
+                // disabled={!isEmpty(data[prevScreen])}
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white"
               >
-                {editionMode ? <SlPencil /> : step}
+                {!isEmpty(data?.[value]) ? <SlPencil /> : step}
               </button>
               <span>{title}</span>
               {i !== STEPS.length - 1 && (

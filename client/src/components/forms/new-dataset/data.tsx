@@ -35,22 +35,20 @@ import {
 } from "@/components/ui/form";
 import { getFormSchema } from "./data-form-schema";
 
-export default function NewDatasetDataForm({ data, onClick, enableNavigation }) {
+export default function NewDatasetDataForm({ data, onClick }) {
   const [currentStep, setStep] = useAtom(datasetFormStepAtom);
 
   const { data: countriesData, isLoading } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
-  const countries2 = useMemo(
+  const countries = useMemo(
     () =>
       countriesData?.data
         ? (countriesData.data.map((country) => country.attributes?.iso3) as string[])
         : [],
     [countriesData],
   );
-
-  const countries = ["VIR", "AIA"] as string[];
-
-  const valueType = "boolean"; // TO - DO - || data.settings.valueType
+  console.log(data, data.settings.valueType, "data");
+  const valueType = data.settings.valueType;
 
   const formSchema = useMemo(
     () => getFormSchema(valueType as VALUE_TYPE, countries),
@@ -70,7 +68,7 @@ export default function NewDatasetDataForm({ data, onClick, enableNavigation }) 
   //     return acc;
   //   }, {} as FormSchemaType);
   // }, [countries, valueType]);
-
+  // if (!data.settings.valueType) return null;
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     // defaultValues,
@@ -87,7 +85,6 @@ export default function NewDatasetDataForm({ data, onClick, enableNavigation }) 
       form.handleSubmit(onSubmit)();
     },
   }));
-  console.log(data);
   const handleStep = useCallback(() => {
     formRef.current?.submitForm();
     if (form.formState.isValid) {
@@ -96,7 +93,6 @@ export default function NewDatasetDataForm({ data, onClick, enableNavigation }) 
   }, [setStep, form.formState.isValid]);
 
   const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
-
   return (
     <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4">
@@ -118,7 +114,7 @@ export default function NewDatasetDataForm({ data, onClick, enableNavigation }) 
         </div>
       </div>
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation enableNavigation={enableNavigation} />
+        <NewDatasetNavigation data={data} />
         <StepDescription />
         <Form {...form}>
           <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>

@@ -107,7 +107,7 @@ export default function NewDatasetColorsForm({ data, onClick }) {
                 name="minValue"
                 render={({ field }) => (
                   <FormItem className="w-[260px] space-y-1.5">
-                    <FormLabel className="text-xs">Type of value</FormLabel>
+                    <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
                       <ColorPicker
                         id="color"
@@ -126,7 +126,7 @@ export default function NewDatasetColorsForm({ data, onClick }) {
                 name="maxValue"
                 render={({ field }) => (
                   <FormItem className="w-[260px] space-y-1.5">
-                    <FormLabel className="text-xs">Type of value</FormLabel>
+                    <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
                       <ColorPicker
                         id="color"

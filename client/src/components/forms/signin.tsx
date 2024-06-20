@@ -1,6 +1,7 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { set, useForm } from "react-hook-form";
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -26,6 +27,7 @@ const formSchema = z.object({
 });
 
 export default function Signin() {
+  const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
   // 1. Define your form.
@@ -42,9 +44,15 @@ export default function Signin() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     signIn("credentials", {
+      redirect: false,
       email: values.email,
       password: values.password,
       callbackUrl: searchParams.get("callbackUrl") ?? "/",
+    }).then((response) => {
+      setError("Incorrect username or password");
+      setTimeout(() => {
+        setError(null);
+      }, 2500);
     });
   }
 
@@ -58,12 +66,13 @@ export default function Signin() {
               name="email"
               render={({ field }) => (
                 <FormItem className="space-y-1.5">
-                  <FormLabel className="text-xs">Email</FormLabel>
+                  <FormLabel className="text-xs font-semibold">Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
                       placeholder="Email"
+                      onChange={() => setError(null)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -75,13 +84,14 @@ export default function Signin() {
               name="password"
               render={({ field }) => (
                 <FormItem className="space-y-1.5">
-                  <FormLabel className="text-xs">Password</FormLabel>
+                  <FormLabel className="text-xs font-semibold">Password</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
                       {...field}
                       className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
                       placeholder="Password"
+                      onChange={() => setError(null)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -89,6 +99,7 @@ export default function Signin() {
               )}
             />
           </fieldset>
+          {error && <p className="text-sm text-red-500">{error}</p>}
           <Button className="m-0 w-full" type="submit">
             Sign in
           </Button>

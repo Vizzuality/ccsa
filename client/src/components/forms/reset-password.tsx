@@ -63,7 +63,7 @@ export default function ResetPassword() {
               name="email"
               render={({ field }) => (
                 <FormItem className="space-y-1.5">
-                  <FormLabel className="text-xs">Email</FormLabel>
+                  <FormLabel className="text-xs font-semibold">Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}

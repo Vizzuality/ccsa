@@ -2,6 +2,7 @@
 
 import { useCallback } from "react";
 
+import isEmpty from "lodash/isEmpty";
 import { useForm } from "react-hook-form";
 
 import { useRouter, useSearchParams } from "next/navigation";
@@ -22,15 +23,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import {
-  usePostAuthForgotPassword,
-  // usePostAuthChangePassword,
-} from "@/types/generated/users-permissions-auth";
+import { usePostAuthChangePassword } from "@/types/generated/users-permissions-auth";
 
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FORM_DATA_FIELDS, FORM_PASSWORD_FIELDS } from "./constants";
 
-import { useDeleteUsersId } from "@/types/generated/users-permissions-users-roles";
+import { useDeleteUsersId, usePutUsersId } from "@/types/generated/users-permissions-users-roles";
 
 type FormSchemaData = z.infer<typeof formSchemaData>;
 
@@ -42,36 +40,25 @@ const formSchemaData = z.object({
 
 const formSchemaPassword = z
   .object({
-    password: z.string().optional(),
-    newPassword: z.string().optional(),
-    passwordConfirmation: z.string().optional(),
+    password: z.string().min(1, { message: "Current password is required" }),
+    newPassword: z
+      .string()
+      .nonempty("New password is required")
+      .refine((value) => /^[a-zA-Z0-9]*$/.test(value), {
+        message: "New password must be numeric, string, or alphanumeric",
+      }),
+    passwordConfirmation: z.string().nonempty("Password confirmation is required"),
   })
-  .refine(
-    (data) => {
-      // If password is filled, newPassword and confirmation must be provided and must match
-      if (data.password) {
-        return (
-          data.newPassword &&
-          data.passwordConfirmation &&
-          data.newPassword === data.passwordConfirmation
-        );
-      }
-      return true; // If password is not filled, no further validation is required
-    },
-    {
-      message:
-        "New password and confirmation must be provided and must match when password is filled",
-      path: ["newPassword", "confirmation"],
-    },
-  );
+  .refine((data) => data.newPassword === data.passwordConfirmation, {
+    message: "New password and confirmation must match",
+    path: ["passwordConfirmation"],
+  });
 
 export default function PersonalDataForm() {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
   const user = session?.user;
-
-  console.log(user);
 
   // 1. Define your form.
   const formData = useForm<z.infer<typeof formSchemaData>>({
@@ -98,23 +85,59 @@ export default function PersonalDataForm() {
         replace(`/signin?${searchParams.toString()}`);
       },
       onError: (error: Error) => {
-        console.error("Error creating dataset:", error);
+        console.error("Error deleting account:", error);
       },
     },
   });
 
-  const { mutate } = usePostAuthForgotPassword({
+  const { mutate: updateUserData } = usePutUsersId({
     mutation: {
-      onSuccess: (data) => {
-        const searchParams = new URLSearchParams();
-        replace(`/signin?${searchParams.toString()}`);
+      onSuccess: () => {
+        console.error("Data updated");
       },
       onError: (error) => {
-        console.error("Error creating dataset:", error);
+        console.error("Error updating data:", error);
       },
     },
   });
 
+  const { mutate: updateUserPassword } = usePostAuthChangePassword({
+    mutation: {
+      onSuccess: () => {
+        console.error("Password updated");
+      },
+      onError: (error) => {
+        console.error("Error updating updating password:", error);
+        const response = error?.response?.data.error;
+        if (response?.status === 400 && !!response?.message) {
+          if (isEmpty(response.details)) {
+            formPassword.setError("password", { message: response?.message });
+          } else if (!isEmpty(response.details)) {
+            formPassword.setError("newPassword", { message: response?.message });
+          }
+        }
+      },
+    },
+    request: {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.apiToken}`,
+      },
+    },
+  });
+
+  // const { mutate: mutateDatasets } = usePostDatasets({
+  //   mutation: {
+  //     onSuccess: (data) => {
+  //       queryClient.invalidateQueries(["/datasets"]);
+  //     },
+  //     onError: (error) => {
+  //       console.error("Error creating dataset:", error);
+  //     },
+  //   },
+
+  //   },
+  // });
   // 2. Define a submit handler.
   function onSubmitData(values: FormSchemaData) {
     const fieldsToUpdate = Object.keys(formData.formState.dirtyFields) as (keyof FormSchemaData)[];
@@ -122,12 +145,22 @@ export default function PersonalDataForm() {
       acc[key] = values[key];
       return acc;
     }, {} as Partial<FormSchemaData>);
-    mutate({ data: { ...user, ...infoToUpdate } });
+    console.log(user, infoToUpdate);
+    if (user?.id) {
+      updateUserData({ id: user.id.toString(), data: { ...user, ...infoToUpdate } });
+    }
   }
 
   function onSubmitPassword(values: z.infer<typeof formSchemaPassword>) {
     // const fieldsToUpdate = form.formState.dirtyFields;
-    mutate({ data: { email: values.password } });
+    if (!user?.id) return;
+    updateUserPassword({
+      data: {
+        currentPassword: values.password,
+        password: values.newPassword,
+        passwordConfirmation: values.passwordConfirmation,
+      },
+    });
   }
 
   const handleAccount = useCallback(() => {
@@ -162,7 +195,7 @@ export default function PersonalDataForm() {
                       name={name}
                       render={({ field }) => (
                         <FormItem className="space-y-1.5">
-                          <FormLabel className="text-xs">{label}</FormLabel>
+                          <FormLabel className="text-xs font-semibold">{label}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -180,10 +213,9 @@ export default function PersonalDataForm() {
               </div>
               <Button
                 {...formData}
-                onClick={handleAccount}
                 type="submit"
                 className="h-9 w-full"
-                disabled={!formData.formState.dirtyFields}
+                disabled={isEmpty(formData.formState.dirtyFields)}
               >
                 Save
               </Button>
@@ -200,7 +232,7 @@ export default function PersonalDataForm() {
                       name={name}
                       render={({ field }) => (
                         <FormItem className="space-y-1.5">
-                          <FormLabel className="text-xs">{label}</FormLabel>
+                          <FormLabel className="text-xs font-semibold">{label}</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
@@ -217,9 +249,9 @@ export default function PersonalDataForm() {
                 </fieldset>
               </div>
               <Button
-                type="button"
+                type="submit"
                 className="h-9 w-full"
-                disabled={!formPassword.formState.dirtyFields}
+                disabled={isEmpty(formPassword.formState.dirtyFields)}
               >
                 Save
               </Button>
