@@ -65,7 +65,13 @@ const useTableData = () => {
         dataset: { id: { $in: datasets } },
         country: { iso3: { $in: [country, ...countriesComparison] } },
       },
-      populate: "dataset,country,resources",
+      populate: {
+        country: {
+          fields: ["name", "iso3"],
+        },
+        resources: true,
+        dataset: true,
+      },
     },
     getDatasetParams.options,
   );

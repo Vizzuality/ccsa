@@ -36,7 +36,12 @@ const CountriesLayer = ({
     filters: {
       dataset: layer?.dataset?.data?.id,
     },
-    populate: ["country", "resources"],
+    populate: {
+      country: {
+        fields: ["name", "iso3"],
+      },
+      resources: true,
+    },
   });
 
   const config = useMemo(() => {
