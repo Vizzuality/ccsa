@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 
-import { LuPlay, LuPlayCircle } from "react-icons/lu";
+import { LuPlay } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
