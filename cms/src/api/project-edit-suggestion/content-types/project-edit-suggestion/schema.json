@@ -58,6 +58,11 @@
       "relation": "manyToOne",
       "target": "api::project.project",
       "inversedBy": "project_edit_suggestions"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

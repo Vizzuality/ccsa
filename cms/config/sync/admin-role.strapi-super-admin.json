@@ -63,7 +63,8 @@
           "link",
           "type",
           "collaborator",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -92,7 +93,8 @@
           "link",
           "type",
           "collaborator",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -107,7 +109,8 @@
           "link",
           "type",
           "collaborator",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -239,7 +242,8 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "author"
         ]
       },
       "conditions": []
@@ -270,7 +274,8 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "author"
         ]
       },
       "conditions": []
@@ -287,7 +292,8 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "author"
         ]
       },
       "conditions": []
@@ -706,7 +712,8 @@
           "objective",
           "info",
           "review_status",
-          "project"
+          "project",
+          "author"
         ]
       },
       "conditions": []
@@ -742,7 +749,8 @@
           "objective",
           "info",
           "review_status",
-          "project"
+          "project",
+          "author"
         ]
       },
       "conditions": []
@@ -764,7 +772,8 @@
           "objective",
           "info",
           "review_status",
-          "project"
+          "project",
+          "author"
         ]
       },
       "conditions": []
@@ -968,7 +977,8 @@
           "description",
           "link",
           "other_tool",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -997,7 +1007,8 @@
           "description",
           "link",
           "other_tool",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -1012,7 +1023,8 @@
           "description",
           "link",
           "other_tool",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []

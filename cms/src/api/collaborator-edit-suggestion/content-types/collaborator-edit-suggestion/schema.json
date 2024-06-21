@@ -4,7 +4,8 @@
   "info": {
     "singularName": "collaborator-edit-suggestion",
     "pluralName": "collaborator-edit-suggestions",
-    "displayName": "Collaborator Edit Suggestion"
+    "displayName": "Collaborator Edit Suggestion",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -39,6 +40,11 @@
       ],
       "required": true,
       "default": "pending"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

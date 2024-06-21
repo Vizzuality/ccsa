@@ -91,6 +91,21 @@
           "sortable": true
         }
       },
+      "author": {
+        "edit": {
+          "label": "author",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "username"
+        },
+        "list": {
+          "label": "author",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -181,6 +196,10 @@
         [
           {
             "name": "review_status",
+            "size": 6
+          },
+          {
+            "name": "author",
             "size": 6
           }
         ]
