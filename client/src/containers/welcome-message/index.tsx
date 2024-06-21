@@ -1,18 +1,21 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 
 import { LuPlay } from "react-icons/lu";
+import screenfull from "screenfull";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function WelcomeMessage() {
   const videoRef = useRef<ReactPlayer>(null);
+  const videoRefContainer = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
   const [cookies, setCookie] = useCookies(["welcome"]);
 
   const handleExplore = () => {
@@ -20,8 +23,22 @@ export default function WelcomeMessage() {
   };
 
   const handlePlay = () => {
+    if (!videoRefContainer.current) return;
+    screenfull.request(videoRefContainer.current);
     setPlaying((prev) => !prev);
   };
+
+  const handleFullscreen = () => {
+    setFullscreen(screenfull.isFullscreen);
+  };
+
+  useEffect(() => {
+    screenfull.on("change", handleFullscreen);
+
+    return () => {
+      screenfull.off("change", handleFullscreen);
+    };
+  }, []);
 
   return (
     <Dialog open={!cookies.welcome}>
@@ -43,7 +60,7 @@ export default function WelcomeMessage() {
             </Button>
           </div>
           <div className="w-full overflow-hidden">
-            <div className="relative aspect-video">
+            <div ref={videoRefContainer} className="relative aspect-video">
               {!playing && (
                 <button
                   className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-700 hover:bg-gray-600"
@@ -56,10 +73,10 @@ export default function WelcomeMessage() {
               <ReactPlayer
                 ref={videoRef}
                 className="h-full w-full object-cover"
-                playing={playing}
+                playing={playing && fullscreen}
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
-                controls
+                controls={fullscreen}
                 url="https://map.caribbeanaccelerator.org/cms/uploads/SID_4_Pre_Event_MAP_Video_f2c11c04ec.mp4"
                 width={"100%"}
                 height={"100%"}

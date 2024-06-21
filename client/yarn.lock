@@ -5936,6 +5936,7 @@ __metadata:
     react-player: ^2.16.0
     react-world-flags: ^1.6.0
     rooks: 7.14.1
+    screenfull: ^6.0.2
     tailwind-merge: 1.14.0
     tailwindcss: 3.3.3
     tailwindcss-animate: 1.0.7
@@ -12405,6 +12406,13 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  languageName: node
+  linkType: hard
+
+"screenfull@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "screenfull@npm:6.0.2"
+  checksum: 56a541da09241ae7c97115cc31245623c09230bcbebb93636871e955b545f26c7dcdb2299795234a0a21bff5d5401b7329b22609becf4c381a9e22347acf87ba
   languageName: node
   linkType: hard
 
