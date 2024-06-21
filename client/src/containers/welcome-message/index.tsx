@@ -5,8 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 
+import Image from "next/image";
+
 import { LuPlay } from "react-icons/lu";
 import screenfull from "screenfull";
+
+import { cn } from "@/lib/classnames";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -24,8 +28,8 @@ export default function WelcomeMessage() {
 
   const handlePlay = () => {
     if (!videoRefContainer.current) return;
-    screenfull.request(videoRefContainer.current);
     setPlaying((prev) => !prev);
+    screenfull.request(videoRefContainer.current);
   };
 
   const handleFullscreen = () => {
@@ -42,14 +46,14 @@ export default function WelcomeMessage() {
 
   return (
     <Dialog open={!cookies.welcome}>
-      <DialogContent close={false} className="max-w-[500px] 2xl:max-w-[600px]">
-        <div className="w-full divide-y divide-gray-200 overflow-hidden">
-          <div className="flex w-full flex-col items-center justify-center space-y-5 p-12 text-center">
-            <header className="max-w-md space-y-5">
-              <h1 className="inline-block bg-gradient-to-r from-[#88DA85] to-[#39C7E0] bg-clip-text font-metropolis text-3xl font-bold uppercase tracking-tight text-transparent">
+      <DialogContent close={false} className="overflow-hidden border-none lg:max-w-[900px]">
+        <div className="flex w-full flex-col overflow-hidden lg:flex-row">
+          <div className="flex w-full flex-col items-center justify-center space-y-5 p-5 text-center lg:w-1/2 lg:space-y-10 lg:p-12">
+            <header className="max-w-md space-y-2 lg:space-y-5">
+              <h1 className="inline-block bg-gradient-to-r from-[#88DA85] to-[#39C7E0] bg-clip-text font-metropolis text-xl font-bold uppercase tracking-tight text-transparent lg:text-3xl">
                 Welcome to Caribbean climate smart map
               </h1>
-              <p className="text-base font-light text-muted-foreground 2xl:text-xl">
+              <p className="text-base font-light text-gray-400 2xl:text-xl">
                 Welcome to the Climate Smart Map! Explore real-time data and find collaborative
                 opportunities for Caribbean climate action projects.
               </p>
@@ -59,8 +63,8 @@ export default function WelcomeMessage() {
               Explore map
             </Button>
           </div>
-          <div className="w-full overflow-hidden">
-            <div ref={videoRefContainer} className="relative aspect-video">
+          <div className="w-full overflow-hidden lg:w-1/2">
+            <div className="relative aspect-video lg:aspect-square">
               {!playing && (
                 <button
                   className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-gray-700 hover:bg-gray-600"
@@ -70,13 +74,25 @@ export default function WelcomeMessage() {
                 </button>
               )}
 
+              <Image
+                src="/images/welcome-message.jpeg"
+                alt="Welcome message"
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+
+            <div
+              ref={videoRefContainer}
+              className={cn({ "relative aspect-video": true, hidden: !fullscreen })}
+            >
               <ReactPlayer
                 ref={videoRef}
-                className="h-full w-full object-cover"
+                className={cn({ "h-full w-full object-cover": true })}
                 playing={playing && fullscreen}
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
-                controls={fullscreen}
+                controls
                 url="https://map.caribbeanaccelerator.org/cms/uploads/SID_4_Pre_Event_MAP_Video_f2c11c04ec.mp4"
                 width={"100%"}
                 height={"100%"}
