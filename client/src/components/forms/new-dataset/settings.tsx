@@ -127,18 +127,16 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
     },
   }));
 
-  const handleScreen = useCallback(() => {
-    console.log("settings", data.settings, form.getValues());
+  const handleScreen = useCallback(async () => {
     const areEqualValues = compareData(form.getValues(), data.settings);
-    if (!!isEmpty(data.settings)) {
-      console.log("is empty");
-      formRef.current?.submitForm();
+    if (isEmpty(data.settings)) {
+      await form.handleSubmit(onSubmit)();
+      setStep(2);
     }
 
-    if (!areEqualValues) {
-      console.log("ya hay valores");
+    if (!areEqualValues && !isEmpty(data.settings)) {
       const currentValues = form.getValues();
-      const fieldsToUpdate = form.formState.dirtyFields; // Assuming dirtyFields indicates modified fields
+      const fieldsToUpdate = form.formState.dirtyFields;
 
       Object.keys(currentValues).forEach((key) => {
         if (fieldsToUpdate[key]) {
@@ -147,15 +145,16 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
           form.setValue(key, data.settings[key]);
         }
       });
-      formRef.current?.submitForm();
+      await form.handleSubmit(onSubmit)();
       setStep(2);
     }
 
-    if (form.formState.isValid || areEqualValues) {
+    if (form.formState.isValid && isEmpty(data.settings)) {
+      await form.handleSubmit(onSubmit)();
       setStep(2);
     }
-  }, [setStep, form.formState.isValid]);
-  console.log(form, typeof form);
+  }, [setStep, form, data.settings]);
+
   return (
     <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
@@ -164,12 +163,11 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
           <Button size="sm" variant="primary-outline">
             Cancel
           </Button>
-          {(isEmpty(data.settings) || isEmpty(data.data) || isEmpty(data.colors)) && (
+          {isEmpty(data.settings) || isEmpty(data.data) || isEmpty(data.colors) ? (
             <Button size="sm" onClick={handleScreen}>
               Continue
             </Button>
-          )}
-          {!isEmpty(data.settings) && !isEmpty(data.data) && !isEmpty(data.colors) && (
+          ) : (
             <Button size="sm" onClick={() => formRef.current?.submitForm()}>
               Submit
             </Button>
@@ -177,7 +175,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
         </div>
       </div>
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={data} handleStep={handleScreen} form={form} />
+        <NewDatasetNavigation data={data} form={form} />
         <StepDescription />
 
         <Form {...form}>

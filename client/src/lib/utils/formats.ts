@@ -45,6 +45,14 @@ export function formatHA(value: number, options?: Intl.NumberFormatOptions) {
   return v.format(value);
 }
 
+export const formatDate = (date: string) => {
+  const d = new Date(date);
+  const day = d.getUTCDate();
+  const month = d.getUTCMonth() + 1;
+  const year = d.getUTCFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 const FORMATS = {
   formatPercentage,
   formatHA,

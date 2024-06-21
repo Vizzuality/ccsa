@@ -33,6 +33,7 @@ module.exports = {
           "Download-email",
           "Other-tool",
           "Dataset-value",
+          "Dataset-edit-suggestion",
           "Collaborator",
           "User",
           "Users-Permissions - Auth",

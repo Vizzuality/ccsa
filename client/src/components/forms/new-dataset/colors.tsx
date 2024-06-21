@@ -5,7 +5,7 @@ import { useRef, useImperativeHandle } from "react";
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isEmpty } from "lodash-es";
+import { isEmpty, uniq, compact } from "lodash-es";
 import { z } from "zod";
 
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
@@ -53,7 +53,8 @@ const getFormSchema = (valueType) => {
 };
 
 export default function NewDatasetColorsForm({ data, onClick }) {
-  const formSchema = getFormSchema(data.valueType);
+  const valueType = data.settings.valueType;
+  const formSchema = getFormSchema(valueType);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,16 +75,21 @@ export default function NewDatasetColorsForm({ data, onClick }) {
       form.handleSubmit(onSubmit)();
     },
   }));
-
+  console.log(data);
+  if (valueType === "resoruce") {
+    console.log("resource");
+  }
+  const categories = compact(uniq(Object.entries(data.data).map((d) => d[1])));
+  console.log(categories, Object.entries(data.data));
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 py-4">
+      <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline">
             Cancel
           </Button>
-          {isEmpty(data.settings) && (
+          {isEmpty(data.colors) && (
             <Button size="sm" onClick={() => formRef.current?.submitForm()}>
               Continue
             </Button>
@@ -96,7 +102,7 @@ export default function NewDatasetColorsForm({ data, onClick }) {
         </div>
       </div>
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation enableNavigation />
+        <NewDatasetNavigation data={data} form={form} />
         <StepDescription />
 
         <Form {...form}>
