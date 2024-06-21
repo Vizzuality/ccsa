@@ -15,7 +15,7 @@ export default function WelcomeMessage() {
   return (
     <Dialog open={!cookies.welcome}>
       <DialogContent close={false} className="max-w-[500px] 2xl:max-w-[600px]">
-        <div className="w-full">
+        <div className="w-full divide-y divide-gray-200">
           <div className="flex w-full flex-col items-center justify-center space-y-5 p-12 text-center">
             <header className="max-w-md space-y-5">
               <h1 className="inline-block bg-gradient-to-r from-[#88DA85] to-[#39C7E0] bg-clip-text font-metropolis text-3xl font-bold uppercase tracking-tight text-transparent">
