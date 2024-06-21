@@ -2,5 +2,9 @@
   "name": "Admin",
   "description": "Have all the permissions",
   "type": "admin",
-  "permissions": []
+  "permissions": [
+    {
+      "action": "api::welcome-message.welcome-message.find"
+    }
+  ]
 }

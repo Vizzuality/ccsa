@@ -4,6 +4,9 @@
   "type": "authenticated",
   "permissions": [
     {
+      "action": "api::welcome-message.welcome-message.find"
+    },
+    {
       "action": "plugin::users-permissions.auth.changePassword"
     },
     {

@@ -2,5 +2,9 @@
   "name": "Contributor",
   "description": "Can create, edit and delete new and edit suggestions for Project, Collaborator, Dataset and Tool.",
   "type": "contributor",
-  "permissions": []
+  "permissions": [
+    {
+      "action": "api::welcome-message.welcome-message.find"
+    }
+  ]
 }

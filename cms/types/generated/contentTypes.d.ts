@@ -1375,6 +1375,41 @@ export interface ApiToolEditSuggestionToolEditSuggestion
   };
 }
 
+export interface ApiWelcomeMessageWelcomeMessage extends Schema.SingleType {
+  collectionName: 'welcome_messages';
+  info: {
+    singularName: 'welcome-message';
+    pluralName: 'welcome-messages';
+    displayName: 'Welcome message';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.Text;
+    subtitle: Attribute.Text;
+    video: Attribute.Media;
+    image: Attribute.Media;
+    button: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::welcome-message.welcome-message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::welcome-message.welcome-message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1408,6 +1443,7 @@ declare module '@strapi/types' {
       'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;
       'api::tool-edit-suggestion.tool-edit-suggestion': ApiToolEditSuggestionToolEditSuggestion;
+      'api::welcome-message.welcome-message': ApiWelcomeMessageWelcomeMessage;
     }
   }
 }

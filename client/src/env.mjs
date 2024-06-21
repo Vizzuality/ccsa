@@ -16,6 +16,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_URL: z.string().url(),
     NEXT_PUBLIC_API_URL: z.string().url(),
+    NEXT_PUBLIC_CMS_URL: z.string().url(),
     NEXT_PUBLIC_GA_TRACKING_ID: z.string(),
     NEXT_PUBLIC_MAPBOX_API_TOKEN: z.string(),
   },
@@ -28,6 +29,7 @@ export const env = createEnv({
   runtimeEnv: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_CMS_URL: process.env.NEXT_PUBLIC_CMS_URL,
     NEXT_PUBLIC_GA_TRACKING_ID: process.env.NEXT_PUBLIC_GA_TRACKING_ID,
     NEXT_PUBLIC_MAPBOX_API_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_API_TOKEN,
   },

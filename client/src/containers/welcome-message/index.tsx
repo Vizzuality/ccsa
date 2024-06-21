@@ -10,7 +10,11 @@ import Image from "next/image";
 import { LuPlay } from "react-icons/lu";
 import screenfull from "screenfull";
 
+import env from "@/env.mjs";
+
 import { cn } from "@/lib/classnames";
+
+import { useGetWelcomeMessage } from "@/types/generated/welcome-message";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -21,6 +25,10 @@ export default function WelcomeMessage() {
   const [playing, setPlaying] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const [cookies, setCookie] = useCookies(["welcome"]);
+
+  const { data } = useGetWelcomeMessage({
+    populate: ["video", "image"],
+  });
 
   const handleExplore = () => {
     setCookie("welcome", true);
@@ -51,16 +59,15 @@ export default function WelcomeMessage() {
           <div className="flex w-full flex-col items-center justify-center space-y-5 p-5 text-center lg:w-1/2 lg:space-y-10 lg:p-12">
             <header className="max-w-md space-y-2 lg:space-y-5">
               <h1 className="inline-block bg-gradient-to-r from-[#88DA85] to-[#39C7E0] bg-clip-text font-metropolis text-xl font-bold uppercase tracking-tight text-transparent lg:text-3xl">
-                Welcome to Caribbean climate smart map
+                {data?.data?.attributes?.title}
               </h1>
               <p className="text-base font-light text-gray-400 2xl:text-xl">
-                Welcome to the Climate Smart Map! Explore real-time data and find collaborative
-                opportunities for Caribbean climate action projects.
+                {data?.data?.attributes?.subtitle}
               </p>
             </header>
 
             <Button size="lg" onClick={handleExplore}>
-              Explore map
+              {data?.data?.attributes?.button}
             </Button>
           </div>
           <div className="w-full overflow-hidden lg:w-1/2">
@@ -74,12 +81,16 @@ export default function WelcomeMessage() {
                 </button>
               )}
 
-              <Image
-                src="/images/welcome-message.jpeg"
-                alt="Welcome message"
-                layout="fill"
-                objectFit="cover"
-              />
+              {data?.data?.attributes?.image && (
+                <img
+                  src={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.image?.data?.attributes?.url}`}
+                  alt="Welcome message"
+                  width={data?.data?.attributes?.image?.data?.attributes?.width}
+                  height={data?.data?.attributes?.image?.data?.attributes?.height}
+                  priority
+                  className="h-full w-full object-cover"
+                />
+              )}
             </div>
 
             <div
@@ -93,7 +104,7 @@ export default function WelcomeMessage() {
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
                 controls
-                url="https://map.caribbeanaccelerator.org/cms/uploads/SID_4_Pre_Event_MAP_Video_f2c11c04ec.mp4"
+                url={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.video?.data?.attributes?.url}`}
                 width={"100%"}
                 height={"100%"}
               />
