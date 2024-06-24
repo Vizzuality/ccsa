@@ -1,16 +1,17 @@
 "use client";
 
+// import { useEffect } from "react";
+
 import { useForm } from "react-hook-form";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import {
-  loadCaptchaEnginge,
-  LoadCanvasTemplate,
-  validateCaptcha,
-} from "@vinhpd/react-simple-captcha";
-
 import { zodResolver } from "@hookform/resolvers/zod";
+// import {
+//   loadCaptchaEnginge,
+//   LoadCanvasTemplate,
+//   validateCaptcha,
+// } from "@vinhpd/react-simple-captcha";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
 
@@ -26,7 +27,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect } from "react";
 
 const formSchema = z
   .object({
@@ -40,7 +40,7 @@ const formSchema = z
       .string()
       .nonempty({ message: "Please enter your confirmed password" })
       .min(6, { message: "Please enter a password with at least 6 characters" }),
-    captcha: z.string().nonempty({ message: "Please enter the captcha" }),
+    // captcha: z.string().nonempty({ message: "Please enter the captcha" }),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data["confirm-password"]) {
@@ -51,23 +51,19 @@ const formSchema = z
       });
     }
 
-    if (!validateCaptcha(data.captcha)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Captcha does not match",
-        path: ["captcha"], // Path to the specific field
-      });
-    }
+    // if (!validateCaptcha(data.captcha)) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: "Captcha does not match",
+    //     path: ["captcha"], // Path to the specific field
+    //   });
+    // }
   });
 
 export default function Signup() {
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const signupMutation = usePostAuthLocalRegister();
-
-  useEffect(() => {
-    loadCaptchaEnginge(6, "transparent");
-  }, []);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -78,7 +74,7 @@ export default function Signup() {
       organization: "",
       password: "",
       "confirm-password": "",
-      captcha: "",
+      // captcha: "",
     },
   });
 
@@ -115,6 +111,12 @@ export default function Signup() {
     <div className="min-w-[380px]">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          {!!searchParams.get("error") && (
+            <div className="rounded-md bg-destructive p-3 text-sm text-destructive-foreground">
+              {searchParams.get("error")}
+            </div>
+          )}
+
           <fieldset className="space-y-4">
             <FormField
               control={form.control}
@@ -206,7 +208,7 @@ export default function Signup() {
               )}
             />
 
-            <div className="grid grid-cols-2 gap-2 rounded bg-gray-300/20 p-2.5">
+            {/* <div className="grid grid-cols-2 gap-2 rounded bg-gray-300/20 p-2.5">
               <div className="flex justify-center rounded bg-white pt-2 text-center text-xxs">
                 <LoadCanvasTemplate reloadColor="#0996CC" style={{ color: "red" }} />
               </div>
@@ -228,7 +230,7 @@ export default function Signup() {
                   </FormItem>
                 )}
               />
-            </div>
+            </div> */}
           </fieldset>
           <div className="pb-6">
             <Button className="w-full" type="submit">

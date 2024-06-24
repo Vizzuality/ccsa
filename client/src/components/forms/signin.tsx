@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -27,7 +26,6 @@ const formSchema = z.object({
 });
 
 export default function Signin() {
-  const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
   // 1. Define your form.
@@ -44,7 +42,6 @@ export default function Signin() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     signIn("credentials", {
-      redirect: false,
       email: values.email,
       password: values.password,
       callbackUrl: searchParams.get("callbackUrl") ?? "/",
@@ -55,6 +52,11 @@ export default function Signin() {
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-96 space-y-4">
+          {!!searchParams.get("error") && (
+            <div className="rounded-md bg-destructive p-3 text-sm text-destructive-foreground">
+              Invalid username or password. Please try again.
+            </div>
+          )}
           <fieldset className="space-y-4">
             <FormField
               control={form.control}
@@ -92,7 +94,7 @@ export default function Signin() {
               )}
             />
           </fieldset>
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {/* {error && <p className="text-sm text-red-500">{error}</p>} */}
           <Button className="m-0 w-full" type="submit">
             Sign in
           </Button>

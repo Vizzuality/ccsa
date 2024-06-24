@@ -22,6 +22,12 @@
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.update"
     },
     {
+      "action": "api::country.country.find"
+    },
+    {
+      "action": "api::country.country.findOne"
+    },
+    {
       "action": "api::csv.csv.csvToJson"
     },
     {
