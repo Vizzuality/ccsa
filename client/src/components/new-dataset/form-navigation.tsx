@@ -32,10 +32,12 @@ const STEPS = [
 
 const Navigation = ({
   data,
+  id,
   // handleStep,
   form,
 }: {
   data: any;
+  id: string;
   form: any;
 }): JSX.Element => {
   // const setStep = useSetAtom(datasetFormStepAtom);
@@ -54,7 +56,8 @@ const Navigation = ({
               className="flex w-full items-center space-x-2 text-center last:max-w-fit"
             >
               <button
-                type="button"
+                id={id}
+                type="submit"
                 onClick={() => handleStep(step)}
                 disabled={!!(prevScreen && isEmpty(data?.[prevScreen]))}
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white"

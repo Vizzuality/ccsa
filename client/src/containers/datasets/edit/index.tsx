@@ -12,7 +12,7 @@ import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
 // import { usePostDatasets } from "@/types/generated/dataset";
-// import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+
 export interface Data {
   settings: {
     name: string;
@@ -37,7 +37,7 @@ export const DATA_INITIAL_VALUES: Data = {
   colors: {},
 };
 
-export default function NewDatasetForm() {
+export default function EditDatasetForm() {
   // const { replace } = useRouter();
   const [currentStep, setCurrentStep] = useAtom(datasetFormStepAtom);
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
@@ -67,45 +67,15 @@ export default function NewDatasetForm() {
   //   request: {},
   // });
 
-  // const handleDataset = () => {
-  //   mutateDatasetEditSuggestion({
-  //     data: {
-  //       data: {
-  //         datum: [
-  //           {
-  //             iso3: "ABW",
-  //             value: "High",
-  //           },
-  //           {
-  //             iso3: "AIA",
-  //             value: "High",
-  //           },
-  //           {
-  //             iso3: "ATG",
-  //             value: "Medium",
-  //           },
-  //           {
-  //             iso3: "BES",
-  //             value: "Medium",
-  //           },
-  //           {
-  //             iso3: "BHS",
-  //             value: "Medium",
-  //           },
-  //         ],
-  //         description: "test dataset description",
-  //         name: "test 3 dataset name",
-  //         review_status: "declined",
-  //         unit: "",
-  //         value_type: "number",
-  //       },
-  //     },
-  //   });
-  // };
+  // 2. Define a submit handler.
+  // function onSubmit(values) {
+  //   // const fieldsToUpdate = form.formState.dirtyFields;
+
+  //   mutate({ data: { email: values.email } });
+  // }
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
-      console.log("settings submit cambio de step");
       setFormValues({ ...formValues, settings: values });
       setCurrentStep(2);
     },
@@ -130,19 +100,18 @@ export default function NewDatasetForm() {
 
   return (
     <>
-      {/* <button onClick={handleDataset}>Create dataset</button> */}
       {currentStep === 1 && (
         <NewDatasetSettingsForm
-          id="dataset-settings"
-          title="New dataset"
+          id="edit-dataset-settings"
+          title="Edit dataset"
           data={formValues.settings}
           onSubmit={handleSettingsSubmit}
         />
       )}
       {currentStep === 2 && (
         <NewDatasetDataForm
-          id="dataset-data"
-          title="New dataset"
+          id="edit-dataset-data"
+          title="Edit dataset"
           data={formValues.data}
           onSubmit={handleDataSubmit}
           valueType={formValues?.settings?.valueType}
@@ -150,8 +119,8 @@ export default function NewDatasetForm() {
       )}
       {currentStep === 3 && (
         <NewDatasetColorsForm
-          id="dataset-colors"
-          title="New dataset"
+          id="edit-dataset-colors"
+          title="Edit dataset"
           data={formValues.colors}
           categoriesData={formValues.data}
           onSubmit={handleColorsSubmit}

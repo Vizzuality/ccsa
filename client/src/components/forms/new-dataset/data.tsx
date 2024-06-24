@@ -44,12 +44,17 @@ import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
 import type { VALUE_TYPE, FormSchemaType } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
+import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 
 export default function NewDatasetDataForm({
+  title,
+  id,
   data,
   onSubmit,
   valueType,
 }: {
+  title: string;
+  id: string;
   data: Data["data"];
   onSubmit: (data: Data["data"]) => void;
   valueType?: VALUE_TYPE;
@@ -103,7 +108,8 @@ export default function NewDatasetDataForm({
   const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
 
   const handleCancel = () => {
-    onSubmit(DATA_INITIAL_VALUES.data);
+    console.log("cancel data", id, title);
+    // onSubmit(DATA_INITIAL_VALUES.data);
     replace(`/?${URLParams.toString()}`);
   };
 
@@ -119,7 +125,8 @@ export default function NewDatasetDataForm({
 
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">
+      <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
+      {/* <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline" onClick={handleCancel}>
@@ -130,12 +137,12 @@ export default function NewDatasetDataForm({
             Continue
           </Button>
         </div>
-      </div>
+      </div> */}
       <NewDatasetDataFormWrapper>
         <NewDatasetNavigation data={data} form={form} />
         <StepDescription />
         <Form {...form}>
-          <form id="dataset-data" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
+          <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
             <Table>
               <TableHeader>
                 <TableRow>

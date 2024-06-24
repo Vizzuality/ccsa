@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
+import ColorsContentToApprove from "./colors-content";
 
 function getObjectDifferences(obj1: Dataset, obj2: Dataset): (keyof Dataset)[] {
   if (!obj2) return [];
@@ -36,8 +37,10 @@ export default function FormToApprove() {
 
   const id = Number(pathname.split("/datasets/changes-to-approve/")[1]);
   const { data: DatasetToApprove } = useGetDatasetEditSuggestionsId(id);
-  const { data: PreviousDataset } = useGetDatasetsId(27);
+  const { data: PreviousDataset } = useGetDatasetsId(id);
+
   const data = DatasetToApprove?.data?.attributes?.datum as Dataset;
+  const valueType = DatasetToApprove?.data?.attributes?.value_type as Dataset["value_type"];
   const previousDatasetsData = PreviousDataset?.data?.attributes as Dataset;
 
   const diffKeys = !!data && getObjectDifferences(data, previousDatasetsData);
@@ -64,9 +67,11 @@ export default function FormToApprove() {
         </TabsContent>
         <TabsContent value="data">
           {" "}
-          <DataContentToApprove data={data} changes={diffKeys} />
+          <DataContentToApprove data={data} changes={diffKeys} valueType={valueType} />
         </TabsContent>
-        <TabsContent value="colors">colors</TabsContent>
+        <TabsContent value="colors">
+          <ColorsContentToApprove data={data} changes={diffKeys} valueType={valueType} />
+        </TabsContent>
       </Tabs>
     </>
   );

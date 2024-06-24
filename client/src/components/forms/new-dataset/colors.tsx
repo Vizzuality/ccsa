@@ -31,6 +31,7 @@ import {
 
 import type { VALUE_TYPE } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
+import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
@@ -144,11 +145,15 @@ const getDefaultValues = (
 };
 
 export default function NewDatasetColorsForm({
+  id,
+  title,
   data,
   categoriesData,
   onSubmit,
   valueType,
 }: {
+  id: string;
+  title: string;
   data: Data["colors"];
   categoriesData: Data["data"];
   onSubmit: (data: Data["colors"]) => void;
@@ -166,7 +171,8 @@ export default function NewDatasetColorsForm({
   });
 
   const handleCancel = () => {
-    onSubmit(DATA_INITIAL_VALUES.colors);
+    console.log("handle cancel", id, title);
+    // onSubmit(DATA_INITIAL_VALUES.colors);
     replace(`/?${URLParams.toString()}`);
   };
 
@@ -183,7 +189,8 @@ export default function NewDatasetColorsForm({
 
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
+      <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
+      {/* <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline" onClick={handleCancel}>
@@ -194,7 +201,7 @@ export default function NewDatasetColorsForm({
             Submit
           </Button>
         </div>
-      </div>
+      </div> */}
       <NewDatasetDataFormWrapper>
         <NewDatasetNavigation data={data} form={form} />
         <StepDescription />

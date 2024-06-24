@@ -18,7 +18,7 @@ import {
 
 export default function DataContentToApprove({
   data,
-  valueType = "number",
+  valueType,
   changes,
 }: {
   data: {

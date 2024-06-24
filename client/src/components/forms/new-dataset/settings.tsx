@@ -39,14 +39,20 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
+import NewDatasetFormControls from "@/components/new-dataset/form-controls";
+
 // import { usePostDatasets } from "@/types/generated/dataset";
 
 import NewDatasetDataFormWrapper from "./wrapper";
 
 export default function NewDatasetSettingsForm({
+  title,
+  id,
   data,
   onSubmit,
 }: {
+  title: string;
+  id: string;
   data: Data["settings"];
   onSubmit: (data: Data["settings"]) => void;
 }) {
@@ -97,22 +103,26 @@ export default function NewDatasetSettingsForm({
   });
 
   const handleCancel = () => {
-    onSubmit(DATA_INITIAL_VALUES.settings);
+    console.log("cancel settings", id, title);
+    // onSubmit(DATA_INITIAL_VALUES.settings);
     replace(`/?${URLParams.toString()}`);
   };
 
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       // Save this into useState
-      console.log(values);
+      console.log(values, id, title, "submit para settings form *****************************");
       onSubmit(values);
     },
     [onSubmit],
   );
 
+  console.log("settings", id);
+
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
+      <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
+      {/* <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline" onClick={handleCancel}>
@@ -123,9 +133,9 @@ export default function NewDatasetSettingsForm({
             Continue
           </Button>
         </div>
-      </div>
+      </div> */}
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={data} form={form} />
+        <NewDatasetNavigation data={data} form={form} id={id} />
         <StepDescription />
 
         <Form {...form}>

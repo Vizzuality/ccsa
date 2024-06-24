@@ -57,6 +57,7 @@ export default function SettingsContentToApprove({
 
           <div className="space-y-1.5">
             <span className="text-xs font-semibold">Category</span>
+            {/* TO - DO - find category name */}
             <Input
               value={data?.category}
               className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
