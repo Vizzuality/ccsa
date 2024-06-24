@@ -1,0 +1,2540 @@
+[
+  {
+    "pillar": 1,
+    "name": "Drinking Water at UHWI",
+    "highlight": "Water distribution in Jamaica is uneven. Government estimates the shortfall at 126 million cubic meters/yr. Water lock offs are frequent, this secures clean drinking water for the children's ward of the hospital and brings new solutions to the country.",
+    "status": "In Execution",
+    "funding": "Grant Catalytic Capital",
+    "amount": 120000.0,
+    "sdgs": [
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Phase 1: Solar Panel Assembly",
+    "highlight": "Caribbean nations need to install 320 MW of RE per year at a cost of $1.2 billion. Prior to this project most of that spend would be external, this project would provide internal collaboration, energy security, jobs and management of their supply chain.",
+    "status": "Completed",
+    "funding": "Grant Catalytic Capital",
+    "amount": 50000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      null,
+      944
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Electric Urban Tours",
+    "highlight": "This project pioneers electric urban tours in Belize City with Fun Utility Vehicles (FUVs) with planned expansion to Jamaica and Barbados, aiming to revolutionize sustainable transportation in the Caribbean.",
+    "status": "Start-up to Early Stage",
+    "funding": "Equity",
+    "amount": 555000.0,
+    "sdgs": [
+      1,
+      6,
+      9
+    ],
+    "countries": [
+      923
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Phase 2: Build Caribbean Blended Finance for Resilience (CBFR) Fund",
+    "highlight": "A regional blended financial fund to build climate resilient infrastructure",
+    "status": "Start-up to Early Stage",
+    "funding": "Other",
+    "amount": 218000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      918,
+      922,
+      925,
+      923,
+      921,
+      946,
+      926,
+      927,
+      929,
+      930,
+      932,
+      933,
+      935,
+      936,
+      940,
+      null,
+      938,
+      937,
+      945,
+      942,
+      944,
+      943,
+      947
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Regenerating the Blue Forests of the Caribbean (Phase 1)",
+    "highlight": "The objective is to build a community of interest and action around a mangrove forest-focused blue carbon initiative for the Caribbean, kicking off with a shared learning journey to engage philanthropists and interested parties to start a fund.",
+    "status": "In Execution",
+    "funding": "Grant Pre-Investment/Technical Assistant",
+    "amount": 50000.0,
+    "sdgs": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "countries": [
+      920,
+      922,
+      925,
+      923,
+      926,
+      930,
+      932,
+      933,
+      936,
+      null,
+      938,
+      937,
+      945,
+      942,
+      944
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Re-Sat & WARN: Environmental and Energy Analysis (Phase 1 - Pilot)",
+    "highlight": "Suriname was 2nd in the world to update its NDC including generating 35% RE. This project provides a free new software solution to aid them in establishing their energy mix while assisting IEA in developing their business in the region.",
+    "status": "In Execution",
+    "funding": "Grant Catalytic Capital",
+    "amount": 166078.2,
+    "sdgs": [
+      3,
+      4,
+      6,
+      9
+    ],
+    "countries": [
+      938,
+      942
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Climate-Smart Agriculture - Fork Farms (Anguilla)",
+    "highlight": "Anguilla Govt is seeking to establish Controlled Environment Agriculture to enhance crop production & food security while addressing water scarcity, poor soil & extreme conditions w/ container farms, hydroponic greenhouses, shade houses & farm equipment.",
+    "status": "In Execution",
+    "funding": "Other",
+    "amount": 8000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Business Continuity and Coastal Preparedness: Technical Capacity Building & Climate Education",
+    "highlight": "Since 1950 over 63% of the worldwide disasters have hit the Caribbean, with an average estimated damage as a % of GDP of 6x the global average. This training arms the 40 private sector firms with tools to be better prepared and survive a disaster.",
+    "status": "In Execution",
+    "funding": "Grant Catalytic Capital",
+    "amount": 51250.0,
+    "sdgs": [
+      6,
+      9
+    ],
+    "countries": [
+      null
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "WIPO (Workshop 1& 2) Blue Economy Business Development Training : Technical Capacity Building & Climate Education",
+    "highlight": "Caribbean Ocean economy estimate is US$ 407 b. Approx. 30% of CCSA investors are looking for Blue projects.  There are too few or the projects lack readiness, this project aims to grow the regional blue economy and improve its readiness.",
+    "status": "In Execution",
+    "funding": "Grant Catalytic Capital",
+    "amount": 160000.0,
+    "sdgs": [
+      6,
+      9
+    ],
+    "countries": [
+      null
+    ]
+  },
+  {
+    "pillar": 2,
+    "name": "Develop a Regional Resilience Scorecard (Phase 1 - Beta)",
+    "highlight": "Developing a scorecard that countries can use to either attract philanthropy to build their resilience, or attract investment as a result of their demonstrated level of resilience.",
+    "status": "In Execution",
+    "funding": "Other",
+    "amount": 177500.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "countries": [
+      null
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Phase 1: Design of the Caribbean Blended Finance for Resilience (CBFR) Fund",
+    "highlight": "Caribbean nations need to install 320 MW of RE per year at a cost of $1.2 billion. Only 25 megawatts has been installed in the last nine years. This project helps to increase available funding for solar projects which are low hanging fruit in the region.",
+    "status": "Completed",
+    "funding": "Grant Catalytic Capital",
+    "amount": 250000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      918,
+      922,
+      925,
+      923,
+      921,
+      946,
+      926,
+      927,
+      929,
+      930,
+      932,
+      933,
+      935,
+      936,
+      940,
+      938,
+      937,
+      945,
+      942,
+      944,
+      943,
+      947
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "GrenadaGrows",
+    "highlight": "Leverages proprietary soil rehabilitation equipment and processes from OL to turn fish waste, chicken waste and biomass (trees/shrubs) into organic soil enhancement products, and as enhanced compost.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 3400000.0,
+    "sdgs": [
+      1,
+      2,
+      6,
+      9
+    ],
+    "countries": [
+      932
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Kee Farms",
+    "highlight": "Regenerative ocean farm mitigates climate change via mariculture with seaweed, oysters, sea cucumbers & seagrass. Creates 700 jobs, boosts blue economy, captures 71K tons carbon. Patented activated carbon/biochar processing tech, scalable regionally.",
+    "status": "Start-up to Early Stage",
+    "funding": "Grant Catalytic Capital",
+    "amount": 5000000.0,
+    "sdgs": [
+      3,
+      6,
+      7
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "DigiFish",
+    "highlight": "DIGIFISH: Enhancing Ecosystem Approach to Fisheries in the Caribbean via digital tech & data analytics. Boosting fisherfolk & officials' digital literacy for better management & planning. Scaling to multiple countries.",
+    "status": "Scaling or Expanding",
+    "funding": "Grant Catalytic Capital",
+    "amount": 4600000.0,
+    "sdgs": [
+      7
+    ],
+    "countries": [
+      925
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Mangrove and Oyster Restoration (MORE)",
+    "highlight": "Innovative Ecosystem-based Adaptation (EbA) project in Savanna-la-Mar combines mangrove islands & oyster reefs for coastal restoration. Protects against storm surges, improves water quality, engages community for sustainable livelihoods.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1900000.0,
+    "sdgs": [
+      7,
+      8,
+      9
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "T-Omega Wind",
+    "highlight": "T-Omega Wind pioneers ocean-friendly wind turbines, overcoming cost, deep-water deployment, and manufacturing challenges. Floating design, simplified structure, and easy maintenance unlock new markets for affordable clean energy.",
+    "status": "Start-up to Early Stage",
+    "funding": "Grant Catalytic Capital",
+    "amount": 7500000.0,
+    "sdgs": [
+      1,
+      3,
+      6
+    ],
+    "countries": [
+      924
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Strata Sustainability (Ocean box)",
+    "highlight": "Ocean Box: Mobile recycling plant tackles marine plastics in a sustainable/mobile off grid solution. Eliminates slippage back to waterways, shoreline & oceans, protecting fragile ecosystems & creates a certified, traceable value trail for waste recovery.",
+    "status": "Start-up to Early Stage",
+    "funding": "Equity",
+    "amount": 975000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      7,
+      9
+    ],
+    "countries": [
+      922
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Bluemvmt",
+    "highlight": "Bluemvmt: Ocean protection, restoration & commercialization via Subsea Monitoring Platform & Big Data Analytics. Blue/AI generates results, displays insights, predictive analytics and produces alerts based on dynamic and pre-defined thresholds.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 3950000.0,
+    "sdgs": [
+      6,
+      7,
+      9
+    ],
+    "countries": [
+      922,
+      925
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Community Resilience Program (EC-CREP)",
+    "highlight": "EC-CREP aims to enhance resilience to extreme weather in OECS, focused on capacity building, targeted engineering, ecosystem-based & socio-economic interventions to reduce community vulnerability & increasing resilience, awareness & best practices sharing",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 7100000.0,
+    "sdgs": [
+      2,
+      4
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "OECS Geothermal Energy (OECS GEOBUILD)",
+    "highlight": "The OECS GEOBUILD project fosters geothermal development via capacity building, policy enhancement, knowledge management, and regional coordination and sharing, aiming for comprehensive transformation in energy uptake.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 3000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "RecycleOECS",
+    "highlight": "RecycleOECS project is focused on development of a model on sustainable plastic waste management & implementation of 2 demonstration projects & the systems to support it. Aligning with strategic goals for greener economy, resilience, & natural capital.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2600000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Eastern Caribbean Solar Challenge",
+    "highlight": "The Eastern Caribbean Solar Challenge, led by NDCFI, aims to boost renewable energy adoption, raise awareness, and foster a Low-Carbon Economic Zone, promoting climate solidarity and action.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 10600000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Resilient Boat Storage Facilities",
+    "highlight": "Focused on lowering the risk of damage from increasingly intense & more frequent climatic events including high winds & storm surges, this project seeks to develop more robust boat storage facilities at key locations across Dominica on high ground.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2000000.0,
+    "sdgs": [
+      4
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Green Energy Infrastructure",
+    "highlight": "Dominica's low carbon strategy drives this project to shift from fossil fuels to solar energy, fostering resilience and energy self-sufficiency. It installs solar panels and batteries in communities, aiming for grid integration and energy credits.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Mero Beach Improvements",
+    "highlight": "This project enhances tourism infrastructure, transforming visitor experiences in Mero Beach while offering income opportunities. With a people-centric approach, adding boutique hotels, guesthouses, restaurants, bars, retail outlets & upgraded facilities.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 6600000.0,
+    "sdgs": [
+      2,
+      5
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Kalinago Artisinal Fisheries Enhancement",
+    "highlight": "This project fosters inclusive, sustainable development in the Kalinago Territory. It aims to create safer conditions for fishing, protect boats during severe weather, and promote tourism through traditional fishing and boat building tours.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2000000.0,
+    "sdgs": [
+      2,
+      6,
+      7,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Kalinago Fish Landing Site and Fisherfolk Facility",
+    "highlight": "The project aims to boost food security & economic prosperity for traditional Kalinago fisherfolk. It includes the development of low impact docks; boat storage; fish processing & cold storage facilities and installation of solar energy for the buildings.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1900000.0,
+    "sdgs": [
+      2,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Sustainable Tourism Programme",
+    "highlight": "This project focuses on capturing & analysing data for sustainable tourism. It maps tourism activities, minimizing reef damage, protecting bird populations, and promoting a shift to a Blue Economy through sustainable practices.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 30000000.0,
+    "sdgs": [
+      2,
+      5,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Hillsborough Fishing Village/Marina Resort",
+    "highlight": "This initiative aims to boost the local economy by creating a fishing village and tourist destination, supporting multiple industries and jobs. Located in Hillsborough, Grenada, it offers investment opportunities and sustainable job creation.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 28100000.0,
+    "sdgs": [
+      2,
+      5,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Victoria Ecotourism Centre",
+    "highlight": "The project aims to establish an ecotourism center in Grenada's Victoria town, featuring guided learning tours exploring the local ecosystem and cultural experiences. Linked to local businesses, it enhances sustainable tourism in the area.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1300000.0,
+    "sdgs": [
+      2,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Fisheries Centre",
+    "highlight": "This project aims to create employment, honor local fishing traditions & foster sustainability. It includes facilities for processing, repair & research of marine ecosystems. The data gathered would be used to influence future fishing & ocean initiatives.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 5400000.0,
+    "sdgs": [
+      2,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Pollution Prevention Strategy",
+    "highlight": "Grenada's pollution mitigation project aims for community education, industry awareness & regulations. It targets solid waste, sewerage, & nonpoint source pollutants, emphasizing coastal & marine health inclusive of mapping for effective intervention.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 6000000.0,
+    "sdgs": [
+      5,
+      6,
+      7,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Coastal Erosion Prevention Project",
+    "highlight": "The Coastal Erosion Prevention project in St Kitts & Nevis aims to safeguard vulnerable ecosystems by erecting boardwalks & shoreline protection structures to minimize erosion, guide foot traffic away from sensitive habitats & promote climate resilience.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 10200000.0,
+    "sdgs": [
+      4,
+      6,
+      7,
+      8
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Coastal and Offshore Renewable Energy Exploration Projects",
+    "highlight": "This project enhances climate resilience in St Kitts & Nevis by reducing fossil fuel dependency. It offers an opportunity for experienced alternative energy investors to develop coastal & offshore renewable energy assets with wind & solar infrastructure.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 30000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Bluffs Restoration Project",
+    "highlight": "St Kitts & Nevis' Bluffs Restoration project promotes enhanced, sustainable tourism while protecting sensitive ecosystems - by stabilizing bluffs with protective railings, it creates hiking trails, lookout points & conservation areas for diverse habitats.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1300000.0,
+    "sdgs": [
+      4,
+      6,
+      7,
+      8,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Integrated Management of Watersheds and Coastal Areas",
+    "highlight": "Coastal Management project employs soil stabilization, mangrove restoration, & drainage to improve water quality, food security, & erosion prevention. Infrastructure includes boardwalks, jetties for research, and interpretive signage.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1800000.0,
+    "sdgs": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Coastal Habitat Restoration Programme",
+    "highlight": "The Coastal Habitat Restoration program integrates environmental management with ecotourism. It focuses on coral reef restoration, public education, and data collection for sustainable coastal ecosystems.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 250000.0,
+    "sdgs": [
+      6,
+      7,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Village Tourism",
+    "highlight": "This project in Laborie offers an impactful investment opportunity with a boutique hotel, restaurant, and beach bar. It fosters community integration and expands local offerings, promising sustainable livelihoods in an integrated community dispensation.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 3500000.0,
+    "sdgs": [
+      2,
+      5,
+      6,
+      8,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Solar Farm Enhancement",
+    "highlight": "This initiative will boost St Lucia’s energy independence & contribute to its climate resiliency by expanding the infrastructure of an existing solar farm, developing a solar battery storage facility at LUCELEC’s three-megawatt solar farm.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 5100000.0,
+    "sdgs": [
+      1,
+      2,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Resilient Fisheries Facilities",
+    "highlight": "The Choiseul Resilient Fisheries Facility project, enhances local infrastructure to combat climate change's impact. It includes erosion mitigation, sustainable management, solar power, and improved disaster response.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2800000.0,
+    "sdgs": [
+      1,
+      2,
+      5,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Business Accommodation",
+    "highlight": "Conceptualized as an integrated responsible tourism project, this is an integrated hotel project in Castries which aims to meet the demand for business-oriented accommodation, leveraging the city's bustling port and commercial center.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 8500000.0,
+    "sdgs": [
+      2,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Wind Farm",
+    "highlight": "The project proposes to advance Saint Lucia’s renewable energy expansion quest through development of a Wind Farm predicated on the erection of wind turbines and ancillary structures.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 30000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Coastal Protection Infrastructure",
+    "highlight": "Protecting fragile coastline in Villa, St Vincent & the Grenadines with geotextile boardwalk. Integrating engineered & ecosystem solutions for climate resilience, preserving habitats & preventing erosion.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 3400000.0,
+    "sdgs": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Beach Nourishment",
+    "highlight": "Mayreau's Beach Nourishment project aims to combat degradation & erosion at Salt Whistle Bay, preserving ecology and infrastructure. It involves strategic rock/infrastructure placement and beach fortification for long-term protection.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 6500000.0,
+    "sdgs": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Aquaculture/Mariculture Facility",
+    "highlight": "This project aims to diversify the fisheries sector by introducing aquaculture and mariculture, creating new jobs and reducing over-exploitation of native fish species from existing fishing practices..",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2700000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Conversion of Fish Waste to Fertilizer Facility",
+    "highlight": "This project promotes the circular economy by converting fish waste into organic fertilizer, improving waste management, water quality, and creating new products from ocean by-products like sargassum seaweed.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1600000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Waterfront Redevelopment",
+    "highlight": "This project aims to revitalize the Port Elizabeth waterfront in Bequia, Grenadines, following an innovative, community inclusive design. It seeks to enhance tourism, boost the economy, and integrate climate-resilient and sustainable features.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 16000000.0,
+    "sdgs": [
+      2,
+      3,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Spatial Data Infrastructure to Support Marine Spatial Planning and Ocean Governance (Regional)",
+    "highlight": "To strengthen data and information systems in the OECS in support of Marine Spatial Planning and Ocean Governance. (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 24000000.0,
+    "sdgs": [
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Spatial Data Infrastructure to Support Marine Spatial Planning and Ocean Governance (National)",
+    "highlight": "To strengthen data and information systems in the OECS in support of Marine Spatial Planning and Ocean Governance. (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 8500000.0,
+    "sdgs": [
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Building Resilience and Mainstreaming a Blue Economy Approach in the Fisheries Sector of OECS Member States (Regional)",
+    "highlight": "To support a blue economy approach and build resilience through capacity building and enhancing the enabling environment in the fisheries sector (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 8000000.0,
+    "sdgs": [
+      2,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Building Resilience and Mainstreaming a Blue Economy Approach in the Fisheries Sector of OECS Member States (National)",
+    "highlight": "To support a blue economy approach and build resilience through capacity building and enhancing the enabling environment in the fisheries sector (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 5000000.0,
+    "sdgs": [
+      2,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Building Resilience and Mainstreaming a Blue Economy Approach in the Maritime Sectors of OECS Member States (Regional)",
+    "highlight": "To support a blue economy approach and build resilience through capacity building and enhancing the enabling environment in the maritime sector (shipping and transportation – including pollution matters, and enforcement and surveillance) (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2000000.0,
+    "sdgs": [
+      2,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Building Resilience and Mainstreaming a Blue Economy Approach in the Maritime Sectors of OECS Member States (National)",
+    "highlight": "To support a blue economy approach and build resilience through capacity building and enhancing the enabling environment in the maritime sector (shipping and transportation – including pollution matters, and enforcement and surveillance) (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 4500000.0,
+    "sdgs": [
+      2,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Supporting Blue Economy through Ecological Restoration & Strengthening Management syst for MPAs (Regional)",
+    "highlight": "To build resilience in coastal and marine ecological systems by undertaking ecological restoration and enhancing existing or establishing new marine protected areas (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2000000.0,
+    "sdgs": [
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Supporting Blue Economy through Ecological Restoration & Strengthening Management syst for MPAs (National)",
+    "highlight": "To build resilience in coastal and marine ecological systems by undertaking ecological restoration and enhancing existing or establishing new marine protected areas (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 5000000.0,
+    "sdgs": [
+      6,
+      7,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Building Resilience in the OECS through an Enhanced Blue Economy Product (Regional)",
+    "highlight": "Building Resilience in the OECS through an Enhanced Blue Economy Product (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 4000000.0,
+    "sdgs": [
+      2,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Building Resilience in the OECS through an Enhanced Blue Economy Product (National)",
+    "highlight": "Building Resilience in the OECS through an Enhanced Blue Economy Product (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 10500000.0,
+    "sdgs": [
+      2,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Exploring Blue Economy Opportunities in the OECS to Facilitate Investment Decisions (Regional)",
+    "highlight": "To assess the benefits and feasibility of blue economy opportunities in the OECS, and facilitate investment decisions (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 4000000.0,
+    "sdgs": [
+      2,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Exploring Blue Economy Opportunities in the OECS to Facilitate Investment Decisions (National)",
+    "highlight": "To assess the benefits and feasibility of blue economy opportunities in the OECS, and facilitate investment decisions (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 12000000.0,
+    "sdgs": [
+      2,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Marine Spatial Planning in the OECS for enhanced Cross-border Cooperation (National)",
+    "highlight": "To improve the efficiency of regulatory processes governing national activities, including cross sectoral boundaries, through marine spatial planning, capacity building and cooperation. (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 10000000.0,
+    "sdgs": [
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Marine Spatial Planning in the OECS for enhanced Cross-border Cooperation (Regional)",
+    "highlight": "To improve the efficiency of regulatory processes governing national activities, including cross sectoral boundaries, through marine spatial planning, capacity building and cooperation. (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 6000000.0,
+    "sdgs": [
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Exploring Marine Energy Potential in the OECS (Regional)",
+    "highlight": "To strengthen the capacity of the OECS region to develop and use marine renewable energy, and support the increased use of sustainable energy in marine based economic activities.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      6
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Exploring Marine Energy Potential in the OECS (National)",
+    "highlight": "To strengthen the capacity of the OECS countries to develop and use marine renewable energy, and support the increased use of sustainable energy in marine based economic activities.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 4000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      6
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Support Blue Bioprospecting and Biotechnology in the OECS (National)",
+    "highlight": "To strengthen the enabling environment for bioprospecting and biotechnology use, and support ‘blue bioprospecting and biotechnology (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 5000000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Support Blue Bioprospecting and Biotechnology in the OECS (Regional)",
+    "highlight": "To strengthen the enabling environment for bioprospecting and biotechnology use, and support ‘blue bioprospecting and biotechnology (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 3000000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Promoting a Climate-Risk-Based Approach to Coastal Planning in the OECS (Regional)",
+    "highlight": "To project anticipated impacts of sea level rise on Eastern Caribbean coastlines, coastal ecosystems and coastal infrastructure and to propose appropriate planning and adaptation responses. (Regional)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 2500000.0,
+    "sdgs": [
+      4,
+      6,
+      7,
+      8
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Promoting a Climate-Risk-Based Approach to Coastal Planning in the OECS (National)",
+    "highlight": "To project anticipated impacts of sea level rise on Eastern Caribbean coastlines, coastal ecosystems and coastal infrastructure and to propose appropriate planning and adaptation responses. (National)",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 5000000.0,
+    "sdgs": [
+      4,
+      6,
+      7,
+      8
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Remote Sensing-Based National Shoreline Assessment and Marine Ecosystem Mapping",
+    "highlight": "Alcis devised a remote sensing-based methodology to assess shoreline changes, aiding coastal vulnerability planning. Successfully piloted in Timor-Leste, it offers insights to inform adaptation strategies.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 60000.0,
+    "sdgs": [
+      6,
+      7
+    ],
+    "countries": [
+      925
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Heronetta Coral Reef Restoration Pilot Project",
+    "highlight": "A pilot project proposes Biorock technology to restore coral reefs on Barbados' West Coast, addressing massive coral mortality & ecosystem collapse. Aimed at creating new habitats & combating erosion, it signals a path for coastal restoration in Barbados.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 500000.0,
+    "sdgs": [
+      6,
+      7
+    ],
+    "countries": [
+      925
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Bermuda Regulatory Sandbox",
+    "highlight": "The sandbox amends the Electricity Act, progressing from testing to commercialization. Prospective developers will still need to secure permissions for commercialization, but their early input allows them to ensure that regulations are properly developed.",
+    "status": "Start-up to Early Stage",
+    "funding": null,
+    "amount": 0.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      6,
+      9
+    ],
+    "countries": [
+      924
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Solar for Sports",
+    "highlight": "Installing solar panels, as well as energy conservation measures, on public sports facilities for financial savings to reinvest into sports programs. This also serve as an educational opportunity for children to learn about renewable energy.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 300000.0,
+    "sdgs": [
+      1,
+      6
+    ],
+    "countries": [
+      927
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Deep Seawater Industry (DSI)",
+    "highlight": "In our flagship project we plan to combine district cooling, via the Zakito district cooling project, with Deep Seawater Industry such as Agriculture and Aquaculture.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 0.0,
+    "sdgs": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "countries": [
+      927
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Vision Zakito",
+    "highlight": "The WOZ+ envisages a future Zakitó as a vibrant touristic area which is able to meet the needs of visitors including the local population while also considering development possibilities pertaining to conservation & community involvement.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 0.0,
+    "sdgs": [
+      2,
+      4,
+      5,
+      6
+    ],
+    "countries": [
+      927
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "ForesightDRM Mobile App andPlatform",
+    "highlight": "The ForesightDRM platform integrates app and desktop portal for disaster management in agriculture. Crowdsourced data aids in alerts and resources, evolving into a comprehensive mobile and web tool for farmers.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 39240.0,
+    "sdgs": [
+      4,
+      6,
+      8
+    ],
+    "countries": [
+      920,
+      922,
+      937,
+      945,
+      944
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Hydroelectric Power Plant",
+    "highlight": "SC3 proposes a subsea cable project linking Trinidad & Tobago to Guyana, featuring an 800MW hydropower plant. This partnership aims for energy exchange and sustainability, funded as a Public Private Partnership.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 3000000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      6
+    ],
+    "countries": [
+      933,
+      944
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Climate Smart Scallion Farms",
+    "highlight": "This project solution introduces hydroponic systems, computerized nutrient injection, and protective agriculture aims to boost crop yield by 40%, reduce growing time by 30%, minimize pest risks by 70%, and enhance overall quality.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 350000.0,
+    "sdgs": [
+      2,
+      3,
+      6
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Carbon Attack Filter",
+    "highlight": "Commercialization of a low cost, biodegradable, easily retrofitted carbon capture filter for vehicles. It traps all major greenhouse gases & potent pollutants from exhaust which can be used to rehabilitate acidic/dying soil for agriculture/reforestation.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 65000.0,
+    "sdgs": [
+      2,
+      3,
+      6
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Smart Greenhouse Technology",
+    "highlight": "The 65,000 sq.ft. smart greenhouse is equipped with weather stations & modern sensors. It adapts to climate conditions, optimizes crop protection & ventilation. Utilizing IoT & analytics, it enhances decision-making, reduces labor & optimizes resource use",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 650000.0,
+    "sdgs": [
+      2,
+      3,
+      6
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Green or blue energy",
+    "highlight": "This project initiates a Climate-Safe Infrastructure Working Group to gather standards and frameworks for resilient infrastructure. Stage 1 involves compiling existing guidelines. Stage 2 will survey professionals to assess adaptation requirements..",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 4625000.0,
+    "sdgs": [
+      1,
+      3,
+      4,
+      6
+    ],
+    "countries": [
+      944
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Mushroom Country",
+    "highlight": "This project diversifies existing composting facility(s) by integrating mushroom production with composting, packaging for Caribbean markets. Utilizing solar panels for energy and capturing biogas for reuse.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 72000.0,
+    "sdgs": [
+      1,
+      2,
+      3
+    ],
+    "countries": [
+      944
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Sea Cucumber Farming",
+    "highlight": "PanaSea grows sea cucumbers in a hatchery then  maturing them in the ocean until harvest  A sustainable alternative to the traditional & destructive practice of harvesting wild catch",
+    "status": "Scaling or Expanding",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1500000.0,
+    "sdgs": [
+      2,
+      3,
+      7
+    ],
+    "countries": [
+      941
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Cayman - Caribbean food security through Climate-Smart Agriculture  (Sony, UNDP, ForkFarms)",
+    "highlight": "Using innovation to create livelihood opportunities, and a secure and sustainable food supply that adapts to climate change in the Caribbean",
+    "status": "In Execution",
+    "funding": "Grant Catalytic Capital",
+    "amount": 53725.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      925,
+      928,
+      929,
+      932,
+      938,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Open Ocean Aquaculture",
+    "highlight": "The project will cultivate the American Red Snapper. All required project approvals, industrial sites & permits are obtained. There will be an onshore fingerling hatchery with the farm further away from the shore for a more natural & sustainable habitat.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 300000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      7
+    ],
+    "countries": [
+      918
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "Mahogany Hill",
+    "highlight": "A $28m initiative creating an eco-friendly residential village in on 18 hectares of land on the Northern Coast. With zoning approval for up to 250 homes, 211 will be built with with solar panels, water recapture, and energy-saving features.",
+    "status": "Start-up to Early Stage",
+    "funding": "Debt",
+    "amount": 7100000.0,
+    "sdgs": [
+      1,
+      4,
+      5
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Belize Agricultural Sustainable Solutions",
+    "highlight": "Belize Agricultural Sustainable Solutions (BASS) will combat environmental stress with the Region's first Full Scale Seafood Hydrolysate Production Plant. It offers sustainable solutions for waste management, land & water ecosystems, mitigating pollution.",
+    "status": "Pre-operational",
+    "funding": "Debt/Equity",
+    "amount": 1093521.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6
+    ],
+    "countries": [
+      923,
+      936,
+      945
+    ]
+  },
+  {
+    "pillar": 1,
+    "name": "PET Recycling",
+    "highlight": "SMCL proposes a Bottle-to-Bottle PET recycling facility in Trinidad & Tobago, producing 12,000 MT of rPET resin annually. Aimed at shifting from linear to circular economy, aligning with UN SDGs.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 209000.0,
+    "sdgs": [
+      2,
+      5
+    ],
+    "countries": [
+      944
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Anguilla - Caribbean food security through Climate-Smart Agriculture (Sony, UNDP, ForkFarms)",
+    "highlight": "Using innovation to create livelihood opportunities, and a secure and sustainable food supply that adapts to climate change in the Caribbean",
+    "status": "In Execution",
+    "funding": "Grant Catalytic Capital",
+    "amount": 53725.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      925,
+      928,
+      929,
+      932,
+      938,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Barbados - Caribbean food security through Climate-Smart Agriculture (Sony, UNDP, ForkFarms)",
+    "highlight": "Using innovation to create livelihood opportunities, and a secure and sustainable food supply that adapts to climate change in the Caribbean",
+    "status": "In Execution",
+    "funding": "Grant Catalytic Capital",
+    "amount": 41391.39,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      925,
+      928,
+      929,
+      932,
+      938,
+      945
+    ]
+  },
+  {
+    "pillar": 2,
+    "name": "Building Climate Resilience Governance",
+    "highlight": "To build institutional capacity towards climate action amongst regional and national public sector actors",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1500000.0,
+    "sdgs": [
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      918,
+      922,
+      925,
+      923,
+      924,
+      921,
+      946,
+      928,
+      926,
+      927,
+      929,
+      930,
+      932,
+      933,
+      935,
+      934,
+      936,
+      null,
+      939,
+      940,
+      941,
+      948,
+      938,
+      937,
+      945,
+      942,
+      944,
+      943,
+      947
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Entrepreneur Support Yardie Divers",
+    "highlight": "This project merges environmental awareness with marine recreation providing safe, reliable, exciting, informative and affordable services to our clientele.",
+    "status": "Completed",
+    "funding": "Grant Catalytic Capital",
+    "amount": 50000.0,
+    "sdgs": [
+      6,
+      7
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "GreenMap and iTrust",
+    "highlight": "Accelerate deployment of renewable generation in emerging economies by leveraging experience while adding novel financial instruments and developing innovative technology tools.",
+    "status": "Mature Project or Business",
+    "funding": null,
+    "amount": 0.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      6,
+      9
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Entrepreneur Support Ja Bio Plastics",
+    "highlight": "Ja Bio Plastics, winners of NBMC J$2M prize, presents a natural, degradable & compactable alternative to single-use plastic.",
+    "status": "In Execution",
+    "funding": "Grant Catalytic Capital",
+    "amount": 50000.0,
+    "sdgs": [
+      6,
+      7
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Methane Gas for Bitcoin Mining",
+    "highlight": "Methane waste used to power bitcoin mining",
+    "status": "Start-up to Early Stage",
+    "funding": "Equity",
+    "amount": 7000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      6
+    ],
+    "countries": [
+      944
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Gems Agricultural and Wellness Village",
+    "highlight": "Agrotourism impacting vulnerable youth",
+    "status": "Pre-operational",
+    "funding": "Debt/Equity/Grant Catalytic Capital",
+    "amount": 31250000.0,
+    "sdgs": [
+      2,
+      5,
+      6,
+      8
+    ],
+    "countries": [
+      938
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Eco Skywater",
+    "highlight": "Sustainable drinking water",
+    "status": "Mature Project or Business",
+    "funding": "Equity",
+    "amount": 700000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      6
+    ],
+    "countries": [
+      925
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Seacosystems",
+    "highlight": "Seacosystems advances Blue Economy with Algae Biorefinery for sustainable biofuel, chemicals, and minerals. Creates jobs, fosters university partnerships, and addresses sargassum/landfill issues",
+    "status": "Pre-operational",
+    "funding": "Grant Pre-Investment/Technical Assistant",
+    "amount": 200000.0,
+    "sdgs": [
+      2,
+      3,
+      7
+    ],
+    "countries": [
+      947
+    ]
+  },
+  {
+    "pillar": 2,
+    "name": "Eastern Caribbean Solar Challenge",
+    "highlight": "ECSC seeks to increase the use and visibility of solar energy in OECS Member States for cost savings, sustainability, and energy resilience through the joint efforts of governments, development partners, the private sector, a local workforce, & households",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 9965000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      919,
+      920,
+      946,
+      929,
+      932,
+      940,
+      938,
+      937,
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Smart Agriculture with Apiculture",
+    "highlight": "Greenhouse technology bolstered through the use of precision agriculture, rainwater harvesting and beekeeping, to create a self-sufficient, high yield farm/ecosystem for agricultural produce and associated bee farming products.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 139500.0,
+    "sdgs": [
+      2,
+      3,
+      8
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Sustainable agriculture, agroprocessing and agrotourism and capacity building of communities, farmers and youths",
+    "highlight": "Sustainable Earth Farms and Distributors (SEFD) is a climate-smart, sustainable organic farm\nwhich offers rustic, comfortable accommodation, smart & eco-immersive tourism experiences\nwhile building & empowering communities.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1100000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      944
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Project Growlocal: A Climate-smart Agriculture Agribusiness initiative to Slash Dominica’s food Import Bill",
+    "highlight": "This project will strategically align 10 farmers in Dominica to help them implement a climate-smart agriculture business model to reduce the food import bill and regain market share. The",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 389660.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      929
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Grow Bahamas Ltd: Phase 1, Start up Project",
+    "highlight": "The overall goal of this project is to implement a sustainable, low-carbon agricultural food production system for The Bahamas allowing Bahamian artisans and manufacturers to process and scale their businesses.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 619994.0,
+    "sdgs": [
+      2,
+      3,
+      5
+    ],
+    "countries": [
+      922
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "The Ethno-botanical (Eco-lab) project",
+    "highlight": "The Ian Douglas Foundation (IDF), the House of Re-Discovery Charity No.1065\n(HRD), and the PEG Farm (People Empowerment Growth and Nature Reserve) are\npartnering to create and establish a viable prototype Ethno-botanical Eco-lab.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 75000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      925
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "REGAL FARMS ASSIST",
+    "highlight": "Implementation of climate controlled greenhouses for an aeroponic system and aquaponics system in various schools and the women's unit at the Bordelais Correctional Facility.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 305000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      938
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Empowering Communities for Sustainable Change using Containerized Farming and Micro Grids",
+    "highlight": "The Off-Grid Community-Based Container Farming and Micro grid Initiative aims to transform high electricity theft communities in Jamaica by introducing self-sustained containerized farming units powered by renewable energy.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 170000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      5,
+      8
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Tea Garden 758 Circular Farm",
+    "highlight": "Production of Mushrooms, honey, herbs and vegetables using circular farming technique to minimize wastage and use of chemical pollutants.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 75000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      938
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Indoor Climate Resilient and Sustainable Agriculture in Trinidad and Tobago",
+    "highlight": "The proposed product being formulated by Impulse Response Enterprises Ltd is\nthat of an indoor aquaponics farm located in Point Fortin, geared towards the\nproduction of fish (Tilapia and Koi), and short-term vegetable crops.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 100000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      944
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Vetiver Smart Farms",
+    "highlight": "This project addresses the increasing climate risks accelerating the degradation of\nthe agricultural and coastal resources that underpin community livelihoods such as\nerosion, soil loss, and land slippage.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 37500.0,
+    "sdgs": [
+      2,
+      8
+    ],
+    "countries": [
+      938
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "The ARK Organics Project",
+    "highlight": "Specializing in the production of organic fertilizers and mulches from goat, sheep, rabbit, and seaweed sources.",
+    "status": "Scaling or Expanding",
+    "funding": "Grant Catalytic Capital",
+    "amount": 800000.0,
+    "sdgs": [
+      2,
+      3,
+      5
+    ],
+    "countries": [
+      945
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Honai Beez Apiary",
+    "highlight": "Honai Beez Apiary is a sustainable beekeeping social enterprise transforming vacant lots into apiaries and green spaces for the conservation of honeybees, to help create awareness for pollinators through education.",
+    "status": "Start-up to Early Stage",
+    "funding": "Grant Catalytic Capital",
+    "amount": 223987.0,
+    "sdgs": [
+      2,
+      4,
+      8
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Student Community Service - Tree Planting",
+    "highlight": "Empowering & engaging youth and the disabled community in Antigua and Barbuda via tree planting, with employment opportunities, education, and climate action through tree nursery transformation and public-private partnerships.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 100000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      920
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Crissteek Gold Vermicompost",
+    "highlight": "Reclaiming Mined-Out Bauxite Lands through Vermicomposting: A Sustainable\nSolution for Land Reclamation and Greenhouse Gas Mitigation",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 100000.0,
+    "sdgs": [
+      2,
+      3,
+      5,
+      8
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Electrify 4Sight - An Electrification Project at Jamaica Society for the Blind with a Solar-Powered Aquaponic Greenhouse",
+    "highlight": "JSB's electrification project with solar aquaponic greenhouse aims to lower energy costs, empower visually impaired, and foster sustainable food production & community.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 150000.0,
+    "sdgs": [
+      1,
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      936
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Catalysing urban agriculture for food security, livelihoods and resilience in South East Port of Spain",
+    "highlight": "For un/underemployed youth (17- 35 years)\nin South East Port of Spain, Trinidad to build their skills and access equipment and\nresources to develop their own climate-smart grow box production systems",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 100000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      944
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Mouvement pour l’Intégration et l’Émancipation des Femmes Handicapée (MIEFH)",
+    "highlight": "The \"Empowering Food Security and Environmental Resilience through the 'Lakou' Garden and Reforestation Initiative\" addresses the pressing challenges facing Northern Haiti due to social, political, and economic crises.",
+    "status": "Mature Project or Business",
+    "funding": "Grant Catalytic Capital",
+    "amount": 1000000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      935
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Building Resiliency and Food Security through Hydroponics in the Bahamas",
+    "highlight": "Sustainable agricultural practices while providing workforce development opportunities and greater food security in vulnerable communities.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 650000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      922
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Strengthening the Economic Capacity of Gender Based Violence Victims to Create Sustainable Livelihoods.",
+    "highlight": "RYVSLU builds agro processing facility, lab, & training center for marginalized women, girls, LGBTQI survivors of GBV in Saint Lucia. Empowers with skills, connects to networks, fosters economic resilience through sustainable livelihoods.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 500000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      938
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Export Barbados (Aquaculture Pilot Project)",
+    "highlight": "The aquaculture project is aimed at developing technical and academic capacity",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 3000000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      925
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "Bloom Cleantech Cluster",
+    "highlight": "BIDC's Cluster program shifts focus to the circular economy, targeting carbon emissions reduction & aligning with Barbados' carbon neutrality goals by 2030. It aims to boost local capacity & lobbying efforts while addressing waste management challenges.",
+    "status": "Scaling or Expanding",
+    "funding": "Grant Catalytic Capital",
+    "amount": 723000.0,
+    "sdgs": [
+      2,
+      5,
+      8
+    ],
+    "countries": [
+      925
+    ]
+  },
+  {
+    "pillar": 4,
+    "name": "“Ocean Love NO Plastic NO Waste 2.0” The Path to Scale Up",
+    "highlight": "scale up our\nsuccessful pilot project \"Ocean Love NO Plastic NO Waste\", and increase our impact\non plastic waste solutions.",
+    "status": "Scaling or Expanding",
+    "funding": "Grant Catalytic Capital",
+    "amount": 85000.0,
+    "sdgs": [
+      7,
+      9
+    ],
+    "countries": [
+      920
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Export Barbados Ocean Renewable Wave Energy Project",
+    "highlight": "A pilot project executed by the Barbados Investment and Development Corporation (BIDC) to establish a Wave Energy Park (WEP) off the Barbados Eastern Coast.",
+    "status": "Pre-operational",
+    "funding": "Grant Catalytic Capital",
+    "amount": 15000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9
+    ],
+    "countries": [
+      925
+    ]
+  },
+  {
+    "pillar": 3,
+    "name": "Defossilize30 Biofuel",
+    "highlight": "The Defossilize30 biofuel solution will lower dependency on imported fuels and lower energy prices. Using pre-existing infrastructure.",
+    "status": "Start-up to Early Stage",
+    "funding": "Grant Catalytic Capital",
+    "amount": 6000000.0,
+    "sdgs": [
+      1,
+      2,
+      3,
+      5,
+      6
+    ],
+    "countries": [
+      936
+    ]
+  }
+]
