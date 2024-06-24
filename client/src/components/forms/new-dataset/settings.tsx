@@ -15,9 +15,9 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
-import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 import type { Data } from "@/containers/datasets/new";
 
+import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
 import { Button } from "@/components/ui/button";
@@ -39,8 +39,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
-
 // import { usePostDatasets } from "@/types/generated/dataset";
 
 import NewDatasetDataFormWrapper from "./wrapper";
@@ -48,14 +46,15 @@ import NewDatasetDataFormWrapper from "./wrapper";
 export default function NewDatasetSettingsForm({
   title,
   id,
-  data,
+  data: rawData,
   onSubmit,
 }: {
   title: string;
   id: string;
-  data: Data["settings"];
+  data: Data;
   onSubmit: (data: Data["settings"]) => void;
 }) {
+  const data = rawData.settings;
   const { replace } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -78,8 +77,18 @@ export default function NewDatasetSettingsForm({
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter your name" }),
-    valueType: z.enum(valueTypes),
-    category: z.number(),
+    valueType: z
+      .enum(valueTypes)
+      .optional()
+      .refine((val) => !!val, {
+        message: "Please select a value type",
+      }),
+    category: z
+      .number()
+      .optional()
+      .refine((val) => typeof val !== "undefined", {
+        message: "Please select a category",
+      }),
     unit: z
       .string()
       .refine((val) => val === "" || (val && typeof val === "string"), {
@@ -93,7 +102,7 @@ export default function NewDatasetSettingsForm({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    values: {
       name: data.name,
       valueType: data.valueType,
       category: data.category,
@@ -103,47 +112,26 @@ export default function NewDatasetSettingsForm({
   });
 
   const handleCancel = () => {
-    console.log("cancel settings", id, title);
-    // onSubmit(DATA_INITIAL_VALUES.settings);
     replace(`/?${URLParams.toString()}`);
   };
 
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       // Save this into useState
-      console.log(values, id, title, "submit para settings form *****************************");
       onSubmit(values);
     },
     [onSubmit],
   );
 
-  console.log("settings", id);
-
   return (
     <>
       <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
-      {/* <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
-        <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
-        <div className="flex items-center space-x-2 text-sm sm:flex-row">
-          <Button size="sm" variant="primary-outline" onClick={handleCancel}>
-            Cancel
-          </Button>
-
-          <Button form="dataset-settings" size="sm" type="submit">
-            Continue
-          </Button>
-        </div>
-      </div> */}
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={data} form={form} id={id} />
+        <NewDatasetNavigation data={rawData} id={id} />
         <StepDescription />
 
         <Form {...form}>
-          <form
-            id="dataset-settings"
-            className="space-y-4"
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
+          <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
             <fieldset className="w-full max-w-5xl gap-4 sm:grid sm:grid-cols-2 md:gap-6">
               <FormField
                 control={form.control}
@@ -156,7 +144,7 @@ export default function NewDatasetSettingsForm({
                         {...field}
                         value={field.value}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder={data.name || "Name"}
+                        placeholder={"Name"}
                       />
                     </FormControl>
                     <FormMessage />

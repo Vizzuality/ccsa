@@ -4,7 +4,6 @@ import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
 
-import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,9 +12,9 @@ import { z } from "zod";
 
 import { useSyncSearchParams } from "@/app/store";
 
-import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 import type { Data } from "@/containers/datasets/new";
 
+import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
 import { Button } from "@/components/ui/button";
@@ -31,7 +30,6 @@ import {
 
 import type { VALUE_TYPE } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
@@ -148,19 +146,21 @@ export default function NewDatasetColorsForm({
   id,
   title,
   data,
-  categoriesData,
   onSubmit,
-  valueType,
 }: {
   id: string;
   title: string;
-  data: Data["colors"];
-  categoriesData: Data["data"];
+  data: Data;
   onSubmit: (data: Data["colors"]) => void;
   valueType?: VALUE_TYPE;
 }) {
   const { replace } = useRouter();
   const URLParams = useSyncSearchParams();
+
+  const valueType = data?.settings?.valueType;
+  const categoriesData = data.data;
+
+  console.log(categoriesData);
 
   const categories = getCategories(categoriesData, valueType);
   const defaultValues = getDefaultValues(categories, valueType);
@@ -190,28 +190,12 @@ export default function NewDatasetColorsForm({
   return (
     <>
       <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
-      {/* <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
-        <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
-        <div className="flex items-center space-x-2 text-sm sm:flex-row">
-          <Button size="sm" variant="primary-outline" onClick={handleCancel}>
-            Cancel
-          </Button>
-
-          <Button form="dataset-colors" size="sm" type="submit">
-            Submit
-          </Button>
-        </div>
-      </div> */}
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={data} form={form} />
+        <NewDatasetNavigation data={data} id={id} />
         <StepDescription />
 
         <Form {...form}>
-          <form
-            id="dataset-colors"
-            className="space-y-4"
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
+          <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
             <fieldset className="grid grid-cols-2 gap-6">
               {/* {valueType === "number" && <DynamicForm form={form} />} */}
               {valueType === "resource" ||

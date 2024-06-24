@@ -15,12 +15,11 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 
-import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 import type { Data } from "@/containers/datasets/new";
 
+import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -44,52 +43,66 @@ import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
 import type { VALUE_TYPE, FormSchemaType } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 
 export default function NewDatasetDataForm({
   title,
   id,
-  data,
+  data: rawData,
   onSubmit,
-  valueType,
 }: {
   title: string;
   id: string;
-  data: Data["data"];
+  data: Data;
   onSubmit: (data: Data["data"]) => void;
-  valueType?: VALUE_TYPE;
 }) {
+  const data = rawData.data;
   const { replace } = useRouter();
   const URLParams = useSyncSearchParams();
 
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
-  const countries = useMemo(
-    () =>
-      countriesData?.data
-        ? (countriesData.data.map((country) => country.attributes?.iso3) as string[])
-        : [],
-    [countriesData],
-  );
+  // const countries = useMemo(
+  //   () =>
+  //     countriesData?.data
+  //       ? (countriesData.data.map((country) => country.attributes?.iso3) as string[])
+  //       : [],
+  //   [countriesData],
+  // );
+
+  const countries = useMemo(() => ["AIA", "BRB", "BES"], []);
 
   const formSchema = useMemo(
-    () => getFormSchema(valueType as VALUE_TYPE, countries),
-    [valueType, countries],
+    () => getFormSchema(rawData.settings.valueType as VALUE_TYPE, countries),
+    [rawData.settings.valueType, countries],
   );
 
-  const defaultValues = useMemo(() => {
+  const values = useMemo(() => {
     const c = countries.reduce(
       (acc, country) => {
-        if (valueType === "number") {
+        if (rawData.settings.valueType === "number") {
           return {
             ...acc,
-            [`${country}-number`]: undefined,
+            [`${country}-number`]: data[`${country}-number`],
           };
         }
-        if (valueType === "text") {
+        if (rawData.settings.valueType === "text") {
           return {
             ...acc,
-            [`${country}-text`]: "",
+            [`${country}-text`]: data[`${country}-text`],
+          };
+        }
+        if (rawData.settings.valueType === "resource") {
+          return {
+            ...acc,
+            [`${country}-title`]: data[`${country}-title`],
+            [`${country}-description`]: data[`${country}-description`],
+            [`${country}-link`]: data[`${country}-link`],
+          };
+        }
+        if (rawData.settings.valueType === "boolean") {
+          return {
+            ...acc,
+            [`${country}-boolean`]: data[`${country}-boolean`],
           };
         }
         return acc;
@@ -98,17 +111,16 @@ export default function NewDatasetDataForm({
     );
 
     return c;
-  }, [countries, valueType]);
+  }, [countries, rawData.settings.valueType, data]);
 
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
-    values: defaultValues,
+    values,
   });
 
-  const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
+  const COLUMNS = DATA_COLUMNS_TYPE[rawData.settings.valueType as VALUE_TYPE];
 
   const handleCancel = () => {
-    console.log("cancel data", id, title);
     // onSubmit(DATA_INITIAL_VALUES.data);
     replace(`/?${URLParams.toString()}`);
   };
@@ -121,25 +133,13 @@ export default function NewDatasetDataForm({
     [onSubmit],
   );
 
-  if (!valueType) return null;
+  if (!rawData.settings.valueType) return null;
 
   return (
     <>
       <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
-      {/* <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">
-        <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
-        <div className="flex items-center space-x-2 text-sm sm:flex-row">
-          <Button size="sm" variant="primary-outline" onClick={handleCancel}>
-            Cancel
-          </Button>
-
-          <Button size="sm" form="dataset-data" type="submit">
-            Continue
-          </Button>
-        </div>
-      </div> */}
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={data} form={form} />
+        <NewDatasetNavigation data={rawData} id={id} />
         <StepDescription />
         <Form {...form}>
           <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>

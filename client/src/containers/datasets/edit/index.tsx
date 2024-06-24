@@ -2,11 +2,9 @@
 
 import { useState, useCallback } from "react";
 
-import { useAtom } from "jotai";
-
 import type { Dataset } from "@/types/generated/strapi.schemas";
 
-import { datasetFormStepAtom } from "@/app/store";
+import { useSyncDatasetStep } from "@/app/store";
 
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
@@ -39,7 +37,7 @@ export const DATA_INITIAL_VALUES: Data = {
 
 export default function EditDatasetForm() {
   // const { replace } = useRouter();
-  const [currentStep, setCurrentStep] = useAtom(datasetFormStepAtom);
+  const [currentStep, setCurrentStep] = useSyncDatasetStep();
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
 
   // const { mutate } = usePostDatasets({

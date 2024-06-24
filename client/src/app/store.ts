@@ -14,6 +14,7 @@ import {
   pillarsParser,
   publicationStateParser,
   projectParser,
+  datasetStepParser,
 } from "@/app/parsers";
 
 export const useSyncDatasets = () => {
@@ -68,6 +69,10 @@ export const useSyncOtherToolsSearch = () => {
   return useQueryState("other-tools-search", { defaultValue: "" });
 };
 
+export const useSyncDatasetStep = () => {
+  return useQueryState("step", datasetStepParser);
+};
+
 export const useSyncSearchParams = () => {
   const [datasets] = useSyncDatasets();
   const [layers] = useSyncLayers();
@@ -81,7 +86,6 @@ export const useSyncSearchParams = () => {
   const [countries] = useSyncCountries();
   const [availableForFunding] = useSyncAvailableForFunding();
   const [publicationState] = useSyncPublicationState();
-
   const sp = new URLSearchParams();
 
   // Datatsets
@@ -132,5 +136,3 @@ export const otherToolsSearchAtom = atom<string | undefined>(undefined);
 export const collaboratorsSearchAtom = atom<string | undefined>(undefined);
 
 export const personalDetailsAtom = atom<"account" | "changes">("changes");
-
-export const datasetFormStepAtom = atom<number>(1);
