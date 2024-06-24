@@ -34,6 +34,7 @@ module.exports = {
           "Other-tool",
           "Dataset-value",
           "Collaborator",
+          "Welcome-message",
         ],
       },
     },

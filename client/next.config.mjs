@@ -5,8 +5,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'api.mapbox.com',
+        protocol: "https",
+        hostname: "api.mapbox.com",
+      },
+      {
+        protocol: "http",
+        hostname: "0.0.0.0",
       },
     ],
   },

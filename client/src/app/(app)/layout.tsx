@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 
+import dynamic from "next/dynamic";
 import { headers } from "next/headers";
 
 import { Hydrate, dehydrate } from "@tanstack/react-query";
@@ -28,6 +29,8 @@ import Navigation from "@/containers/navigation";
 import Sidebar from "@/containers/sidebar";
 
 import LayoutProviders from "./layout-providers";
+
+const WelcomeMessage = dynamic(() => import("@/containers/welcome-message"), { ssr: false });
 
 export default async function AppLayout({ children }: PropsWithChildren) {
   const url = new URL(headers().get("x-url")!);
@@ -87,6 +90,8 @@ export default async function AppLayout({ children }: PropsWithChildren) {
           <Sidebar>{children}</Sidebar>
           <Map />
         </main>
+
+        <WelcomeMessage />
       </Hydrate>
     </LayoutProviders>
   );

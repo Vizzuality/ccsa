@@ -4526,6 +4526,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@types/cookie@npm:0.6.0"
+  checksum: 5edce7995775b0b196b142883e4d4f71fd93c294eaec973670f1fa2540b70ea7390408ed513ddefef5fcb12a578100c76596e8f2a714b0c2ae9f70ee773f4510
+  languageName: node
+  linkType: hard
+
 "@types/debug@npm:^4.0.0":
   version: 4.1.10
   resolution: "@types/debug@npm:4.1.10"
@@ -4602,6 +4609,16 @@ __metadata:
   dependencies:
     "@types/unist": "*"
   checksum: d9fbe723e9cbb7e0b060822d78614c03210cdbf6d75123256026e2b3461b9c01f025f8c743da25d4dcfa35ac37bb9bbb5bec184a7bd2cb6655ee726fb0f6dfbe
+  languageName: node
+  linkType: hard
+
+"@types/hoist-non-react-statics@npm:^3.3.5":
+  version: 3.3.5
+  resolution: "@types/hoist-non-react-statics@npm:3.3.5"
+  dependencies:
+    "@types/react": "*"
+    hoist-non-react-statics: ^3.3.0
+  checksum: b645b062a20cce6ab1245ada8274051d8e2e0b2ee5c6bd58215281d0ec6dae2f26631af4e2e7c8abe238cdcee73fcaededc429eef569e70908f82d0cc0ea31d7
   languageName: node
   linkType: hard
 
@@ -5910,13 +5927,16 @@ __metadata:
     prettier: 3.0.3
     prettier-plugin-tailwindcss: 0.5.4
     react: 18.2.0
+    react-cookie: ^7.1.4
     react-dom: 18.2.0
     react-hook-form: ^7.48.2
     react-icons: 4.11.0
     react-map-gl: 7.1.6
     react-markdown: ^9.0.0
+    react-player: ^2.16.0
     react-world-flags: ^1.6.0
     rooks: 7.14.1
+    screenfull: ^6.0.2
     tailwind-merge: 1.14.0
     tailwindcss: 3.3.3
     tailwindcss-animate: 1.0.7
@@ -6224,6 +6244,13 @@ __metadata:
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
   checksum: 1f4bd2ca5765f8c9689a7e8954183f5332139eb72b6ff783d8947032ec1fdf43109852c178e21a953a30c0dd42257828185be01b49d1eb1a67fd054ca588a180
+  languageName: node
+  linkType: hard
+
+"cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: f56a7d32a07db5458e79c726b77e3c2eff655c36792f2b6c58d351fb5f61531e5b1ab7f46987150136e366c65213cbe31729e02a3eaed630c3bf7334635fb410
   languageName: node
   linkType: hard
 
@@ -6554,7 +6581,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deepmerge@npm:^4.3.1":
+"deepmerge@npm:^4.0.0, deepmerge@npm:^4.3.1":
   version: 4.3.1
   resolution: "deepmerge@npm:4.3.1"
   checksum: 2024c6a980a1b7128084170c4cf56b0fd58a63f2da1660dcfe977415f27b17dbe5888668b59d0b063753f3220719d5e400b7f113609489c90160bb9a5518d052
@@ -8661,6 +8688,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "hoist-non-react-statics@npm:3.3.2"
+  dependencies:
+    react-is: ^16.7.0
+  checksum: b1538270429b13901ee586aa44f4cc3ecd8831c061d06cb8322e50ea17b3f5ce4d0e2e66394761e6c8e152cd8c34fb3b4b690116c6ce2bd45b18c746516cb9e8
+  languageName: node
+  linkType: hard
+
 "hpagent@npm:~1.2.0":
   version: 1.2.0
   resolution: "hpagent@npm:1.2.0"
@@ -9639,6 +9675,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"load-script@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "load-script@npm:1.0.0"
+  checksum: 8458e3f07b4a86f8d9d66e47a987811491a5d013af23ba7b371c6d3c9dc899885b072ccf65abf7874c10cb197d4975eacd8a7a125bfb38dbbcb267539f5dc1e9
+  languageName: node
+  linkType: hard
+
 "locate-path@npm:^3.0.0":
   version: 3.0.0
   resolution: "locate-path@npm:3.0.0"
@@ -9974,6 +10017,13 @@ __metadata:
   version: 0.3.0
   resolution: "media-typer@npm:0.3.0"
   checksum: af1b38516c28ec95d6b0826f6c8f276c58aec391f76be42aa07646b4e39d317723e869700933ca6995b056db4b09a78c92d5440dc23657e6764be5d28874bba1
+  languageName: node
+  linkType: hard
+
+"memoize-one@npm:^5.1.1":
+  version: 5.2.1
+  resolution: "memoize-one@npm:5.2.1"
+  checksum: a3cba7b824ebcf24cdfcd234aa7f86f3ad6394b8d9be4c96ff756dafb8b51c7f71320785fbc2304f1af48a0467cbbd2a409efc9333025700ed523f254cb52e3d
   languageName: node
   linkType: hard
 
@@ -11573,7 +11623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.8.1":
+"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -11699,6 +11749,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-cookie@npm:^7.1.4":
+  version: 7.1.4
+  resolution: "react-cookie@npm:7.1.4"
+  dependencies:
+    "@types/hoist-non-react-statics": ^3.3.5
+    hoist-non-react-statics: ^3.3.2
+    universal-cookie: ^7.0.0
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: 274cb7ced460c17510a2b5236f0cb03717b533652c954027c5bf559588e85cabcb82b33845e720eccd3002cf46f132975fd05d0eff5bdea7c6fb9eb334635d7a
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -11708,6 +11771,13 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-fast-compare@npm:^3.0.1":
+  version: 3.2.2
+  resolution: "react-fast-compare@npm:3.2.2"
+  checksum: 2071415b4f76a3e6b55c84611c4d24dcb12ffc85811a2840b5a3f1ff2d1a99be1020d9437ee7c6e024c9f4cbb84ceb35e48cf84f28fcb00265ad2dfdd3947704
   languageName: node
   linkType: hard
 
@@ -11729,7 +11799,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.13.1":
+"react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
@@ -11775,6 +11845,21 @@ __metadata:
     "@types/react": ">=18"
     react: ">=18"
   checksum: 7057f60f0657d5c6210f02a2c80d537176d0d29c141e4b52a8f8fa335ee454248c37c29caf27e8bd28a180bc8e14b5522f63e2a61e3ec3ea5201a58ad43f43c6
+  languageName: node
+  linkType: hard
+
+"react-player@npm:^2.16.0":
+  version: 2.16.0
+  resolution: "react-player@npm:2.16.0"
+  dependencies:
+    deepmerge: ^4.0.0
+    load-script: ^1.0.0
+    memoize-one: ^5.1.1
+    prop-types: ^15.7.2
+    react-fast-compare: ^3.0.1
+  peerDependencies:
+    react: ">=16.6.0"
+  checksum: 9cc78a6099fdf06bbb2e1db75aa57461fb152eb6207a00e6e026dde0675b6f4ad02a45cab7b6c18a9f19e001bf9695a5be0cbe7606eca57a0af501ced717fbe9
   languageName: node
   linkType: hard
 
@@ -12321,6 +12406,13 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  languageName: node
+  linkType: hard
+
+"screenfull@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "screenfull@npm:6.0.2"
+  checksum: 56a541da09241ae7c97115cc31245623c09230bcbebb93636871e955b545f26c7dcdb2299795234a0a21bff5d5401b7329b22609becf4c381a9e22347acf87ba
   languageName: node
   linkType: hard
 
@@ -13561,6 +13653,16 @@ __metadata:
     unist-util-is: ^6.0.0
     unist-util-visit-parents: ^6.0.0
   checksum: 9ec42e618e7e5d0202f3c191cd30791b51641285732767ee2e6bcd035931032e3c1b29093f4d7fd0c79175bbc1f26f24f26ee49770d32be76f8730a652a857e6
+  languageName: node
+  linkType: hard
+
+"universal-cookie@npm:^7.0.0":
+  version: 7.1.4
+  resolution: "universal-cookie@npm:7.1.4"
+  dependencies:
+    "@types/cookie": ^0.6.0
+    cookie: ^0.6.0
+  checksum: 2b3459dcac8b0062b6a1853a826d67314bb2311e16d803b521be72ff554a9b6cfeb36499241949995910f87587722d928e6801b39c80b621dccfd62d5b3022d8
   languageName: node
   linkType: hard
 

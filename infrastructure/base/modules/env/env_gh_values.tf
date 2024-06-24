@@ -34,6 +34,7 @@ locals {
   client_variable_map_with_unprefixed_keys = {
     NEXT_PUBLIC_URL     = local.client_lb_url
     NEXT_PUBLIC_API_URL = local.api_lb_url
+    NEXT_PUBLIC_CMS_URL = local.cms_lb_url
   }
   client_secret_map_with_unprefixed_keys = {}
   client_variable_map = {
