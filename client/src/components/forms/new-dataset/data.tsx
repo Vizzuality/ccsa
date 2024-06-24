@@ -1,21 +1,27 @@
 "use client";
 
-import { useRef, useImperativeHandle, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useForm } from "react-hook-form";
 
+import { useRouter } from "next/navigation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+import { useGetCountries } from "@/types/generated/country";
+
+import { useSyncSearchParams } from "@/app/store";
+
+import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
+
+import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
+import type { Data } from "@/containers/datasets/new";
+
+import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
+import StepDescription from "@/components/new-dataset/step-description";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { DATA_COLUMNS_TYPE } from "./constants";
-import type { VALUE_TYPE, FormSchemaType } from "./types";
-import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -24,41 +30,36 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
-
-import { useSyncSearchParams } from "@/app/store";
-import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtom } from "jotai";
-import { isEmpty } from "lodash-es";
-
-import { compareData } from "@/lib/utils/objects";
-import { useGetCountries } from "@/types/generated/country";
-
-import { datasetFormStepAtom } from "@/app/store";
-import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
-
-import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
-import type { Data } from "@/containers/datasets/new";
-import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
-import StepDescription from "@/components/new-dataset/step-description";
-import { Button } from "@/components/ui/button";
+import type { VALUE_TYPE, FormSchemaType } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
 
 export default function NewDatasetDataForm({
   data,
-  onClick,
+  onSubmit,
+  valueType,
 }: {
-  data: Data;
-  onClick: (data: Data) => void;
+  data: Data["data"];
+  onSubmit: (data: Data["data"]) => void;
+  valueType?: VALUE_TYPE;
 }) {
   const { replace } = useRouter();
   const URLParams = useSyncSearchParams();
-  const [currentStep, setStep] = useAtom(datasetFormStepAtom);
 
-  const { data: countriesData, isLoading } = useGetCountries(GET_COUNTRIES_OPTIONS);
+  const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
-  const countries2 = useMemo(
+  const countries = useMemo(
     () =>
       countriesData?.data
         ? (countriesData.data.map((country) => country.attributes?.iso3) as string[])
@@ -66,92 +67,55 @@ export default function NewDatasetDataForm({
     [countriesData],
   );
 
-  const countries = ["AIA", "MEX", "USA"];
-
-  const valueType = data.settings.value_type;
-
   const formSchema = useMemo(
     () => getFormSchema(valueType as VALUE_TYPE, countries),
     [valueType, countries],
   );
 
   const defaultValues = useMemo(() => {
-    return countries.reduce(
+    const c = countries.reduce(
       (acc, country) => {
-        acc[`${country}-${valueType}`] =
-          valueType === "resource"
-            ? { title: "", description: "", link: "" }
-            : valueType === "number"
-            ? 0
-            : valueType === "boolean"
-            ? false
-            : "";
+        if (valueType === "number") {
+          return {
+            ...acc,
+            [`${country}-number`]: undefined,
+          };
+        }
+        if (valueType === "text") {
+          return {
+            ...acc,
+            [`${country}-text`]: "",
+          };
+        }
         return acc;
       },
-      {} as Record<string, any>,
+      {} as Record<string, string | number | undefined>,
     );
+
+    return c;
   }, [countries, valueType]);
 
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    values: defaultValues,
   });
-
-  function onSubmit(values: FormSchemaType) {
-    console.log(values, "valores data");
-    onClick({ ...data, data: { ...values } });
-  }
-
-  const formRef = useRef<{ submitForm: () => void } | null>(null);
-
-  useImperativeHandle(formRef, () => ({
-    submitForm() {
-      form.handleSubmit(onSubmit)();
-    },
-  }));
-
-  const handleStep = useCallback(async () => {
-    console.log(
-      "data handle step",
-      form.getValues(),
-      form.formState.isValid,
-      form.formState.errors,
-    );
-    const areEqualValues = compareData(form.getValues(), data.data);
-    if (isEmpty(data.data)) {
-      await form.handleSubmit(onSubmit)();
-      setStep(3);
-    }
-
-    if (!areEqualValues && !isEmpty(data.data)) {
-      console.log("not equal values");
-      const currentValues = form.getValues();
-      const fieldsToUpdate = form.formState.dirtyFields;
-
-      Object.keys(currentValues).forEach((key) => {
-        if (fieldsToUpdate[key]) {
-          form.setValue(key, currentValues[key]);
-        } else {
-          form.setValue(key, data.data[key]);
-        }
-      });
-      await form.handleSubmit(onSubmit)();
-      setStep(3);
-    }
-
-    if (form.formState.isValid && isEmpty(data.data)) {
-      console.log("valid form");
-      await form.handleSubmit(onSubmit)();
-      setStep(3);
-    }
-  }, [setStep, form.formState.isValid]);
 
   const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
 
   const handleCancel = () => {
-    onClick(DATA_INITIAL_VALUES);
+    onSubmit(DATA_INITIAL_VALUES.data);
     replace(`/?${URLParams.toString()}`);
   };
+
+  const handleSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      // Save this into useState
+      onSubmit(values);
+    },
+    [onSubmit],
+  );
+
+  if (!valueType) return null;
 
   return (
     <>
@@ -161,23 +125,17 @@ export default function NewDatasetDataForm({
           <Button size="sm" variant="primary-outline" onClick={handleCancel}>
             Cancel
           </Button>
-          {(isEmpty(data.settings) || isEmpty(data.data)) && (
-            <Button size="sm" onClick={handleStep}>
-              Continue
-            </Button>
-          )}
-          {!isEmpty(data.settings) && !isEmpty(data.data) && !isEmpty(data.colors) && (
-            <Button size="sm" onClick={() => formRef.current?.submitForm()}>
-              Submit
-            </Button>
-          )}
+
+          <Button size="sm" form="dataset-data" type="submit">
+            Continue
+          </Button>
         </div>
       </div>
       <NewDatasetDataFormWrapper>
         <NewDatasetNavigation data={data} form={form} />
         <StepDescription />
         <Form {...form}>
-          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <form id="dataset-data" className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
             <Table>
               <TableHeader>
                 <TableRow>
@@ -190,12 +148,12 @@ export default function NewDatasetDataForm({
                 {countries.map((country) => (
                   <TableRow key={country}>
                     {COLUMNS.map((c) => {
-                      const { label, value, valueType: valuetype2 } = c;
+                      const { label, value } = c;
 
                       return value === "country_id" ? (
-                        <TableCell>{country}</TableCell>
+                        <TableCell key={`${country}-${value}`}>{country}</TableCell>
                       ) : (
-                        <TableCell key={value}>
+                        <TableCell key={`${country}-${value}`}>
                           <FormField
                             control={form.control}
                             name={`${country}-${value}`}

@@ -1,15 +1,19 @@
 "use client";
 
-import { useMemo, useRef, useImperativeHandle } from "react";
+import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
 
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { isEmpty, uniq, compact } from "lodash-es";
+import { uniq, compact } from "lodash-es";
 import { z } from "zod";
 
+import { useSyncSearchParams } from "@/app/store";
+
+import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 import type { Data } from "@/containers/datasets/new";
 
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
@@ -25,7 +29,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { VALUE_TYPE } from "./types";
+import type { VALUE_TYPE } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
@@ -98,7 +102,8 @@ const getFormSchema = (valueType: VALUE_TYPE, categories: string[]) => {
   }
 };
 
-const getCategories = (valueType: VALUE_TYPE, data: Data): string[] => {
+const getCategories = (data: Data["data"], valueType?: VALUE_TYPE): string[] | null => {
+  if (!valueType || !data) return null;
   if (valueType === "resource") {
     return compact(
       uniq(
@@ -114,7 +119,11 @@ const getCategories = (valueType: VALUE_TYPE, data: Data): string[] => {
   }
 };
 
-const getDefaultValues = (valueType: VALUE_TYPE, categories: string[]): Record<string, any> => {
+const getDefaultValues = (
+  categories: string[],
+  valueType?: VALUE_TYPE,
+): Record<string, any> | null => {
+  if (!valueType || !categories) return null;
   switch (valueType) {
     case "boolean":
       return { true: "", false: "" };
@@ -127,7 +136,7 @@ const getDefaultValues = (valueType: VALUE_TYPE, categories: string[]): Record<s
           acc[category] = "";
           return acc;
         },
-        {} as Record<string, string>,
+        {} as Record<string, string> | null,
       );
     default:
       return {};
@@ -136,56 +145,54 @@ const getDefaultValues = (valueType: VALUE_TYPE, categories: string[]): Record<s
 
 export default function NewDatasetColorsForm({
   data,
-  onClick,
+  categoriesData,
+  onSubmit,
+  valueType,
 }: {
-  data: Data;
-  onClick: (data: Data) => void;
+  data: Data["colors"];
+  categoriesData: Data["data"];
+  onSubmit: (data: Data["colors"]) => void;
+  valueType?: VALUE_TYPE;
 }) {
-  const categories = getCategories(data.settings.value_type, data);
-  const valueType = data.settings.value_type;
-  const formSchema = getFormSchema(valueType, categories);
-  const defaultValues = getDefaultValues(valueType, categories);
+  const { replace } = useRouter();
+  const URLParams = useSyncSearchParams();
 
+  const categories = getCategories(categoriesData, valueType);
+  const defaultValues = getDefaultValues(categories, valueType);
+  const formSchema = getFormSchema(categories, valueType);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    onClick({ ...data, data: { ...values } });
-    // mutateDatasets({ data: values });
-  }
+  const handleCancel = () => {
+    onSubmit(DATA_INITIAL_VALUES.colors);
+    replace(`/?${URLParams.toString()}`);
+  };
 
-  const formRef = useRef<{ submitForm: () => void } | null>(null);
-
-  useImperativeHandle(formRef, () => ({
-    submitForm() {
-      form.handleSubmit(onSubmit)();
+  const handleSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      // Save this into useState
+      console.log(values);
+      onSubmit(values);
     },
-  }));
+    [onSubmit],
+  );
 
-  if (valueType === "resource") {
-    console.log("resource");
-  }
+  if (!valueType) return null;
 
   return (
     <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
-          <Button size="sm" variant="primary-outline">
+          <Button size="sm" variant="primary-outline" onClick={handleCancel}>
             Cancel
           </Button>
-          {isEmpty(data.colors) && (
-            <Button size="sm" onClick={() => formRef.current?.submitForm()}>
-              Continue
-            </Button>
-          )}
-          {!isEmpty(data.settings) && !isEmpty(data.data) && !isEmpty(data.colors) && (
-            <Button size="sm" onClick={() => formRef.current?.submitForm()}>
-              Submit
-            </Button>
-          )}
+
+          <Button form="dataset-colors" size="sm" type="submit">
+            Submit
+          </Button>
         </div>
       </div>
       <NewDatasetDataFormWrapper>
@@ -193,7 +200,11 @@ export default function NewDatasetColorsForm({
         <StepDescription />
 
         <Form {...form}>
-          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            id="dataset-colors"
+            className="space-y-4"
+            onSubmit={form.handleSubmit(handleSubmit)}
+          >
             <fieldset className="grid grid-cols-2 gap-6">
               {/* {valueType === "number" && <DynamicForm form={form} />} */}
               {valueType === "resource" ||
