@@ -10,10 +10,34 @@
       "action": "api::category.category.findOne"
     },
     {
+      "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.create"
+    },
+    {
+      "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.find"
+    },
+    {
+      "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.findOne"
+    },
+    {
+      "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.update"
+    },
+    {
       "action": "api::csv.csv.csvToJson"
     },
     {
       "action": "api::csv.csv.jsonToCsv"
+    },
+    {
+      "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.create"
+    },
+    {
+      "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.find"
+    },
+    {
+      "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.findOne"
+    },
+    {
+      "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.update"
     },
     {
       "action": "api::dataset-value.dataset-value.find"
@@ -37,10 +61,52 @@
       "action": "plugin::email.email.send"
     },
     {
+      "action": "plugin::users-permissions.auth.callback"
+    },
+    {
       "action": "plugin::users-permissions.auth.changePassword"
     },
     {
+      "action": "plugin::users-permissions.auth.connect"
+    },
+    {
+      "action": "plugin::users-permissions.auth.emailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.auth.forgotPassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.register"
+    },
+    {
+      "action": "plugin::users-permissions.auth.resetPassword"
+    },
+    {
+      "action": "plugin::users-permissions.auth.sendEmailConfirmation"
+    },
+    {
+      "action": "plugin::users-permissions.role.find"
+    },
+    {
+      "action": "plugin::users-permissions.role.findOne"
+    },
+    {
+      "action": "plugin::users-permissions.user.create"
+    },
+    {
+      "action": "plugin::users-permissions.user.destroy"
+    },
+    {
+      "action": "plugin::users-permissions.user.find"
+    },
+    {
+      "action": "plugin::users-permissions.user.findOne"
+    },
+    {
       "action": "plugin::users-permissions.user.me"
+    },
+    {
+      "action": "plugin::users-permissions.user.update"
     }
   ]
 }
