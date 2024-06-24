@@ -49,22 +49,37 @@ const getNumberFormSchema = () =>
   z.object({
     minValue: z
       .string()
-      .min(1, { message: "Please enter a color for TRUE" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for TRUE" }),
+      .min(1, { message: "Please enter a valid hex color for min" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for min" }),
     maxValue: z
       .string()
-      .min(1, { message: "Please enter a color for FALSE" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for FALSE" }),
+      .min(1, { message: "Please enter a valid hex color for min" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for max" }),
   });
 
-const getResourceFormSchema = (categories: string[]): z.ZodObject<z.ZodRawShape> => {
+const getResourceFormSchema = () =>
+  z.object({
+    minValue: z
+      .string()
+      .min(1, { message: "Please enter a valid hex color for min" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for min" }),
+    maxValue: z
+      .string()
+      .min(1, { message: "Please enter a valid hex color for min" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for max" }),
+  });
+
+const getTextFormSchema = (categories: string[] | null): z.ZodObject<z.ZodRawShape> => {
+  if (!categories) return z.object({});
   const schemaShape = categories.reduce(
     (acc, category) => {
-      acc[category] = z
-        .string()
-        .min(1, { message: "Please enter a title" })
-        .regex(hexColorRegex, { message: "Please enter a valid hex color" });
-      return acc;
+      return {
+        ...acc,
+        [category]: z
+          .string()
+          .min(1, { message: "Please chose a color" })
+          .regex(hexColorRegex, { message: "Please enter a valid hex color" }),
+      };
     },
     {} as Record<string, z.ZodString>,
   );
@@ -72,70 +87,77 @@ const getResourceFormSchema = (categories: string[]): z.ZodObject<z.ZodRawShape>
   return z.object(schemaShape);
 };
 
-const getTextFormSchema = (categories: string[]): z.ZodObject<z.ZodRawShape> => {
-  const schemaShape = categories.reduce(
-    (acc, category) => {
-      acc[category] = z
-        .string()
-        .min(1, { message: "Please enter a title" })
-        .regex(hexColorRegex, { message: "Please enter a valid hex color" });
-      return acc;
-    },
-    {} as Record<string, z.ZodString>,
-  );
-
-  return z.object(schemaShape);
-};
-
-const getFormSchema = (valueType: VALUE_TYPE, categories: string[]) => {
+const getFormSchema = ({
+  categories,
+  valueType,
+}: {
+  categories: string[] | null;
+  valueType?: VALUE_TYPE;
+}) => {
   switch (valueType) {
     case "boolean":
       return getBooleanFormSchema();
     case "number":
       return getNumberFormSchema();
     case "resource":
-      return getResourceFormSchema(categories);
+      return getResourceFormSchema();
     case "text":
     default:
       return getTextFormSchema(categories);
   }
 };
 
-const getCategories = (data: Data["data"], valueType?: VALUE_TYPE): string[] | null => {
+const getCategories = ({
+  data,
+  valueType,
+}: {
+  data: Data["data"];
+  valueType?: VALUE_TYPE;
+}): string[] | null => {
   if (!valueType || !data) return null;
   if (valueType === "resource") {
-    return compact(
-      uniq(
-        Object.entries(data.data)
-          .filter(([key]) => key.includes("title"))
-          .map(([, value]) => value as string),
-      ),
-    );
-  } else if (valueType === "text") {
-    return compact(uniq(Object.values(data.data).map((value) => value as string)));
-  } else {
-    return [];
+    return ["minValue", "maxValue"];
   }
+
+  if (valueType === "text") {
+    return compact(uniq(Object.values(data).map((value) => value as string)));
+  }
+
+  if (valueType === "number") {
+    return ["minValue", "maxValue"];
+  }
+
+  if (valueType === "boolean") {
+    return ["true", "false"];
+  }
+
+  return [];
 };
 
-const getDefaultValues = (
-  categories: string[],
-  valueType?: VALUE_TYPE,
-): Record<string, any> | null => {
-  if (!valueType || !categories) return null;
+const getDefaultValues = ({
+  categories,
+  valueType,
+}: {
+  categories: string[] | null;
+  valueType?: VALUE_TYPE;
+}): Record<string, string | number> => {
+  if (!valueType || !categories) return {};
   switch (valueType) {
     case "boolean":
       return { true: "", false: "" };
     case "number":
       return { minValue: "", maxValue: "" };
     case "resource":
+      return { minValue: "", maxValue: "" };
     case "text":
       return categories.reduce(
         (acc, category) => {
-          acc[category] = "";
-          return acc;
+          return {
+            ...acc,
+            [category]: "",
+          };
         },
-        {} as Record<string, string> | null,
+        {} as Record<string, string | number>,
       );
     default:
       return {};
@@ -145,33 +167,30 @@ const getDefaultValues = (
 export default function NewDatasetColorsForm({
   id,
   title,
-  data,
+  data: rawData,
   onSubmit,
 }: {
   id: string;
   title: string;
   data: Data;
   onSubmit: (data: Data["colors"]) => void;
-  valueType?: VALUE_TYPE;
 }) {
+  const data = rawData.data;
   const { replace } = useRouter();
   const URLParams = useSyncSearchParams();
 
-  const valueType = data?.settings?.valueType;
-  const categoriesData = data.data;
+  const valueType = rawData?.settings?.valueType;
 
-  console.log(categoriesData);
+  const categories = getCategories({ data, valueType });
 
-  const categories = getCategories(categoriesData, valueType);
-  const defaultValues = getDefaultValues(categories, valueType);
-  const formSchema = getFormSchema(categories, valueType);
+  const defaultValues = getDefaultValues({ categories, valueType });
+  const formSchema = getFormSchema({ categories, valueType });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
 
   const handleCancel = () => {
-    console.log("handle cancel", id, title);
     // onSubmit(DATA_INITIAL_VALUES.colors);
     replace(`/?${URLParams.toString()}`);
   };
@@ -179,7 +198,6 @@ export default function NewDatasetColorsForm({
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       // Save this into useState
-      console.log(values);
       onSubmit(values);
     },
     [onSubmit],
@@ -191,38 +209,82 @@ export default function NewDatasetColorsForm({
     <>
       <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
       <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={data} id={id} />
+        <NewDatasetNavigation data={rawData} id={id} />
         <StepDescription />
 
         <Form {...form}>
           <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
             <fieldset className="grid grid-cols-2 gap-6">
               {/* {valueType === "number" && <DynamicForm form={form} />} */}
-              {valueType === "resource" ||
-                (valueType === "text" &&
-                  categories?.map((category) => (
-                    <>
-                      <FormField
-                        control={form.control}
-                        name="minValue"
-                        render={({ field }) => (
-                          <FormItem className="space-y-1.5">
-                            <FormLabel className="text-xs font-semibold">{category}</FormLabel>
-                            <FormControl>
-                              <ColorPicker
-                                id="color"
-                                value={field.value}
-                                onChange={(e) => {
-                                  return field.onChange(e.target.value);
-                                }}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </>
-                  )))}
+              {valueType === "text" &&
+                categories?.map((category) => (
+                  <FormField
+                    key={category}
+                    control={form.control}
+                    name={category}
+                    render={({ field }) => (
+                      <FormItem className="space-y-1.5">
+                        <FormLabel className="text-xs font-semibold">{category}</FormLabel>
+                        <FormControl>
+                          <ColorPicker
+                            id="color"
+                            value={field.value}
+                            onChange={(e) => {
+                              return field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ))}
+
+              {(valueType === "number" || valueType === "resource") && (
+                <>
+                  <FormField
+                    key="minValue"
+                    control={form.control}
+                    name="minValue"
+                    render={({ field }) => (
+                      <FormItem className="space-y-1.5">
+                        <FormLabel className="text-xs font-semibold">Min value</FormLabel>
+                        <FormControl>
+                          <ColorPicker
+                            id="color"
+                            value={field.value}
+                            onChange={(e) => {
+                              return field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    key="maxValue"
+                    control={form.control}
+                    name="maxValue"
+                    render={({ field }) => (
+                      <FormItem className="space-y-1.5">
+                        <FormLabel className="text-xs font-semibold">Max value</FormLabel>
+                        <FormControl>
+                          <ColorPicker
+                            id="color"
+                            value={field.value}
+                            onChange={(e) => {
+                              return field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
 
               {valueType === "boolean" && (
                 <>

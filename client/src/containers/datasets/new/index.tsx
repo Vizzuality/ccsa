@@ -22,8 +22,7 @@ export interface Data {
   data: { [key: string]: string | number };
   colors: Record<string, string>;
 }
-
-export const DATA_INITIAL_VALUES: Data = {
+export const DATA_INITIAL_VALUES_2: Data = {
   settings: {
     name: "",
     description: "",
@@ -35,9 +34,69 @@ export const DATA_INITIAL_VALUES: Data = {
   colors: {},
 };
 
+// type number
+// settings: {
+//   name: "Test",
+//   description: "Test description",
+//   valueType: "number",
+//   category: 1,
+//   unit: "test",
+// },
+// data: {
+//   "AIA-number": 100,
+//   "BRB-number": 200,
+//   "BES-number": 1000,
+// },
+// colors: {},
+
+// type resource
+// settings: {
+//   name: "Test",
+//   description: "Test description",
+//   valueType: "resource",
+//   category: 1,
+//   unit: "test",
+// },
+// data: {
+//   "AIA-title": "Resource title",
+//   "AIA-description": "Resource description",
+//   "AIA-link": "http://google.com",
+//   "BRB-title": "Resource title",
+//   "BRB-description": "Resource description",
+//   "BRB-link": "http://google.com",
+//   "BES-title": "Resource title",
+//   "BES-description": "Resource description",
+//   "BES-link": "http://google.com",
+// },
+// colors: {},
+
+export const DATA_HARCODED_VALUES: Data = {
+  settings: {
+    name: "Test",
+    description: "Test description",
+    valueType: "resource",
+    category: 1,
+    unit: "test",
+  },
+  data: {
+    "AIA-title": "Resource title",
+    "AIA-description": "Resource description",
+    "AIA-link": "http://google.com",
+    "BRB-title": "Resource title 2",
+    "BRB-description": "Resource description",
+    "BRB-link": "http://google.com",
+    "BES-title": "Resource title 3",
+    "BES-description": "Resource description",
+    "BES-link": "http://google.com",
+  },
+  colors: {},
+};
+
 export default function NewDatasetForm() {
   // const { replace } = useRouter();
   const [step, setStep] = useSyncDatasetStep();
+
+  const DATA_INITIAL_VALUES = DATA_HARCODED_VALUES;
 
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
 
@@ -121,6 +180,8 @@ export default function NewDatasetForm() {
   const handleColorsSubmit = useCallback(
     (values: Data["colors"]) => {
       setFormValues({ ...formValues, colors: values });
+
+      console.log("Dataset", { ...formValues, colors: values });
       // TO - DO mutation to datasetEditsuggestion
     },
     [formValues],
