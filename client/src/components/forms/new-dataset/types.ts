@@ -30,4 +30,4 @@ export type DATA_COLUMN =
   | BooleanDataColumn
   | ResourceDataColumn;
 
-export type FormSchemaType = Record<string, string | number>;
+export type FormSchemaType = Record<string, string | number | undefined>;

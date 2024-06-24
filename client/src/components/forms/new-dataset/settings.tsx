@@ -1,22 +1,16 @@
 "use client";
 
-import { useRef, useImperativeHandle, useCallback } from "react";
+import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtom } from "jotai";
-import { isEmpty } from "lodash-es";
-import { useSession } from "next-auth/react";
 import { z } from "zod";
-
-import { compareData } from "@/lib/utils/objects";
 
 import { useGetCategories } from "@/types/generated/category";
 
-import { datasetFormStepAtom } from "@/app/store";
 import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
@@ -51,16 +45,13 @@ import NewDatasetDataFormWrapper from "./wrapper";
 
 export default function NewDatasetSettingsForm({
   data,
-  onClick,
+  onSubmit,
 }: {
-  data: Data;
-  onClick: (data: Data) => void;
+  data: Data["settings"];
+  onSubmit: (data: Data["settings"]) => void;
 }) {
   const { replace } = useRouter();
   const URLParams = useSyncSearchParams();
-  const [, setStep] = useAtom(datasetFormStepAtom);
-  const { data: session } = useSession();
-  const user = session?.user;
 
   const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
     query: {
@@ -68,10 +59,9 @@ export default function NewDatasetSettingsForm({
     },
   });
 
-  const categoriesList = categoriesData?.data?.map(({ attributes }) => attributes?.name);
-  const categoriesOptions = categoriesList?.map((category) => ({
-    label: category,
-    value: category,
+  const categoriesOptions = categoriesData?.data?.map((c) => ({
+    label: c.attributes?.name || "",
+    value: c.id || 0,
   }));
 
   const valueTypes = ["text", "number", "boolean", "resource"] as const;
@@ -80,14 +70,10 @@ export default function NewDatasetSettingsForm({
     value: type,
   }));
 
-  if (categoriesList?.length === 0) {
-    throw new Error("categoriesList cannot be empty");
-  }
-
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter your name" }),
     valueType: z.enum(valueTypes),
-    category: z.enum(categoriesList),
+    category: z.number(),
     unit: z
       .string()
       .refine((val) => val === "" || (val && typeof val === "string"), {
@@ -95,82 +81,34 @@ export default function NewDatasetSettingsForm({
       })
       .optional(),
     description: z.string().min(6, {
-      message: "Please enter a password with at least 6 characters",
+      message: "Please enter a description with at least 6 characters",
     }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      valueType: undefined,
-      category: "",
-      unit: "",
+      name: data.name,
+      valueType: data.valueType,
+      category: data.category,
+      unit: data.unit,
+      description: data.description,
     },
   });
 
-  // const { mutate: mutateDatasets } = usePostDatasets({
-  //   mutation: {
-  //     onSuccess: (data) => {
-  //       queryClient.invalidateQueries(["/datasets"]);
-  //     },
-  //     onError: (error) => {
-  //       console.error("Error creating dataset:", error);
-  //     },
-  //   },
-  //   request: {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${user?.apiToken}`,
-  //     },
-  //   },
-  // });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    onClick({ ...data, settings: { ...data.settings, ...values } });
-    // mutateDatasets({ data: values });
-  }
-
-  const formRef = useRef<{ submitForm: () => void } | null>(null);
-
-  useImperativeHandle(formRef, () => ({
-    submitForm() {
-      form.handleSubmit(onSubmit)();
-    },
-  }));
-
-  const handleScreen = useCallback(async () => {
-    const areEqualValues = compareData(form.getValues(), data.settings);
-    if (isEmpty(data.settings)) {
-      await form.handleSubmit(onSubmit)();
-      setStep(2);
-    }
-
-    if (!areEqualValues && !isEmpty(data.settings)) {
-      const currentValues = form.getValues();
-      const fieldsToUpdate = form.formState.dirtyFields;
-
-      Object.keys(currentValues).forEach((key) => {
-        if (fieldsToUpdate[key]) {
-          form.setValue(key, currentValues[key]);
-        } else {
-          form.setValue(key, data.settings[key]);
-        }
-      });
-      await form.handleSubmit(onSubmit)();
-      setStep(2);
-    }
-
-    if (form.formState.isValid && isEmpty(data.settings)) {
-      await form.handleSubmit(onSubmit)();
-      setStep(2);
-    }
-  }, [setStep, form, data.settings]);
-
   const handleCancel = () => {
-    onClick(DATA_INITIAL_VALUES);
+    onSubmit(DATA_INITIAL_VALUES.settings);
     replace(`/?${URLParams.toString()}`);
   };
+
+  const handleSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      // Save this into useState
+      console.log(values);
+      onSubmit(values);
+    },
+    [onSubmit],
+  );
 
   return (
     <>
@@ -180,15 +118,10 @@ export default function NewDatasetSettingsForm({
           <Button size="sm" variant="primary-outline" onClick={handleCancel}>
             Cancel
           </Button>
-          {isEmpty(data.settings) || isEmpty(data.data) || isEmpty(data.colors) ? (
-            <Button size="sm" onClick={handleScreen}>
-              Continue
-            </Button>
-          ) : (
-            <Button size="sm" onClick={() => formRef.current?.submitForm()}>
-              Submit
-            </Button>
-          )}
+
+          <Button form="dataset-settings" size="sm" type="submit">
+            Continue
+          </Button>
         </div>
       </div>
       <NewDatasetDataFormWrapper>
@@ -196,7 +129,11 @@ export default function NewDatasetSettingsForm({
         <StepDescription />
 
         <Form {...form}>
-          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            id="dataset-settings"
+            className="space-y-4"
+            onSubmit={form.handleSubmit(handleSubmit)}
+          >
             <fieldset className="w-full max-w-5xl gap-4 sm:grid sm:grid-cols-2 md:gap-6">
               <FormField
                 control={form.control}
@@ -207,9 +144,9 @@ export default function NewDatasetSettingsForm({
                     <FormControl>
                       <Input
                         {...field}
-                        value={field.value || data.settings.name}
+                        value={field.value}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder={data.settings.name || "Name"}
+                        placeholder={data.name || "Name"}
                       />
                     </FormControl>
                     <FormMessage />
@@ -223,16 +160,13 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value || data.settings.value_type}
-                      >
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger className="h-10 w-full">
-                          <SelectValue placeholder={data.settings.value_type || "Select one"} />
+                          <SelectValue placeholder={"Select one"} />
                         </SelectTrigger>
                         <SelectContent>
                           {valueTypesOptions?.map(({ label, value }) => (
-                            <SelectItem key={value} value={value as string}>
+                            <SelectItem key={value} value={value}>
                               {label}
                             </SelectItem>
                           ))}
@@ -250,16 +184,13 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Category</FormLabel>
                     <FormControl>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value || data.settings.category}
-                      >
+                      <Select onValueChange={(v) => field.onChange(+v)} value={`${field.value}`}>
                         <SelectTrigger className="h-10 w-full">
-                          <SelectValue placeholder={data.settings.category || "Select one"} />
+                          <SelectValue placeholder={"Select one"} />
                         </SelectTrigger>
                         <SelectContent>
                           {categoriesOptions?.map(({ label, value }) => (
-                            <SelectItem key={value} value={value as string}>
+                            <SelectItem key={value} value={`${value}`}>
                               {label}
                             </SelectItem>
                           ))}
@@ -282,9 +213,9 @@ export default function NewDatasetSettingsForm({
                     <FormControl>
                       <Input
                         {...field}
-                        value={field.value || data.settings.unit}
+                        value={field.value}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder={data.settings.unit || "unit"}
+                        placeholder={data.unit || "unit"}
                       />
                     </FormControl>
                     <FormMessage />
@@ -300,9 +231,9 @@ export default function NewDatasetSettingsForm({
                     <FormControl>
                       <Textarea
                         {...field}
-                        value={field.value || data.settings.description}
+                        value={field.value}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder={data.settings.description || "Add a description"}
+                        placeholder={"Add a description"}
                       />
                     </FormControl>
                     <FormMessage />

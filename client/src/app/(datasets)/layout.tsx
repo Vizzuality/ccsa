@@ -1,13 +1,9 @@
 import Link from "next/link";
 
 import { dehydrate, Hydrate } from "@tanstack/react-query";
-import { getServerSession } from "next-auth";
 
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-
-import { NewDatasetFormControls } from "@/components/new-dataset/form-controls";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -32,13 +28,13 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink>
+                  <BreadcrumbLink asChild>
                     <Link href="/">Map</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink>
+                  <BreadcrumbLink asChild>
                     <Link href="/dashboard">My profile</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
