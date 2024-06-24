@@ -1,9 +1,9 @@
 import React from "react";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { Input } from "./input";
-import { LuCheck, LuChevronDown, LuChevronUp } from "react-icons/lu";
+import { LuChevronDown, LuChevronUp } from "react-icons/lu";
 
 type ColorPickerProps = {
   id: string;
@@ -12,6 +12,8 @@ type ColorPickerProps = {
 };
 
 const ColorPicker: FC<ColorPickerProps> = ({ id, value, onChange }: ColorPickerProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="relative flex items-center justify-center">
       <Input
@@ -19,6 +21,7 @@ const ColorPicker: FC<ColorPickerProps> = ({ id, value, onChange }: ColorPickerP
         type="color"
         value={value}
         onChange={onChange}
+        onClick={() => setIsOpen(!isOpen)}
         className="absolute inset-0 top-2 h-full w-full cursor-pointer opacity-0"
       />
       <div className="flex h-full w-full items-center justify-between rounded-md border border-input bg-white p-2">
@@ -28,7 +31,7 @@ const ColorPicker: FC<ColorPickerProps> = ({ id, value, onChange }: ColorPickerP
           )}
           <span className="text-sm">{value || "Select one"}</span>
         </div>
-        <LuChevronDown className="h-4 w-4" />
+        {isOpen ? <LuChevronUp /> : <LuChevronDown className="h-4 w-4" />}
       </div>
     </div>
   );

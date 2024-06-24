@@ -35,18 +35,24 @@ import {
 } from "@/components/ui/form";
 import { getFormSchema } from "./data-form-schema";
 
-function compareData(obj1, obj2) {
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
+import { useSyncSearchParams } from "@/app/store";
+import { useRouter } from "next/navigation";
 
-  if (keys1.length !== keys2.length) {
-    return false; // Objects have different number of properties
-  }
+import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 
-  return keys1.every((key) => obj1[key] === obj2[key]);
-}
+import { compareData } from "@/lib/utils/objects";
 
-export default function NewDatasetDataForm({ data, onClick }) {
+import type { Data } from "@/containers/datasets/new";
+
+export default function NewDatasetDataForm({
+  data,
+  onClick,
+}: {
+  data: Data;
+  onClick: (data: Data) => void;
+}) {
+  const { replace } = useRouter();
+  const URLParams = useSyncSearchParams();
   const [currentStep, setStep] = useAtom(datasetFormStepAtom);
 
   const { data: countriesData, isLoading } = useGetCountries(GET_COUNTRIES_OPTIONS);
@@ -61,7 +67,7 @@ export default function NewDatasetDataForm({ data, onClick }) {
 
   const countries = ["AIA", "MEX", "USA"];
 
-  const valueType = data.settings.valueType;
+  const valueType = data.settings.value_type;
 
   const formSchema = useMemo(
     () => getFormSchema(valueType as VALUE_TYPE, countries),
@@ -112,7 +118,6 @@ export default function NewDatasetDataForm({ data, onClick }) {
     );
     const areEqualValues = compareData(form.getValues(), data.data);
     if (isEmpty(data.data)) {
-      console.log("empty data");
       await form.handleSubmit(onSubmit)();
       setStep(3);
     }
@@ -142,12 +147,17 @@ export default function NewDatasetDataForm({ data, onClick }) {
 
   const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
 
+  const handleCancel = () => {
+    onClick(DATA_INITIAL_VALUES);
+    replace(`/?${URLParams.toString()}`);
+  };
+
   return (
     <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
-          <Button size="sm" variant="primary-outline">
+          <Button size="sm" variant="primary-outline" onClick={handleCancel}>
             Cancel
           </Button>
           {(isEmpty(data.settings) || isEmpty(data.data)) && (

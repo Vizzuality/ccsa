@@ -19,8 +19,8 @@ export default function NewDatasetPagePage() {
   const Description = STEPS[currentStep];
 
   return (
-    <p className="text-xs font-light">
+    <div className="text-xs font-light">
       <Description />
-    </p>
+    </div>
   );
 }

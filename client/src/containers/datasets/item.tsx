@@ -2,6 +2,8 @@
 
 import Markdown from "react-markdown";
 
+import Link from "next/link";
+
 import { useAtomValue } from "jotai";
 import { useSession } from "next-auth/react";
 import { LuInfo } from "react-icons/lu";
@@ -10,7 +12,6 @@ import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
 
 import { datasetSearchAtom, useSyncDatasets, useSyncLayers } from "@/app/store";
 
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SearchHighlight from "@/components/ui/search-highlight";
@@ -72,9 +73,12 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
       </div>
       <div className="flex items-center space-x-2.5">
         {user && (
-          <Button size="sm" className="text-xxs">
+          <Link
+            href="/datasets/edit"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 py-1 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
+          >
             Edit
-          </Button>
+          </Link>
         )}
 
         <Dialog>

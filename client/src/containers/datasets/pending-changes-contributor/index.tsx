@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/classnames";
+
 import {
   Table,
   TableBody,
@@ -14,7 +15,7 @@ import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-sug
 
 import { formatDate } from "@/lib/utils/formats";
 
-export default function PersonalDataForm() {
+export default function DatasetPendingChangesContributor() {
   const { data: suggestions } = useGetDatasetEditSuggestions();
 
   const data = suggestions?.data;
@@ -34,7 +35,7 @@ export default function PersonalDataForm() {
         <TableBody>
           {data?.map((suggestion) => (
             <TableRow key={suggestion?.attributes?.createdAt}>
-              <TableCell className="font-medium">Dataset </TableCell>
+              <TableCell className="whitespace-nowrap font-medium">Dataset </TableCell>
               <TableCell>{suggestion?.attributes?.name}</TableCell>
               <TableCell>
                 <span

@@ -24,29 +24,44 @@ import {
 
 import NewDatasetDataFormWrapper from "./wrapper";
 import ColorPicker from "@/components/ui/colorpicker";
-import { get } from "http";
+
 import { VALUE_TYPE } from "./types";
 
-type Data = { [key: string]: string };
+import type { Data } from "@/containers/datasets/new";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
 const getBooleanFormSchema = () =>
   z.object({
-    true: z.string().min(1, { message: "Please enter a color for TRUE" }),
-    false: z.string().min(1, { message: "Please enter a color for FALSE" }),
+    true: z
+      .string()
+      .min(1, { message: "Please enter a color for TRUE" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for TRUE" }),
+    false: z
+      .string()
+      .min(1, { message: "Please enter a color for FALSE" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for FALSE" }),
   });
 
 const getNumberFormSchema = () =>
   z.object({
-    minValue: z.number(),
-    maxValue: z.number(),
+    minValue: z
+      .string()
+      .min(1, { message: "Please enter a color for TRUE" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for TRUE" }),
+    maxValue: z
+      .string()
+      .min(1, { message: "Please enter a color for FALSE" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for FALSE" }),
   });
 
 const getResourceFormSchema = (categories: string[]): z.ZodObject<z.ZodRawShape> => {
   const schemaShape = categories.reduce(
     (acc, category) => {
-      acc[category] = z.string().min(1, { message: "Please enter a title" });
+      acc[category] = z
+        .string()
+        .min(1, { message: "Please enter a title" })
+        .regex(hexColorRegex, { message: "Please enter a valid hex color" });
       return acc;
     },
     {} as Record<string, z.ZodString>,
@@ -58,7 +73,10 @@ const getResourceFormSchema = (categories: string[]): z.ZodObject<z.ZodRawShape>
 const getTextFormSchema = (categories: string[]): z.ZodObject<z.ZodRawShape> => {
   const schemaShape = categories.reduce(
     (acc, category) => {
-      acc[category] = z.string().min(1, { message: "Please enter a title" });
+      acc[category] = z
+        .string()
+        .min(1, { message: "Please enter a title" })
+        .regex(hexColorRegex, { message: "Please enter a valid hex color" });
       return acc;
     },
     {} as Record<string, z.ZodString>,
@@ -97,16 +115,41 @@ const getCategories = (valueType: VALUE_TYPE, data: Data): string[] => {
   }
 };
 
-export default function NewDatasetColorsForm({ data, onClick }) {
-  const categories = getCategories(data.settings.valueType, data);
-  const valueType = data.settings.valueType;
+const getDefaultValues = (valueType: VALUE_TYPE, categories: string[]): Record<string, any> => {
+  switch (valueType) {
+    case "boolean":
+      return { true: "", false: "" };
+    case "number":
+      return { minValue: "", maxValue: "" };
+    case "resource":
+    case "text":
+      return categories.reduce(
+        (acc, category) => {
+          acc[category] = "";
+          return acc;
+        },
+        {} as Record<string, string>,
+      );
+    default:
+      return {};
+  }
+};
+
+export default function NewDatasetColorsForm({
+  data,
+  onClick,
+}: {
+  data: Data;
+  onClick: (data: Data) => void;
+}) {
+  const categories = getCategories(data.settings.value_type, data);
+  const valueType = data.settings.value_type;
   const formSchema = getFormSchema(valueType, categories);
+  const defaultValues = getDefaultValues(valueType, categories);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      maxValue: "",
-      minValue: "",
-    },
+    defaultValues,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -122,7 +165,7 @@ export default function NewDatasetColorsForm({ data, onClick }) {
     },
   }));
 
-  if (valueType === "resoruce") {
+  if (valueType === "resource") {
     console.log("resource");
   }
 
@@ -152,117 +195,77 @@ export default function NewDatasetColorsForm({ data, onClick }) {
 
         <Form {...form}>
           <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-            {/* {valueType === "number" && <DynamicForm form={form} />} */}
-            {valueType === "resource" ||
-              (valueType === "text" &&
-                categories?.map((category) => (
-                  <>
-                    <FormField
-                      control={form.control}
-                      name="minValue"
-                      render={({ field }) => (
-                        <FormItem className="w-[260px] space-y-1.5">
-                          <FormLabel className="text-xs font-semibold">{category}</FormLabel>
-                          <FormControl>
-                            <ColorPicker
-                              id="color"
-                              value={field.value}
-                              onChange={(e) => {
-                                return field.onChange(e.target.value);
-                              }}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </>
-                )))}
-            {valueType === "text" && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="minValue"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">Min value</FormLabel>
-                      <FormControl>
-                        <ColorPicker
-                          id="color"
-                          value={field.value}
-                          onChange={(e) => {
-                            return field.onChange(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="maxValue"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">Max value</FormLabel>
-                      <FormControl>
-                        <ColorPicker
-                          id="color"
-                          value={field.value}
-                          onChange={(e) => {
-                            return field.onChange(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
+            <fieldset className="grid grid-cols-2 gap-6">
+              {/* {valueType === "number" && <DynamicForm form={form} />} */}
+              {valueType === "resource" ||
+                (valueType === "text" &&
+                  categories?.map((category) => (
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="minValue"
+                        render={({ field }) => (
+                          <FormItem className="space-y-1.5">
+                            <FormLabel className="text-xs font-semibold">{category}</FormLabel>
+                            <FormControl>
+                              <ColorPicker
+                                id="color"
+                                value={field.value}
+                                onChange={(e) => {
+                                  return field.onChange(e.target.value);
+                                }}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>
+                  )))}
 
-            {valueType === "boolean" && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="true"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">Value for TRUE</FormLabel>
-                      <FormControl>
-                        <ColorPicker
-                          id="color"
-                          value={field.value}
-                          onChange={(e) => {
-                            return field.onChange(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="false"
-                  render={({ field }) => (
-                    <FormItem className="w-[260px] space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">Value for FALSE</FormLabel>
-                      <FormControl>
-                        <ColorPicker
-                          id="color"
-                          value={field.value}
-                          onChange={(e) => {
-                            return field.onChange(e.target.value);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
+              {valueType === "boolean" && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="true"
+                    render={({ field }) => (
+                      <FormItem className="space-y-1.5">
+                        <FormLabel className="text-xs font-semibold">Value for TRUE</FormLabel>
+                        <FormControl>
+                          <ColorPicker
+                            id="color"
+                            value={field.value}
+                            onChange={(e) => {
+                              return field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="false"
+                    render={({ field }) => (
+                      <FormItem className="space-y-1.5">
+                        <FormLabel className="text-xs font-semibold">Value for FALSE</FormLabel>
+                        <FormControl>
+                          <ColorPicker
+                            id="color"
+                            value={field.value}
+                            onChange={(e) => {
+                              return field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+            </fieldset>
 
             <Button type="submit" className="hidden">
               Submit

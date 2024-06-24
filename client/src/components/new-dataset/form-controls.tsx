@@ -2,11 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 
-import { useFormContext } from "react-hook-form";
-
 import { z } from "zod";
 
-export const NewDatasetFormControls = ({ onClick }) => {
+export const NewDatasetFormControls = ({ onClick }: any) => {
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter your name" }),
     valueType: z.string().email({ message: "Please enter your email address" }),

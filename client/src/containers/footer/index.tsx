@@ -17,12 +17,12 @@ const Footer = (): JSX.Element => {
             </Link>{" "}
           </p>
         ) : (
-          <p className="text-center text-sm">
+          <div className="text-center text-sm">
             <span className="font-light">Already have an account? </span>
             <Link className="font-semibold text-primary underline" href="/signin">
               Log in
             </Link>{" "}
-          </p>
+          </div>
         )}
       </Link>
     </div>

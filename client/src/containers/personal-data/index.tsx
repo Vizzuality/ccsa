@@ -191,6 +191,7 @@ export default function PersonalDataForm() {
                 <fieldset className="flex flex-col space-y-4">
                   {FORM_DATA_FIELDS.map(({ name, label, type, placeholder }) => (
                     <FormField
+                      key={label}
                       control={formData.control}
                       name={name}
                       render={({ field }) => (
@@ -228,6 +229,7 @@ export default function PersonalDataForm() {
                 <fieldset className="space-y-4">
                   {FORM_PASSWORD_FIELDS.map(({ name, label, type, placeholder }) => (
                     <FormField
+                      key={label}
                       control={formPassword.control}
                       name={name}
                       render={({ field }) => (

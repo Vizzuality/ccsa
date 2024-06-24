@@ -1,6 +1,6 @@
 export default function Step2() {
   return (
-    <p className="text-xs font-light">
+    <span className="text-xs font-light">
       Add data manually or{" "}
       <button
         type="button"
@@ -9,6 +9,6 @@ export default function Step2() {
       >
         import a CSV
       </button>
-    </p>
+    </span>
   );
 }

@@ -26,6 +26,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import useTableData from "./utils";
+
 const CSV_CONFIG = mkConfig({
   filename: `CCSA-data-`,
   useKeysAsHeaders: true,
@@ -51,37 +53,43 @@ const CountryDownloadDialog = () => {
 
   const csvData = useMemo(() => {
     const data =
-      datasetsData?.data
-        ?.sort((a, b) => {
-          if (!a.id || !b.id) return 0;
-          return datasets.indexOf(b.id) - datasets.indexOf(a.id);
-        })
-        ?.map((d) => {
-          const { id, attributes } = d;
-          const values = (attributes?.datum as Record<string, string | number>[]).filter((d1) =>
-            [country, ...countriesComparison].includes(`${d1.iso3}`),
-          );
+      TABLE_ROWS_DATA?.map((d) =>
+        d.values.reduce(
+          (acc, curr) => {
+            const value = curr.isResource
+              ? curr.resources?.length
+                ? curr.resources?.map((r) => r.link_title).join(", ")
+                : undefined
+              : typeof curr.value === "number" ||
+                typeof curr.value === "string" ||
+                typeof curr.value === "boolean"
+              ? curr.value
+              : undefined;
+            return {
+              ...acc,
+              ...(curr.countryName ? { [curr.countryName]: value } : {}),
+            };
+          },
+          { dataset: d.name, "dataset unit": d.unit || undefined },
+        ),
+      ) ?? [];
 
-          return {
-            id,
-            unit: attributes?.unit ?? "",
-            name: attributes?.name ?? "",
-            ...values.reduce((acc, v) => {
-              const C = countriesData?.data?.find((c1) => c1.attributes?.iso3 === v.iso3);
-              return {
-                ...acc,
-                [C?.attributes?.name ?? ""]: v.value ?? "",
-              };
-            }, {}),
-          };
-        }) ?? [];
+    const countries =
+      TABLE_ROWS_DATA?.[0]?.values.reduce(
+        (acc, curr) =>
+          !!curr.countryName ? { ...acc, [curr.countryName]: curr.countryLink } : acc,
+        {},
+      ) ?? [];
 
-    if (!data.length) return null;
+    const dataWithCoutryLinks = [
+      ...data,
+      { dataset: "CCSA link", "dataset unit": "", ...countries },
+    ];
 
-    const CSV = generateCsv(CSV_CONFIG)(data);
+    const CSV = generateCsv(CSV_CONFIG)(dataWithCoutryLinks);
 
     return CSV;
-  }, [country, datasets, countriesComparison, datasetsData?.data, countriesData?.data]);
+  }, [TABLE_ROWS_DATA]);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     // check if email exists
@@ -179,8 +187,8 @@ const CountryDownloadDialog = () => {
                     if (!csvData) return;
                     download({
                       ...CSV_CONFIG,
-                      filename: `${CSV_CONFIG.filename}${new Date().toISOString()}.csv`,
-                    })(CSV_DATA);
+                      filename: `${CSV_CONFIG.filename}${new Date().toISOString()}`,
+                    })(csvData);
                   }}
                 >
                   Download

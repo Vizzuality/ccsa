@@ -32,25 +32,32 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
+
+import { useSyncSearchParams } from "@/app/store";
+
+import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
-import { usePostDatasets } from "@/types/generated/dataset";
+// import { usePostDatasets } from "@/types/generated/dataset";
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 import NewDatasetDataFormWrapper from "./wrapper";
 import { useGetCategories } from "@/types/generated/category";
 
-function compareData(obj1, obj2) {
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
+import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 
-  if (keys1.length !== keys2.length) {
-    return false; // Objects have different number of properties
-  }
+import { compareData } from "@/lib/utils/objects";
 
-  return keys1.every((key) => obj1[key] === obj2[key]);
-}
+import type { Data } from "@/containers/datasets/new";
 
-export default function NewDatasetSettingsForm({ data, onClick }) {
-  const [currentStep, setStep] = useAtom(datasetFormStepAtom);
+export default function NewDatasetSettingsForm({
+  data,
+  onClick,
+}: {
+  data: Data;
+  onClick: (data: Data) => void;
+}) {
+  const { replace } = useRouter();
+  const URLParams = useSyncSearchParams();
+  const [, setStep] = useAtom(datasetFormStepAtom);
   const { data: session } = useSession();
   const user = session?.user;
 
@@ -66,16 +73,20 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
     value: category,
   }));
 
-  const valueTypes = ["text", "number", "boolean", "resource"];
+  const valueTypes = ["text", "number", "boolean", "resource"] as const;
   const valueTypesOptions = valueTypes.map((type) => ({
     label: type,
     value: type,
   }));
 
+  if (categoriesList?.length === 0) {
+    throw new Error("categoriesList cannot be empty");
+  }
+
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter your name" }),
-    valueType: z.enum(valueTypes, { message: "Please select one type of value" }),
-    category: z.enum(categoriesList, { message: "Please select one category from the list" }),
+    valueType: z.enum(valueTypes),
+    category: z.enum(categoriesList),
     unit: z
       .string()
       .refine((val) => val === "" || (val && typeof val === "string"), {
@@ -91,7 +102,7 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      valueType: "",
+      valueType: undefined,
       category: "",
       unit: "",
     },
@@ -155,12 +166,17 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
     }
   }, [setStep, form, data.settings]);
 
+  const handleCancel = () => {
+    onClick(DATA_INITIAL_VALUES);
+    replace(`/?${URLParams.toString()}`);
+  };
+
   return (
     <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
         <h1 className="text-3xl font-bold -tracking-[0.0375rem]">New dataset</h1>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
-          <Button size="sm" variant="primary-outline">
+          <Button size="sm" variant="primary-outline" onClick={handleCancel}>
             Cancel
           </Button>
           {isEmpty(data.settings) || isEmpty(data.data) || isEmpty(data.colors) ? (
@@ -208,10 +224,10 @@ export default function NewDatasetSettingsForm({ data, onClick }) {
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
-                        value={field.value || data.settings.valueType}
+                        value={field.value || data.settings.value_type}
                       >
                         <SelectTrigger className="h-10 w-full">
-                          <SelectValue placeholder={data.settings.valueType || "Select one"} />
+                          <SelectValue placeholder={data.settings.value_type || "Select one"} />
                         </SelectTrigger>
                         <SelectContent>
                           {valueTypesOptions?.map(({ label, value }) => (

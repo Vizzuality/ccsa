@@ -4,14 +4,14 @@ import { useCallback } from "react";
 
 import isEmpty from "lodash-es/isEmpty";
 
-import { useSetAtom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { SlPencil } from "react-icons/sl";
 
 import { datasetFormStepAtom } from "@/app/store";
 
 import { Separator } from "@/components/ui/separator";
 
-type Steps = "settings" | "data" | "colors";
+// type Steps = "settings" | "data" | "colors";
 
 const STEPS = [
   {

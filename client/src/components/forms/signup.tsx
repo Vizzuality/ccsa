@@ -4,7 +4,11 @@ import { useForm } from "react-hook-form";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from "react-simple-captcha";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "@vinhpd/react-simple-captcha";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";

@@ -1,9 +1,6 @@
 import { Metadata } from "next";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import PersonalData from "@/containers/personal-data";
-import DatasetsChanges from "@/containers/datasets/suggestions";
+import DashboardContent from "@/containers/dashboard";
 
 export const metadata: Metadata = {
   title: "Dashboard | Caribbean Climate smart map",
@@ -13,18 +10,7 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <div className="w-full">
-      <Tabs defaultValue="changes" className="w-full divide-y-2 divide-gray-300/20">
-        <TabsList className="p-4 sm:px-10 md:px-24 lg:px-32">
-          <TabsTrigger value="changes">Pending changes</TabsTrigger>
-          <TabsTrigger value="account">Personal data</TabsTrigger>
-        </TabsList>
-        <TabsContent value="changes">
-          <DatasetsChanges />
-        </TabsContent>
-        <TabsContent value="account">
-          <PersonalData />
-        </TabsContent>
-      </Tabs>
+      <DashboardContent />
     </div>
   );
 }

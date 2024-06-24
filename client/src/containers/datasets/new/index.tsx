@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 
-import { isEmpty } from "lodash-es";
-import { useFormContext } from "react-hook-form";
-
-import { useRouter } from "next/navigation";
-
-import { useQueryClient } from "@tanstack/react-query";
-
-import { useSession } from "next-auth/react";
+// import { useRouter } from "next/navigation";
 
 import { useAtom } from "jotai";
 import { datasetFormStepAtom } from "@/app/store";
@@ -17,30 +10,45 @@ import { datasetFormStepAtom } from "@/app/store";
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
-import { usePostDatasets } from "@/types/generated/dataset";
+// import { usePostDatasets } from "@/types/generated/dataset";
 import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 
-export default function NewDatasetForm() {
-  const { replace } = useRouter();
-  const [currentStep] = useAtom(datasetFormStepAtom);
-  const [newDatasetForm, setFormValues] = useState({
-    settings: {},
-    data: {},
-    colors: {},
-  });
+import type { Dataset } from "@/types/generated/strapi.schemas";
 
-  const { mutate } = usePostDatasets({
-    mutation: {
-      onSuccess: (data) => {
-        console.log("Success creating dataset:", data);
-        const searchParams = new URLSearchParams();
-        replace(`/signin?${searchParams.toString()}`);
-      },
-      onError: (error) => {
-        console.error("Error creating dataset:", error);
-      },
-    },
-  });
+export interface Data {
+  settings: Dataset;
+  data: { [key: string]: string | number };
+  colors: Record<string, string>;
+}
+
+export const DATA_INITIAL_VALUES: Data = {
+  settings: {
+    datum: null,
+    description: "",
+    name: "",
+    value_type: "text",
+  },
+  data: {},
+  colors: {},
+};
+
+export default function NewDatasetForm() {
+  // const { replace } = useRouter();
+  const [currentStep] = useAtom(datasetFormStepAtom);
+  const [newDatasetForm, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
+
+  // const { mutate } = usePostDatasets({
+  //   mutation: {
+  //     onSuccess: (data) => {
+  //       console.log("Success creating dataset:", data);
+  //       const searchParams = new URLSearchParams();
+  //       replace(`/signin?${searchParams.toString()}`);
+  //     },
+  //     onError: (error) => {
+  //       console.error("Error creating dataset:", error);
+  //     },
+  //   },
+  // });
 
   const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
     mutation: {
@@ -55,11 +63,11 @@ export default function NewDatasetForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values) {
-    // const fieldsToUpdate = form.formState.dirtyFields;
+  // function onSubmit(values) {
+  //   // const fieldsToUpdate = form.formState.dirtyFields;
 
-    mutate({ data: { email: values.email } });
-  }
+  //   mutate({ data: { email: values.email } });
+  // }
 
   const handleDataset = () => {
     mutateDatasetEditSuggestion({
@@ -69,6 +77,10 @@ export default function NewDatasetForm() {
             {
               iso3: "ABW",
               value: 8.069999694824219,
+              color: {
+                minValue: "#f7f7f7",
+                maxValue: "#084594",
+              },
             },
             {
               iso3: "AIA",
@@ -191,7 +203,7 @@ export default function NewDatasetForm() {
           name: "test 3 dataset name",
           review_status: "declined",
           unit: "",
-          value_type: "text",
+          value_type: "number",
         },
       },
     });

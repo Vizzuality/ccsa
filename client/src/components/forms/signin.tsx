@@ -48,11 +48,6 @@ export default function Signin() {
       email: values.email,
       password: values.password,
       callbackUrl: searchParams.get("callbackUrl") ?? "/",
-    }).then((response) => {
-      setError("Incorrect username or password");
-      setTimeout(() => {
-        setError(null);
-      }, 2500);
     });
   }
 
@@ -72,7 +67,6 @@ export default function Signin() {
                       {...field}
                       className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
                       placeholder="Email"
-                      onChange={() => setError(null)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -91,7 +85,6 @@ export default function Signin() {
                       {...field}
                       className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
                       placeholder="Password"
-                      onChange={() => setError(null)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -104,11 +97,12 @@ export default function Signin() {
             Sign in
           </Button>
         </form>
-        <p className="py-6 text-center text-sm font-semibold">
-          <Link className="text-primary underline" href="/reset-password">
-            Forgot your password?
-          </Link>
-        </p>
+        <Link
+          className="block py-6 text-center text-sm font-semibold text-primary underline"
+          href="/reset-password"
+        >
+          Forgot your password?
+        </Link>
       </Form>
     </div>
   );
