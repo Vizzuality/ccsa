@@ -12,6 +12,14 @@ const nextConfig = {
         protocol: "http",
         hostname: "0.0.0.0",
       },
+      {
+        protocol: "https",
+        hostname: "staging.ccsa.dev-vizzuality.com"
+      },
+      {
+        protocol: "https",
+        hostname: "map.caribbeanaccelerator.org"
+      },
     ],
   },
   webpack: (config) => {

@@ -7,8 +7,8 @@
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "id",
-      "defaultSortBy": "id",
+      "mainField": "button",
+      "defaultSortBy": "button",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
