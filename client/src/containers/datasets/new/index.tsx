@@ -5,15 +5,16 @@ import { useState } from "react";
 // import { useRouter } from "next/navigation";
 
 import { useAtom } from "jotai";
+
+import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+import type { Dataset } from "@/types/generated/strapi.schemas";
+
 import { datasetFormStepAtom } from "@/app/store";
 
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
 // import { usePostDatasets } from "@/types/generated/dataset";
-import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
-
-import type { Dataset } from "@/types/generated/strapi.schemas";
 
 export interface Data {
   settings: Dataset;

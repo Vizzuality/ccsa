@@ -2,9 +2,8 @@
 
 import { useCallback } from "react";
 
-import isEmpty from "lodash-es/isEmpty";
-
 import { useAtom } from "jotai";
+import isEmpty from "lodash-es/isEmpty";
 import { SlPencil } from "react-icons/sl";
 
 import { datasetFormStepAtom } from "@/app/store";

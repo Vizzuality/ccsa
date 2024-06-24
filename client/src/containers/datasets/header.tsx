@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
+
 import { useSession } from "next-auth/react";
 
 import { useSyncDatasets } from "@/app/store";
-
-import Link from "next/link";
 
 const DatasetsHeader = () => {
   const [datasets] = useSyncDatasets();

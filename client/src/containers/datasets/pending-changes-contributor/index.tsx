@@ -1,6 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/classnames";
+import { formatDate } from "@/lib/utils/formats";
+
+import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 
 import {
   Table,
@@ -10,10 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
-
-import { formatDate } from "@/lib/utils/formats";
 
 export default function DatasetPendingChangesContributor() {
   const { data: suggestions } = useGetDatasetEditSuggestions();

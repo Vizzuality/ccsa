@@ -1,9 +1,9 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import PersonalData from "@/containers/personal-data";
 import DatasetPendingChanges from "@/containers/datasets/pending-changes-contributor";
+import PersonalData from "@/containers/personal-data";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function DatasetPendingChangesContributor() {
   return (

@@ -1,18 +1,9 @@
 "use client";
 
-import { isEmpty } from "lodash-es";
-
 import { useRef, useImperativeHandle, useCallback, useMemo } from "react";
-import { useAtom } from "jotai";
-import { datasetFormStepAtom } from "@/app/store";
+
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useGetCountries } from "@/types/generated/country";
-import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
-import NewDatasetDataFormWrapper from "./wrapper";
-import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
-import StepDescription from "@/components/new-dataset/step-description";
-import { Button } from "@/components/ui/button";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
@@ -37,12 +28,22 @@ import { getFormSchema } from "./data-form-schema";
 
 import { useSyncSearchParams } from "@/app/store";
 import { useRouter } from "next/navigation";
-
-import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtom } from "jotai";
+import { isEmpty } from "lodash-es";
 
 import { compareData } from "@/lib/utils/objects";
+import { useGetCountries } from "@/types/generated/country";
 
+import { datasetFormStepAtom } from "@/app/store";
+import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
+
+import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 import type { Data } from "@/containers/datasets/new";
+import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
+import StepDescription from "@/components/new-dataset/step-description";
+import { Button } from "@/components/ui/button";
+import NewDatasetDataFormWrapper from "./wrapper";
 
 export default function NewDatasetDataForm({
   data,

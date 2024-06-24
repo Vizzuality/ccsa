@@ -2,17 +2,20 @@
 
 import { useMemo, useRef, useImperativeHandle } from "react";
 
-import dynamic from "next/dynamic";
-
 import { useForm } from "react-hook-form";
+
+import dynamic from "next/dynamic";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isEmpty, uniq, compact } from "lodash-es";
 import { z } from "zod";
 
+import type { Data } from "@/containers/datasets/new";
+
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
 import { Button } from "@/components/ui/button";
+import ColorPicker from "@/components/ui/colorpicker";
 import {
   Form,
   FormControl,
@@ -22,12 +25,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import NewDatasetDataFormWrapper from "./wrapper";
-import ColorPicker from "@/components/ui/colorpicker";
-
 import { VALUE_TYPE } from "./types";
-
-import type { Data } from "@/containers/datasets/new";
+import NewDatasetDataFormWrapper from "./wrapper";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 

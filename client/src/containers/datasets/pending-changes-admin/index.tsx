@@ -4,6 +4,10 @@ import Link from "next/link";
 
 import { useSession } from "next-auth/react";
 
+import { formatDate } from "@/lib/utils/formats";
+
+import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+
 import {
   Table,
   TableBody,
@@ -12,10 +16,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
-
-import { formatDate } from "@/lib/utils/formats";
 
 export default function DatasetPendingChangesAdmin() {
   const { data: suggestions } = useGetDatasetEditSuggestions();

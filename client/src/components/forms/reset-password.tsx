@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+import { usePostAuthForgotPassword } from "@/types/generated/users-permissions-auth";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,8 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { usePostAuthForgotPassword } from "@/types/generated/users-permissions-auth";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter your email address" }),

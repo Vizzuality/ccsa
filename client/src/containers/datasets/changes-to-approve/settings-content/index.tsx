@@ -1,11 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/classnames";
-import { Input } from "@/components/ui/input";
-
-import { Textarea } from "@/components/ui/textarea";
 
 import { Dataset } from "@/types/generated/strapi.schemas";
+
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function SettingsContentToApprove({
   data,

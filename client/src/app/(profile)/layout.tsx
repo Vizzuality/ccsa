@@ -2,6 +2,7 @@ import { dehydrate, Hydrate } from "@tanstack/react-query";
 import { getServerSession } from "next-auth";
 
 import getQueryClient from "@/lib/react-query/getQueryClient";
+
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
 import DashboardHeader from "@/containers/dashboard-header";

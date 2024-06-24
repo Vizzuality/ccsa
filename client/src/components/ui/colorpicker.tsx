@@ -1,9 +1,9 @@
 import React from "react";
-
 import { FC, useState } from "react";
 
-import { Input } from "./input";
 import { LuChevronDown, LuChevronUp } from "react-icons/lu";
+
+import { Input } from "./input";
 
 type ColorPickerProps = {
   id: string;

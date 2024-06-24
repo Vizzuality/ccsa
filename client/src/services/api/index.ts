@@ -1,5 +1,4 @@
 import Axios, { AxiosError, AxiosRequestConfig } from "axios";
-
 import { getServerSession } from "next-auth/next";
 import { getSession, signOut } from "next-auth/react";
 

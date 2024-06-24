@@ -1,13 +1,15 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+
+import { useSession, signOut } from "next-auth/react";
 import { LuLogOut } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
 
 import { useSyncSearchParams } from "@/app/store";
+
 import { buttonVariants } from "@/components/ui/button";
 
 const DashboardHeader = (): JSX.Element => {

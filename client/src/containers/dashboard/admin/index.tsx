@@ -1,9 +1,9 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import PersonalData from "@/containers/personal-data";
 import DatasetPendingChangesAdmin from "@/containers/datasets/pending-changes-admin";
+import PersonalData from "@/containers/personal-data";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function DashboardContentAdmin() {
   return (

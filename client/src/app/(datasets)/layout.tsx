@@ -1,12 +1,13 @@
+import Link from "next/link";
+
 import { dehydrate, Hydrate } from "@tanstack/react-query";
 import { getServerSession } from "next-auth";
 
 import getQueryClient from "@/lib/react-query/getQueryClient";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import { NewDatasetFormControls } from "@/components/new-dataset/form-controls";
-import Link from "next/link";
-import LayoutProviders from "./layout-providers";
 
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+
+import { NewDatasetFormControls } from "@/components/new-dataset/form-controls";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,6 +16,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+
+import LayoutProviders from "./layout-providers";
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();

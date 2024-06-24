@@ -2,16 +2,27 @@
 
 import { useRef, useImperativeHandle, useCallback } from "react";
 
-import { useAtom } from "jotai";
-import { datasetFormStepAtom } from "@/app/store";
 import { useForm } from "react-hook-form";
 
+import { useRouter } from "next/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useAtom } from "jotai";
 import { isEmpty } from "lodash-es";
-
 import { useSession } from "next-auth/react";
 import { z } from "zod";
+
+import { compareData } from "@/lib/utils/objects";
+
+import { useGetCategories } from "@/types/generated/category";
+
+import { datasetFormStepAtom } from "@/app/store";
+import { useSyncSearchParams } from "@/app/store";
+
+import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
+
+import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
+import type { Data } from "@/containers/datasets/new";
 
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
@@ -32,21 +43,11 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-
-import { useSyncSearchParams } from "@/app/store";
-
-import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
+
 // import { usePostDatasets } from "@/types/generated/dataset";
-import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
+
 import NewDatasetDataFormWrapper from "./wrapper";
-import { useGetCategories } from "@/types/generated/category";
-
-import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
-
-import { compareData } from "@/lib/utils/objects";
-
-import type { Data } from "@/containers/datasets/new";
 
 export default function NewDatasetSettingsForm({
   data,

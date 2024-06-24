@@ -1,17 +1,16 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-
 import { usePathname } from "next/navigation";
 
 import { useGetDatasetsId } from "@/types/generated/dataset";
-
 import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
-import SettingsContentToApprove from "./settings-content";
-import DataContentToApprove from "./data-content";
-
 import type { Dataset } from "@/types/generated/strapi.schemas";
+
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import DataContentToApprove from "./data-content";
+import SettingsContentToApprove from "./settings-content";
 
 function getObjectDifferences(obj1: Dataset, obj2: Dataset): (keyof Dataset)[] {
   if (!obj2) return [];

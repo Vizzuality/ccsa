@@ -2,15 +2,18 @@
 
 import { useCallback } from "react";
 
-import isEmpty from "lodash/isEmpty";
 import { useForm } from "react-hook-form";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import isEmpty from "lodash/isEmpty";
+import { useSession } from "next-auth/react";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { z } from "zod";
 
-import { useSession } from "next-auth/react";
+import { usePostAuthChangePassword } from "@/types/generated/users-permissions-auth";
+import { useDeleteUsersId, usePutUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,12 +26,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { usePostAuthChangePassword } from "@/types/generated/users-permissions-auth";
-
-import { RiDeleteBinLine } from "react-icons/ri";
 import { FORM_DATA_FIELDS, FORM_PASSWORD_FIELDS } from "./constants";
-
-import { useDeleteUsersId, usePutUsersId } from "@/types/generated/users-permissions-users-roles";
 
 type FormSchemaData = z.infer<typeof formSchemaData>;
 

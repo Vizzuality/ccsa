@@ -22,6 +22,12 @@
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.update"
     },
     {
+      "action": "api::collaborator.collaborator.find"
+    },
+    {
+      "action": "api::collaborator.collaborator.findOne"
+    },
+    {
       "action": "api::country.country.find"
     },
     {
@@ -58,10 +64,88 @@
       "action": "api::dataset.dataset.findOne"
     },
     {
+      "action": "api::download-email.download-email.create"
+    },
+    {
+      "action": "api::download-email.download-email.find"
+    },
+    {
+      "action": "api::download-email.download-email.findOne"
+    },
+    {
+      "action": "api::download-email.download-email.update"
+    },
+    {
       "action": "api::layer.layer.find"
     },
     {
       "action": "api::layer.layer.findOne"
+    },
+    {
+      "action": "api::other-tool.other-tool.find"
+    },
+    {
+      "action": "api::other-tool.other-tool.findOne"
+    },
+    {
+      "action": "api::other-tools-category.other-tools-category.find"
+    },
+    {
+      "action": "api::other-tools-category.other-tools-category.findOne"
+    },
+    {
+      "action": "api::pillar.pillar.find"
+    },
+    {
+      "action": "api::pillar.pillar.findOne"
+    },
+    {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.create"
+    },
+    {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.delete"
+    },
+    {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.find"
+    },
+    {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.findOne"
+    },
+    {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.update"
+    },
+    {
+      "action": "api::project.project.find"
+    },
+    {
+      "action": "api::project.project.findOne"
+    },
+    {
+      "action": "api::resource.resource.find"
+    },
+    {
+      "action": "api::resource.resource.findOne"
+    },
+    {
+      "action": "api::sdg.sdg.find"
+    },
+    {
+      "action": "api::sdg.sdg.findOne"
+    },
+    {
+      "action": "api::tool-edit-suggestion.tool-edit-suggestion.create"
+    },
+    {
+      "action": "api::tool-edit-suggestion.tool-edit-suggestion.delete"
+    },
+    {
+      "action": "api::tool-edit-suggestion.tool-edit-suggestion.find"
+    },
+    {
+      "action": "api::tool-edit-suggestion.tool-edit-suggestion.findOne"
+    },
+    {
+      "action": "api::tool-edit-suggestion.tool-edit-suggestion.update"
     },
     {
       "action": "plugin::email.email.send"

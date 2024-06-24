@@ -1,8 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/classnames";
-import { Input } from "@/components/ui/input";
 
+import { Dataset } from "@/types/generated/strapi.schemas";
+
+import { DATA_COLUMNS_TYPE } from "@/components/forms/new-dataset/constants";
+import type { VALUE_TYPE } from "@/components/forms/new-dataset/types";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -11,10 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DATA_COLUMNS_TYPE } from "@/components/forms/new-dataset/constants";
-import type { VALUE_TYPE } from "@/components/forms/new-dataset/types";
-
-import { Dataset } from "@/types/generated/strapi.schemas";
 
 export default function DataContentToApprove({
   data,
