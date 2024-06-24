@@ -82,7 +82,7 @@ export default function WelcomeMessage() {
               )}
 
               {data?.data?.attributes?.image && (
-                <img
+                <Image
                   src={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.image?.data?.attributes?.url}`}
                   alt="Welcome message"
                   width={data?.data?.attributes?.image?.data?.attributes?.width}

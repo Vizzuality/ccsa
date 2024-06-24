@@ -9,7 +9,7 @@ const nextConfig = {
         hostname: "api.mapbox.com",
       },
       {
-        protocol: "https",
+        protocol: "http",
         hostname: "0.0.0.0",
       },
     ],
