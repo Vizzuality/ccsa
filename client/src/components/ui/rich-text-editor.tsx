@@ -1,80 +1,12 @@
-import React, { useRef, useMemo } from "react";
-import JoditEditor from "jodit-react";
+import dynamic from "next/dynamic";
 
-const RichTextEditor = ({
-  placeholder,
-  className,
-  value,
-  onChange,
-}: {
-  placeholder?: string;
-  className?: string;
-  value: string;
-  onChange: (value: string) => void;
-}) => {
-  const editor = useRef(null);
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
-  const config = useMemo(
-    () => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-      placeholder: placeholder || "Start typings...",
-      content: value,
-      direction: "ltr",
-      toolbarAdaptive: false,
-      toolbarButtonSize: "small",
-      removeButtons: [
-        "insert",
-        "source",
-        "about",
-        "print",
-        "about",
-        "dots",
-        "image",
-        "eraser",
-        "strikethrough",
-        "file",
-        "ul",
-        "font",
-        "fontsize",
-        "ol",
-        "li",
-        "indent",
-        "lineHeight",
-        "table",
-        "special",
-        "outdent",
-        "symbols",
-        "left",
-        "line",
-        "speechRecognize",
-        "fullsize",
-        "print",
-        "translations",
-        "paragraph",
-        "video",
-        "brush",
-        "align",
-        "selectAll",
-        "hr",
-        "ai-commands",
-        "ai-assistant",
-        "spellChecker",
-      ], // more options: https://xdsoft.net/jodit/play.html?currentTab=Buttons
-      buttons: ["bold", "italic", "underline", "|", "|", "link", "|", "undo", "redo", "preview"],
-    }),
-    [placeholder],
-  );
-
+function HomePage() {
+  const [value, setValue] = useState("**Hello world!!!**");
   return (
-    <JoditEditor
-      ref={editor}
-      value={value}
-      config={config}
-      className={className}
-      tabIndex={1} // tabIndex of textarea
-      onChange={onChange}
-    />
+    <div>
+      <MDEditor value={value} onChange={setValue} />
+    </div>
   );
-};
-
-export default RichTextEditor;
+}

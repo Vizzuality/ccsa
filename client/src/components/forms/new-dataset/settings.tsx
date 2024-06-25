@@ -6,8 +6,6 @@ import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
 
-import RichTextEditor from "@/components/ui/rich-text-editor";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -32,6 +30,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import MarkdownEditor from "@/components/ui/markdown-editor";
 import {
   Select,
   SelectTrigger,
@@ -234,8 +233,10 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="col-span-2 space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Description</FormLabel>
                     <FormControl>
-                      <RichTextEditor
+                      <MarkdownEditor
                         {...field}
+                        data-color-mode="light"
+                        preview="edit"
                         value={field.value}
                         placeholder="Add a description"
                         className="w-full"
