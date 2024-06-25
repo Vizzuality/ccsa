@@ -34,16 +34,16 @@
           "sortable": true
         }
       },
-      "datum": {
+      "data": {
         "edit": {
-          "label": "datum",
+          "label": "data",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "datum",
+          "label": "data",
           "searchable": false,
           "sortable": false
         }
@@ -115,6 +115,34 @@
         },
         "list": {
           "label": "dataset",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "colors": {
+        "edit": {
+          "label": "colors",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "colors",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "category": {
+        "edit": {
+          "label": "category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "category",
           "searchable": true,
           "sortable": true
         }
@@ -194,12 +222,6 @@
         ],
         [
           {
-            "name": "datum",
-            "size": 12
-          }
-        ],
-        [
-          {
             "name": "description",
             "size": 12
           }
@@ -222,6 +244,24 @@
           {
             "name": "dataset",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "data",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "colors",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "category",
+            "size": 4
           }
         ]
       ]

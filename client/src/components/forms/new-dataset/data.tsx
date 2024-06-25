@@ -80,39 +80,16 @@ export default function NewDatasetDataForm({
       .map((c) => c?.attributes?.iso3 as string)
       .reduce(
         (acc, country) => {
-          if (rawData.settings.valueType === "number") {
-            return {
-              ...acc,
-              [`${country}-number`]: data[`${country}-number`],
-            };
-          }
-          if (rawData.settings.valueType === "text") {
-            return {
-              ...acc,
-              [`${country}-text`]: data[`${country}-text`],
-            };
-          }
-          if (rawData.settings.valueType === "resource") {
-            return {
-              ...acc,
-              [`${country}-title`]: data[`${country}-title`],
-              [`${country}-description`]: data[`${country}-description`],
-              [`${country}-link`]: data[`${country}-link`],
-            };
-          }
-          if (rawData.settings.valueType === "boolean") {
-            return {
-              ...acc,
-              [`${country}-boolean`]: data[`${country}-boolean`],
-            };
-          }
-          return acc;
+          return {
+            ...acc,
+            [`${country}`]: data[`${country}`],
+          };
         },
-        {} as Record<string, string | number | undefined>,
+        {} as Record<string, string | number | boolean | undefined>,
       );
 
     return c;
-  }, [countries, rawData.settings.valueType, data]);
+  }, [countries, data]);
 
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -166,17 +143,33 @@ export default function NewDatasetDataForm({
                         <TableCell key={`${country.attributes?.iso3}-${value}`}>
                           <FormField
                             control={form.control}
-                            name={`${country.attributes?.iso3}-${value}`}
+                            name={`${country.attributes?.iso3}`}
                             render={({ field }) => {
                               return (
                                 <FormItem className="col-span-2 space-y-1.5">
                                   <FormLabel className="hidden text-xs">{`${country.attributes?.iso3}-${label}`}</FormLabel>
                                   <FormControl>
                                     <>
-                                      {value !== "boolean" && (
+                                      {value === "text" && (
                                         <Input
                                           {...field}
-                                          value={field.value}
+                                          value={
+                                            typeof field.value !== "undefined"
+                                              ? `${field.value}`
+                                              : undefined
+                                          }
+                                          className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                        />
+                                      )}
+
+                                      {value === "number" && (
+                                        <Input
+                                          {...field}
+                                          value={
+                                            typeof field.value === "number"
+                                              ? field.value
+                                              : undefined
+                                          }
                                           className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
                                         />
                                       )}
@@ -184,10 +177,9 @@ export default function NewDatasetDataForm({
                                       {value === "boolean" && (
                                         <Checkbox
                                           {...field}
-                                          value={field.value}
-                                          onCheckedChange={(bool) =>
-                                            field.onChange(bool ? "on" : "off")
-                                          }
+                                          value={`${!!field.value}`}
+                                          checked={!!field.value}
+                                          onCheckedChange={(bool) => field.onChange(bool)}
                                         />
                                       )}
                                     </>

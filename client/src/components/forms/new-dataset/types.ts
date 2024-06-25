@@ -10,7 +10,7 @@ export interface Data {
     category?: number;
     unit?: string;
   };
-  data: { [key: string]: string | number | undefined };
+  data: { [key: string]: string | number | boolean | undefined };
   colors: Record<string, string>;
 }
 
@@ -44,4 +44,4 @@ export type DATA_COLUMN =
   | BooleanDataColumn
   | ResourceDataColumn;
 
-export type FormSchemaType = Record<string, string | number | undefined>;
+export type FormSchemaType = Record<string, string | number | boolean | undefined>;

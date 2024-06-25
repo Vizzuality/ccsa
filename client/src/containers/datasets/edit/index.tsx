@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 
 import { useParams } from "next/navigation";
 
@@ -49,7 +49,7 @@ export default function EditDatasetForm() {
     },
   });
 
-  useEffect(() => {
+  useMemo(() => {
     const settings = {
       name: datasetData?.data?.attributes?.name || "",
       description: datasetData?.data?.attributes?.description || "",
@@ -64,23 +64,25 @@ export default function EditDatasetForm() {
           const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
 
           if (datasetData?.data?.attributes?.value_type === "number") {
-            return { ...acc, [`${countryIso}-number`]: curr?.attributes?.value_number };
+            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_number };
           }
 
           if (datasetData?.data?.attributes?.value_type === "text") {
-            return { ...acc, [`${countryIso}-text`]: curr?.attributes?.value_text };
+            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_text };
           }
 
-          // if (datasetData?.data?.attributes?.value_type === "boolean") {
-          //   return { ...acc, [`${countryIso}-boolean`]: curr?.attributes?.value_boolean };
-          // }
+          if (datasetData?.data?.attributes?.value_type === "boolean") {
+            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean };
+          }
 
           return acc;
         },
         {} as Data["data"],
       ) || {};
 
-    setFormValues({ settings, data, colors: {} });
+    const colors = {};
+
+    setFormValues({ settings, data, colors });
   }, [datasetData, datasetValuesData]);
 
   const handleSettingsSubmit = useCallback(

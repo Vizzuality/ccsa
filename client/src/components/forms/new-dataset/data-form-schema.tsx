@@ -7,20 +7,22 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
     return z.object(
       countries.reduce(
         (acc, country) => {
-          acc[`${country}-number`] = z.coerce.number();
+          acc[`${country}`] = z.coerce.number().optional();
           return acc;
         },
-        {} as Record<string, z.ZodNumber>,
+        {} as Record<string, z.ZodOptional<z.ZodNumber>>,
       ),
     );
   } else if (valueType === "resource") {
     return z.object(
       countries.reduce((acc, country) => {
-        acc[`${country}-title`] = z.string().min(1, { message: "Please enter a title" });
-        acc[`${country}-link`] = z.string().url({ message: "Please enter a valid URL" });
-        acc[`${country}-description`] = z
-          .string()
-          .min(1, { message: "Please enter a description" });
+        acc[`${country}`] = z.array(
+          z.object({
+            title: z.string().min(1, { message: "Please enter a title" }),
+            link: z.string().url({ message: "Please enter a valid URL" }),
+            description: z.string().min(1, { message: "Please enter a description" }),
+          }),
+        );
         return acc;
       }, {} as z.ZodRawShape),
     );
@@ -28,23 +30,20 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
     return z.object(
       countries.reduce(
         (acc, country) => {
-          acc[`${country}-text`] = z.string().min(1, { message: "Please enter a valid text" });
+          acc[`${country}`] = z.string().optional();
           return acc;
         },
-        {} as Record<string, z.ZodString>,
+        {} as Record<string, z.ZodOptional<z.ZodString>>,
       ),
     );
   } else if (valueType === "boolean") {
     return z.object(
       countries.reduce(
         (acc, country) => {
-          acc[`${country}-boolean`] = z
-            .string()
-            .optional()
-            .transform((value) => value === "on");
+          acc[`${country}`] = z.boolean().optional();
           return acc;
         },
-        {} as Record<string, z.ZodEffects<z.ZodOptional<z.ZodString>, boolean>>,
+        {} as Record<string, z.ZodOptional<z.ZodBoolean>>,
       ),
     );
   } else {
