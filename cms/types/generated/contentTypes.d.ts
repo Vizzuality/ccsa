@@ -758,6 +758,7 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
     singularName: 'collaborator-edit-suggestion';
     pluralName: 'collaborator-edit-suggestions';
     displayName: 'Collaborator Edit Suggestion';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -774,6 +775,11 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &
       Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -907,6 +913,11 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
       'api::dataset-edit-suggestion.dataset-edit-suggestion',
       'manyToOne',
       'api::dataset.dataset'
+    >;
+    author: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1255,6 +1266,11 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
       'manyToOne',
       'api::project.project'
     >;
+    author: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1357,6 +1373,11 @@ export interface ApiToolEditSuggestionToolEditSuggestion
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &
       Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

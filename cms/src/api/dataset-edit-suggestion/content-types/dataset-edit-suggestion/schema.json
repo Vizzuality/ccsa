@@ -48,6 +48,11 @@
       "relation": "manyToOne",
       "target": "api::dataset.dataset",
       "inversedBy": "dataset_edit_suggestions"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
