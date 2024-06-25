@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 
 import { useParams } from "next/navigation";
 
@@ -49,7 +49,7 @@ export default function EditDatasetForm() {
     },
   });
 
-  useEffect(() => {
+  useMemo(() => {
     const settings = {
       name: datasetData?.data?.attributes?.name || "",
       description: datasetData?.data?.attributes?.description || "",
@@ -80,7 +80,9 @@ export default function EditDatasetForm() {
         {} as Data["data"],
       ) || {};
 
-    setFormValues({ settings, data, colors: {} });
+    const colors = {};
+
+    setFormValues({ settings, data, colors });
   }, [datasetData, datasetValuesData]);
 
   const handleSettingsSubmit = useCallback(

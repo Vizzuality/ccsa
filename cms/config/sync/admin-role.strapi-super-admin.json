@@ -178,7 +178,8 @@
           "iso3",
           "geometry",
           "bbox",
-          "link"
+          "link",
+          "dataset_values"
         ]
       },
       "conditions": []
@@ -207,7 +208,8 @@
           "iso3",
           "geometry",
           "bbox",
-          "link"
+          "link",
+          "dataset_values"
         ]
       },
       "conditions": []
@@ -222,7 +224,8 @@
           "iso3",
           "geometry",
           "bbox",
-          "link"
+          "link",
+          "dataset_values"
         ]
       },
       "conditions": []
@@ -234,12 +237,14 @@
       "properties": {
         "fields": [
           "name",
-          "datum",
+          "data",
           "description",
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "colors",
+          "category"
         ]
       },
       "conditions": []
@@ -265,12 +270,14 @@
       "properties": {
         "fields": [
           "name",
-          "datum",
+          "data",
           "description",
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "colors",
+          "category"
         ]
       },
       "conditions": []
@@ -282,12 +289,14 @@
       "properties": {
         "fields": [
           "name",
-          "datum",
+          "data",
           "description",
           "unit",
           "value_type",
           "review_status",
-          "dataset"
+          "dataset",
+          "colors",
+          "category"
         ]
       },
       "conditions": []
@@ -360,7 +369,8 @@
           "layers",
           "unit",
           "value_type",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset_values"
         ]
       },
       "conditions": []
@@ -392,7 +402,8 @@
           "layers",
           "unit",
           "value_type",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset_values"
         ]
       },
       "conditions": []
@@ -410,7 +421,8 @@
           "layers",
           "unit",
           "value_type",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset_values"
         ]
       },
       "conditions": []

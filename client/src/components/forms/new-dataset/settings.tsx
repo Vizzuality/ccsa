@@ -15,8 +15,7 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
-import type { Data } from "@/containers/datasets/new";
-
+import { Data } from "@/components/forms/new-dataset/types";
 import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
@@ -58,11 +57,7 @@ export default function NewDatasetSettingsForm({
   const { replace } = useRouter();
   const URLParams = useSyncSearchParams();
 
-  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
-    query: {
-      keepPreviousData: true,
-    },
-  });
+  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS());
 
   const categoriesOptions = categoriesData?.data?.map((c) => ({
     label: c.attributes?.name || "",
@@ -158,7 +153,7 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
@@ -182,10 +177,7 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Category</FormLabel>
                     <FormControl>
-                      <Select
-                        onValueChange={(v) => field.onChange(+v)}
-                        value={`${data.category}` || `${field.value}`}
-                      >
+                      <Select value={`${field.value}`} onValueChange={(v) => field.onChange(+v)}>
                         <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
