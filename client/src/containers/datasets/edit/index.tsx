@@ -4,12 +4,18 @@ import { useState, useCallback } from "react";
 
 import type { Dataset } from "@/types/generated/strapi.schemas";
 
+import { useParams } from "next/navigation";
+
 import { useSyncDatasetStep } from "@/app/store";
 
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
-// import { usePostDatasets } from "@/types/generated/dataset";
+
+import { useGetDatasetValuesId } from "@/types/generated/dataset-value";
+import { useGetDatasetValues } from "@/types/generated/dataset-value";
+import { usePostDatasets } from "@/types/generated/dataset";
+import { useGetCategories, useGetCategoriesId } from "@/types/generated/category";
 
 export interface Data {
   settings: {
@@ -36,22 +42,28 @@ export const DATA_INITIAL_VALUES: Data = {
 };
 
 export default function EditDatasetForm() {
-  // const { replace } = useRouter();
+  const params = useParams();
+  const { id } = params;
   const [currentStep, setCurrentStep] = useSyncDatasetStep();
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
 
-  // const { mutate } = usePostDatasets({
-  //   mutation: {
-  //     onSuccess: (data) => {
-  //       console.log("Success creating dataset:", data);
-  //       const searchParams = new URLSearchParams();
-  //       replace(`/signin?${searchParams.toString()}`);
-  //     },
-  //     onError: (error) => {
-  //       console.error("Error creating dataset:", error);
-  //     },
-  //   },
-  // });
+  const { mutate } = usePostDatasets({
+    mutation: {
+      onSuccess: (data) => {
+        console.log("Success creating dataset:", data);
+        const searchParams = new URLSearchParams();
+      },
+      onError: (error) => {
+        console.error("Error creating dataset:", error);
+      },
+    },
+  });
+
+  const { data: dataset } = useGetDatasetValuesId(Number(id));
+  const { data: category } = useGetCategoriesId(Number(id));
+  const { data: datasets } = useGetDatasetValues();
+  const { data: categories } = useGetCategories();
+  console.log(dataset, categories, "dataset");
 
   // const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
   //   mutation: {
@@ -71,6 +83,16 @@ export default function EditDatasetForm() {
 
   //   mutate({ data: { email: values.email } });
   // }
+
+  const handleSubmit = useCallback(() => {
+    mutate({
+      data: {
+        dataset: {
+          connect: [dataset.id],
+        },
+      },
+    });
+  }, []);
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {

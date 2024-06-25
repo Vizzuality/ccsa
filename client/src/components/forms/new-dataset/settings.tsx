@@ -123,7 +123,7 @@ export default function NewDatasetSettingsForm({
     },
     [onSubmit],
   );
-
+  console.log(data);
   return (
     <>
       <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
@@ -143,7 +143,7 @@ export default function NewDatasetSettingsForm({
                     <FormControl>
                       <Input
                         {...field}
-                        value={field.value}
+                        value={data.name || field.value}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
                         placeholder={"Name"}
                       />
@@ -159,7 +159,7 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select onValueChange={field.onChange} value={data.valueType || field.value}>
                         <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
@@ -183,7 +183,10 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Category</FormLabel>
                     <FormControl>
-                      <Select onValueChange={(v) => field.onChange(+v)} value={`${field.value}`}>
+                      <Select
+                        onValueChange={(v) => field.onChange(+v)}
+                        value={`${data.category}` || `${field.value}`}
+                      >
                         <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>

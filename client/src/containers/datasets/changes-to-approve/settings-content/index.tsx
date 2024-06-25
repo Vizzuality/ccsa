@@ -15,9 +15,9 @@ export default function SettingsContentToApprove({
   changes: (keyof Dataset)[];
 }) {
   return (
-    <div className="flex items-center justify-between py-10 sm:px-10 md:px-24 lg:px-32">
-      <div className="grid grid-cols-2 gap-10">
-        <div className="flex w-full flex-1 flex-col justify-start">
+    <div className="flex items-center py-10 sm:px-10 md:px-24 lg:px-32">
+      <div className="flex w-full justify-between space-x-10">
+        <div className="flex w-full max-w-[368px] flex-1 flex-col justify-start">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <span className="h-4 w-4 bg-green-400" />
@@ -33,7 +33,7 @@ export default function SettingsContentToApprove({
           </div>
         </div>
 
-        <div className="w-full max-w-5xl gap-4 sm:grid sm:grid-cols-2 md:gap-6">
+        <div className="w-full max-w-5xl flex-1 gap-4 sm:grid sm:grid-cols-2 md:gap-6">
           <div className="space-y-1.5">
             <span className="text-xs font-semibold">Name</span>
             <Input
