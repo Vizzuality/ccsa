@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
 
+import RichTextEditor from "@/components/ui/rich-text-editor";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -37,7 +39,6 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 
 // import { usePostDatasets } from "@/types/generated/dataset";
 
@@ -159,8 +160,8 @@ export default function NewDatasetSettingsForm({
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
                       <Select onValueChange={field.onChange} value={field.value}>
-                        <SelectTrigger className="h-10 w-full">
-                          <SelectValue placeholder={"Select one"} />
+                        <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
+                          <SelectValue placeholder="Select one" />
                         </SelectTrigger>
                         <SelectContent>
                           {valueTypesOptions?.map(({ label, value }) => (
@@ -183,8 +184,8 @@ export default function NewDatasetSettingsForm({
                     <FormLabel className="text-xs font-semibold">Category</FormLabel>
                     <FormControl>
                       <Select onValueChange={(v) => field.onChange(+v)} value={`${field.value}`}>
-                        <SelectTrigger className="h-10 w-full">
-                          <SelectValue placeholder={"Select one"} />
+                        <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
+                          <SelectValue placeholder="Select one" />
                         </SelectTrigger>
                         <SelectContent>
                           {categoriesOptions?.map(({ label, value }) => (
@@ -204,17 +205,20 @@ export default function NewDatasetSettingsForm({
                 name="unit"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="flex justify-between text-xs">
-                      <span className="font-semibold">Unit</span>
-                      <span className="text-gray-500">(optional)</span>
+                    <FormLabel className="inline-flex w-full items-center justify-between text-xs">
+                      <span className="block font-semibold">Unit</span>
+                      <span className="block text-gray-500">(optional)</span>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder={data.unit || "unit"}
-                      />
+                      <>
+                        <Input
+                          {...field}
+                          value={field.value}
+                          className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                          placeholder={data.unit || "unit"}
+                        />
+                        <p className="text-xs">This will appear in the legend (e.g. dollars)</p>
+                      </>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -227,11 +231,12 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="col-span-2 space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Description</FormLabel>
                     <FormControl>
-                      <Textarea
+                      <RichTextEditor
                         {...field}
                         value={field.value}
-                        className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder={"Add a description"}
+                        placeholder="Add a description"
+                        className="w-full"
+                        onChange={field.onChange}
                       />
                     </FormControl>
                     <FormMessage />

@@ -15,7 +15,7 @@ export interface Data {
   settings: {
     name: string;
     description: string;
-    valueType: Dataset["value_type"] | undefined;
+    valueType?: Dataset["value_type"] | undefined;
     category?: number;
     unit?: string;
   };
@@ -102,7 +102,7 @@ export default function EditDatasetForm() {
         <NewDatasetSettingsForm
           id="edit-dataset-settings"
           title="Edit dataset"
-          data={formValues.settings}
+          data={formValues}
           onSubmit={handleSettingsSubmit}
         />
       )}
@@ -110,19 +110,16 @@ export default function EditDatasetForm() {
         <NewDatasetDataForm
           id="edit-dataset-data"
           title="Edit dataset"
-          data={formValues.data}
+          data={formValues}
           onSubmit={handleDataSubmit}
-          valueType={formValues?.settings?.valueType}
         />
       )}
       {currentStep === 3 && (
         <NewDatasetColorsForm
           id="edit-dataset-colors"
           title="Edit dataset"
-          data={formValues.colors}
-          categoriesData={formValues.data}
+          data={formValues}
           onSubmit={handleColorsSubmit}
-          valueType={formValues?.settings?.valueType}
         />
       )}
     </>
