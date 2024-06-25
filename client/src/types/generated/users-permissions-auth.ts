@@ -13,10 +13,6 @@ import type {
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
-
 import type {
   Error,
   GetAuthEmailConfirmationParams,
@@ -30,6 +26,8 @@ import type {
   PostAuthSendEmailConfirmationBody,
   UsersPermissionsUserRegistration,
 } from "./strapi.schemas";
+import { API } from "../../services/api/index";
+import type { ErrorType } from "../../services/api/index";
 
 // eslint-disable-next-line
 type SecondParameter<T extends (...args: any) => any> = T extends (

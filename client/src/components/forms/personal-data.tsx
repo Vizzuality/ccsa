@@ -45,13 +45,13 @@ export default function PersonalData() {
 
   const { mutate } = usePostAuthForgotPassword({
     mutation: {
-      onSuccess: (data) => {
-        console.log("Success creating dataset:", data);
+      onSuccess: () => {
+        console.log("Password reset email sent successfully.");
         const searchParams = new URLSearchParams();
         replace(`/signin?${searchParams.toString()}`);
       },
       onError: (error) => {
-        console.error("Error creating dataset:", error);
+        console.error(`Failed to send password reset email: ${error.message}`);
       },
     },
   });

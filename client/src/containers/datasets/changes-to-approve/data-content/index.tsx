@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/classnames";
 
+import type { Data } from "@/components/forms/new-dataset/types";
 import { Dataset } from "@/types/generated/strapi.schemas";
 
 import { DATA_COLUMNS_TYPE } from "@/components/forms/new-dataset/constants";
@@ -18,18 +19,13 @@ import {
 
 export default function DataContentToApprove({
   data,
-  valueType,
   changes,
 }: {
-  data: {
-    iso3: string;
-    value: any; // TODO: Change to the correct type depending on value type
-    color?: any;
-  }[];
-
-  valueType: VALUE_TYPE;
-  changes: (keyof Dataset)[];
+  data: Data;
+  changes: (keyof Data)[];
 }) {
+  const valueType = data?.settings?.valueType;
+
   const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
   return (
     <div className="flex items-center py-10 sm:px-10 md:px-24 lg:px-32">
@@ -60,14 +56,14 @@ export default function DataContentToApprove({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data?.map(({ iso3, value }, rowIndex) => {
+              {/* {data?.data?.map(({ iso3, value }, rowIndex) => {
                 return (
                   <TableRow key={rowIndex}>
                     <TableCell key={iso3}>{iso3}</TableCell>
                     <TableCell key={value}>{value}</TableCell>
                   </TableRow>
                 );
-              })}
+              })} */}
             </TableBody>
           </Table>
         </div>

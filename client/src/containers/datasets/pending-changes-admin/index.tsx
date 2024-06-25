@@ -40,7 +40,9 @@ export default function DatasetPendingChangesAdmin() {
           {data?.map((suggestion) => (
             <TableRow key={suggestion?.attributes?.createdAt}>
               <TableCell className="whitespace-nowrap font-medium">
-                <Link href={`/datasets/edit/${suggestion.id}`}>{suggestion?.attributes?.name}</Link>
+                <Link href={`/datasets/changes-to-approve/${suggestion.id}`}>
+                  {suggestion?.attributes?.name}
+                </Link>
               </TableCell>
               <TableCell className="w-full">
                 <Link href={`/datasets/changes-to-approve/${suggestion.id}`} className="w-full">

@@ -6,15 +6,20 @@ import { useParams } from "next/navigation";
 import { useGetDatasetsId } from "@/types/generated/dataset";
 import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
-import type { Dataset } from "@/types/generated/strapi.schemas";
 
 import { Data } from "@/components/forms/new-dataset/types";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import { isObjectEmpty } from "@/lib/utils/objects";
+
 import ColorsContentToApprove from "./colors-content";
 import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
+
+import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
+
+import { useGetCountries } from "@/types/generated/country";
 
 export const DATA_INITIAL_VALUES: Data = {
   settings: {
@@ -28,15 +33,40 @@ export const DATA_INITIAL_VALUES: Data = {
   colors: {},
 };
 
-function getObjectDifferences(obj1: Dataset, obj2: Dataset): (keyof Dataset)[] {
+interface DataObject {
+  [key: string]: any;
+}
+
+function findAttributeValue(obj: DataObject, searchString: string): any {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      // if (key === searchString) {
+      //   return obj[key];
+      // } TO - DO - change when we change from [countryISO]-[valueType] to countryISO
+
+      if (key.includes(searchString)) {
+        console.log(key);
+        return obj[key];
+      }
+
+      // recursivity needed for resources
+      if (typeof obj[key] === "object" && obj[key] !== null) {
+        const result = findAttributeValue(obj[key], searchString);
+        if (result !== undefined) {
+          return result;
+        }
+      }
+    }
+  }
+  return undefined;
+}
+
+function getObjectDifferences(obj1: Data, obj2: Data): (keyof Data)[] {
   if (!obj2) return [];
 
-  const keys = new Set<keyof Dataset>([
-    ...Object.keys(obj1),
-    ...Object.keys(obj2),
-  ] as (keyof Dataset)[]);
+  const keys = new Set<keyof Data>([...Object.keys(obj1), ...Object.keys(obj2)] as (keyof Data)[]);
 
-  const differences: (keyof Dataset)[] = [];
+  const differences: (keyof Data)[] = [];
 
   keys.forEach((key) => {
     if (obj1[key] !== obj2[key]) {
@@ -52,6 +82,7 @@ export default function FormToApprove() {
   const { id } = params;
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
 
+  // Check if there is previous data for that dataset
   const { data: datasetData } = useGetDatasetsId(Number(id), {
     populate: "*",
   });
@@ -68,40 +99,43 @@ export default function FormToApprove() {
     },
   });
 
-  useEffect(() => {
-    const settings = {
-      name: datasetData?.data?.attributes?.name || "",
-      description: datasetData?.data?.attributes?.description || "",
-      valueType: datasetData?.data?.attributes?.value_type || undefined,
-      category: datasetData?.data?.attributes?.category?.data?.id || undefined,
-      unit: datasetData?.data?.attributes?.unit,
-    };
+  const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(id), {
+    populate: "*",
+  });
 
-    const data =
-      datasetValuesData?.data?.reduce(
-        (acc, curr) => {
-          const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
+  const { data: countries } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
-          if (datasetData?.data?.attributes?.value_type === "number") {
-            return { ...acc, [`${countryIso}-number`]: curr?.attributes?.value_number };
-          }
+  // useEffect(() => {
+  //   const { colors, data, ...restSettings } = datasetDataPendingToApprove?.data?.attributes ?? {};
 
-          if (datasetData?.data?.attributes?.value_type === "text") {
-            return { ...acc, [`${countryIso}-text`]: curr?.attributes?.value_text };
-          }
+  //   const dataParsed = countries?.data?.map(({ attributes }) => {
+  //     const countryIso = attributes?.iso3;
 
-          // if (datasetData?.data?.attributes?.value_type === "boolean") {
-          //   return { ...acc, [`${countryIso}-boolean`]: curr?.attributes?.value_boolean };
-          // }
+  //     if (!countryIso) {
+  //       return {};
+  //     }
+  //     const valueType = datasetDataPendingToApprove?.data?.attributes?.value_type;
+  //     const value = findAttributeValue(
+  //       datasetDataPendingToApprove?.data?.attributes?.data,
+  //       countryIso,
+  //     );
 
-          return acc;
-        },
-        {} as Data["data"],
-      ) || {};
+  //     switch (valueType) {
+  //       case "number":
+  //         return { [countryIso]: value };
+  //       case "text":
+  //         return { [countryIso]: value };
+  //       case "boolean":
+  //         return { [countryIso]: value };
+  //       default:
+  //         return {};
+  //     }
+  //   });
 
-    setFormValues({ settings, data, colors: {} });
-  }, [datasetData, datasetValuesData]);
+  //   setFormValues({ settings: { ...restSettings }, data: dataParsed, colors });
+  // }, [datasetData, datasetValuesData]);
 
+  console.log(datasetDataPendingToApprove);
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
       setFormValues({ ...formValues, settings: values });
@@ -123,16 +157,24 @@ export default function FormToApprove() {
     [formValues],
   );
 
-  const data = DatasetToApprove?.data?.attributes?.datum as Dataset;
-  const valueType = DatasetToApprove?.data?.attributes?.value_type as Dataset["value_type"];
-  const previousDatasetsData = PreviousDataset?.data?.attributes as Dataset;
+  // get the data from the dataset existente
+  const d = datasetDataPendingToApprove?.data?.attributes;
 
-  const diffKeys = !!data && getObjectDifferences(data, previousDatasetsData);
+  const { colors, data, ...settings } = d ?? {};
+
+  const parsedDataChangesToApprove = {
+    settings: { ...settings },
+    data,
+    colors,
+  };
+
+  const isNewDataset = isObjectEmpty(formValues);
+  const diffKeys = isNewDataset ? [] : getObjectDifferences(formValues, parsedDataChangesToApprove);
 
   return (
     <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">
-        <h1 className="text-3xl font-bold -tracking-[0.0375rem]">{data?.name}</h1>
+        {/* <h1 className="text-3xl font-bold -tracking-[0.0375rem]">{data?.name}</h1> */}
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline">
             Reject
@@ -140,21 +182,21 @@ export default function FormToApprove() {
           <Button size="sm">Approve</Button>
         </div>
       </div>
-      <Tabs defaultValue={tab} className="w-full divide-y-2 divide-gray-300/20">
+      <Tabs defaultValue="settings" className="w-full divide-y-2 divide-gray-300/20">
         <TabsList className="p-4 sm:px-10 md:px-24 lg:px-32">
           <TabsTrigger value="settings">Settings</TabsTrigger>
           <TabsTrigger value="data">Data</TabsTrigger>
           <TabsTrigger value="colors">Colors</TabsTrigger>
         </TabsList>
         <TabsContent value="settings">
-          <SettingsContentToApprove data={data} changes={diffKeys} />
+          <SettingsContentToApprove data={formValues} changes={diffKeys} />
         </TabsContent>
         <TabsContent value="data">
           {" "}
-          <DataContentToApprove data={data} changes={diffKeys} valueType={valueType} />
+          <DataContentToApprove data={formValues} changes={diffKeys} />
         </TabsContent>
         <TabsContent value="colors">
-          <ColorsContentToApprove data={data} changes={diffKeys} valueType={valueType} />
+          <ColorsContentToApprove data={formValues} changes={diffKeys} />
         </TabsContent>
       </Tabs>
     </>

@@ -1,21 +1,18 @@
 "use client";
 
+import type { Data } from "@/components/forms/new-dataset/types";
 import { Dataset } from "@/types/generated/strapi.schemas";
 
-import { VALUE_TYPE } from "@/components/forms/new-dataset/types";
 import ColorPicker from "@/components/ui/colorpicker";
 
 export default function ColorsContentToApprove({
   data,
   changes,
-  valueType,
-  categories,
 }: {
-  data: Dataset;
+  data: Data;
   changes: (keyof Dataset)[];
-  valueType: VALUE_TYPE;
-  categories?: string[];
 }) {
+  const valueType = data?.settings?.valueType;
   const COLORS = {
     resource: { minValue: "#1b5eb6", maxValue: "#109484" },
     number: { minValue: "#1b5eb6", maxValue: "#109484" },

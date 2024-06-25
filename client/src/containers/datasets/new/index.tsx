@@ -4,6 +4,8 @@ import { useState, useCallback } from "react";
 
 import { useSession } from "next-auth/react";
 
+import { useRouter } from "next/navigation";
+
 // import { usePostDatasets } from "@/types/generated/dataset";
 import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 // import { usePostDatasetValues } from "@/types/generated/dataset-value";
@@ -84,6 +86,8 @@ export const DATA_HARCODED_VALUES: Data = {
 export default function NewDatasetForm() {
   const { data: session } = useSession();
 
+  const { replace } = useRouter();
+
   const [step, setStep] = useSyncDatasetStep();
 
   const [formValues, setFormValues] = useState<Data>(DATA_HARCODED_VALUES);
@@ -121,6 +125,7 @@ export default function NewDatasetForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating dataset:", data);
+        replace(`/dashboard`);
       },
       onError: (error) => {
         console.error("Error creating dataset:", error);

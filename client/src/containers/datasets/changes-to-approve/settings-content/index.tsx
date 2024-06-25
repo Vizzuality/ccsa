@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/classnames";
 
+import { Data } from "@/components/forms/new-dataset/types";
 import { Dataset } from "@/types/generated/strapi.schemas";
 
 import { Input } from "@/components/ui/input";
@@ -11,8 +12,8 @@ export default function SettingsContentToApprove({
   data,
   changes,
 }: {
-  data: Dataset;
-  changes: (keyof Dataset)[];
+  data: Data;
+  changes: (keyof Data)[];
 }) {
   return (
     <div className="flex items-center py-10 sm:px-10 md:px-24 lg:px-32">
