@@ -8,3 +8,5 @@ export function compareData(obj1: Record<string, string>, obj2: Record<string, s
 
   return keys1.every((key) => obj1[key] === obj2[key]);
 }
+
+export const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>;

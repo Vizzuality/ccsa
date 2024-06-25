@@ -72,17 +72,13 @@ export const DATA_INITIAL_VALUES_2: Data = {
 
 export const DATA_HARCODED_VALUES: Data = {
   settings: {
-    name: "Test",
-    description: "Test description",
-    valueType: "number",
-    category: 1,
-    unit: "test",
+    name: "",
+    description: "",
+    valueType: undefined,
+    category: undefined,
+    unit: "",
   },
-  data: {
-    "AIA-number": 100,
-    "BRB-number": 200,
-    "BES-number": 1000,
-  },
+  data: {},
   colors: {},
 };
 

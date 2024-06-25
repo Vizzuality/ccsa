@@ -6,6 +6,7 @@ import isEmpty from "lodash-es/isEmpty";
 import { SlPencil } from "react-icons/sl";
 
 import { cn } from "@/lib/classnames";
+import { getKeys } from "@/lib/utils/objects";
 
 import { useSyncDatasetStep } from "@/app/store";
 
@@ -33,6 +34,17 @@ const STEPS = [
   },
 ] as const;
 
+const getValidData = (data: Data["settings"] | Data["data"]): boolean => {
+  if (!data || isEmpty(data)) return false;
+
+  return getKeys(data).every((key) => {
+    if (typeof data[`${key}`] === "number") {
+      return true;
+    }
+    return !isEmpty(data[`${key}`]);
+  });
+};
+
 const Navigation = ({ data }: { data: Data; id: string }): JSX.Element => {
   const [, setStep] = useSyncDatasetStep();
 
@@ -43,7 +55,7 @@ const Navigation = ({ data }: { data: Data; id: string }): JSX.Element => {
       <ul className="flex w-full justify-between space-x-2 text-xs">
         {STEPS.map(({ step, title, value }, i) => {
           const prevScreen = STEPS[i - 1]?.value;
-          const disabled = prevScreen && !data?.[`${prevScreen}`].valueType;
+          const disabled = prevScreen && !getValidData(data?.[`${prevScreen}`]);
 
           return (
             <li
