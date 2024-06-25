@@ -10,8 +10,7 @@ import { getKeys } from "@/lib/utils/objects";
 
 import { useSyncDatasetStep } from "@/app/store";
 
-import { Data } from "@/containers/datasets/new";
-
+import { Data } from "@/components/forms/new-dataset/types";
 import { Separator } from "@/components/ui/separator";
 
 // type Steps = "settings" | "data" | "colors";
@@ -34,14 +33,14 @@ const STEPS = [
   },
 ] as const;
 
-const getValidData = (data: Data["settings"] | Data["data"]): boolean => {
+const getErrorData = (data: Data["settings"] | Data["data"]): boolean => {
   if (!data || isEmpty(data)) return false;
 
   return getKeys(data).every((key) => {
     if (typeof data[`${key}`] === "number") {
-      return true;
+      return false;
     }
-    return !isEmpty(data[`${key}`]);
+    return isEmpty(data[`${key}`]);
   });
 };
 
@@ -55,7 +54,7 @@ const Navigation = ({ data }: { data: Data; id: string }): JSX.Element => {
       <ul className="flex w-full justify-between space-x-2 text-xs">
         {STEPS.map(({ step, title, value }, i) => {
           const prevScreen = STEPS[i - 1]?.value;
-          const disabled = prevScreen && !getValidData(data?.[`${prevScreen}`]);
+          const disabled = prevScreen && getErrorData(data?.[`${prevScreen}`]);
 
           return (
             <li
