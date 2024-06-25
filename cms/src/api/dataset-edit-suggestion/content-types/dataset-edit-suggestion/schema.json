@@ -15,7 +15,7 @@
     "name": {
       "type": "string"
     },
-    "datum": {
+    "data": {
       "type": "json"
     },
     "description": {
@@ -48,6 +48,13 @@
       "relation": "manyToOne",
       "target": "api::dataset.dataset",
       "inversedBy": "dataset_edit_suggestions"
+    },
+    "colors": {
+      "type": "json",
+      "required": true
+    },
+    "category": {
+      "type": "integer"
     }
   }
 }

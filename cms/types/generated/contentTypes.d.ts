@@ -894,7 +894,7 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
   };
   attributes: {
     name: Attribute.String;
-    datum: Attribute.JSON;
+    data: Attribute.JSON;
     description: Attribute.RichText;
     unit: Attribute.String;
     value_type: Attribute.Enumeration<
@@ -908,6 +908,8 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
       'manyToOne',
       'api::dataset.dataset'
     >;
+    colors: Attribute.JSON & Attribute.Required;
+    category: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

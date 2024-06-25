@@ -4,6 +4,10 @@ import { dehydrate, Hydrate } from "@tanstack/react-query";
 
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
+import { getGetCountriesQueryOptions } from "@/types/generated/country";
+
+import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,6 +19,8 @@ import {
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery(getGetCountriesQueryOptions(GET_COUNTRIES_OPTIONS));
 
   const dehydratedState = dehydrate(queryClient);
 

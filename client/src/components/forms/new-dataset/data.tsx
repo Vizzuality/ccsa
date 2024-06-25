@@ -61,15 +61,15 @@ export default function NewDatasetDataForm({
 
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
-  // const countries = useMemo(
-  //   () =>
-  //     countriesData?.data
-  //       ? (countriesData.data.map((country) => country.attributes?.iso3) as string[])
-  //       : [],
-  //   [countriesData],
-  // );
+  const countries = useMemo(
+    () =>
+      countriesData?.data
+        ? (countriesData.data.map((country) => country.attributes?.iso3) as string[])
+        : [],
+    [countriesData],
+  );
 
-  const countries = useMemo(() => ["AIA", "BRB", "BES"], []);
+  // const countries = useMemo(() => ["AIA", "BRB", "BES"], []);
 
   const formSchema = useMemo(
     () => getFormSchema(rawData.settings.valueType as VALUE_TYPE, countries),

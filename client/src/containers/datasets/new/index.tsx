@@ -4,7 +4,14 @@ import { useState, useCallback } from "react";
 
 import { useSession } from "next-auth/react";
 
-import type { Dataset } from "@/types/generated/strapi.schemas";
+// import { usePostDatasets } from "@/types/generated/dataset";
+import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+// import { usePostDatasetValues } from "@/types/generated/dataset-value";
+import type {
+  Dataset,
+  UsersPermissionsRole,
+  UsersPermissionsUser,
+} from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncDatasetStep } from "@/app/store";
@@ -12,8 +19,7 @@ import { useSyncDatasetStep } from "@/app/store";
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
-// import { usePostDatasets } from "@/types/generated/dataset";
-// import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+
 export interface Data {
   settings: {
     name: string;
@@ -99,22 +105,11 @@ export default function NewDatasetForm() {
   const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
     populate: "role",
   });
-  console.log(meData);
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
-  // const { mutate } = usePostDatasets({
-  //   mutation: {
-  //     onSuccess: (data) => {
-  //       console.log("Success creating dataset:", data);
-  //       const searchParams = new URLSearchParams();
-  //       replace(`/signin?${searchParams.toString()}`);
-  //     },
-  //     onError: (error) => {
-  //       console.error("Error creating dataset:", error);
-  //     },
-  //   },
-  // });
+  // UsersPermissionsRole
 
-  // const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
+  // const { mutate: mutateDataset } = usePostDatasets({
   //   mutation: {
   //     onSuccess: (data) => {
   //       console.log("Success creating dataset:", data);
@@ -123,44 +118,30 @@ export default function NewDatasetForm() {
   //       console.error("Error creating dataset:", error);
   //     },
   //   },
-  //   request: {},
   // });
 
-  // const handleDataset = () => {
-  //   mutateDatasetEditSuggestion({
-  //     data: {
-  //       data: {
-  //         datum: [
-  //           {
-  //             iso3: "ABW",
-  //             value: "High",
-  //           },
-  //           {
-  //             iso3: "AIA",
-  //             value: "High",
-  //           },
-  //           {
-  //             iso3: "ATG",
-  //             value: "Medium",
-  //           },
-  //           {
-  //             iso3: "BES",
-  //             value: "Medium",
-  //           },
-  //           {
-  //             iso3: "BHS",
-  //             value: "Medium",
-  //           },
-  //         ],
-  //         description: "test dataset description",
-  //         name: "test 3 dataset name",
-  //         review_status: "declined",
-  //         unit: "",
-  //         value_type: "number",
-  //       },
+  // const { mutate: mutateDatasetValues } = usePostDatasetValues({
+  //   mutation: {
+  //     onSuccess: (data) => {
+  //       console.log("Success creating dataset values:", data);
   //     },
-  //   });
-  // };
+  //     onError: (error) => {
+  //       console.error("Error creating dataset values:", error);
+  //     },
+  //   },
+  // });
+
+  const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
+    mutation: {
+      onSuccess: (data) => {
+        console.log("Success creating dataset:", data);
+      },
+      onError: (error) => {
+        console.error("Error creating dataset:", error);
+      },
+    },
+    request: {},
+  });
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
@@ -180,12 +161,43 @@ export default function NewDatasetForm() {
 
   const handleColorsSubmit = useCallback(
     (values: Data["colors"]) => {
-      setFormValues({ ...formValues, colors: values });
+      const data = { ...formValues, colors: values };
+      setFormValues(data);
 
-      console.log("Dataset", { ...formValues, colors: values });
-      // TO - DO mutation to datasetEditsuggestion
+      if (ME_DATA?.role?.type === "authenticated") {
+        mutateDatasetEditSuggestion({
+          data: {
+            data: {
+              ...data.settings,
+              value_type: data.settings.valueType,
+              data: data.data,
+              colors: data.colors,
+              review_status: "pending",
+            },
+          },
+        });
+      }
+
+      // BULK UPLOAD REQUIRED
+      // if (ME_DATA?.role?.type === "admin") {
+      //   mutateDataset({
+      //     data: {
+      //       data: {
+      //         ...data.settings,
+      //         review_status: "approved",
+      //       },
+      //     },
+      //   });
+      //   mutateDatasetValues({
+      //     data: {
+      //       data: {
+      //         ...data.data,
+      //       },
+      //     },
+      //   });
+      // }
     },
-    [formValues],
+    [formValues, meData, mutateDatasetEditSuggestion],
   );
 
   return (

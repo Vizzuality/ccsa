@@ -4702,10 +4702,12 @@ export const LayerDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesV
 } as const;
 
 export type LayerDatasetDataAttributesDatasetEditSuggestionsDataItemAttributes = {
+  category?: number;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: LayerDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCreatedBy;
+  data?: unknown;
   dataset?: LayerDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesDataset;
-  datum?: unknown;
   description?: string;
   name?: string;
   publishedAt?: string;
@@ -5509,10 +5511,12 @@ export const DatasetValueDatasetDataAttributesDatasetEditSuggestionsDataItemAttr
 } as const;
 
 export type DatasetValueDatasetDataAttributesDatasetEditSuggestionsDataItemAttributes = {
+  category?: number;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: DatasetValueDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCreatedBy;
+  data?: unknown;
   dataset?: DatasetValueDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesDataset;
-  datum?: unknown;
   description?: string;
   name?: string;
   publishedAt?: string;
@@ -5967,10 +5971,12 @@ export type DatasetEditSuggestionDataset = {
 };
 
 export interface DatasetEditSuggestion {
+  category?: number;
+  colors: unknown;
   createdAt?: string;
   createdBy?: DatasetEditSuggestionCreatedBy;
+  data?: unknown;
   dataset?: DatasetEditSuggestionDataset;
-  datum?: unknown;
   description?: string;
   name?: string;
   publishedAt?: string;
@@ -6158,10 +6164,12 @@ export type DatasetEditSuggestionDatasetDataAttributesDatasetEditSuggestionsData
   };
 
 export type DatasetEditSuggestionDatasetDataAttributesDatasetEditSuggestionsDataItemAttributes = {
+  category?: number;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: DatasetEditSuggestionDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCreatedBy;
+  data?: unknown;
   dataset?: DatasetEditSuggestionDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesDataset;
-  datum?: unknown;
   description?: string;
   name?: string;
   publishedAt?: string;
@@ -6490,8 +6498,10 @@ export const DatasetEditSuggestionRequestDataReviewStatus = {
 export type DatasetEditSuggestionRequestDataDataset = number | string;
 
 export type DatasetEditSuggestionRequestData = {
+  category?: number;
+  colors: unknown;
+  data?: unknown;
   dataset?: DatasetEditSuggestionRequestDataDataset;
-  datum?: unknown;
   description?: string;
   name?: string;
   review_status: DatasetEditSuggestionRequestDataReviewStatus;
@@ -6976,10 +6986,12 @@ export type DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetEditSu
 
 export type DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetEditSuggestionsDataItemAttributes =
   {
+    category?: number;
+    colors?: unknown;
     createdAt?: string;
     createdBy?: DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetEditSuggestionsDataItemAttributesCreatedBy;
+    data?: unknown;
     dataset?: DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetEditSuggestionsDataItemAttributesDataset;
-    datum?: unknown;
     description?: string;
     name?: string;
     publishedAt?: string;
@@ -8386,10 +8398,12 @@ export const CategoryDatasetsDataItemAttributesDatasetEditSuggestionsDataItemAtt
   } as const;
 
 export type CategoryDatasetsDataItemAttributesDatasetEditSuggestionsDataItemAttributes = {
+  category?: number;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: CategoryDatasetsDataItemAttributesDatasetEditSuggestionsDataItemAttributesCreatedBy;
+  data?: unknown;
   dataset?: CategoryDatasetsDataItemAttributesDatasetEditSuggestionsDataItemAttributesDataset;
-  datum?: unknown;
   description?: string;
   name?: string;
   publishedAt?: string;
