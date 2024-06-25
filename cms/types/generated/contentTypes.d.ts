@@ -809,6 +809,11 @@ export interface ApiCountryCountry extends Schema.CollectionType {
     geometry: Attribute.JSON;
     bbox: Attribute.JSON;
     link: Attribute.String;
+    dataset_values: Attribute.Relation<
+      'api::country.country',
+      'oneToMany',
+      'api::dataset-value.dataset-value'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -861,6 +866,11 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'api::dataset.dataset',
       'oneToMany',
       'api::dataset-edit-suggestion.dataset-edit-suggestion'
+    >;
+    dataset_values: Attribute.Relation<
+      'api::dataset.dataset',
+      'oneToMany',
+      'api::dataset-value.dataset-value'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -942,12 +952,12 @@ export interface ApiDatasetValueDatasetValue extends Schema.CollectionType {
   attributes: {
     dataset: Attribute.Relation<
       'api::dataset-value.dataset-value',
-      'oneToOne',
+      'manyToOne',
       'api::dataset.dataset'
     >;
     country: Attribute.Relation<
       'api::dataset-value.dataset-value',
-      'oneToOne',
+      'manyToOne',
       'api::country.country'
     >;
     value_text: Attribute.String;

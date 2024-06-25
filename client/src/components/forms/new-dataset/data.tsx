@@ -15,8 +15,6 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 
-import type { Data } from "@/containers/datasets/new";
-
 import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
@@ -41,7 +39,7 @@ import {
 
 import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
-import type { VALUE_TYPE, FormSchemaType } from "./types";
+import type { VALUE_TYPE, FormSchemaType, Data } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
 
 export default function NewDatasetDataForm({
@@ -62,53 +60,56 @@ export default function NewDatasetDataForm({
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
   const countries = useMemo(
-    () =>
-      countriesData?.data
-        ? (countriesData.data.map((country) => country.attributes?.iso3) as string[])
-        : [],
+    () => countriesData?.data?.map((country) => country) || [],
     [countriesData],
   );
 
   // const countries = useMemo(() => ["AIA", "BRB", "BES"], []);
 
   const formSchema = useMemo(
-    () => getFormSchema(rawData.settings.valueType as VALUE_TYPE, countries),
+    () =>
+      getFormSchema(
+        rawData.settings.valueType as VALUE_TYPE,
+        countries.map((c) => c?.attributes?.iso3) as string[],
+      ),
     [rawData.settings.valueType, countries],
   );
 
   const values = useMemo(() => {
-    const c = countries.reduce(
-      (acc, country) => {
-        if (rawData.settings.valueType === "number") {
-          return {
-            ...acc,
-            [`${country}-number`]: data[`${country}-number`],
-          };
-        }
-        if (rawData.settings.valueType === "text") {
-          return {
-            ...acc,
-            [`${country}-text`]: data[`${country}-text`],
-          };
-        }
-        if (rawData.settings.valueType === "resource") {
-          return {
-            ...acc,
-            [`${country}-title`]: data[`${country}-title`],
-            [`${country}-description`]: data[`${country}-description`],
-            [`${country}-link`]: data[`${country}-link`],
-          };
-        }
-        if (rawData.settings.valueType === "boolean") {
-          return {
-            ...acc,
-            [`${country}-boolean`]: data[`${country}-boolean`],
-          };
-        }
-        return acc;
-      },
-      {} as Record<string, string | number | undefined>,
-    );
+    const c = countries
+      .map((c) => c?.attributes?.iso3 as string)
+      .reduce(
+        (acc, country) => {
+          if (rawData.settings.valueType === "number") {
+            return {
+              ...acc,
+              [`${country}-number`]: data[`${country}-number`],
+            };
+          }
+          if (rawData.settings.valueType === "text") {
+            return {
+              ...acc,
+              [`${country}-text`]: data[`${country}-text`],
+            };
+          }
+          if (rawData.settings.valueType === "resource") {
+            return {
+              ...acc,
+              [`${country}-title`]: data[`${country}-title`],
+              [`${country}-description`]: data[`${country}-description`],
+              [`${country}-link`]: data[`${country}-link`],
+            };
+          }
+          if (rawData.settings.valueType === "boolean") {
+            return {
+              ...acc,
+              [`${country}-boolean`]: data[`${country}-boolean`],
+            };
+          }
+          return acc;
+        },
+        {} as Record<string, string | number | undefined>,
+      );
 
     return c;
   }, [countries, rawData.settings.valueType, data]);
@@ -153,21 +154,23 @@ export default function NewDatasetDataForm({
               </TableHeader>
               <TableBody>
                 {countries.map((country) => (
-                  <TableRow key={country}>
+                  <TableRow key={country.id}>
                     {COLUMNS.map((c) => {
                       const { label, value } = c;
 
                       return value === "country_id" ? (
-                        <TableCell key={`${country}-${value}`}>{country}</TableCell>
+                        <TableCell key={`${country.attributes?.iso3}-${value}`}>
+                          {country?.attributes?.name}
+                        </TableCell>
                       ) : (
-                        <TableCell key={`${country}-${value}`}>
+                        <TableCell key={`${country.attributes?.iso3}-${value}`}>
                           <FormField
                             control={form.control}
-                            name={`${country}-${value}`}
+                            name={`${country.attributes?.iso3}-${value}`}
                             render={({ field }) => {
                               return (
                                 <FormItem className="col-span-2 space-y-1.5">
-                                  <FormLabel className="hidden text-xs">{`${country}-${label}`}</FormLabel>
+                                  <FormLabel className="hidden text-xs">{`${country.attributes?.iso3}-${label}`}</FormLabel>
                                   <FormControl>
                                     <>
                                       {value !== "boolean" && (

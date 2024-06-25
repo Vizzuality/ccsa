@@ -32,6 +32,12 @@
     },
     "link": {
       "type": "string"
+    },
+    "dataset_values": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dataset-value.dataset-value",
+      "mappedBy": "country"
     }
   }
 }

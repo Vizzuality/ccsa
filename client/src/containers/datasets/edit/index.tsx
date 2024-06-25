@@ -1,33 +1,18 @@
 "use client";
 
-import { useState, useCallback } from "react";
-
-import type { Dataset } from "@/types/generated/strapi.schemas";
+import { useState, useCallback, useEffect } from "react";
 
 import { useParams } from "next/navigation";
+
+import { useGetDatasetsId } from "@/types/generated/dataset";
+import { useGetDatasetValues } from "@/types/generated/dataset-value";
 
 import { useSyncDatasetStep } from "@/app/store";
 
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
-
-import { useGetDatasetValuesId } from "@/types/generated/dataset-value";
-import { useGetDatasetValues } from "@/types/generated/dataset-value";
-import { usePostDatasets } from "@/types/generated/dataset";
-import { useGetCategories, useGetCategoriesId } from "@/types/generated/category";
-
-export interface Data {
-  settings: {
-    name: string;
-    description: string;
-    valueType?: Dataset["value_type"] | undefined;
-    category?: number;
-    unit?: string;
-  };
-  data: { [key: string]: string | number };
-  colors: Record<string, string>;
-}
+import { Data } from "@/components/forms/new-dataset/types";
 
 export const DATA_INITIAL_VALUES: Data = {
   settings: {
@@ -47,51 +32,56 @@ export default function EditDatasetForm() {
   const [currentStep, setCurrentStep] = useSyncDatasetStep();
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
 
-  const { mutate } = usePostDatasets({
-    mutation: {
-      onSuccess: (data) => {
-        console.log("Success creating dataset:", data);
-        const searchParams = new URLSearchParams();
+  const { data: datasetData } = useGetDatasetsId(Number(id), {
+    populate: "*",
+  });
+
+  const { data: datasetValuesData } = useGetDatasetValues({
+    filters: {
+      dataset: id,
+    },
+    "pagination[pageSize]": 300,
+    populate: {
+      country: {
+        fields: ["name", "iso3"],
       },
-      onError: (error) => {
-        console.error("Error creating dataset:", error);
-      },
+      resources: true,
     },
   });
 
-  const { data: dataset } = useGetDatasetValuesId(Number(id));
-  const { data: category } = useGetCategoriesId(Number(id));
-  const { data: datasets } = useGetDatasetValues();
-  const { data: categories } = useGetCategories();
+  useEffect(() => {
+    const settings = {
+      name: datasetData?.data?.attributes?.name || "",
+      description: datasetData?.data?.attributes?.description || "",
+      valueType: datasetData?.data?.attributes?.value_type || undefined,
+      category: datasetData?.data?.attributes?.category?.data?.id || undefined,
+      unit: datasetData?.data?.attributes?.unit,
+    };
 
-  // const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
-  //   mutation: {
-  //     onSuccess: (data) => {
-  //       console.log("Success creating dataset:", data);
-  //     },
-  //     onError: (error) => {
-  //       console.error("Error creating dataset:", error);
-  //     },
-  //   },
-  //   request: {},
-  // });
+    const data =
+      datasetValuesData?.data?.reduce(
+        (acc, curr) => {
+          const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
 
-  // 2. Define a submit handler.
-  // function onSubmit(values) {
-  //   // const fieldsToUpdate = form.formState.dirtyFields;
+          if (datasetData?.data?.attributes?.value_type === "number") {
+            return { ...acc, [`${countryIso}-number`]: curr?.attributes?.value_number };
+          }
 
-  //   mutate({ data: { email: values.email } });
-  // }
+          if (datasetData?.data?.attributes?.value_type === "text") {
+            return { ...acc, [`${countryIso}-text`]: curr?.attributes?.value_text };
+          }
 
-  const handleSubmit = useCallback(() => {
-    mutate({
-      data: {
-        dataset: {
-          connect: [dataset.id],
+          // if (datasetData?.data?.attributes?.value_type === "boolean") {
+          //   return { ...acc, [`${countryIso}-boolean`]: curr?.attributes?.value_boolean };
+          // }
+
+          return acc;
         },
-      },
-    });
-  }, []);
+        {} as Data["data"],
+      ) || {};
+
+    setFormValues({ settings, data, colors: {} });
+  }, [datasetData, datasetValuesData]);
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
@@ -122,7 +112,7 @@ export default function EditDatasetForm() {
       {currentStep === 1 && (
         <NewDatasetSettingsForm
           id="edit-dataset-settings"
-          title="Edit dataset"
+          title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleSettingsSubmit}
         />
@@ -130,7 +120,7 @@ export default function EditDatasetForm() {
       {currentStep === 2 && (
         <NewDatasetDataForm
           id="edit-dataset-data"
-          title="Edit dataset"
+          title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleDataSubmit}
         />
@@ -138,7 +128,7 @@ export default function EditDatasetForm() {
       {currentStep === 3 && (
         <NewDatasetColorsForm
           id="edit-dataset-colors"
-          title="Edit dataset"
+          title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleColorsSubmit}
         />

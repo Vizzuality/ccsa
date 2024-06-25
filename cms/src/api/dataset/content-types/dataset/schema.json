@@ -55,6 +55,12 @@
       "relation": "oneToMany",
       "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
       "mappedBy": "dataset"
+    },
+    "dataset_values": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dataset-value.dataset-value",
+      "mappedBy": "dataset"
     }
   }
 }

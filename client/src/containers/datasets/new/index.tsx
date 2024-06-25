@@ -7,11 +7,7 @@ import { useSession } from "next-auth/react";
 // import { usePostDatasets } from "@/types/generated/dataset";
 import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 // import { usePostDatasetValues } from "@/types/generated/dataset-value";
-import type {
-  Dataset,
-  UsersPermissionsRole,
-  UsersPermissionsUser,
-} from "@/types/generated/strapi.schemas";
+import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncDatasetStep } from "@/app/store";
@@ -19,18 +15,8 @@ import { useSyncDatasetStep } from "@/app/store";
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
+import { Data } from "@/components/forms/new-dataset/types";
 
-export interface Data {
-  settings: {
-    name: string;
-    description: string;
-    valueType?: Dataset["value_type"];
-    category?: number;
-    unit?: string;
-  };
-  data: { [key: string]: string | number };
-  colors: Record<string, string>;
-}
 export const DATA_INITIAL_VALUES_2: Data = {
   settings: {
     name: "",
@@ -134,7 +120,7 @@ export default function NewDatasetForm() {
   const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
     mutation: {
       onSuccess: (data) => {
-        console.log("Success creating dataset:", data);
+        console.info("Success creating dataset:", data);
       },
       onError: (error) => {
         console.error("Error creating dataset:", error);
@@ -197,7 +183,7 @@ export default function NewDatasetForm() {
       //   });
       // }
     },
-    [formValues, meData, mutateDatasetEditSuggestion],
+    [formValues, ME_DATA, mutateDatasetEditSuggestion],
   );
 
   return (

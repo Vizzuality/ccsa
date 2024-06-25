@@ -1,9 +1,9 @@
 "use client";
 
 import { Dataset } from "@/types/generated/strapi.schemas";
-import ColorPicker from "@/components/ui/colorpicker";
 
 import { VALUE_TYPE } from "@/components/forms/new-dataset/types";
+import ColorPicker from "@/components/ui/colorpicker";
 
 export default function ColorsContentToApprove({
   data,
@@ -50,6 +50,12 @@ export default function ColorsContentToApprove({
         </div>
 
         <div className="flex w-full flex-1">
+          {/* <NewDatasetColorsForm
+            id="edit-dataset-colors"
+            title={data?.title || "Edit dataset"}
+            data={data}
+            // onSubmit={handleColorsSubmit}
+          /> */}
           <div className="grid w-full grow grid-cols-2 gap-6">
             {valueType === "text" &&
               // categories?.map((category) => (

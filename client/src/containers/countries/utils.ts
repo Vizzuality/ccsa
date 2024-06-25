@@ -76,6 +76,8 @@ const useTableData = () => {
     getDatasetParams.options,
   );
 
+  console.log(datasetValueData);
+
   const countries = country
     ? [country, ...countriesComparison].sort((a, b) => {
         if (!a || !b) return 0;

@@ -1,4 +1,18 @@
-export type VALUE_TYPE = "number" | "text" | "boolean" | "resource";
+import { Dataset } from "@/types/generated/strapi.schemas";
+
+export type VALUE_TYPE = Dataset["value_type"];
+
+export interface Data {
+  settings: {
+    name: string;
+    description: string;
+    valueType?: Dataset["value_type"];
+    category?: number;
+    unit?: string;
+  };
+  data: { [key: string]: string | number | undefined };
+  colors: Record<string, string>;
+}
 
 interface NumberDataColumn {
   valueType: "number";
