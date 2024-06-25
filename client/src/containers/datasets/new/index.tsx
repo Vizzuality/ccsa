@@ -2,7 +2,10 @@
 
 import { useState, useCallback } from "react";
 
+import { useSession } from "next-auth/react";
+
 import type { Dataset } from "@/types/generated/strapi.schemas";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncDatasetStep } from "@/app/store";
 
@@ -72,23 +75,31 @@ export const DATA_INITIAL_VALUES_2: Data = {
 
 export const DATA_HARCODED_VALUES: Data = {
   settings: {
-    name: "",
-    description: "",
-    valueType: undefined,
-    category: undefined,
-    unit: "",
+    name: "Test",
+    description: "Test description",
+    valueType: "number",
+    category: 1,
+    unit: "test",
   },
-  data: {},
+  data: {
+    "AIA-number": 100,
+    "BRB-number": 200,
+    "BES-number": 1000,
+  },
   colors: {},
 };
 
 export default function NewDatasetForm() {
-  // const { replace } = useRouter();
+  const { data: session } = useSession();
+
   const [step, setStep] = useSyncDatasetStep();
 
-  const DATA_INITIAL_VALUES = DATA_HARCODED_VALUES;
+  const [formValues, setFormValues] = useState<Data>(DATA_HARCODED_VALUES);
 
-  const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
+  const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
+    populate: "role",
+  });
+  console.log(meData);
 
   // const { mutate } = usePostDatasets({
   //   mutation: {

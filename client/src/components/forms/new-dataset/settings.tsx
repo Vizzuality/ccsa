@@ -122,7 +122,7 @@ export default function NewDatasetSettingsForm({
     },
     [onSubmit],
   );
-  console.log(data);
+
   return (
     <>
       <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
@@ -142,9 +142,9 @@ export default function NewDatasetSettingsForm({
                     <FormControl>
                       <Input
                         {...field}
-                        value={data.name || field.value}
+                        value={field.value}
                         className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                        placeholder={"Name"}
+                        placeholder="Name"
                       />
                     </FormControl>
                     <FormMessage />
@@ -158,7 +158,7 @@ export default function NewDatasetSettingsForm({
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
-                      <Select onValueChange={field.onChange} value={data.valueType || field.value}>
+                      <Select onValueChange={field.onChange} value={field.value}>
                         <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
@@ -217,7 +217,7 @@ export default function NewDatasetSettingsForm({
                           {...field}
                           value={field.value}
                           className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                          placeholder={data.unit || "unit"}
+                          placeholder="unit"
                         />
                         <p className="text-xs">This will appear in the legend (e.g. dollars)</p>
                       </>

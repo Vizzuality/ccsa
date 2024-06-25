@@ -9,9 +9,9 @@ import type { Dataset } from "@/types/generated/strapi.schemas";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import ColorsContentToApprove from "./colors-content";
 import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
-import ColorsContentToApprove from "./colors-content";
 
 function getObjectDifferences(obj1: Dataset, obj2: Dataset): (keyof Dataset)[] {
   if (!obj2) return [];
@@ -44,7 +44,7 @@ export default function FormToApprove() {
   const previousDatasetsData = PreviousDataset?.data?.attributes as Dataset;
 
   const diffKeys = !!data && getObjectDifferences(data, previousDatasetsData);
-  console.log(DatasetToApprove, "DatasetToApprove");
+
   return (
     <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">

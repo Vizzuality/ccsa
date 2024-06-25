@@ -63,7 +63,6 @@ export default function EditDatasetForm() {
   const { data: category } = useGetCategoriesId(Number(id));
   const { data: datasets } = useGetDatasetValues();
   const { data: categories } = useGetCategories();
-  console.log(dataset, categories, "dataset");
 
   // const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
   //   mutation: {

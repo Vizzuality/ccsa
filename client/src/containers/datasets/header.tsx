@@ -10,13 +10,12 @@ const DatasetsHeader = () => {
   const [datasets] = useSyncDatasets();
 
   const session = useSession();
-
   return (
     <header className="flex items-center justify-between">
       <div className="flex items-center space-x-2">
         <p className="text-sm">All datasets</p>
 
-        {!!session && (
+        {session.status === "authenticated" && (
           <Link
             href="/datasets/new"
             className="inline-flex h-8 items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
