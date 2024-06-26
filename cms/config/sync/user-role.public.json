@@ -110,6 +110,9 @@
     },
     {
       "action": "plugin::users-permissions.auth.sendEmailConfirmation"
+    },
+    {
+      "action": "api::welcome-message.welcome-message.find"
     }
   ]
 }

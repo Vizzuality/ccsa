@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::collaborator-edit-suggestion.collaborator-edit-suggestion",
+  "key": "plugin_content_manager_configuration_content_types::api::welcome-message.welcome-message",
   "value": {
-    "uid": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
+    "uid": "api::welcome-message.welcome-message",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "name",
-      "defaultSortBy": "name",
+      "mainField": "button",
+      "defaultSortBy": "button",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -20,88 +20,72 @@
           "sortable": true
         }
       },
-      "name": {
+      "title": {
         "edit": {
-          "label": "name",
+          "label": "title",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "name",
+          "label": "title",
           "searchable": true,
           "sortable": true
         }
       },
-      "link": {
+      "subtitle": {
         "edit": {
-          "label": "link",
+          "label": "subtitle",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "link",
+          "label": "subtitle",
           "searchable": true,
           "sortable": true
         }
       },
-      "type": {
+      "video": {
         "edit": {
-          "label": "type",
+          "label": "video",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "type",
-          "searchable": true,
-          "sortable": true
+          "label": "video",
+          "searchable": false,
+          "sortable": false
         }
       },
-      "collaborator": {
+      "image": {
         "edit": {
-          "label": "collaborator",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "collaborator",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "review_status": {
-        "edit": {
-          "label": "review_status",
+          "label": "image",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "review_status",
-          "searchable": true,
-          "sortable": true
+          "label": "image",
+          "searchable": false,
+          "sortable": false
         }
       },
-      "author": {
+      "button": {
         "edit": {
-          "label": "author",
+          "label": "button",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "username"
+          "editable": true
         },
         "list": {
-          "label": "author",
+          "label": "button",
           "searchable": true,
           "sortable": true
         }
@@ -168,38 +152,34 @@
     "layouts": {
       "list": [
         "id",
-        "name",
-        "link",
-        "type"
+        "title",
+        "subtitle",
+        "video"
       ],
       "edit": [
         [
           {
-            "name": "name",
+            "name": "title",
             "size": 6
           },
           {
-            "name": "link",
+            "name": "subtitle",
             "size": 6
           }
         ],
         [
           {
-            "name": "type",
+            "name": "video",
             "size": 6
           },
           {
-            "name": "collaborator",
+            "name": "image",
             "size": 6
           }
         ],
         [
           {
-            "name": "review_status",
-            "size": 6
-          },
-          {
-            "name": "author",
+            "name": "button",
             "size": 6
           }
         ]

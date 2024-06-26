@@ -758,6 +758,7 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
     singularName: 'collaborator-edit-suggestion';
     pluralName: 'collaborator-edit-suggestions';
     displayName: 'Collaborator Edit Suggestion';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -774,6 +775,11 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &
       Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -920,6 +926,11 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
     >;
     colors: Attribute.JSON & Attribute.Required;
     category: Attribute.Integer;
+    author: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1268,6 +1279,11 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
       'manyToOne',
       'api::project.project'
     >;
+    author: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1370,6 +1386,11 @@ export interface ApiToolEditSuggestionToolEditSuggestion
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &
       Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1381,6 +1402,41 @@ export interface ApiToolEditSuggestionToolEditSuggestion
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiWelcomeMessageWelcomeMessage extends Schema.SingleType {
+  collectionName: 'welcome_messages';
+  info: {
+    singularName: 'welcome-message';
+    pluralName: 'welcome-messages';
+    displayName: 'Welcome message';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.Text;
+    subtitle: Attribute.Text;
+    video: Attribute.Media;
+    image: Attribute.Media;
+    button: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::welcome-message.welcome-message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::welcome-message.welcome-message',
       'oneToOne',
       'admin::user'
     > &
@@ -1421,6 +1477,7 @@ declare module '@strapi/types' {
       'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;
       'api::tool-edit-suggestion.tool-edit-suggestion': ApiToolEditSuggestionToolEditSuggestion;
+      'api::welcome-message.welcome-message': ApiWelcomeMessageWelcomeMessage;
     }
   }
 }

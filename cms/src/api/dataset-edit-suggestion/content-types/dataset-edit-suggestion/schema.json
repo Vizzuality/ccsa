@@ -55,6 +55,11 @@
     },
     "category": {
       "type": "integer"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

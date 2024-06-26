@@ -38,7 +38,7 @@ module.exports = {
           "User",
           "Users-Permissions - Auth",
           "Users-Permissions - Users & Roles",
-          "NewDatasetS",
+          "Welcome-message",
         ],
       },
     },

@@ -63,7 +63,8 @@
           "link",
           "type",
           "collaborator",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -92,7 +93,8 @@
           "link",
           "type",
           "collaborator",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -107,7 +109,8 @@
           "link",
           "type",
           "collaborator",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -244,7 +247,8 @@
           "review_status",
           "dataset",
           "colors",
-          "category"
+          "category",
+          "author"
         ]
       },
       "conditions": []
@@ -277,7 +281,8 @@
           "review_status",
           "dataset",
           "colors",
-          "category"
+          "category",
+          "author"
         ]
       },
       "conditions": []
@@ -296,7 +301,8 @@
           "review_status",
           "dataset",
           "colors",
-          "category"
+          "category",
+          "author"
         ]
       },
       "conditions": []
@@ -721,7 +727,8 @@
           "objective",
           "info",
           "review_status",
-          "project"
+          "project",
+          "author"
         ]
       },
       "conditions": []
@@ -757,7 +764,8 @@
           "objective",
           "info",
           "review_status",
-          "project"
+          "project",
+          "author"
         ]
       },
       "conditions": []
@@ -779,7 +787,8 @@
           "objective",
           "info",
           "review_status",
-          "project"
+          "project",
+          "author"
         ]
       },
       "conditions": []
@@ -983,7 +992,8 @@
           "description",
           "link",
           "other_tool",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -1012,7 +1022,8 @@
           "description",
           "link",
           "other_tool",
-          "review_status"
+          "review_status",
+          "author"
         ]
       },
       "conditions": []
@@ -1027,7 +1038,67 @@
           "description",
           "link",
           "other_tool",
-          "review_status"
+          "review_status",
+          "author"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::welcome-message.welcome-message",
+      "properties": {
+        "fields": [
+          "title",
+          "subtitle",
+          "video",
+          "image",
+          "button"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::welcome-message.welcome-message",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::welcome-message.welcome-message",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::welcome-message.welcome-message",
+      "properties": {
+        "fields": [
+          "title",
+          "subtitle",
+          "video",
+          "image",
+          "button"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::welcome-message.welcome-message",
+      "properties": {
+        "fields": [
+          "title",
+          "subtitle",
+          "video",
+          "image",
+          "button"
         ]
       },
       "conditions": []

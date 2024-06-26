@@ -197,6 +197,9 @@
     },
     {
       "action": "plugin::users-permissions.user.update"
+    },
+    {
+      "action": "api::welcome-message.welcome-message.find"
     }
   ]
 }
