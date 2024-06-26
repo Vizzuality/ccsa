@@ -31,72 +31,42 @@ export const DATA_INITIAL_VALUES: Data = {
   colors: {},
 };
 
-// type number
-// settings: {
-//   name: "Test",
-//   description: "Test description",
-//   valueType: "number",
-//   category: 1,
-//   unit: "test",
-// },
-// data: {
-//   "AIA": 100,
-//   "BRB": 200,
-//   "BES": 1000,
-// },
-// colors: {},
-
-// type resource
-// settings: {
-//   name: "Test",
-//   description: "Test description",
-//   valueType: "resource",
-//   category: 1,
-//   unit: "test",
-// },
-// data: {
-//   "AIA": [
-//     {
-//       title: "Resource title",
-//       description: "Resource description",
-//       link: "http://google.com",
-//     },
-//     {
-//       title: "Resource title",
-//       description: "Resource description",
-//       link: "http://google.com",
-//     },
-//   ],
-//   "BRB": [
-//     {
-//       title: "Resource title",
-//       description: "Resource description",
-//       link: "http://google.com",
-//     },
-//   ],
-//   "BES": [
-//     {
-//       title: "Resource title",
-//       description: "Resource description",
-//       link: "http://google.com",
-//     },
-//   ],
-
-// },
-// colors: {},
-
 export const DATA_HARCODED_VALUES: Data = {
+  // type resource
   settings: {
     name: "Test",
     description: "Test description",
-    valueType: "number",
+    valueType: "resource",
     category: 1,
     unit: "test",
   },
   data: {
-    AIA: 100,
-    BRB: 200,
-    BES: 1000,
+    AIA: [
+      {
+        title: "Resource title",
+        description: "Resource description",
+        link: "http://google.com",
+      },
+      {
+        title: "Resource title",
+        description: "Resource description",
+        link: "http://google.com",
+      },
+    ],
+    BRB: [
+      {
+        title: "Resource title",
+        description: "Resource description",
+        link: "http://google.com",
+      },
+    ],
+    BES: [
+      {
+        title: "Resource title",
+        description: "Resource description",
+        link: "http://google.com",
+      },
+    ],
   },
   colors: {},
 };
@@ -211,7 +181,6 @@ export default function NewDatasetForm() {
 
   return (
     <>
-      {/* <button onClick={handleDataset}>Create dataset</button> */}
       {step === 1 && (
         <NewDatasetSettingsForm
           id="dataset-settings"

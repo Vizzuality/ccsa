@@ -39,7 +39,7 @@ import {
 
 import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
-import type { VALUE_TYPE, FormSchemaType, Data } from "./types";
+import type { VALUE_TYPE, Data, Resource } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
 
 export default function NewDatasetDataForm({
@@ -87,13 +87,13 @@ export default function NewDatasetDataForm({
             [`${country}`]: data[`${country}`],
           };
         },
-        {} as Record<string, string | number | boolean | undefined>,
+        {} as Data["data"],
       );
 
     return c;
   }, [countries, data]);
 
-  const form = useForm<FormSchemaType>({
+  const form = useForm<Data["data"]>({
     resolver: zodResolver(formSchema),
     values,
   });
@@ -137,11 +137,15 @@ export default function NewDatasetDataForm({
                     {COLUMNS.map((c) => {
                       const { label, value } = c;
 
-                      return value === "country_id" ? (
-                        <TableCell key={`${country.attributes?.iso3}-${value}`}>
-                          {country?.attributes?.name}
-                        </TableCell>
-                      ) : (
+                      if (value === "country_id") {
+                        return (
+                          <TableCell key={`${country.attributes?.iso3}-${value}`}>
+                            {country?.attributes?.name}
+                          </TableCell>
+                        );
+                      }
+
+                      return (
                         <TableCell key={`${country.attributes?.iso3}-${value}`}>
                           <FormField
                             control={form.control}
@@ -175,6 +179,56 @@ export default function NewDatasetDataForm({
                                           className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
                                         />
                                       )}
+
+                                      {value === "title" &&
+                                        Array.isArray(field?.value) &&
+                                        field?.value?.map((resource, index) => (
+                                          <Input
+                                            {...field}
+                                            key={index}
+                                            value={resource.title}
+                                            onChange={(e) => {
+                                              let newValues: Resource[] = [
+                                                {
+                                                  title: "",
+                                                  description: "",
+                                                  link: "",
+                                                },
+                                              ];
+
+                                              if (Array.isArray(field?.value)) {
+                                                newValues = field?.value?.map((r, i) => {
+                                                  if (i === index) {
+                                                    return { ...r, title: e.target.value };
+                                                  }
+                                                  return r;
+                                                });
+                                              }
+                                              field.onChange(newValues);
+                                            }}
+                                            className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                          />
+                                        ))}
+                                      {value === "description" &&
+                                        Array.isArray(field?.value) &&
+                                        field?.value?.map((resource, index) => (
+                                          <Input
+                                            {...field}
+                                            key={index}
+                                            value={resource.description}
+                                            className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                          />
+                                        ))}
+                                      {value === "link" &&
+                                        Array.isArray(field?.value) &&
+                                        field?.value?.map((resource, index) => (
+                                          <Input
+                                            {...field}
+                                            key={index}
+                                            value={resource.link}
+                                            className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                          />
+                                        ))}
 
                                       {value === "boolean" && (
                                         <Checkbox

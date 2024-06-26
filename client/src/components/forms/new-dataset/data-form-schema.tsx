@@ -16,13 +16,15 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
   } else if (valueType === "resource") {
     return z.object(
       countries.reduce((acc, country) => {
-        acc[`${country}`] = z.array(
-          z.object({
-            title: z.string().min(1, { message: "Please enter a title" }),
-            link: z.string().url({ message: "Please enter a valid URL" }),
-            description: z.string().min(1, { message: "Please enter a description" }),
-          }),
-        );
+        acc[`${country}`] = z
+          .array(
+            z.object({
+              title: z.string().min(1, { message: "Please enter a title" }),
+              link: z.string().url({ message: "Please enter a valid URL" }),
+              description: z.string().min(1, { message: "Please enter a description" }),
+            }),
+          )
+          .optional();
         return acc;
       }, {} as z.ZodRawShape),
     );
