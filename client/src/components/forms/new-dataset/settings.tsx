@@ -1,5 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/classnames";
+
 import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
@@ -47,12 +49,14 @@ export default function NewDatasetSettingsForm({
   id,
   header = true,
   data: rawData,
+  changes,
   onSubmit,
 }: {
   title: string;
   id: string;
   header?: boolean;
   data: Data;
+  changes?: string[];
   onSubmit: (data: Data["settings"]) => void;
 }) {
   const data = rawData.settings;
@@ -140,7 +144,10 @@ export default function NewDatasetSettingsForm({
                       <Input
                         {...field}
                         value={field.value}
-                        className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                        className={cn({
+                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
+                          "bg-green-400": changes?.includes(field.name),
+                        })}
                         placeholder="Name"
                       />
                     </FormControl>
@@ -156,7 +163,12 @@ export default function NewDatasetSettingsForm({
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
                     <FormControl>
                       <Select value={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
+                        <SelectTrigger
+                          className={cn({
+                            "h-10 w-full border-0 bg-gray-300/20": true,
+                            "bg-green-400": changes?.includes("value_type"),
+                          })}
+                        >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
                         <SelectContent>
@@ -180,7 +192,12 @@ export default function NewDatasetSettingsForm({
                     <FormLabel className="text-xs font-semibold">Category</FormLabel>
                     <FormControl>
                       <Select value={`${field.value}`} onValueChange={(v) => field.onChange(+v)}>
-                        <SelectTrigger className="h-10 w-full border-0 bg-gray-300/20">
+                        <SelectTrigger
+                          className={cn({
+                            "h-10 w-full border-0 bg-gray-300/20": true,
+                            "bg-green-400": changes?.includes("value_type"),
+                          })}
+                        >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
                         <SelectContent>
@@ -210,7 +227,10 @@ export default function NewDatasetSettingsForm({
                         <Input
                           {...field}
                           value={field.value}
-                          className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                          className={cn({
+                            "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
+                            "bg-green-400": changes?.includes(field.name),
+                          })}
                           placeholder="unit"
                         />
                         <p className="text-xs">This will appear in the legend (e.g. dollars)</p>
@@ -233,7 +253,10 @@ export default function NewDatasetSettingsForm({
                         preview="edit"
                         value={field.value}
                         placeholder="Add a description"
-                        className="w-full"
+                        className={cn({
+                          "w-full": true,
+                          "bg-green-400": changes?.includes(field.name),
+                        })}
                         onChange={field.onChange}
                       />
                     </FormControl>

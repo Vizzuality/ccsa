@@ -5,6 +5,8 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
+import { formatDate } from "@/lib/utils/formats";
+
 import { useSession } from "next-auth/react";
 
 import { getKeys } from "@/lib/utils/objects";
@@ -198,6 +200,7 @@ export default function FormToApprove() {
       const data = { ...formValues, colors: values };
       setFormValues(data);
 
+      // not updating correctly
       if (ME_DATA?.role?.type === "authenticated") {
         mutateDatasetEditSuggestion({
           data: {
@@ -211,14 +214,40 @@ export default function FormToApprove() {
           },
         });
       }
+
+      push(`/dashboard/?${URLParams.toString()}`);
     },
     [ME_DATA, formValues, mutateDatasetEditSuggestion],
   );
 
+  const isNewDataset = !datasetDataPendingToApprove?.data?.attributes?.dataset?.data;
+
+  const settingsChanges =
+    isNewDataset || !previousData?.settings
+      ? []
+      : getObjectDifferences(formValues.settings, previousData?.settings);
+
+  const dataChanges =
+    isNewDataset || !previousData?.data
+      ? []
+      : getObjectDifferences(formValues.data, previousData?.data);
+
+  const colorsChanges =
+    isNewDataset || !previousData?.colors
+      ? []
+      : getObjectDifferences(formValues.colors, previousData?.colors);
+
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">
-        <h1 className="text-3xl font-bold -tracking-[0.0375rem]">{formValues?.settings?.name}</h1>
+      <div className="flex items-center justify-between py-4 sm:px-10 md:px-24 lg:px-32">
+        <div className="space-y-4">
+          <h1 className="text-3xl font-bold -tracking-[0.0375rem]">{formValues?.settings?.name}</h1>
+          {formValues?.settings?.updatedAt && (
+            <p className="text-sm text-gray-500">
+              Last update: {formatDate(formValues?.settings?.updatedAt as string)}
+            </p>
+          )}
+        </div>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           <Button size="sm" variant="primary-outline" onClick={handleCancel}>
             Reject
@@ -243,21 +272,17 @@ export default function FormToApprove() {
           <SettingsContentToApprove
             data={formValues}
             id={ControlsStateId.settings}
-            changes={
-              !previousData?.settings
-                ? []
-                : getObjectDifferences(formValues.settings, previousData?.settings)
-            }
+            isNewDataset={isNewDataset}
+            changes={settingsChanges}
             handleSubmit={handleSettingsSubmit}
           />
         </TabsContent>
         <TabsContent value="data">
           <DataContentToApprove
             data={formValues}
+            isNewDataset={isNewDataset}
             id={ControlsStateId.data}
-            changes={
-              !previousData?.data ? [] : getObjectDifferences(formValues.data, previousData?.data)
-            }
+            changes={dataChanges}
             handleSubmit={handleDataSubmit}
           />
         </TabsContent>
@@ -265,11 +290,8 @@ export default function FormToApprove() {
           <ColorsContentToApprove
             data={formValues}
             id={ControlsStateId.colors}
-            changes={
-              !previousData?.colors
-                ? []
-                : getObjectDifferences(formValues.colors, previousData?.colors)
-            }
+            isNewDataset={isNewDataset}
+            changes={colorsChanges}
             handleSubmit={handleColorsSubmit}
           />
         </TabsContent>
