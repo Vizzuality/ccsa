@@ -71,6 +71,7 @@ const MapLegendItem = ({ id, ...props }: MapLegendItemProps) => {
       filters: {
         dataset: data?.data?.attributes?.dataset?.data?.id,
       },
+      "pagination[pageSize]": 300,
       populate: ["resources"],
     },
     {

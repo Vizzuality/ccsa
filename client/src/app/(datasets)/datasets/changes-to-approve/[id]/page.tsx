@@ -5,7 +5,12 @@ import { Hydrate, dehydrate } from "@tanstack/react-query";
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
 import { getGetDatasetsIdQueryOptions } from "@/types/generated/dataset";
+import {
+  getGetDatasetEditSuggestionsIdQueryKey,
+  getGetDatasetEditSuggestionsIdQueryOptions,
+} from "@/types/generated/dataset-edit-suggestion";
 import { getGetDatasetValuesQueryOptions } from "@/types/generated/dataset-value";
+import { DatasetEditSuggestionResponse } from "@/types/generated/strapi.schemas";
 
 import DatasetChangesToApprove from "@/containers/datasets/changes-to-approve";
 
@@ -19,25 +24,54 @@ export default async function ChangesToApprovePage({ params }: { params: { id: n
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery(
-    getGetDatasetsIdQueryOptions(id, {
+    getGetDatasetEditSuggestionsIdQueryOptions(id, {
       populate: "*",
     }),
   );
 
-  await queryClient.prefetchQuery(
-    getGetDatasetValuesQueryOptions({
-      filters: {
-        dataset: id,
-      },
-      "pagination[pageSize]": 300,
-      populate: {
-        country: {
-          fields: ["name", "iso3"],
-        },
-        resources: true,
-      },
-    }),
+  const ds = queryClient.getQueryData<DatasetEditSuggestionResponse>(
+    getGetDatasetEditSuggestionsIdQueryKey(id, { populate: "*" }),
   );
+
+  const datasetId = ds?.data?.attributes?.dataset?.data?.id;
+
+  if (datasetId) {
+    await queryClient.prefetchQuery(
+      getGetDatasetsIdQueryOptions(
+        datasetId,
+        {
+          populate: "*",
+        },
+        {
+          query: {
+            enabled: !!datasetId,
+          },
+        },
+      ),
+    );
+
+    await queryClient.prefetchQuery(
+      getGetDatasetValuesQueryOptions(
+        {
+          filters: {
+            dataset: datasetId,
+          },
+          "pagination[pageSize]": 300,
+          populate: {
+            country: {
+              fields: ["name", "iso3"],
+            },
+            resources: true,
+          },
+        },
+        {
+          query: {
+            enabled: !!datasetId,
+          },
+        },
+      ),
+    );
+  }
 
   const dehydratedState = dehydrate(queryClient);
 

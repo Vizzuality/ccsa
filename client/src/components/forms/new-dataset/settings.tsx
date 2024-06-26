@@ -166,7 +166,7 @@ export default function NewDatasetSettingsForm({
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes("value_type"),
+                            "bg-green-400": changes?.includes(field.name),
                           })}
                         >
                           <SelectValue placeholder="Select one" />
@@ -195,7 +195,7 @@ export default function NewDatasetSettingsForm({
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes("value_type"),
+                            "bg-green-400": changes?.includes(field.name),
                           })}
                         >
                           <SelectValue placeholder="Select one" />
