@@ -2,11 +2,11 @@
 
 import { useState, useCallback } from "react";
 
-import { useSession } from "next-auth/react";
-
+// import { usePostDatasets } from "@/types/generated/dataset";
 import { useRouter } from "next/navigation";
 
-// import { usePostDatasets } from "@/types/generated/dataset";
+import { useSession } from "next-auth/react";
+
 import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 // import { usePostDatasetValues } from "@/types/generated/dataset-value";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
@@ -40,9 +40,9 @@ export const DATA_INITIAL_VALUES_2: Data = {
 //   unit: "test",
 // },
 // data: {
-//   "AIA-number": 100,
-//   "BRB-number": 200,
-//   "BES-number": 1000,
+//   "AIA": 100,
+//   "BRB": 200,
+//   "BES": 1000,
 // },
 // colors: {},
 
@@ -55,15 +55,33 @@ export const DATA_INITIAL_VALUES_2: Data = {
 //   unit: "test",
 // },
 // data: {
-//   "AIA": "Resource title",
-//   "AIA-description": "Resource description",
-//   "AIA-link": "http://google.com",
-//   "BRB": "Resource title",
-//   "BRB-description": "Resource description",
-//   "BRB-link": "http://google.com",
-//   "BES": "Resource title",
-//   "BES-description": "Resource description",
-//   "BES-link": "http://google.com",
+//   "AIA": [
+//     {
+//       title: "Resource title",
+//       description: "Resource description",
+//       link: "http://google.com",
+//     },
+//     {
+//       title: "Resource title",
+//       description: "Resource description",
+//       link: "http://google.com",
+//     },
+//   ],
+//   "BRB": [
+//     {
+//       title: "Resource title",
+//       description: "Resource description",
+//       link: "http://google.com",
+//     },
+//   ],
+//   "BES": [
+//     {
+//       title: "Resource title",
+//       description: "Resource description",
+//       link: "http://google.com",
+//     },
+//   ],
+
 // },
 // colors: {},
 

@@ -2,29 +2,29 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
+import { isObjectEmpty } from "@/lib/utils/objects";
+
+import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasetsId } from "@/types/generated/dataset";
 import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
+import { DatasetEditSuggestion } from "@/types/generated/strapi.schemas";
+import { DatasetDatasetEditSuggestions } from "@/types/generated/strapi.schemas";
+
+import { useSyncSearchParams } from "@/app/store";
+
+import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 
 import { Data } from "@/components/forms/new-dataset/types";
+import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useRouter } from "next/navigation";
-import { useSyncSearchParams } from "@/app/store";
-import { isObjectEmpty } from "@/lib/utils/objects";
 
 import ColorsContentToApprove from "./colors-content";
 import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
-
-import { DatasetEditSuggestion } from "@/types/generated/strapi.schemas";
-
-import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
-
-import { useGetCountries } from "@/types/generated/country";
-import { DatasetDatasetEditSuggestions } from "@/types/generated/strapi.schemas";
 
 export const DATA_INITIAL_VALUES: Data = {
   settings: {

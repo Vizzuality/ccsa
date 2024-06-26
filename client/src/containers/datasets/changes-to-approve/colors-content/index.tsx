@@ -1,10 +1,10 @@
 "use client";
 
-import type { Data } from "@/components/forms/new-dataset/types";
 import { Dataset } from "@/types/generated/strapi.schemas";
 
-import ColorPicker from "@/components/ui/colorpicker";
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
+import type { Data } from "@/components/forms/new-dataset/types";
+import ColorPicker from "@/components/ui/colorpicker";
 
 export default function ColorsContentToApprove({
   data,

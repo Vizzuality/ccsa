@@ -1,7 +1,7 @@
 "use client";
 
-import type { Data } from "@/components/forms/new-dataset/types";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
+import type { Data } from "@/components/forms/new-dataset/types";
 
 export default function DataContentToApprove({
   data,

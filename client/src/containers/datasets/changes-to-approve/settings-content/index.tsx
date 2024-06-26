@@ -1,17 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { cn } from "@/lib/classnames";
 
-import { Data } from "@/components/forms/new-dataset/types";
-
-import { useRouter } from "next/navigation";
 import { Dataset } from "@/types/generated/strapi.schemas";
 
+import { useSyncSearchParams } from "@/app/store";
+
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
+import { Data } from "@/components/forms/new-dataset/types";
 import { NewDatasetFormControls } from "@/components/new-dataset/form-controls";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useSyncSearchParams } from "@/app/store";
 
 export default function SettingsContentToApprove({
   data,

@@ -51,7 +51,7 @@ export default function NewDatasetDataForm({
 }: {
   title: string;
   id: string;
-  header: boolean;
+  header?: boolean;
   data: Data;
   onSubmit: (data: Data["data"]) => void;
 }) {

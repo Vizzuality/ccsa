@@ -4,22 +4,20 @@ import { useState, useCallback, useMemo } from "react";
 
 import { useParams, useRouter } from "next/navigation";
 
-import { useGetDatasetsId } from "@/types/generated/dataset";
-import { useGetDatasetValues } from "@/types/generated/dataset-value";
-
-import { useSyncDatasetStep } from "@/app/store";
-
-import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
-
 import { useSession } from "next-auth/react";
 
+import { useGetDatasetsId } from "@/types/generated/dataset";
+import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+import { useGetDatasetValues } from "@/types/generated/dataset-value";
+import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
+
+import { useSyncDatasetStep } from "@/app/store";
 
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
 import { Data } from "@/components/forms/new-dataset/types";
-import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 
 export const DATA_INITIAL_VALUES: Data = {
   settings: {

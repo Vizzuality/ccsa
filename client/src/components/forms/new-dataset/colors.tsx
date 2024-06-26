@@ -12,8 +12,6 @@ import { z } from "zod";
 
 import { useSyncSearchParams } from "@/app/store";
 
-import type { Data } from "@/containers/datasets/new";
-
 import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
@@ -28,7 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import type { VALUE_TYPE } from "./types";
+import type { Data, VALUE_TYPE } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
@@ -173,7 +171,7 @@ export default function NewDatasetColorsForm({
 }: {
   title: string;
   id: string;
-  header: boolean;
+  header?: boolean;
   data: Data;
   onSubmit: (data: Data["colors"]) => void;
 }) {
