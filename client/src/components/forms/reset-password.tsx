@@ -25,7 +25,7 @@ const formSchema = z.object({
 });
 
 export default function ResetPassword() {
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,7 +40,7 @@ export default function ResetPassword() {
       onSuccess: (data) => {
         console.log("Success creating dataset:", data);
         const searchParams = new URLSearchParams();
-        replace(`/signin?${searchParams.toString()}`);
+        push(`/signin?${searchParams.toString()}`);
       },
       onError: (error) => {
         console.error("Error creating dataset:", error);

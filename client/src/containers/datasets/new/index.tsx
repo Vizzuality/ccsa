@@ -104,7 +104,7 @@ export const DATA_HARCODED_VALUES: Data = {
 export default function NewDatasetForm() {
   const { data: session } = useSession();
 
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   const [step, setStep] = useSyncDatasetStep();
 
@@ -143,7 +143,7 @@ export default function NewDatasetForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating dataset:", data);
-        replace(`/dashboard`);
+        push(`/dashboard`);
       },
       onError: (error) => {
         console.error("Error creating dataset:", error);

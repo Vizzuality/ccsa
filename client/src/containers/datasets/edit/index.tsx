@@ -33,7 +33,7 @@ export const DATA_INITIAL_VALUES: Data = {
 
 export default function EditDatasetForm() {
   const { data: session } = useSession();
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   const params = useParams();
   const { id } = params;
@@ -66,7 +66,7 @@ export default function EditDatasetForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating dataset:", data);
-        replace(`/dashboard`);
+        push(`/dashboard`);
       },
       onError: (error) => {
         console.error("Error creating dataset:", error);

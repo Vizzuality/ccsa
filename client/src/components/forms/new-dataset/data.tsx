@@ -56,7 +56,7 @@ export default function NewDatasetDataForm({
   onSubmit: (data: Data["data"]) => void;
 }) {
   const data = rawData.data;
-  const { replace } = useRouter();
+  const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
@@ -102,7 +102,7 @@ export default function NewDatasetDataForm({
 
   const handleCancel = () => {
     // onSubmit(DATA_INITIAL_VALUES.data);
-    replace(`/?${URLParams.toString()}`);
+    push(`/?${URLParams.toString()}`);
   };
 
   const handleSubmit = useCallback(

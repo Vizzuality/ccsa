@@ -176,7 +176,7 @@ export default function NewDatasetColorsForm({
   onSubmit: (data: Data["colors"]) => void;
 }) {
   const data = rawData.data;
-  const { replace } = useRouter();
+  const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
   const valueType = rawData?.settings?.valueType;
@@ -192,7 +192,7 @@ export default function NewDatasetColorsForm({
 
   const handleCancel = () => {
     // onSubmit(DATA_INITIAL_VALUES.colors);
-    replace(`/?${URLParams.toString()}`);
+    push(`/?${URLParams.toString()}`);
   };
 
   const handleSubmit = useCallback(

@@ -53,7 +53,7 @@ const formSchemaPassword = z
   });
 
 export default function PersonalDataForm() {
-  const { replace } = useRouter();
+  const { push } = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
   const user = session?.user;
@@ -80,7 +80,7 @@ export default function PersonalDataForm() {
   const { mutate: deleteAccount } = useDeleteUsersId({
     mutation: {
       onSuccess: () => {
-        replace(`/signin?${searchParams.toString()}`);
+        push(`/signin?${searchParams.toString()}`);
       },
       onError: (error: Error) => {
         console.error("Error deleting account:", error);

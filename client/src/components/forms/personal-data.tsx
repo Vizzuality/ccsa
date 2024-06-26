@@ -30,7 +30,7 @@ const formSchema = z.object({
 });
 
 export default function PersonalData() {
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -46,9 +46,8 @@ export default function PersonalData() {
   const { mutate } = usePostAuthForgotPassword({
     mutation: {
       onSuccess: () => {
-        console.log("Password reset email sent successfully.");
         const searchParams = new URLSearchParams();
-        replace(`/signin?${searchParams.toString()}`);
+        push(`/signin?${searchParams.toString()}`);
       },
       onError: (error) => {
         console.error(`Failed to send password reset email: ${error.message}`);

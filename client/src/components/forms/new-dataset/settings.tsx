@@ -56,7 +56,7 @@ export default function NewDatasetSettingsForm({
   onSubmit: (data: Data["settings"]) => void;
 }) {
   const data = rawData.settings;
-  const { replace } = useRouter();
+  const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
   const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS());
@@ -109,7 +109,7 @@ export default function NewDatasetSettingsForm({
   });
 
   const handleCancel = () => {
-    replace(`/?${URLParams.toString()}`);
+    push(`/?${URLParams.toString()}`);
   };
 
   const handleSubmit = useCallback(

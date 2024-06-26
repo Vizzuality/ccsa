@@ -1,30 +1,24 @@
 "use client";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-import { isObjectEmpty } from "@/lib/utils/objects";
-
-import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasetsId } from "@/types/generated/dataset";
 import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
-import { DatasetEditSuggestion } from "@/types/generated/strapi.schemas";
-import { DatasetDatasetEditSuggestions } from "@/types/generated/strapi.schemas";
 
 import { useSyncSearchParams } from "@/app/store";
 
-import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
-
 import { Data } from "@/components/forms/new-dataset/types";
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import ColorsContentToApprove from "./colors-content";
 import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
+
+type TabsProps = "settings" | "data" | "colors";
 
 export const DATA_INITIAL_VALUES: Data = {
   settings: {
@@ -38,11 +32,9 @@ export const DATA_INITIAL_VALUES: Data = {
   colors: {},
 };
 
-type TabsProps = "settings" | "data" | "colors";
-
-interface DataObject {
-  [key: string]: any;
-}
+// interface DataObject {
+//   [key: string]: any;
+// }
 
 // function findAttributeValue(obj: DataObject, searchString: string): any {
 //   for (const key in obj) {
@@ -89,7 +81,7 @@ function getObjectDifferences(
 export default function FormToApprove() {
   const [tab, setTab] = useState<TabsProps>("settings");
   const params = useParams();
-  const { replace } = useRouter();
+  const { push } = useRouter();
   const URLParams = useSyncSearchParams();
   const { id } = params;
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
@@ -115,18 +107,14 @@ export default function FormToApprove() {
     populate: "*",
   });
 
-  const { data: countries } = useGetCountries(GET_COUNTRIES_OPTIONS);
-
   useEffect(() => {
     const { colors, data, ...restSettings } = datasetDataPendingToApprove?.data?.attributes ?? {};
 
     setFormValues({ settings: { ...restSettings }, data, colors });
   }, [datasetData, datasetValuesData]);
 
-  console.log(datasetDataPendingToApprove);
-
   const handleCancel = () => {
-    replace(`/?${URLParams.toString()}`);
+    push(`/?${URLParams.toString()}`);
   };
 
   const handleSettingsSubmit = useCallback(
@@ -188,7 +176,7 @@ export default function FormToApprove() {
     data: "dataset-data-approve-edition",
     colors: "dataset-colors-approve-edition",
   } satisfies { [key in TabsProps]: string };
-  console.log({ tab });
+
   return (
     <>
       <div className="flex items-center justify-between border-b border-gray-300/20 py-4  sm:px-10 md:px-24 lg:px-32">
@@ -206,10 +194,7 @@ export default function FormToApprove() {
         defaultValue={tab}
         value={tab}
         className="w-full divide-y-2 divide-gray-300/20"
-        onValueChange={(e) => {
-          console.log(e);
-          setTab(e as TabsProps);
-        }}
+        onValueChange={(e) => setTab(e as TabsProps)}
       >
         <TabsList className="p-4 sm:px-10 md:px-24 lg:px-32">
           <TabsTrigger value="settings">Settings</TabsTrigger>
