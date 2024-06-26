@@ -13,7 +13,7 @@ import { getKeys } from "@/lib/utils/objects";
 
 import { useGetDatasetsId } from "@/types/generated/dataset";
 import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
-import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+import { usePutDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type {
   DatasetEditSuggestion,
@@ -107,7 +107,7 @@ export default function FormToApprove() {
     },
   );
 
-  const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
+  const { mutate: mutatePutDatasetEditSuggestion } = usePutDatasetEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating dataset:", data);
@@ -201,8 +201,9 @@ export default function FormToApprove() {
       setFormValues(data);
 
       // not updating correctly
-      if (ME_DATA?.role?.type === "authenticated") {
-        mutateDatasetEditSuggestion({
+      if (ME_DATA?.role?.type === "authenticated" && datasetDataPendingToApprove?.data?.id) {
+        mutatePutDatasetEditSuggestion({
+          id: datasetDataPendingToApprove?.data?.id,
           data: {
             data: {
               ...data.settings,
@@ -217,7 +218,7 @@ export default function FormToApprove() {
 
       push(`/dashboard/?${URLParams.toString()}`);
     },
-    [ME_DATA, formValues, mutateDatasetEditSuggestion],
+    [ME_DATA, formValues, mutatePutDatasetEditSuggestion],
   );
 
   const isNewDataset = !datasetDataPendingToApprove?.data?.attributes?.dataset?.data;
