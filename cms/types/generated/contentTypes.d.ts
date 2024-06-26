@@ -1047,6 +1047,7 @@ export interface ApiLayerLayer extends Schema.CollectionType {
       'manyToOne',
       'api::dataset.dataset'
     >;
+    colors: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -489,7 +489,8 @@
           "params_config",
           "legend_config",
           "interaction_config",
-          "dataset"
+          "dataset",
+          "colors"
         ]
       },
       "conditions": []
@@ -520,7 +521,8 @@
           "params_config",
           "legend_config",
           "interaction_config",
-          "dataset"
+          "dataset",
+          "colors"
         ]
       },
       "conditions": []
@@ -537,7 +539,8 @@
           "params_config",
           "legend_config",
           "interaction_config",
-          "dataset"
+          "dataset",
+          "colors"
         ]
       },
       "conditions": []
