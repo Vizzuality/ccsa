@@ -45,11 +45,13 @@ import NewDatasetDataFormWrapper from "./wrapper";
 export default function NewDatasetSettingsForm({
   title,
   id,
+  header = true,
   data: rawData,
   onSubmit,
 }: {
   title: string;
   id: string;
+  header?: boolean;
   data: Data;
   onSubmit: (data: Data["settings"]) => void;
 }) {
@@ -120,10 +122,10 @@ export default function NewDatasetSettingsForm({
 
   return (
     <>
-      <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
-      <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={rawData} id={id} />
-        <StepDescription />
+      {header && <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />}
+      <NewDatasetDataFormWrapper header={header}>
+        {header && <NewDatasetNavigation data={rawData} id={id} />}
+        {header && <StepDescription />}
 
         <Form {...form}>
           <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>

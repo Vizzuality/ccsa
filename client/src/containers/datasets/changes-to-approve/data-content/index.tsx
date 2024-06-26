@@ -1,32 +1,19 @@
 "use client";
 
-import { cn } from "@/lib/classnames";
-
 import type { Data } from "@/components/forms/new-dataset/types";
-import { Dataset } from "@/types/generated/strapi.schemas";
-
-import { DATA_COLUMNS_TYPE } from "@/components/forms/new-dataset/constants";
-import type { VALUE_TYPE } from "@/components/forms/new-dataset/types";
-import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 
 export default function DataContentToApprove({
   data,
+  id,
   changes,
+  handleSubmit,
 }: {
   data: Data;
+  id: string;
   changes: (keyof Data)[];
+  handleSubmit: (data: Data["data"]) => void;
 }) {
-  const valueType = data?.settings?.valueType;
-
-  const COLUMNS = DATA_COLUMNS_TYPE[valueType as VALUE_TYPE];
   return (
     <div className="flex items-center py-10 sm:px-10 md:px-24 lg:px-32">
       <div className="flex w-full justify-between space-x-10">
@@ -47,25 +34,13 @@ export default function DataContentToApprove({
         </div>
 
         <div className="w-full min-w-fit max-w-5xl flex-1 gap-4">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                {COLUMNS.map(({ value, label }) => (
-                  <TableHead key={value}>{label}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {/* {data?.data?.map(({ iso3, value }, rowIndex) => {
-                return (
-                  <TableRow key={rowIndex}>
-                    <TableCell key={iso3}>{iso3}</TableCell>
-                    <TableCell key={value}>{value}</TableCell>
-                  </TableRow>
-                );
-              })} */}
-            </TableBody>
-          </Table>
+          <NewDatasetDataForm
+            id={id}
+            header={false}
+            title={`${data?.settings?.name} - Edit` || "Edit dataset"}
+            data={data}
+            onSubmit={handleSubmit}
+          />
         </div>
       </div>
     </div>

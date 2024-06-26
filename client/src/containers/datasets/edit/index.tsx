@@ -2,17 +2,24 @@
 
 import { useState, useCallback, useMemo } from "react";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { useGetDatasetsId } from "@/types/generated/dataset";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 
 import { useSyncDatasetStep } from "@/app/store";
 
+import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+
+import { useSession } from "next-auth/react";
+
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
+
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
 import { Data } from "@/components/forms/new-dataset/types";
+import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 
 export const DATA_INITIAL_VALUES: Data = {
   settings: {
@@ -27,10 +34,18 @@ export const DATA_INITIAL_VALUES: Data = {
 };
 
 export default function EditDatasetForm() {
+  const { data: session } = useSession();
+  const { replace } = useRouter();
+
   const params = useParams();
   const { id } = params;
   const [currentStep, setCurrentStep] = useSyncDatasetStep();
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
+
+  const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
+    populate: "role",
+  });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   const { data: datasetData } = useGetDatasetsId(Number(id), {
     populate: "*",
@@ -47,6 +62,19 @@ export default function EditDatasetForm() {
       },
       resources: true,
     },
+  });
+
+  const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success creating dataset:", data);
+        replace(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error creating dataset:", error);
+      },
+    },
+    request: {},
   });
 
   useMemo(() => {
@@ -103,8 +131,23 @@ export default function EditDatasetForm() {
 
   const handleColorsSubmit = useCallback(
     (values: Data["colors"]) => {
-      setFormValues({ ...formValues, colors: values });
-      // TO - DO mutation to datasetEditsuggestion
+      const data = { ...formValues, colors: values };
+      setFormValues(data);
+
+      if (ME_DATA?.role?.type === "authenticated") {
+        mutateDatasetEditSuggestion({
+          data: {
+            data: {
+              ...data.settings,
+              value_type: data.settings.valueType,
+              data: data.data,
+              colors: data.colors,
+              review_status: "pending",
+              dataset: +id,
+            },
+          },
+        });
+      }
     },
     [formValues],
   );

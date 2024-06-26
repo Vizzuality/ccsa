@@ -165,13 +165,15 @@ const getDefaultValues = ({
 };
 
 export default function NewDatasetColorsForm({
-  id,
   title,
+  id,
+  header = true,
   data: rawData,
   onSubmit,
 }: {
-  id: string;
   title: string;
+  id: string;
+  header: boolean;
   data: Data;
   onSubmit: (data: Data["colors"]) => void;
 }) {
@@ -207,10 +209,10 @@ export default function NewDatasetColorsForm({
 
   return (
     <>
-      <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />
-      <NewDatasetDataFormWrapper>
-        <NewDatasetNavigation data={rawData} id={id} />
-        <StepDescription />
+      {header && <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />}
+      <NewDatasetDataFormWrapper header={header}>
+        {header && <NewDatasetNavigation data={rawData} id={id} />}
+        {header && <StepDescription />}
 
         <Form {...form}>
           <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
