@@ -27,7 +27,7 @@ export default function DatasetPendingChangesContributor() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Change type</TableHead>
+            <TableHead className="w-[100px] whitespace-nowrap">Change type</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>State</TableHead>
             <TableHead>Date</TableHead>
@@ -35,31 +35,29 @@ export default function DatasetPendingChangesContributor() {
         </TableHeader>
         <TableBody>
           {data?.map((suggestion) => (
-            <TableRow>
+            <TableRow key={suggestion?.attributes?.createdAt}>
               <TableCell className="whitespace-nowrap font-medium">
-                {" "}
                 <Link
-                  key={suggestion?.attributes?.createdAt}
                   href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
                 >
-                  Dataset{" "}
-                </Link>
-              </TableCell>
-
-              <TableCell>
-                {" "}
-                <Link
-                  key={suggestion?.attributes?.createdAt}
-                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
-                >
-                  {suggestion?.attributes?.name}{" "}
+                  Dataset
                 </Link>
               </TableCell>
 
               <TableCell>
                 <Link
-                  key={suggestion?.attributes?.createdAt}
                   href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
+                >
+                  {suggestion?.attributes?.name}
+                </Link>
+              </TableCell>
+
+              <TableCell>
+                <Link
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
                 >
                   <span
                     className={cn({
@@ -79,8 +77,8 @@ export default function DatasetPendingChangesContributor() {
 
               <TableCell>
                 <Link
-                  key={suggestion?.attributes?.createdAt}
                   href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
                 >
                   {suggestion?.attributes?.createdAt &&
                     formatDate(suggestion?.attributes?.createdAt)}
