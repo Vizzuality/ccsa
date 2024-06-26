@@ -35,14 +35,32 @@ export default function DatasetPendingChangesContributor() {
         </TableHeader>
         <TableBody>
           {data?.map((suggestion) => (
-            <Link
-              key={suggestion?.attributes?.createdAt}
-              href={`/datasets/changes-to-approve/${suggestion?.id}`}
-            >
-              <TableRow>
-                <TableCell className="whitespace-nowrap font-medium">Dataset </TableCell>
-                <TableCell>{suggestion?.attributes?.name}</TableCell>
-                <TableCell>
+            <TableRow>
+              <TableCell className="whitespace-nowrap font-medium">
+                {" "}
+                <Link
+                  key={suggestion?.attributes?.createdAt}
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                >
+                  Dataset{" "}
+                </Link>
+              </TableCell>
+
+              <TableCell>
+                {" "}
+                <Link
+                  key={suggestion?.attributes?.createdAt}
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                >
+                  {suggestion?.attributes?.name}{" "}
+                </Link>
+              </TableCell>
+
+              <TableCell>
+                <Link
+                  key={suggestion?.attributes?.createdAt}
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                >
                   <span
                     className={cn({
                       "rounded-sm border px-2.5 py-1": true,
@@ -56,13 +74,19 @@ export default function DatasetPendingChangesContributor() {
                   >
                     {suggestion.attributes?.review_status}
                   </span>
-                </TableCell>
-                <TableCell>
+                </Link>
+              </TableCell>
+
+              <TableCell>
+                <Link
+                  key={suggestion?.attributes?.createdAt}
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                >
                   {suggestion?.attributes?.createdAt &&
                     formatDate(suggestion?.attributes?.createdAt)}
-                </TableCell>
-              </TableRow>
-            </Link>
+                </Link>
+              </TableCell>
+            </TableRow>
           ))}
         </TableBody>
       </Table>
