@@ -1,7 +1,5 @@
 import type { DATA_COLUMN, VALUE_TYPE } from "./types";
 
-const getResourceCategories = () => {};
-
 // Form DATA (step 2)
 export const DATA_COLUMNS_TYPE: Record<VALUE_TYPE, DATA_COLUMN[]> = {
   number: [
@@ -48,18 +46,8 @@ export const DATA_COLUMNS_TYPE: Record<VALUE_TYPE, DATA_COLUMN[]> = {
     },
     {
       valueType: "resource",
-      label: "Title",
-      value: "title",
-    },
-    {
-      valueType: "resource",
-      label: "Description",
-      value: "description",
-    },
-    {
-      valueType: "resource",
-      label: "Link",
-      value: "link",
+      label: "Resource",
+      value: "resource",
     },
   ],
 };

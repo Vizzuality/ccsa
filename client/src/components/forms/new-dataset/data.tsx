@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LuTrash2 } from "react-icons/lu";
 import { z } from "zod";
 
 import { useGetCountries } from "@/types/generated/country";
@@ -18,6 +19,7 @@ import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -145,6 +147,118 @@ export default function NewDatasetDataForm({
                         );
                       }
 
+                      if (value === "resource") {
+                        return (
+                          <TableCell key={`${country.attributes?.iso3}-${value}`}>
+                            <FormField
+                              control={form.control}
+                              name={`${country.attributes?.iso3}`}
+                              render={({ field }) => {
+                                return (
+                                  <FormItem className="col-span-2 space-y-1.5">
+                                    <FormLabel className="hidden text-xs">{`${country.attributes?.iso3}-${label}`}</FormLabel>
+                                    <FormControl>
+                                      <>
+                                        {value === "resource" &&
+                                          Array.isArray(field?.value) &&
+                                          field?.value?.map((resource, index) => (
+                                            <div className="flex gap-2" key={index}>
+                                              <Input
+                                                {...field}
+                                                value={resource.title}
+                                                onChange={(e) => {
+                                                  let newValues: Resource[] = [
+                                                    {
+                                                      title: "",
+                                                      description: "",
+                                                      link: "",
+                                                    },
+                                                  ];
+
+                                                  if (Array.isArray(field?.value)) {
+                                                    newValues = field?.value?.map((r, i) => {
+                                                      if (i === index) {
+                                                        return { ...r, title: e.target.value };
+                                                      }
+                                                      return r;
+                                                    });
+                                                  }
+                                                  field.onChange(newValues);
+                                                }}
+                                                className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                              />
+                                              <Input
+                                                {...field}
+                                                value={resource.description}
+                                                onChange={(e) => {
+                                                  let newValues: Resource[] = [
+                                                    {
+                                                      title: "",
+                                                      description: "",
+                                                      link: "",
+                                                    },
+                                                  ];
+
+                                                  if (Array.isArray(field?.value)) {
+                                                    newValues = field?.value?.map((r, i) => {
+                                                      if (i === index) {
+                                                        return {
+                                                          ...r,
+                                                          description: e.target.value,
+                                                        };
+                                                      }
+                                                      return r;
+                                                    });
+                                                  }
+                                                  field.onChange(newValues);
+                                                }}
+                                                className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                              />
+                                              <Input
+                                                {...field}
+                                                value={resource.link}
+                                                onChange={(e) => {
+                                                  let newValues: Resource[] = [
+                                                    {
+                                                      title: "",
+                                                      description: "",
+                                                      link: "",
+                                                    },
+                                                  ];
+
+                                                  if (Array.isArray(field?.value)) {
+                                                    newValues = field?.value?.map((r, i) => {
+                                                      if (i === index) {
+                                                        return {
+                                                          ...r,
+                                                          link: e.target.value,
+                                                        };
+                                                      }
+                                                      return r;
+                                                    });
+                                                  }
+                                                  field.onChange(newValues);
+                                                }}
+                                                className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                              />
+                                              <LuTrash2 />
+                                            </div>
+                                          ))}
+                                      </>
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                );
+                              }}
+                            />
+
+                            <Button variant="ghost" size="sm">
+                              Add new resource
+                            </Button>
+                          </TableCell>
+                        );
+                      }
+
                       return (
                         <TableCell key={`${country.attributes?.iso3}-${value}`}>
                           <FormField
@@ -179,56 +293,6 @@ export default function NewDatasetDataForm({
                                           className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
                                         />
                                       )}
-
-                                      {value === "title" &&
-                                        Array.isArray(field?.value) &&
-                                        field?.value?.map((resource, index) => (
-                                          <Input
-                                            {...field}
-                                            key={index}
-                                            value={resource.title}
-                                            onChange={(e) => {
-                                              let newValues: Resource[] = [
-                                                {
-                                                  title: "",
-                                                  description: "",
-                                                  link: "",
-                                                },
-                                              ];
-
-                                              if (Array.isArray(field?.value)) {
-                                                newValues = field?.value?.map((r, i) => {
-                                                  if (i === index) {
-                                                    return { ...r, title: e.target.value };
-                                                  }
-                                                  return r;
-                                                });
-                                              }
-                                              field.onChange(newValues);
-                                            }}
-                                            className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                                          />
-                                        ))}
-                                      {value === "description" &&
-                                        Array.isArray(field?.value) &&
-                                        field?.value?.map((resource, index) => (
-                                          <Input
-                                            {...field}
-                                            key={index}
-                                            value={resource.description}
-                                            className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                                          />
-                                        ))}
-                                      {value === "link" &&
-                                        Array.isArray(field?.value) &&
-                                        field?.value?.map((resource, index) => (
-                                          <Input
-                                            {...field}
-                                            key={index}
-                                            value={resource.link}
-                                            className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                                          />
-                                        ))}
 
                                       {value === "boolean" && (
                                         <Checkbox

@@ -40,7 +40,7 @@ interface BooleanDataColumn {
 interface ResourceDataColumn {
   valueType: "resource";
   label: string;
-  value: "country_id" | "title" | "description" | "link";
+  value: "country_id" | "resource";
 }
 
 export type DATA_COLUMN =
