@@ -1854,6 +1854,7 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
 
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes =
   {
+    colors?: unknown;
     config?: unknown;
     createdAt?: string;
     createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesCreatedBy;
@@ -3035,6 +3036,7 @@ export type ProjectEditSuggestionProjectDataAttributesCountriesDataItemAttribute
 
 export type ProjectEditSuggestionProjectDataAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes =
   {
+    colors?: unknown;
     config?: unknown;
     createdAt?: string;
     createdBy?: ProjectEditSuggestionProjectDataAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesCreatedBy;
@@ -4132,6 +4134,7 @@ export const ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDa
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes =
   {
+    colors?: unknown;
     config?: unknown;
     createdAt?: string;
     createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesCreatedBy;
@@ -5084,6 +5087,7 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes =
   {
+    colors?: unknown;
     config?: unknown;
     createdAt?: string;
     createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesCreatedBy;
@@ -6302,6 +6306,7 @@ export const LayerType = {
 } as const;
 
 export interface Layer {
+  colors?: unknown;
   config: unknown;
   createdAt?: string;
   createdBy?: LayerCreatedBy;
@@ -6411,6 +6416,7 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDataset = {
 };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributes = {
+  colors?: unknown;
   config?: unknown;
   createdAt?: string;
   createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesCreatedBy;
@@ -6982,6 +6988,7 @@ export const LayerRequestDataType = {
 export type LayerRequestDataDataset = number | string;
 
 export type LayerRequestData = {
+  colors?: unknown;
   config: unknown;
   dataset?: LayerRequestDataDataset;
   interaction_config: unknown;
@@ -7368,6 +7375,7 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDataset = {
 };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributes = {
+  colors?: unknown;
   config?: unknown;
   createdAt?: string;
   createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesCreatedBy;
@@ -8107,6 +8115,7 @@ export const DatasetEditSuggestionDatasetDataAttributesLayersDataItemAttributesT
 } as const;
 
 export type DatasetEditSuggestionDatasetDataAttributesLayersDataItemAttributes = {
+  colors?: unknown;
   config?: unknown;
   createdAt?: string;
   createdBy?: DatasetEditSuggestionDatasetDataAttributesLayersDataItemAttributesCreatedBy;
@@ -8979,6 +8988,7 @@ export type DatasetCategoryDataAttributesDatasetsDataItemAttributesLayersDataIte
   };
 
 export type DatasetCategoryDataAttributesDatasetsDataItemAttributesLayersDataItemAttributes = {
+  colors?: unknown;
   config?: unknown;
   createdAt?: string;
   createdBy?: DatasetCategoryDataAttributesDatasetsDataItemAttributesLayersDataItemAttributesCreatedBy;
@@ -9719,6 +9729,7 @@ export const CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDa
   } as const;
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes = {
+  colors?: unknown;
   config?: unknown;
   createdAt?: string;
   createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesCreatedBy;
@@ -11228,6 +11239,7 @@ export type CategoryDatasetsDataItemAttributesLayersDataItemAttributesCreatedBy 
 };
 
 export type CategoryDatasetsDataItemAttributesLayersDataItemAttributes = {
+  colors?: unknown;
   config?: unknown;
   createdAt?: string;
   createdBy?: CategoryDatasetsDataItemAttributesLayersDataItemAttributesCreatedBy;

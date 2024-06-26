@@ -1,7 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/classnames";
-
 import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
@@ -10,6 +8,8 @@ import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+
+import { cn } from "@/lib/classnames";
 
 import { useGetCategories } from "@/types/generated/category";
 
