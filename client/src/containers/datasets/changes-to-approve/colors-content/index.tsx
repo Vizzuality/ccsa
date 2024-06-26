@@ -1,6 +1,7 @@
 "use client";
 
 import ApproveChangesFormLegend from "@/containers/datasets/changes-to-approve/approve-changes-form-legend";
+
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import type { Data } from "@/components/forms/new-dataset/types";
 
