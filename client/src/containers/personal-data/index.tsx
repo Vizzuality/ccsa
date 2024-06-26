@@ -211,7 +211,6 @@ export default function PersonalDataForm() {
                 </fieldset>
               </div>
               <Button
-                {...formData}
                 type="submit"
                 className="h-9 w-full"
                 disabled={isEmpty(formData.formState.dirtyFields)}

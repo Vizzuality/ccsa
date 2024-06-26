@@ -1,14 +1,28 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
+import { useSession } from "next-auth/react";
+
+import { getKeys } from "@/lib/utils/objects";
+
 import { useGetDatasetsId } from "@/types/generated/dataset";
 import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
+import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
+import type {
+  DatasetEditSuggestion,
+  UsersPermissionsRole,
+  UsersPermissionsUser,
+} from "@/types/generated/strapi.schemas";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
+
+import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 
 import { Data } from "@/components/forms/new-dataset/types";
 import { Button } from "@/components/ui/button";
@@ -20,58 +34,19 @@ import SettingsContentToApprove from "./settings-content";
 
 type TabsProps = "settings" | "data" | "colors";
 
-export const DATA_INITIAL_VALUES: Data = {
-  settings: {
-    name: "",
-    description: "",
-    valueType: undefined,
-    category: undefined,
-    unit: "",
-  },
-  data: {},
-  colors: {},
-};
-
-// interface DataObject {
-//   [key: string]: any;
-// }
-
-// function findAttributeValue(obj: DataObject, searchString: string): any {
-//   for (const key in obj) {
-//     if (obj.hasOwnProperty(key)) {
-//       // if (key === searchString) {
-//       //   return obj[key];
-//       // } TO - DO - change when we change from [countryISO]-[valueType] to countryISO
-
-//       if (key.includes(searchString)) {
-//         return obj[key];
-//       }
-
-//       // recursivity needed for resources
-//       if (typeof obj[key] === "object" && obj[key] !== null) {
-//         const result = findAttributeValue(obj[key], searchString);
-//         if (result !== undefined) {
-//           return result;
-//         }
-//       }
-//     }
-//   }
-//   return undefined;
-// }
-
 function getObjectDifferences(
-  obj1: Data,
-  obj2: Data | { settings: Data["settings"]; data: Data["data"]; colors: {} },
-): (keyof Data)[] {
-  if (!obj2) return [];
+  obj1: Data["settings"] | Data["data"] | Data["colors"],
+  obj2: Data["settings"] | Data["data"] | Data["colors"],
+): string[] {
+  if (!obj1 || !obj2) return [];
 
-  const keys = new Set<keyof Data>([...Object.keys(obj1), ...Object.keys(obj2)] as (keyof Data)[]);
+  const keys = new Set([...getKeys(obj1), ...getKeys(obj2)]);
 
-  const differences: (keyof Data)[] = [];
+  const differences: string[] = [];
 
   keys.forEach((key) => {
-    if (obj1[key] !== obj2[key]) {
-      differences.push(key);
+    if (obj1[`${key}`] !== obj2[`${key}`]) {
+      differences.push(`${key}`);
     }
   });
 
@@ -80,38 +55,123 @@ function getObjectDifferences(
 
 export default function FormToApprove() {
   const [tab, setTab] = useState<TabsProps>("settings");
+  const { data: session } = useSession();
   const params = useParams();
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
   const { id } = params;
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
 
-  // Check if there is previous data for that dataset
-  const { data: datasetData } = useGetDatasetsId(Number(id), {
-    populate: "*",
-  });
-
-  const { data: datasetValuesData } = useGetDatasetValues({
-    filters: {
-      dataset: id,
-    },
-    populate: {
-      country: {
-        fields: ["name", "iso3"],
-      },
-      resources: true,
-    },
-  });
-
   const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(id), {
     populate: "*",
   });
 
-  useEffect(() => {
-    const { colors, data, ...restSettings } = datasetDataPendingToApprove?.data?.attributes ?? {};
+  const datasetId = datasetDataPendingToApprove?.data?.attributes?.dataset?.data?.id;
 
-    setFormValues({ settings: { ...restSettings }, data, colors });
-  }, [datasetData, datasetValuesData]);
+  // Check previous data for that dataset
+  const { data: datasetData } = useGetDatasetsId(
+    Number(datasetId),
+    {
+      populate: "*",
+    },
+    {
+      query: {
+        enabled: !!datasetId,
+      },
+    },
+  );
+
+  const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
+    populate: "role",
+  });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+
+  const { data: datasetValuesData } = useGetDatasetValues(
+    {
+      filters: {
+        dataset: datasetId,
+      },
+      populate: {
+        country: {
+          fields: ["name", "iso3"],
+        },
+        resources: true,
+      },
+    },
+    {
+      query: {
+        enabled: !!datasetId,
+      },
+    },
+  );
+
+  const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success creating dataset:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error creating dataset:", error);
+      },
+    },
+    request: {},
+  });
+
+  const previousData = useMemo<Data | null>(() => {
+    if (!datasetId) return null;
+
+    const settings = {
+      name: datasetData?.data?.attributes?.name || "",
+      description: datasetData?.data?.attributes?.description || "",
+      valueType: datasetData?.data?.attributes?.value_type || undefined,
+      category: datasetData?.data?.attributes?.category?.data?.id || undefined,
+      unit: datasetData?.data?.attributes?.unit,
+    };
+
+    const data =
+      datasetValuesData?.data?.reduce(
+        (acc, curr) => {
+          const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
+
+          if (datasetData?.data?.attributes?.value_type === "number") {
+            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_number };
+          }
+
+          if (datasetData?.data?.attributes?.value_type === "text") {
+            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_text };
+          }
+
+          if (datasetData?.data?.attributes?.value_type === "boolean") {
+            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean };
+          }
+
+          return acc;
+        },
+        {} as Data["data"],
+      ) || {};
+
+    const colors = {};
+
+    return { settings, data, colors };
+  }, [datasetId, datasetData, datasetValuesData]);
+
+  const ControlsStateId = {
+    settings: "dataset-settings-approve-edition",
+    data: "dataset-data-approve-edition",
+    colors: "dataset-colors-approve-edition",
+  } satisfies { [key in TabsProps]: string };
+
+  useEffect(() => {
+    const { colors, data, ...restSettings } =
+      datasetDataPendingToApprove?.data?.attributes || ({} as DatasetEditSuggestion);
+
+    setFormValues({
+      settings: { ...restSettings, valueType: restSettings.value_type },
+      data,
+      colors,
+    } as Data);
+  }, [datasetData, datasetValuesData, datasetDataPendingToApprove]);
 
   const handleCancel = () => {
     push(`/?${URLParams.toString()}`);
@@ -119,7 +179,6 @@ export default function FormToApprove() {
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
-      console.log("approving en settings", values);
       setFormValues({ ...formValues, settings: values });
       setTab("data");
     },
@@ -139,43 +198,22 @@ export default function FormToApprove() {
       const data = { ...formValues, colors: values };
       setFormValues(data);
 
-      // if (ME_DATA?.role?.type === "authenticated") {
-      //   mutateDatasetEditSuggestion({
-      //     data: {
-      //       data: {
-      //         ...data.settings,
-      //         value_type: data.settings.valueType,
-      //         data: data.data,
-      //         colors: data.colors,
-      //         review_status: "pending",
-      //         dataset: +id,
-      //       },
-      //     },
-      //   });
-      // }
+      if (ME_DATA?.role?.type === "authenticated") {
+        mutateDatasetEditSuggestion({
+          data: {
+            data: {
+              ...data.settings,
+              value_type: data.settings.valueType,
+              data: data.data,
+              colors: data.colors,
+              review_status: "pending",
+            },
+          },
+        });
+      }
     },
-    [formValues],
+    [ME_DATA, formValues, mutateDatasetEditSuggestion],
   );
-
-  // get the data from the dataset existente
-  const previousDataDataset = datasetValuesData?.data;
-
-  // const { colors, data, ...settings } = d ?? {};
-
-  const parsedDataChangesToApprove = {
-    settings: datasetData,
-    data: previousDataDataset,
-    colors: {},
-  };
-
-  const isNewDataset = datasetDataPendingToApprove?.data?.attributes?.dataset !== null;
-  const diffKeys = isNewDataset ? [] : getObjectDifferences(formValues, parsedDataChangesToApprove);
-
-  const ControlsStateId = {
-    settings: "dataset-settings-approve-edition",
-    data: "dataset-data-approve-edition",
-    colors: "dataset-colors-approve-edition",
-  } satisfies { [key in TabsProps]: string };
 
   return (
     <>
@@ -205,7 +243,11 @@ export default function FormToApprove() {
           <SettingsContentToApprove
             data={formValues}
             id={ControlsStateId.settings}
-            changes={diffKeys}
+            changes={
+              !previousData?.settings
+                ? []
+                : getObjectDifferences(formValues.settings, previousData?.settings)
+            }
             handleSubmit={handleSettingsSubmit}
           />
         </TabsContent>
@@ -213,7 +255,9 @@ export default function FormToApprove() {
           <DataContentToApprove
             data={formValues}
             id={ControlsStateId.data}
-            changes={diffKeys}
+            changes={
+              !previousData?.data ? [] : getObjectDifferences(formValues.data, previousData?.data)
+            }
             handleSubmit={handleDataSubmit}
           />
         </TabsContent>
@@ -221,7 +265,11 @@ export default function FormToApprove() {
           <ColorsContentToApprove
             data={formValues}
             id={ControlsStateId.colors}
-            changes={diffKeys}
+            changes={
+              !previousData?.colors
+                ? []
+                : getObjectDifferences(formValues.colors, previousData?.colors)
+            }
             handleSubmit={handleColorsSubmit}
           />
         </TabsContent>

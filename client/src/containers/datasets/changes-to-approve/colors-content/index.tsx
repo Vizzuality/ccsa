@@ -14,7 +14,7 @@ export default function ColorsContentToApprove({
 }: {
   data: Data;
   id: string;
-  changes: (keyof Data)[];
+  changes: string[];
   handleSubmit: (data: Data["colors"]) => void;
 }) {
   const valueType = data?.settings?.valueType;
@@ -42,11 +42,9 @@ export default function ColorsContentToApprove({
               <span>New changes</span>
             </div>
             <p>
-              <p>
-                {changes?.length > 0
-                  ? "Changes summary. Lorem ipsum dolor sit amet consectetur. Sit cursus sit pellentesque amet pellentesque tellus. Elit aliquam nec viverra egestas id ipsum vitae."
-                  : "No changes has been applied."}
-              </p>
+              {changes?.length > 0
+                ? "Changes summary. Lorem ipsum dolor sit amet consectetur. Sit cursus sit pellentesque amet pellentesque tellus. Elit aliquam nec viverra egestas id ipsum vitae."
+                : "No changes has been applied."}
             </p>
           </div>
         </div>

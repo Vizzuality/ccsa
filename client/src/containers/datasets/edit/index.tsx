@@ -14,22 +14,12 @@ import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncDatasetStep } from "@/app/store";
 
+import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
+
 import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
 import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
 import { Data } from "@/components/forms/new-dataset/types";
-
-export const DATA_INITIAL_VALUES: Data = {
-  settings: {
-    name: "",
-    description: "",
-    valueType: undefined,
-    category: undefined,
-    unit: "",
-  },
-  data: {},
-  colors: {},
-};
 
 export default function EditDatasetForm() {
   const { data: session } = useSession();

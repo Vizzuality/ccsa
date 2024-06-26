@@ -11,7 +11,7 @@ export default function DataContentToApprove({
 }: {
   data: Data;
   id: string;
-  changes: (keyof Data)[];
+  changes: string[];
   handleSubmit: (data: Data["data"]) => void;
 }) {
   return (
@@ -24,11 +24,9 @@ export default function DataContentToApprove({
               <span>New changes</span>
             </div>
             <p>
-              <p>
-                {changes?.length > 0
-                  ? "Changes summary. Lorem ipsum dolor sit amet consectetur. Sit cursus sit pellentesque amet pellentesque tellus. Elit aliquam nec viverra egestas id ipsum vitae."
-                  : "No changes has been applied."}
-              </p>
+              {changes?.length > 0
+                ? "Changes summary. Lorem ipsum dolor sit amet consectetur. Sit cursus sit pellentesque amet pellentesque tellus. Elit aliquam nec viverra egestas id ipsum vitae."
+                : "No changes has been applied."}
             </p>
           </div>
         </div>

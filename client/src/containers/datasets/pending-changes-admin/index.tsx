@@ -24,8 +24,6 @@ export default function DatasetPendingChangesAdmin() {
 
   const data = suggestions?.data;
 
-  console.log(data);
-
   return (
     <div className="space-y-10 p-4 py-10 sm:px-10 md:px-24 lg:px-32">
       <Table>

@@ -19,7 +19,7 @@ import NewDatasetDataForm from "@/components/forms/new-dataset/data";
 import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
 import { Data } from "@/components/forms/new-dataset/types";
 
-export const DATA_INITIAL_VALUES_2: Data = {
+export const DATA_INITIAL_VALUES: Data = {
   settings: {
     name: "",
     description: "",

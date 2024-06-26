@@ -5,7 +5,7 @@ import PersonalData from "@/containers/personal-data";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function DatasetPendingChangesContributor() {
+export default function DatasetPendingChangesContentContributor() {
   return (
     <Tabs defaultValue="changes" className="w-full divide-y-2 divide-gray-300/20">
       <TabsList className="p-4 sm:px-10 md:px-24 lg:px-32">
