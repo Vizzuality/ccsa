@@ -35,8 +35,11 @@ export default function DatasetPendingChangesContributor() {
         </TableHeader>
         <TableBody>
           {data?.map((suggestion) => (
-            <Link href={`/datasets/changes-to-approve/${suggestion?.id}`}>
-              <TableRow key={suggestion?.attributes?.createdAt}>
+            <Link
+              key={suggestion?.attributes?.createdAt}
+              href={`/datasets/changes-to-approve/${suggestion?.id}`}
+            >
+              <TableRow>
                 <TableCell className="whitespace-nowrap font-medium">Dataset </TableCell>
                 <TableCell>{suggestion?.attributes?.name}</TableCell>
                 <TableCell>
