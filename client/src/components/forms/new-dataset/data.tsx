@@ -1,5 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/classnames";
+
 import { useCallback, useMemo } from "react";
 
 import { useForm } from "react-hook-form";
@@ -50,14 +52,18 @@ export default function NewDatasetDataForm({
   header = true,
   data: rawData,
   onSubmit,
+  changes,
 }: {
   title: string;
   id: string;
   header?: boolean;
   data: Data;
   onSubmit: (data: Data["data"]) => void;
+  changes?: string[];
 }) {
+  console.log({ changes });
   const data = rawData.data;
+
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -67,8 +73,6 @@ export default function NewDatasetDataForm({
     () => countriesData?.data?.map((country) => country) || [],
     [countriesData],
   );
-
-  // const countries = useMemo(() => ["AIA", "BRB", "BES"], []);
 
   const formSchema = useMemo(
     () =>
@@ -154,6 +158,7 @@ export default function NewDatasetDataForm({
                               control={form.control}
                               name={`${country.attributes?.iso3}`}
                               render={({ field }) => {
+                                console.log(field, country);
                                 return (
                                   <FormItem className="col-span-2 space-y-1.5">
                                     <FormLabel className="hidden text-xs">{`${country.attributes?.iso3}-${label}`}</FormLabel>
@@ -185,7 +190,11 @@ export default function NewDatasetDataForm({
                                                   }
                                                   field.onChange(newValues);
                                                 }}
-                                                className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                                className={cn({
+                                                  "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
+                                                    true,
+                                                  "bg-green-400": changes?.includes(field.name),
+                                                })}
                                               />
                                               <Input
                                                 {...field}
@@ -212,7 +221,11 @@ export default function NewDatasetDataForm({
                                                   }
                                                   field.onChange(newValues);
                                                 }}
-                                                className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                                className={cn({
+                                                  "border-none bg-gray-300/20 placeholder:text-gray-300/95":
+                                                    true,
+                                                  "bg-green-400": changes?.includes(field.name),
+                                                })}
                                               />
                                               <Input
                                                 {...field}
@@ -239,7 +252,11 @@ export default function NewDatasetDataForm({
                                                   }
                                                   field.onChange(newValues);
                                                 }}
-                                                className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                                className={cn({
+                                                  "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
+                                                    true,
+                                                  "bg-green-400": changes?.includes(field.name),
+                                                })}
                                               />
                                               <LuTrash2 />
                                             </div>
@@ -278,7 +295,11 @@ export default function NewDatasetDataForm({
                                               ? `${field.value}`
                                               : undefined
                                           }
-                                          className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                          className={cn({
+                                            "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
+                                              true,
+                                            "bg-green-400": changes?.includes(field.name),
+                                          })}
                                         />
                                       )}
 
@@ -290,7 +311,11 @@ export default function NewDatasetDataForm({
                                               ? field.value
                                               : undefined
                                           }
-                                          className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                          className={cn({
+                                            "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
+                                              true,
+                                            "bg-green-400": changes?.includes(field.name),
+                                          })}
                                         />
                                       )}
 

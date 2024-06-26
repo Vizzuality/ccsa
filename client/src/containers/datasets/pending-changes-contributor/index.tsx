@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { cn } from "@/lib/classnames";
 import { formatDate } from "@/lib/utils/formats";
 
@@ -25,7 +27,7 @@ export default function DatasetPendingChangesContributor() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Change type</TableHead>
+            <TableHead className="w-[100px] whitespace-nowrap">Change type</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>State</TableHead>
             <TableHead>Date</TableHead>
@@ -34,25 +36,53 @@ export default function DatasetPendingChangesContributor() {
         <TableBody>
           {data?.map((suggestion) => (
             <TableRow key={suggestion?.attributes?.createdAt}>
-              <TableCell className="whitespace-nowrap font-medium">Dataset </TableCell>
-              <TableCell>{suggestion?.attributes?.name}</TableCell>
-              <TableCell>
-                <span
-                  className={cn({
-                    "rounded-sm border px-2.5 py-1": true,
-                    "border-opacity310 border-green-300 bg-green-300 bg-opacity-20 text-green-400":
-                      suggestion.attributes?.review_status === "approved",
-                    "border-primary bg-primary/10 text-primary":
-                      suggestion.attributes?.review_status === "pending",
-                    "border-red-500 text-red-500":
-                      suggestion?.attributes?.review_status === "declined",
-                  })}
+              <TableCell className="whitespace-nowrap font-medium">
+                <Link
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
                 >
-                  {suggestion.attributes?.review_status}
-                </span>
+                  Dataset
+                </Link>
               </TableCell>
+
               <TableCell>
-                {suggestion?.attributes?.createdAt && formatDate(suggestion?.attributes?.createdAt)}
+                <Link
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
+                >
+                  {suggestion?.attributes?.name}
+                </Link>
+              </TableCell>
+
+              <TableCell>
+                <Link
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
+                >
+                  <span
+                    className={cn({
+                      "rounded-sm border px-2.5 py-1": true,
+                      "border-opacity310 border-green-300 bg-green-300 bg-opacity-20 text-green-400":
+                        suggestion.attributes?.review_status === "approved",
+                      "border-primary bg-primary/10 text-primary":
+                        suggestion.attributes?.review_status === "pending",
+                      "border-red-500 text-red-500":
+                        suggestion?.attributes?.review_status === "declined",
+                    })}
+                  >
+                    {suggestion.attributes?.review_status}
+                  </span>
+                </Link>
+              </TableCell>
+
+              <TableCell>
+                <Link
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
+                >
+                  {suggestion?.attributes?.createdAt &&
+                    formatDate(suggestion?.attributes?.createdAt)}
+                </Link>
               </TableCell>
             </TableRow>
           ))}

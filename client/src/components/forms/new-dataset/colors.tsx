@@ -168,12 +168,14 @@ export default function NewDatasetColorsForm({
   header = true,
   data: rawData,
   onSubmit,
+  changes,
 }: {
   title: string;
   id: string;
   header?: boolean;
   data: Data;
   onSubmit: (data: Data["colors"]) => void;
+  changes?: string[];
 }) {
   const data = rawData.data;
   const { push } = useRouter();

@@ -9,6 +9,7 @@ export interface Data {
     valueType?: Dataset["value_type"];
     category?: number;
     unit?: string;
+    updatedAt?: string;
   };
   data: { [key: string]: string | number | boolean | undefined | Resource[] };
   colors: Record<string, string>;
