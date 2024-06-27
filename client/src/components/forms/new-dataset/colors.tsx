@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -15,7 +15,6 @@ import { useSyncSearchParams } from "@/app/store";
 import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
-import { Button } from "@/components/ui/button";
 import ColorPicker from "@/components/ui/colorpicker";
 import {
   Form,
@@ -28,40 +27,17 @@ import {
 
 import type { Data, VALUE_TYPE } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
+import { cn } from "@/lib/classnames";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
-const getBooleanFormSchema = () =>
+const getDefaultFormSchema = () =>
   z.object({
-    true: z
-      .string()
-      .min(1, { message: "Please enter a color for TRUE" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for TRUE" }),
-    false: z
-      .string()
-      .min(1, { message: "Please enter a color for FALSE" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for FALSE" }),
-  });
-
-const getNumberFormSchema = () =>
-  z.object({
-    minValue: z
+    min: z
       .string()
       .min(1, { message: "Please enter a valid hex color for min" })
       .regex(hexColorRegex, { message: "Please enter a valid hex color for min" }),
-    maxValue: z
-      .string()
-      .min(1, { message: "Please enter a valid hex color for min" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for max" }),
-  });
-
-const getResourceFormSchema = () =>
-  z.object({
-    minValue: z
-      .string()
-      .min(1, { message: "Please enter a valid hex color for min" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for min" }),
-    maxValue: z
+    max: z
       .string()
       .min(1, { message: "Please enter a valid hex color for min" })
       .regex(hexColorRegex, { message: "Please enter a valid hex color for max" }),
@@ -92,17 +68,11 @@ const getFormSchema = ({
   categories: string[] | null;
   valueType?: VALUE_TYPE;
 }) => {
-  switch (valueType) {
-    case "boolean":
-      return getBooleanFormSchema();
-    case "number":
-      return getNumberFormSchema();
-    case "resource":
-      return getResourceFormSchema();
-    case "text":
-    default:
-      return getTextFormSchema(categories);
+  if (valueType === "text") {
+    return getTextFormSchema(categories);
   }
+
+  return getDefaultFormSchema();
 };
 
 const getCategories = ({
@@ -113,53 +83,12 @@ const getCategories = ({
   valueType?: VALUE_TYPE;
 }): string[] | null => {
   if (!valueType || !data) return null;
-  if (valueType === "resource") {
-    return ["minValue", "maxValue"];
-  }
 
   if (valueType === "text") {
     return compact(uniq(Object.values(data).map((value) => value as string)));
   }
 
-  if (valueType === "number") {
-    return ["minValue", "maxValue"];
-  }
-
-  if (valueType === "boolean") {
-    return ["true", "false"];
-  }
-
-  return [];
-};
-
-const getDefaultValues = ({
-  categories,
-  valueType,
-}: {
-  categories: string[] | null;
-  valueType?: VALUE_TYPE;
-}): Record<string, string | number> => {
-  if (!valueType || !categories) return {};
-  switch (valueType) {
-    case "boolean":
-      return { true: "", false: "" };
-    case "number":
-      return { minValue: "", maxValue: "" };
-    case "resource":
-      return { minValue: "", maxValue: "" };
-    case "text":
-      return categories.reduce(
-        (acc, category) => {
-          return {
-            ...acc,
-            [category]: "",
-          };
-        },
-        {} as Record<string, string | number>,
-      );
-    default:
-      return {};
-  }
+  return ["min", "max"];
 };
 
 export default function NewDatasetColorsForm({
@@ -178,6 +107,7 @@ export default function NewDatasetColorsForm({
   changes?: string[];
 }) {
   const data = rawData.data;
+  const colors = rawData.colors;
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -185,11 +115,29 @@ export default function NewDatasetColorsForm({
 
   const categories = getCategories({ data, valueType });
 
-  const defaultValues = getDefaultValues({ categories, valueType });
+  const values = useMemo(() => {
+    if (valueType === "text") {
+      return categories!.reduce(
+        (acc, category) => {
+          return {
+            ...acc,
+            [category]: "",
+          };
+        },
+        {} as Record<string, string | number>,
+      );
+    }
+
+    return {
+      min: colors.min,
+      max: colors.max,
+    };
+  }, [colors]);
+
   const formSchema = getFormSchema({ categories, valueType });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    values,
   });
 
   const handleCancel = () => {
@@ -231,6 +179,9 @@ export default function NewDatasetColorsForm({
                           <ColorPicker
                             id="color"
                             value={field.value}
+                            className={cn({
+                              "bg-green-400": changes?.includes(field.name),
+                            })}
                             onChange={(e) => {
                               return field.onChange(e.target.value);
                             }}
@@ -242,12 +193,12 @@ export default function NewDatasetColorsForm({
                   />
                 ))}
 
-              {(valueType === "number" || valueType === "resource") && (
+              {(valueType === "number" || valueType === "resource" || valueType === "boolean") && (
                 <>
                   <FormField
-                    key="minValue"
+                    key="min"
                     control={form.control}
-                    name="minValue"
+                    name="min"
                     render={({ field }) => (
                       <FormItem className="space-y-1.5">
                         <FormLabel className="text-xs font-semibold">Min value</FormLabel>
@@ -255,6 +206,9 @@ export default function NewDatasetColorsForm({
                           <ColorPicker
                             id="color"
                             value={field.value}
+                            className={cn({
+                              "bg-green-400": changes?.includes(field.name),
+                            })}
                             onChange={(e) => {
                               return field.onChange(e.target.value);
                             }}
@@ -266,9 +220,9 @@ export default function NewDatasetColorsForm({
                   />
 
                   <FormField
-                    key="maxValue"
+                    key="max"
                     control={form.control}
-                    name="maxValue"
+                    name="max"
                     render={({ field }) => (
                       <FormItem className="space-y-1.5">
                         <FormLabel className="text-xs font-semibold">Max value</FormLabel>
@@ -276,49 +230,9 @@ export default function NewDatasetColorsForm({
                           <ColorPicker
                             id="color"
                             value={field.value}
-                            onChange={(e) => {
-                              return field.onChange(e.target.value);
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </>
-              )}
-
-              {valueType === "boolean" && (
-                <>
-                  <FormField
-                    control={form.control}
-                    name="true"
-                    render={({ field }) => (
-                      <FormItem className="space-y-1.5">
-                        <FormLabel className="text-xs font-semibold">Value for TRUE</FormLabel>
-                        <FormControl>
-                          <ColorPicker
-                            id="color"
-                            value={field.value}
-                            onChange={(e) => {
-                              return field.onChange(e.target.value);
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="false"
-                    render={({ field }) => (
-                      <FormItem className="space-y-1.5">
-                        <FormLabel className="text-xs font-semibold">Value for FALSE</FormLabel>
-                        <FormControl>
-                          <ColorPicker
-                            id="color"
-                            value={field.value}
+                            className={cn({
+                              "bg-green-400": changes?.includes(field.name),
+                            })}
                             onChange={(e) => {
                               return field.onChange(e.target.value);
                             }}
@@ -331,10 +245,6 @@ export default function NewDatasetColorsForm({
                 </>
               )}
             </fieldset>
-
-            <Button type="submit" className="hidden">
-              Submit
-            </Button>
           </form>
         </Form>
       </NewDatasetDataFormWrapper>

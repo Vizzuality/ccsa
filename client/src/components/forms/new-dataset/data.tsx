@@ -61,7 +61,6 @@ export default function NewDatasetDataForm({
   onSubmit: (data: Data["data"]) => void;
   changes?: string[];
 }) {
-  console.log({ changes });
   const data = rawData.data;
 
   const { push } = useRouter();
@@ -158,7 +157,6 @@ export default function NewDatasetDataForm({
                               control={form.control}
                               name={`${country.attributes?.iso3}`}
                               render={({ field }) => {
-                                console.log(field, country);
                                 return (
                                   <FormItem className="col-span-2 space-y-1.5">
                                     <FormLabel className="hidden text-xs">{`${country.attributes?.iso3}-${label}`}</FormLabel>

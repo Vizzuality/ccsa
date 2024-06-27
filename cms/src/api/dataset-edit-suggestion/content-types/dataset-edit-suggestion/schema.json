@@ -51,7 +51,7 @@
     },
     "colors": {
       "type": "json",
-      "required": true
+      "required": false
     },
     "category": {
       "type": "integer"

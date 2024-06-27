@@ -29,6 +29,7 @@ export default function ColorsContentToApprove({
             header={false}
             title={`${data?.settings?.name} - Edit` || "Edit dataset"}
             data={data}
+            changes={changes}
             onSubmit={handleSubmit}
           />
         </div>

@@ -924,7 +924,7 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
       'manyToOne',
       'api::dataset.dataset'
     >;
-    colors: Attribute.JSON & Attribute.Required;
+    colors: Attribute.JSON;
     category: Attribute.Integer;
     author: Attribute.Relation<
       'api::dataset-edit-suggestion.dataset-edit-suggestion',

@@ -10186,7 +10186,7 @@ export const DatasetEditSuggestionReviewStatus = {
 export interface DatasetEditSuggestion {
   author?: DatasetEditSuggestionAuthor;
   category?: number;
-  colors: unknown;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: DatasetEditSuggestionCreatedBy;
   data?: unknown;
@@ -11095,7 +11095,7 @@ export type DatasetEditSuggestionRequestDataAuthor = number | string;
 export type DatasetEditSuggestionRequestData = {
   author?: DatasetEditSuggestionRequestDataAuthor;
   category?: number;
-  colors: unknown;
+  colors?: unknown;
   data?: unknown;
   dataset?: DatasetEditSuggestionRequestDataDataset;
   description?: string;

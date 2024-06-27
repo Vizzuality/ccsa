@@ -11,7 +11,7 @@ import { formatDate } from "@/lib/utils/formats";
 import { getKeys } from "@/lib/utils/objects";
 
 import { useGetDatasetsId } from "@/types/generated/dataset";
-import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
+import { getGetDatasetEditSuggestionsIdQueryKey, useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import { usePutDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type {
@@ -30,6 +30,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ColorsContentToApprove from "./colors-content";
 import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
+import Link from "next/link";
+import { useQueryClient } from "@tanstack/react-query";
 
 type TabsProps = "settings" | "data" | "colors";
 
@@ -58,6 +60,7 @@ export default function FormToApprove() {
   const params = useParams();
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
+  const queryClient = useQueryClient()
   const { id } = params;
 
   const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(id), {
@@ -107,11 +110,14 @@ export default function FormToApprove() {
   const { mutate: mutatePutDatasetEditSuggestion } = usePutDatasetEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success creating dataset:", data);
+        queryClient.invalidateQueries({
+          queryKey: getGetDatasetEditSuggestionsIdQueryKey(Number(id))
+        });
+        console.info("Success updating dataset:", data);
         push(`/dashboard`);
       },
       onError: (error) => {
-        console.error("Error creating dataset:", error);
+        console.error("Error updating dataset:", error);
       },
     },
     request: {},
@@ -174,9 +180,18 @@ export default function FormToApprove() {
     colors: "dataset-colors-approve-edition",
   } satisfies { [key in TabsProps]: string };
 
-  const handleCancel = () => {
-    push(`/?${URLParams.toString()}`);
-  };
+  const handleReject = () => {
+    if (ME_DATA?.role?.type === "admin" && datasetDataPendingToApprove?.data?.id) {
+      mutatePutDatasetEditSuggestion({
+        id: datasetDataPendingToApprove?.data?.id,
+        data: {
+          data: {
+            review_status: "declined",
+          }
+        },
+      });
+    }
+  }
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
@@ -215,14 +230,15 @@ export default function FormToApprove() {
         });
       }
 
-      push(`/dashboard/?${URLParams.toString()}`);
+      if (ME_DATA?.role?.type === "admin" && datasetDataPendingToApprove?.data?.id) {
+        alert("Bulk upload required");
+      }
     },
     [
       ME_DATA,
       formValues,
       datasetDataPendingToApprove,
       mutatePutDatasetEditSuggestion,
-      push,
       URLParams,
     ],
   );
@@ -253,11 +269,20 @@ export default function FormToApprove() {
           )}
         </div>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
-          <Button size="sm" variant="primary-outline" onClick={handleCancel}>
-            Reject
-          </Button>
+          <Link href="/dashboard">
+            <Button size="sm" variant="primary-outline">
+              Cancel
+            </Button>
+          </Link>
+
+          {ME_DATA?.role?.type === "admin" && (
+            <Button size="sm" variant="destructive" onClick={handleReject}>
+              Reject
+            </Button>
+          )}
+
           <Button form={ControlsStateId[tab]} size="sm" type="submit">
-            Approve
+            {ME_DATA?.role?.type === "authenticated" ? "Submit" : "Approve"}
           </Button>
         </div>
       </div>
