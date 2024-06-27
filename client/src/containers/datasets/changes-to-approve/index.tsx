@@ -156,7 +156,9 @@ export default function FormToApprove() {
         {} as Data["data"],
       ) || {};
 
-    const colors = {};
+    const colors =
+      (datasetData?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors ||
+      ({} as Data["colors"]);
 
     return { settings, data, colors };
   }, [datasetId, datasetData, datasetValuesData]);
