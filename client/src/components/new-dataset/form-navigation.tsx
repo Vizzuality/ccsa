@@ -35,7 +35,7 @@ const STEPS = [
 ] as const;
 
 const getErrorData = (data: Data["settings"] | Data["data"]): boolean => {
-  if (!data || isEmpty(data)) return false;
+  if (!data || isEmpty(data)) return true;
 
   return getKeys(data).every((key) => {
     if (typeof data[`${key}`] === "number") {
