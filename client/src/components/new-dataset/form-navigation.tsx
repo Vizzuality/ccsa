@@ -2,13 +2,14 @@
 
 import { useCallback } from "react";
 
+import { useSetAtom } from "jotai";
 import isEmpty from "lodash-es/isEmpty";
 import { SlPencil } from "react-icons/sl";
 
 import { cn } from "@/lib/classnames";
 import { getKeys } from "@/lib/utils/objects";
 
-import { useSyncDatasetStep } from "@/app/store";
+import { datasetStepAtom } from "@/app/store";
 
 import { Data } from "@/components/forms/dataset/types";
 import { Separator } from "@/components/ui/separator";
@@ -45,7 +46,7 @@ const getErrorData = (data: Data["settings"] | Data["data"]): boolean => {
 };
 
 const Navigation = ({ data }: { data: Data; id: string }): JSX.Element => {
-  const [, setStep] = useSyncDatasetStep();
+  const setStep = useSetAtom(datasetStepAtom);
 
   const handleStep = useCallback((step: number) => setStep(step), [setStep]);
 

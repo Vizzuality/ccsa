@@ -13,7 +13,9 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
         {} as Record<string, z.ZodOptional<z.ZodNumber>>,
       ),
     );
-  } else if (valueType === "resource") {
+  }
+
+  if (valueType === "resource") {
     return z.object(
       countries.reduce((acc, country) => {
         acc[`${country}`] = z
@@ -28,7 +30,9 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
         return acc;
       }, {} as z.ZodRawShape),
     );
-  } else if (valueType === "text") {
+  }
+
+  if (valueType === "text") {
     return z.object(
       countries.reduce(
         (acc, country) => {
@@ -38,7 +42,9 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
         {} as Record<string, z.ZodOptional<z.ZodString>>,
       ),
     );
-  } else if (valueType === "boolean") {
+  }
+
+  if (valueType === "boolean") {
     return z.object(
       countries.reduce(
         (acc, country) => {
@@ -48,7 +54,7 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
         {} as Record<string, z.ZodOptional<z.ZodBoolean>>,
       ),
     );
-  } else {
-    throw new Error("Invalid valueType");
   }
+
+  return z.object({});
 };

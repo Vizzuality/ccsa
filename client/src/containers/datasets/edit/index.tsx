@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from "react";
 
 import { useParams, useRouter } from "next/navigation";
 
+import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 
 import { useGetDatasetsId } from "@/types/generated/dataset";
@@ -12,7 +13,7 @@ import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncDatasetStep } from "@/app/store";
+import { datasetStepAtom } from "@/app/store";
 
 import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 
@@ -27,7 +28,7 @@ export default function EditDatasetForm() {
 
   const params = useParams();
   const { id } = params;
-  const [currentStep, setCurrentStep] = useSyncDatasetStep();
+  const [currentStep, setCurrentStep] = useAtom(datasetStepAtom);
   const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
 
   const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
@@ -71,7 +72,7 @@ export default function EditDatasetForm() {
       description: datasetData?.data?.attributes?.description || "",
       valueType: datasetData?.data?.attributes?.value_type || undefined,
       category: datasetData?.data?.attributes?.category?.data?.id || undefined,
-      unit: datasetData?.data?.attributes?.unit,
+      unit: datasetData?.data?.attributes?.unit || undefined,
     };
 
     const data =

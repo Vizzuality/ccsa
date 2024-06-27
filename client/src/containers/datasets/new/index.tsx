@@ -5,6 +5,7 @@ import { useState, useCallback } from "react";
 // import { usePostDatasets } from "@/types/generated/dataset";
 import { useRouter } from "next/navigation";
 
+import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 
 import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
@@ -12,7 +13,7 @@ import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-su
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncDatasetStep } from "@/app/store";
+import { datasetStepAtom } from "@/app/store";
 
 import DatasetColorsForm from "@/components/forms/dataset/colors";
 import DatasetDataForm from "@/components/forms/dataset/data";
@@ -31,54 +32,14 @@ export const DATA_INITIAL_VALUES: Data = {
   colors: {},
 };
 
-export const DATA_HARCODED_VALUES: Data = {
-  // type resource
-  settings: {
-    name: "Test",
-    description: "Test description",
-    valueType: "resource",
-    category: 1,
-    unit: "test",
-  },
-  data: {
-    AIA: [
-      {
-        title: "Resource title",
-        description: "Resource description",
-        link: "http://google.com",
-      },
-      {
-        title: "Resource title",
-        description: "Resource description",
-        link: "http://google.com",
-      },
-    ],
-    BRB: [
-      {
-        title: "Resource title",
-        description: "Resource description",
-        link: "http://google.com",
-      },
-    ],
-    BES: [
-      {
-        title: "Resource title",
-        description: "Resource description",
-        link: "http://google.com",
-      },
-    ],
-  },
-  colors: {},
-};
-
 export default function NewDatasetForm() {
   const { data: session } = useSession();
 
   const { push } = useRouter();
 
-  const [step, setStep] = useSyncDatasetStep();
+  const [step, setStep] = useAtom(datasetStepAtom);
 
-  const [formValues, setFormValues] = useState<Data>(DATA_HARCODED_VALUES);
+  const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
 
   const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
     populate: "role",
@@ -158,23 +119,10 @@ export default function NewDatasetForm() {
       }
 
       // BULK UPLOAD REQUIRED
-      // if (ME_DATA?.role?.type === "admin") {
-      //   mutateDataset({
-      //     data: {
-      //       data: {
-      //         ...data.settings,
-      //         review_status: "approved",
-      //       },
-      //     },
-      //   });
-      //   mutateDatasetValues({
-      //     data: {
-      //       data: {
-      //         ...data.data,
-      //       },
-      //     },
-      //   });
-      // }
+      if (ME_DATA?.role?.type === "admin") {
+        console.info(data);
+        alert("Bulk upload required");
+      }
     },
     [formValues, ME_DATA, mutateDatasetEditSuggestion],
   );

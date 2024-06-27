@@ -1,6 +1,8 @@
 "use client";
 
-import { useSyncDatasetStep } from "@/app/store";
+import { useAtomValue } from "jotai";
+
+import { datasetStepAtom } from "@/app/store";
 
 import Step1 from "./step1";
 import Step2 from "./step2";
@@ -13,7 +15,7 @@ const STEPS: Record<number, () => JSX.Element> = {
 };
 
 export default function NewDatasetPagePage() {
-  const [step] = useSyncDatasetStep();
+  const step = useAtomValue(datasetStepAtom);
   const Description = STEPS[step];
 
   return (
