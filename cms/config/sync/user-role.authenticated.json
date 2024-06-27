@@ -148,6 +148,9 @@
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.update"
     },
     {
+      "action": "api::welcome-message.welcome-message.find"
+    },
+    {
       "action": "plugin::email.email.send"
     },
     {
@@ -197,9 +200,6 @@
     },
     {
       "action": "plugin::users-permissions.user.update"
-    },
-    {
-      "action": "api::welcome-message.welcome-message.find"
     }
   ]
 }
