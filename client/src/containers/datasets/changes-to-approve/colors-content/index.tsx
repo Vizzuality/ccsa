@@ -2,7 +2,7 @@
 
 import ApproveChangesFormLegend from "@/containers/datasets/changes-to-approve/approve-changes-form-legend";
 
-import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
+import DatasetColorsForm from "@/components/forms/new-dataset/colors";
 import type { Data } from "@/components/forms/new-dataset/types";
 
 export default function ColorsContentToApprove({
@@ -24,7 +24,7 @@ export default function ColorsContentToApprove({
         <ApproveChangesFormLegend changes={changes} isNewDataset={isNewDataset} />
 
         <div className="flex w-full flex-1">
-          <NewDatasetColorsForm
+          <DatasetColorsForm
             id={id}
             header={false}
             title={`${data?.settings?.name} - Edit` || "Edit dataset"}

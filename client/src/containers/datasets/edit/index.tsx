@@ -16,9 +16,9 @@ import { useSyncDatasetStep } from "@/app/store";
 
 import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 
-import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
-import NewDatasetDataForm from "@/components/forms/new-dataset/data";
-import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
+import DatasetColorsForm from "@/components/forms/new-dataset/colors";
+import DatasetDataForm from "@/components/forms/new-dataset/data";
+import DatasetSettingsForm from "@/components/forms/new-dataset/settings";
 import { Data } from "@/components/forms/new-dataset/types";
 
 export default function EditDatasetForm() {
@@ -143,7 +143,7 @@ export default function EditDatasetForm() {
   return (
     <>
       {currentStep === 1 && (
-        <NewDatasetSettingsForm
+        <DatasetSettingsForm
           id="edit-dataset-settings"
           title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}
@@ -151,7 +151,7 @@ export default function EditDatasetForm() {
         />
       )}
       {currentStep === 2 && (
-        <NewDatasetDataForm
+        <DatasetDataForm
           id="edit-dataset-data"
           title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}
@@ -159,7 +159,7 @@ export default function EditDatasetForm() {
         />
       )}
       {currentStep === 3 && (
-        <NewDatasetColorsForm
+        <DatasetColorsForm
           id="edit-dataset-colors"
           title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}

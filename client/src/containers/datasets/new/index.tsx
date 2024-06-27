@@ -14,9 +14,9 @@ import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncDatasetStep } from "@/app/store";
 
-import NewDatasetColorsForm from "@/components/forms/new-dataset/colors";
-import NewDatasetDataForm from "@/components/forms/new-dataset/data";
-import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
+import DatasetColorsForm from "@/components/forms/new-dataset/colors";
+import DatasetDataForm from "@/components/forms/new-dataset/data";
+import DatasetSettingsForm from "@/components/forms/new-dataset/settings";
 import { Data } from "@/components/forms/new-dataset/types";
 
 export const DATA_INITIAL_VALUES: Data = {
@@ -182,7 +182,7 @@ export default function NewDatasetForm() {
   return (
     <>
       {step === 1 && (
-        <NewDatasetSettingsForm
+        <DatasetSettingsForm
           id="dataset-settings"
           title="New dataset"
           data={formValues}
@@ -190,7 +190,7 @@ export default function NewDatasetForm() {
         />
       )}
       {step === 2 && (
-        <NewDatasetDataForm
+        <DatasetDataForm
           id="dataset-data"
           title="New dataset"
           data={formValues}
@@ -198,7 +198,7 @@ export default function NewDatasetForm() {
         />
       )}
       {step === 3 && (
-        <NewDatasetColorsForm
+        <DatasetColorsForm
           id="dataset-colors"
           title="New dataset"
           data={formValues}

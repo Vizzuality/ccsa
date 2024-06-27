@@ -44,7 +44,7 @@ import {
 
 import NewDatasetDataFormWrapper from "./wrapper";
 
-export default function NewDatasetSettingsForm({
+export default function DatasetSettingsForm({
   title,
   id,
   header = true,

@@ -91,7 +91,7 @@ const getCategories = ({
   return ["min", "max"];
 };
 
-export default function NewDatasetColorsForm({
+export default function DatasetColorsForm({
   title,
   id,
   header = true,

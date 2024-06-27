@@ -2,7 +2,7 @@
 
 import ApproveChangesFormLegend from "@/containers/datasets/changes-to-approve/approve-changes-form-legend";
 
-import NewDatasetSettingsForm from "@/components/forms/new-dataset/settings";
+import DatasetSettingsForm from "@/components/forms/new-dataset/settings";
 import { Data } from "@/components/forms/new-dataset/types";
 
 export default function SettingsContentToApprove({
@@ -23,7 +23,7 @@ export default function SettingsContentToApprove({
       <div className="flex w-full justify-between space-x-10">
         <ApproveChangesFormLegend changes={changes} isNewDataset={isNewDataset} />
 
-        <NewDatasetSettingsForm
+        <DatasetSettingsForm
           id={id}
           title={data?.settings?.name}
           data={data}

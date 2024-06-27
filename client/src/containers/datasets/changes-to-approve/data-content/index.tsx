@@ -2,7 +2,7 @@
 
 import ApproveChangesFormLegend from "@/containers/datasets/changes-to-approve/approve-changes-form-legend";
 
-import NewDatasetDataForm from "@/components/forms/new-dataset/data";
+import DatasetDataForm from "@/components/forms/new-dataset/data";
 import type { Data } from "@/components/forms/new-dataset/types";
 
 export default function DataContentToApprove({
@@ -24,7 +24,7 @@ export default function DataContentToApprove({
         <ApproveChangesFormLegend changes={changes} isNewDataset={isNewDataset} />
 
         <div className="w-full min-w-fit max-w-5xl flex-1 gap-4">
-          <NewDatasetDataForm
+          <DatasetDataForm
             id={id}
             header={false}
             title={`${data?.settings?.name} - Edit` || "Edit dataset"}

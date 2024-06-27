@@ -46,7 +46,7 @@ import { getFormSchema } from "./data-form-schema";
 import type { VALUE_TYPE, Data, Resource } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
 
-export default function NewDatasetDataForm({
+export default function DatasetDataForm({
   title,
   id,
   header = true,
