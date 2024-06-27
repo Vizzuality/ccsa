@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 
+import Link from "next/link";
+
 import { useAtomValue } from "jotai";
 import { LuExternalLink, LuInfo } from "react-icons/lu";
 
@@ -18,14 +20,17 @@ import {
   TooltipArrow,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import { useSession } from "next-auth/react";
 
 type ToolCardProps = {
   tool?: OtherTool;
+  id: string;
 };
 
-const ToolCard = ({ tool }: ToolCardProps) => {
+const ToolCard = ({ tool, id }: ToolCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const search = useAtomValue(otherToolsSearchAtom);
+  const { data: session } = useSession();
 
   return (
     <div className="flex items-center space-x-5 rounded-lg border border-gray-200 p-5">
@@ -39,7 +44,16 @@ const ToolCard = ({ tool }: ToolCardProps) => {
           <h2 className="font-metropolis text-lg font-[900] text-gray-800">
             <SearchHighlight query={search}>{tool?.name}</SearchHighlight>
           </h2>
-          <div className="flex h-6 items-center gap-2 ">
+          <div className="flex h-6 items-center gap-2">
+            {!!session && (
+              <Link
+                href={`/other-tools-edit/${id}`}
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 py-1 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
+                onClick={(e) => e.stopPropagation()}
+              >
+                Edit
+              </Link>
+            )}
             {!!tool?.description && (
               <TooltipProvider delayDuration={100}>
                 <Tooltip>
