@@ -209,6 +209,60 @@ export type GetWelcomeMessageParams = {
   locale?: string;
 };
 
+export type GetToolEditSuggestionsIdPopulateOneOf = { [key: string]: any };
+
+export type GetToolEditSuggestionsIdParams = {
+  /**
+   * Relations to return
+   */
+  populate?: string | GetToolEditSuggestionsIdPopulateOneOf;
+};
+
+export type GetToolEditSuggestionsPopulateOneOf = { [key: string]: any };
+
+export type GetToolEditSuggestionsParams = {
+  /**
+   * Sort by attributes ascending (asc) or descending (desc)
+   */
+  sort?: string;
+  /**
+   * Return page/pageSize (default: true)
+   */
+  "pagination[withCount]"?: boolean;
+  /**
+   * Page number (default: 0)
+   */
+  "pagination[page]"?: number;
+  /**
+   * Page size (default: 25)
+   */
+  "pagination[pageSize]"?: number;
+  /**
+   * Offset value (default: 0)
+   */
+  "pagination[start]"?: number;
+  /**
+   * Number of entities to return (default: 25)
+   */
+  "pagination[limit]"?: number;
+  /**
+   * Fields to return (ex: ['title','author','test'])
+   */
+  fields?: string[];
+  /**
+   * Relations to return
+   */
+  populate?: string | GetToolEditSuggestionsPopulateOneOf;
+  /**
+   * Filters to apply
+   */
+  filters?: { [key: string]: any };
+  /**
+   * Locale to apply
+   */
+  locale?: string;
+};
+
 export type GetSdgsIdPopulateOneOf = { [key: string]: any };
 
 export type GetSdgsIdParams = {
@@ -253,6 +307,60 @@ export type GetSdgsParams = {
    * Relations to return
    */
   populate?: string | GetSdgsPopulateOneOf;
+  /**
+   * Filters to apply
+   */
+  filters?: { [key: string]: any };
+  /**
+   * Locale to apply
+   */
+  locale?: string;
+};
+
+export type GetProjectEditSuggestionsIdPopulateOneOf = { [key: string]: any };
+
+export type GetProjectEditSuggestionsIdParams = {
+  /**
+   * Relations to return
+   */
+  populate?: string | GetProjectEditSuggestionsIdPopulateOneOf;
+};
+
+export type GetProjectEditSuggestionsPopulateOneOf = { [key: string]: any };
+
+export type GetProjectEditSuggestionsParams = {
+  /**
+   * Sort by attributes ascending (asc) or descending (desc)
+   */
+  sort?: string;
+  /**
+   * Return page/pageSize (default: true)
+   */
+  "pagination[withCount]"?: boolean;
+  /**
+   * Page number (default: 0)
+   */
+  "pagination[page]"?: number;
+  /**
+   * Page size (default: 25)
+   */
+  "pagination[pageSize]"?: number;
+  /**
+   * Offset value (default: 0)
+   */
+  "pagination[start]"?: number;
+  /**
+   * Number of entities to return (default: 25)
+   */
+  "pagination[limit]"?: number;
+  /**
+   * Fields to return (ex: ['title','author','test'])
+   */
+  fields?: string[];
+  /**
+   * Relations to return
+   */
+  populate?: string | GetProjectEditSuggestionsPopulateOneOf;
   /**
    * Filters to apply
    */
