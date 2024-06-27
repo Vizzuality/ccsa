@@ -23,7 +23,7 @@ import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
 
-import { Data } from "@/components/forms/new-dataset/types";
+import { Data } from "@/components/forms/dataset/types";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

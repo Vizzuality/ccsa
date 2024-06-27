@@ -17,7 +17,7 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
-import { Data } from "@/components/forms/new-dataset/types";
+import { Data } from "@/components/forms/dataset/types";
 import NewDatasetFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";

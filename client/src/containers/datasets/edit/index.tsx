@@ -16,10 +16,10 @@ import { useSyncDatasetStep } from "@/app/store";
 
 import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
 
-import DatasetColorsForm from "@/components/forms/new-dataset/colors";
-import DatasetDataForm from "@/components/forms/new-dataset/data";
-import DatasetSettingsForm from "@/components/forms/new-dataset/settings";
-import { Data } from "@/components/forms/new-dataset/types";
+import DatasetColorsForm from "@/components/forms/dataset/colors";
+import DatasetDataForm from "@/components/forms/dataset/data";
+import DatasetSettingsForm from "@/components/forms/dataset/settings";
+import { Data } from "@/components/forms/dataset/types";
 
 export default function EditDatasetForm() {
   const { data: session } = useSession();

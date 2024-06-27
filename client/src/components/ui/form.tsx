@@ -15,6 +15,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/classnames";
 
 import { Label } from "@/components/ui/label";
+import { getKeys } from "@/lib/utils/objects";
 
 const Form = FormProvider;
 
@@ -139,6 +140,7 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
+
   const body = error ? String(error?.message) : children;
 
   if (!body) {
@@ -158,6 +160,45 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
+
+const FormMessageArray = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement> & { index: number }
+>(({ className, children, index, ...props }, ref) => {
+  const { error, formMessageId } = useFormField();
+
+  const body = React.useMemo(() => {
+    if (error && Array.isArray(error)) {
+      console.log(error, index);
+      const e = error[index];
+
+      if (!e) return children;
+
+      return getKeys(e).map(k => e[k]?.message).join(", ");
+    }
+
+    return error ? String(error?.message) : children;
+  }, [error])
+
+
+
+  if (!body) {
+    return null;
+  }
+
+  return (
+    <p
+      ref={ref}
+      id={formMessageId}
+      className={cn("text-sm font-medium text-destructive", className)}
+      {...props}
+    >
+      {body}
+    </p>
+  );
+});
+FormMessageArray.displayName = "FormMessage";
+
 export {
   useFormField,
   Form,
@@ -166,5 +207,6 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
+  FormMessageArray,
   FormField,
 };

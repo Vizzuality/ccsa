@@ -10,7 +10,7 @@ import { getKeys } from "@/lib/utils/objects";
 
 import { useSyncDatasetStep } from "@/app/store";
 
-import { Data } from "@/components/forms/new-dataset/types";
+import { Data } from "@/components/forms/dataset/types";
 import { Separator } from "@/components/ui/separator";
 
 // type Steps = "settings" | "data" | "colors";

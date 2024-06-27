@@ -2,8 +2,8 @@
 
 import ApproveChangesFormLegend from "@/containers/datasets/changes-to-approve/approve-changes-form-legend";
 
-import DatasetColorsForm from "@/components/forms/new-dataset/colors";
-import type { Data } from "@/components/forms/new-dataset/types";
+import DatasetColorsForm from "@/components/forms/dataset/colors";
+import type { Data } from "@/components/forms/dataset/types";
 
 export default function ColorsContentToApprove({
   data,

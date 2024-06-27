@@ -2,8 +2,8 @@
 
 import ApproveChangesFormLegend from "@/containers/datasets/changes-to-approve/approve-changes-form-legend";
 
-import DatasetSettingsForm from "@/components/forms/new-dataset/settings";
-import { Data } from "@/components/forms/new-dataset/types";
+import DatasetSettingsForm from "@/components/forms/dataset/settings";
+import { Data } from "@/components/forms/dataset/types";
 
 export default function SettingsContentToApprove({
   data,
