@@ -4,331 +4,295 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query'
 import type {
   MutationFunction,
   QueryFunction,
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query'
 import type {
   Error,
   GetPillarsIdParams,
   GetPillarsParams,
   PillarListResponse,
   PillarRequest,
-  PillarResponse,
-} from "./strapi.schemas";
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
+  PillarResponse
+} from './strapi.schemas'
+import { API } from '../../services/api/index';
+import type { ErrorType } from '../../services/api/index';
+
+
 
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (
+  type SecondParameter<T extends (...args: any) => any> = T extends (
   config: any,
   args: infer P,
 ) => any
   ? P
   : never;
 
+
 export const getPillars = (
-  params?: GetPillarsParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+    params?: GetPillarsParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  return API<PillarListResponse>({ url: `/pillars`, method: "get", params, signal }, options);
-};
+      
+      
+      return API<PillarListResponse>(
+      {url: `/pillars`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getGetPillarsQueryKey = (params?: GetPillarsParams) => {
-  return [`/pillars`, ...(params ? [params] : [])] as const;
-};
+export const getGetPillarsQueryKey = (params?: GetPillarsParams,) => {
+    
+    return [`/pillars`, ...(params ? [params]: [])] as const;
+    }
 
-export const getGetPillarsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getPillars>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetPillarsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getPillars>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+    
+export const getGetPillarsQueryOptions = <TData = Awaited<ReturnType<typeof getPillars>>, TError = ErrorType<Error>>(params?: GetPillarsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPillars>>, TError, TData>, request?: SecondParameter<typeof API>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetPillarsQueryKey(params);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getPillars>>> = ({ signal }) =>
-    getPillars(params, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getGetPillarsQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getPillars>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetPillarsQueryResult = NonNullable<Awaited<ReturnType<typeof getPillars>>>;
-export type GetPillarsQueryError = ErrorType<Error>;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPillars>>> = ({ signal }) => getPillars(params, requestOptions, signal);
 
-export const useGetPillars = <
-  TData = Awaited<ReturnType<typeof getPillars>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetPillarsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getPillars>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetPillarsQueryOptions(params, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPillars>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetPillarsQueryResult = NonNullable<Awaited<ReturnType<typeof getPillars>>>
+export type GetPillarsQueryError = ErrorType<Error>
+
+export const useGetPillars = <TData = Awaited<ReturnType<typeof getPillars>>, TError = ErrorType<Error>>(
+ params?: GetPillarsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPillars>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetPillarsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const postPillars = (
-  pillarRequest: PillarRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<PillarResponse>(
-    {
-      url: `/pillars`,
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      data: pillarRequest,
+    pillarRequest: PillarRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<PillarResponse>(
+      {url: `/pillars`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: pillarRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPostPillarsMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postPillars>>,
-    TError,
-    { data: PillarRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postPillars>>,
-  TError,
-  { data: PillarRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postPillars>>,
-    { data: PillarRequest }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostPillarsMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postPillars>>, TError,{data: PillarRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof postPillars>>, TError,{data: PillarRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postPillars(data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostPillarsMutationResult = NonNullable<Awaited<ReturnType<typeof postPillars>>>;
-export type PostPillarsMutationBody = PillarRequest;
-export type PostPillarsMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postPillars>>, {data: PillarRequest}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostPillars = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postPillars>>,
-    TError,
-    { data: PillarRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPostPillarsMutationOptions(options);
+          return  postPillars(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const getPillarsId = (
-  id: number,
-  params?: GetPillarsIdParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type PostPillarsMutationResult = NonNullable<Awaited<ReturnType<typeof postPillars>>>
+    export type PostPillarsMutationBody = PillarRequest
+    export type PostPillarsMutationError = ErrorType<Error>
+
+    export const usePostPillars = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postPillars>>, TError,{data: PillarRequest}, TContext>, request?: SecondParameter<typeof API>}
 ) => {
-  return API<PillarResponse>({ url: `/pillars/${id}`, method: "get", params, signal }, options);
-};
 
-export const getGetPillarsIdQueryKey = (id: number, params?: GetPillarsIdParams) => {
-  return [`/pillars/${id}`, ...(params ? [params] : [])] as const;
-};
+      const mutationOptions = getPostPillarsMutationOptions(options);
 
-export const getGetPillarsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getPillarsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetPillarsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getPillarsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+      return useMutation(mutationOptions);
+    }
+    export const getPillarsId = (
+    id: number,
+    params?: GetPillarsIdParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+      
+      
+      return API<PillarResponse>(
+      {url: `/pillars/${id}`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-  const queryKey = queryOptions?.queryKey ?? getGetPillarsIdQueryKey(id, params);
+export const getGetPillarsIdQueryKey = (id: number,
+    params?: GetPillarsIdParams,) => {
+    
+    return [`/pillars/${id}`, ...(params ? [params]: [])] as const;
+    }
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getPillarsId>>> = ({ signal }) =>
-    getPillarsId(id, params, requestOptions, signal);
+    
+export const getGetPillarsIdQueryOptions = <TData = Awaited<ReturnType<typeof getPillarsId>>, TError = ErrorType<Error>>(id: number,
+    params?: GetPillarsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPillarsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+) => {
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getPillarsId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export type GetPillarsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getPillarsId>>>;
-export type GetPillarsIdQueryError = ErrorType<Error>;
+  const queryKey =  queryOptions?.queryKey ?? getGetPillarsIdQueryKey(id,params);
 
-export const useGetPillarsId = <
-  TData = Awaited<ReturnType<typeof getPillarsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetPillarsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getPillarsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetPillarsIdQueryOptions(id, params, options);
+  
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPillarsId>>> = ({ signal }) => getPillarsId(id,params, requestOptions, signal);
 
-  query.queryKey = queryOptions.queryKey;
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPillarsId>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetPillarsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getPillarsId>>>
+export type GetPillarsIdQueryError = ErrorType<Error>
+
+export const useGetPillarsId = <TData = Awaited<ReturnType<typeof getPillarsId>>, TError = ErrorType<Error>>(
+ id: number,
+    params?: GetPillarsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getPillarsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetPillarsIdQueryOptions(id,params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const putPillarsId = (
-  id: number,
-  pillarRequest: PillarRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<PillarResponse>(
-    {
-      url: `/pillars/${id}`,
-      method: "put",
-      headers: { "Content-Type": "application/json" },
-      data: pillarRequest,
+    id: number,
+    pillarRequest: PillarRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<PillarResponse>(
+      {url: `/pillars/${id}`, method: 'put',
+      headers: {'Content-Type': 'application/json', },
+      data: pillarRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPutPillarsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putPillarsId>>,
-    TError,
-    { id: number; data: PillarRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putPillarsId>>,
-  TError,
-  { id: number; data: PillarRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putPillarsId>>,
-    { id: number; data: PillarRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getPutPillarsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putPillarsId>>, TError,{id: number;data: PillarRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof putPillarsId>>, TError,{id: number;data: PillarRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return putPillarsId(id, data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PutPillarsIdMutationResult = NonNullable<Awaited<ReturnType<typeof putPillarsId>>>;
-export type PutPillarsIdMutationBody = PillarRequest;
-export type PutPillarsIdMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putPillarsId>>, {id: number;data: PillarRequest}> = (props) => {
+          const {id,data} = props ?? {};
 
-export const usePutPillarsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putPillarsId>>,
-    TError,
-    { id: number; data: PillarRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPutPillarsIdMutationOptions(options);
+          return  putPillarsId(id,data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const deletePillarsId = (id: number, options?: SecondParameter<typeof API>) => {
-  return API<number>({ url: `/pillars/${id}`, method: "delete" }, options);
-};
+        
 
-export const getDeletePillarsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deletePillarsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deletePillarsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deletePillarsId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
+   return  { mutationFn, ...mutationOptions }}
 
-    return deletePillarsId(id, requestOptions);
-  };
+    export type PutPillarsIdMutationResult = NonNullable<Awaited<ReturnType<typeof putPillarsId>>>
+    export type PutPillarsIdMutationBody = PillarRequest
+    export type PutPillarsIdMutationError = ErrorType<Error>
 
-  return { mutationFn, ...mutationOptions };
-};
+    export const usePutPillarsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putPillarsId>>, TError,{id: number;data: PillarRequest}, TContext>, request?: SecondParameter<typeof API>}
+) => {
 
-export type DeletePillarsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deletePillarsId>>
->;
+      const mutationOptions = getPutPillarsIdMutationOptions(options);
 
-export type DeletePillarsIdMutationError = ErrorType<Error>;
+      return useMutation(mutationOptions);
+    }
+    export const deletePillarsId = (
+    id: number,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<number>(
+      {url: `/pillars/${id}`, method: 'delete'
+    },
+      options);
+    }
+  
 
-export const useDeletePillarsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deletePillarsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getDeletePillarsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
-};
+export const getDeletePillarsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePillarsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof deletePillarsId>>, TError,{id: number}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deletePillarsId>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deletePillarsId(id,requestOptions)
+        }
+
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type DeletePillarsIdMutationResult = NonNullable<Awaited<ReturnType<typeof deletePillarsId>>>
+    
+    export type DeletePillarsIdMutationError = ErrorType<Error>
+
+    export const useDeletePillarsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePillarsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+) => {
+
+      const mutationOptions = getDeletePillarsIdMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    

@@ -37,8 +37,7 @@ export default function ResetPassword() {
 
   const { mutate } = usePostAuthForgotPassword({
     mutation: {
-      onSuccess: (data) => {
-        console.log("Success creating dataset:", data);
+      onSuccess: () => {
         const searchParams = new URLSearchParams();
         push(`/signin?${searchParams.toString()}`);
       },

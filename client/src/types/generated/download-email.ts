@@ -4,345 +4,295 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query'
 import type {
   MutationFunction,
   QueryFunction,
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query'
 import type {
   DownloadEmailListResponse,
   DownloadEmailRequest,
   DownloadEmailResponse,
   Error,
   GetDownloadEmailsIdParams,
-  GetDownloadEmailsParams,
-} from "./strapi.schemas";
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
+  GetDownloadEmailsParams
+} from './strapi.schemas'
+import { API } from '../../services/api/index';
+import type { ErrorType } from '../../services/api/index';
+
+
 
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (
+  type SecondParameter<T extends (...args: any) => any> = T extends (
   config: any,
   args: infer P,
 ) => any
   ? P
   : never;
 
+
 export const getDownloadEmails = (
-  params?: GetDownloadEmailsParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+    params?: GetDownloadEmailsParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  return API<DownloadEmailListResponse>(
-    { url: `/download-emails`, method: "get", params, signal },
-    options,
-  );
-};
+      
+      
+      return API<DownloadEmailListResponse>(
+      {url: `/download-emails`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getGetDownloadEmailsQueryKey = (params?: GetDownloadEmailsParams) => {
-  return [`/download-emails`, ...(params ? [params] : [])] as const;
-};
+export const getGetDownloadEmailsQueryKey = (params?: GetDownloadEmailsParams,) => {
+    
+    return [`/download-emails`, ...(params ? [params]: [])] as const;
+    }
 
-export const getGetDownloadEmailsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getDownloadEmails>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetDownloadEmailsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmails>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+    
+export const getGetDownloadEmailsQueryOptions = <TData = Awaited<ReturnType<typeof getDownloadEmails>>, TError = ErrorType<Error>>(params?: GetDownloadEmailsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmails>>, TError, TData>, request?: SecondParameter<typeof API>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetDownloadEmailsQueryKey(params);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getDownloadEmails>>> = ({ signal }) =>
-    getDownloadEmails(params, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getGetDownloadEmailsQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getDownloadEmails>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetDownloadEmailsQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getDownloadEmails>>
->;
-export type GetDownloadEmailsQueryError = ErrorType<Error>;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getDownloadEmails>>> = ({ signal }) => getDownloadEmails(params, requestOptions, signal);
 
-export const useGetDownloadEmails = <
-  TData = Awaited<ReturnType<typeof getDownloadEmails>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetDownloadEmailsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmails>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetDownloadEmailsQueryOptions(params, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmails>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetDownloadEmailsQueryResult = NonNullable<Awaited<ReturnType<typeof getDownloadEmails>>>
+export type GetDownloadEmailsQueryError = ErrorType<Error>
+
+export const useGetDownloadEmails = <TData = Awaited<ReturnType<typeof getDownloadEmails>>, TError = ErrorType<Error>>(
+ params?: GetDownloadEmailsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmails>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetDownloadEmailsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const postDownloadEmails = (
-  downloadEmailRequest: DownloadEmailRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<DownloadEmailResponse>(
-    {
-      url: `/download-emails`,
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      data: downloadEmailRequest,
+    downloadEmailRequest: DownloadEmailRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<DownloadEmailResponse>(
+      {url: `/download-emails`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: downloadEmailRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPostDownloadEmailsMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postDownloadEmails>>,
-    TError,
-    { data: DownloadEmailRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postDownloadEmails>>,
-  TError,
-  { data: DownloadEmailRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postDownloadEmails>>,
-    { data: DownloadEmailRequest }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostDownloadEmailsMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postDownloadEmails>>, TError,{data: DownloadEmailRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof postDownloadEmails>>, TError,{data: DownloadEmailRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postDownloadEmails(data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostDownloadEmailsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postDownloadEmails>>
->;
-export type PostDownloadEmailsMutationBody = DownloadEmailRequest;
-export type PostDownloadEmailsMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postDownloadEmails>>, {data: DownloadEmailRequest}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostDownloadEmails = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postDownloadEmails>>,
-    TError,
-    { data: DownloadEmailRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPostDownloadEmailsMutationOptions(options);
+          return  postDownloadEmails(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const getDownloadEmailsId = (
-  id: number,
-  params?: GetDownloadEmailsIdParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type PostDownloadEmailsMutationResult = NonNullable<Awaited<ReturnType<typeof postDownloadEmails>>>
+    export type PostDownloadEmailsMutationBody = DownloadEmailRequest
+    export type PostDownloadEmailsMutationError = ErrorType<Error>
+
+    export const usePostDownloadEmails = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postDownloadEmails>>, TError,{data: DownloadEmailRequest}, TContext>, request?: SecondParameter<typeof API>}
 ) => {
-  return API<DownloadEmailResponse>(
-    { url: `/download-emails/${id}`, method: "get", params, signal },
-    options,
-  );
-};
 
-export const getGetDownloadEmailsIdQueryKey = (id: number, params?: GetDownloadEmailsIdParams) => {
-  return [`/download-emails/${id}`, ...(params ? [params] : [])] as const;
-};
+      const mutationOptions = getPostDownloadEmailsMutationOptions(options);
 
-export const getGetDownloadEmailsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getDownloadEmailsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetDownloadEmailsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmailsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+      return useMutation(mutationOptions);
+    }
+    export const getDownloadEmailsId = (
+    id: number,
+    params?: GetDownloadEmailsIdParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+      
+      
+      return API<DownloadEmailResponse>(
+      {url: `/download-emails/${id}`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-  const queryKey = queryOptions?.queryKey ?? getGetDownloadEmailsIdQueryKey(id, params);
+export const getGetDownloadEmailsIdQueryKey = (id: number,
+    params?: GetDownloadEmailsIdParams,) => {
+    
+    return [`/download-emails/${id}`, ...(params ? [params]: [])] as const;
+    }
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getDownloadEmailsId>>> = ({ signal }) =>
-    getDownloadEmailsId(id, params, requestOptions, signal);
+    
+export const getGetDownloadEmailsIdQueryOptions = <TData = Awaited<ReturnType<typeof getDownloadEmailsId>>, TError = ErrorType<Error>>(id: number,
+    params?: GetDownloadEmailsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmailsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+) => {
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getDownloadEmailsId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export type GetDownloadEmailsIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getDownloadEmailsId>>
->;
-export type GetDownloadEmailsIdQueryError = ErrorType<Error>;
+  const queryKey =  queryOptions?.queryKey ?? getGetDownloadEmailsIdQueryKey(id,params);
 
-export const useGetDownloadEmailsId = <
-  TData = Awaited<ReturnType<typeof getDownloadEmailsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetDownloadEmailsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmailsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetDownloadEmailsIdQueryOptions(id, params, options);
+  
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getDownloadEmailsId>>> = ({ signal }) => getDownloadEmailsId(id,params, requestOptions, signal);
 
-  query.queryKey = queryOptions.queryKey;
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmailsId>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetDownloadEmailsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getDownloadEmailsId>>>
+export type GetDownloadEmailsIdQueryError = ErrorType<Error>
+
+export const useGetDownloadEmailsId = <TData = Awaited<ReturnType<typeof getDownloadEmailsId>>, TError = ErrorType<Error>>(
+ id: number,
+    params?: GetDownloadEmailsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmailsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetDownloadEmailsIdQueryOptions(id,params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const putDownloadEmailsId = (
-  id: number,
-  downloadEmailRequest: DownloadEmailRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<DownloadEmailResponse>(
-    {
-      url: `/download-emails/${id}`,
-      method: "put",
-      headers: { "Content-Type": "application/json" },
-      data: downloadEmailRequest,
+    id: number,
+    downloadEmailRequest: DownloadEmailRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<DownloadEmailResponse>(
+      {url: `/download-emails/${id}`, method: 'put',
+      headers: {'Content-Type': 'application/json', },
+      data: downloadEmailRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPutDownloadEmailsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putDownloadEmailsId>>,
-    TError,
-    { id: number; data: DownloadEmailRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putDownloadEmailsId>>,
-  TError,
-  { id: number; data: DownloadEmailRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putDownloadEmailsId>>,
-    { id: number; data: DownloadEmailRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getPutDownloadEmailsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putDownloadEmailsId>>, TError,{id: number;data: DownloadEmailRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof putDownloadEmailsId>>, TError,{id: number;data: DownloadEmailRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return putDownloadEmailsId(id, data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PutDownloadEmailsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putDownloadEmailsId>>
->;
-export type PutDownloadEmailsIdMutationBody = DownloadEmailRequest;
-export type PutDownloadEmailsIdMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putDownloadEmailsId>>, {id: number;data: DownloadEmailRequest}> = (props) => {
+          const {id,data} = props ?? {};
 
-export const usePutDownloadEmailsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putDownloadEmailsId>>,
-    TError,
-    { id: number; data: DownloadEmailRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPutDownloadEmailsIdMutationOptions(options);
+          return  putDownloadEmailsId(id,data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const deleteDownloadEmailsId = (id: number, options?: SecondParameter<typeof API>) => {
-  return API<number>({ url: `/download-emails/${id}`, method: "delete" }, options);
-};
+        
 
-export const getDeleteDownloadEmailsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteDownloadEmailsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteDownloadEmailsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteDownloadEmailsId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
+   return  { mutationFn, ...mutationOptions }}
 
-    return deleteDownloadEmailsId(id, requestOptions);
-  };
+    export type PutDownloadEmailsIdMutationResult = NonNullable<Awaited<ReturnType<typeof putDownloadEmailsId>>>
+    export type PutDownloadEmailsIdMutationBody = DownloadEmailRequest
+    export type PutDownloadEmailsIdMutationError = ErrorType<Error>
 
-  return { mutationFn, ...mutationOptions };
-};
+    export const usePutDownloadEmailsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putDownloadEmailsId>>, TError,{id: number;data: DownloadEmailRequest}, TContext>, request?: SecondParameter<typeof API>}
+) => {
 
-export type DeleteDownloadEmailsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteDownloadEmailsId>>
->;
+      const mutationOptions = getPutDownloadEmailsIdMutationOptions(options);
 
-export type DeleteDownloadEmailsIdMutationError = ErrorType<Error>;
+      return useMutation(mutationOptions);
+    }
+    export const deleteDownloadEmailsId = (
+    id: number,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<number>(
+      {url: `/download-emails/${id}`, method: 'delete'
+    },
+      options);
+    }
+  
 
-export const useDeleteDownloadEmailsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteDownloadEmailsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getDeleteDownloadEmailsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
-};
+export const getDeleteDownloadEmailsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteDownloadEmailsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteDownloadEmailsId>>, TError,{id: number}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteDownloadEmailsId>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteDownloadEmailsId(id,requestOptions)
+        }
+
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteDownloadEmailsIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteDownloadEmailsId>>>
+    
+    export type DeleteDownloadEmailsIdMutationError = ErrorType<Error>
+
+    export const useDeleteDownloadEmailsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteDownloadEmailsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+) => {
+
+      const mutationOptions = getDeleteDownloadEmailsIdMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    

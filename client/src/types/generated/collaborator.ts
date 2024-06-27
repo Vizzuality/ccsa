@@ -4,343 +4,295 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query'
 import type {
   MutationFunction,
   QueryFunction,
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query'
 import type {
   CollaboratorListResponse,
   CollaboratorRequest,
   CollaboratorResponse,
   Error,
   GetCollaboratorsIdParams,
-  GetCollaboratorsParams,
-} from "./strapi.schemas";
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
+  GetCollaboratorsParams
+} from './strapi.schemas'
+import { API } from '../../services/api/index';
+import type { ErrorType } from '../../services/api/index';
+
+
 
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (
+  type SecondParameter<T extends (...args: any) => any> = T extends (
   config: any,
   args: infer P,
 ) => any
   ? P
   : never;
 
+
 export const getCollaborators = (
-  params?: GetCollaboratorsParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+    params?: GetCollaboratorsParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  return API<CollaboratorListResponse>(
-    { url: `/collaborators`, method: "get", params, signal },
-    options,
-  );
-};
+      
+      
+      return API<CollaboratorListResponse>(
+      {url: `/collaborators`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getGetCollaboratorsQueryKey = (params?: GetCollaboratorsParams) => {
-  return [`/collaborators`, ...(params ? [params] : [])] as const;
-};
+export const getGetCollaboratorsQueryKey = (params?: GetCollaboratorsParams,) => {
+    
+    return [`/collaborators`, ...(params ? [params]: [])] as const;
+    }
 
-export const getGetCollaboratorsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getCollaborators>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetCollaboratorsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCollaborators>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+    
+export const getGetCollaboratorsQueryOptions = <TData = Awaited<ReturnType<typeof getCollaborators>>, TError = ErrorType<Error>>(params?: GetCollaboratorsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCollaborators>>, TError, TData>, request?: SecondParameter<typeof API>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCollaboratorsQueryKey(params);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getCollaborators>>> = ({ signal }) =>
-    getCollaborators(params, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getGetCollaboratorsQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getCollaborators>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetCollaboratorsQueryResult = NonNullable<Awaited<ReturnType<typeof getCollaborators>>>;
-export type GetCollaboratorsQueryError = ErrorType<Error>;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCollaborators>>> = ({ signal }) => getCollaborators(params, requestOptions, signal);
 
-export const useGetCollaborators = <
-  TData = Awaited<ReturnType<typeof getCollaborators>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetCollaboratorsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCollaborators>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCollaboratorsQueryOptions(params, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCollaborators>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetCollaboratorsQueryResult = NonNullable<Awaited<ReturnType<typeof getCollaborators>>>
+export type GetCollaboratorsQueryError = ErrorType<Error>
+
+export const useGetCollaborators = <TData = Awaited<ReturnType<typeof getCollaborators>>, TError = ErrorType<Error>>(
+ params?: GetCollaboratorsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCollaborators>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetCollaboratorsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const postCollaborators = (
-  collaboratorRequest: CollaboratorRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<CollaboratorResponse>(
-    {
-      url: `/collaborators`,
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      data: collaboratorRequest,
+    collaboratorRequest: CollaboratorRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<CollaboratorResponse>(
+      {url: `/collaborators`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: collaboratorRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPostCollaboratorsMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postCollaborators>>,
-    TError,
-    { data: CollaboratorRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postCollaborators>>,
-  TError,
-  { data: CollaboratorRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postCollaborators>>,
-    { data: CollaboratorRequest }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostCollaboratorsMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCollaborators>>, TError,{data: CollaboratorRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof postCollaborators>>, TError,{data: CollaboratorRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postCollaborators(data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostCollaboratorsMutationResult = NonNullable<
-  Awaited<ReturnType<typeof postCollaborators>>
->;
-export type PostCollaboratorsMutationBody = CollaboratorRequest;
-export type PostCollaboratorsMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postCollaborators>>, {data: CollaboratorRequest}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostCollaborators = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postCollaborators>>,
-    TError,
-    { data: CollaboratorRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPostCollaboratorsMutationOptions(options);
+          return  postCollaborators(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const getCollaboratorsId = (
-  id: number,
-  params?: GetCollaboratorsIdParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type PostCollaboratorsMutationResult = NonNullable<Awaited<ReturnType<typeof postCollaborators>>>
+    export type PostCollaboratorsMutationBody = CollaboratorRequest
+    export type PostCollaboratorsMutationError = ErrorType<Error>
+
+    export const usePostCollaborators = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCollaborators>>, TError,{data: CollaboratorRequest}, TContext>, request?: SecondParameter<typeof API>}
 ) => {
-  return API<CollaboratorResponse>(
-    { url: `/collaborators/${id}`, method: "get", params, signal },
-    options,
-  );
-};
 
-export const getGetCollaboratorsIdQueryKey = (id: number, params?: GetCollaboratorsIdParams) => {
-  return [`/collaborators/${id}`, ...(params ? [params] : [])] as const;
-};
+      const mutationOptions = getPostCollaboratorsMutationOptions(options);
 
-export const getGetCollaboratorsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getCollaboratorsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetCollaboratorsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCollaboratorsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+      return useMutation(mutationOptions);
+    }
+    export const getCollaboratorsId = (
+    id: number,
+    params?: GetCollaboratorsIdParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+      
+      
+      return API<CollaboratorResponse>(
+      {url: `/collaborators/${id}`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-  const queryKey = queryOptions?.queryKey ?? getGetCollaboratorsIdQueryKey(id, params);
+export const getGetCollaboratorsIdQueryKey = (id: number,
+    params?: GetCollaboratorsIdParams,) => {
+    
+    return [`/collaborators/${id}`, ...(params ? [params]: [])] as const;
+    }
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getCollaboratorsId>>> = ({ signal }) =>
-    getCollaboratorsId(id, params, requestOptions, signal);
+    
+export const getGetCollaboratorsIdQueryOptions = <TData = Awaited<ReturnType<typeof getCollaboratorsId>>, TError = ErrorType<Error>>(id: number,
+    params?: GetCollaboratorsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCollaboratorsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+) => {
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getCollaboratorsId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export type GetCollaboratorsIdQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getCollaboratorsId>>
->;
-export type GetCollaboratorsIdQueryError = ErrorType<Error>;
+  const queryKey =  queryOptions?.queryKey ?? getGetCollaboratorsIdQueryKey(id,params);
 
-export const useGetCollaboratorsId = <
-  TData = Awaited<ReturnType<typeof getCollaboratorsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetCollaboratorsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCollaboratorsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCollaboratorsIdQueryOptions(id, params, options);
+  
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCollaboratorsId>>> = ({ signal }) => getCollaboratorsId(id,params, requestOptions, signal);
 
-  query.queryKey = queryOptions.queryKey;
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCollaboratorsId>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetCollaboratorsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCollaboratorsId>>>
+export type GetCollaboratorsIdQueryError = ErrorType<Error>
+
+export const useGetCollaboratorsId = <TData = Awaited<ReturnType<typeof getCollaboratorsId>>, TError = ErrorType<Error>>(
+ id: number,
+    params?: GetCollaboratorsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCollaboratorsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetCollaboratorsIdQueryOptions(id,params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const putCollaboratorsId = (
-  id: number,
-  collaboratorRequest: CollaboratorRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<CollaboratorResponse>(
-    {
-      url: `/collaborators/${id}`,
-      method: "put",
-      headers: { "Content-Type": "application/json" },
-      data: collaboratorRequest,
+    id: number,
+    collaboratorRequest: CollaboratorRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<CollaboratorResponse>(
+      {url: `/collaborators/${id}`, method: 'put',
+      headers: {'Content-Type': 'application/json', },
+      data: collaboratorRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPutCollaboratorsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putCollaboratorsId>>,
-    TError,
-    { id: number; data: CollaboratorRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putCollaboratorsId>>,
-  TError,
-  { id: number; data: CollaboratorRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putCollaboratorsId>>,
-    { id: number; data: CollaboratorRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getPutCollaboratorsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putCollaboratorsId>>, TError,{id: number;data: CollaboratorRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof putCollaboratorsId>>, TError,{id: number;data: CollaboratorRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return putCollaboratorsId(id, data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PutCollaboratorsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putCollaboratorsId>>
->;
-export type PutCollaboratorsIdMutationBody = CollaboratorRequest;
-export type PutCollaboratorsIdMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putCollaboratorsId>>, {id: number;data: CollaboratorRequest}> = (props) => {
+          const {id,data} = props ?? {};
 
-export const usePutCollaboratorsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putCollaboratorsId>>,
-    TError,
-    { id: number; data: CollaboratorRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPutCollaboratorsIdMutationOptions(options);
+          return  putCollaboratorsId(id,data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const deleteCollaboratorsId = (id: number, options?: SecondParameter<typeof API>) => {
-  return API<number>({ url: `/collaborators/${id}`, method: "delete" }, options);
-};
+        
 
-export const getDeleteCollaboratorsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteCollaboratorsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteCollaboratorsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteCollaboratorsId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
+   return  { mutationFn, ...mutationOptions }}
 
-    return deleteCollaboratorsId(id, requestOptions);
-  };
+    export type PutCollaboratorsIdMutationResult = NonNullable<Awaited<ReturnType<typeof putCollaboratorsId>>>
+    export type PutCollaboratorsIdMutationBody = CollaboratorRequest
+    export type PutCollaboratorsIdMutationError = ErrorType<Error>
 
-  return { mutationFn, ...mutationOptions };
-};
+    export const usePutCollaboratorsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putCollaboratorsId>>, TError,{id: number;data: CollaboratorRequest}, TContext>, request?: SecondParameter<typeof API>}
+) => {
 
-export type DeleteCollaboratorsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteCollaboratorsId>>
->;
+      const mutationOptions = getPutCollaboratorsIdMutationOptions(options);
 
-export type DeleteCollaboratorsIdMutationError = ErrorType<Error>;
+      return useMutation(mutationOptions);
+    }
+    export const deleteCollaboratorsId = (
+    id: number,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<number>(
+      {url: `/collaborators/${id}`, method: 'delete'
+    },
+      options);
+    }
+  
 
-export const useDeleteCollaboratorsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteCollaboratorsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getDeleteCollaboratorsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
-};
+export const getDeleteCollaboratorsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCollaboratorsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteCollaboratorsId>>, TError,{id: number}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCollaboratorsId>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteCollaboratorsId(id,requestOptions)
+        }
+
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteCollaboratorsIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCollaboratorsId>>>
+    
+    export type DeleteCollaboratorsIdMutationError = ErrorType<Error>
+
+    export const useDeleteCollaboratorsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCollaboratorsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+) => {
+
+      const mutationOptions = getDeleteCollaboratorsIdMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    

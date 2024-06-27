@@ -4,331 +4,295 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query'
 import type {
   MutationFunction,
   QueryFunction,
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query'
 import type {
   CountryListResponse,
   CountryRequest,
   CountryResponse,
   Error,
   GetCountriesIdParams,
-  GetCountriesParams,
-} from "./strapi.schemas";
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
+  GetCountriesParams
+} from './strapi.schemas'
+import { API } from '../../services/api/index';
+import type { ErrorType } from '../../services/api/index';
+
+
 
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (
+  type SecondParameter<T extends (...args: any) => any> = T extends (
   config: any,
   args: infer P,
 ) => any
   ? P
   : never;
 
+
 export const getCountries = (
-  params?: GetCountriesParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+    params?: GetCountriesParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  return API<CountryListResponse>({ url: `/countries`, method: "get", params, signal }, options);
-};
+      
+      
+      return API<CountryListResponse>(
+      {url: `/countries`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getGetCountriesQueryKey = (params?: GetCountriesParams) => {
-  return [`/countries`, ...(params ? [params] : [])] as const;
-};
+export const getGetCountriesQueryKey = (params?: GetCountriesParams,) => {
+    
+    return [`/countries`, ...(params ? [params]: [])] as const;
+    }
 
-export const getGetCountriesQueryOptions = <
-  TData = Awaited<ReturnType<typeof getCountries>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetCountriesParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCountries>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+    
+export const getGetCountriesQueryOptions = <TData = Awaited<ReturnType<typeof getCountries>>, TError = ErrorType<Error>>(params?: GetCountriesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCountries>>, TError, TData>, request?: SecondParameter<typeof API>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCountriesQueryKey(params);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getCountries>>> = ({ signal }) =>
-    getCountries(params, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getGetCountriesQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getCountries>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetCountriesQueryResult = NonNullable<Awaited<ReturnType<typeof getCountries>>>;
-export type GetCountriesQueryError = ErrorType<Error>;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCountries>>> = ({ signal }) => getCountries(params, requestOptions, signal);
 
-export const useGetCountries = <
-  TData = Awaited<ReturnType<typeof getCountries>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetCountriesParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCountries>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCountriesQueryOptions(params, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCountries>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetCountriesQueryResult = NonNullable<Awaited<ReturnType<typeof getCountries>>>
+export type GetCountriesQueryError = ErrorType<Error>
+
+export const useGetCountries = <TData = Awaited<ReturnType<typeof getCountries>>, TError = ErrorType<Error>>(
+ params?: GetCountriesParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCountries>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetCountriesQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const postCountries = (
-  countryRequest: CountryRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<CountryResponse>(
-    {
-      url: `/countries`,
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      data: countryRequest,
+    countryRequest: CountryRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<CountryResponse>(
+      {url: `/countries`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: countryRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPostCountriesMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postCountries>>,
-    TError,
-    { data: CountryRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postCountries>>,
-  TError,
-  { data: CountryRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postCountries>>,
-    { data: CountryRequest }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostCountriesMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCountries>>, TError,{data: CountryRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof postCountries>>, TError,{data: CountryRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postCountries(data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostCountriesMutationResult = NonNullable<Awaited<ReturnType<typeof postCountries>>>;
-export type PostCountriesMutationBody = CountryRequest;
-export type PostCountriesMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postCountries>>, {data: CountryRequest}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostCountries = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postCountries>>,
-    TError,
-    { data: CountryRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPostCountriesMutationOptions(options);
+          return  postCountries(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const getCountriesId = (
-  id: number,
-  params?: GetCountriesIdParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type PostCountriesMutationResult = NonNullable<Awaited<ReturnType<typeof postCountries>>>
+    export type PostCountriesMutationBody = CountryRequest
+    export type PostCountriesMutationError = ErrorType<Error>
+
+    export const usePostCountries = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postCountries>>, TError,{data: CountryRequest}, TContext>, request?: SecondParameter<typeof API>}
 ) => {
-  return API<CountryResponse>({ url: `/countries/${id}`, method: "get", params, signal }, options);
-};
 
-export const getGetCountriesIdQueryKey = (id: number, params?: GetCountriesIdParams) => {
-  return [`/countries/${id}`, ...(params ? [params] : [])] as const;
-};
+      const mutationOptions = getPostCountriesMutationOptions(options);
 
-export const getGetCountriesIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getCountriesId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetCountriesIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCountriesId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+      return useMutation(mutationOptions);
+    }
+    export const getCountriesId = (
+    id: number,
+    params?: GetCountriesIdParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+      
+      
+      return API<CountryResponse>(
+      {url: `/countries/${id}`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-  const queryKey = queryOptions?.queryKey ?? getGetCountriesIdQueryKey(id, params);
+export const getGetCountriesIdQueryKey = (id: number,
+    params?: GetCountriesIdParams,) => {
+    
+    return [`/countries/${id}`, ...(params ? [params]: [])] as const;
+    }
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getCountriesId>>> = ({ signal }) =>
-    getCountriesId(id, params, requestOptions, signal);
+    
+export const getGetCountriesIdQueryOptions = <TData = Awaited<ReturnType<typeof getCountriesId>>, TError = ErrorType<Error>>(id: number,
+    params?: GetCountriesIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCountriesId>>, TError, TData>, request?: SecondParameter<typeof API>}
+) => {
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getCountriesId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export type GetCountriesIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCountriesId>>>;
-export type GetCountriesIdQueryError = ErrorType<Error>;
+  const queryKey =  queryOptions?.queryKey ?? getGetCountriesIdQueryKey(id,params);
 
-export const useGetCountriesId = <
-  TData = Awaited<ReturnType<typeof getCountriesId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetCountriesIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCountriesId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCountriesIdQueryOptions(id, params, options);
+  
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCountriesId>>> = ({ signal }) => getCountriesId(id,params, requestOptions, signal);
 
-  query.queryKey = queryOptions.queryKey;
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCountriesId>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetCountriesIdQueryResult = NonNullable<Awaited<ReturnType<typeof getCountriesId>>>
+export type GetCountriesIdQueryError = ErrorType<Error>
+
+export const useGetCountriesId = <TData = Awaited<ReturnType<typeof getCountriesId>>, TError = ErrorType<Error>>(
+ id: number,
+    params?: GetCountriesIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCountriesId>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetCountriesIdQueryOptions(id,params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const putCountriesId = (
-  id: number,
-  countryRequest: CountryRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<CountryResponse>(
-    {
-      url: `/countries/${id}`,
-      method: "put",
-      headers: { "Content-Type": "application/json" },
-      data: countryRequest,
+    id: number,
+    countryRequest: CountryRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<CountryResponse>(
+      {url: `/countries/${id}`, method: 'put',
+      headers: {'Content-Type': 'application/json', },
+      data: countryRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPutCountriesIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putCountriesId>>,
-    TError,
-    { id: number; data: CountryRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putCountriesId>>,
-  TError,
-  { id: number; data: CountryRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putCountriesId>>,
-    { id: number; data: CountryRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getPutCountriesIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putCountriesId>>, TError,{id: number;data: CountryRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof putCountriesId>>, TError,{id: number;data: CountryRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return putCountriesId(id, data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PutCountriesIdMutationResult = NonNullable<Awaited<ReturnType<typeof putCountriesId>>>;
-export type PutCountriesIdMutationBody = CountryRequest;
-export type PutCountriesIdMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putCountriesId>>, {id: number;data: CountryRequest}> = (props) => {
+          const {id,data} = props ?? {};
 
-export const usePutCountriesId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putCountriesId>>,
-    TError,
-    { id: number; data: CountryRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPutCountriesIdMutationOptions(options);
+          return  putCountriesId(id,data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const deleteCountriesId = (id: number, options?: SecondParameter<typeof API>) => {
-  return API<number>({ url: `/countries/${id}`, method: "delete" }, options);
-};
+        
 
-export const getDeleteCountriesIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteCountriesId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteCountriesId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteCountriesId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
+   return  { mutationFn, ...mutationOptions }}
 
-    return deleteCountriesId(id, requestOptions);
-  };
+    export type PutCountriesIdMutationResult = NonNullable<Awaited<ReturnType<typeof putCountriesId>>>
+    export type PutCountriesIdMutationBody = CountryRequest
+    export type PutCountriesIdMutationError = ErrorType<Error>
 
-  return { mutationFn, ...mutationOptions };
-};
+    export const usePutCountriesId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putCountriesId>>, TError,{id: number;data: CountryRequest}, TContext>, request?: SecondParameter<typeof API>}
+) => {
 
-export type DeleteCountriesIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteCountriesId>>
->;
+      const mutationOptions = getPutCountriesIdMutationOptions(options);
 
-export type DeleteCountriesIdMutationError = ErrorType<Error>;
+      return useMutation(mutationOptions);
+    }
+    export const deleteCountriesId = (
+    id: number,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<number>(
+      {url: `/countries/${id}`, method: 'delete'
+    },
+      options);
+    }
+  
 
-export const useDeleteCountriesId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteCountriesId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getDeleteCountriesIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
-};
+export const getDeleteCountriesIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCountriesId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteCountriesId>>, TError,{id: number}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCountriesId>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteCountriesId(id,requestOptions)
+        }
+
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteCountriesIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCountriesId>>>
+    
+    export type DeleteCountriesIdMutationError = ErrorType<Error>
+
+    export const useDeleteCountriesId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCountriesId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+) => {
+
+      const mutationOptions = getDeleteCountriesIdMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    

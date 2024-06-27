@@ -4,321 +4,295 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query'
 import type {
   MutationFunction,
   QueryFunction,
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query'
 import type {
   Error,
   GetSdgsIdParams,
   GetSdgsParams,
   SdgListResponse,
   SdgRequest,
-  SdgResponse,
-} from "./strapi.schemas";
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
+  SdgResponse
+} from './strapi.schemas'
+import { API } from '../../services/api/index';
+import type { ErrorType } from '../../services/api/index';
+
+
 
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (
+  type SecondParameter<T extends (...args: any) => any> = T extends (
   config: any,
   args: infer P,
 ) => any
   ? P
   : never;
 
+
 export const getSdgs = (
-  params?: GetSdgsParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+    params?: GetSdgsParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  return API<SdgListResponse>({ url: `/sdgs`, method: "get", params, signal }, options);
-};
+      
+      
+      return API<SdgListResponse>(
+      {url: `/sdgs`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getGetSdgsQueryKey = (params?: GetSdgsParams) => {
-  return [`/sdgs`, ...(params ? [params] : [])] as const;
-};
+export const getGetSdgsQueryKey = (params?: GetSdgsParams,) => {
+    
+    return [`/sdgs`, ...(params ? [params]: [])] as const;
+    }
 
-export const getGetSdgsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getSdgs>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetSdgsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getSdgs>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+    
+export const getGetSdgsQueryOptions = <TData = Awaited<ReturnType<typeof getSdgs>>, TError = ErrorType<Error>>(params?: GetSdgsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSdgs>>, TError, TData>, request?: SecondParameter<typeof API>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetSdgsQueryKey(params);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getSdgs>>> = ({ signal }) =>
-    getSdgs(params, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getGetSdgsQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getSdgs>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetSdgsQueryResult = NonNullable<Awaited<ReturnType<typeof getSdgs>>>;
-export type GetSdgsQueryError = ErrorType<Error>;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSdgs>>> = ({ signal }) => getSdgs(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSdgs>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetSdgsQueryResult = NonNullable<Awaited<ReturnType<typeof getSdgs>>>
+export type GetSdgsQueryError = ErrorType<Error>
 
 export const useGetSdgs = <TData = Awaited<ReturnType<typeof getSdgs>>, TError = ErrorType<Error>>(
-  params?: GetSdgsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getSdgs>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetSdgsQueryOptions(params, options);
+ params?: GetSdgsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSdgs>>, TError, TData>, request?: SecondParameter<typeof API>}
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
 
-  query.queryKey = queryOptions.queryKey;
+  const queryOptions = getGetSdgsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
-export const postSdgs = (sdgRequest: SdgRequest, options?: SecondParameter<typeof API>) => {
-  return API<SdgResponse>(
-    {
-      url: `/sdgs`,
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      data: sdgRequest,
+export const postSdgs = (
+    sdgRequest: SdgRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<SdgResponse>(
+      {url: `/sdgs`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: sdgRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPostSdgsMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postSdgs>>,
-    TError,
-    { data: SdgRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postSdgs>>,
-  TError,
-  { data: SdgRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<Awaited<ReturnType<typeof postSdgs>>, { data: SdgRequest }> = (
-    props,
-  ) => {
-    const { data } = props ?? {};
+export const getPostSdgsMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postSdgs>>, TError,{data: SdgRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof postSdgs>>, TError,{data: SdgRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postSdgs(data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostSdgsMutationResult = NonNullable<Awaited<ReturnType<typeof postSdgs>>>;
-export type PostSdgsMutationBody = SdgRequest;
-export type PostSdgsMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postSdgs>>, {data: SdgRequest}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostSdgs = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postSdgs>>,
-    TError,
-    { data: SdgRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPostSdgsMutationOptions(options);
+          return  postSdgs(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const getSdgsId = (
-  id: number,
-  params?: GetSdgsIdParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type PostSdgsMutationResult = NonNullable<Awaited<ReturnType<typeof postSdgs>>>
+    export type PostSdgsMutationBody = SdgRequest
+    export type PostSdgsMutationError = ErrorType<Error>
+
+    export const usePostSdgs = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postSdgs>>, TError,{data: SdgRequest}, TContext>, request?: SecondParameter<typeof API>}
 ) => {
-  return API<SdgResponse>({ url: `/sdgs/${id}`, method: "get", params, signal }, options);
-};
 
-export const getGetSdgsIdQueryKey = (id: number, params?: GetSdgsIdParams) => {
-  return [`/sdgs/${id}`, ...(params ? [params] : [])] as const;
-};
+      const mutationOptions = getPostSdgsMutationOptions(options);
 
-export const getGetSdgsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getSdgsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetSdgsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getSdgsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+      return useMutation(mutationOptions);
+    }
+    export const getSdgsId = (
+    id: number,
+    params?: GetSdgsIdParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+      
+      
+      return API<SdgResponse>(
+      {url: `/sdgs/${id}`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-  const queryKey = queryOptions?.queryKey ?? getGetSdgsIdQueryKey(id, params);
+export const getGetSdgsIdQueryKey = (id: number,
+    params?: GetSdgsIdParams,) => {
+    
+    return [`/sdgs/${id}`, ...(params ? [params]: [])] as const;
+    }
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getSdgsId>>> = ({ signal }) =>
-    getSdgsId(id, params, requestOptions, signal);
+    
+export const getGetSdgsIdQueryOptions = <TData = Awaited<ReturnType<typeof getSdgsId>>, TError = ErrorType<Error>>(id: number,
+    params?: GetSdgsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSdgsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+) => {
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getSdgsId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export type GetSdgsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getSdgsId>>>;
-export type GetSdgsIdQueryError = ErrorType<Error>;
+  const queryKey =  queryOptions?.queryKey ?? getGetSdgsIdQueryKey(id,params);
 
-export const useGetSdgsId = <
-  TData = Awaited<ReturnType<typeof getSdgsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetSdgsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getSdgsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetSdgsIdQueryOptions(id, params, options);
+  
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSdgsId>>> = ({ signal }) => getSdgsId(id,params, requestOptions, signal);
 
-  query.queryKey = queryOptions.queryKey;
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSdgsId>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetSdgsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getSdgsId>>>
+export type GetSdgsIdQueryError = ErrorType<Error>
+
+export const useGetSdgsId = <TData = Awaited<ReturnType<typeof getSdgsId>>, TError = ErrorType<Error>>(
+ id: number,
+    params?: GetSdgsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getSdgsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetSdgsIdQueryOptions(id,params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const putSdgsId = (
-  id: number,
-  sdgRequest: SdgRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<SdgResponse>(
-    {
-      url: `/sdgs/${id}`,
-      method: "put",
-      headers: { "Content-Type": "application/json" },
-      data: sdgRequest,
+    id: number,
+    sdgRequest: SdgRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<SdgResponse>(
+      {url: `/sdgs/${id}`, method: 'put',
+      headers: {'Content-Type': 'application/json', },
+      data: sdgRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPutSdgsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putSdgsId>>,
-    TError,
-    { id: number; data: SdgRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putSdgsId>>,
-  TError,
-  { id: number; data: SdgRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putSdgsId>>,
-    { id: number; data: SdgRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getPutSdgsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putSdgsId>>, TError,{id: number;data: SdgRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof putSdgsId>>, TError,{id: number;data: SdgRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return putSdgsId(id, data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PutSdgsIdMutationResult = NonNullable<Awaited<ReturnType<typeof putSdgsId>>>;
-export type PutSdgsIdMutationBody = SdgRequest;
-export type PutSdgsIdMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putSdgsId>>, {id: number;data: SdgRequest}> = (props) => {
+          const {id,data} = props ?? {};
 
-export const usePutSdgsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putSdgsId>>,
-    TError,
-    { id: number; data: SdgRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPutSdgsIdMutationOptions(options);
+          return  putSdgsId(id,data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const deleteSdgsId = (id: number, options?: SecondParameter<typeof API>) => {
-  return API<number>({ url: `/sdgs/${id}`, method: "delete" }, options);
-};
+        
 
-export const getDeleteSdgsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteSdgsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteSdgsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteSdgsId>>, { id: number }> = (
-    props,
-  ) => {
-    const { id } = props ?? {};
+   return  { mutationFn, ...mutationOptions }}
 
-    return deleteSdgsId(id, requestOptions);
-  };
+    export type PutSdgsIdMutationResult = NonNullable<Awaited<ReturnType<typeof putSdgsId>>>
+    export type PutSdgsIdMutationBody = SdgRequest
+    export type PutSdgsIdMutationError = ErrorType<Error>
 
-  return { mutationFn, ...mutationOptions };
-};
+    export const usePutSdgsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putSdgsId>>, TError,{id: number;data: SdgRequest}, TContext>, request?: SecondParameter<typeof API>}
+) => {
 
-export type DeleteSdgsIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteSdgsId>>>;
+      const mutationOptions = getPutSdgsIdMutationOptions(options);
 
-export type DeleteSdgsIdMutationError = ErrorType<Error>;
+      return useMutation(mutationOptions);
+    }
+    export const deleteSdgsId = (
+    id: number,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<number>(
+      {url: `/sdgs/${id}`, method: 'delete'
+    },
+      options);
+    }
+  
 
-export const useDeleteSdgsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteSdgsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getDeleteSdgsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
-};
+export const getDeleteSdgsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSdgsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteSdgsId>>, TError,{id: number}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteSdgsId>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteSdgsId(id,requestOptions)
+        }
+
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteSdgsIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteSdgsId>>>
+    
+    export type DeleteSdgsIdMutationError = ErrorType<Error>
+
+    export const useDeleteSdgsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSdgsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+) => {
+
+      const mutationOptions = getDeleteSdgsIdMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    

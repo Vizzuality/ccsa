@@ -4,214 +4,185 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query'
 import type {
   MutationFunction,
   QueryFunction,
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query'
 import type {
   Error,
   GetWelcomeMessageParams,
   WelcomeMessageRequest,
-  WelcomeMessageResponse,
-} from "./strapi.schemas";
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
+  WelcomeMessageResponse
+} from './strapi.schemas'
+import { API } from '../../services/api/index';
+import type { ErrorType } from '../../services/api/index';
+
+
 
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (
+  type SecondParameter<T extends (...args: any) => any> = T extends (
   config: any,
   args: infer P,
 ) => any
   ? P
   : never;
 
+
 export const getWelcomeMessage = (
-  params?: GetWelcomeMessageParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+    params?: GetWelcomeMessageParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  return API<WelcomeMessageResponse>(
-    { url: `/welcome-message`, method: "get", params, signal },
-    options,
-  );
-};
+      
+      
+      return API<WelcomeMessageResponse>(
+      {url: `/welcome-message`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getGetWelcomeMessageQueryKey = (params?: GetWelcomeMessageParams) => {
-  return [`/welcome-message`, ...(params ? [params] : [])] as const;
-};
+export const getGetWelcomeMessageQueryKey = (params?: GetWelcomeMessageParams,) => {
+    
+    return [`/welcome-message`, ...(params ? [params]: [])] as const;
+    }
 
-export const getGetWelcomeMessageQueryOptions = <
-  TData = Awaited<ReturnType<typeof getWelcomeMessage>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetWelcomeMessageParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getWelcomeMessage>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+    
+export const getGetWelcomeMessageQueryOptions = <TData = Awaited<ReturnType<typeof getWelcomeMessage>>, TError = ErrorType<Error>>(params?: GetWelcomeMessageParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getWelcomeMessage>>, TError, TData>, request?: SecondParameter<typeof API>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetWelcomeMessageQueryKey(params);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getWelcomeMessage>>> = ({ signal }) =>
-    getWelcomeMessage(params, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getGetWelcomeMessageQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getWelcomeMessage>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetWelcomeMessageQueryResult = NonNullable<
-  Awaited<ReturnType<typeof getWelcomeMessage>>
->;
-export type GetWelcomeMessageQueryError = ErrorType<Error>;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getWelcomeMessage>>> = ({ signal }) => getWelcomeMessage(params, requestOptions, signal);
 
-export const useGetWelcomeMessage = <
-  TData = Awaited<ReturnType<typeof getWelcomeMessage>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetWelcomeMessageParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getWelcomeMessage>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetWelcomeMessageQueryOptions(params, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getWelcomeMessage>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetWelcomeMessageQueryResult = NonNullable<Awaited<ReturnType<typeof getWelcomeMessage>>>
+export type GetWelcomeMessageQueryError = ErrorType<Error>
+
+export const useGetWelcomeMessage = <TData = Awaited<ReturnType<typeof getWelcomeMessage>>, TError = ErrorType<Error>>(
+ params?: GetWelcomeMessageParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getWelcomeMessage>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetWelcomeMessageQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const putWelcomeMessage = (
-  welcomeMessageRequest: WelcomeMessageRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<WelcomeMessageResponse>(
-    {
-      url: `/welcome-message`,
-      method: "put",
-      headers: { "Content-Type": "application/json" },
-      data: welcomeMessageRequest,
+    welcomeMessageRequest: WelcomeMessageRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<WelcomeMessageResponse>(
+      {url: `/welcome-message`, method: 'put',
+      headers: {'Content-Type': 'application/json', },
+      data: welcomeMessageRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPutWelcomeMessageMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putWelcomeMessage>>,
-    TError,
-    { data: WelcomeMessageRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putWelcomeMessage>>,
-  TError,
-  { data: WelcomeMessageRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putWelcomeMessage>>,
-    { data: WelcomeMessageRequest }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPutWelcomeMessageMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putWelcomeMessage>>, TError,{data: WelcomeMessageRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof putWelcomeMessage>>, TError,{data: WelcomeMessageRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return putWelcomeMessage(data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PutWelcomeMessageMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putWelcomeMessage>>
->;
-export type PutWelcomeMessageMutationBody = WelcomeMessageRequest;
-export type PutWelcomeMessageMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putWelcomeMessage>>, {data: WelcomeMessageRequest}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePutWelcomeMessage = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putWelcomeMessage>>,
-    TError,
-    { data: WelcomeMessageRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPutWelcomeMessageMutationOptions(options);
+          return  putWelcomeMessage(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const deleteWelcomeMessage = (options?: SecondParameter<typeof API>) => {
-  return API<number>({ url: `/welcome-message`, method: "delete" }, options);
-};
+        
 
-export const getDeleteWelcomeMessageMutationOptions = <
-  TError = ErrorType<Error>,
-  TVariables = void,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteWelcomeMessage>>,
-    TError,
-    TVariables,
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteWelcomeMessage>>,
-  TError,
-  TVariables,
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteWelcomeMessage>>,
-    TVariables
-  > = () => {
-    return deleteWelcomeMessage(requestOptions);
-  };
+   return  { mutationFn, ...mutationOptions }}
 
-  return { mutationFn, ...mutationOptions };
-};
+    export type PutWelcomeMessageMutationResult = NonNullable<Awaited<ReturnType<typeof putWelcomeMessage>>>
+    export type PutWelcomeMessageMutationBody = WelcomeMessageRequest
+    export type PutWelcomeMessageMutationError = ErrorType<Error>
 
-export type DeleteWelcomeMessageMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteWelcomeMessage>>
->;
+    export const usePutWelcomeMessage = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putWelcomeMessage>>, TError,{data: WelcomeMessageRequest}, TContext>, request?: SecondParameter<typeof API>}
+) => {
 
-export type DeleteWelcomeMessageMutationError = ErrorType<Error>;
+      const mutationOptions = getPutWelcomeMessageMutationOptions(options);
 
-export const useDeleteWelcomeMessage = <
-  TError = ErrorType<Error>,
-  TVariables = void,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteWelcomeMessage>>,
-    TError,
-    TVariables,
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getDeleteWelcomeMessageMutationOptions(options);
+      return useMutation(mutationOptions);
+    }
+    export const deleteWelcomeMessage = (
+    
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<number>(
+      {url: `/welcome-message`, method: 'delete'
+    },
+      options);
+    }
+  
 
-  return useMutation(mutationOptions);
-};
+
+export const getDeleteWelcomeMessageMutationOptions = <TError = ErrorType<Error>,
+    TVariables = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteWelcomeMessage>>, TError,TVariables, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteWelcomeMessage>>, TError,TVariables, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteWelcomeMessage>>, TVariables> = () => {
+          
+
+          return  deleteWelcomeMessage(requestOptions)
+        }
+
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteWelcomeMessageMutationResult = NonNullable<Awaited<ReturnType<typeof deleteWelcomeMessage>>>
+    
+    export type DeleteWelcomeMessageMutationError = ErrorType<Error>
+
+    export const useDeleteWelcomeMessage = <TError = ErrorType<Error>,
+    TVariables = void,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteWelcomeMessage>>, TError,TVariables, TContext>, request?: SecondParameter<typeof API>}
+) => {
+
+      const mutationOptions = getDeleteWelcomeMessageMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    

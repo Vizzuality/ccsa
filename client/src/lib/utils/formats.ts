@@ -50,7 +50,7 @@ export const formatDate = (date: string) => {
   const day = d.getUTCDate();
   const month = d.getUTCMonth() + 1;
   const year = d.getUTCFullYear();
-  return `${day}/${month}/${year}`;
+  return `${day}/${month}/${year} ${d.toLocaleTimeString()}`;
 };
 
 const FORMATS = {

@@ -4,7 +4,7 @@ export default function Step2() {
       Add data manually or{" "}
       <button
         type="button"
-        onClick={() => console.log("importing CSV")}
+        onClick={() => console.info("importing CSV")}
         className="text-primary underline"
       >
         import a CSV

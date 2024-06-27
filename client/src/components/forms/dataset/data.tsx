@@ -13,6 +13,7 @@ import { z } from "zod";
 import { cn } from "@/lib/classnames";
 
 import { useGetCountries } from "@/types/generated/country";
+import { CountryListResponseDataItem } from "@/types/generated/strapi.schemas";
 
 import { useSyncSearchParams } from "@/app/store";
 
@@ -46,7 +47,6 @@ import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
 import type { VALUE_TYPE, Data, Resource } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
-import { CountryListResponseDataItem } from "@/types/generated/strapi.schemas";
 
 export default function DatasetDataForm({
   title,
@@ -153,7 +153,7 @@ export default function DatasetDataForm({
     }
 
     form.setValue(`${country.attributes?.iso3}`, newValues);
-  }
+  };
 
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
@@ -211,9 +211,14 @@ export default function DatasetDataForm({
                                           Array.isArray(field?.value) &&
                                           field?.value?.map((resource, index) => (
                                             <div className="" key={index}>
-                                              <div className="flex gap-2 items-end" key={index}>
+                                              <div className="flex items-end gap-2" key={index}>
                                                 <div>
-                                                  <label htmlFor={`${country.attributes?.iso3}-title-${index}`} className="text-xs">Title</label>
+                                                  <label
+                                                    htmlFor={`${country.attributes?.iso3}-title-${index}`}
+                                                    className="text-xs"
+                                                  >
+                                                    Title
+                                                  </label>
                                                   <Input
                                                     {...field}
                                                     name={`${country.attributes?.iso3}-title-${index}`}
@@ -245,7 +250,12 @@ export default function DatasetDataForm({
                                                   />
                                                 </div>
                                                 <div>
-                                                  <label htmlFor={`${country.attributes?.iso3}-description-${index}`} className="text-xs">Description</label>
+                                                  <label
+                                                    htmlFor={`${country.attributes?.iso3}-description-${index}`}
+                                                    className="text-xs"
+                                                  >
+                                                    Description
+                                                  </label>
                                                   <Input
                                                     {...field}
                                                     name={`${country.attributes?.iso3}-description-${index}`}
@@ -280,7 +290,12 @@ export default function DatasetDataForm({
                                                   />
                                                 </div>
                                                 <div>
-                                                  <label htmlFor={`${country.attributes?.iso3}-link-${index}`} className="text-xs">Link</label>
+                                                  <label
+                                                    htmlFor={`${country.attributes?.iso3}-link-${index}`}
+                                                    className="text-xs"
+                                                  >
+                                                    Link
+                                                  </label>
                                                   <Input
                                                     {...field}
                                                     name={`${country.attributes?.iso3}-link-${index}`}
@@ -315,12 +330,17 @@ export default function DatasetDataForm({
                                                   />
                                                 </div>
 
-                                                <Button className="shrink-0" type="button" variant="destructive-outline" size="icon" onClick={() => {
-                                                  handleDeleteResource(country, index);
-                                                }}>
+                                                <Button
+                                                  className="shrink-0"
+                                                  type="button"
+                                                  variant="destructive-outline"
+                                                  size="icon"
+                                                  onClick={() => {
+                                                    handleDeleteResource(country, index);
+                                                  }}
+                                                >
                                                   <LuTrash2 />
                                                 </Button>
-
                                               </div>
                                               <FormMessageArray index={index} />
                                             </div>
@@ -332,7 +352,14 @@ export default function DatasetDataForm({
                               }}
                             />
 
-                            <Button type="button" variant="link" size="sm" onClick={() => { handleAddResource(country); }}>
+                            <Button
+                              type="button"
+                              variant="link"
+                              size="sm"
+                              onClick={() => {
+                                handleAddResource(country);
+                              }}
+                            >
                               Add new resource
                             </Button>
                           </TableCell>

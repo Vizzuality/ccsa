@@ -10,6 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { uniq, compact } from "lodash-es";
 import { z } from "zod";
 
+import { cn } from "@/lib/classnames";
+
 import { useSyncSearchParams } from "@/app/store";
 
 import NewDatasetFormControls from "@/components/new-dataset/form-controls";
@@ -27,7 +29,6 @@ import {
 
 import type { Data, VALUE_TYPE } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
-import { cn } from "@/lib/classnames";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
@@ -132,7 +133,7 @@ export default function DatasetColorsForm({
       min: colors.min,
       max: colors.max,
     };
-  }, [colors]);
+  }, [colors, categories, valueType]);
 
   const formSchema = getFormSchema({ categories, valueType });
   const form = useForm<z.infer<typeof formSchema>>({

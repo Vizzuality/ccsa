@@ -164,7 +164,7 @@ export default function PersonalDataForm() {
   const handleAccount = useCallback(() => {
     if (!user?.id) return;
     deleteAccount({ id: user?.id.toString() });
-  }, []);
+  }, [user?.id, deleteAccount]);
 
   return (
     <div className="space-y-10 p-4 py-10 sm:px-10 md:px-24 lg:px-32">

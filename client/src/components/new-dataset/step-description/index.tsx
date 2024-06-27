@@ -13,7 +13,7 @@ const STEPS: Record<number, () => JSX.Element> = {
 };
 
 export default function NewDatasetPagePage() {
-  const [step, setStep] = useSyncDatasetStep();
+  const [step] = useSyncDatasetStep();
   const Description = STEPS[step];
 
   return (

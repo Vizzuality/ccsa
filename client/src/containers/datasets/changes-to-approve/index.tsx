@@ -2,16 +2,21 @@
 
 import { useState, useCallback, useMemo } from "react";
 
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
 import { formatDate } from "@/lib/utils/formats";
 import { getKeys } from "@/lib/utils/objects";
 
 import { useGetDatasetsId } from "@/types/generated/dataset";
-import { getGetDatasetEditSuggestionsIdQueryKey, useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
+import {
+  getGetDatasetEditSuggestionsIdQueryKey,
+  useGetDatasetEditSuggestionsId,
+} from "@/types/generated/dataset-edit-suggestion";
 import { usePutDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type {
@@ -21,8 +26,6 @@ import type {
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams } from "@/app/store";
-
 import { Data } from "@/components/forms/dataset/types";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -30,8 +33,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ColorsContentToApprove from "./colors-content";
 import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
-import Link from "next/link";
-import { useQueryClient } from "@tanstack/react-query";
 
 type TabsProps = "settings" | "data" | "colors";
 
@@ -59,8 +60,7 @@ export default function FormToApprove() {
   const { data: session } = useSession();
   const params = useParams();
   const { push } = useRouter();
-  const URLParams = useSyncSearchParams();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const { id } = params;
 
   const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(id), {
@@ -111,7 +111,7 @@ export default function FormToApprove() {
     mutation: {
       onSuccess: (data) => {
         queryClient.invalidateQueries({
-          queryKey: getGetDatasetEditSuggestionsIdQueryKey(Number(id))
+          queryKey: getGetDatasetEditSuggestionsIdQueryKey(Number(id)),
         });
         console.info("Success updating dataset:", data);
         push(`/dashboard`);
@@ -187,11 +187,11 @@ export default function FormToApprove() {
         data: {
           data: {
             review_status: "declined",
-          }
+          },
         },
       });
     }
-  }
+  };
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
@@ -234,13 +234,7 @@ export default function FormToApprove() {
         alert("Bulk upload required");
       }
     },
-    [
-      ME_DATA,
-      formValues,
-      datasetDataPendingToApprove,
-      mutatePutDatasetEditSuggestion,
-      URLParams,
-    ],
+    [ME_DATA, formValues, datasetDataPendingToApprove, mutatePutDatasetEditSuggestion],
   );
 
   const isNewDataset = !datasetDataPendingToApprove?.data?.attributes?.dataset?.data;

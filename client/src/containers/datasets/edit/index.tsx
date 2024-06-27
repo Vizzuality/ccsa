@@ -137,7 +137,7 @@ export default function EditDatasetForm() {
         });
       }
     },
-    [formValues],
+    [formValues, id, ME_DATA, mutateDatasetEditSuggestion],
   );
 
   return (

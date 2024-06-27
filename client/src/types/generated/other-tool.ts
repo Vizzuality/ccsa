@@ -4,339 +4,295 @@
  * DOCUMENTATION
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query'
 import type {
   MutationFunction,
   QueryFunction,
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
-  UseQueryResult,
-} from "@tanstack/react-query";
+  UseQueryResult
+} from '@tanstack/react-query'
 import type {
   Error,
   GetOtherToolsIdParams,
   GetOtherToolsParams,
   OtherToolListResponse,
   OtherToolRequest,
-  OtherToolResponse,
-} from "./strapi.schemas";
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
+  OtherToolResponse
+} from './strapi.schemas'
+import { API } from '../../services/api/index';
+import type { ErrorType } from '../../services/api/index';
+
+
 
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (
+  type SecondParameter<T extends (...args: any) => any> = T extends (
   config: any,
   args: infer P,
 ) => any
   ? P
   : never;
 
+
 export const getOtherTools = (
-  params?: GetOtherToolsParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+    params?: GetOtherToolsParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  return API<OtherToolListResponse>(
-    { url: `/other-tools`, method: "get", params, signal },
-    options,
-  );
-};
+      
+      
+      return API<OtherToolListResponse>(
+      {url: `/other-tools`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-export const getGetOtherToolsQueryKey = (params?: GetOtherToolsParams) => {
-  return [`/other-tools`, ...(params ? [params] : [])] as const;
-};
+export const getGetOtherToolsQueryKey = (params?: GetOtherToolsParams,) => {
+    
+    return [`/other-tools`, ...(params ? [params]: [])] as const;
+    }
 
-export const getGetOtherToolsQueryOptions = <
-  TData = Awaited<ReturnType<typeof getOtherTools>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetOtherToolsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getOtherTools>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+    
+export const getGetOtherToolsQueryOptions = <TData = Awaited<ReturnType<typeof getOtherTools>>, TError = ErrorType<Error>>(params?: GetOtherToolsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getOtherTools>>, TError, TData>, request?: SecondParameter<typeof API>}
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetOtherToolsQueryKey(params);
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getOtherTools>>> = ({ signal }) =>
-    getOtherTools(params, requestOptions, signal);
+  const queryKey =  queryOptions?.queryKey ?? getGetOtherToolsQueryKey(params);
 
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getOtherTools>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+  
 
-export type GetOtherToolsQueryResult = NonNullable<Awaited<ReturnType<typeof getOtherTools>>>;
-export type GetOtherToolsQueryError = ErrorType<Error>;
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getOtherTools>>> = ({ signal }) => getOtherTools(params, requestOptions, signal);
 
-export const useGetOtherTools = <
-  TData = Awaited<ReturnType<typeof getOtherTools>>,
-  TError = ErrorType<Error>,
->(
-  params?: GetOtherToolsParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getOtherTools>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetOtherToolsQueryOptions(params, options);
+      
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+      
 
-  query.queryKey = queryOptions.queryKey;
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getOtherTools>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetOtherToolsQueryResult = NonNullable<Awaited<ReturnType<typeof getOtherTools>>>
+export type GetOtherToolsQueryError = ErrorType<Error>
+
+export const useGetOtherTools = <TData = Awaited<ReturnType<typeof getOtherTools>>, TError = ErrorType<Error>>(
+ params?: GetOtherToolsParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getOtherTools>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetOtherToolsQueryOptions(params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const postOtherTools = (
-  otherToolRequest: OtherToolRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<OtherToolResponse>(
-    {
-      url: `/other-tools`,
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      data: otherToolRequest,
+    otherToolRequest: OtherToolRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<OtherToolResponse>(
+      {url: `/other-tools`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: otherToolRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPostOtherToolsMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postOtherTools>>,
-    TError,
-    { data: OtherToolRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof postOtherTools>>,
-  TError,
-  { data: OtherToolRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof postOtherTools>>,
-    { data: OtherToolRequest }
-  > = (props) => {
-    const { data } = props ?? {};
+export const getPostOtherToolsMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postOtherTools>>, TError,{data: OtherToolRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof postOtherTools>>, TError,{data: OtherToolRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return postOtherTools(data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PostOtherToolsMutationResult = NonNullable<Awaited<ReturnType<typeof postOtherTools>>>;
-export type PostOtherToolsMutationBody = OtherToolRequest;
-export type PostOtherToolsMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postOtherTools>>, {data: OtherToolRequest}> = (props) => {
+          const {data} = props ?? {};
 
-export const usePostOtherTools = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof postOtherTools>>,
-    TError,
-    { data: OtherToolRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPostOtherToolsMutationOptions(options);
+          return  postOtherTools(data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const getOtherToolsId = (
-  id: number,
-  params?: GetOtherToolsIdParams,
-  options?: SecondParameter<typeof API>,
-  signal?: AbortSignal,
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type PostOtherToolsMutationResult = NonNullable<Awaited<ReturnType<typeof postOtherTools>>>
+    export type PostOtherToolsMutationBody = OtherToolRequest
+    export type PostOtherToolsMutationError = ErrorType<Error>
+
+    export const usePostOtherTools = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postOtherTools>>, TError,{data: OtherToolRequest}, TContext>, request?: SecondParameter<typeof API>}
 ) => {
-  return API<OtherToolResponse>(
-    { url: `/other-tools/${id}`, method: "get", params, signal },
-    options,
-  );
-};
 
-export const getGetOtherToolsIdQueryKey = (id: number, params?: GetOtherToolsIdParams) => {
-  return [`/other-tools/${id}`, ...(params ? [params] : [])] as const;
-};
+      const mutationOptions = getPostOtherToolsMutationOptions(options);
 
-export const getGetOtherToolsIdQueryOptions = <
-  TData = Awaited<ReturnType<typeof getOtherToolsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetOtherToolsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getOtherToolsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
+      return useMutation(mutationOptions);
+    }
+    export const getOtherToolsId = (
+    id: number,
+    params?: GetOtherToolsIdParams,
+ options?: SecondParameter<typeof API>,signal?: AbortSignal
 ) => {
-  const { query: queryOptions, request: requestOptions } = options ?? {};
+      
+      
+      return API<OtherToolResponse>(
+      {url: `/other-tools/${id}`, method: 'get',
+        params, signal
+    },
+      options);
+    }
+  
 
-  const queryKey = queryOptions?.queryKey ?? getGetOtherToolsIdQueryKey(id, params);
+export const getGetOtherToolsIdQueryKey = (id: number,
+    params?: GetOtherToolsIdParams,) => {
+    
+    return [`/other-tools/${id}`, ...(params ? [params]: [])] as const;
+    }
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getOtherToolsId>>> = ({ signal }) =>
-    getOtherToolsId(id, params, requestOptions, signal);
+    
+export const getGetOtherToolsIdQueryOptions = <TData = Awaited<ReturnType<typeof getOtherToolsId>>, TError = ErrorType<Error>>(id: number,
+    params?: GetOtherToolsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getOtherToolsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+) => {
 
-  return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getOtherToolsId>>,
-    TError,
-    TData
-  > & { queryKey: QueryKey };
-};
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-export type GetOtherToolsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getOtherToolsId>>>;
-export type GetOtherToolsIdQueryError = ErrorType<Error>;
+  const queryKey =  queryOptions?.queryKey ?? getGetOtherToolsIdQueryKey(id,params);
 
-export const useGetOtherToolsId = <
-  TData = Awaited<ReturnType<typeof getOtherToolsId>>,
-  TError = ErrorType<Error>,
->(
-  id: number,
-  params?: GetOtherToolsIdParams,
-  options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getOtherToolsId>>, TError, TData>;
-    request?: SecondParameter<typeof API>;
-  },
-): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetOtherToolsIdQueryOptions(id, params, options);
+  
 
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getOtherToolsId>>> = ({ signal }) => getOtherToolsId(id,params, requestOptions, signal);
 
-  query.queryKey = queryOptions.queryKey;
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getOtherToolsId>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetOtherToolsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getOtherToolsId>>>
+export type GetOtherToolsIdQueryError = ErrorType<Error>
+
+export const useGetOtherToolsId = <TData = Awaited<ReturnType<typeof getOtherToolsId>>, TError = ErrorType<Error>>(
+ id: number,
+    params?: GetOtherToolsIdParams, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getOtherToolsId>>, TError, TData>, request?: SecondParameter<typeof API>}
+
+  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+
+  const queryOptions = getGetOtherToolsIdQueryOptions(id,params,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryOptions.queryKey ;
 
   return query;
-};
+}
 
 export const putOtherToolsId = (
-  id: number,
-  otherToolRequest: OtherToolRequest,
-  options?: SecondParameter<typeof API>,
-) => {
-  return API<OtherToolResponse>(
-    {
-      url: `/other-tools/${id}`,
-      method: "put",
-      headers: { "Content-Type": "application/json" },
-      data: otherToolRequest,
+    id: number,
+    otherToolRequest: OtherToolRequest,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<OtherToolResponse>(
+      {url: `/other-tools/${id}`, method: 'put',
+      headers: {'Content-Type': 'application/json', },
+      data: otherToolRequest
     },
-    options,
-  );
-};
+      options);
+    }
+  
 
-export const getPutOtherToolsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putOtherToolsId>>,
-    TError,
-    { id: number; data: OtherToolRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof putOtherToolsId>>,
-  TError,
-  { id: number; data: OtherToolRequest },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof putOtherToolsId>>,
-    { id: number; data: OtherToolRequest }
-  > = (props) => {
-    const { id, data } = props ?? {};
+export const getPutOtherToolsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putOtherToolsId>>, TError,{id: number;data: OtherToolRequest}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof putOtherToolsId>>, TError,{id: number;data: OtherToolRequest}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
 
-    return putOtherToolsId(id, data, requestOptions);
-  };
+      
 
-  return { mutationFn, ...mutationOptions };
-};
 
-export type PutOtherToolsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof putOtherToolsId>>
->;
-export type PutOtherToolsIdMutationBody = OtherToolRequest;
-export type PutOtherToolsIdMutationError = ErrorType<Error>;
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof putOtherToolsId>>, {id: number;data: OtherToolRequest}> = (props) => {
+          const {id,data} = props ?? {};
 
-export const usePutOtherToolsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof putOtherToolsId>>,
-    TError,
-    { id: number; data: OtherToolRequest },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getPutOtherToolsIdMutationOptions(options);
+          return  putOtherToolsId(id,data,requestOptions)
+        }
 
-  return useMutation(mutationOptions);
-};
-export const deleteOtherToolsId = (id: number, options?: SecondParameter<typeof API>) => {
-  return API<number>({ url: `/other-tools/${id}`, method: "delete" }, options);
-};
+        
 
-export const getDeleteOtherToolsIdMutationOptions = <
-  TError = ErrorType<Error>,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteOtherToolsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof deleteOtherToolsId>>,
-  TError,
-  { id: number },
-  TContext
-> => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof deleteOtherToolsId>>,
-    { id: number }
-  > = (props) => {
-    const { id } = props ?? {};
+   return  { mutationFn, ...mutationOptions }}
 
-    return deleteOtherToolsId(id, requestOptions);
-  };
+    export type PutOtherToolsIdMutationResult = NonNullable<Awaited<ReturnType<typeof putOtherToolsId>>>
+    export type PutOtherToolsIdMutationBody = OtherToolRequest
+    export type PutOtherToolsIdMutationError = ErrorType<Error>
 
-  return { mutationFn, ...mutationOptions };
-};
+    export const usePutOtherToolsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof putOtherToolsId>>, TError,{id: number;data: OtherToolRequest}, TContext>, request?: SecondParameter<typeof API>}
+) => {
 
-export type DeleteOtherToolsIdMutationResult = NonNullable<
-  Awaited<ReturnType<typeof deleteOtherToolsId>>
->;
+      const mutationOptions = getPutOtherToolsIdMutationOptions(options);
 
-export type DeleteOtherToolsIdMutationError = ErrorType<Error>;
+      return useMutation(mutationOptions);
+    }
+    export const deleteOtherToolsId = (
+    id: number,
+ options?: SecondParameter<typeof API>,) => {
+      
+      
+      return API<number>(
+      {url: `/other-tools/${id}`, method: 'delete'
+    },
+      options);
+    }
+  
 
-export const useDeleteOtherToolsId = <TError = ErrorType<Error>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof deleteOtherToolsId>>,
-    TError,
-    { id: number },
-    TContext
-  >;
-  request?: SecondParameter<typeof API>;
-}) => {
-  const mutationOptions = getDeleteOtherToolsIdMutationOptions(options);
 
-  return useMutation(mutationOptions);
-};
+export const getDeleteOtherToolsIdMutationOptions = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteOtherToolsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteOtherToolsId>>, TError,{id: number}, TContext> => {
+ const {mutation: mutationOptions, request: requestOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteOtherToolsId>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteOtherToolsId(id,requestOptions)
+        }
+
+        
+
+
+   return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteOtherToolsIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteOtherToolsId>>>
+    
+    export type DeleteOtherToolsIdMutationError = ErrorType<Error>
+
+    export const useDeleteOtherToolsId = <TError = ErrorType<Error>,
+    
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteOtherToolsId>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof API>}
+) => {
+
+      const mutationOptions = getDeleteOtherToolsIdMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    
