@@ -96,7 +96,9 @@ export default function EditDatasetForm() {
         {} as Data["data"],
       ) || {};
 
-    const colors = {};
+    const colors =
+      (datasetData?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors ||
+      ({} as Data["colors"]);
 
     setFormValues({ settings, data, colors });
   }, [datasetData, datasetValuesData]);

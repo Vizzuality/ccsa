@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useSession } from "next-auth/react";
 
+import { cn } from "@/lib/classnames";
 import { formatDate } from "@/lib/utils/formats";
 
 import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
@@ -18,7 +19,9 @@ import {
 } from "@/components/ui/table";
 
 export default function DatasetPendingChangesAdmin() {
-  const { data: suggestions } = useGetDatasetEditSuggestions();
+  const { data: suggestions } = useGetDatasetEditSuggestions({
+    populate: "*",
+  });
 
   const { data: session } = useSession();
 
@@ -31,6 +34,7 @@ export default function DatasetPendingChangesAdmin() {
           <TableRow>
             <TableHead className="w-[100px]">Change name</TableHead>
             <TableHead>Organization</TableHead>
+            <TableHead>State</TableHead>
             <TableHead>Date</TableHead>
           </TableRow>
         </TableHeader>
@@ -44,7 +48,28 @@ export default function DatasetPendingChangesAdmin() {
               </TableCell>
               <TableCell className="w-full">
                 <Link href={`/datasets/changes-to-approve/${suggestion.id}`} className="w-full">
-                  {session?.user?.organization || "-"}
+                  {suggestion?.attributes?.author?.data?.attributes?.email} -{" "}
+                  {suggestion?.attributes?.author?.data?.attributes?.organization}
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link
+                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  className="flex w-full"
+                >
+                  <span
+                    className={cn({
+                      "rounded-sm border px-2.5 py-1": true,
+                      "border-opacity310 border-green-300 bg-green-300 bg-opacity-20 text-green-400":
+                        suggestion.attributes?.review_status === "approved",
+                      "border-primary bg-primary/10 text-primary":
+                        suggestion.attributes?.review_status === "pending",
+                      "border-red-500 text-red-500":
+                        suggestion?.attributes?.review_status === "declined",
+                    })}
+                  >
+                    {suggestion.attributes?.review_status}
+                  </span>
                 </Link>
               </TableCell>
               <TableCell>
