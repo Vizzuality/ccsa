@@ -34,6 +34,7 @@ const CollaboratorTypeItem = ({ id, attributes }: CollaboratorTypeItemProps) => 
       </a>
     </div>
     <div className="relative z-10 flex min-h-[134px] w-full flex-1 items-center justify-center p-8">
+      <button>Edit</button>
       <Image
         src={`/images/collaborators/collaborator-${id}.png`}
         alt={attributes?.name || "Collaborator logo"}
