@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 
-import { useSession } from "next-auth/react";
-
 import { cn } from "@/lib/classnames";
 import { formatDate } from "@/lib/utils/formats";
 
@@ -23,8 +21,6 @@ export default function DatasetPendingChangesAdmin() {
     populate: "*",
   });
 
-  const { data: session } = useSession();
-
   const data = suggestions?.data;
 
   return (
@@ -33,7 +29,7 @@ export default function DatasetPendingChangesAdmin() {
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Change name</TableHead>
-            <TableHead>Organization</TableHead>
+            <TableHead>Author</TableHead>
             <TableHead>State</TableHead>
             <TableHead>Date</TableHead>
           </TableRow>
