@@ -38,9 +38,10 @@ const getErrorData = (data: Data["settings"] | Data["data"]): boolean => {
   if (!data || isEmpty(data)) return true;
 
   return getKeys(data).every((key) => {
-    if (typeof data[`${key}`] === "number") {
+    if (typeof data[`${key}`] === "number" || typeof data[`${key}`] === "boolean") {
       return false;
     }
+
     return isEmpty(data[`${key}`]);
   });
 };
