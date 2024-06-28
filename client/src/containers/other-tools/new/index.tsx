@@ -76,7 +76,9 @@ export default function NewToolForm() {
     isError,
   } = useGetOtherToolsId(
     +id,
-    {},
+    {
+      populate: "*",
+    },
     {
       query: {
         enabled: !!id,
@@ -146,10 +148,10 @@ export default function NewToolForm() {
     resolver: zodResolver(formSchema),
     ...(id && {
       values: {
-        name: "data.name",
-        link: "data.unit",
-        category: 0,
-        description: "data.description",
+        name: otherTool?.data?.attributes?.name || "",
+        link: otherTool?.data?.attributes?.link || "",
+        category: otherTool?.data?.attributes?.other_tools_category || undefined,
+        description: otherTool?.data?.attributes?.description,
       },
     }),
   });
