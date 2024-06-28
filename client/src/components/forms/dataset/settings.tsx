@@ -128,7 +128,7 @@ export default function DatasetSettingsForm({
     <>
       {header && <DashboardFormControls title={title} id={id} handleCancel={handleCancel} />}
       <NewDatasetDataFormWrapper header={header}>
-        {header && <NewDatasetNavigation data={rawData} id={id} />}
+        {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}
 
         <Form {...form}>

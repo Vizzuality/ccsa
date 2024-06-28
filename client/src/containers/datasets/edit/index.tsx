@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useParams, useRouter } from "next/navigation";
 
@@ -13,9 +13,7 @@ import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { datasetStepAtom } from "@/app/store";
-
-import { DATA_INITIAL_VALUES } from "@/containers/datasets/new";
+import { datasetStepAtom, datasetValuesAtom } from "@/app/store";
 
 import DatasetColorsForm from "@/components/forms/dataset/colors";
 import DatasetDataForm from "@/components/forms/dataset/data";
@@ -29,7 +27,7 @@ export default function EditDatasetForm() {
   const params = useParams();
   const { id } = params;
   const [currentStep, setCurrentStep] = useAtom(datasetStepAtom);
-  const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
+  const [formValues, setFormValues] = useAtom(datasetValuesAtom);
 
   const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
     populate: "role",
@@ -102,14 +100,14 @@ export default function EditDatasetForm() {
       ({} as Data["colors"]);
 
     setFormValues({ settings, data, colors });
-  }, [datasetData, datasetValuesData]);
+  }, [datasetData, datasetValuesData, setFormValues]);
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
       setFormValues({ ...formValues, settings: values });
       setCurrentStep(2);
     },
-    [formValues, setCurrentStep],
+    [formValues, setFormValues, setCurrentStep],
   );
 
   const handleDataSubmit = useCallback(
@@ -117,7 +115,7 @@ export default function EditDatasetForm() {
       setFormValues({ ...formValues, data: values });
       setCurrentStep(3);
     },
-    [formValues, setCurrentStep],
+    [formValues, setFormValues, setCurrentStep],
   );
 
   const handleColorsSubmit = useCallback(
@@ -140,7 +138,7 @@ export default function EditDatasetForm() {
         });
       }
     },
-    [formValues, id, ME_DATA, mutateDatasetEditSuggestion],
+    [formValues, setFormValues, id, ME_DATA, mutateDatasetEditSuggestion],
   );
 
   return (

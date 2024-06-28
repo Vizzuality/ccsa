@@ -122,7 +122,7 @@ export default function DatasetColorsForm({
         (acc, category) => {
           return {
             ...acc,
-            [category]: "",
+            [category]: colors[category] || "",
           };
         },
         {} as Record<string, string | number>,
@@ -160,7 +160,7 @@ export default function DatasetColorsForm({
     <>
       {header && <DashboardFormControls title={title} id={id} handleCancel={handleCancel} />}
       <NewDatasetDataFormWrapper header={header}>
-        {header && <NewDatasetNavigation data={rawData} id={id} />}
+        {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}
 
         <Form {...form}>
