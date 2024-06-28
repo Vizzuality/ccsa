@@ -7,11 +7,11 @@ import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-// import {
-//   loadCaptchaEnginge,
-//   LoadCanvasTemplate,
-//   validateCaptcha,
-// } from "@vinhpd/react-simple-captcha";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "@vinhpd/react-simple-captcha";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
 
@@ -51,13 +51,13 @@ const formSchema = z
       });
     }
 
-    // if (!validateCaptcha(data.captcha)) {
-    //   ctx.addIssue({
-    //     code: z.ZodIssueCode.custom,
-    //     message: "Captcha does not match",
-    //     path: ["captcha"], // Path to the specific field
-    //   });
-    // }
+    if (!validateCaptcha(data.captcha)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Captcha does not match",
+        path: ["captcha"], // Path to the specific field
+      });
+    }
   });
 
 export default function Signup() {
@@ -208,7 +208,7 @@ export default function Signup() {
               )}
             />
 
-            {/* <div className="grid grid-cols-2 gap-2 rounded bg-gray-300/20 p-2.5">
+            <div className="grid grid-cols-2 gap-2 rounded bg-gray-300/20 p-2.5">
               <div className="flex justify-center rounded bg-white pt-2 text-center text-xxs">
                 <LoadCanvasTemplate reloadColor="#0996CC" style={{ color: "red" }} />
               </div>
@@ -230,7 +230,7 @@ export default function Signup() {
                   </FormItem>
                 )}
               />
-            </div> */}
+            </div>
           </fieldset>
           <div className="pb-6">
             <Button className="w-full" type="submit">

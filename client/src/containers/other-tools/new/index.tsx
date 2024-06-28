@@ -16,7 +16,10 @@ import { useGetCategories } from "@/types/generated/category";
 import { usePostOtherTools } from "@/types/generated/other-tool";
 import { useGetOtherToolsId } from "@/types/generated/other-tool";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
-import { usePostToolEditSuggestions } from "@/types/generated/tool-edit-suggestion";
+import {
+  usePostToolEditSuggestions,
+  usePutToolEditSuggestionsId,
+} from "@/types/generated/tool-edit-suggestion";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
@@ -64,7 +67,7 @@ export default function NewToolForm() {
   });
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
-  // if there is no id in the route, we are creating a newt tool, no need to look for
+  // if there is no id in the route, we are creating a new tool, no need to look for
   // an existing tool
   const {
     data: otherTool,
@@ -94,7 +97,7 @@ export default function NewToolForm() {
     request: {},
   });
 
-  const { mutate: mutateToolEditSuggestion } = usePostToolEditSuggestions({
+  const { mutate: mutatePostToolEditSuggestion } = usePostToolEditSuggestions({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new tool:", data);
@@ -102,6 +105,19 @@ export default function NewToolForm() {
       },
       onError: (error) => {
         console.error("Error creating a new tool:", error);
+      },
+    },
+    request: {},
+  });
+
+  const { mutate: mutatePutToolEditSuggestion } = usePutToolEditSuggestionsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success updating the tool:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error updating the tool:", error);
       },
     },
     request: {},
@@ -145,15 +161,27 @@ export default function NewToolForm() {
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
-        mutateToolEditSuggestion({
-          data: {
+        if (!!id) {
+          mutatePutToolEditSuggestion({
+            id: +id,
             data: {
-              author: user?.id,
-              review_status: "pending",
-              ...values,
+              data: {
+                author: user?.id,
+                review_status: "pending",
+                ...values,
+              },
             },
-          },
-        });
+          });
+        } else
+          mutatePostToolEditSuggestion({
+            data: {
+              data: {
+                author: user?.id,
+                review_status: "pending",
+                ...values,
+              },
+            },
+          });
       }
 
       if (ME_DATA?.role?.type === "admin") {
@@ -165,7 +193,7 @@ export default function NewToolForm() {
       }
       push(`/dashboard`);
     },
-    [mutateToolEditSuggestion, mutatePostOtherTools, push, ME_DATA, user?.id],
+    [mutatePostToolEditSuggestion, mutatePostOtherTools, push, ME_DATA, user?.id],
   );
 
   return (

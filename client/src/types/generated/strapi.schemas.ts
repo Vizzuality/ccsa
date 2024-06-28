@@ -857,6 +857,60 @@ export type GetCountriesParams = {
   locale?: string;
 };
 
+export type GetCollaboratorEditSuggestionsIdPopulateOneOf = { [key: string]: any };
+
+export type GetCollaboratorEditSuggestionsIdParams = {
+  /**
+   * Relations to return
+   */
+  populate?: string | GetCollaboratorEditSuggestionsIdPopulateOneOf;
+};
+
+export type GetCollaboratorEditSuggestionsPopulateOneOf = { [key: string]: any };
+
+export type GetCollaboratorEditSuggestionsParams = {
+  /**
+   * Sort by attributes ascending (asc) or descending (desc)
+   */
+  sort?: string;
+  /**
+   * Return page/pageSize (default: true)
+   */
+  "pagination[withCount]"?: boolean;
+  /**
+   * Page number (default: 0)
+   */
+  "pagination[page]"?: number;
+  /**
+   * Page size (default: 25)
+   */
+  "pagination[pageSize]"?: number;
+  /**
+   * Offset value (default: 0)
+   */
+  "pagination[start]"?: number;
+  /**
+   * Number of entities to return (default: 25)
+   */
+  "pagination[limit]"?: number;
+  /**
+   * Fields to return (ex: ['title','author','test'])
+   */
+  fields?: string[];
+  /**
+   * Relations to return
+   */
+  populate?: string | GetCollaboratorEditSuggestionsPopulateOneOf;
+  /**
+   * Filters to apply
+   */
+  filters?: { [key: string]: any };
+  /**
+   * Locale to apply
+   */
+  locale?: string;
+};
+
 export type GetCollaboratorsIdPopulateOneOf = { [key: string]: any };
 
 export type GetCollaboratorsIdParams = {

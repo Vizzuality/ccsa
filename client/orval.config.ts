@@ -37,6 +37,7 @@ module.exports = {
           "Dataset-value",
           "Dataset-edit-suggestion",
           "Collaborator",
+          "Collaborator-edit-suggestion",
           "User",
           "Users-Permissions - Auth",
           "Users-Permissions - Users & Roles",

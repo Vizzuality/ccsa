@@ -1,8 +1,8 @@
 import Image from "next/image";
-
 import Link from "next/link";
 
 import { capitalize } from "lodash-es";
+import { useSession } from "next-auth/react";
 import { LuChevronDown, LuExternalLink } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
@@ -10,8 +10,6 @@ import { cn } from "@/lib/classnames";
 import { Collaborator, CollaboratorListResponseDataItem } from "@/types/generated/strapi.schemas";
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
-import { useSession } from "next-auth/react";
 
 type CollaboratorTypeItemProps = {
   id?: number;

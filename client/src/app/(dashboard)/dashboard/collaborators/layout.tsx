@@ -31,7 +31,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>New tool</BreadcrumbPage>
+                <BreadcrumbPage>New collaborator</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

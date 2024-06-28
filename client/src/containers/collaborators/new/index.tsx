@@ -7,17 +7,24 @@ import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
 
+import { usePostCollaborators, useGetCollaboratorsId } from "@/types/generated/collaborator";
+import {
+  useGetCollaboratorEditSuggestionsId,
+  usePutCollaboratorEditSuggestionsId,
+  usePostCollaboratorEditSuggestions,
+} from "@/types/generated/collaborator-edit-suggestion";
+import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
+
 import { useSyncSearchParams } from "@/app/store";
 
-import { useGetOtherToolsId, useGetOtherTools } from "@/types/generated/other-tool";
-
+import NewDatasetDataFormWrapper from "@/components/forms/dataset/wrapper";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
-
-import { usePostOtherTools } from "@/types/generated/other-tool";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -28,7 +35,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
 import {
   Select,
   SelectTrigger,
@@ -36,8 +42,6 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-
-import NewDatasetDataFormWrapper from "@/components/forms/dataset/wrapper";
 
 export default function NewToolForm() {
   const { push } = useRouter();
@@ -49,11 +53,66 @@ export default function NewToolForm() {
 
   const { id } = params;
 
-  const { data: otherTool, isFetched, isFetching, isError } = useGetOtherToolsId(+id);
+  const { data } = useSession();
+  const user = data?.user;
 
-  const { data: otherTools } = useGetOtherTools();
+  const { data: meData } = useGetUsersId(`${user?.id}`, {
+    populate: "role",
+  });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
-  const { mutate: mutateDatasetEditSuggestion } = usePostOtherTools({
+  // if there is no id in the route, we are creating a new collaborator, no need to look for
+  // an existing tool
+  const { data: collaboratorData } = useGetCollaboratorsId(
+    +id,
+    {},
+    {
+      query: {
+        enabled: !!id,
+      },
+    },
+  );
+
+  const { mutate: mutatePostCollaboratorsTools } = usePostCollaborators({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success creating a new tool:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error creating a new tool:", error);
+      },
+    },
+    request: {},
+  });
+
+  const { mutate: mutatePutCollaboratorsEditSuggestion } = usePutCollaboratorEditSuggestionsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success creating a new tool:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error creating a new tool:", error);
+      },
+    },
+    request: {},
+  });
+
+  const { mutate: mutatePostCollaboratorsEditSuggestion } = usePostCollaboratorEditSuggestions({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success creating a new tool:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error creating a new tool:", error);
+      },
+    },
+    request: {},
+  });
+
+  const { mutate: mutateCollaboratorEditSuggestion } = usePostCollaboratorEditSuggestions({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new tool:", data);
@@ -78,7 +137,6 @@ export default function NewToolForm() {
   ];
 
   const formSchema = z.object({
-    name: z.string().min(1, { message: "Please enter collaborator's name" }),
     organization: z.string().refine((val) => !!val, {
       message: "Please enter a valid link",
     }),
@@ -95,10 +153,9 @@ export default function NewToolForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      name: "data.name",
-      organization: "data.description",
-      relationship: "data.category",
-      link: " data.unit",
+      organization: collaboratorData?.data?.attributes?.name || "",
+      relationship: collaboratorData?.data?.attributes?.type || "",
+      link: collaboratorData?.data?.attributes?.link || "",
     },
   });
 
@@ -106,10 +163,56 @@ export default function NewToolForm() {
     push(`/?${URLParams.toString()}`);
   };
 
-  const handleSubmit = useCallback((values: z.infer<typeof formSchema>) => {
-    // Save this into useState
-    console.log(values);
-  }, []);
+  const handleSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      if (ME_DATA?.role?.type === "authenticated") {
+        if (!!id) {
+          mutatePutCollaboratorsEditSuggestion({
+            id: +id,
+            data: {
+              data: {
+                author: user?.id,
+                review_status: "pending",
+                ...values,
+              },
+            },
+          });
+        } else {
+          mutatePostCollaboratorsEditSuggestion({
+            data: {
+              data: {
+                author: user?.id,
+                review_status: "pending",
+                ...values,
+              },
+            },
+          });
+        }
+      }
+
+      if (ME_DATA?.role?.type === "admin") {
+        mutatePostCollaboratorsTools({
+          data: {
+            data: {
+              link: values.link,
+              name: values.organization,
+              type: values.relationship,
+            },
+          },
+        });
+      }
+      push(`/dashboard`);
+    },
+    [
+      mutatePutCollaboratorsEditSuggestion,
+      mutatePostCollaboratorsTools,
+      mutatePostCollaboratorsEditSuggestion,
+      push,
+      id,
+      ME_DATA,
+      user?.id,
+    ],
+  );
 
   return (
     <>
@@ -129,7 +232,7 @@ export default function NewToolForm() {
             <fieldset className=" space-y-6">
               <FormField
                 control={form.control}
-                name="name"
+                name="organization"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Organization name</FormLabel>
@@ -151,7 +254,7 @@ export default function NewToolForm() {
 
               <FormField
                 control={form.control}
-                name="category"
+                name="relationship"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of relationship</FormLabel>
@@ -180,7 +283,7 @@ export default function NewToolForm() {
               />
               <FormField
                 control={form.control}
-                name="name"
+                name="link"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Website link</FormLabel>
@@ -199,10 +302,10 @@ export default function NewToolForm() {
                   </FormItem>
                 )}
               />
-              {/* 
+
               <FormField
                 control={form.control}
-                name="name"
+                name="logo"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Logo image</FormLabel>
@@ -221,7 +324,7 @@ export default function NewToolForm() {
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
             </fieldset>
             <Button type="submit" className="hidden">
               Submit
