@@ -169,7 +169,7 @@ export default function DatasetDataForm({
     <>
       {header && <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />}
       <NewDatasetDataFormWrapper header={header}>
-        {header && <NewDatasetNavigation data={rawData} id={id} />}
+        {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}
         <Form {...form}>
           <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>

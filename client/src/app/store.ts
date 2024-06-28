@@ -17,6 +17,8 @@ import {
   datasetStepParser,
 } from "@/app/parsers";
 
+import { Data } from "@/components/forms/dataset/types";
+
 export const useSyncDatasets = () => {
   return useQueryState("datasets", datasetsParser);
 };
@@ -138,3 +140,14 @@ export const collaboratorsSearchAtom = atom<string | undefined>(undefined);
 export const personalDetailsAtom = atom<"account" | "changes">("changes");
 
 export const datasetStepAtom = atom<number>(1);
+export const datasetValuesAtom = atom<Data>({
+  settings: {
+    name: "",
+    valueType: undefined,
+    category: undefined,
+    unit: "",
+    description: "",
+  },
+  data: {},
+  colors: {},
+});

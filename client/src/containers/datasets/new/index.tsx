@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 
 // import { usePostDatasets } from "@/types/generated/dataset";
 import { useRouter } from "next/navigation";
@@ -13,24 +13,12 @@ import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-su
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { datasetStepAtom } from "@/app/store";
+import { datasetStepAtom, datasetValuesAtom } from "@/app/store";
 
 import DatasetColorsForm from "@/components/forms/dataset/colors";
 import DatasetDataForm from "@/components/forms/dataset/data";
 import DatasetSettingsForm from "@/components/forms/dataset/settings";
 import { Data } from "@/components/forms/dataset/types";
-
-export const DATA_INITIAL_VALUES: Data = {
-  settings: {
-    name: "",
-    description: "",
-    valueType: undefined,
-    category: undefined,
-    unit: "",
-  },
-  data: {},
-  colors: {},
-};
 
 export default function NewDatasetForm() {
   const { data: session } = useSession();
@@ -38,8 +26,7 @@ export default function NewDatasetForm() {
   const { push } = useRouter();
 
   const [step, setStep] = useAtom(datasetStepAtom);
-
-  const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
+  const [formValues, setFormValues] = useAtom(datasetValuesAtom);
 
   const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
     populate: "role",
@@ -88,7 +75,7 @@ export default function NewDatasetForm() {
       setFormValues({ ...formValues, settings: values });
       setStep(2);
     },
-    [formValues, setStep],
+    [formValues, setFormValues, setStep],
   );
 
   const handleDataSubmit = useCallback(
@@ -96,7 +83,7 @@ export default function NewDatasetForm() {
       setFormValues({ ...formValues, data: values });
       setStep(3);
     },
-    [formValues, setStep],
+    [formValues, setFormValues, setStep],
   );
 
   const handleColorsSubmit = useCallback(
@@ -124,7 +111,7 @@ export default function NewDatasetForm() {
         alert("Bulk upload required");
       }
     },
-    [formValues, ME_DATA, mutateDatasetEditSuggestion],
+    [formValues, setFormValues, ME_DATA, mutateDatasetEditSuggestion],
   );
 
   return (

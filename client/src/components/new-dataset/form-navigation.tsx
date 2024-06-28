@@ -2,14 +2,16 @@
 
 import { useCallback } from "react";
 
-import { useSetAtom } from "jotai";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+
+import { useAtom, useSetAtom } from "jotai";
 import isEmpty from "lodash-es/isEmpty";
 import { SlPencil } from "react-icons/sl";
 
 import { cn } from "@/lib/classnames";
 import { getKeys } from "@/lib/utils/objects";
 
-import { datasetStepAtom } from "@/app/store";
+import { datasetStepAtom, datasetValuesAtom } from "@/app/store";
 
 import { Data } from "@/components/forms/dataset/types";
 import { Separator } from "@/components/ui/separator";
@@ -46,32 +48,53 @@ const getErrorData = (data: Data["settings"] | Data["data"]): boolean => {
   });
 };
 
-const Navigation = ({ data }: { data: Data; id: string }): JSX.Element => {
-  const setStep = useSetAtom(datasetStepAtom);
+const Navigation = <T extends FieldValues>({
+  data,
+  form,
+}: {
+  id: string;
+  data: Data;
+  form: UseFormReturn<T>;
+}): JSX.Element => {
+  const [step, setStep] = useAtom(datasetStepAtom);
+  const setFormValues = useSetAtom(datasetValuesAtom);
 
-  const handleStep = useCallback((step: number) => setStep(step), [setStep]);
+  const handleStep = useCallback(
+    (s: number) => {
+      form.trigger().then(() => {
+        form.handleSubmit((values) => {
+          setFormValues((prev) => ({
+            ...prev,
+            [`${STEPS[step - 1].value}`]: values,
+          }));
+          setStep(s);
+        })();
+      });
+    },
+    [form, step, setStep, setFormValues],
+  );
 
   return (
     <nav className="relative z-20 flex w-full shrink-0">
       <ul className="flex w-full justify-between space-x-2 text-xs">
-        {STEPS.map(({ step, title, value }, i) => {
+        {STEPS.map(({ step: s, title, value }, i) => {
           const prevScreen = STEPS[i - 1]?.value;
           const disabled = prevScreen && getErrorData(data?.[`${prevScreen}`]);
 
           return (
             <li
-              key={step}
+              key={s}
               className={cn(
                 "flex w-full items-center space-x-2 text-center last:max-w-fit",
                 disabled && "opacity-50",
               )}
             >
               <button
-                onClick={() => handleStep(step)}
                 disabled={!!disabled}
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white"
+                onClick={() => handleStep(s)}
               >
-                {!isEmpty(data?.[value]) ? <SlPencil /> : step}
+                {!isEmpty(data?.[value]) ? <SlPencil /> : s}
               </button>
 
               <span>{title}</span>
