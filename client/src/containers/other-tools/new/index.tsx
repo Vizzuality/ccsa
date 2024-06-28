@@ -7,14 +7,17 @@ import { useForm } from "react-hook-form";
 import { useParams, useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
 
 import { useGetCategories } from "@/types/generated/category";
-// import { usePostOtherTools } from "@/types/generated/other-tool";
-import { useGetOtherToolsId, useGetOtherTools } from "@/types/generated/other-tool";
+import { usePostOtherTools } from "@/types/generated/other-tool";
+import { useGetOtherToolsId } from "@/types/generated/other-tool";
+import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { usePostToolEditSuggestions } from "@/types/generated/tool-edit-suggestion";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
 
@@ -53,6 +56,14 @@ export default function NewToolForm() {
 
   const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS());
 
+  const { data } = useSession();
+  const user = data?.user;
+
+  const { data: meData } = useGetUsersId(`${user?.id}`, {
+    populate: "role",
+  });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+
   // if there is no id in the route, we are creating a newt tool, no need to look for
   // an existing tool
   const {
@@ -70,7 +81,18 @@ export default function NewToolForm() {
     },
   );
 
-  const { data: otherTools } = useGetOtherTools();
+  const { mutate: mutatePostOtherTools } = usePostOtherTools({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success creating a new tool:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error creating a new tool:", error);
+      },
+    },
+    request: {},
+  });
 
   const { mutate: mutateToolEditSuggestion } = usePostToolEditSuggestions({
     mutation: {
@@ -122,10 +144,28 @@ export default function NewToolForm() {
 
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
-      mutateToolEditSuggestion(values);
-      console.log(values);
+      if (ME_DATA?.role?.type === "authenticated") {
+        mutateToolEditSuggestion({
+          data: {
+            data: {
+              author: user?.id,
+              review_status: "pending",
+              ...values,
+            },
+          },
+        });
+      }
+
+      if (ME_DATA?.role?.type === "admin") {
+        mutatePostOtherTools({
+          data: {
+            data: values,
+          },
+        });
+      }
+      push(`/dashboard`);
     },
-    [mutateToolEditSuggestion],
+    [mutateToolEditSuggestion, mutatePostOtherTools, push, ME_DATA, user?.id],
   );
 
   return (
@@ -163,7 +203,7 @@ export default function NewToolForm() {
               />
               <FormField
                 control={form.control}
-                name="name"
+                name="link"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Website link</FormLabel>
