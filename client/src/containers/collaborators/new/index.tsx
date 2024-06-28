@@ -15,7 +15,7 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { useGetOtherToolsId, useGetOtherTools } from "@/types/generated/other-tool";
 
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
+import DashboardFormControls from "@/components/new-dataset/form-controls";
 
 import { usePostOtherTools } from "@/types/generated/other-tool";
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import MarkdownEditor from "@/components/ui/markdown-editor";
+
 import {
   Select,
   SelectTrigger,
@@ -37,7 +37,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import NewDatasetDataFormWrapper from "@/components/forms/new-dataset/wrapper";
+import NewDatasetDataFormWrapper from "@/components/forms/dataset/wrapper";
 
 export default function NewToolForm() {
   const { push } = useRouter();
@@ -78,7 +78,7 @@ export default function NewToolForm() {
   ];
 
   const formSchema = z.object({
-    name: z.string().min(1, { message: "Please enter your name" }),
+    name: z.string().min(1, { message: "Please enter collaborator's name" }),
     organization: z.string().refine((val) => !!val, {
       message: "Please enter a valid link",
     }),
@@ -113,20 +113,20 @@ export default function NewToolForm() {
 
   return (
     <>
-      <NewDatasetFormControls
+      <DashboardFormControls
         title="New collaborator"
         id="collaborators-create"
         handleCancel={handleCancel}
       />
-      <NewDatasetDataFormWrapper header={true}>
-        <p>Fill the organization's information</p>
+      <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
+        <p>Fill the organization&apos;s information</p>
         <Form {...form}>
           <form
             id="collaborators-create"
             className="space-y-4"
             onSubmit={form.handleSubmit(handleSubmit)}
           >
-            <fieldset className="m-auto w-full max-w-sm space-y-6">
+            <fieldset className=" space-y-6">
               <FormField
                 control={form.control}
                 name="name"
@@ -199,7 +199,7 @@ export default function NewToolForm() {
                   </FormItem>
                 )}
               />
-
+              {/* 
               <FormField
                 control={form.control}
                 name="name"
@@ -221,7 +221,7 @@ export default function NewToolForm() {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
             </fieldset>
             <Button type="submit" className="hidden">
               Submit

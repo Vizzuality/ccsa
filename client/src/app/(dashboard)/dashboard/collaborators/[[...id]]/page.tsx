@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import NewToolForm from "@/containers/other-tools/new-tool";
+import NewToolForm from "@/containers/other-tools/new";
 
 export const metadata: Metadata = {
   title: "Create new tool | Caribbean Climate smart map",

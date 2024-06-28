@@ -4,19 +4,17 @@ import { FC } from "react";
 
 import { Button } from "@/components/ui/button";
 
-type NewDatasetFormControls = {
+type DashboardFormControls = {
   id: string;
   title: string;
   handleCancel: () => void;
-  description?: string;
 };
 
-export const NewDatasetFormControls: FC<NewDatasetFormControls> = ({
+export const DashboardFormControls: FC<DashboardFormControls> = ({
   title,
   id,
   handleCancel,
-  description,
-}: NewDatasetFormControls) => {
+}: DashboardFormControls) => {
   return (
     <div className="flex w-full flex-col border-b border-gray-300/20  sm:px-10 md:px-24 lg:px-32">
       <div className="flex items-center justify-between py-4">
@@ -31,13 +29,8 @@ export const NewDatasetFormControls: FC<NewDatasetFormControls> = ({
           </Button>
         </div>
       </div>
-      {description && (
-        <div className="align-center  m-auto flex w-full justify-center">
-          <p className="align-left min-w-[384px]">{description}</p>
-        </div>
-      )}
     </div>
   );
 };
 
-export default NewDatasetFormControls;
+export default DashboardFormControls;

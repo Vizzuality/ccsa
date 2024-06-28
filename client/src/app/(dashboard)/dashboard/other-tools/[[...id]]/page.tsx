@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import NewCollaboratorForm from "@/containers/collaborators/new-collaborator";
+import NewCollaboratorForm from "@/containers/collaborators/new";
 
 export const metadata: Metadata = {
   title: "Create new collaborator | Caribbean Climate smart map",

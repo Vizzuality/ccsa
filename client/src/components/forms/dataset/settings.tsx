@@ -18,7 +18,7 @@ import { useSyncSearchParams } from "@/app/store";
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
 import { Data } from "@/components/forms/dataset/types";
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
+import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
 import { Button } from "@/components/ui/button";
@@ -77,7 +77,7 @@ export default function DatasetSettingsForm({
   }));
 
   const formSchema = z.object({
-    name: z.string().min(1, { message: "Please enter your name" }),
+    name: z.string().min(1, { message: "Please enter dataset name" }),
     valueType: z
       .enum(valueTypes)
       .optional()
@@ -126,7 +126,7 @@ export default function DatasetSettingsForm({
 
   return (
     <>
-      {header && <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />}
+      {header && <DashboardFormControls title={title} id={id} handleCancel={handleCancel} />}
       <NewDatasetDataFormWrapper header={header}>
         {header && <NewDatasetNavigation data={rawData} id={id} />}
         {header && <StepDescription />}

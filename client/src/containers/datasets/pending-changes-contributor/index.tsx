@@ -38,7 +38,7 @@ export default function DatasetPendingChangesContributor() {
             <TableRow key={suggestion?.attributes?.createdAt}>
               <TableCell className="whitespace-nowrap font-medium">
                 <Link
-                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
                   className="flex w-full"
                 >
                   Dataset
@@ -47,7 +47,7 @@ export default function DatasetPendingChangesContributor() {
 
               <TableCell>
                 <Link
-                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
                   className="flex w-full"
                 >
                   {suggestion?.attributes?.name}
@@ -56,7 +56,7 @@ export default function DatasetPendingChangesContributor() {
 
               <TableCell>
                 <Link
-                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
                   className="flex w-full"
                 >
                   <span
@@ -77,7 +77,7 @@ export default function DatasetPendingChangesContributor() {
 
               <TableCell>
                 <Link
-                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
                   className="flex w-full"
                 >
                   {suggestion?.attributes?.createdAt &&

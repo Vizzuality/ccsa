@@ -38,19 +38,22 @@ export default function DatasetPendingChangesAdmin() {
           {data?.map((suggestion) => (
             <TableRow key={suggestion?.attributes?.createdAt}>
               <TableCell className="whitespace-nowrap font-medium">
-                <Link href={`/datasets/changes-to-approve/${suggestion.id}`}>
+                <Link href={`/dashboard/datasets/changes-to-approve/${suggestion.id}`}>
                   {suggestion?.attributes?.name}
                 </Link>
               </TableCell>
               <TableCell className="w-full">
-                <Link href={`/datasets/changes-to-approve/${suggestion.id}`} className="w-full">
+                <Link
+                  href={`/dashboard/datasets/changes-to-approve/${suggestion.id}`}
+                  className="w-full"
+                >
                   {suggestion?.attributes?.author?.data?.attributes?.email} -{" "}
                   {suggestion?.attributes?.author?.data?.attributes?.organization}
                 </Link>
               </TableCell>
               <TableCell>
                 <Link
-                  href={`/datasets/changes-to-approve/${suggestion?.id}`}
+                  href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
                   className="flex w-full"
                 >
                   <span
@@ -69,7 +72,7 @@ export default function DatasetPendingChangesAdmin() {
                 </Link>
               </TableCell>
               <TableCell>
-                <Link href={`/datasets/changes-to-approve/${suggestion.id}`}>
+                <Link href={`/dashboard/datasets/changes-to-approve/${suggestion.id}`}>
                   {suggestion?.attributes?.createdAt &&
                     formatDate(suggestion?.attributes?.createdAt)}
                 </Link>

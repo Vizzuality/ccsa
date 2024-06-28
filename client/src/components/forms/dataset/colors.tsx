@@ -14,7 +14,7 @@ import { cn } from "@/lib/classnames";
 
 import { useSyncSearchParams } from "@/app/store";
 
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
+import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
 import ColorPicker from "@/components/ui/colorpicker";
@@ -158,7 +158,7 @@ export default function DatasetColorsForm({
 
   return (
     <>
-      {header && <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />}
+      {header && <DashboardFormControls title={title} id={id} handleCancel={handleCancel} />}
       <NewDatasetDataFormWrapper header={header}>
         {header && <NewDatasetNavigation data={rawData} id={id} />}
         {header && <StepDescription />}

@@ -12,17 +12,16 @@ import { z } from "zod";
 import { cn } from "@/lib/classnames";
 
 import { useGetCategories } from "@/types/generated/category";
+// import { usePostOtherTools } from "@/types/generated/other-tool";
+import { useGetOtherToolsId, useGetOtherTools } from "@/types/generated/other-tool";
+import { usePostToolEditSuggestions } from "@/types/generated/tool-edit-suggestion";
 
 import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
-import { useGetOtherToolsId, useGetOtherTools } from "@/types/generated/other-tool";
-
-import { Data } from "@/components/forms/new-dataset/types";
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
-
-import { usePostOtherTools } from "@/types/generated/other-tool";
+import NewDatasetDataFormWrapper from "@/components/forms/dataset/wrapper";
+import DashboardFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -42,8 +41,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import NewDatasetDataFormWrapper from "@/components/forms/new-dataset/wrapper";
-
 export default function NewToolForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
@@ -56,11 +53,26 @@ export default function NewToolForm() {
 
   const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS());
 
-  const { data: otherTool, isFetched, isFetching, isError } = useGetOtherToolsId(+id);
+  // if there is no id in the route, we are creating a newt tool, no need to look for
+  // an existing tool
+  const {
+    data: otherTool,
+    isFetched,
+    isFetching,
+    isError,
+  } = useGetOtherToolsId(
+    +id,
+    {},
+    {
+      query: {
+        enabled: !!id,
+      },
+    },
+  );
 
   const { data: otherTools } = useGetOtherTools();
 
-  const { mutate: mutateDatasetEditSuggestion } = usePostOtherTools({
+  const { mutate: mutateToolEditSuggestion } = usePostToolEditSuggestions({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new tool:", data);
@@ -79,7 +91,7 @@ export default function NewToolForm() {
   }));
 
   const formSchema = z.object({
-    name: z.string().min(1, { message: "Please enter your name" }),
+    name: z.string().min(1, { message: "Please enter tool name" }),
     link: z.string().url({ message: "Please enter a valid URL" }),
     category: z
       .number()
@@ -94,39 +106,40 @@ export default function NewToolForm() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    values: {
-      name: "data.name",
-      link: " data.unit",
-      category: "data.category",
-      description: "data.description",
-    },
+    ...(id && {
+      values: {
+        name: "data.name",
+        link: "data.unit",
+        category: 0,
+        description: "data.description",
+      },
+    }),
   });
 
   const handleCancel = () => {
     push(`/?${URLParams.toString()}`);
   };
 
-  const handleSubmit = useCallback((values: z.infer<typeof formSchema>) => {
-    // Save this into useState
-    console.log(values);
-  }, []);
+  const handleSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      mutateToolEditSuggestion(values);
+      console.log(values);
+    },
+    [mutateToolEditSuggestion],
+  );
 
   return (
     <>
-      <NewDatasetFormControls
-        title="New tool"
-        id="other-tool-create"
-        handleCancel={handleCancel}
-        description="Fill the tool's information"
-      />
-      <NewDatasetDataFormWrapper header={true}>
+      <DashboardFormControls title="New tool" id="other-tool-create" handleCancel={handleCancel} />
+      <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm ">
+        <p>Fill the tool&apos;s information</p>
         <Form {...form}>
           <form
             id="other-tool-create"
             className="space-y-4"
             onSubmit={form.handleSubmit(handleSubmit)}
           >
-            <fieldset className="m-auto w-full max-w-sm space-y-6">
+            <fieldset className="space-y-6">
               <FormField
                 control={form.control}
                 name="name"

@@ -47,7 +47,7 @@ const ToolCard = ({ tool, id }: ToolCardProps) => {
           <div className="flex h-6 items-center gap-2">
             {!!session && (
               <Link
-                href={`/other-tools-edit/${id}`}
+                href={`/dashboard/other-tools/${id}`}
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 py-1 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
                 onClick={(e) => e.stopPropagation()}
               >
