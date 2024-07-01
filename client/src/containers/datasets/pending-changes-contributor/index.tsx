@@ -5,7 +5,9 @@ import Link from "next/link";
 import { cn } from "@/lib/classnames";
 import { formatDate } from "@/lib/utils/formats";
 
+import { useGetCollaboratorEditSuggestions } from "@/types/generated/collaborator-edit-suggestion";
 import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+import { useGetProjectEditSuggestions } from "@/types/generated/project-edit-suggestion";
 import type {
   DatasetEditSuggestionListResponseDataItem,
   ToolEditSuggestionListResponseDataItem,
@@ -28,21 +30,36 @@ type DataTypes = {
       | DatasetEditSuggestionListResponseDataItem[]
       | ToolEditSuggestionListResponseDataItem[]
       | undefined;
+    route: "datasets/changes-to-approve" | "other-tools" | "collaborators" | "projects";
   };
 };
 
 export default function DatasetPendingChangesContributor() {
-  const { data: datasetsSuggestions } = useGetDatasetEditSuggestions();
-  const { data: otherToolSuggestions } = useGetToolEditSuggestions();
+  const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions();
+  const { data: otherToolDataSuggestions } = useGetToolEditSuggestions();
+  const { data: collaboratorsDataSuggestions } = useGetCollaboratorEditSuggestions();
+  const { data: projectsDataSuggestions } = useGetProjectEditSuggestions();
 
   const data: DataTypes = {
     datasets: {
       label: "Datasets",
-      data: datasetsSuggestions?.data,
+      route: "datasets/changes-to-approve",
+      data: datasetsDataSuggestions?.data,
     },
     otherTools: {
       label: "Tools",
-      data: otherToolSuggestions?.data,
+      route: "other-tools",
+      data: otherToolDataSuggestions?.data,
+    },
+    collaborators: {
+      label: "Collaborator",
+      route: "collaborators",
+      data: collaboratorsDataSuggestions?.data,
+    },
+    projects: {
+      label: "Project",
+      route: "projects",
+      data: projectsDataSuggestions?.data,
     },
   };
 
@@ -59,60 +76,63 @@ export default function DatasetPendingChangesContributor() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Object.keys(data).map((key) => {
-            return data[key]?.data?.map((suggestion) => (
-              <TableRow key={suggestion?.attributes?.createdAt}>
-                <TableCell className="whitespace-nowrap font-medium">
-                  <Link
-                    href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
-                    className="flex w-full"
-                  >
-                    {data[key].label}
-                  </Link>
-                </TableCell>
+          {Object.keys(data).map(
+            (key) =>
+              data[key]?.data?.map((suggestion) => {
+                return (
+                  <TableRow key={suggestion?.attributes?.createdAt}>
+                    <TableCell className="whitespace-nowrap font-medium">
+                      <Link
+                        href={`/dashboard/${data[key].route}/${suggestion?.id}`}
+                        className="flex w-full"
+                      >
+                        {data[key].label}
+                      </Link>
+                    </TableCell>
 
-                <TableCell>
-                  <Link
-                    href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
-                    className="flex w-full"
-                  >
-                    {suggestion.attributes?.name}
-                  </Link>
-                </TableCell>
+                    <TableCell>
+                      <Link
+                        href={`/dashboard/${data[key].route}/${suggestion?.id}`}
+                        className="flex w-full"
+                      >
+                        {suggestion.attributes?.name}
+                      </Link>
+                    </TableCell>
 
-                <TableCell>
-                  <Link
-                    href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
-                    className="flex w-full"
-                  >
-                    <span
-                      className={cn({
-                        "rounded-sm border px-2.5 py-1": true,
-                        "border-green-300 border-opacity-30 bg-green-300 bg-opacity-20 text-green-400":
-                          suggestion.attributes?.review_status === "approved",
-                        "border-primary bg-primary/10 text-primary":
-                          suggestion.attributes?.review_status === "pending",
-                        "border-red-500 text-red-500":
-                          suggestion?.attributes?.review_status === "declined",
-                      })}
-                    >
-                      {suggestion.attributes?.review_status}
-                    </span>
-                  </Link>
-                </TableCell>
+                    <TableCell>
+                      <Link
+                        href={`/dashboard/${data[key].route}/${suggestion?.id}`}
+                        className="flex w-full"
+                      >
+                        <span
+                          className={cn({
+                            "rounded-sm border px-2.5 py-1": true,
+                            "border-green-300 border-opacity-30 bg-green-300 bg-opacity-20 text-green-400":
+                              suggestion.attributes?.review_status === "approved",
+                            "border-primary bg-primary/10 text-primary":
+                              suggestion.attributes?.review_status === "pending",
+                            "border-red-500 text-red-500":
+                              suggestion?.attributes?.review_status === "declined",
+                          })}
+                        >
+                          {suggestion.attributes?.review_status}
+                        </span>
+                      </Link>
+                    </TableCell>
 
-                <TableCell>
-                  <Link
-                    href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
-                    className="flex w-full"
-                  >
-                    {suggestion?.attributes?.createdAt &&
-                      formatDate(suggestion?.attributes?.createdAt)}
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ));
-          })}
+                    <TableCell>
+                      <Link
+                        href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
+                        className="flex w-full"
+                      >
+                        {suggestion?.attributes?.createdAt &&
+                          formatDate(suggestion?.attributes?.createdAt)}
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                );
+              }),
+          )}
         </TableBody>
       </Table>
     </div>

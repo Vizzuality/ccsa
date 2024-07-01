@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { useAtomValue } from "jotai";
+import { useSession } from "next-auth/react";
 import { LuExternalLink, LuInfo } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
@@ -20,7 +21,6 @@ import {
   TooltipArrow,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { useSession } from "next-auth/react";
 
 type ToolCardProps = {
   tool?: OtherTool;

@@ -143,8 +143,8 @@
         },
         "list": {
           "label": "category",
-          "searchable": false,
-          "sortable": false
+          "searchable": true,
+          "sortable": true
         }
       },
       "author": {
@@ -237,6 +237,12 @@
         ],
         [
           {
+            "name": "data",
+            "size": 12
+          }
+        ],
+        [
+          {
             "name": "description",
             "size": 12
           }
@@ -263,12 +269,6 @@
         ],
         [
           {
-            "name": "data",
-            "size": 12
-          }
-        ],
-        [
-          {
             "name": "colors",
             "size": 12
           }
@@ -277,9 +277,7 @@
           {
             "name": "category",
             "size": 4
-          }
-        ],
-        [
+          },
           {
             "name": "author",
             "size": 6

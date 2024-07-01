@@ -74,7 +74,7 @@ export default function Signup() {
       organization: "",
       password: "",
       "confirm-password": "",
-      // captcha: "",
+      captcha: "",
     },
   });
 

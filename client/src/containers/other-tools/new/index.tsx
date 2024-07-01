@@ -11,12 +11,13 @@ import { useSession } from "next-auth/react";
 import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
+import { getObjectDifferences } from "@/lib/utils/objects";
 
 import { useGetCategories } from "@/types/generated/category";
-import { usePostOtherTools } from "@/types/generated/other-tool";
-import { useGetOtherToolsId } from "@/types/generated/other-tool";
+import { usePostOtherTools, useGetOtherToolsId } from "@/types/generated/other-tool";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import {
+  useGetToolEditSuggestionsId,
   usePostToolEditSuggestions,
   usePutToolEditSuggestionsId,
 } from "@/types/generated/tool-edit-suggestion";
@@ -51,8 +52,6 @@ export default function NewToolForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
-  const changes = [];
-
   const params = useParams();
 
   const { id } = params;
@@ -69,12 +68,19 @@ export default function NewToolForm() {
 
   // if there is no id in the route, we are creating a new tool, no need to look for
   // an existing tool
-  const {
-    data: otherTool,
-    isFetched,
-    isFetching,
-    isError,
-  } = useGetOtherToolsId(
+  const { data: otherToolData } = useGetOtherToolsId(
+    +id,
+    {
+      populate: "*",
+    },
+    {
+      query: {
+        enabled: !!id,
+      },
+    },
+  );
+
+  const { data: editSuggestionIdData } = useGetToolEditSuggestionsId(
     +id,
     {
       populate: "*",
@@ -125,6 +131,14 @@ export default function NewToolForm() {
     request: {},
   });
 
+  const changes =
+    !!id && otherToolData?.data?.attributes && editSuggestionIdData?.data?.attributes
+      ? getObjectDifferences(
+          editSuggestionIdData?.data?.attributes,
+          otherToolData?.data?.attributes,
+        )
+      : [];
+
   const categoriesOptions = categoriesData?.data?.map((c) => ({
     label: c.attributes?.name || "",
     value: c.id || 0,
@@ -144,14 +158,28 @@ export default function NewToolForm() {
     }),
   });
 
+  // TO - DO - add category from edit when API gets fixed
+  // editSuggestionIdData?.data?.attributes?.other_tools_category ||
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     ...(id && {
       values: {
-        name: otherTool?.data?.attributes?.name || "",
-        link: otherTool?.data?.attributes?.link || "",
-        category: otherTool?.data?.attributes?.other_tools_category || undefined,
-        description: otherTool?.data?.attributes?.description,
+        name:
+          editSuggestionIdData?.data?.attributes?.name ||
+          otherToolData?.data?.attributes?.name ||
+          "",
+        link:
+          editSuggestionIdData?.data?.attributes?.link ||
+          otherToolData?.data?.attributes?.link ||
+          "",
+        category:
+          editSuggestionIdData?.data?.attributes?.other_tools_category?.data?.id ||
+          otherToolData?.data?.attributes?.other_tools_category ||
+          undefined,
+        description:
+          editSuggestionIdData?.data?.attributes?.description ||
+          otherToolData?.data?.attributes?.description ||
+          "",
       },
     }),
   });
@@ -165,7 +193,7 @@ export default function NewToolForm() {
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id) {
           mutatePutToolEditSuggestion({
-            id: +id,
+            id: +id[0],
             data: {
               data: {
                 author: user?.id,
@@ -174,7 +202,7 @@ export default function NewToolForm() {
               },
             },
           });
-        } else
+        } else if (!id) {
           mutatePostToolEditSuggestion({
             data: {
               data: {
@@ -184,6 +212,7 @@ export default function NewToolForm() {
               },
             },
           });
+        }
       }
 
       if (ME_DATA?.role?.type === "admin") {
@@ -195,13 +224,21 @@ export default function NewToolForm() {
       }
       push(`/dashboard`);
     },
-    [mutatePostToolEditSuggestion, mutatePostOtherTools, push, ME_DATA, user?.id],
+    [
+      mutatePostToolEditSuggestion,
+      mutatePostOtherTools,
+      push,
+      ME_DATA,
+      user?.id,
+      id,
+      mutatePutToolEditSuggestion,
+    ],
   );
 
   return (
     <>
       <DashboardFormControls title="New tool" id="other-tool-create" handleCancel={handleCancel} />
-      <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm ">
+      <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>Fill the tool&apos;s information</p>
         <Form {...form}>
           <form

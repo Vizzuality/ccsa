@@ -24,9 +24,8 @@ const CollaboratorTypeItem = ({ id, attributes, status }: CollaboratorTypeItemPr
   >
     {status === "authenticated" && (
       <Link
-        href={`/dashboard/datasets/edit/${id}`}
-        className="absolute right-2 top-2 z-10 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 py-1 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
-        onClick={(e) => e.stopPropagation()}
+        href={`/dashboard/collaborators/${id}`}
+        className="absolute right-2 top-2 z-20 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 py-1 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
       >
         Edit
       </Link>

@@ -16,9 +16,14 @@ import { datasetStepAtom, datasetValuesAtom } from "@/app/store";
 import { Data } from "@/components/forms/dataset/types";
 import { Separator } from "@/components/ui/separator";
 
-// type Steps = "settings" | "data" | "colors";
+type Steps = "settings" | "data" | "colors";
+type StepsObject = {
+  step: number;
+  value: Steps;
+  title: string;
+};
 
-const STEPS = [
+const STEPS: StepsObject[] = [
   {
     step: 1,
     value: "settings",

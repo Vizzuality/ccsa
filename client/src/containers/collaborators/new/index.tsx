@@ -43,7 +43,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function NewToolForm() {
+export default function NewCollaboratorForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -86,7 +86,7 @@ export default function NewToolForm() {
     request: {},
   });
 
-  const { mutate: mutatePutCollaboratorsEditSuggestion } = usePutCollaboratorEditSuggestionsId({
+  const { mutate: mutatePutCollaboratorsEditSuggestionId } = usePutCollaboratorEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new tool:", data);
@@ -112,7 +112,7 @@ export default function NewToolForm() {
     request: {},
   });
 
-  const { mutate: mutateCollaboratorEditSuggestion } = usePostCollaboratorEditSuggestions({
+  const { mutate: mutatePutCollaboratorsEditSuggestion } = usePutCollaboratorEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new tool:", data);
@@ -137,23 +137,17 @@ export default function NewToolForm() {
   ];
 
   const formSchema = z.object({
-    organization: z.string().refine((val) => !!val, {
-      message: "Please enter a valid link",
+    name: z.string().refine((val) => !!val, {
+      message: "Please enter organization name",
     }),
-    relationship: z
-      .string()
-      .optional()
-      .refine((val) => typeof val !== "undefined", {
-        message: "Please select relationship",
-      }),
-
+    relationship: z.string().min(1, { message: "Please select a relation" }),
     link: z.string().url({ message: "Please enter a valid URL" }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      organization: collaboratorData?.data?.attributes?.name || "",
+      name: collaboratorData?.data?.attributes?.name || "",
       relationship: collaboratorData?.data?.attributes?.type || "",
       link: collaboratorData?.data?.attributes?.link || "",
     },
@@ -167,7 +161,7 @@ export default function NewToolForm() {
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id) {
-          mutatePutCollaboratorsEditSuggestion({
+          mutatePutCollaboratorsEditSuggestionId({
             id: +id,
             data: {
               data: {
@@ -195,7 +189,7 @@ export default function NewToolForm() {
           data: {
             data: {
               link: values.link,
-              name: values.organization,
+              name: values.name,
               type: values.relationship,
             },
           },
@@ -232,7 +226,7 @@ export default function NewToolForm() {
             <fieldset className=" space-y-6">
               <FormField
                 control={form.control}
-                name="organization"
+                name="name"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Organization name</FormLabel>
@@ -242,7 +236,7 @@ export default function NewToolForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.organization),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                       />
@@ -259,7 +253,7 @@ export default function NewToolForm() {
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of relationship</FormLabel>
                     <FormControl>
-                      <Select value={`${field.value}`} onValueChange={(v) => field.onChange(+v)}>
+                      <Select value={`${field.value}`} onValueChange={(v) => field.onChange(v)}>
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
