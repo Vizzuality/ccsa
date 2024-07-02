@@ -1,13 +1,18 @@
 "use client";
 
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoadCanvasTemplate, validateCaptcha } from "@vinhpd/react-simple-captcha";
+import {
+  LoadCanvasTemplate,
+  validateCaptcha,
+  loadCaptchaEnginge,
+  LoadCanvasTemplateNoReload,
+} from "@vinhpd/react-simple-captcha";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
 
@@ -46,14 +51,6 @@ const formSchema = z
         path: ["confirm-password"], // Path to the specific field
       });
     }
-
-    if (!validateCaptcha(data.captcha)) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Captcha does not match",
-        path: ["captcha"], // Path to the specific field
-      });
-    }
   });
 
 interface ExtendedProps {
@@ -61,7 +58,7 @@ interface ExtendedProps {
 }
 
 const LoadCanvasTemplateComp: React.FC<ExtendedProps> = (props) => {
-  return <LoadCanvasTemplateComp reloadColor="#0996CC" {...props} />;
+  return <LoadCanvasTemplate reloadColor="#0996CC" {...props} />;
 };
 
 export default function Signup() {
@@ -82,33 +79,37 @@ export default function Signup() {
     },
   });
 
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // if (!!validateCaptcha(values.captcha)) {
-    // ✅ This will be type-safe and validated.
-    // 3. Submit the form.
-    signupMutation.mutate(
-      {
-        data: values,
-      },
-      {
-        onSuccess: () => {
-          signIn("credentials", {
-            email: values.email,
-            password: values.password,
-            callbackUrl: searchParams.get("callbackUrl") ?? "/",
-          });
+    if (!!validateCaptcha(values.captcha)) {
+      // ✅ This will be type-safe and validated.
+      // 3. Submit the form.
+      signupMutation.mutate(
+        {
+          data: values,
         },
-        onError: (error) => {
-          const searchParams = new URLSearchParams();
-          searchParams.set("error", error?.response?.data?.error?.message ?? "Unknown error");
-          replace(`/signup?${searchParams.toString()}`);
+        {
+          onSuccess: () => {
+            signIn("credentials", {
+              email: values.email,
+              password: values.password,
+              callbackUrl: searchParams.get("callbackUrl") ?? "/",
+            });
+          },
+          onError: (error) => {
+            const searchParams = new URLSearchParams();
+            searchParams.set("error", error?.response?.data?.error?.message ?? "Unknown error");
+            replace(`/signup?${searchParams.toString()}`);
+          },
         },
-      },
-    );
-    // } else {
-    //   console.log("wrong captcha");
-    // }
+      );
+    } else {
+      form.setError("captcha", { message: "Captcha does not match" });
+    }
   }
 
   return (
