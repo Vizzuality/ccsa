@@ -37,8 +37,8 @@ export function isObjectEmpty(obj: Record<string, string | number | undefined>) 
 
 // get differences within objects
 export function getObjectDifferences(
-  obj1: { [key: string]: unknown | DATA },
-  obj2: { [key: string]: unknown | DATA },
+  obj1: any, // { [key: string]: (unknown | undefined) | DATA } | undefined,
+  obj2: any, // { [key: string]: (unknown | undefined) | DATA } | undefined,
 ): string[] {
   if (!obj1 || !obj2) return [];
 

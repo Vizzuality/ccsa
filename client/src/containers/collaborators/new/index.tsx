@@ -44,6 +44,7 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
+import { getObjectDifferences } from "@/lib/utils/objects";
 
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
@@ -51,8 +52,6 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/web
 export default function NewCollaboratorForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
-
-  const changes = [];
 
   const params = useParams();
 
@@ -87,6 +86,9 @@ export default function NewCollaboratorForm() {
       },
     },
   );
+
+  const previousData =
+    collaboratorData?.data?.attributes || collaboratorSuggestedData?.data?.attributes;
 
   const { mutate: mutatePostCollaboratorsTools } = usePostCollaborators({
     mutation: {
@@ -160,18 +162,9 @@ export default function NewCollaboratorForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      name:
-        collaboratorData?.data?.attributes?.name ||
-        collaboratorSuggestedData?.data?.attributes?.name ||
-        "",
-      relationship:
-        collaboratorData?.data?.attributes?.type ||
-        collaboratorSuggestedData?.data?.attributes?.type ||
-        "",
-      link:
-        collaboratorData?.data?.attributes?.link ||
-        collaboratorSuggestedData?.data?.attributes?.link ||
-        "",
+      name: previousData?.name || "",
+      relationship: previousData?.type || "",
+      link: previousData?.link || "",
       logo: null,
     },
   });
@@ -232,6 +225,13 @@ export default function NewCollaboratorForm() {
     multiple: false,
     accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg"] },
   });
+
+  const changes =
+    !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedData?.data?.attributes
+      ? []
+      : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
+
+  console.log(changes, collaboratorData, form.getValues());
 
   return (
     <>
