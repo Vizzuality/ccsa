@@ -55,11 +55,11 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
+import { getObjectDifferences } from "@/lib/utils/objects";
 
 export default function ProjectForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
-  const changes = [];
   const params = useParams();
 
   const { id } = params;
@@ -136,7 +136,7 @@ export default function ProjectForm() {
     },
   );
 
-  const { data: editProjectSuggestionIdData } = useGetProjectEditSuggestionsId(
+  const { data: projectsSuggestedData } = useGetProjectEditSuggestionsId(
     +id,
     {
       populate: "*",
@@ -195,83 +195,56 @@ export default function ProjectForm() {
     pillar: z.string().min(1, {
       message: "Please select at least one pillar",
     }),
-    amount: z.coerce.number(),
-    // .number()
-    // .refine((val) => typeof val !== "undefined", {
-    //   message: "Please enter amount",
-    // }),
+    amount: z.coerce
+      .number()
+      .optional()
+      .refine((val) => typeof val !== "undefined", {
+        message: "Please enter amount",
+      }),
     countries: z.array(
       z.string().min(1, {
         message: "Please select at least one country",
       }),
     ),
-    sdg: z.array(
-      z.string().min(1, {
-        message: "Please select a sdg",
-      }),
-    ),
-    status: z.string().min(1, {
-      message: "Please enter status",
-    }),
-    funding: z.string().min(1, {
-      message: "Please enter type of funding",
-    }),
-    organization: z.string().min(1, {
-      message: "Please enter organization type",
-    }),
-    source_country: z.string().min(1, { message: "Please select a country" }),
-    objective: z.string().min(1, { message: "Please enter objective" }),
+    // sdg: z.array(
+    //   z.string().min(1, {
+    //     message: "Please select a sdg",
+    //   }),
+    // ),
+    // status: z.string().min(1, {
+    //   message: "Please enter status",
+    // }),
+    // funding: z.string().min(1, {
+    //   message: "Please enter type of funding",
+    // }),
+    // organization: z.string().min(1, {
+    //   message: "Please enter organization type",
+    // }),
+    // source_country: z.string().min(1, { message: "Please select a country" }),
+    // objective: z.string().min(1, { message: "Please enter objective" }),
   });
 
+  const previousData = projectsSuggestedData?.data?.attributes || projectData?.data?.attributes;
+  console.log(projectData);
   // TO - DO - add category from edit when API gets fixed
-  // editProjectSuggestionIdData?.data?.attributes?.other_tools_category ||
+  // projectsSuggestedData?.data?.attributes?.other_tools_category ||
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     ...(id && {
       values: {
-        name:
-          editProjectSuggestionIdData?.data?.attributes?.name ||
-          projectData?.data?.attributes?.name ||
-          "",
-        description:
-          editProjectSuggestionIdData?.data?.attributes?.info ||
-          projectData?.data?.attributes?.info ||
-          "",
+        name: previousData?.name || "",
+        description: previousData?.info || "",
         pillar:
-          // editProjectSuggestionIdData?.data?.attributes?.updatedAt ||
-          projectData?.data?.attributes?.pillar || [],
-        amount:
-          editProjectSuggestionIdData?.data?.attributes?.amount ||
-          projectData?.data?.attributes?.amount ||
-          undefined,
-        countries:
-          editProjectSuggestionIdData?.data?.attributes?.source_country ||
-          projectData?.data?.attributes?.countries?.data ||
-          [],
-        sdg:
-          editProjectSuggestionIdData?.data?.attributes?.sdgs ||
-          projectData?.data?.attributes?.sdgs?.data ||
-          [],
-        status:
-          editProjectSuggestionIdData?.data?.attributes?.status ||
-          projectData?.data?.attributes?.status ||
-          "",
-        funding:
-          editProjectSuggestionIdData?.data?.attributes?.funding ||
-          projectData?.data?.attributes?.funding ||
-          "",
-        organization:
-          editProjectSuggestionIdData?.data?.attributes?.organization ||
-          projectData?.data?.attributes?.organization_type ||
-          "",
-        source_country:
-          editProjectSuggestionIdData?.data?.attributes?.source_country ||
-          projectData?.data?.attributes?.source_country ||
-          "",
-        objective:
-          editProjectSuggestionIdData?.data?.attributes?.objective ||
-          projectData?.data?.attributes?.objective ||
-          "",
+          // previousData.updatedAt ||
+          projectData?.data?.attributes?.pillar?.data?.attributes?.name || "",
+        amount: previousData?.amount || undefined,
+        // countries: previousData?.source_country || [],
+        // sdg: previousData?.sdgs || [],
+        // status: previousData?.status || "",
+        // funding: previousData?.funding || "",
+        // organization: previousData?.organization || "",
+        // source_country: previousData?.source_country || "",
+        // objective: previousData?.objective || "",
       },
     }),
   });
@@ -326,6 +299,14 @@ export default function ProjectForm() {
       mutatePutProjectEditSuggestion,
     ],
   );
+
+  console.log(form.getValues());
+
+  const changes =
+    !projectData?.data?.attributes && !!id && projectsSuggestedData?.data?.attributes
+      ? []
+      : getObjectDifferences(projectData?.data?.attributes, form.getValues());
+
   return (
     <>
       <DashboardFormControls title="New project" id="projects-create" handleCancel={handleCancel} />
