@@ -174,21 +174,6 @@
           "sortable": true
         }
       },
-      "project": {
-        "edit": {
-          "label": "project",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "project",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "author": {
         "edit": {
           "label": "author",
@@ -200,6 +185,66 @@
         },
         "list": {
           "label": "author",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "countries": {
+        "edit": {
+          "label": "countries",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "countries",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "pillar": {
+        "edit": {
+          "label": "pillar",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "pillar",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "sdgs": {
+        "edit": {
+          "label": "sdgs",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "sdgs",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "project": {
+        "edit": {
+          "label": "project",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "project",
           "searchable": true,
           "sortable": true
         }
@@ -327,15 +372,31 @@
           {
             "name": "review_status",
             "size": 6
-          },
-          {
-            "name": "project",
-            "size": 6
           }
         ],
         [
           {
             "name": "author",
+            "size": 6
+          },
+          {
+            "name": "countries",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "pillar",
+            "size": 6
+          },
+          {
+            "name": "sdgs",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "project",
             "size": 6
           }
         ]

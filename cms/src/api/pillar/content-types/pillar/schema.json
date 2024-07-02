@@ -26,6 +26,12 @@
     "description": {
       "type": "richtext",
       "required": true
+    },
+    "project_edit_suggestions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::project-edit-suggestion.project-edit-suggestion",
+      "mappedBy": "pillar"
     }
   }
 }

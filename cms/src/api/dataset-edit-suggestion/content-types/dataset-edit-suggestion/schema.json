@@ -43,16 +43,28 @@
       "default": "pending",
       "required": true
     },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "dataset_edit_suggestions"
+    },
+    "layers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::layer.layer",
+      "mappedBy": "dataset_edit_suggestion"
+    },
     "dataset": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::dataset.dataset",
       "inversedBy": "dataset_edit_suggestions"
-    },
-    "author": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
     }
   }
 }

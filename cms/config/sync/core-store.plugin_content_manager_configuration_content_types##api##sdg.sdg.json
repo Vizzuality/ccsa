@@ -49,6 +49,21 @@
           "sortable": false
         }
       },
+      "project_edit_suggestions": {
+        "edit": {
+          "label": "project_edit_suggestions",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "project_edit_suggestions",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -123,6 +138,12 @@
           },
           {
             "name": "projects",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "project_edit_suggestions",
             "size": 6
           }
         ]
