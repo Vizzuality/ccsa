@@ -40,7 +40,7 @@ const formSchema = z
       .string()
       .nonempty({ message: "Please enter your confirmed password" })
       .min(6, { message: "Please enter a password with at least 6 characters" }),
-    // captcha: z.string().nonempty({ message: "Please enter the captcha" }),
+    captcha: z.string().nonempty({ message: "Please enter the captcha" }),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data["confirm-password"]) {
