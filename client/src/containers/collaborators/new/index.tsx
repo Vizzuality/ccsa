@@ -1,6 +1,8 @@
 "use client";
+import Image from "next/image";
 
 import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 
 import { useForm } from "react-hook-form";
 
@@ -43,6 +45,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+const MAX_FILE_SIZE = 5000000;
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
+
 export default function NewCollaboratorForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
@@ -64,6 +69,16 @@ export default function NewCollaboratorForm() {
   // if there is no id in the route, we are creating a new collaborator, no need to look for
   // an existing tool
   const { data: collaboratorData } = useGetCollaboratorsId(
+    +id,
+    {},
+    {
+      query: {
+        enabled: !!id,
+      },
+    },
+  );
+
+  const { data: collaboratorSuggestedData } = useGetCollaboratorEditSuggestionsId(
     +id,
     {},
     {
@@ -112,19 +127,6 @@ export default function NewCollaboratorForm() {
     request: {},
   });
 
-  const { mutate: mutatePutCollaboratorsEditSuggestion } = usePutCollaboratorEditSuggestionsId({
-    mutation: {
-      onSuccess: (data) => {
-        console.info("Success creating a new tool:", data);
-        push(`/dashboard`);
-      },
-      onError: (error) => {
-        console.error("Error creating a new tool:", error);
-      },
-    },
-    request: {},
-  });
-
   const relationshipOptions = [
     {
       label: "Collaborator",
@@ -142,14 +144,35 @@ export default function NewCollaboratorForm() {
     }),
     relationship: z.string().min(1, { message: "Please select a relation" }),
     link: z.string().url({ message: "Please enter a valid URL" }),
+    logo: z
+      .any()
+      .refine((file) => {
+        return file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`;
+      })
+      .refine((file) => {
+        return (
+          ACCEPTED_IMAGE_TYPES.includes(file?.type),
+          "Only .jpg, .jpeg, .png and .webp formats are supported."
+        );
+      }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      name: collaboratorData?.data?.attributes?.name || "",
-      relationship: collaboratorData?.data?.attributes?.type || "",
-      link: collaboratorData?.data?.attributes?.link || "",
+      name:
+        collaboratorData?.data?.attributes?.name ||
+        collaboratorSuggestedData?.data?.attributes?.name ||
+        "",
+      relationship:
+        collaboratorData?.data?.attributes?.type ||
+        collaboratorSuggestedData?.data?.attributes?.type ||
+        "",
+      link:
+        collaboratorData?.data?.attributes?.link ||
+        collaboratorSuggestedData?.data?.attributes?.link ||
+        "",
+      logo: null,
     },
   });
 
@@ -165,7 +188,6 @@ export default function NewCollaboratorForm() {
             id: +id,
             data: {
               data: {
-                author: user?.id,
                 review_status: "pending",
                 ...values,
               },
@@ -175,7 +197,6 @@ export default function NewCollaboratorForm() {
           mutatePostCollaboratorsEditSuggestion({
             data: {
               data: {
-                author: user?.id,
                 review_status: "pending",
                 ...values,
               },
@@ -198,15 +219,19 @@ export default function NewCollaboratorForm() {
       push(`/dashboard`);
     },
     [
-      mutatePutCollaboratorsEditSuggestion,
       mutatePostCollaboratorsTools,
+      mutatePutCollaboratorsEditSuggestionId,
       mutatePostCollaboratorsEditSuggestion,
       push,
       id,
       ME_DATA,
-      user?.id,
     ],
   );
+
+  const { getInputProps, getRootProps, acceptedFiles, ...rest } = useDropzone({
+    multiple: false,
+    accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg"] },
+  });
 
   return (
     <>
@@ -304,16 +329,38 @@ export default function NewCollaboratorForm() {
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Logo image</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        type="file"
-                        value={field.value}
+                      <div
+                        {...getRootProps()}
                         className={cn({
-                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
+                          "m-auto !flex w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 py-6 text-xs placeholder:text-gray-300/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
+                            true,
                           "bg-green-400": changes?.includes(field.logo),
                         })}
-                        placeholder="Name"
-                      />
+                      >
+                        <input type="file" {...getInputProps()} value={field.logo} />
+                        <Image
+                          priority
+                          alt="file"
+                          width={58}
+                          height={58}
+                          src="/images/image-file.png"
+                          className="m-auto flex"
+                        />
+
+                        {!acceptedFiles.length && (
+                          <div className="flex flex-col space-y-2 text-center">
+                            <p className="font-semibold">
+                              Drag and drop here, or <span className="text-primary">browse</span>
+                            </p>
+                            <p className="font-light">Supports: PNG, JPG, JPEG, GIF, WEBP</p>
+                          </div>
+                        )}
+                        {!!acceptedFiles.length && (
+                          <div className="flex flex-col space-y-2 text-center">
+                            <p className="font-light">{acceptedFiles[0]?.name}</p>
+                          </div>
+                        )}
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

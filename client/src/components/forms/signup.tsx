@@ -7,11 +7,7 @@ import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  loadCaptchaEnginge,
-  LoadCanvasTemplate,
-  validateCaptcha,
-} from "@vinhpd/react-simple-captcha";
+import { LoadCanvasTemplate, validateCaptcha } from "@vinhpd/react-simple-captcha";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
 
@@ -40,7 +36,7 @@ const formSchema = z
       .string()
       .nonempty({ message: "Please enter your confirmed password" })
       .min(6, { message: "Please enter a password with at least 6 characters" }),
-    // captcha: z.string().nonempty({ message: "Please enter the captcha" }),
+    captcha: z.string().nonempty({ message: "Please enter the captcha" }),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data["confirm-password"]) {
@@ -59,6 +55,14 @@ const formSchema = z
       });
     }
   });
+
+interface ExtendedProps {
+  reloadColor?: string;
+}
+
+const LoadCanvasTemplateComp: React.FC<ExtendedProps> = (props) => {
+  return <LoadCanvasTemplateComp reloadColor="#0996CC" {...props} />;
+};
 
 export default function Signup() {
   const { replace } = useRouter();
@@ -210,7 +214,7 @@ export default function Signup() {
 
             <div className="grid grid-cols-2 gap-2 rounded bg-gray-300/20 p-2.5">
               <div className="flex justify-center rounded bg-white pt-2 text-center text-xxs">
-                <LoadCanvasTemplate reloadColor="#0996CC" style={{ color: "red" }} />
+                <LoadCanvasTemplateComp />
               </div>
               <FormField
                 control={form.control}
