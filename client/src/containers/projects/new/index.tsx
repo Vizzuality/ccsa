@@ -28,6 +28,7 @@ import type {
   Pillar,
   UsersPermissionsRole,
   UsersPermissionsUser,
+  ProjectCountriesDataItemAttributes,
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 import { useSyncSearchParams } from "@/app/store";
@@ -56,6 +57,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { getObjectDifferences } from "@/lib/utils/objects";
+
+function createEnum<T extends readonly string[]>(arr: T) {
+  return z.enum(arr);
+}
 
 export default function ProjectForm() {
   const { push } = useRouter();
@@ -174,7 +179,7 @@ export default function ProjectForm() {
     request: {},
   });
 
-  const { mutate: mutatePutProjectEditSuggestion } = usePutProjectEditSuggestionsId({
+  const { mutate: mutatePutProjectEditSuggestionId } = usePutProjectEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success updating a project suggestion:", data);
@@ -186,6 +191,11 @@ export default function ProjectForm() {
     },
     request: {},
   });
+
+  const previousData = projectsSuggestedData?.data?.attributes || projectData?.data?.attributes;
+  const countriesTypes: string[] = countries?.map(({ label }) => label);
+
+  const countryEnum = createEnum(countriesTypes);
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter project's details" }),
@@ -201,31 +211,31 @@ export default function ProjectForm() {
       .refine((val) => typeof val !== "undefined", {
         message: "Please enter amount",
       }),
-    countries: z.array(
-      z.string().min(1, {
-        message: "Please select at least one country",
-      }),
-    ),
+    // countries: z
+    //   .array(countryEnum)
+    //   .optional()
+    //   .refine((val) => !!val, {
+    //     message: "Please select at least one country",
+    //   }),
+
     // sdg: z.array(
     //   z.string().min(1, {
     //     message: "Please select a sdg",
     //   }),
     // ),
-    // status: z.string().min(1, {
-    //   message: "Please enter status",
-    // }),
-    // funding: z.string().min(1, {
-    //   message: "Please enter type of funding",
-    // }),
-    // organization: z.string().min(1, {
-    //   message: "Please enter organization type",
-    // }),
-    // source_country: z.string().min(1, { message: "Please select a country" }),
-    // objective: z.string().min(1, { message: "Please enter objective" }),
+    status: z.string().min(1, {
+      message: "Please enter status",
+    }),
+    funding: z.string().min(1, {
+      message: "Please enter type of funding",
+    }),
+    organization: z.string().min(1, {
+      message: "Please enter organization type",
+    }),
+    source_country: z.string().min(1, { message: "Please select a country" }),
+    objective: z.string().min(1, { message: "Please enter objective" }),
   });
 
-  const previousData = projectsSuggestedData?.data?.attributes || projectData?.data?.attributes;
-  console.log(projectData, projectsSuggestedData);
   // TO - DO - add category from edit when API gets fixed
   // projectsSuggestedData?.data?.attributes?.other_tools_category ||
   const form = useForm<z.infer<typeof formSchema>>({
@@ -238,13 +248,13 @@ export default function ProjectForm() {
           // previousData.updatedAt ||
           projectData?.data?.attributes?.pillar?.data?.attributes?.name || "",
         amount: previousData?.amount || undefined,
-        // countries: previousData?. || [],
+        // countries: previousData?.countries?.data || undefined,
         // sdg: previousData?.sdgs || [],
-        // status: previousData?.status || "",
-        // funding: previousData?.funding || "",
-        // organization: previousData?.organization || "",
-        // source_country: previousData?.source_country || "",
-        // objective: previousData?.objective || "",
+        status: previousData?.status || "",
+        funding: previousData?.funding || "",
+        organization: previousData?.organization_type || "",
+        source_country: previousData?.source_country || "",
+        objective: previousData?.objective || "",
       },
     }),
   });
@@ -257,7 +267,7 @@ export default function ProjectForm() {
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id) {
-          mutatePutProjectEditSuggestion({
+          mutatePutProjectEditSuggestionId({
             id: +id[0],
             data: {
               data: {
@@ -296,11 +306,22 @@ export default function ProjectForm() {
       ME_DATA,
       user?.id,
       id,
-      mutatePutProjectEditSuggestion,
+      mutatePutProjectEditSuggestionId,
     ],
   );
 
-  console.log(form.getValues());
+  const handleReject = () => {
+    if (ME_DATA?.role?.type === "admin" && projectsSuggestedData?.data?.id) {
+      mutatePutProjectEditSuggestionId({
+        id: projectsSuggestedData?.data?.id,
+        data: {
+          data: {
+            review_status: "declined",
+          },
+        },
+      });
+    }
+  };
 
   const changes =
     !projectData?.data?.attributes && !!id && projectsSuggestedData?.data?.attributes
@@ -309,7 +330,14 @@ export default function ProjectForm() {
 
   return (
     <>
-      <DashboardFormControls title="New project" id="projects-create" handleCancel={handleCancel} />
+      <DashboardFormControls
+        isNew={!!id}
+        title="New project"
+        id="projects-create"
+        cancelVariant={ME_DATA.role.type === "admin" && !!id ? "reject" : "cancel"}
+        handleReject={handleReject}
+        handleCancel={handleCancel}
+      />
       <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p className="m-auto w-full max-w-sm">Fill the project&apos;s information</p>
         <Form {...form}>

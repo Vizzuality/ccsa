@@ -9,10 +9,14 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { uniq, compact } from "lodash-es";
 import { z } from "zod";
+import { useSession } from "next-auth/react";
 
 import { cn } from "@/lib/classnames";
 
 import { useSyncSearchParams } from "@/app/store";
+
+import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
@@ -112,6 +116,14 @@ export default function DatasetColorsForm({
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  const { data: meData } = useGetUsersId(`${user?.id}`, {
+    populate: "role",
+  });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+
   const valueType = rawData?.settings?.valueType;
 
   const categories = getCategories({ data, valueType });
@@ -153,12 +165,35 @@ export default function DatasetColorsForm({
     },
     [onSubmit],
   );
-
+  const handleReject = () => {
+    if (
+      ME_DATA?.role?.type === "admin"
+      // && editSuggestionIdData?.data?.id
+    ) {
+      // mutatePutToolEditSuggestionId({
+      //   id: editSuggestionIdData?.data?.id,
+      //   data: {
+      //     data: {
+      //       review_status: "declined",
+      //     },
+      //   },
+      // });
+    }
+  };
   if (!valueType) return null;
 
   return (
     <>
-      {header && <DashboardFormControls title={title} id={id} handleCancel={handleCancel} />}
+      {header && (
+        <DashboardFormControls
+          isNew={!!id}
+          title={title}
+          id={id}
+          cancelVariant={ME_DATA.role.type === "admin" && !!id ? "reject" : "cancel"}
+          handleReject={handleReject}
+          handleCancel={handleCancel}
+        />
+      )}
       <NewDatasetDataFormWrapper header={header}>
         {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}

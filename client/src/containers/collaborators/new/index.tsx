@@ -77,7 +77,7 @@ export default function NewCollaboratorForm() {
     },
   );
 
-  const { data: collaboratorSuggestedData } = useGetCollaboratorEditSuggestionsId(
+  const { data: collaboratorSuggestedDataId } = useGetCollaboratorEditSuggestionsId(
     +id,
     {},
     {
@@ -88,7 +88,7 @@ export default function NewCollaboratorForm() {
   );
 
   const previousData =
-    collaboratorData?.data?.attributes || collaboratorSuggestedData?.data?.attributes;
+    collaboratorData?.data?.attributes || collaboratorSuggestedDataId?.data?.attributes;
 
   const { mutate: mutatePostCollaboratorsTools } = usePostCollaborators({
     mutation: {
@@ -176,7 +176,7 @@ export default function NewCollaboratorForm() {
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
-        if (!!id && !!collaboratorSuggestedData) {
+        if (!!id && !!collaboratorSuggestedDataId) {
           mutatePutCollaboratorsEditSuggestionId({
             id: +id,
             data: {
@@ -222,21 +222,37 @@ export default function NewCollaboratorForm() {
     ],
   );
 
+  const handleReject = () => {
+    if (ME_DATA?.role?.type === "admin" && collaboratorSuggestedDataId?.data?.id) {
+      mutatePutCollaboratorsEditSuggestionId({
+        id: collaboratorSuggestedDataId?.data?.id,
+        data: {
+          data: {
+            review_status: "declined",
+          },
+        },
+      });
+    }
+  };
+
   const { getInputProps, getRootProps, acceptedFiles, ...rest } = useDropzone({
     multiple: false,
     accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg"] },
   });
 
   const changes =
-    !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedData?.data?.attributes
+    !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedDataId?.data?.attributes
       ? []
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
 
   return (
     <>
       <DashboardFormControls
+        isNew={!!id}
         title="New collaborator"
         id="collaborators-create"
+        cancelVariant={ME_DATA.role.type === "admin" && !!id ? "reject" : "cancel"}
+        handleReject={handleReject}
         handleCancel={handleCancel}
       />
       <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">

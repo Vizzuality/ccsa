@@ -118,7 +118,7 @@ export default function NewToolForm() {
     request: {},
   });
 
-  const { mutate: mutatePutToolEditSuggestion } = usePutToolEditSuggestionsId({
+  const { mutate: mutatePutToolEditSuggestionId } = usePutToolEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success updating the tool:", data);
@@ -192,7 +192,7 @@ export default function NewToolForm() {
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id) {
-          mutatePutToolEditSuggestion({
+          mutatePutToolEditSuggestionId({
             id: +id[0],
             data: {
               data: {
@@ -231,13 +231,33 @@ export default function NewToolForm() {
       ME_DATA,
       user?.id,
       id,
-      mutatePutToolEditSuggestion,
+      mutatePutToolEditSuggestionId,
     ],
   );
 
+  const handleReject = () => {
+    if (ME_DATA?.role?.type === "admin" && editSuggestionIdData?.data?.id) {
+      mutatePutToolEditSuggestionId({
+        id: editSuggestionIdData?.data?.id,
+        data: {
+          data: {
+            review_status: "declined",
+          },
+        },
+      });
+    }
+  };
+
   return (
     <>
-      <DashboardFormControls title="New tool" id="other-tool-create" handleCancel={handleCancel} />
+      <DashboardFormControls
+        isNew={!!id}
+        title="New tool"
+        id="other-tool-create"
+        cancelVariant={ME_DATA.role.type === "admin" && !!id ? "reject" : "cancel"}
+        handleReject={handleReject}
+        handleCancel={handleCancel}
+      />
       <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>Fill the tool&apos;s information</p>
         <Form {...form}>
