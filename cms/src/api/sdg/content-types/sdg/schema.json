@@ -21,6 +21,12 @@
       "relation": "manyToMany",
       "target": "api::project.project",
       "mappedBy": "sdgs"
+    },
+    "project_edit_suggestions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project-edit-suggestion.project-edit-suggestion",
+      "mappedBy": "sdgs"
     }
   }
 }

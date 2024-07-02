@@ -62,21 +62,6 @@
           "sortable": true
         }
       },
-      "other_tool": {
-        "edit": {
-          "label": "other_tool",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "other_tool",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "review_status": {
         "edit": {
           "label": "review_status",
@@ -102,6 +87,36 @@
         },
         "list": {
           "label": "author",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "other_tools_category": {
+        "edit": {
+          "label": "other_tools_category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "other_tools_category",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "other_tool": {
+        "edit": {
+          "label": "other_tool",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "other_tool",
           "searchable": true,
           "sortable": true
         }
@@ -187,10 +202,6 @@
           {
             "name": "link",
             "size": 6
-          },
-          {
-            "name": "other_tool",
-            "size": 6
           }
         ],
         [
@@ -200,6 +211,16 @@
           },
           {
             "name": "author",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "other_tools_category",
+            "size": 6
+          },
+          {
+            "name": "other_tool",
             "size": 6
           }
         ]

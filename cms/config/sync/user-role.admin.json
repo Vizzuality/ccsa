@@ -103,6 +103,9 @@
       "action": "api::dataset-value.dataset-value.update"
     },
     {
+      "action": "api::dataset.dataset.bulkCreate"
+    },
+    {
       "action": "api::dataset.dataset.create"
     },
     {
@@ -277,6 +280,9 @@
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.update"
     },
     {
+      "action": "api::welcome-message.welcome-message.find"
+    },
+    {
       "action": "plugin::content-type-builder.components.getComponent"
     },
     {
@@ -374,9 +380,6 @@
     },
     {
       "action": "plugin::users-permissions.user.update"
-    },
-    {
-      "action": "api::welcome-message.welcome-message.find"
     }
   ]
 }

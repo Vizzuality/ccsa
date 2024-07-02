@@ -10,7 +10,8 @@
       "properties": {
         "fields": [
           "name",
-          "datasets"
+          "datasets",
+          "dataset_edit_suggestions"
         ]
       },
       "conditions": []
@@ -36,7 +37,8 @@
       "properties": {
         "fields": [
           "name",
-          "datasets"
+          "datasets",
+          "dataset_edit_suggestions"
         ]
       },
       "conditions": []
@@ -48,7 +50,8 @@
       "properties": {
         "fields": [
           "name",
-          "datasets"
+          "datasets",
+          "dataset_edit_suggestions"
         ]
       },
       "conditions": []
@@ -62,9 +65,9 @@
           "name",
           "link",
           "type",
-          "collaborator",
           "review_status",
-          "author"
+          "author",
+          "collaborator"
         ]
       },
       "conditions": []
@@ -92,9 +95,9 @@
           "name",
           "link",
           "type",
-          "collaborator",
           "review_status",
-          "author"
+          "author",
+          "collaborator"
         ]
       },
       "conditions": []
@@ -108,9 +111,9 @@
           "name",
           "link",
           "type",
-          "collaborator",
           "review_status",
-          "author"
+          "author",
+          "collaborator"
         ]
       },
       "conditions": []
@@ -242,8 +245,10 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset",
-          "author"
+          "author",
+          "category",
+          "layers",
+          "dataset"
         ]
       },
       "conditions": []
@@ -274,8 +279,10 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset",
-          "author"
+          "author",
+          "category",
+          "layers",
+          "dataset"
         ]
       },
       "conditions": []
@@ -292,8 +299,10 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset",
-          "author"
+          "author",
+          "category",
+          "layers",
+          "dataset"
         ]
       },
       "conditions": []
@@ -483,7 +492,8 @@
           "params_config",
           "legend_config",
           "interaction_config",
-          "dataset"
+          "dataset",
+          "dataset_edit_suggestion"
         ]
       },
       "conditions": []
@@ -514,7 +524,8 @@
           "params_config",
           "legend_config",
           "interaction_config",
-          "dataset"
+          "dataset",
+          "dataset_edit_suggestion"
         ]
       },
       "conditions": []
@@ -531,7 +542,8 @@
           "params_config",
           "legend_config",
           "interaction_config",
-          "dataset"
+          "dataset",
+          "dataset_edit_suggestion"
         ]
       },
       "conditions": []
@@ -650,7 +662,8 @@
         "fields": [
           "name",
           "projects",
-          "description"
+          "description",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -677,7 +690,8 @@
         "fields": [
           "name",
           "projects",
-          "description"
+          "description",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -690,7 +704,8 @@
         "fields": [
           "name",
           "projects",
-          "description"
+          "description",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -712,8 +727,11 @@
           "objective",
           "info",
           "review_status",
-          "project",
-          "author"
+          "author",
+          "countries",
+          "pillar",
+          "sdgs",
+          "project"
         ]
       },
       "conditions": []
@@ -749,8 +767,11 @@
           "objective",
           "info",
           "review_status",
-          "project",
-          "author"
+          "author",
+          "countries",
+          "pillar",
+          "sdgs",
+          "project"
         ]
       },
       "conditions": []
@@ -772,8 +793,11 @@
           "objective",
           "info",
           "review_status",
-          "project",
-          "author"
+          "author",
+          "countries",
+          "pillar",
+          "sdgs",
+          "project"
         ]
       },
       "conditions": []
@@ -924,7 +948,8 @@
       "properties": {
         "fields": [
           "name",
-          "projects"
+          "projects",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -950,7 +975,8 @@
       "properties": {
         "fields": [
           "name",
-          "projects"
+          "projects",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -962,7 +988,8 @@
       "properties": {
         "fields": [
           "name",
-          "projects"
+          "projects",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -976,9 +1003,10 @@
           "name",
           "description",
           "link",
-          "other_tool",
           "review_status",
-          "author"
+          "author",
+          "other_tools_category",
+          "other_tool"
         ]
       },
       "conditions": []
@@ -1006,9 +1034,10 @@
           "name",
           "description",
           "link",
-          "other_tool",
           "review_status",
-          "author"
+          "author",
+          "other_tools_category",
+          "other_tool"
         ]
       },
       "conditions": []
@@ -1022,9 +1051,10 @@
           "name",
           "description",
           "link",
-          "other_tool",
           "review_status",
-          "author"
+          "author",
+          "other_tools_category",
+          "other_tool"
         ]
       },
       "conditions": []
