@@ -39,7 +39,7 @@ const STEPS: StepsObject[] = [
     value: "colors",
     title: "Colors",
   },
-] as const;
+];
 
 const getErrorData = (data: Data["settings"] | Data["data"]): boolean => {
   if (!data || isEmpty(data)) return true;
