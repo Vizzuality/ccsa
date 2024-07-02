@@ -1,22 +1,13 @@
 {
-  "name": "Admin",
-  "description": "Have all the permissions",
-  "type": "admin",
+  "name": "Contributor",
+  "description": "Can create, edit and delete new and edit suggestions for Project, Collaborator, Dataset and Tool.",
+  "type": "contributor",
   "permissions": [
-    {
-      "action": "api::category.category.create"
-    },
-    {
-      "action": "api::category.category.delete"
-    },
     {
       "action": "api::category.category.find"
     },
     {
       "action": "api::category.category.findOne"
-    },
-    {
-      "action": "api::category.category.update"
     },
     {
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.create"
@@ -34,25 +25,10 @@
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.update"
     },
     {
-      "action": "api::collaborator.collaborator.create"
-    },
-    {
-      "action": "api::collaborator.collaborator.delete"
-    },
-    {
       "action": "api::collaborator.collaborator.find"
     },
     {
       "action": "api::collaborator.collaborator.findOne"
-    },
-    {
-      "action": "api::collaborator.collaborator.update"
-    },
-    {
-      "action": "api::country.country.create"
-    },
-    {
-      "action": "api::country.country.delete"
     },
     {
       "action": "api::country.country.find"
@@ -61,7 +37,7 @@
       "action": "api::country.country.findOne"
     },
     {
-      "action": "api::country.country.update"
+      "action": "api::csv.csv.csvToJson"
     },
     {
       "action": "api::csv.csv.jsonToCsv"
@@ -82,28 +58,10 @@
       "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.update"
     },
     {
-      "action": "api::dataset-value.dataset-value.create"
-    },
-    {
-      "action": "api::dataset-value.dataset-value.delete"
-    },
-    {
       "action": "api::dataset-value.dataset-value.find"
     },
     {
       "action": "api::dataset-value.dataset-value.findOne"
-    },
-    {
-      "action": "api::dataset-value.dataset-value.update"
-    },
-    {
-      "action": "api::dataset.dataset.bulkCreate"
-    },
-    {
-      "action": "api::dataset.dataset.create"
-    },
-    {
-      "action": "api::dataset.dataset.delete"
     },
     {
       "action": "api::dataset.dataset.find"
@@ -112,28 +70,10 @@
       "action": "api::dataset.dataset.findOne"
     },
     {
-      "action": "api::dataset.dataset.update"
-    },
-    {
-      "action": "api::download-email.download-email.create"
-    },
-    {
-      "action": "api::download-email.download-email.delete"
-    },
-    {
       "action": "api::download-email.download-email.find"
     },
     {
       "action": "api::download-email.download-email.findOne"
-    },
-    {
-      "action": "api::download-email.download-email.update"
-    },
-    {
-      "action": "api::layer.layer.create"
-    },
-    {
-      "action": "api::layer.layer.delete"
     },
     {
       "action": "api::layer.layer.find"
@@ -142,28 +82,10 @@
       "action": "api::layer.layer.findOne"
     },
     {
-      "action": "api::layer.layer.update"
-    },
-    {
-      "action": "api::other-tool.other-tool.create"
-    },
-    {
-      "action": "api::other-tool.other-tool.delete"
-    },
-    {
       "action": "api::other-tool.other-tool.find"
     },
     {
       "action": "api::other-tool.other-tool.findOne"
-    },
-    {
-      "action": "api::other-tool.other-tool.update"
-    },
-    {
-      "action": "api::other-tools-category.other-tools-category.create"
-    },
-    {
-      "action": "api::other-tools-category.other-tools-category.delete"
     },
     {
       "action": "api::other-tools-category.other-tools-category.find"
@@ -172,22 +94,10 @@
       "action": "api::other-tools-category.other-tools-category.findOne"
     },
     {
-      "action": "api::other-tools-category.other-tools-category.update"
-    },
-    {
-      "action": "api::pillar.pillar.create"
-    },
-    {
-      "action": "api::pillar.pillar.delete"
-    },
-    {
       "action": "api::pillar.pillar.find"
     },
     {
       "action": "api::pillar.pillar.findOne"
-    },
-    {
-      "action": "api::pillar.pillar.update"
     },
     {
       "action": "api::project-edit-suggestion.project-edit-suggestion.create"
@@ -205,25 +115,10 @@
       "action": "api::project-edit-suggestion.project-edit-suggestion.update"
     },
     {
-      "action": "api::project.project.create"
-    },
-    {
-      "action": "api::project.project.delete"
-    },
-    {
       "action": "api::project.project.find"
     },
     {
       "action": "api::project.project.findOne"
-    },
-    {
-      "action": "api::project.project.update"
-    },
-    {
-      "action": "api::resource.resource.create"
-    },
-    {
-      "action": "api::resource.resource.delete"
     },
     {
       "action": "api::resource.resource.find"
@@ -232,22 +127,10 @@
       "action": "api::resource.resource.findOne"
     },
     {
-      "action": "api::resource.resource.update"
-    },
-    {
-      "action": "api::sdg.sdg.create"
-    },
-    {
-      "action": "api::sdg.sdg.delete"
-    },
-    {
       "action": "api::sdg.sdg.find"
     },
     {
       "action": "api::sdg.sdg.findOne"
-    },
-    {
-      "action": "api::sdg.sdg.update"
     },
     {
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.create"
@@ -280,30 +163,6 @@
       "action": "plugin::content-type-builder.content-types.getContentTypes"
     },
     {
-      "action": "plugin::email.email.send"
-    },
-    {
-      "action": "plugin::i18n.locales.listLocales"
-    },
-    {
-      "action": "plugin::import-export-entries.export.exportData"
-    },
-    {
-      "action": "plugin::import-export-entries.import.importData"
-    },
-    {
-      "action": "plugin::upload.content-api.destroy"
-    },
-    {
-      "action": "plugin::upload.content-api.find"
-    },
-    {
-      "action": "plugin::upload.content-api.findOne"
-    },
-    {
-      "action": "plugin::upload.content-api.upload"
-    },
-    {
       "action": "plugin::users-permissions.auth.callback"
     },
     {
@@ -331,19 +190,10 @@
       "action": "plugin::users-permissions.permissions.getPermissions"
     },
     {
-      "action": "plugin::users-permissions.role.createRole"
-    },
-    {
-      "action": "plugin::users-permissions.role.deleteRole"
-    },
-    {
       "action": "plugin::users-permissions.role.find"
     },
     {
       "action": "plugin::users-permissions.role.findOne"
-    },
-    {
-      "action": "plugin::users-permissions.role.updateRole"
     },
     {
       "action": "plugin::users-permissions.user.count"

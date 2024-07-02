@@ -8,10 +8,7 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": [
-          "name",
-          "datasets"
-        ]
+        "fields": ["name", "datasets", "dataset_edit_suggestions"]
       },
       "conditions": []
     },
@@ -34,10 +31,7 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": [
-          "name",
-          "datasets"
-        ]
+        "fields": ["name", "datasets", "dataset_edit_suggestions"]
       },
       "conditions": []
     },
@@ -46,10 +40,7 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": [
-          "name",
-          "datasets"
-        ]
+        "fields": ["name", "datasets", "dataset_edit_suggestions"]
       },
       "conditions": []
     },
@@ -62,9 +53,9 @@
           "name",
           "link",
           "type",
-          "collaborator",
           "review_status",
-          "author"
+          "author",
+          "collaborator"
         ]
       },
       "conditions": []
@@ -92,9 +83,9 @@
           "name",
           "link",
           "type",
-          "collaborator",
           "review_status",
-          "author"
+          "author",
+          "collaborator"
         ]
       },
       "conditions": []
@@ -108,9 +99,9 @@
           "name",
           "link",
           "type",
-          "collaborator",
           "review_status",
-          "author"
+          "author",
+          "collaborator"
         ]
       },
       "conditions": []
@@ -120,12 +111,7 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator_edit_suggestions"
-        ]
+        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
       },
       "conditions": []
     },
@@ -148,12 +134,7 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator_edit_suggestions"
-        ]
+        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
       },
       "conditions": []
     },
@@ -162,12 +143,7 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": [
-          "name",
-          "link",
-          "type",
-          "collaborator_edit_suggestions"
-        ]
+        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
       },
       "conditions": []
     },
@@ -176,14 +152,7 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "name",
-          "iso3",
-          "geometry",
-          "bbox",
-          "link",
-          "dataset_values"
-        ]
+        "fields": ["name", "iso3", "geometry", "bbox", "link", "dataset_values"]
       },
       "conditions": []
     },
@@ -206,14 +175,7 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "name",
-          "iso3",
-          "geometry",
-          "bbox",
-          "link",
-          "dataset_values"
-        ]
+        "fields": ["name", "iso3", "geometry", "bbox", "link", "dataset_values"]
       },
       "conditions": []
     },
@@ -222,14 +184,7 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": [
-          "name",
-          "iso3",
-          "geometry",
-          "bbox",
-          "link",
-          "dataset_values"
-        ]
+        "fields": ["name", "iso3", "geometry", "bbox", "link", "dataset_values"]
       },
       "conditions": []
     },
@@ -247,8 +202,10 @@
           "review_status",
           "dataset",
           "colors",
+          "author",
           "category",
-          "author"
+          "layers",
+          "dataset"
         ]
       },
       "conditions": []
@@ -281,8 +238,10 @@
           "review_status",
           "dataset",
           "colors",
+          "author",
           "category",
-          "author"
+          "layers",
+          "dataset"
         ]
       },
       "conditions": []
@@ -301,8 +260,10 @@
           "review_status",
           "dataset",
           "colors",
+          "author",
           "category",
-          "author"
+          "layers",
+          "dataset"
         ]
       },
       "conditions": []
@@ -438,10 +399,7 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": [
-          "email",
-          "downloads"
-        ]
+        "fields": ["email", "downloads"]
       },
       "conditions": []
     },
@@ -464,10 +422,7 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": [
-          "email",
-          "downloads"
-        ]
+        "fields": ["email", "downloads"]
       },
       "conditions": []
     },
@@ -476,10 +431,7 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": [
-          "email",
-          "downloads"
-        ]
+        "fields": ["email", "downloads"]
       },
       "conditions": []
     },
@@ -496,7 +448,8 @@
           "legend_config",
           "interaction_config",
           "dataset",
-          "colors"
+          "colors",
+          "dataset_edit_suggestion"
         ]
       },
       "conditions": []
@@ -528,7 +481,8 @@
           "legend_config",
           "interaction_config",
           "dataset",
-          "colors"
+          "colors",
+          "dataset_edit_suggestion"
         ]
       },
       "conditions": []
@@ -546,7 +500,8 @@
           "legend_config",
           "interaction_config",
           "dataset",
-          "colors"
+          "colors",
+          "dataset_edit_suggestion"
         ]
       },
       "conditions": []
@@ -615,9 +570,7 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": [
-          "name"
-        ]
+        "fields": ["name"]
       },
       "conditions": []
     },
@@ -640,9 +593,7 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": [
-          "name"
-        ]
+        "fields": ["name"]
       },
       "conditions": []
     },
@@ -651,9 +602,7 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": [
-          "name"
-        ]
+        "fields": ["name"]
       },
       "conditions": []
     },
@@ -665,7 +614,8 @@
         "fields": [
           "name",
           "projects",
-          "description"
+          "description",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -692,7 +642,8 @@
         "fields": [
           "name",
           "projects",
-          "description"
+          "description",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -705,7 +656,8 @@
         "fields": [
           "name",
           "projects",
-          "description"
+          "description",
+          "project_edit_suggestions"
         ]
       },
       "conditions": []
@@ -727,8 +679,11 @@
           "objective",
           "info",
           "review_status",
-          "project",
-          "author"
+          "author",
+          "countries",
+          "pillar",
+          "sdgs",
+          "project"
         ]
       },
       "conditions": []
@@ -764,8 +719,11 @@
           "objective",
           "info",
           "review_status",
-          "project",
-          "author"
+          "author",
+          "countries",
+          "pillar",
+          "sdgs",
+          "project"
         ]
       },
       "conditions": []
@@ -787,8 +745,11 @@
           "objective",
           "info",
           "review_status",
-          "project",
-          "author"
+          "author",
+          "countries",
+          "pillar",
+          "sdgs",
+          "project"
         ]
       },
       "conditions": []
@@ -884,11 +845,7 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },
@@ -911,11 +868,7 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },
@@ -924,11 +877,7 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": [
-          "link_title",
-          "link_url",
-          "description"
-        ]
+        "fields": ["link_title", "link_url", "description"]
       },
       "conditions": []
     },
@@ -937,10 +886,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "projects"
-        ]
+        "fields": ["name", "projects", "project_edit_suggestions"]
       },
       "conditions": []
     },
@@ -963,10 +909,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "projects"
-        ]
+        "fields": ["name", "projects", "project_edit_suggestions"]
       },
       "conditions": []
     },
@@ -975,10 +918,7 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": [
-          "name",
-          "projects"
-        ]
+        "fields": ["name", "projects", "project_edit_suggestions"]
       },
       "conditions": []
     },
@@ -991,9 +931,10 @@
           "name",
           "description",
           "link",
-          "other_tool",
           "review_status",
-          "author"
+          "author",
+          "other_tools_category",
+          "other_tool"
         ]
       },
       "conditions": []
@@ -1021,9 +962,10 @@
           "name",
           "description",
           "link",
-          "other_tool",
           "review_status",
-          "author"
+          "author",
+          "other_tools_category",
+          "other_tool"
         ]
       },
       "conditions": []
@@ -1037,9 +979,10 @@
           "name",
           "description",
           "link",
-          "other_tool",
           "review_status",
-          "author"
+          "author",
+          "other_tools_category",
+          "other_tool"
         ]
       },
       "conditions": []
@@ -1049,13 +992,7 @@
       "actionParameters": {},
       "subject": "api::welcome-message.welcome-message",
       "properties": {
-        "fields": [
-          "title",
-          "subtitle",
-          "video",
-          "image",
-          "button"
-        ]
+        "fields": ["title", "subtitle", "video", "image", "button"]
       },
       "conditions": []
     },
@@ -1078,13 +1015,7 @@
       "actionParameters": {},
       "subject": "api::welcome-message.welcome-message",
       "properties": {
-        "fields": [
-          "title",
-          "subtitle",
-          "video",
-          "image",
-          "button"
-        ]
+        "fields": ["title", "subtitle", "video", "image", "button"]
       },
       "conditions": []
     },
@@ -1093,13 +1024,7 @@
       "actionParameters": {},
       "subject": "api::welcome-message.welcome-message",
       "properties": {
-        "fields": [
-          "title",
-          "subtitle",
-          "video",
-          "image",
-          "button"
-        ]
+        "fields": ["title", "subtitle", "video", "image", "button"]
       },
       "conditions": []
     },

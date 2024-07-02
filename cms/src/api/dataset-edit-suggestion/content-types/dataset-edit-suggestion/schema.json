@@ -26,22 +26,30 @@
     },
     "value_type": {
       "type": "enumeration",
-      "enum": [
-        "text",
-        "number",
-        "boolean",
-        "resource"
-      ]
+      "enum": ["text", "number", "boolean", "resource"]
     },
     "review_status": {
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "approved",
-        "declined"
-      ],
+      "enum": ["pending", "approved", "declined"],
       "default": "pending",
       "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "dataset_edit_suggestions"
+    },
+    "layers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::layer.layer",
+      "mappedBy": "dataset_edit_suggestion"
     },
     "dataset": {
       "type": "relation",
@@ -52,14 +60,6 @@
     "colors": {
       "type": "json",
       "required": false
-    },
-    "category": {
-      "type": "integer"
-    },
-    "author": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
     }
   }
 }

@@ -21,12 +21,6 @@
     "link": {
       "type": "string"
     },
-    "other_tool": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::other-tool.other-tool",
-      "inversedBy": "tool_edit_suggestions"
-    },
     "review_status": {
       "type": "enumeration",
       "enum": [
@@ -41,6 +35,17 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "other_tools_category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::other-tools-category.other-tools-category"
+    },
+    "other_tool": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::other-tool.other-tool",
+      "inversedBy": "tool_edit_suggestions"
     }
   }
 }
