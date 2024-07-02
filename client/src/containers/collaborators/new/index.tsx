@@ -176,11 +176,12 @@ export default function NewCollaboratorForm() {
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
-        if (!!id) {
+        if (!!id && !!collaboratorSuggestedData) {
           mutatePutCollaboratorsEditSuggestionId({
             id: +id,
             data: {
               data: {
+                collaborator: { connect: [{ id: +id }] },
                 review_status: "pending",
                 ...values,
               },
@@ -230,8 +231,6 @@ export default function NewCollaboratorForm() {
     !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedData?.data?.attributes
       ? []
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
-
-  console.log(changes, collaboratorData, form.getValues());
 
   return (
     <>

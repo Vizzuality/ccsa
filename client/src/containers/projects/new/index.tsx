@@ -225,7 +225,7 @@ export default function ProjectForm() {
   });
 
   const previousData = projectsSuggestedData?.data?.attributes || projectData?.data?.attributes;
-  console.log(projectData);
+  console.log(projectData, projectsSuggestedData);
   // TO - DO - add category from edit when API gets fixed
   // projectsSuggestedData?.data?.attributes?.other_tools_category ||
   const form = useForm<z.infer<typeof formSchema>>({
@@ -238,7 +238,7 @@ export default function ProjectForm() {
           // previousData.updatedAt ||
           projectData?.data?.attributes?.pillar?.data?.attributes?.name || "",
         amount: previousData?.amount || undefined,
-        // countries: previousData?.source_country || [],
+        // countries: previousData?. || [],
         // sdg: previousData?.sdgs || [],
         // status: previousData?.status || "",
         // funding: previousData?.funding || "",
