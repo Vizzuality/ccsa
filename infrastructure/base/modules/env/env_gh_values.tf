@@ -77,6 +77,7 @@ locals {
     AWS_SES_DOMAIN            = var.domain
     AWS_SES_ACCESS_KEY_ID     = aws_iam_access_key.email_user_access_key.id
     AWS_SES_ACCESS_KEY_SECRET = aws_iam_access_key.email_user_access_key.secret
+    AWS_BUCKET                = module.data_bucket.bucket_name
   }
 
   cms_variable_map = {
