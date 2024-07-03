@@ -20,7 +20,11 @@ import {
   usePutCollaboratorEditSuggestionsId,
   usePostCollaboratorEditSuggestions,
 } from "@/types/generated/collaborator-edit-suggestion";
-import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import {
+  UsersPermissionsRole,
+  UsersPermissionsUser,
+  CollaboratorEditSuggestionCollaboratorDataAttributesType,
+} from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
@@ -96,7 +100,7 @@ export default function NewCollaboratorForm() {
         console.info("Success creating a new tool:", data);
         push(`/dashboard`);
       },
-      onError: (error) => {
+      onError: (error: Error) => {
         console.error("Error creating a new tool:", error);
       },
     },
@@ -140,11 +144,18 @@ export default function NewCollaboratorForm() {
     },
   ];
 
+  const relationTypes = ["collaborator", "donor"] as const;
+
   const formSchema = z.object({
     name: z.string().refine((val) => !!val, {
       message: "Please enter organization name",
     }),
-    relationship: z.string().min(1, { message: "Please select a relation" }),
+    relationship: z
+      .enum(relationTypes)
+      .optional()
+      .refine((val) => !!val, {
+        message: "Please select a relation type",
+      }),
     link: z.string().url({ message: "Please enter a valid URL" }),
     logo: z
       .any()
@@ -163,7 +174,7 @@ export default function NewCollaboratorForm() {
     resolver: zodResolver(formSchema),
     values: {
       name: previousData?.name || "",
-      relationship: previousData?.type || "",
+      relationship: previousData?.type || undefined,
       link: previousData?.link || "",
       logo: null,
     },
@@ -181,7 +192,8 @@ export default function NewCollaboratorForm() {
             id: +id,
             data: {
               data: {
-                collaborator: { connect: [{ id: +id }] },
+                // TO DO
+                // collaborator: { connect: [{ id: +id }] },
                 review_status: "pending",
                 ...values,
               },
@@ -205,7 +217,7 @@ export default function NewCollaboratorForm() {
             data: {
               link: values.link,
               name: values.name,
-              type: values.relationship,
+              type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
             },
           },
         });
@@ -235,7 +247,7 @@ export default function NewCollaboratorForm() {
     }
   };
 
-  const { getInputProps, getRootProps, acceptedFiles, ...rest } = useDropzone({
+  const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
     multiple: false,
     accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg"] },
   });
@@ -248,10 +260,10 @@ export default function NewCollaboratorForm() {
   return (
     <>
       <DashboardFormControls
-        isNew={!!id}
-        title="New collaborator"
         id="collaborators-create"
-        cancelVariant={ME_DATA.role.type === "admin" && !!id ? "reject" : "cancel"}
+        title="New collaborator"
+        isNew={!id}
+        cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
       />
@@ -297,7 +309,7 @@ export default function NewCollaboratorForm() {
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.relationship),
+                            "bg-green-400": changes?.includes(field.name),
                           })}
                         >
                           <SelectValue placeholder="Select one" />
@@ -327,7 +339,7 @@ export default function NewCollaboratorForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.link),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                       />
@@ -349,10 +361,10 @@ export default function NewCollaboratorForm() {
                         className={cn({
                           "m-auto !flex w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 py-6 text-xs placeholder:text-gray-300/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
                             true,
-                          "bg-green-400": changes?.includes(field.logo),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                       >
-                        <input type="file" {...getInputProps()} value={field.logo} />
+                        <input type="file" {...getInputProps()} value={field.name} />
                         <Image
                           priority
                           alt="file"

@@ -126,16 +126,24 @@ export default function EditDatasetForm() {
       if (ME_DATA?.role?.type === "authenticated") {
         mutateDatasetEditSuggestion({
           data: {
+            ...(datasetData?.data?.id && {
+              dataset: {
+                connect: datasetData.data.id,
+              },
+            }),
             data: {
               ...data.settings,
               value_type: data.settings.valueType,
-              data: data.data,
-              colors: data.colors,
               review_status: "pending",
-              dataset: +id,
+              ...data.data,
+              colors: data.colors,
             },
           },
         });
+      }
+
+      if (ME_DATA?.role?.type === "admin") {
+        alert("Bulk upload required");
       }
     },
     [formValues, setFormValues, id, ME_DATA, mutateDatasetEditSuggestion],

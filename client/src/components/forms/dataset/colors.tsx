@@ -186,10 +186,10 @@ export default function DatasetColorsForm({
     <>
       {header && (
         <DashboardFormControls
-          isNew={!!id}
+          isNew={!id}
           title={title}
           id={id}
-          cancelVariant={ME_DATA.role.type === "admin" && !!id ? "reject" : "cancel"}
+          cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
           handleReject={handleReject}
           handleCancel={handleCancel}
         />

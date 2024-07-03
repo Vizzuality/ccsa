@@ -11,7 +11,6 @@ import {
   LoadCanvasTemplate,
   validateCaptcha,
   loadCaptchaEnginge,
-  LoadCanvasTemplateNoReload,
 } from "@vinhpd/react-simple-captcha";
 import { signIn } from "next-auth/react";
 import { z } from "zod";

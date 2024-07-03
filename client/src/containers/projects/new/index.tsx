@@ -1,6 +1,9 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import {
+  useCallback,
+  // useMemo
+} from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -14,22 +17,14 @@ import { cn } from "@/lib/classnames";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetSdgs } from "@/types/generated/sdg";
-import { Sdg } from "@/types/generated/strapi.schemas";
 import { useGetProjectsId, usePostProjects, usePutProjectsId } from "@/types/generated/project";
 import {
-  useGetProjectEditSuggestions,
   useGetProjectEditSuggestionsId,
   usePostProjectEditSuggestions,
   usePutProjectEditSuggestionsId,
 } from "@/types/generated/project-edit-suggestion";
 import { useGetPillars } from "@/types/generated/pillar";
-import type {
-  Country,
-  Pillar,
-  UsersPermissionsRole,
-  UsersPermissionsUser,
-  ProjectCountriesDataItemAttributes,
-} from "@/types/generated/strapi.schemas";
+import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 import { useSyncSearchParams } from "@/app/store";
 
@@ -57,10 +52,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { getObjectDifferences } from "@/lib/utils/objects";
-
-function createEnum<T extends readonly string[]>(arr: T) {
-  return z.enum(arr);
-}
+import Error from "next/error";
 
 export default function ProjectForm() {
   const { push } = useRouter();
@@ -77,56 +69,42 @@ export default function ProjectForm() {
   });
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
-  const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS);
-
-  const pillars = useMemo<
-    {
-      label: Pillar["name"];
-      value: Pillar["name"];
-    }[]
-  >(
-    () =>
-      pillarsData?.data?.map((pillar) => ({
-        label: pillar?.attributes?.name || "",
-        value: pillar?.attributes?.name || "",
-      })) || [],
-    [pillarsData],
-  );
-
-  const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
-
-  const countries = useMemo<
-    {
-      label: Country["name"];
-      value: Country["name"];
-    }[]
-  >(
-    () =>
-      countriesData?.data?.map((country) => ({
-        label: country?.attributes?.name || "",
-        value: country?.attributes?.name || "",
-      })) || [],
-    [countriesData],
-  );
-
-  const { data: sdgsData } = useGetSdgs({
-    "pagination[pageSize]": 100,
-    sort: "name:asc",
+  const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS, {
+    query: {
+      select: (data) =>
+        data?.data?.map((pillar) => ({
+          label: pillar?.attributes?.name as string,
+          value: pillar?.id as number,
+        })),
+    },
   });
 
-  const sdgs = useMemo<
+  const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS, {
+    query: {
+      select: (data) =>
+        data?.data?.map((country) => ({
+          label: country?.attributes?.name as string,
+          value: country?.id as number,
+        })),
+    },
+  });
+
+  const { data: sdgsData } = useGetSdgs(
     {
-      label: Sdg["name"];
-      value: Sdg["name"];
-    }[]
-  >(
-    () =>
-      sdgsData?.data?.map((sdg) => ({
-        label: sdg?.attributes?.name || "",
-        value: sdg?.attributes?.name || "",
-      })) || [],
-    [sdgsData],
+      "pagination[pageSize]": 100,
+      sort: "name:asc",
+    },
+    {
+      query: {
+        select: (data) =>
+          data?.data?.map((sdg) => ({
+            label: sdg?.attributes?.name as string,
+            value: sdg?.id as number,
+          })),
+      },
+    },
   );
+
   // if there is no id in the route, we are creating a new project, no need to look for
   // an existing one
   const { data: projectData } = useGetProjectsId(
@@ -166,13 +144,26 @@ export default function ProjectForm() {
     request: {},
   });
 
+  const { mutate: mutatePutProjectsId } = usePutProjectsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success updating a project:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error updating a project:", error);
+      },
+    },
+    request: {},
+  });
+
   const { mutate: mutatePostProjectEditSuggestion } = usePostProjectEditSuggestions({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a project suggestion:", data);
         push(`/dashboard`);
       },
-      onError: (error) => {
+      onError: (error: Error) => {
         console.error("Error creating a project suggestion:", error);
       },
     },
@@ -181,11 +172,11 @@ export default function ProjectForm() {
 
   const { mutate: mutatePutProjectEditSuggestionId } = usePutProjectEditSuggestionsId({
     mutation: {
-      onSuccess: (data) => {
-        console.info("Success updating a project suggestion:", data);
+      onSuccess: () => {
+        console.info("Success updating a project suggestion");
         push(`/dashboard`);
       },
-      onError: (error) => {
+      onError: (error: Error) => {
         console.error("Error updating a project suggestion:", error);
       },
     },
@@ -193,16 +184,17 @@ export default function ProjectForm() {
   });
 
   const previousData = projectsSuggestedData?.data?.attributes || projectData?.data?.attributes;
-  const countriesTypes: string[] = countries?.map(({ label }) => label);
 
-  const countryEnum = createEnum(countriesTypes);
+  // const selectedCountrySource = useMemo(() => {
+  //   countriesData?.find((c) => c.label === previousData?.source_country);
+  // }, [previousData]);
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter project's details" }),
     description: z.string().min(6, {
       message: "Please enter a description with at least 6 characters",
     }),
-    pillar: z.string().min(1, {
+    pillar: z.coerce.number().min(1, {
       message: "Please select at least one pillar",
     }),
     amount: z.coerce
@@ -211,18 +203,13 @@ export default function ProjectForm() {
       .refine((val) => typeof val !== "undefined", {
         message: "Please enter amount",
       }),
-    // countries: z
-    //   .array(countryEnum)
-    //   .optional()
-    //   .refine((val) => !!val, {
-    //     message: "Please select at least one country",
-    //   }),
+    countries: z.array(z.number().min(1, { message: "Please select at least one country" })),
 
-    // sdg: z.array(
-    //   z.string().min(1, {
-    //     message: "Please select a sdg",
-    //   }),
-    // ),
+    sdgs: z.array(
+      z.number().min(1, {
+        message: "Please select a sdg",
+      }),
+    ),
     status: z.string().min(1, {
       message: "Please enter status",
     }),
@@ -236,6 +223,7 @@ export default function ProjectForm() {
     objective: z.string().min(1, { message: "Please enter objective" }),
   });
 
+  console.log(projectsSuggestedData?.data?.attributes, projectData?.data?.attributes);
   // TO - DO - add category from edit when API gets fixed
   // projectsSuggestedData?.data?.attributes?.other_tools_category ||
   const form = useForm<z.infer<typeof formSchema>>({
@@ -246,10 +234,11 @@ export default function ProjectForm() {
         description: previousData?.info || "",
         pillar:
           // previousData.updatedAt ||
-          projectData?.data?.attributes?.pillar?.data?.attributes?.name || "",
+          previousData?.pillar?.data?.id as number,
         amount: previousData?.amount || undefined,
-        // countries: previousData?.countries?.data || undefined,
-        // sdg: previousData?.sdgs || [],
+        countries:
+          previousData?.countries?.data?.map(({ id }: { id?: number }) => id as number) || [],
+        sdgs: previousData?.sdgs?.data?.map(({ id }: { id?: number }) => id as number) || [],
         status: previousData?.status || "",
         funding: previousData?.funding || "",
         organization: previousData?.organization_type || "",
@@ -271,9 +260,19 @@ export default function ProjectForm() {
             id: +id[0],
             data: {
               data: {
+                ...values,
                 author: user?.id,
                 review_status: "pending",
-                ...values,
+                // TO - DO
+                // countries: {
+                //   connect: values.countries,
+                // },
+                // sdgs: {
+                //   connect: values.sdgs,
+                // },
+                // pillar: {
+                //   connect: [values.pillar],
+                // },
               },
             },
           });
@@ -284,20 +283,38 @@ export default function ProjectForm() {
                 author: user?.id,
                 review_status: "pending",
                 ...values,
+                // TO - DO
+                // countries: {
+                //   connect: values.countries,
+                // },
+                // sdgs: {
+                //   connect: values.sdgs,
+                // },
+                // pillar: {
+                //   connect: [+values.pillar],
+                // },
               },
             },
           });
         }
+        push(`/dashboard`);
       }
-
+      mutatePutProjectsId;
       if (ME_DATA?.role?.type === "admin") {
         mutatePostProjects({
           data: {
-            data: values,
+            ...(!!id && {
+              project: {
+                connect: +id,
+              },
+            }),
+            data: {
+              ...values,
+            },
           },
         });
+        push(`/projects`);
       }
-      push(`/dashboard`);
     },
     [
       mutatePostProjectEditSuggestion,
@@ -331,10 +348,10 @@ export default function ProjectForm() {
   return (
     <>
       <DashboardFormControls
-        isNew={!!id}
+        isNew={!id}
         title="New project"
         id="projects-create"
-        cancelVariant={ME_DATA.role.type === "admin" && !!id ? "reject" : "cancel"}
+        cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
       />
@@ -380,7 +397,7 @@ export default function ProjectForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.description),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                       />
@@ -393,29 +410,33 @@ export default function ProjectForm() {
               <FormField
                 control={form.control}
                 name="pillar"
-                render={({ field }) => (
-                  <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Pillar</FormLabel>
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger
-                        className={cn({
-                          "h-10 w-full border-0 bg-gray-300/20": true,
-                          "bg-green-400": changes?.includes(field.pillar),
-                        })}
-                      >
-                        <SelectValue placeholder="Select one" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {pillars?.map(({ label, value }) => (
-                          <SelectItem key={value} value={value}>
-                            {label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  return (
+                    <FormItem className="space-y-1.5">
+                      <FormLabel className="text-xs font-semibold">Pillar</FormLabel>
+                      <Select value={field.value?.toString()} onValueChange={field.onChange}>
+                        <SelectTrigger
+                          className={cn({
+                            "h-10 w-full border-0 bg-gray-300/20": true,
+                            "bg-green-400": changes?.includes(field.name),
+                          })}
+                        >
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {(pillarsData || []).map(({ label, value }) => {
+                            return (
+                              <SelectItem key={value} value={value?.toString()}>
+                                {label}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
               <FormField
                 control={form.control}
@@ -429,7 +450,7 @@ export default function ProjectForm() {
                         value={typeof field.value === "number" ? +field.value : undefined}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.amount),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Amount"
                       />
@@ -441,38 +462,42 @@ export default function ProjectForm() {
               <FormField
                 control={form.control}
                 name="countries"
-                render={({ field }) => (
-                  <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Countries</FormLabel>
-                    <FormControl>
-                      <MultiCombobox
-                        values={field.value}
-                        options={countries}
-                        placeholder="Select at least one country"
-                        onChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  return (
+                    <FormItem className="space-y-1.5">
+                      <FormLabel className="text-xs font-semibold">Countries</FormLabel>
+                      <FormControl>
+                        <MultiCombobox
+                          values={field.value}
+                          options={countriesData}
+                          placeholder="Select at least one country"
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
               <FormField
                 control={form.control}
-                name="sdg"
-                render={({ field }) => (
-                  <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">SDG</FormLabel>
-                    <FormControl>
-                      <MultiCombobox
-                        values={field.value}
-                        options={sdgs}
-                        placeholder="Select at least one SDG"
-                        onChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                name="sdgs"
+                render={({ field }) => {
+                  return (
+                    <FormItem className="space-y-1.5">
+                      <FormLabel className="text-xs font-semibold">SDG</FormLabel>
+                      <FormControl>
+                        <MultiCombobox
+                          values={field.value}
+                          options={sdgsData}
+                          placeholder="Select at least one SDG"
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
               <FormField
                 control={form.control}
@@ -486,7 +511,7 @@ export default function ProjectForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.status),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                       />
@@ -508,7 +533,7 @@ export default function ProjectForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.funding),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                       />
@@ -530,7 +555,7 @@ export default function ProjectForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.organization),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                       />
@@ -546,18 +571,22 @@ export default function ProjectForm() {
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Source country</FormLabel>
                     <FormControl>
-                      <Select value={field.value} onValueChange={field.onChange}>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        // defaultValue={selectedCountrySource?.value?.toString()}
+                      >
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.source_country),
+                            "bg-green-400": changes?.includes(field.name),
                           })}
                         >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
                         <SelectContent>
-                          {countries?.map(({ label, value }) => (
-                            <SelectItem key={value} value={value}>
+                          {countriesData?.map(({ label, value }) => (
+                            <SelectItem key={value} value={value?.toString()}>
                               {label}
                             </SelectItem>
                           ))}
@@ -581,7 +610,7 @@ export default function ProjectForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.objective),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                       />

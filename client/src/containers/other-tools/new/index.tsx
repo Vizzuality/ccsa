@@ -14,7 +14,11 @@ import { cn } from "@/lib/classnames";
 import { getObjectDifferences } from "@/lib/utils/objects";
 
 import { useGetCategories } from "@/types/generated/category";
-import { usePostOtherTools, useGetOtherToolsId } from "@/types/generated/other-tool";
+import {
+  usePostOtherTools,
+  useGetOtherToolsId,
+  usePutOtherToolsId,
+} from "@/types/generated/other-tool";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import {
   useGetToolEditSuggestionsId,
@@ -56,8 +60,15 @@ export default function NewToolForm() {
 
   const { id } = params;
 
-  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS());
-
+  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
+    query: {
+      select: (data) =>
+        data?.data?.map((data) => ({
+          label: data.attributes?.name as string,
+          value: data.id as number,
+        })),
+    },
+  });
   const { data } = useSession();
   const user = data?.user;
 
@@ -96,10 +107,23 @@ export default function NewToolForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new tool:", data);
-        push(`/dashboard`);
+        push(`/other-tools`);
       },
       onError: (error) => {
         console.error("Error creating a new tool:", error);
+      },
+    },
+    request: {},
+  });
+
+  const { mutate: mutatePutOtherToolsId } = usePutOtherToolsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success updating the tool:", data);
+        push(`/other-tools`);
+      },
+      onError: (error) => {
+        console.error("Error updating the new tool:", error);
       },
     },
     request: {},
@@ -139,11 +163,6 @@ export default function NewToolForm() {
         )
       : [];
 
-  const categoriesOptions = categoriesData?.data?.map((c) => ({
-    label: c.attributes?.name || "",
-    value: c.id || 0,
-  }));
-
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter tool name" }),
     link: z.string().url({ message: "Please enter a valid URL" }),
@@ -158,30 +177,16 @@ export default function NewToolForm() {
     }),
   });
 
-  // TO - DO - add category from edit when API gets fixed
-  // editSuggestionIdData?.data?.attributes?.other_tools_category ||
+  const previousData = editSuggestionIdData?.data?.attributes || otherToolData?.data?.attributes;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    ...(id && {
-      values: {
-        name:
-          editSuggestionIdData?.data?.attributes?.name ||
-          otherToolData?.data?.attributes?.name ||
-          "",
-        link:
-          editSuggestionIdData?.data?.attributes?.link ||
-          otherToolData?.data?.attributes?.link ||
-          "",
-        category:
-          editSuggestionIdData?.data?.attributes?.other_tools_category?.data?.id ||
-          otherToolData?.data?.attributes?.other_tools_category ||
-          undefined,
-        description:
-          editSuggestionIdData?.data?.attributes?.description ||
-          otherToolData?.data?.attributes?.description ||
-          "",
-      },
-    }),
+    values: {
+      name: previousData?.name || "",
+      link: previousData?.link || "",
+      category: previousData?.other_tools_category?.data?.id || undefined,
+      description: previousData?.description || "",
+    },
   });
 
   const handleCancel = () => {
@@ -216,17 +221,26 @@ export default function NewToolForm() {
       }
 
       if (ME_DATA?.role?.type === "admin") {
-        mutatePostOtherTools({
-          data: {
-            data: values,
-          },
-        });
+        if (!!id) {
+          mutatePutOtherToolsId({
+            id: +id,
+            data: {
+              data: values,
+            },
+          });
+        } else if (!id) {
+          mutatePostOtherTools({
+            data: {
+              data: values,
+            },
+          });
+        }
       }
-      push(`/dashboard`);
     },
     [
       mutatePostToolEditSuggestion,
       mutatePostOtherTools,
+      mutatePutOtherToolsId,
       push,
       ME_DATA,
       user?.id,
@@ -251,10 +265,10 @@ export default function NewToolForm() {
   return (
     <>
       <DashboardFormControls
-        isNew={!!id}
+        isNew={!id}
         title="New tool"
         id="other-tool-create"
-        cancelVariant={ME_DATA.role.type === "admin" && !!id ? "reject" : "cancel"}
+        cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
       />
@@ -300,7 +314,7 @@ export default function NewToolForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.link),
+                          "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                       />
@@ -351,7 +365,7 @@ export default function NewToolForm() {
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
                         <SelectContent>
-                          {categoriesOptions?.map(({ label, value }) => (
+                          {categoriesData?.map(({ label, value }) => (
                             <SelectItem key={value} value={`${value}`}>
                               {label}
                             </SelectItem>

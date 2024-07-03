@@ -22,7 +22,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useSession } from "next-auth/react";
 
 type DataTypes = {
   [key: string]: {
@@ -36,14 +35,10 @@ type DataTypes = {
 };
 
 export default function DatasetPendingChangesContributor() {
-  const { data: session } = useSession();
-  const { user } = session ?? {};
-  const id = user?.id;
-
-  const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions({ id: +id });
-  const { data: otherToolDataSuggestions } = useGetToolEditSuggestions({ id: +id });
-  const { data: collaboratorsDataSuggestions } = useGetCollaboratorEditSuggestions({ id: +id });
-  const { data: projectsDataSuggestions } = useGetProjectEditSuggestions({ id: +id });
+  const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions();
+  const { data: otherToolDataSuggestions } = useGetToolEditSuggestions();
+  const { data: collaboratorsDataSuggestions } = useGetCollaboratorEditSuggestions();
+  const { data: projectsDataSuggestions } = useGetProjectEditSuggestions();
 
   const data: DataTypes = {
     datasets: {
@@ -74,7 +69,7 @@ export default function DatasetPendingChangesContributor() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="whitespace-nowrap">Change type</TableHead>
+            <TableHead className="w-[100px] whitespace-nowrap">Change type</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>State</TableHead>
             <TableHead>Date</TableHead>
@@ -125,13 +120,12 @@ export default function DatasetPendingChangesContributor() {
                       </Link>
                     </TableCell>
 
-                    <TableCell className="flex w-full whitespace-nowrap">
-                      <Link href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}>
-                        {suggestion?.attributes?.updatedAt &&
-                          suggestion?.attributes?.createdAt &&
-                          formatDate(suggestion?.attributes?.updatedAt)}
-                        {!suggestion?.attributes?.updatedAt &&
-                          suggestion?.attributes?.createdAt &&
+                    <TableCell>
+                      <Link
+                        href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
+                        className="flex w-full"
+                      >
+                        {suggestion?.attributes?.createdAt &&
                           formatDate(suggestion?.attributes?.createdAt)}
                       </Link>
                     </TableCell>

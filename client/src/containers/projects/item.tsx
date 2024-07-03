@@ -13,6 +13,7 @@ import { projectSearchAtom, useSyncProject } from "@/app/store";
 import { PROJECT_PILLARS } from "@/constants/projects";
 
 import SearchHighlight from "@/components/ui/search-highlight";
+
 import { useSession } from "next-auth/react";
 
 const ProjectsItem = (project: ProjectListResponseDataItem) => {

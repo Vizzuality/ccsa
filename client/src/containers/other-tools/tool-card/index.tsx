@@ -24,7 +24,7 @@ import {
 
 type ToolCardProps = {
   tool?: OtherTool;
-  id: string;
+  id?: number;
 };
 
 const ToolCard = ({ tool, id }: ToolCardProps) => {

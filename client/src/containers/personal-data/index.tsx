@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -28,6 +28,7 @@ import { Input } from "@/components/ui/input";
 
 import { FORM_DATA_FIELDS, FORM_PASSWORD_FIELDS } from "./constants";
 
+import { LuEye, LuEyeOff } from "react-icons/lu";
 type FormSchemaData = z.infer<typeof formSchemaData>;
 
 const formSchemaData = z.object({
@@ -53,6 +54,13 @@ const formSchemaPassword = z
   });
 
 export default function PersonalDataForm() {
+  const [fieldsVisibility, setFieldsVisibility] = useState<{
+    [key: string]: boolean;
+  }>({
+    newPassword: false,
+    passwordConfirmation: false,
+  });
+
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const { data: session } = useSession();
@@ -233,12 +241,35 @@ export default function PersonalDataForm() {
                         <FormItem className="space-y-1.5">
                           <FormLabel className="text-xs font-semibold">{label}</FormLabel>
                           <FormControl>
-                            <Input
-                              {...field}
-                              type={type}
-                              className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
-                              placeholder={placeholder}
-                            />
+                            <div className="relative">
+                              <Input
+                                {...field}
+                                type={fieldsVisibility?.[name] ? type : "text"}
+                                className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                                placeholder={placeholder}
+                              />
+                              {!fieldsVisibility?.[name] ? (
+                                <LuEye
+                                  className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 transform"
+                                  onClick={() =>
+                                    setFieldsVisibility({
+                                      ...fieldsVisibility,
+                                      [name]: !fieldsVisibility?.[name],
+                                    })
+                                  }
+                                />
+                              ) : (
+                                <LuEyeOff
+                                  className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 transform"
+                                  onClick={() =>
+                                    setFieldsVisibility({
+                                      ...fieldsVisibility,
+                                      [name]: !fieldsVisibility?.[name],
+                                    })
+                                  }
+                                />
+                              )}
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>

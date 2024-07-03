@@ -5,7 +5,7 @@ type FormDataFieldsProps = {
   placeholder: string;
 }[];
 
-type FormPasswordFieldsProps = {
+export type FormPasswordFieldsProps = {
   label: string;
   name: "password" | "newPassword" | "passwordConfirmation";
   type: string;

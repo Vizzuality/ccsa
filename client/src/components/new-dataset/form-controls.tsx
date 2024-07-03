@@ -2,11 +2,12 @@
 
 import { FC } from "react";
 
-import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 
 import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
+
+import { Button } from "@/components/ui/button";
 
 type DashboardFormControls = {
   isNew?: boolean;
@@ -32,6 +33,7 @@ export const DashboardFormControls: FC<DashboardFormControls> = ({
   });
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
   const onClick = cancelVariant === "reject" ? handleReject : handleCancel;
+
   return (
     <div className="flex w-full flex-col border-b border-gray-300/20  sm:px-10 md:px-24 lg:px-32">
       <div className="flex items-center justify-between py-4">
@@ -47,9 +49,10 @@ export const DashboardFormControls: FC<DashboardFormControls> = ({
           </Button>
 
           <Button form={id} size="sm" type="submit">
-            {ME_DATA.role.type === "contributor" && "Continue"}
-            {ME_DATA.role.type === "admin" && isNew && "Submit"}
-            {ME_DATA.role.type === "admin" && !isNew && "Approve"}
+            {(ME_DATA?.role.type === "authenticated" || ME_DATA?.role.type === undefined) &&
+              "Continue"}
+            {ME_DATA?.role.type === "admin" && isNew && "Submit"}
+            {ME_DATA?.role.type === "admin" && !isNew && "Approve"}
           </Button>
         </div>
       </div>
