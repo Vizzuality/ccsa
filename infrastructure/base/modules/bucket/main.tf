@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "bucket" {
   }
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "state_bucket_encryption" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "asset_bucket_encryption" {
   bucket = aws_s3_bucket.bucket.bucket
 
   rule {
@@ -17,7 +17,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "state_bucket_encr
   }
 }
 
-resource "aws_s3_bucket_versioning" "state_bucket_versioning" {
+resource "aws_s3_bucket_versioning" "asset_bucket_versioning" {
   bucket = aws_s3_bucket.bucket.id
   versioning_configuration {
     status = "Enabled"
