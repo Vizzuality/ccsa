@@ -1,7 +1,7 @@
 locals {
   client_lb_url = "https://${var.domain}"
-  cms_lb_url    = "https://${var.domain}/cms/"
-  api_lb_url    = "https://${var.domain}/cms/api/"
+  cms_lb_url    = "https://${var.domain}/cms"
+  api_lb_url    = "https://${var.domain}/cms/api"
   # to test while DNS not set up
   # client_lb_url = "https://${module.beanstalk.environment_cname}"
   # cms_lb_url    = "https://${module.beanstalk.environment_cname}/cms"
