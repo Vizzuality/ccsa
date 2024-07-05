@@ -1,7 +1,7 @@
 locals {
   client_lb_url = "https://${var.domain}"
-  cms_lb_url    = "https://${var.domain}/cms/"
-  api_lb_url    = "https://${var.domain}/cms/api/"
+  cms_lb_url    = "https://${var.domain}/cms"
+  api_lb_url    = "https://${var.domain}/cms/api"
   # to test while DNS not set up
   # client_lb_url = "https://${module.beanstalk.environment_cname}"
   # cms_lb_url    = "https://${module.beanstalk.environment_cname}/cms"
@@ -77,6 +77,7 @@ locals {
     AWS_SES_DOMAIN            = var.domain
     AWS_SES_ACCESS_KEY_ID     = aws_iam_access_key.email_user_access_key.id
     AWS_SES_ACCESS_KEY_SECRET = aws_iam_access_key.email_user_access_key.secret
+    AWS_BUCKET                = module.data_bucket.bucket_name
   }
 
   cms_variable_map = {
