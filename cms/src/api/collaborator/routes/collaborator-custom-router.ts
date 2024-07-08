@@ -2,7 +2,7 @@ export default {
   routes: [
     {
       method: 'POST',
-      path: '/collaborators/update-or-create',
+      path: '/collaborators/approve-collaborator-suggestion',
       handler: 'collaborator.updateOrCreate',
       config: {
         policies: [],

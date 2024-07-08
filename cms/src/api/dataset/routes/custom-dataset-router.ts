@@ -9,5 +9,15 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/datasets/approve-dataset-suggestion',
+      handler: 'dataset.bulkCreate',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
+
   ],
 };

@@ -12,13 +12,15 @@ import { z } from "zod";
 import { cn } from "@/lib/classnames";
 
 import { useGetCategories } from "@/types/generated/category";
+import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
 import { Data } from "@/components/forms/dataset/types";
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
+import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
 import { Button } from "@/components/ui/button";
@@ -40,10 +42,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { useSession } from "next-auth/react";
 // import { usePostDatasets } from "@/types/generated/dataset";
-
 import NewDatasetDataFormWrapper from "./wrapper";
 
+import { isEmpty } from "@/lib/utils/objects";
 export default function DatasetSettingsForm({
   title,
   id,
@@ -63,12 +66,23 @@ export default function DatasetSettingsForm({
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
-  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS());
+  const { data: session } = useSession();
+  const user = session?.user;
+  const { data: meData } = useGetUsersId(`${user?.id}`, {
+    populate: "role",
+  });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+  const isDatasetNew = isEmpty(data);
 
-  const categoriesOptions = categoriesData?.data?.map((c) => ({
-    label: c.attributes?.name || "",
-    value: c.id || 0,
-  }));
+  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
+    query: {
+      select: (data) =>
+        data?.data?.map((data) => ({
+          label: data.attributes?.name as string,
+          value: data.id as number,
+        })),
+    },
+  });
 
   const valueTypes = ["text", "number", "boolean", "resource"] as const;
   const valueTypesOptions = valueTypes.map((type) => ({
@@ -77,7 +91,7 @@ export default function DatasetSettingsForm({
   }));
 
   const formSchema = z.object({
-    name: z.string().min(1, { message: "Please enter your name" }),
+    name: z.string().min(1, { message: "Please enter dataset name" }),
     valueType: z
       .enum(valueTypes)
       .optional()
@@ -126,7 +140,15 @@ export default function DatasetSettingsForm({
 
   return (
     <>
-      {header && <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />}
+      {header && (
+        <DashboardFormControls
+          id={id}
+          title={title}
+          isNew={isDatasetNew}
+          cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
+          handleCancel={handleCancel}
+        />
+      )}
       <NewDatasetDataFormWrapper header={header}>
         {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}
@@ -201,7 +223,7 @@ export default function DatasetSettingsForm({
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
                         <SelectContent>
-                          {categoriesOptions?.map(({ label, value }) => (
+                          {categoriesData?.map(({ label, value }) => (
                             <SelectItem key={value} value={`${value}`}>
                               {label}
                             </SelectItem>

@@ -695,6 +695,11 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'oneToMany',
       'api::dataset.dataset'
     >;
+    dataset_edit_suggestions: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::dataset-edit-suggestion.dataset-edit-suggestion'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -767,11 +772,6 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
     name: Attribute.String;
     link: Attribute.String;
     type: Attribute.Enumeration<['donor', 'collaborator']>;
-    collaborator: Attribute.Relation<
-      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
-      'manyToOne',
-      'api::collaborator.collaborator'
-    >;
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &
       Attribute.DefaultTo<'pending'>;
@@ -779,6 +779,11 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
       'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
       'oneToOne',
       'plugin::users-permissions.user'
+    >;
+    collaborator: Attribute.Relation<
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
+      'manyToOne',
+      'api::collaborator.collaborator'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -919,18 +924,27 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &
       Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    category: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'manyToOne',
+      'api::category.category'
+    >;
+    layers: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'oneToMany',
+      'api::layer.layer'
+    >;
     dataset: Attribute.Relation<
       'api::dataset-edit-suggestion.dataset-edit-suggestion',
       'manyToOne',
       'api::dataset.dataset'
     >;
     colors: Attribute.JSON;
-    category: Attribute.Integer;
-    author: Attribute.Relation<
-      'api::dataset-edit-suggestion.dataset-edit-suggestion',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1059,6 +1073,11 @@ export interface ApiLayerLayer extends Schema.CollectionType {
       'api::dataset.dataset'
     >;
     colors: Attribute.JSON;
+    dataset_edit_suggestion: Attribute.Relation<
+      'api::layer.layer',
+      'manyToOne',
+      'api::dataset-edit-suggestion.dataset-edit-suggestion'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1170,6 +1189,11 @@ export interface ApiPillarPillar extends Schema.CollectionType {
       'api::project.project'
     >;
     description: Attribute.RichText & Attribute.Required;
+    project_edit_suggestions: Attribute.Relation<
+      'api::pillar.pillar',
+      'oneToMany',
+      'api::project-edit-suggestion.project-edit-suggestion'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1274,15 +1298,30 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &
       Attribute.DefaultTo<'pending'>;
-    project: Attribute.Relation<
-      'api::project-edit-suggestion.project-edit-suggestion',
-      'manyToOne',
-      'api::project.project'
-    >;
     author: Attribute.Relation<
       'api::project-edit-suggestion.project-edit-suggestion',
       'oneToOne',
       'plugin::users-permissions.user'
+    >;
+    countries: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToMany',
+      'api::country.country'
+    >;
+    pillar: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'manyToOne',
+      'api::pillar.pillar'
+    >;
+    sdgs: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'manyToMany',
+      'api::sdg.sdg'
+    >;
+    project: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'manyToOne',
+      'api::project.project'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1352,6 +1391,11 @@ export interface ApiSdgSdg extends Schema.CollectionType {
       'manyToMany',
       'api::project.project'
     >;
+    project_edit_suggestions: Attribute.Relation<
+      'api::sdg.sdg',
+      'manyToMany',
+      'api::project-edit-suggestion.project-edit-suggestion'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1378,11 +1422,6 @@ export interface ApiToolEditSuggestionToolEditSuggestion
     name: Attribute.String;
     description: Attribute.String;
     link: Attribute.String;
-    other_tool: Attribute.Relation<
-      'api::tool-edit-suggestion.tool-edit-suggestion',
-      'manyToOne',
-      'api::other-tool.other-tool'
-    >;
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &
       Attribute.DefaultTo<'pending'>;
@@ -1390,6 +1429,16 @@ export interface ApiToolEditSuggestionToolEditSuggestion
       'api::tool-edit-suggestion.tool-edit-suggestion',
       'oneToOne',
       'plugin::users-permissions.user'
+    >;
+    other_tools_category: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'api::other-tools-category.other-tools-category'
+    >;
+    other_tool: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'manyToOne',
+      'api::other-tool.other-tool'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

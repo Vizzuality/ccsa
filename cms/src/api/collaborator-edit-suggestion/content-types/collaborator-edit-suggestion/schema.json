@@ -25,12 +25,6 @@
         "collaborator"
       ]
     },
-    "collaborator": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::collaborator.collaborator",
-      "inversedBy": "collaborator_edit_suggestions"
-    },
     "review_status": {
       "type": "enumeration",
       "enum": [
@@ -45,6 +39,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "collaborator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::collaborator.collaborator",
+      "inversedBy": "collaborator_edit_suggestions"
     }
   }
 }

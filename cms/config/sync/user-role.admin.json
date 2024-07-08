@@ -49,9 +49,6 @@
       "action": "api::collaborator.collaborator.update"
     },
     {
-      "action": "api::collaborator.collaborator.updateOrCreate"
-    },
-    {
       "action": "api::country.country.create"
     },
     {
@@ -65,9 +62,6 @@
     },
     {
       "action": "api::country.country.update"
-    },
-    {
-      "action": "api::csv.csv.csvToJson"
     },
     {
       "action": "api::csv.csv.jsonToCsv"
@@ -103,6 +97,9 @@
       "action": "api::dataset-value.dataset-value.update"
     },
     {
+      "action": "api::dataset.dataset.bulkCreate"
+    },
+    {
       "action": "api::dataset.dataset.create"
     },
     {
@@ -116,9 +113,6 @@
     },
     {
       "action": "api::dataset.dataset.update"
-    },
-    {
-      "action": "api::dataset.dataset.updateOrCreate"
     },
     {
       "action": "api::download-email.download-email.create"
@@ -164,9 +158,6 @@
     },
     {
       "action": "api::other-tool.other-tool.update"
-    },
-    {
-      "action": "api::other-tool.other-tool.updateOrCreate"
     },
     {
       "action": "api::other-tools-category.other-tools-category.create"
@@ -227,9 +218,6 @@
     },
     {
       "action": "api::project.project.update"
-    },
-    {
-      "action": "api::project.project.updateOrCreate"
     },
     {
       "action": "api::resource.resource.create"

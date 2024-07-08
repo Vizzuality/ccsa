@@ -104,49 +104,6 @@
           "sortable": true
         }
       },
-      "dataset": {
-        "edit": {
-          "label": "dataset",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "dataset",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "colors": {
-        "edit": {
-          "label": "colors",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "colors",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "category": {
-        "edit": {
-          "label": "category",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "category",
-          "searchable": false,
-          "sortable": false
-        }
-      },
       "author": {
         "edit": {
           "label": "author",
@@ -158,6 +115,51 @@
         },
         "list": {
           "label": "author",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "category": {
+        "edit": {
+          "label": "category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "category",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "layers": {
+        "edit": {
+          "label": "layers",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "layers",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "dataset": {
+        "edit": {
+          "label": "dataset",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "dataset",
           "searchable": true,
           "sortable": true
         }
@@ -222,17 +224,18 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "unit",
-        "value_type"
-      ],
+      "list": ["id", "name", "unit", "value_type"],
       "edit": [
         [
           {
             "name": "name",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "data",
+            "size": 12
           }
         ],
         [
@@ -255,16 +258,6 @@
           {
             "name": "review_status",
             "size": 6
-          },
-          {
-            "name": "dataset",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "data",
-            "size": 12
           }
         ],
         [
@@ -275,13 +268,21 @@
         ],
         [
           {
+            "name": "author",
+            "size": 6
+          },
+          {
             "name": "category",
-            "size": 4
+            "size": 6
           }
         ],
         [
           {
-            "name": "author",
+            "name": "layers",
+            "size": 6
+          },
+          {
+            "name": "dataset",
             "size": 6
           }
         ]

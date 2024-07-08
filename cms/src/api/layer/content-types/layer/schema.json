@@ -17,12 +17,7 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": [
-        "mapbox",
-        "deckgl",
-        "countries",
-        "component"
-      ],
+      "enum": ["mapbox", "deckgl", "countries", "component"],
       "required": true,
       "default": "mapbox"
     },
@@ -50,6 +45,12 @@
     },
     "colors": {
       "type": "json"
+    },
+    "dataset_edit_suggestion": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "inversedBy": "layers"
     }
   }
 }

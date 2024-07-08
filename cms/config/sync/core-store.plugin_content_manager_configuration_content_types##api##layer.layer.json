@@ -124,13 +124,27 @@
           "label": "colors",
           "description": "",
           "placeholder": "",
-          "visible": true,
+          "visible": true, 
           "editable": true
         },
         "list": {
           "label": "colors",
           "searchable": false,
           "sortable": false
+        },
+      "dataset_edit_suggestion": {
+        "edit": {
+          "label": "dataset_edit_suggestion",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "dataset_edit_suggestion",
+          "searchable": true,
+          "sortable": true
         }
       },
       "createdAt": {
@@ -244,8 +258,12 @@
         ],
         [
           {
-            "name": "colors",
+            "name": "colors", 
             "size": 12
+          },
+          {
+            "name": "dataset_edit_suggestion",
+            "size": 6
           }
         ]
       ]

@@ -62,7 +62,7 @@ const CollaboratorsList = () => {
             isError={isError}
           >
             <Accordion
-              className="space-y-4"
+              className="pointer-events-auto space-y-4"
               type="multiple"
               defaultValue={["collaborator", "donor"]}
             >
