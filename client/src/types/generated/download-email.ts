@@ -18,7 +18,6 @@ import type {
   DownloadEmailRequest,
   DownloadEmailResponse,
   Error,
-  GetDownloadEmailsIdParams,
   GetDownloadEmailsParams,
 } from "./strapi.schemas";
 import { API } from "../../services/api/index";
@@ -162,18 +161,17 @@ export const usePostDownloadEmails = <TError = ErrorType<Error>, TContext = unkn
 };
 export const getDownloadEmailsId = (
   id: number,
-  params?: GetDownloadEmailsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
   return API<DownloadEmailResponse>(
-    { url: `/download-emails/${id}`, method: "get", params, signal },
+    { url: `/download-emails/${id}`, method: "get", signal },
     options,
   );
 };
 
-export const getGetDownloadEmailsIdQueryKey = (id: number, params?: GetDownloadEmailsIdParams) => {
-  return [`/download-emails/${id}`, ...(params ? [params] : [])] as const;
+export const getGetDownloadEmailsIdQueryKey = (id: number) => {
+  return [`/download-emails/${id}`] as const;
 };
 
 export const getGetDownloadEmailsIdQueryOptions = <
@@ -181,7 +179,6 @@ export const getGetDownloadEmailsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetDownloadEmailsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmailsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -189,10 +186,10 @@ export const getGetDownloadEmailsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetDownloadEmailsIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetDownloadEmailsIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getDownloadEmailsId>>> = ({ signal }) =>
-    getDownloadEmailsId(id, params, requestOptions, signal);
+    getDownloadEmailsId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getDownloadEmailsId>>,
@@ -211,13 +208,12 @@ export const useGetDownloadEmailsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetDownloadEmailsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getDownloadEmailsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetDownloadEmailsIdQueryOptions(id, params, options);
+  const queryOptions = getGetDownloadEmailsIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

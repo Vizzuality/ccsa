@@ -18,7 +18,6 @@ import type {
   CollaboratorRequest,
   CollaboratorResponse,
   Error,
-  GetCollaboratorsIdParams,
   GetCollaboratorsParams,
 } from "./strapi.schemas";
 import { API } from "../../services/api/index";
@@ -160,18 +159,14 @@ export const usePostCollaborators = <TError = ErrorType<Error>, TContext = unkno
 };
 export const getCollaboratorsId = (
   id: number,
-  params?: GetCollaboratorsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<CollaboratorResponse>(
-    { url: `/collaborators/${id}`, method: "get", params, signal },
-    options,
-  );
+  return API<CollaboratorResponse>({ url: `/collaborators/${id}`, method: "get", signal }, options);
 };
 
-export const getGetCollaboratorsIdQueryKey = (id: number, params?: GetCollaboratorsIdParams) => {
-  return [`/collaborators/${id}`, ...(params ? [params] : [])] as const;
+export const getGetCollaboratorsIdQueryKey = (id: number) => {
+  return [`/collaborators/${id}`] as const;
 };
 
 export const getGetCollaboratorsIdQueryOptions = <
@@ -179,7 +174,6 @@ export const getGetCollaboratorsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetCollaboratorsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getCollaboratorsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -187,10 +181,10 @@ export const getGetCollaboratorsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCollaboratorsIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetCollaboratorsIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCollaboratorsId>>> = ({ signal }) =>
-    getCollaboratorsId(id, params, requestOptions, signal);
+    getCollaboratorsId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getCollaboratorsId>>,
@@ -209,13 +203,12 @@ export const useGetCollaboratorsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetCollaboratorsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getCollaboratorsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCollaboratorsIdQueryOptions(id, params, options);
+  const queryOptions = getGetCollaboratorsIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

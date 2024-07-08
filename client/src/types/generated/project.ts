@@ -15,7 +15,6 @@ import type {
 } from "@tanstack/react-query";
 import type {
   Error,
-  GetProjectsIdParams,
   GetProjectsParams,
   ProjectListResponse,
   ProjectRequest,
@@ -155,15 +154,14 @@ export const usePostProjects = <TError = ErrorType<Error>, TContext = unknown>(o
 };
 export const getProjectsId = (
   id: number,
-  params?: GetProjectsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<ProjectResponse>({ url: `/projects/${id}`, method: "get", params, signal }, options);
+  return API<ProjectResponse>({ url: `/projects/${id}`, method: "get", signal }, options);
 };
 
-export const getGetProjectsIdQueryKey = (id: number, params?: GetProjectsIdParams) => {
-  return [`/projects/${id}`, ...(params ? [params] : [])] as const;
+export const getGetProjectsIdQueryKey = (id: number) => {
+  return [`/projects/${id}`] as const;
 };
 
 export const getGetProjectsIdQueryOptions = <
@@ -171,7 +169,6 @@ export const getGetProjectsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetProjectsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getProjectsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -179,10 +176,10 @@ export const getGetProjectsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetProjectsIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetProjectsIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getProjectsId>>> = ({ signal }) =>
-    getProjectsId(id, params, requestOptions, signal);
+    getProjectsId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getProjectsId>>,
@@ -199,13 +196,12 @@ export const useGetProjectsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetProjectsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getProjectsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetProjectsIdQueryOptions(id, params, options);
+  const queryOptions = getGetProjectsIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

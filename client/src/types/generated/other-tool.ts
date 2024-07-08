@@ -15,7 +15,6 @@ import type {
 } from "@tanstack/react-query";
 import type {
   Error,
-  GetOtherToolsIdParams,
   GetOtherToolsParams,
   OtherToolListResponse,
   OtherToolRequest,
@@ -158,18 +157,14 @@ export const usePostOtherTools = <TError = ErrorType<Error>, TContext = unknown>
 };
 export const getOtherToolsId = (
   id: number,
-  params?: GetOtherToolsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<OtherToolResponse>(
-    { url: `/other-tools/${id}`, method: "get", params, signal },
-    options,
-  );
+  return API<OtherToolResponse>({ url: `/other-tools/${id}`, method: "get", signal }, options);
 };
 
-export const getGetOtherToolsIdQueryKey = (id: number, params?: GetOtherToolsIdParams) => {
-  return [`/other-tools/${id}`, ...(params ? [params] : [])] as const;
+export const getGetOtherToolsIdQueryKey = (id: number) => {
+  return [`/other-tools/${id}`] as const;
 };
 
 export const getGetOtherToolsIdQueryOptions = <
@@ -177,7 +172,6 @@ export const getGetOtherToolsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetOtherToolsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getOtherToolsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -185,10 +179,10 @@ export const getGetOtherToolsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetOtherToolsIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetOtherToolsIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getOtherToolsId>>> = ({ signal }) =>
-    getOtherToolsId(id, params, requestOptions, signal);
+    getOtherToolsId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getOtherToolsId>>,
@@ -205,13 +199,12 @@ export const useGetOtherToolsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetOtherToolsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getOtherToolsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetOtherToolsIdQueryOptions(id, params, options);
+  const queryOptions = getGetOtherToolsIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

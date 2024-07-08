@@ -18,7 +18,6 @@ import type {
   DatasetValueRequest,
   DatasetValueResponse,
   Error,
-  GetDatasetValuesIdParams,
   GetDatasetValuesParams,
 } from "./strapi.schemas";
 import { API } from "../../services/api/index";
@@ -160,18 +159,17 @@ export const usePostDatasetValues = <TError = ErrorType<Error>, TContext = unkno
 };
 export const getDatasetValuesId = (
   id: number,
-  params?: GetDatasetValuesIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
   return API<DatasetValueResponse>(
-    { url: `/dataset-values/${id}`, method: "get", params, signal },
+    { url: `/dataset-values/${id}`, method: "get", signal },
     options,
   );
 };
 
-export const getGetDatasetValuesIdQueryKey = (id: number, params?: GetDatasetValuesIdParams) => {
-  return [`/dataset-values/${id}`, ...(params ? [params] : [])] as const;
+export const getGetDatasetValuesIdQueryKey = (id: number) => {
+  return [`/dataset-values/${id}`] as const;
 };
 
 export const getGetDatasetValuesIdQueryOptions = <
@@ -179,7 +177,6 @@ export const getGetDatasetValuesIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetDatasetValuesIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getDatasetValuesId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -187,10 +184,10 @@ export const getGetDatasetValuesIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetDatasetValuesIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetDatasetValuesIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getDatasetValuesId>>> = ({ signal }) =>
-    getDatasetValuesId(id, params, requestOptions, signal);
+    getDatasetValuesId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getDatasetValuesId>>,
@@ -209,13 +206,12 @@ export const useGetDatasetValuesId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetDatasetValuesIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getDatasetValuesId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetDatasetValuesIdQueryOptions(id, params, options);
+  const queryOptions = getGetDatasetValuesIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

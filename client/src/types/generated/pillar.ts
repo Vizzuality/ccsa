@@ -15,7 +15,6 @@ import type {
 } from "@tanstack/react-query";
 import type {
   Error,
-  GetPillarsIdParams,
   GetPillarsParams,
   PillarListResponse,
   PillarRequest,
@@ -155,15 +154,14 @@ export const usePostPillars = <TError = ErrorType<Error>, TContext = unknown>(op
 };
 export const getPillarsId = (
   id: number,
-  params?: GetPillarsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<PillarResponse>({ url: `/pillars/${id}`, method: "get", params, signal }, options);
+  return API<PillarResponse>({ url: `/pillars/${id}`, method: "get", signal }, options);
 };
 
-export const getGetPillarsIdQueryKey = (id: number, params?: GetPillarsIdParams) => {
-  return [`/pillars/${id}`, ...(params ? [params] : [])] as const;
+export const getGetPillarsIdQueryKey = (id: number) => {
+  return [`/pillars/${id}`] as const;
 };
 
 export const getGetPillarsIdQueryOptions = <
@@ -171,7 +169,6 @@ export const getGetPillarsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetPillarsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getPillarsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -179,10 +176,10 @@ export const getGetPillarsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetPillarsIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetPillarsIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getPillarsId>>> = ({ signal }) =>
-    getPillarsId(id, params, requestOptions, signal);
+    getPillarsId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getPillarsId>>,
@@ -199,13 +196,12 @@ export const useGetPillarsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetPillarsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getPillarsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetPillarsIdQueryOptions(id, params, options);
+  const queryOptions = getGetPillarsIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

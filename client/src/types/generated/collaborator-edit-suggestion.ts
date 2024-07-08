@@ -18,7 +18,6 @@ import type {
   CollaboratorEditSuggestionRequest,
   CollaboratorEditSuggestionResponse,
   Error,
-  GetCollaboratorEditSuggestionsIdParams,
   GetCollaboratorEditSuggestionsParams,
 } from "./strapi.schemas";
 import { API } from "../../services/api/index";
@@ -176,21 +175,17 @@ export const usePostCollaboratorEditSuggestions = <
 };
 export const getCollaboratorEditSuggestionsId = (
   id: number,
-  params?: GetCollaboratorEditSuggestionsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
   return API<CollaboratorEditSuggestionResponse>(
-    { url: `/collaborator-edit-suggestions/${id}`, method: "get", params, signal },
+    { url: `/collaborator-edit-suggestions/${id}`, method: "get", signal },
     options,
   );
 };
 
-export const getGetCollaboratorEditSuggestionsIdQueryKey = (
-  id: number,
-  params?: GetCollaboratorEditSuggestionsIdParams,
-) => {
-  return [`/collaborator-edit-suggestions/${id}`, ...(params ? [params] : [])] as const;
+export const getGetCollaboratorEditSuggestionsIdQueryKey = (id: number) => {
+  return [`/collaborator-edit-suggestions/${id}`] as const;
 };
 
 export const getGetCollaboratorEditSuggestionsIdQueryOptions = <
@@ -198,7 +193,6 @@ export const getGetCollaboratorEditSuggestionsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetCollaboratorEditSuggestionsIdParams,
   options?: {
     query?: UseQueryOptions<
       Awaited<ReturnType<typeof getCollaboratorEditSuggestionsId>>,
@@ -210,12 +204,11 @@ export const getGetCollaboratorEditSuggestionsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey =
-    queryOptions?.queryKey ?? getGetCollaboratorEditSuggestionsIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetCollaboratorEditSuggestionsIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCollaboratorEditSuggestionsId>>> = ({
     signal,
-  }) => getCollaboratorEditSuggestionsId(id, params, requestOptions, signal);
+  }) => getCollaboratorEditSuggestionsId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getCollaboratorEditSuggestionsId>>,
@@ -234,7 +227,6 @@ export const useGetCollaboratorEditSuggestionsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetCollaboratorEditSuggestionsIdParams,
   options?: {
     query?: UseQueryOptions<
       Awaited<ReturnType<typeof getCollaboratorEditSuggestionsId>>,
@@ -244,7 +236,7 @@ export const useGetCollaboratorEditSuggestionsId = <
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCollaboratorEditSuggestionsIdQueryOptions(id, params, options);
+  const queryOptions = getGetCollaboratorEditSuggestionsIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

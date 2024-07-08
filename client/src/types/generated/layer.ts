@@ -15,7 +15,6 @@ import type {
 } from "@tanstack/react-query";
 import type {
   Error,
-  GetLayersIdParams,
   GetLayersParams,
   LayerListResponse,
   LayerRequest,
@@ -152,15 +151,14 @@ export const usePostLayers = <TError = ErrorType<Error>, TContext = unknown>(opt
 };
 export const getLayersId = (
   id: number,
-  params?: GetLayersIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<LayerResponse>({ url: `/layers/${id}`, method: "get", params, signal }, options);
+  return API<LayerResponse>({ url: `/layers/${id}`, method: "get", signal }, options);
 };
 
-export const getGetLayersIdQueryKey = (id: number, params?: GetLayersIdParams) => {
-  return [`/layers/${id}`, ...(params ? [params] : [])] as const;
+export const getGetLayersIdQueryKey = (id: number) => {
+  return [`/layers/${id}`] as const;
 };
 
 export const getGetLayersIdQueryOptions = <
@@ -168,7 +166,6 @@ export const getGetLayersIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetLayersIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getLayersId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -176,10 +173,10 @@ export const getGetLayersIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetLayersIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetLayersIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getLayersId>>> = ({ signal }) =>
-    getLayersId(id, params, requestOptions, signal);
+    getLayersId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getLayersId>>,
@@ -196,13 +193,12 @@ export const useGetLayersId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetLayersIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getLayersId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetLayersIdQueryOptions(id, params, options);
+  const queryOptions = getGetLayersIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

@@ -15,7 +15,6 @@ import type {
 } from "@tanstack/react-query";
 import type {
   Error,
-  GetSdgsIdParams,
   GetSdgsParams,
   SdgListResponse,
   SdgRequest,
@@ -148,15 +147,14 @@ export const usePostSdgs = <TError = ErrorType<Error>, TContext = unknown>(optio
 };
 export const getSdgsId = (
   id: number,
-  params?: GetSdgsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<SdgResponse>({ url: `/sdgs/${id}`, method: "get", params, signal }, options);
+  return API<SdgResponse>({ url: `/sdgs/${id}`, method: "get", signal }, options);
 };
 
-export const getGetSdgsIdQueryKey = (id: number, params?: GetSdgsIdParams) => {
-  return [`/sdgs/${id}`, ...(params ? [params] : [])] as const;
+export const getGetSdgsIdQueryKey = (id: number) => {
+  return [`/sdgs/${id}`] as const;
 };
 
 export const getGetSdgsIdQueryOptions = <
@@ -164,7 +162,6 @@ export const getGetSdgsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetSdgsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getSdgsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -172,10 +169,10 @@ export const getGetSdgsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetSdgsIdQueryKey(id, params);
+  const queryKey = queryOptions?.queryKey ?? getGetSdgsIdQueryKey(id);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getSdgsId>>> = ({ signal }) =>
-    getSdgsId(id, params, requestOptions, signal);
+    getSdgsId(id, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getSdgsId>>,
@@ -192,13 +189,12 @@ export const useGetSdgsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
-  params?: GetSdgsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getSdgsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetSdgsIdQueryOptions(id, params, options);
+  const queryOptions = getGetSdgsIdQueryOptions(id, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
