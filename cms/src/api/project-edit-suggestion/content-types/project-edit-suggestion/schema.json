@@ -53,16 +53,33 @@
       "default": "pending",
       "required": true
     },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "countries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::country.country"
+    },
+    "pillar": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pillar.pillar",
+      "inversedBy": "project_edit_suggestions"
+    },
+    "sdgs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sdg.sdg",
+      "inversedBy": "project_edit_suggestions"
+    },
     "project": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::project.project",
       "inversedBy": "project_edit_suggestions"
-    },
-    "author": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
     }
   }
 }

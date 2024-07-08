@@ -103,6 +103,9 @@
       "action": "api::dataset-value.dataset-value.update"
     },
     {
+      "action": "api::dataset.dataset.bulkCreate"
+    },
+    {
       "action": "api::dataset.dataset.create"
     },
     {

@@ -119,20 +119,6 @@
           "sortable": true
         }
       },
-      "colors": {
-        "edit": {
-          "label": "colors",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "colors",
-          "searchable": false,
-          "sortable": false
-        }
-      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -193,12 +179,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "type",
-        "updatedAt"
-      ],
+      "list": ["id", "name", "type", "updatedAt"],
       "edit": [
         [
           {
@@ -239,12 +220,6 @@
         [
           {
             "name": "interaction_config",
-            "size": 12
-          }
-        ],
-        [
-          {
-            "name": "colors",
             "size": 12
           }
         ]
