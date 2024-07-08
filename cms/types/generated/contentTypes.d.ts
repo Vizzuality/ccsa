@@ -926,11 +926,6 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
     review_status: Attribute.Enumeration<["pending", "approved", "declined"]> &
       Attribute.Required &
       Attribute.DefaultTo<"pending">;
-    dataset: Attribute.Relation<
-      "api::dataset-edit-suggestion.dataset-edit-suggestion",
-      "manyToOne",
-      "api::dataset.dataset"
-    >;
     author: Attribute.Relation<
       "api::dataset-edit-suggestion.dataset-edit-suggestion",
       "oneToOne",
@@ -951,6 +946,7 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
       "manyToOne",
       "api::dataset.dataset"
     >;
+    colors: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1077,6 +1073,12 @@ export interface ApiLayerLayer extends Schema.CollectionType {
       "api::layer.layer",
       "manyToOne",
       "api::dataset.dataset"
+    >;
+    colors: Attribute.JSON;
+    dataset_edit_suggestion: Attribute.Relation<
+      "api::layer.layer",
+      "manyToOne",
+      "api::dataset-edit-suggestion.dataset-edit-suggestion"
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

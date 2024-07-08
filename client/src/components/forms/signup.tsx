@@ -1,17 +1,17 @@
 "use client";
 
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-// import {
-//   loadCaptchaEnginge,
-//   LoadCanvasTemplate,
-//   validateCaptcha,
-// } from "@vinhpd/react-simple-captcha";
+import {
+  LoadCanvasTemplate,
+  validateCaptcha,
+  loadCaptchaEnginge,
+} from "@vinhpd/react-simple-captcha";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
 
@@ -40,7 +40,7 @@ const formSchema = z
       .string()
       .nonempty({ message: "Please enter your confirmed password" })
       .min(6, { message: "Please enter a password with at least 6 characters" }),
-    // captcha: z.string().nonempty({ message: "Please enter the captcha" }),
+    captcha: z.string().nonempty({ message: "Please enter the captcha" }),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data["confirm-password"]) {
@@ -50,15 +50,15 @@ const formSchema = z
         path: ["confirm-password"], // Path to the specific field
       });
     }
-
-    // if (!validateCaptcha(data.captcha)) {
-    //   ctx.addIssue({
-    //     code: z.ZodIssueCode.custom,
-    //     message: "Captcha does not match",
-    //     path: ["captcha"], // Path to the specific field
-    //   });
-    // }
   });
+
+interface ExtendedProps {
+  reloadColor?: string;
+}
+
+const LoadCanvasTemplateComp: React.FC<ExtendedProps> = (props) => {
+  return <LoadCanvasTemplate reloadColor="#0996CC" {...props} />;
+};
 
 export default function Signup() {
   const { replace } = useRouter();
@@ -74,37 +74,41 @@ export default function Signup() {
       organization: "",
       password: "",
       "confirm-password": "",
-      // captcha: "",
+      captcha: "",
     },
   });
 
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // if (!!validateCaptcha(values.captcha)) {
-    // ✅ This will be type-safe and validated.
-    // 3. Submit the form.
-    signupMutation.mutate(
-      {
-        data: values,
-      },
-      {
-        onSuccess: () => {
-          signIn("credentials", {
-            email: values.email,
-            password: values.password,
-            callbackUrl: searchParams.get("callbackUrl") ?? "/",
-          });
+    if (!!validateCaptcha(values.captcha)) {
+      // ✅ This will be type-safe and validated.
+      // 3. Submit the form.
+      signupMutation.mutate(
+        {
+          data: values,
         },
-        onError: (error) => {
-          const searchParams = new URLSearchParams();
-          searchParams.set("error", error?.response?.data?.error?.message ?? "Unknown error");
-          replace(`/signup?${searchParams.toString()}`);
+        {
+          onSuccess: () => {
+            signIn("credentials", {
+              email: values.email,
+              password: values.password,
+              callbackUrl: searchParams.get("callbackUrl") ?? "/",
+            });
+          },
+          onError: (error) => {
+            const searchParams = new URLSearchParams();
+            searchParams.set("error", error?.response?.data?.error?.message ?? "Unknown error");
+            replace(`/signup?${searchParams.toString()}`);
+          },
         },
-      },
-    );
-    // } else {
-    //   console.log("wrong captcha");
-    // }
+      );
+    } else {
+      form.setError("captcha", { message: "Captcha does not match" });
+    }
   }
 
   return (
@@ -208,9 +212,9 @@ export default function Signup() {
               )}
             />
 
-            {/* <div className="grid grid-cols-2 gap-2 rounded bg-gray-300/20 p-2.5">
+            <div className="grid grid-cols-2 gap-2 rounded bg-gray-300/20 p-2.5">
               <div className="flex justify-center rounded bg-white pt-2 text-center text-xxs">
-                <LoadCanvasTemplate reloadColor="#0996CC" style={{ color: "red" }} />
+                <LoadCanvasTemplateComp />
               </div>
               <FormField
                 control={form.control}
@@ -230,7 +234,7 @@ export default function Signup() {
                   </FormItem>
                 )}
               />
-            </div> */}
+            </div>
           </fieldset>
           <div className="pb-6">
             <Button className="w-full" type="submit">

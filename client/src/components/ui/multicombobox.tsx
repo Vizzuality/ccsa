@@ -17,10 +17,10 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface MultiComboboxProps {
-  values?: string[];
-  options?: { value: string; label: string }[];
+  values?: (string | number)[];
+  options?: { value: string | number; label: string }[];
   placeholder?: string;
-  onChange: (value: string[]) => void;
+  onChange: (value: (string | number)[]) => void;
 }
 
 export function MultiCombobox({
@@ -35,7 +35,10 @@ export function MultiCombobox({
     if (!values || !values.length) return placeholder || "Select...";
 
     if (values.length === 1) {
-      return options?.find((c) => c?.value.toLowerCase() === values[0].toLowerCase())?.label;
+      const selectedOption = options?.find(
+        (c) => c?.value.toString().toLowerCase() === values[0].toString().toLowerCase(),
+      );
+      return selectedOption?.label;
     }
 
     return `${values.length} selected`;

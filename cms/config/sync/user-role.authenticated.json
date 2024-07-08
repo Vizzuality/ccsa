@@ -13,6 +13,9 @@
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.create"
     },
     {
+      "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.delete"
+    },
+    {
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.find"
     },
     {
@@ -37,10 +40,10 @@
       "action": "api::csv.csv.csvToJson"
     },
     {
-      "action": "api::csv.csv.jsonToCsv"
+      "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.create"
     },
     {
-      "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.create"
+      "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.delete"
     },
     {
       "action": "api::dataset-edit-suggestion.dataset-edit-suggestion.find"

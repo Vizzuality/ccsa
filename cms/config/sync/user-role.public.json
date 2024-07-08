@@ -88,9 +88,6 @@
       "action": "api::sdg.sdg.findOne"
     },
     {
-      "action": "api::welcome-message.welcome-message.find"
-    },
-    {
       "action": "plugin::email.email.send"
     },
     {

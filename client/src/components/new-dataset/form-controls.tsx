@@ -2,33 +2,62 @@
 
 import { FC } from "react";
 
+import { useSession } from "next-auth/react";
+
+import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
+
 import { Button } from "@/components/ui/button";
 
-type NewDatasetFormControls = {
+type DashboardFormControls = {
+  isNew?: boolean;
+  cancelVariant?: "reject" | "cancel";
   id: string;
   title: string;
+  handleReject?: () => void;
   handleCancel: () => void;
 };
 
-export const NewDatasetFormControls: FC<NewDatasetFormControls> = ({
+export const DashboardFormControls: FC<DashboardFormControls> = ({
+  isNew,
+  cancelVariant,
   title,
   id,
+  handleReject,
   handleCancel,
-}: NewDatasetFormControls) => {
-  return (
-    <div className="flex items-center justify-between border-b border-gray-300/20 py-4 sm:px-10 md:px-24 lg:px-32">
-      <h1 className="text-3xl font-bold -tracking-[0.0375rem]">{title}</h1>
-      <div className="flex items-center space-x-2 text-sm sm:flex-row">
-        <Button size="sm" variant="primary-outline" onClick={handleCancel}>
-          Cancel
-        </Button>
+}: DashboardFormControls) => {
+  const { data } = useSession();
+  const { user } = data ?? {};
+  const { data: meData } = useGetUsersId(`${user?.id}`, {
+    populate: "role",
+  });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+  const onClick = cancelVariant === "reject" ? handleReject : handleCancel;
 
-        <Button form={id} size="sm" type="submit">
-          Continue
-        </Button>
+  return (
+    <div className="flex w-full flex-col border-b border-gray-300/20  sm:px-10 md:px-24 lg:px-32">
+      <div className="flex items-center justify-between py-4">
+        <h1 className="text-3xl font-bold -tracking-[0.0375rem]">{title}</h1>
+        <div className="flex items-center space-x-2 text-sm sm:flex-row">
+          <Button
+            size="sm"
+            variant={cancelVariant === "reject" ? "destructive" : "primary-outline"}
+            onClick={onClick}
+          >
+            {cancelVariant === "cancel" && "Cancel"}
+            {cancelVariant === "reject" && "Reject"}
+          </Button>
+
+          <Button form={id} size="sm" type="submit">
+            {(ME_DATA?.role.type === "authenticated" || ME_DATA?.role.type === undefined) &&
+              "Continue"}
+            {ME_DATA?.role.type === "admin" && isNew && "Submit"}
+            {ME_DATA?.role.type === "admin" && !isNew && "Approve"}
+          </Button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default NewDatasetFormControls;
+export default DashboardFormControls;

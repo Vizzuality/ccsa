@@ -10,7 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
 import { formatDate } from "@/lib/utils/formats";
-import { getKeys } from "@/lib/utils/objects";
+import { getObjectDifferences } from "@/lib/utils/objects";
 
 import { useGetDatasetsId } from "@/types/generated/dataset";
 import {
@@ -35,25 +35,6 @@ import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
 
 type TabsProps = "settings" | "data" | "colors";
-
-function getObjectDifferences(
-  obj1: Data["settings"] | Data["data"] | Data["colors"],
-  obj2: Data["settings"] | Data["data"] | Data["colors"],
-): string[] {
-  if (!obj1 || !obj2) return [];
-
-  const keys = new Set([...getKeys(obj1), ...getKeys(obj2)]);
-
-  const differences: string[] = [];
-
-  keys.forEach((key) => {
-    if (obj1[`${key}`] !== obj2[`${key}`]) {
-      differences.push(`${key}`);
-    }
-  });
-
-  return differences.length > 0 ? differences : [];
-}
 
 export default function FormToApprove() {
   const [tab, setTab] = useState<TabsProps>("settings");

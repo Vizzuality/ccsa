@@ -119,6 +119,20 @@
           "sortable": true
         }
       },
+      "colors": {
+        "edit": {
+          "label": "colors",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "colors",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -220,6 +234,12 @@
         [
           {
             "name": "interaction_config",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "colors",
             "size": 12
           }
         ]

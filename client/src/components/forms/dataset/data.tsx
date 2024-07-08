@@ -11,15 +11,18 @@ import { LuTrash2 } from "react-icons/lu";
 import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
-
+import { isEmpty } from "@/lib/utils/objects";
 import { useGetCountries } from "@/types/generated/country";
 import { CountryListResponseDataItem } from "@/types/generated/strapi.schemas";
+import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 
-import NewDatasetFormControls from "@/components/new-dataset/form-controls";
+import { useSession } from "next-auth/react";
+import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
 import { Button } from "@/components/ui/button";
@@ -67,6 +70,14 @@ export default function DatasetDataForm({
 
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
+
+  const { data: session } = useSession();
+  const user = session?.user;
+  const { data: meData } = useGetUsersId(`${user?.id}`, {
+    populate: "role",
+  });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+  const isDatasetNew = isEmpty(data);
 
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
 
@@ -167,7 +178,15 @@ export default function DatasetDataForm({
 
   return (
     <>
-      {header && <NewDatasetFormControls title={title} id={id} handleCancel={handleCancel} />}
+      {header && (
+        <DashboardFormControls
+          id={id}
+          title={title}
+          isNew={isDatasetNew}
+          cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
+          handleCancel={handleCancel}
+        />
+      )}
       <NewDatasetDataFormWrapper header={header}>
         {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}
