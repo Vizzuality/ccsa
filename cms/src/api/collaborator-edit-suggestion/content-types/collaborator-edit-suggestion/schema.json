@@ -45,6 +45,13 @@
       "relation": "manyToOne",
       "target": "api::collaborator.collaborator",
       "inversedBy": "collaborator_edit_suggestions"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

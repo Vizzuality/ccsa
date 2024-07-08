@@ -32,6 +32,13 @@
       "relation": "oneToMany",
       "target": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
       "mappedBy": "collaborator"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

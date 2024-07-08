@@ -738,6 +738,7 @@ export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
       'oneToMany',
       'api::collaborator-edit-suggestion.collaborator-edit-suggestion'
     >;
+    image: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -785,6 +786,7 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
       'manyToOne',
       'api::collaborator.collaborator'
     >;
+    image: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
