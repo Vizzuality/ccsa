@@ -1,23 +1,5 @@
-import {
-  // OtherToolResponseDataObject,
-  // ToolEditSuggestionOtherToolDataAttributes,
-  ToolEditSuggestion,
-  Project,
-  Collaborator,
-} from "@/types/generated/strapi.schemas";
+import { ToolEditSuggestion, Project, Collaborator } from "@/types/generated/strapi.schemas";
 
-// import { Data } from "@/components/forms/dataset/types";
-
-// type DATA =
-//   | Data["settings"]
-//   | Data["data"]
-//   | Data["colors"]
-//   | OtherToolResponseDataObject["attributes"]
-//   | ToolEditSuggestionOtherToolDataAttributes;
-
-// get differences within objects
-
-// Define a type that can be an object with string keys and unknown values, or custom types, or undefined
 type PossibleObject =
   | { [key: string]: unknown }
   | Record<string, unknown>
