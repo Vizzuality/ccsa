@@ -67,7 +67,8 @@
           "type",
           "review_status",
           "author",
-          "collaborator"
+          "collaborator",
+          "image"
         ]
       },
       "conditions": []
@@ -97,7 +98,8 @@
           "type",
           "review_status",
           "author",
-          "collaborator"
+          "collaborator",
+          "image"
         ]
       },
       "conditions": []
@@ -113,7 +115,8 @@
           "type",
           "review_status",
           "author",
-          "collaborator"
+          "collaborator",
+          "image"
         ]
       },
       "conditions": []
@@ -127,7 +130,8 @@
           "name",
           "link",
           "type",
-          "collaborator_edit_suggestions"
+          "collaborator_edit_suggestions",
+          "image"
         ]
       },
       "conditions": []
@@ -155,7 +159,8 @@
           "name",
           "link",
           "type",
-          "collaborator_edit_suggestions"
+          "collaborator_edit_suggestions",
+          "image"
         ]
       },
       "conditions": []
@@ -169,7 +174,8 @@
           "name",
           "link",
           "type",
-          "collaborator_edit_suggestions"
+          "collaborator_edit_suggestions",
+          "image"
         ]
       },
       "conditions": []

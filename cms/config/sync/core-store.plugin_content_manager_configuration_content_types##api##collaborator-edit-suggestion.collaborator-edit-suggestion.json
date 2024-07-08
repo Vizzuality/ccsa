@@ -62,21 +62,6 @@
           "sortable": true
         }
       },
-      "collaborator": {
-        "edit": {
-          "label": "collaborator",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "collaborator",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "review_status": {
         "edit": {
           "label": "review_status",
@@ -104,6 +89,35 @@
           "label": "author",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "collaborator": {
+        "edit": {
+          "label": "collaborator",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "collaborator",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "image": {
+        "edit": {
+          "label": "image",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "image",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -200,6 +214,12 @@
           },
           {
             "name": "author",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "image",
             "size": 6
           }
         ]
