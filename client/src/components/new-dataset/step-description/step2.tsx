@@ -12,7 +12,7 @@ import {
   FormField,
 } from "@/components/ui/form";
 
-import { useUploadCsv } from "@/types/generated/csv";
+// import { useUploadCsv } from "@/types/generated/csv";
 
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 3; // 3MB
 
@@ -26,24 +26,24 @@ const formSchema = z.object({
 export default function Step2() {
   const fileInputRef = useRef(null);
 
-  const {
-    // mutate,
-    isLoading,
-    isError,
-    // data,
-    error,
-  } = useUploadCsv({
-    mutation: {
-      onSuccess: (data) => {
-        console.info("Success uploading file:", data);
-      },
-      onError: (error) => {
-        console.error("Error uploading file:", error);
-      },
-    },
-  });
+  // const {
+  //   // mutate,
+  //   isLoading,
+  //   isError,
+  //   // data,
+  //   error,
+  // } = useUploadCsv({
+  //   mutation: {
+  //     onSuccess: (data) => {
+  //       console.info("Success uploading file:", data);
+  //     },
+  //     onError: (error) => {
+  //       console.error("Error uploading file:", error);
+  //     },
+  //   },
+  // });
 
-  // const { setValue } = useForm();
+  const { setValue } = useForm();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -109,8 +109,8 @@ export default function Step2() {
           />
         </fieldset>
       </form>
-      {isLoading && <p>Uploading...</p>}
-      {isError && <p>Error uploading file: {error.message}</p>}
+      {/* {isLoading && <p>Uploading...</p>}
+      {isError && <p>Error uploading file: {error.message}</p>} */}
     </Form>
   );
 }

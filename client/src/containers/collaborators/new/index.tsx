@@ -67,6 +67,8 @@ export default function NewCollaboratorForm() {
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
   });
+
+  console.log(meData);
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   // if there is no id in the route, we are creating a new collaborator, no need to look for
@@ -74,21 +76,21 @@ export default function NewCollaboratorForm() {
   const { data: collaboratorData } = useGetCollaboratorsId(
     +id,
     {},
-    {
-      query: {
-        enabled: !!id,
-      },
-    },
+    // {
+    //   query: {
+    //     enabled: !!id,
+    //   },
+    // },
   );
 
   const { data: collaboratorSuggestedDataId } = useGetCollaboratorEditSuggestionsId(
     +id,
     {},
-    {
-      query: {
-        enabled: !!id,
-      },
-    },
+    // {
+    //   query: {
+    //     enabled: !!id,
+    //   },
+    // },
   );
 
   const previousData =
@@ -211,6 +213,7 @@ export default function NewCollaboratorForm() {
         }
       }
 
+      console.log(values, "***** values", acceptedFiles);
       if (ME_DATA?.role?.type === "admin") {
         mutatePostCollaboratorsTools({
           data: {
@@ -221,8 +224,8 @@ export default function NewCollaboratorForm() {
             },
           },
         });
+        push(`/collaborators`);
       }
-      push(`/dashboard`);
     },
     [
       mutatePostCollaboratorsTools,
@@ -263,7 +266,7 @@ export default function NewCollaboratorForm() {
         id="collaborators-create"
         title="New collaborator"
         isNew={!id}
-        cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
+        cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
       />
@@ -364,7 +367,7 @@ export default function NewCollaboratorForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                       >
-                        <input type="file" {...getInputProps()} value={field.name} />
+                        <input type="file" {...getInputProps()} value={field.value} />
                         <Image
                           priority
                           alt="file"

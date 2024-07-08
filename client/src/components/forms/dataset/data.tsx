@@ -183,7 +183,7 @@ export default function DatasetDataForm({
           id={id}
           title={title}
           isNew={isDatasetNew}
-          cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
+          cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
           handleCancel={handleCancel}
         />
       )}

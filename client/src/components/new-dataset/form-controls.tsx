@@ -49,10 +49,10 @@ export const DashboardFormControls: FC<DashboardFormControls> = ({
           </Button>
 
           <Button form={id} size="sm" type="submit">
-            {(ME_DATA?.role.type === "authenticated" || ME_DATA?.role.type === undefined) &&
+            {(ME_DATA?.role?.type === "authenticated" || ME_DATA?.role?.type === undefined) &&
               "Continue"}
-            {ME_DATA?.role.type === "admin" && isNew && "Submit"}
-            {ME_DATA?.role.type === "admin" && !isNew && "Approve"}
+            {ME_DATA?.role?.type === "admin" && isNew && "Submit"}
+            {ME_DATA?.role?.type === "admin" && !isNew && "Approve"}
           </Button>
         </div>
       </div>

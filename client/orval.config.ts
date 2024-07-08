@@ -42,7 +42,6 @@ module.exports = {
           "Users-Permissions - Auth",
           "Users-Permissions - Users & Roles",
           "Welcome-message",
-          "CSV",
         ],
       },
     },

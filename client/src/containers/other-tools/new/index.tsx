@@ -268,7 +268,7 @@ export default function NewToolForm() {
         isNew={!id}
         title="New tool"
         id="other-tool-create"
-        cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
+        cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
       />

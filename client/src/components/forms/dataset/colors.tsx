@@ -122,6 +122,8 @@ export default function DatasetColorsForm({
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
   });
+
+  console.log(meData, "dataset");
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   const valueType = rawData?.settings?.valueType;
@@ -189,7 +191,7 @@ export default function DatasetColorsForm({
           isNew={!id}
           title={title}
           id={id}
-          cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
+          cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
           handleReject={handleReject}
           handleCancel={handleCancel}
         />

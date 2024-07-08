@@ -67,6 +67,8 @@ export default function ProjectForm() {
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
   });
+
+  console.log(meData, "projects");
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS, {
@@ -351,7 +353,7 @@ export default function ProjectForm() {
         isNew={!id}
         title="New project"
         id="projects-create"
-        cancelVariant={ME_DATA?.role.type === "admin" && !!id ? "reject" : "cancel"}
+        cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
       />
