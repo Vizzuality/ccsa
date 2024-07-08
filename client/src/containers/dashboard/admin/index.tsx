@@ -9,7 +9,7 @@ export default function DashboardContentAdmin() {
   return (
     <Tabs defaultValue="changes" className="w-full divide-y-2 divide-gray-300/20">
       <TabsList className="p-4 sm:px-10 md:px-24 lg:px-32">
-        <TabsTrigger value="changes">Pending to approve</TabsTrigger>
+        <TabsTrigger value="changes">Suggested updates</TabsTrigger>
         <TabsTrigger value="account">Personal data</TabsTrigger>
       </TabsList>
       <TabsContent value="changes">
