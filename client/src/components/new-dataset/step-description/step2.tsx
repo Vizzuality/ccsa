@@ -1,5 +1,4 @@
-import React, { useRef } from "react";
-
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +13,8 @@ import {
   FormField,
 } from "@/components/ui/form";
 
-// import { useUploadCsv } from "@/types/generated/csv";
+import { useValidateCsv } from "@/hooks";
+import { useSession } from "next-auth/react";
 
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 3; // 3MB
 
@@ -26,6 +26,7 @@ const formSchema = z.object({
 });
 
 export default function Step2() {
+  const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
 
   // const {
@@ -46,7 +47,12 @@ export default function Step2() {
   // });
 
   // const { setValue } = useForm();
+  const { setValue } = useForm();
 
+  const { data: session } = useSession();
+  const { apiToken } = session;
+
+  console.log(apiToken);
   const form = useForm({
     resolver: zodResolver(formSchema),
     values: {
@@ -54,33 +60,35 @@ export default function Step2() {
     },
   });
 
-  const onSubmit = () =>
-    // values,
-    // : z.infer<typeof formSchema>
-    {
-      // const file = values.file[0];
-      // if (file) {
-      //   setValue("file", values);
-      //   console.log("formData", form);
-      //   mutate({
-      //     data: {
-      //       files: new File([], file.name, { type: file.type }),
-      //     },
-      //   });
-      // }
-    };
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    const file = values.file[0];
+    if (file) {
+      console.log(values.file[0]);
+      setValue("file", values);
+    }
+  }
 
-  const handleFileChange = () =>
-    // event
+  const { isLoading, data, isError } = useValidateCsv(
+    file,
     {
-      // const fileList = event.target.files;
-      // form.setValue("file", fileList);
-      // form.handleSubmit(onSubmit)();
-    };
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+    },
+    {
+      enable: !!file,
+    },
+  );
+
+  const handleFileChange = (event) => {
+    const fileList = event.target.files;
+    setFile(fileList[0]);
+    form.setValue("file", fileList);
+  };
+
+  console.log(data);
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex  text-xs font-light">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex space-x-2 text-xs font-light">
         <span>Add data manually or </span>
         <fieldset>
           <FormField
@@ -89,10 +97,7 @@ export default function Step2() {
             render={() => (
               // { field }
               <FormItem>
-                <FormLabel
-                  className="cursor-pointer text-xs text-primary underline"
-                  // onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                >
+                <FormLabel className="cursor-pointer text-xs text-primary underline">
                   {" "}
                   import a CSV
                 </FormLabel>
@@ -111,8 +116,8 @@ export default function Step2() {
           />
         </fieldset>
       </form>
-      {/* {isLoading && <p>Uploading...</p>}
-      {isError && <p>Error uploading file: {error.message}</p>} */}
+      {isLoading && <p>Uploading...</p>}
+      {isError && <p>Error uploading file: {error.message}</p>}
     </Form>
   );
 }
