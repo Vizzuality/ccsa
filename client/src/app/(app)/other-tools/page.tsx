@@ -5,8 +5,8 @@ import getQueryClient from "@/lib/react-query/getQueryClient";
 import { getGetOtherToolsQueryOptions } from "@/types/generated/other-tool";
 
 import OtherToolsList from "@/containers/other-tools";
-
 import OtherToolsTitle from "@/containers/other-tools/title";
+
 import PageTitle from "@/components/ui/page-title";
 
 export const metadata = {

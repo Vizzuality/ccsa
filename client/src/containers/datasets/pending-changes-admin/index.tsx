@@ -8,7 +8,6 @@ import { formatDate } from "@/lib/utils/formats";
 import { useGetCollaboratorEditSuggestions } from "@/types/generated/collaborator-edit-suggestion";
 import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 import { useGetProjectEditSuggestions } from "@/types/generated/project-edit-suggestion";
-
 import type {
   DatasetEditSuggestionListResponseDataItem,
   ToolEditSuggestionListResponseDataItem,

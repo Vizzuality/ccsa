@@ -8,15 +8,15 @@ import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { uniq, compact } from "lodash-es";
-import { z } from "zod";
 import { useSession } from "next-auth/react";
+import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
 
-import { useSyncSearchParams } from "@/app/store";
-
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
+
+import { useSyncSearchParams } from "@/app/store";
 
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
@@ -123,7 +123,6 @@ export default function DatasetColorsForm({
     populate: "role",
   });
 
-  console.log(meData, "dataset");
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   const valueType = rawData?.settings?.valueType;

@@ -241,7 +241,6 @@ export default function NewToolForm() {
       mutatePostToolEditSuggestion,
       mutatePostOtherTools,
       mutatePutOtherToolsId,
-      push,
       ME_DATA,
       user?.id,
       id,

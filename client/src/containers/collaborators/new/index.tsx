@@ -1,11 +1,10 @@
 "use client";
-import Image from "next/image";
-
 import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
 
+import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
+import { getObjectDifferences } from "@/lib/utils/objects";
 
 import { usePostCollaborators, useGetCollaboratorsId } from "@/types/generated/collaborator";
 import {
@@ -48,7 +48,6 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-import { getObjectDifferences } from "@/lib/utils/objects";
 
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
@@ -68,7 +67,6 @@ export default function NewCollaboratorForm() {
     populate: "role",
   });
 
-  console.log(meData);
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   // if there is no id in the route, we are creating a new collaborator, no need to look for
@@ -213,7 +211,6 @@ export default function NewCollaboratorForm() {
         }
       }
 
-      console.log(values, "***** values", acceptedFiles);
       if (ME_DATA?.role?.type === "admin") {
         mutatePostCollaboratorsTools({
           data: {
@@ -228,12 +225,13 @@ export default function NewCollaboratorForm() {
       }
     },
     [
-      mutatePostCollaboratorsTools,
+      ME_DATA?.role?.type,
+      id,
+      collaboratorSuggestedDataId,
       mutatePutCollaboratorsEditSuggestionId,
       mutatePostCollaboratorsEditSuggestion,
+      mutatePostCollaboratorsTools,
       push,
-      id,
-      ME_DATA,
     ],
   );
 

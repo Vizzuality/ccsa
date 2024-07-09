@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { useAtomValue } from "jotai";
+import { useSession } from "next-auth/react";
 
 import { cn } from "@/lib/classnames";
 
@@ -13,8 +14,6 @@ import { projectSearchAtom, useSyncProject } from "@/app/store";
 import { PROJECT_PILLARS } from "@/constants/projects";
 
 import SearchHighlight from "@/components/ui/search-highlight";
-
-import { useSession } from "next-auth/react";
 
 const ProjectsItem = (project: ProjectListResponseDataItem) => {
   const { id, attributes } = project;

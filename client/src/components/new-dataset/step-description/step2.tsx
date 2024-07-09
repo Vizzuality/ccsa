@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
+
 import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -43,7 +45,7 @@ export default function Step2() {
   //   },
   // });
 
-  const { setValue } = useForm();
+  // const { setValue } = useForm();
 
   const form = useForm({
     resolver: zodResolver(formSchema),

@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import { useAtomValue } from "jotai";
-
 import { useSession } from "next-auth/react";
 
 import { useGetProjects } from "@/types/generated/project";

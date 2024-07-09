@@ -13,7 +13,7 @@ import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-su
 import type {
   UsersPermissionsRole,
   UsersPermissionsUser,
-  DatasetValueType,
+  // DatasetValueType,
   // Resource,
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
@@ -27,60 +27,60 @@ import { Data } from "@/components/forms/dataset/types";
 
 // import { updateOrCreateDataset } from "@/hooks/index";
 
-const getLimitsTypeNumber = (data: number[]) => {
-  // Filter out objects with null values and extract the values
-  const values = data.filter((item) => item !== null && !isNaN(item));
+// const getLimitsTypeNumber = (data: number[]) => {
+//   // Filter out objects with null values and extract the values
+//   const values = data.filter((item) => item !== null && !isNaN(item));
 
-  // Find the min and max values
-  const min = Math.min(...values);
-  const max = Math.max(...values);
+//   // Find the min and max values
+//   const min = Math.min(...values);
+//   const max = Math.max(...values);
 
-  return { min, max };
-};
+//   return { min, max };
+// };
 
-const getLimits = ({
-  values,
-  valueType,
-}: {
-  values: unknown;
-  // (string | number | boolean | Resource[] | undefined)[];
-  valueType: DatasetValueType | undefined;
-}) => {
-  switch (valueType) {
-    case "resource":
-      return { min: -50, max: 50 };
-    case "text":
-      values;
-      return { min: 900, max: 1100 };
-    case "boolean":
-      return { min: 0, max: 100 };
-    default:
-      return getLimitsTypeNumber(values as number[]);
-  }
-};
+// const getLimits = ({
+//   values,
+//   valueType,
+// }: {
+//   values: unknown;
+//   // (string | number | boolean | Resource[] | undefined)[];
+//   valueType: DatasetValueType | undefined;
+// }) => {
+//   switch (valueType) {
+//     case "resource":
+//       return { min: -50, max: 50 };
+//     case "text":
+//       values;
+//       return { min: 900, max: 1100 };
+//     case "boolean":
+//       return { min: 0, max: 100 };
+//     default:
+//       return getLimitsTypeNumber(values as number[]);
+//   }
+// };
 
-const typeToKey = (type: DatasetValueType | undefined) => {
-  switch (type) {
-    case "resource":
-      return "resources";
-    case "text":
-      return "text";
-    case "boolean":
-      return "boolean";
-    default:
-      return "number";
-  }
-};
+// const typeToKey = (type: DatasetValueType | undefined) => {
+//   switch (type) {
+//     case "resource":
+//       return "resources";
+//     case "text":
+//       return "text";
+//     case "boolean":
+//       return "boolean";
+//     default:
+//       return "number";
+//   }
+// };
 
-const getTransformedData = (data: Data["data"], type: DatasetValueType | undefined) => {
-  const key = typeToKey(type);
-  return Object.keys(data).map((country) => {
-    return {
-      country,
-      [key]: data[country] || [],
-    };
-  });
-};
+// const getTransformedData = (data: Data["data"], type: DatasetValueType | undefined) => {
+//   const key = typeToKey(type);
+//   return Object.keys(data).map((country) => {
+//     return {
+//       country,
+//       [key]: data[country] || [],
+//     };
+//   });
+// };
 
 export default function NewDatasetForm() {
   const { data: session } = useSession();
@@ -170,20 +170,19 @@ export default function NewDatasetForm() {
       // BULK UPLOAD REQUIRED
       if (ME_DATA?.role?.type === "admin") {
         console.info(data);
-        const { category, valueType, ...restSettings } = data.settings;
-        const datasetValues = getTransformedData(data.data, valueType);
-        const values = Object.values(data.data);
-        const layers = {
-          name: data.settings.name,
-        };
-        const extremes = getLimits({ values, valueType });
-        const parsedData = {
-          ...restSettings,
-          category_ids: category,
-          dataset_values: datasetValues,
-          layers,
-        };
-        console.log(values, extremes, parsedData);
+        // const { category, valueType, ...restSettings } = data.settings;
+        // const datasetValues = getTransformedData(data.data, valueType);
+        // const values = Object.values(data.data);
+        // const layers = {
+        //   name: data.settings.name,
+        // };
+        // const extremes = getLimits({ values, valueType });
+        // const parsedData = {
+        //   ...restSettings,
+        //   category_ids: category,
+        //   dataset_values: datasetValues,
+        //   layers,
+        // };
 
         // updateOrCreateDataset(data);
         //     {

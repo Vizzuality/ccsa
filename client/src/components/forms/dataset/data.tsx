@@ -7,11 +7,13 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { LuTrash2 } from "react-icons/lu";
 import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
 import { isEmpty } from "@/lib/utils/objects";
+
 import { useGetCountries } from "@/types/generated/country";
 import { CountryListResponseDataItem } from "@/types/generated/strapi.schemas";
 import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
@@ -21,7 +23,6 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 
-import { useSession } from "next-auth/react";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";

@@ -7,6 +7,7 @@ import {
 
 import { useForm } from "react-hook-form";
 
+import Error from "next/error";
 import { useParams, useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,18 +15,20 @@ import { useSession } from "next-auth/react";
 import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
+import { getObjectDifferences } from "@/lib/utils/objects";
 
 import { useGetCountries } from "@/types/generated/country";
-import { useGetSdgs } from "@/types/generated/sdg";
+import { useGetPillars } from "@/types/generated/pillar";
 import { useGetProjectsId, usePostProjects, usePutProjectsId } from "@/types/generated/project";
 import {
   useGetProjectEditSuggestionsId,
   usePostProjectEditSuggestions,
   usePutProjectEditSuggestionsId,
 } from "@/types/generated/project-edit-suggestion";
-import { useGetPillars } from "@/types/generated/pillar";
+import { useGetSdgs } from "@/types/generated/sdg";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
+
 import { useSyncSearchParams } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
@@ -51,8 +54,6 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-import { getObjectDifferences } from "@/lib/utils/objects";
-import Error from "next/error";
 
 export default function ProjectForm() {
   const { push } = useRouter();
@@ -68,7 +69,6 @@ export default function ProjectForm() {
     populate: "role",
   });
 
-  console.log(meData, "projects");
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS, {
@@ -225,7 +225,6 @@ export default function ProjectForm() {
     objective: z.string().min(1, { message: "Please enter objective" }),
   });
 
-  console.log(projectsSuggestedData?.data?.attributes, projectData?.data?.attributes);
   // TO - DO - add category from edit when API gets fixed
   // projectsSuggestedData?.data?.attributes?.other_tools_category ||
   const form = useForm<z.infer<typeof formSchema>>({
@@ -319,13 +318,14 @@ export default function ProjectForm() {
       }
     },
     [
+      ME_DATA?.role?.type,
+      mutatePutProjectsId,
+      id,
+      push,
+      mutatePutProjectEditSuggestionId,
+      user?.id,
       mutatePostProjectEditSuggestion,
       mutatePostProjects,
-      push,
-      ME_DATA,
-      user?.id,
-      id,
-      mutatePutProjectEditSuggestionId,
     ],
   );
 

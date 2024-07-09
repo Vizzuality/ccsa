@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import isEmpty from "lodash/isEmpty";
 import { useSession } from "next-auth/react";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { z } from "zod";
 
@@ -28,7 +29,6 @@ import { Input } from "@/components/ui/input";
 
 import { FORM_DATA_FIELDS, FORM_PASSWORD_FIELDS } from "./constants";
 
-import { LuEye, LuEyeOff } from "react-icons/lu";
 type FormSchemaData = z.infer<typeof formSchemaData>;
 
 const formSchemaData = z.object({

@@ -146,7 +146,13 @@ export default function EditDatasetForm() {
         alert("Bulk upload required");
       }
     },
-    [formValues, setFormValues, id, ME_DATA, mutateDatasetEditSuggestion],
+    [
+      formValues,
+      setFormValues,
+      ME_DATA?.role?.type,
+      mutateDatasetEditSuggestion,
+      datasetData?.data?.id,
+    ],
   );
 
   return (
