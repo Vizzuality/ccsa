@@ -30,11 +30,6 @@ export default function WelcomeMessage() {
     populate: ["video", "image"],
   });
 
-  console.log(
-    data?.data?.attributes?.image?.data?.attributes?.url,
-    data?.data?.attributes?.video?.data?.attributes?.url,
-  );
-
   const handleExplore = () => {
     setCookie("welcome", true);
   };
