@@ -18,6 +18,7 @@ import type {
   CategoryRequest,
   CategoryResponse,
   Error,
+  GetCategoriesIdParams,
   GetCategoriesParams,
 } from "./strapi.schemas";
 import { API } from "../../services/api/index";
@@ -154,14 +155,18 @@ export const usePostCategories = <TError = ErrorType<Error>, TContext = unknown>
 };
 export const getCategoriesId = (
   id: number,
+  params?: GetCategoriesIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<CategoryResponse>({ url: `/categories/${id}`, method: "get", signal }, options);
+  return API<CategoryResponse>(
+    { url: `/categories/${id}`, method: "get", params, signal },
+    options,
+  );
 };
 
-export const getGetCategoriesIdQueryKey = (id: number) => {
-  return [`/categories/${id}`] as const;
+export const getGetCategoriesIdQueryKey = (id: number, params?: GetCategoriesIdParams) => {
+  return [`/categories/${id}`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetCategoriesIdQueryOptions = <
@@ -169,6 +174,7 @@ export const getGetCategoriesIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetCategoriesIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getCategoriesId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -176,10 +182,10 @@ export const getGetCategoriesIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCategoriesIdQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetCategoriesIdQueryKey(id, params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCategoriesId>>> = ({ signal }) =>
-    getCategoriesId(id, requestOptions, signal);
+    getCategoriesId(id, params, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getCategoriesId>>,
@@ -196,12 +202,13 @@ export const useGetCategoriesId = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetCategoriesIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getCategoriesId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCategoriesIdQueryOptions(id, options);
+  const queryOptions = getGetCategoriesIdQueryOptions(id, params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

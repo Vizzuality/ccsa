@@ -18,6 +18,7 @@ import type {
   CountryRequest,
   CountryResponse,
   Error,
+  GetCountriesIdParams,
   GetCountriesParams,
 } from "./strapi.schemas";
 import { API } from "../../services/api/index";
@@ -154,14 +155,15 @@ export const usePostCountries = <TError = ErrorType<Error>, TContext = unknown>(
 };
 export const getCountriesId = (
   id: number,
+  params?: GetCountriesIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<CountryResponse>({ url: `/countries/${id}`, method: "get", signal }, options);
+  return API<CountryResponse>({ url: `/countries/${id}`, method: "get", params, signal }, options);
 };
 
-export const getGetCountriesIdQueryKey = (id: number) => {
-  return [`/countries/${id}`] as const;
+export const getGetCountriesIdQueryKey = (id: number, params?: GetCountriesIdParams) => {
+  return [`/countries/${id}`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetCountriesIdQueryOptions = <
@@ -169,6 +171,7 @@ export const getGetCountriesIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetCountriesIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getCountriesId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -176,10 +179,10 @@ export const getGetCountriesIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCountriesIdQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetCountriesIdQueryKey(id, params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCountriesId>>> = ({ signal }) =>
-    getCountriesId(id, requestOptions, signal);
+    getCountriesId(id, params, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getCountriesId>>,
@@ -196,12 +199,13 @@ export const useGetCountriesId = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetCountriesIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getCountriesId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetCountriesIdQueryOptions(id, options);
+  const queryOptions = getGetCountriesIdQueryOptions(id, params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

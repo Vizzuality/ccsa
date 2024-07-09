@@ -15,6 +15,7 @@ import type {
 } from "@tanstack/react-query";
 import type {
   Error,
+  GetToolEditSuggestionsIdParams,
   GetToolEditSuggestionsParams,
   ToolEditSuggestionListResponse,
   ToolEditSuggestionRequest,
@@ -164,17 +165,21 @@ export const usePostToolEditSuggestions = <
 };
 export const getToolEditSuggestionsId = (
   id: number,
+  params?: GetToolEditSuggestionsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
   return API<ToolEditSuggestionResponse>(
-    { url: `/tool-edit-suggestions/${id}`, method: "get", signal },
+    { url: `/tool-edit-suggestions/${id}`, method: "get", params, signal },
     options,
   );
 };
 
-export const getGetToolEditSuggestionsIdQueryKey = (id: number) => {
-  return [`/tool-edit-suggestions/${id}`] as const;
+export const getGetToolEditSuggestionsIdQueryKey = (
+  id: number,
+  params?: GetToolEditSuggestionsIdParams,
+) => {
+  return [`/tool-edit-suggestions/${id}`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetToolEditSuggestionsIdQueryOptions = <
@@ -182,6 +187,7 @@ export const getGetToolEditSuggestionsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetToolEditSuggestionsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getToolEditSuggestionsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -189,11 +195,11 @@ export const getGetToolEditSuggestionsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetToolEditSuggestionsIdQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetToolEditSuggestionsIdQueryKey(id, params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getToolEditSuggestionsId>>> = ({
     signal,
-  }) => getToolEditSuggestionsId(id, requestOptions, signal);
+  }) => getToolEditSuggestionsId(id, params, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getToolEditSuggestionsId>>,
@@ -212,12 +218,13 @@ export const useGetToolEditSuggestionsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetToolEditSuggestionsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getToolEditSuggestionsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetToolEditSuggestionsIdQueryOptions(id, options);
+  const queryOptions = getGetToolEditSuggestionsIdQueryOptions(id, params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

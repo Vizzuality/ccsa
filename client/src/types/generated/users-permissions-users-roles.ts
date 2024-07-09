@@ -16,9 +16,11 @@ import type {
 import type {
   DeleteUsersPermissionsRolesRole200,
   Error,
+  GetUsersIdParams,
   GetUsersPermissionsPermissions200,
   GetUsersPermissionsRoles200,
   GetUsersPermissionsRolesId200,
+  GetUsersPermissionsRolesIdParams,
   PostUsers201,
   PostUsersBody,
   PostUsersPermissionsRoles200,
@@ -252,17 +254,21 @@ export const usePostUsersPermissionsRoles = <
  */
 export const getUsersPermissionsRolesId = (
   id: string,
+  params?: GetUsersPermissionsRolesIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
   return API<GetUsersPermissionsRolesId200>(
-    { url: `/users-permissions/roles/${id}`, method: "get", signal },
+    { url: `/users-permissions/roles/${id}`, method: "get", params, signal },
     options,
   );
 };
 
-export const getGetUsersPermissionsRolesIdQueryKey = (id: string) => {
-  return [`/users-permissions/roles/${id}`] as const;
+export const getGetUsersPermissionsRolesIdQueryKey = (
+  id: string,
+  params?: GetUsersPermissionsRolesIdParams,
+) => {
+  return [`/users-permissions/roles/${id}`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetUsersPermissionsRolesIdQueryOptions = <
@@ -270,6 +276,7 @@ export const getGetUsersPermissionsRolesIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: string,
+  params?: GetUsersPermissionsRolesIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getUsersPermissionsRolesId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -277,11 +284,11 @@ export const getGetUsersPermissionsRolesIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUsersPermissionsRolesIdQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetUsersPermissionsRolesIdQueryKey(id, params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUsersPermissionsRolesId>>> = ({
     signal,
-  }) => getUsersPermissionsRolesId(id, requestOptions, signal);
+  }) => getUsersPermissionsRolesId(id, params, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getUsersPermissionsRolesId>>,
@@ -303,12 +310,13 @@ export const useGetUsersPermissionsRolesId = <
   TError = ErrorType<Error>,
 >(
   id: string,
+  params?: GetUsersPermissionsRolesIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getUsersPermissionsRolesId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetUsersPermissionsRolesIdQueryOptions(id, options);
+  const queryOptions = getGetUsersPermissionsRolesIdQueryOptions(id, params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
@@ -586,14 +594,15 @@ export const usePostUsers = <TError = ErrorType<Error>, TContext = unknown>(opti
  */
 export const getUsersId = (
   id: string,
+  params?: GetUsersIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
-  return API<UsersPermissionsUser>({ url: `/users/${id}`, method: "get", signal }, options);
+  return API<UsersPermissionsUser>({ url: `/users/${id}`, method: "get", params, signal }, options);
 };
 
-export const getGetUsersIdQueryKey = (id: string) => {
-  return [`/users/${id}`] as const;
+export const getGetUsersIdQueryKey = (id: string, params?: GetUsersIdParams) => {
+  return [`/users/${id}`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetUsersIdQueryOptions = <
@@ -601,6 +610,7 @@ export const getGetUsersIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: string,
+  params?: GetUsersIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getUsersId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -608,10 +618,10 @@ export const getGetUsersIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUsersIdQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetUsersIdQueryKey(id, params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUsersId>>> = ({ signal }) =>
-    getUsersId(id, requestOptions, signal);
+    getUsersId(id, params, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getUsersId>>,
@@ -631,12 +641,13 @@ export const useGetUsersId = <
   TError = ErrorType<Error>,
 >(
   id: string,
+  params?: GetUsersIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getUsersId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetUsersIdQueryOptions(id, options);
+  const queryOptions = getGetUsersIdQueryOptions(id, params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

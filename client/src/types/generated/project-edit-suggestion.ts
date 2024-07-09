@@ -15,6 +15,7 @@ import type {
 } from "@tanstack/react-query";
 import type {
   Error,
+  GetProjectEditSuggestionsIdParams,
   GetProjectEditSuggestionsParams,
   ProjectEditSuggestionListResponse,
   ProjectEditSuggestionRequest,
@@ -165,17 +166,21 @@ export const usePostProjectEditSuggestions = <
 };
 export const getProjectEditSuggestionsId = (
   id: number,
+  params?: GetProjectEditSuggestionsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
   return API<ProjectEditSuggestionResponse>(
-    { url: `/project-edit-suggestions/${id}`, method: "get", signal },
+    { url: `/project-edit-suggestions/${id}`, method: "get", params, signal },
     options,
   );
 };
 
-export const getGetProjectEditSuggestionsIdQueryKey = (id: number) => {
-  return [`/project-edit-suggestions/${id}`] as const;
+export const getGetProjectEditSuggestionsIdQueryKey = (
+  id: number,
+  params?: GetProjectEditSuggestionsIdParams,
+) => {
+  return [`/project-edit-suggestions/${id}`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetProjectEditSuggestionsIdQueryOptions = <
@@ -183,6 +188,7 @@ export const getGetProjectEditSuggestionsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetProjectEditSuggestionsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getProjectEditSuggestionsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -190,11 +196,11 @@ export const getGetProjectEditSuggestionsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetProjectEditSuggestionsIdQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetProjectEditSuggestionsIdQueryKey(id, params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getProjectEditSuggestionsId>>> = ({
     signal,
-  }) => getProjectEditSuggestionsId(id, requestOptions, signal);
+  }) => getProjectEditSuggestionsId(id, params, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getProjectEditSuggestionsId>>,
@@ -213,12 +219,13 @@ export const useGetProjectEditSuggestionsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetProjectEditSuggestionsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getProjectEditSuggestionsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetProjectEditSuggestionsIdQueryOptions(id, options);
+  const queryOptions = getGetProjectEditSuggestionsIdQueryOptions(id, params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

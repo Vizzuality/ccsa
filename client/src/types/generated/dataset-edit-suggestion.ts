@@ -18,6 +18,7 @@ import type {
   DatasetEditSuggestionRequest,
   DatasetEditSuggestionResponse,
   Error,
+  GetDatasetEditSuggestionsIdParams,
   GetDatasetEditSuggestionsParams,
 } from "./strapi.schemas";
 import { API } from "../../services/api/index";
@@ -165,17 +166,21 @@ export const usePostDatasetEditSuggestions = <
 };
 export const getDatasetEditSuggestionsId = (
   id: number,
+  params?: GetDatasetEditSuggestionsIdParams,
   options?: SecondParameter<typeof API>,
   signal?: AbortSignal,
 ) => {
   return API<DatasetEditSuggestionResponse>(
-    { url: `/dataset-edit-suggestions/${id}`, method: "get", signal },
+    { url: `/dataset-edit-suggestions/${id}`, method: "get", params, signal },
     options,
   );
 };
 
-export const getGetDatasetEditSuggestionsIdQueryKey = (id: number) => {
-  return [`/dataset-edit-suggestions/${id}`] as const;
+export const getGetDatasetEditSuggestionsIdQueryKey = (
+  id: number,
+  params?: GetDatasetEditSuggestionsIdParams,
+) => {
+  return [`/dataset-edit-suggestions/${id}`, ...(params ? [params] : [])] as const;
 };
 
 export const getGetDatasetEditSuggestionsIdQueryOptions = <
@@ -183,6 +188,7 @@ export const getGetDatasetEditSuggestionsIdQueryOptions = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetDatasetEditSuggestionsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getDatasetEditSuggestionsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
@@ -190,11 +196,11 @@ export const getGetDatasetEditSuggestionsIdQueryOptions = <
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetDatasetEditSuggestionsIdQueryKey(id);
+  const queryKey = queryOptions?.queryKey ?? getGetDatasetEditSuggestionsIdQueryKey(id, params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getDatasetEditSuggestionsId>>> = ({
     signal,
-  }) => getDatasetEditSuggestionsId(id, requestOptions, signal);
+  }) => getDatasetEditSuggestionsId(id, params, requestOptions, signal);
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getDatasetEditSuggestionsId>>,
@@ -213,12 +219,13 @@ export const useGetDatasetEditSuggestionsId = <
   TError = ErrorType<Error>,
 >(
   id: number,
+  params?: GetDatasetEditSuggestionsIdParams,
   options?: {
     query?: UseQueryOptions<Awaited<ReturnType<typeof getDatasetEditSuggestionsId>>, TError, TData>;
     request?: SecondParameter<typeof API>;
   },
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const queryOptions = getGetDatasetEditSuggestionsIdQueryOptions(id, options);
+  const queryOptions = getGetDatasetEditSuggestionsIdQueryOptions(id, params, options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
