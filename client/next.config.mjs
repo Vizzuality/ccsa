@@ -15,11 +15,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "staging.ccsa.dev-vizzuality.com"
+        hostname: "staging.ccsa.dev-vizzuality.com",
       },
       {
         protocol: "https",
-        hostname: "map.caribbeanaccelerator.org"
+        hostname: "map.caribbeanaccelerator.org",
       },
     ],
   },

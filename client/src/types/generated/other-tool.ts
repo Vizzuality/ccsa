@@ -13,10 +13,6 @@ import type {
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query";
-
-import { API } from "../../services/api/index";
-import type { ErrorType } from "../../services/api/index";
-
 import type {
   Error,
   GetOtherToolsIdParams,
@@ -25,6 +21,8 @@ import type {
   OtherToolRequest,
   OtherToolResponse,
 } from "./strapi.schemas";
+import { API } from "../../services/api/index";
+import type { ErrorType } from "../../services/api/index";
 
 // eslint-disable-next-line
 type SecondParameter<T extends (...args: any) => any> = T extends (

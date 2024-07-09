@@ -65,6 +65,7 @@ const useTableData = () => {
         dataset: { id: { $in: datasets } },
         country: { iso3: { $in: [country, ...countriesComparison] } },
       },
+      "pagination[pageSize]": 300,
       populate: {
         country: {
           fields: ["name", "iso3"],

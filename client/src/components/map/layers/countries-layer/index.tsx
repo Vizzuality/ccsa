@@ -36,6 +36,7 @@ const CountriesLayer = ({
     filters: {
       dataset: layer?.dataset?.data?.id,
     },
+    "pagination[pageSize]": 300,
     populate: {
       country: {
         fields: ["name", "iso3"],

@@ -14,7 +14,10 @@ import {
   pillarsParser,
   publicationStateParser,
   projectParser,
+  datasetStepParser,
 } from "@/app/parsers";
+
+import { Data } from "@/components/forms/dataset/types";
 
 export const useSyncDatasets = () => {
   return useQueryState("datasets", datasetsParser);
@@ -64,6 +67,14 @@ export const useSyncPublicationState = () => {
   return useQueryState("publicationState", publicationStateParser);
 };
 
+export const useSyncOtherToolsSearch = () => {
+  return useQueryState("other-tools-search", { defaultValue: "" });
+};
+
+export const useSyncDatasetStep = () => {
+  return useQueryState("step", datasetStepParser);
+};
+
 export const useSyncSearchParams = () => {
   const [datasets] = useSyncDatasets();
   const [layers] = useSyncLayers();
@@ -77,7 +88,6 @@ export const useSyncSearchParams = () => {
   const [countries] = useSyncCountries();
   const [availableForFunding] = useSyncAvailableForFunding();
   const [publicationState] = useSyncPublicationState();
-
   const sp = new URLSearchParams();
 
   // Datatsets
@@ -126,3 +136,18 @@ export const layersInteractiveIdsAtom = atom<(number | string)[]>([]);
 
 export const otherToolsSearchAtom = atom<string | undefined>(undefined);
 export const collaboratorsSearchAtom = atom<string | undefined>(undefined);
+
+export const personalDetailsAtom = atom<"account" | "changes">("changes");
+
+export const datasetStepAtom = atom<number>(1);
+export const datasetValuesAtom = atom<Data>({
+  settings: {
+    name: "",
+    valueType: undefined,
+    category: undefined,
+    unit: "",
+    description: "",
+  },
+  data: {},
+  colors: {},
+});

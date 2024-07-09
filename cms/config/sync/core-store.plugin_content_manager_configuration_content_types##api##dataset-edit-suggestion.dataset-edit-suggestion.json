@@ -34,16 +34,16 @@
           "sortable": true
         }
       },
-      "datum": {
+      "data": {
         "edit": {
-          "label": "datum",
+          "label": "data",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "datum",
+          "label": "data",
           "searchable": false,
           "sortable": false
         }
@@ -102,6 +102,20 @@
           "label": "review_status",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "colors": {
+        "edit": {
+          "label": "colors",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "colors",
+          "searchable": false,
+          "sortable": false
         }
       },
       "author": {
@@ -224,12 +238,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "unit",
-        "value_type"
-      ],
+      "list": ["id", "name", "unit", "value_type"],
       "edit": [
         [
           {
@@ -239,7 +248,7 @@
         ],
         [
           {
-            "name": "datum",
+            "name": "data",
             "size": 12
           }
         ],
@@ -267,7 +276,33 @@
         ],
         [
           {
+            "name": "data",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "colors",
+            "size": 12
+          }
+        ],
+        [
+          {
             "name": "author",
+            "size": 6
+          },
+          {
+            "name": "category",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "layers",
+            "size": 6
+          },
+          {
+            "name": "dataset",
             "size": 6
           },
           {

@@ -135,6 +135,21 @@
           "sortable": false
         }
       },
+      "dataset_values": {
+        "edit": {
+          "label": "dataset_values",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "value_text"
+        },
+        "list": {
+          "label": "dataset_values",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -245,6 +260,10 @@
         [
           {
             "name": "dataset_edit_suggestions",
+            "size": 6
+          },
+          {
+            "name": "dataset_values",
             "size": 6
           }
         ]

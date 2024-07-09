@@ -119,19 +119,18 @@
           "sortable": true
         }
       },
-      "dataset_edit_suggestion": {
+      "colors": {
         "edit": {
-          "label": "dataset_edit_suggestion",
+          "label": "colors",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "dataset_edit_suggestion",
-          "searchable": true,
-          "sortable": true
+          "label": "colors",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -194,12 +193,7 @@
       }
     },
     "layouts": {
-      "list": [
-        "id",
-        "name",
-        "type",
-        "updatedAt"
-      ],
+      "list": ["id", "name", "type", "updatedAt"],
       "edit": [
         [
           {
@@ -245,8 +239,8 @@
         ],
         [
           {
-            "name": "dataset_edit_suggestion",
-            "size": 6
+            "name": "colors",
+            "size": 12
           }
         ]
       ]

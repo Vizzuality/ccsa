@@ -1,14 +1,18 @@
 {
   "name": "ccsa-cms",
-  "private": true,
   "version": "0.2.0",
+  "private": true,
   "description": "CCSA CMS",
+  "license": "MIT",
+  "author": {
+    "name": "Vizzuality"
+  },
   "scripts": {
+    "build": "strapi build",
+    "config-sync": "config-sync",
     "dev": "config-sync import -y && strapi develop",
     "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi",
-    "config-sync": "config-sync"
+    "strapi": "strapi"
   },
   "dependencies": {
     "@strapi/plugin-documentation": "^4.15.0",
@@ -23,17 +27,13 @@
     "strapi-plugin-config-sync": "^1.2.1",
     "strapi-plugin-import-export-entries": "^1.21.1"
   },
-  "author": {
-    "name": "Vizzuality"
-  },
-  "strapi": {
-    "uuid": "d6c35ecd-a7d3-4e06-bbec-080329e0e5b8",
-    "telemetryDisabled": true
-  },
+  "packageManager": "yarn@3.6.4",
   "engines": {
     "node": ">=16.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT",
-  "packageManager": "yarn@3.6.4"
+  "strapi": {
+    "uuid": "d6c35ecd-a7d3-4e06-bbec-080329e0e5b8",
+    "telemetryDisabled": true
+  }
 }

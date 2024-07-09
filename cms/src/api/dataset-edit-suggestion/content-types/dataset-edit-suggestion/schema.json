@@ -15,7 +15,7 @@
     "name": {
       "type": "string"
     },
-    "datum": {
+    "data": {
       "type": "json"
     },
     "description": {
@@ -26,20 +26,11 @@
     },
     "value_type": {
       "type": "enumeration",
-      "enum": [
-        "text",
-        "number",
-        "boolean",
-        "resource"
-      ]
+      "enum": ["text", "number", "boolean", "resource"]
     },
     "review_status": {
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "approved",
-        "declined"
-      ],
+      "enum": ["pending", "approved", "declined"],
       "default": "pending",
       "required": true
     },
@@ -65,6 +56,10 @@
       "relation": "manyToOne",
       "target": "api::dataset.dataset",
       "inversedBy": "dataset_edit_suggestions"
+    },
+    "colors": {
+      "type": "json",
+      "required": false
     }
   }
 }

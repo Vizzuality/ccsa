@@ -631,7 +631,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -660,6 +659,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    organization: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -822,6 +822,11 @@ export interface ApiCountryCountry extends Schema.CollectionType {
     geometry: Attribute.JSON;
     bbox: Attribute.JSON;
     link: Attribute.String;
+    dataset_values: Attribute.Relation<
+      'api::country.country',
+      'oneToMany',
+      'api::dataset-value.dataset-value'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -875,6 +880,11 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'oneToMany',
       'api::dataset-edit-suggestion.dataset-edit-suggestion'
     >;
+    dataset_values: Attribute.Relation<
+      'api::dataset.dataset',
+      'oneToMany',
+      'api::dataset-value.dataset-value'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -907,7 +917,7 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
   };
   attributes: {
     name: Attribute.String;
-    datum: Attribute.JSON;
+    data: Attribute.JSON;
     description: Attribute.RichText;
     unit: Attribute.String;
     value_type: Attribute.Enumeration<
@@ -936,6 +946,7 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
       'manyToOne',
       'api::dataset.dataset'
     >;
+    colors: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -968,12 +979,12 @@ export interface ApiDatasetValueDatasetValue extends Schema.CollectionType {
   attributes: {
     dataset: Attribute.Relation<
       'api::dataset-value.dataset-value',
-      'oneToOne',
+      'manyToOne',
       'api::dataset.dataset'
     >;
     country: Attribute.Relation<
       'api::dataset-value.dataset-value',
-      'oneToOne',
+      'manyToOne',
       'api::country.country'
     >;
     value_text: Attribute.String;
@@ -1063,6 +1074,7 @@ export interface ApiLayerLayer extends Schema.CollectionType {
       'manyToOne',
       'api::dataset.dataset'
     >;
+    colors: Attribute.JSON;
     dataset_edit_suggestion: Attribute.Relation<
       'api::layer.layer',
       'manyToOne',

@@ -5,6 +5,7 @@ import getQueryClient from "@/lib/react-query/getQueryClient";
 import { getGetOtherToolsQueryOptions } from "@/types/generated/other-tool";
 
 import OtherToolsList from "@/containers/other-tools";
+import OtherToolsTitle from "@/containers/other-tools/title";
 
 import PageTitle from "@/components/ui/page-title";
 
@@ -41,7 +42,7 @@ export default async function OtherTools() {
           <div className="h-full overflow-auto">
             <PageTitle />
             <div className="space-y-5 px-5 pb-10 pt-[30px]">
-              <h1 className="font-metropolis text-3xl tracking-tight text-gray-700">Other Tools</h1>
+              <OtherToolsTitle />
 
               <div className="space-y-5">
                 <OtherToolsList />

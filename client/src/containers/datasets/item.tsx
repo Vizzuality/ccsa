@@ -2,7 +2,10 @@
 
 import Markdown from "react-markdown";
 
+import Link from "next/link";
+
 import { useAtomValue } from "jotai";
+import { useSession } from "next-auth/react";
 import { LuInfo } from "react-icons/lu";
 
 import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
@@ -18,6 +21,8 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
   const [datasets, setDatasets] = useSyncDatasets();
   const [, setLayers] = useSyncLayers();
   const datasetSearch = useAtomValue(datasetSearchAtom);
+
+  const { data: user } = useSession();
 
   const handleToogle = () => {
     const lys = attributes?.layers;
@@ -66,18 +71,29 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
           <SearchHighlight query={datasetSearch}>{attributes?.name}</SearchHighlight>
         </h2>
       </div>
+      <div className="flex items-center space-x-2.5">
+        {user && (
+          <Link
+            href={`/dashboard/datasets/edit/${id}`}
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 py-1 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
+            onClick={(e) => e.stopPropagation()}
+          >
+            Edit
+          </Link>
+        )}
 
-      <Dialog>
-        <DialogTrigger onClick={(e) => e.stopPropagation()}>
-          <LuInfo className="h-5 w-5" />
-        </DialogTrigger>
+        <Dialog>
+          <DialogTrigger onClick={(e) => e.stopPropagation()}>
+            <LuInfo className="h-5 w-5" />
+          </DialogTrigger>
 
-        <DialogContent>
-          <ScrollArea className="max-h-[80svh] p-6">
-            <Markdown className="prose">{attributes?.description}</Markdown>
-          </ScrollArea>
-        </DialogContent>
-      </Dialog>
+          <DialogContent>
+            <ScrollArea className="max-h-[80svh] p-6">
+              <Markdown className="prose">{attributes?.description}</Markdown>
+            </ScrollArea>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };
