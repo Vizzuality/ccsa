@@ -13,7 +13,11 @@ export const updateOrCreateDataset = async (data: unknown) => {
   return response.data;
 };
 
-export function useValidateCsv(data: File, headers: AxiosHeaders, options?: UseQueryOptions<any>) {
+export function useValidateCsv(
+  data: File,
+  headers: AxiosHeaders,
+  options?: UseQueryOptions<unknown>,
+) {
   const validateCSV = () => {
     return api
       .request({
