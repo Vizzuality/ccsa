@@ -52,7 +52,6 @@ export default function Step2() {
   const { data: session } = useSession();
   const { apiToken } = session;
 
-  console.log(apiToken);
   const form = useForm({
     resolver: zodResolver(formSchema),
     values: {
@@ -63,7 +62,6 @@ export default function Step2() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const file = values.file[0];
     if (file) {
-      console.log(values.file[0]);
       setValue("file", values);
     }
   }
@@ -83,8 +81,6 @@ export default function Step2() {
     setFile(fileList[0]);
     form.setValue("file", fileList);
   };
-
-  console.log(data);
 
   return (
     <Form {...form}>

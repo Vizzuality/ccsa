@@ -13,7 +13,7 @@ import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-su
 import type {
   UsersPermissionsRole,
   UsersPermissionsUser,
-  // DatasetValueType,
+  DatasetValueType,
   // Resource,
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
@@ -25,7 +25,7 @@ import DatasetDataForm from "@/components/forms/dataset/data";
 import DatasetSettingsForm from "@/components/forms/dataset/settings";
 import { Data } from "@/components/forms/dataset/types";
 
-// import { updateOrCreateDataset } from "@/hooks/index";
+import { updateOrCreateDataset } from "@/hooks/index";
 
 // const getLimitsTypeNumber = (data: number[]) => {
 //   // Filter out objects with null values and extract the values
@@ -58,29 +58,122 @@ import { Data } from "@/components/forms/dataset/types";
 //       return getLimitsTypeNumber(values as number[]);
 //   }
 // };
+type Colors = { [key: string]: string };
+type Items = { [key: string]: any };
+type LegendItem = {
+  color: string;
+  label: string | number;
+  value: string | number;
+};
+type LegendConfig = {
+  type: string;
+  items: LegendItem[];
+};
 
-// const typeToKey = (type: DatasetValueType | undefined) => {
-//   switch (type) {
-//     case "resource":
-//       return "resources";
-//     case "text":
-//       return "text";
-//     case "boolean":
-//       return "boolean";
-//     default:
-//       return "number";
-//   }
-// };
+type LegendData = {
+  colors: Colors;
+  items: Items;
+};
 
-// const getTransformedData = (data: Data["data"], type: DatasetValueType | undefined) => {
-//   const key = typeToKey(type);
-//   return Object.keys(data).map((country) => {
-//     return {
-//       country,
-//       [key]: data[country] || [],
-//     };
-//   });
-// };
+const getLegendConfigNumber = (data: Items, colors: Colors) => {
+  const items = Object.values(data);
+  const values = items.filter((item) => item !== null && !isNaN(item));
+  // Find the min and max values
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+
+  return {
+    type: "gradient",
+    items: [
+      {
+        color: colors.min,
+        label: min,
+        value: min,
+      },
+      {
+        color: colors.max,
+        label: max,
+        value: max,
+      },
+    ],
+  };
+};
+
+const getLegendConfigBoolean = (data: Items, colors: Colors) => {
+  const items = Object.values(data);
+  const values = items.filter((item) => item !== null && !isNaN(item));
+  // Find the min and max values
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+
+  return {
+    type: "basic",
+    items: [
+      {
+        color: colors.min,
+        label: min,
+        value: min,
+      },
+      {
+        color: colors.max,
+        label: max,
+        value: max,
+      },
+    ],
+  };
+};
+
+const getLegendConfigText = (items: Items, colors: Colors) => {
+  const categories = [...new Set(Object.values(items))];
+
+  return {
+    type: "basic",
+    items: categories
+      .filter((category) => colors[category] !== undefined)
+      .map((category) => ({
+        color: colors[category],
+        label: category,
+        value: category,
+      })),
+  };
+};
+
+const legendConfig = (type: DatasetValueType | undefined, data: Data) => {
+  const { colors, data: dataValue } = data;
+  switch (type) {
+    case "text":
+      return getLegendConfigText(dataValue, colors);
+    case "boolean":
+      return getLegendConfigBoolean(dataValue, colors);
+    case "number":
+      return getLegendConfigNumber(dataValue, colors);
+    default:
+      throw new Error(`Unknown type: ${type}`);
+  }
+};
+
+const typeToKey = (type: DatasetValueType | undefined) => {
+  switch (type) {
+    case "resource":
+      return "resources";
+    case "text":
+      return "text";
+    case "boolean":
+      return "boolean";
+    default:
+      return "number";
+  }
+};
+
+const getTransformedData = (data: Data["data"], type: DatasetValueType | undefined) => {
+  const key = typeToKey(type);
+  return Object.keys(data).map((country) => {
+    return {
+      country,
+      [key]: data[country] || [],
+    };
+  });
+};
 
 export default function NewDatasetForm() {
   const { data: session } = useSession();
@@ -182,16 +275,39 @@ export default function NewDatasetForm() {
         //   category_ids: category,
         //   dataset_values: datasetValues,
         //   layers,
-        // };
-
-        // updateOrCreateDataset(data);
-        //     {
-        //       method: 'POST',
-        //       path: '/collaborators/update-or-create',
-        //     },
-        //  },
-        alert("Bulk upload required");
       }
+      // if (ME_DATA?.role?.type === "admin") {
+      console.info(data);
+      const { category, valueType, ...restSettings } = data.settings;
+      const datasetValues = getTransformedData(data.data, valueType);
+
+      const layers = {
+        name: data.settings.name,
+        type: "countries",
+        config: {},
+        params_config: [
+          {
+            key: "opacity",
+            default: 1,
+          },
+          {
+            key: "visibility",
+            default: true,
+          },
+        ],
+        legend_config: legendConfig(valueType, data),
+        interaction_config: {},
+      };
+
+      const parsedData = {
+        ...restSettings,
+        category_ids: category,
+        dataset_values: datasetValues,
+        layers,
+      };
+
+      // updateOrCreateDataset(parsedData);
+      // }
     },
     [formValues, setFormValues, ME_DATA, mutateDatasetEditSuggestion],
   );

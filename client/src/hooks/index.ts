@@ -15,7 +15,6 @@ export const updateOrCreateDataset = async (data: unknown) => {
 
 export function useValidateCsv(data: File, headers: AxiosHeaders, options?: UseQueryOptions<any>) {
   const validateCSV = () => {
-    console.log(data, typeof data);
     return api
       .request({
         method: "post",
