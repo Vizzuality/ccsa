@@ -30,6 +30,11 @@ export default function WelcomeMessage() {
     populate: ["video", "image"],
   });
 
+  console.log(
+    data?.data?.attributes?.image?.data?.attributes?.url,
+    data?.data?.attributes?.video?.data?.attributes?.url,
+  );
+
   const handleExplore = () => {
     setCookie("welcome", true);
   };
@@ -83,7 +88,7 @@ export default function WelcomeMessage() {
 
               {data?.data?.attributes?.image && (
                 <Image
-                  src={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.image?.data?.attributes?.url}`}
+                  src={`${env.NEXT_PUBLIC_CMS_ROOT_URL}${data?.data?.attributes?.image?.data?.attributes?.url}`}
                   alt="Welcome message"
                   width={data?.data?.attributes?.image?.data?.attributes?.width}
                   height={data?.data?.attributes?.image?.data?.attributes?.height}
