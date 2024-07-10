@@ -3,7 +3,7 @@ module.exports = {
     {
       method: 'POST',
       path: '/projects/approve-project-suggestion',
-      handler: 'project.updateOrCreate',
+      handler: 'project.approveProjectSuggestion',
       config: {
         policies: [],
         middlewares: [],

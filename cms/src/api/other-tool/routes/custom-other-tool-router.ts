@@ -3,7 +3,7 @@ export default {
     {
       method: 'POST',
       path: '/other-tools/approve-other-tool-suggestion',
-      handler: 'other-tool.updateOrCreate',
+      handler: 'other-tool.approveOtherToolSuggestion',
       config: {
         policies: [],
         middlewares: [],

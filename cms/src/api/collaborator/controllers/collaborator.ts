@@ -5,7 +5,7 @@
 import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::collaborator.collaborator', () => ({
-  async updateOrCreate(ctx: any) {
+  async approveCollaboratorSuggestion(ctx: any) {
     const data = ctx.request.body.data;
 
     let collaborator;

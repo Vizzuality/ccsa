@@ -12,7 +12,7 @@ module.exports = {
     {
       method: 'POST',
       path: '/datasets/approve-dataset-suggestion',
-      handler: 'dataset.bulkCreate',
+      handler: 'dataset.approveDatasetSuggestion',
       config: {
         policies: [],
         middlewares: [],
