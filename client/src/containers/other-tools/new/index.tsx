@@ -207,31 +207,47 @@ export default function NewToolForm() {
               },
             },
           });
-        } else if (!id) {
+        }
+        if (!!id && !otherToolData) {
           mutatePostToolEditSuggestion({
             data: {
               data: {
                 author: user?.id,
                 review_status: "pending",
                 ...values,
+                // @ts-expect-error TO-DO - fix types
+                other_tool: {
+                  disconnect: [+id],
+                  connect: [+id],
+                },
               },
             },
           });
         }
       }
 
+      // TO - DO
       if (ME_DATA?.role?.type === "admin") {
-        if (!!id) {
+        if (!!id && values.category) {
           mutatePutOtherToolsId({
             id: +id,
             data: {
-              data: values,
+              data: {
+                ...values,
+                // @ts-expect-error TO-DO - fix types
+                other_tools_category: {
+                  connect: [+values.category],
+                  disconnect: [],
+                },
+              },
             },
           });
         } else if (!id) {
           mutatePostOtherTools({
             data: {
-              data: values,
+              data: {
+                ...values,
+              },
             },
           });
         }

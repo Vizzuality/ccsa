@@ -17,7 +17,9 @@ export const updateOrCreateDataset = async (
     .request({
       method: "post",
       url: "/datasets/approve-dataset-suggestion",
-      data,
+      data: {
+        data,
+      },
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${userToken}`,
@@ -56,4 +58,28 @@ export function useValidateCsv(
   };
 
   return useQuery(["validate-csv"], validateCSV);
+}
+
+export function uploadImage(
+  data: File[],
+  headers: { [key: string]: string },
+  options?: UseQueryOptions<unknown>,
+) {
+  const formData = new FormData();
+  formData.append("files", data[0]);
+  return api
+    .request({
+      method: "post",
+      url: "/upload",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...headers,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
 }

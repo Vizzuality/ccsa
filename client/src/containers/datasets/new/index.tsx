@@ -129,19 +129,21 @@ const getNumberData = (data: Data) => {
     ],
   };
 
-  const layers = {
-    name: data.settings.name,
-    type: "countries",
-    config: configText,
-    params_config: PARAMS_CONFIG,
-    legend_config: getLegendConfigNumber(data.colors, minValue, maxValue),
-    interaction_config: {},
-  };
+  const layers = [
+    {
+      name: data.settings.name,
+      type: "countries",
+      config: configText,
+      params_config: PARAMS_CONFIG,
+      legend_config: getLegendConfigNumber(data.colors, minValue, maxValue),
+      interaction_config: {},
+    },
+  ];
 
   return {
     ...restSettings,
     value_type: data.settings.valueType,
-    category_ids: category,
+    category_ids: [category],
     dataset_values: datasetValues,
     layers,
   };
@@ -171,19 +173,21 @@ const getTextData = (data: Data) => {
     ],
   };
 
-  const layers = {
-    name: data.settings.name,
-    type: "countries",
-    config: configText,
-    params_config: PARAMS_CONFIG,
-    legend_config: getLegendConfigText(data.data, data.colors),
-    interaction_config: {},
-  };
+  const layers = [
+    {
+      name: data.settings.name,
+      type: "countries",
+      config: configText,
+      params_config: PARAMS_CONFIG,
+      legend_config: getLegendConfigText(data.data, data.colors),
+      interaction_config: {},
+    },
+  ];
 
   return {
     ...restSettings,
     value_type: data.settings.valueType,
-    category_ids: category,
+    category_ids: [category],
     dataset_values: datasetValues,
     layers,
   };
@@ -213,19 +217,21 @@ const getResourcesData = (data: Data) => {
     ],
   };
 
-  const layers = {
-    name: data.settings.name,
-    type: "countries",
-    config: configText,
-    params_config: PARAMS_CONFIG,
-    legend_config: getLegendConfigResources(data.colors),
-    interaction_config: {},
-  };
+  const layers = [
+    {
+      name: data.settings.name,
+      type: "countries",
+      config: configText,
+      params_config: PARAMS_CONFIG,
+      legend_config: getLegendConfigResources(data.colors),
+      interaction_config: {},
+    },
+  ];
 
   return {
     ...restSettings,
     value_type: data.settings.valueType,
-    category_ids: category,
+    category_ids: [category],
     dataset_values: datasetValues,
     layers,
   };
@@ -255,19 +261,21 @@ const getBooleanData = (data: Data) => {
     ],
   };
 
-  const layers = {
-    name: data.settings.name,
-    type: "countries",
-    config: configText,
-    params_config: PARAMS_CONFIG,
-    legend_config: getLegendConfigBoolean(data.colors),
-    interaction_config: {},
-  };
+  const layers = [
+    {
+      name: data.settings.name,
+      type: "countries",
+      config: configText,
+      params_config: PARAMS_CONFIG,
+      legend_config: getLegendConfigBoolean(data.colors),
+      interaction_config: {},
+    },
+  ];
 
   return {
     ...restSettings,
     value_type: data.settings.valueType,
-    category_ids: category,
+    category_ids: [category],
     dataset_values: datasetValues,
     layers,
   };
