@@ -50,8 +50,9 @@ export default function Step2() {
   // });
 
   // const { setValue } = useForm();
-  const { setValue } = useForm();
-  // const { setValue } = useForm();
+
+  // const { data: session } = useSession();
+  // const { apiToken } = session;
 
   // const { data: session } = useSession();
   // const { apiToken } = session;

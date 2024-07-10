@@ -65,7 +65,7 @@ export default function DatasetPendingChangesContributor() {
 
   return (
     <div className="space-y-10 p-4 py-10 sm:px-10 md:px-24 lg:px-32">
-      <h1 className="text-3xl font-bold -tracking-[0.0375rem]">Pending changes</h1>
+      <h1 className="text-3xl font-bold -tracking-[0.0375rem]">Suggested updates</h1>
       <Table>
         <TableHeader>
           <TableRow>

@@ -244,11 +244,14 @@ export default function PersonalDataForm() {
                             <div className="relative">
                               <Input
                                 {...field}
-                                type={fieldsVisibility?.[name] ? type : "text"}
+                                type={
+                                  fieldsVisibility?.[name] || name === "password" ? type : "text"
+                                }
                                 className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
                                 placeholder={placeholder}
                               />
-                              {!fieldsVisibility?.[name] ? (
+
+                              {name !== "password" && !fieldsVisibility?.[name] && (
                                 <LuEye
                                   className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 transform"
                                   onClick={() =>
@@ -258,7 +261,9 @@ export default function PersonalDataForm() {
                                     })
                                   }
                                 />
-                              ) : (
+                              )}
+
+                              {name !== "password" && fieldsVisibility?.[name] && (
                                 <LuEyeOff
                                   className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 transform"
                                   onClick={() =>

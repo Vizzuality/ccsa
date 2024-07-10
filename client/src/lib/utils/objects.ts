@@ -60,7 +60,7 @@ export function getObjectDifferences(obj1: PossibleObject, obj2: PossibleObject)
 
   // Iterate over the keys and compare the values in both objects
   keys.forEach((key) => {
-    if (obj1[key] !== obj2[key]) {
+    if (obj1[key] !== obj2[key] && !!obj1[key] && !!obj2[key]) {
       differences.push(key);
     }
   });

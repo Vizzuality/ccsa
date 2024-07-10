@@ -8,9 +8,26 @@ const api = axios.create({
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
   },
 });
-export const updateOrCreateDataset = async (data: unknown) => {
-  const response = await api.post("/datasets/update-or-create", { data });
-  return response.data;
+export const updateOrCreateDataset = async (
+  data: unknown,
+  userToken: string,
+  options?: UseQueryOptions<unknown>,
+) => {
+  return await api
+    .request({
+      method: "post",
+      url: "/datasets/approve-dataset-suggestion",
+      data,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
 };
 
 export function useValidateCsv(
