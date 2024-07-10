@@ -8,7 +8,11 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": ["name", "datasets", "dataset_edit_suggestions"]
+        "fields": [
+          "name",
+          "datasets",
+          "dataset_edit_suggestions"
+        ]
       },
       "conditions": []
     },
@@ -31,7 +35,11 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": ["name", "datasets", "dataset_edit_suggestions"]
+        "fields": [
+          "name",
+          "datasets",
+          "dataset_edit_suggestions"
+        ]
       },
       "conditions": []
     },
@@ -40,7 +48,11 @@
       "actionParameters": {},
       "subject": "api::category.category",
       "properties": {
-        "fields": ["name", "datasets", "dataset_edit_suggestions"]
+        "fields": [
+          "name",
+          "datasets",
+          "dataset_edit_suggestions"
+        ]
       },
       "conditions": []
     },
@@ -49,7 +61,15 @@
       "actionParameters": {},
       "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
       "properties": {
-        "fields": ["name", "link", "type", "review_status", "author"]
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "review_status",
+          "author",
+          "collaborator",
+          "image"
+        ]
       },
       "conditions": []
     },
@@ -72,7 +92,15 @@
       "actionParameters": {},
       "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
       "properties": {
-        "fields": ["name", "link", "type", "review_status", "author"]
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "review_status",
+          "author",
+          "collaborator",
+          "image"
+        ]
       },
       "conditions": []
     },
@@ -81,7 +109,15 @@
       "actionParameters": {},
       "subject": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
       "properties": {
-        "fields": ["name", "link", "type", "review_status", "author"]
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "review_status",
+          "author",
+          "collaborator",
+          "image"
+        ]
       },
       "conditions": []
     },
@@ -90,7 +126,13 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "collaborator_edit_suggestions",
+          "image"
+        ]
       },
       "conditions": []
     },
@@ -113,7 +155,13 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "collaborator_edit_suggestions",
+          "image"
+        ]
       },
       "conditions": []
     },
@@ -122,7 +170,13 @@
       "actionParameters": {},
       "subject": "api::collaborator.collaborator",
       "properties": {
-        "fields": ["name", "link", "type", "collaborator_edit_suggestions"]
+        "fields": [
+          "name",
+          "link",
+          "type",
+          "collaborator_edit_suggestions",
+          "image"
+        ]
       },
       "conditions": []
     },
@@ -131,7 +185,14 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": ["name", "iso3", "geometry", "bbox", "link", "dataset_values"]
+        "fields": [
+          "name",
+          "iso3",
+          "geometry",
+          "bbox",
+          "link",
+          "dataset_values"
+        ]
       },
       "conditions": []
     },
@@ -154,7 +215,14 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": ["name", "iso3", "geometry", "bbox", "link", "dataset_values"]
+        "fields": [
+          "name",
+          "iso3",
+          "geometry",
+          "bbox",
+          "link",
+          "dataset_values"
+        ]
       },
       "conditions": []
     },
@@ -163,7 +231,14 @@
       "actionParameters": {},
       "subject": "api::country.country",
       "properties": {
-        "fields": ["name", "iso3", "geometry", "bbox", "link", "dataset_values"]
+        "fields": [
+          "name",
+          "iso3",
+          "geometry",
+          "bbox",
+          "link",
+          "dataset_values"
+        ]
       },
       "conditions": []
     },
@@ -179,12 +254,11 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset",
-          "colors",
           "author",
           "category",
           "layers",
-          "dataset"
+          "dataset",
+          "colors"
         ]
       },
       "conditions": []
@@ -215,12 +289,11 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset",
-          "colors",
           "author",
           "category",
           "layers",
-          "dataset"
+          "dataset",
+          "colors"
         ]
       },
       "conditions": []
@@ -237,12 +310,11 @@
           "unit",
           "value_type",
           "review_status",
-          "dataset",
-          "colors",
           "author",
           "category",
           "layers",
-          "dataset"
+          "dataset",
+          "colors"
         ]
       },
       "conditions": []
@@ -378,7 +450,10 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": ["email", "downloads"]
+        "fields": [
+          "email",
+          "downloads"
+        ]
       },
       "conditions": []
     },
@@ -401,7 +476,10 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": ["email", "downloads"]
+        "fields": [
+          "email",
+          "downloads"
+        ]
       },
       "conditions": []
     },
@@ -410,7 +488,10 @@
       "actionParameters": {},
       "subject": "api::download-email.download-email",
       "properties": {
-        "fields": ["email", "downloads"]
+        "fields": [
+          "email",
+          "downloads"
+        ]
       },
       "conditions": []
     },
@@ -549,7 +630,9 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": ["name"]
+        "fields": [
+          "name"
+        ]
       },
       "conditions": []
     },
@@ -572,7 +655,9 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": ["name"]
+        "fields": [
+          "name"
+        ]
       },
       "conditions": []
     },
@@ -581,7 +666,9 @@
       "actionParameters": {},
       "subject": "api::other-tools-category.other-tools-category",
       "properties": {
-        "fields": ["name"]
+        "fields": [
+          "name"
+        ]
       },
       "conditions": []
     },
@@ -824,7 +911,11 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": ["link_title", "link_url", "description"]
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
+        ]
       },
       "conditions": []
     },
@@ -847,7 +938,11 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": ["link_title", "link_url", "description"]
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
+        ]
       },
       "conditions": []
     },
@@ -856,7 +951,11 @@
       "actionParameters": {},
       "subject": "api::resource.resource",
       "properties": {
-        "fields": ["link_title", "link_url", "description"]
+        "fields": [
+          "link_title",
+          "link_url",
+          "description"
+        ]
       },
       "conditions": []
     },
@@ -865,7 +964,11 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": ["name", "projects", "project_edit_suggestions"]
+        "fields": [
+          "name",
+          "projects",
+          "project_edit_suggestions"
+        ]
       },
       "conditions": []
     },
@@ -888,7 +991,11 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": ["name", "projects", "project_edit_suggestions"]
+        "fields": [
+          "name",
+          "projects",
+          "project_edit_suggestions"
+        ]
       },
       "conditions": []
     },
@@ -897,7 +1004,11 @@
       "actionParameters": {},
       "subject": "api::sdg.sdg",
       "properties": {
-        "fields": ["name", "projects", "project_edit_suggestions"]
+        "fields": [
+          "name",
+          "projects",
+          "project_edit_suggestions"
+        ]
       },
       "conditions": []
     },
@@ -971,7 +1082,13 @@
       "actionParameters": {},
       "subject": "api::welcome-message.welcome-message",
       "properties": {
-        "fields": ["title", "subtitle", "video", "image", "button"]
+        "fields": [
+          "title",
+          "subtitle",
+          "video",
+          "image",
+          "button"
+        ]
       },
       "conditions": []
     },
@@ -994,7 +1111,13 @@
       "actionParameters": {},
       "subject": "api::welcome-message.welcome-message",
       "properties": {
-        "fields": ["title", "subtitle", "video", "image", "button"]
+        "fields": [
+          "title",
+          "subtitle",
+          "video",
+          "image",
+          "button"
+        ]
       },
       "conditions": []
     },
@@ -1003,7 +1126,13 @@
       "actionParameters": {},
       "subject": "api::welcome-message.welcome-message",
       "properties": {
-        "fields": ["title", "subtitle", "video", "image", "button"]
+        "fields": [
+          "title",
+          "subtitle",
+          "video",
+          "image",
+          "button"
+        ]
       },
       "conditions": []
     },
