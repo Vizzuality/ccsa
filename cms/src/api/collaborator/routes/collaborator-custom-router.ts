@@ -3,7 +3,7 @@ export default {
     {
       method: 'POST',
       path: '/collaborators/approve-collaborator-suggestion',
-      handler: 'collaborator.updateOrCreate',
+      handler: 'collaborator.approveCollaboratorSuggestion',
       config: {
         policies: [],
         middlewares: [],

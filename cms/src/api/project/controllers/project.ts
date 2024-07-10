@@ -5,7 +5,7 @@
 import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::project.project', () => ({
-  async updateOrCreate(ctx) {
+  async approveProjectSuggestion(ctx) {
     const data = ctx.request.body.data;
     let project;
 

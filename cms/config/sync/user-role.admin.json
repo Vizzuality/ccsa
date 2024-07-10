@@ -34,6 +34,9 @@
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.update"
     },
     {
+      "action": "api::collaborator.collaborator.approveCollaboratorSuggestion"
+    },
+    {
       "action": "api::collaborator.collaborator.create"
     },
     {
@@ -97,7 +100,7 @@
       "action": "api::dataset-value.dataset-value.update"
     },
     {
-      "action": "api::dataset.dataset.bulkCreate"
+      "action": "api::dataset.dataset.approveDatasetSuggestion"
     },
     {
       "action": "api::dataset.dataset.create"
@@ -113,6 +116,9 @@
     },
     {
       "action": "api::dataset.dataset.update"
+    },
+    {
+      "action": "api::dataset.dataset.updateOrCreate"
     },
     {
       "action": "api::download-email.download-email.create"
@@ -143,6 +149,9 @@
     },
     {
       "action": "api::layer.layer.update"
+    },
+    {
+      "action": "api::other-tool.other-tool.approveOtherToolSuggestion"
     },
     {
       "action": "api::other-tool.other-tool.create"
@@ -203,6 +212,9 @@
     },
     {
       "action": "api::project-edit-suggestion.project-edit-suggestion.update"
+    },
+    {
+      "action": "api::project.project.approveProjectSuggestion"
     },
     {
       "action": "api::project.project.create"

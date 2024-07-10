@@ -24,7 +24,7 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
     }
     ctx.send(dataset);
   },
-  async bulkCreate(ctx) {
+  async approveDatasetSuggestion(ctx) {
     const { data } = ctx.request.body;
     const { dataset_id, name, description, value_type, dataset_values = [], layers = [], category_ids = [] } = data;
 
@@ -75,9 +75,9 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
             .whereIn('dataset_value_id', existingDatasetValueIds)
             .select('resource_id');
 
-          const resourceIdsToDelete = existingResourceIds.map(r => r.resource_id);
+          if (existingResourceIds.length > 0) {
+            const resourceIdsToDelete = existingResourceIds.map(r => r.resource_id);
 
-          if (resourceIdsToDelete.length > 0) {
             await trx('resources')
               .whereIn('id', resourceIdsToDelete)
               .del();
@@ -111,26 +111,15 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
             throw new Error(`Country with iso_3 ${value.country} not found`);
           }
 
-          // Create resources
-          const createdResources = await Promise.all(value.resources.map(async (resource: any) => {
-            const newResource = await trx('resources')
-              .insert({
-                ...resource,
-                created_at: currentTime,
-                updated_at: currentTime,
-                published_at: currentTime,
-              })
-              .returning('*')
-              .then(rows => rows[0]);
-
-            return newResource.id;
-          }));
+          const datasetValueData = {
+            created_at: currentTime,
+            updated_at: currentTime,
+            value_text: value.value_text || null,
+            value_number: value.value_number || null,
+          };
 
           const newValue = await trx('dataset_values')
-            .insert({
-              created_at: currentTime,
-              updated_at: currentTime,
-            })
+            .insert(datasetValueData)
             .returning('*')
             .then(rows => rows[0]);
 
@@ -141,14 +130,31 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
               country_id: country.id
             });
 
-          // Insert into dataset_values_resources_links
-          await Promise.all(createdResources.map(async (resourceId: number) => {
-            await trx('dataset_values_resources_links')
-              .insert({
-                dataset_value_id: newValue.id,
-                resource_id: resourceId
-              });
-          }));
+          // Create resources if received:
+          if (value.resources && value.resources.length > 0) {
+            const createdResources = await Promise.all(value.resources.map(async (resource: any) => {
+              const newResource = await trx('resources')
+                .insert({
+                  ...resource,
+                  created_at: currentTime,
+                  updated_at: currentTime,
+                  published_at: currentTime,
+                })
+                .returning('*')
+                .then(rows => rows[0]);
+
+              return newResource.id;
+            }));
+
+            // Insert into dataset_values_resources_links
+            await Promise.all(createdResources.map(async (resourceId: number) => {
+              await trx('dataset_values_resources_links')
+                .insert({
+                  dataset_value_id: newValue.id,
+                  resource_id: resourceId
+                });
+            }));
+          }
 
           // Insert into dataset_values_dataset_links
           await trx('dataset_values_dataset_links')
@@ -165,6 +171,17 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
       if (layers.length > 0) {
         // Handle Layers creation or linking
         layerIds = await Promise.all(layers.map(async (layer: any) => {
+          const layerData = {
+            ...layer,
+            config: JSON.stringify(layer.config),
+            params_config: JSON.stringify(layer.params_config),
+            legend_config: JSON.stringify(layer.legend_config),
+            interaction_config: JSON.stringify(layer.interaction_config),
+            created_at: currentTime,
+            updated_at: currentTime,
+            published_at: currentTime,
+          };
+
           if (layer.layer_id) {
             // Remove existing relation between dataset and layer
             await trx('layers_dataset_links')
@@ -183,12 +200,7 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
           } else {
             // Create new layer
             const newLayer = await trx('layers')
-              .insert({
-                ...layer,
-                created_at: currentTime,
-                updated_at: currentTime,
-                published_at: currentTime,
-              })
+              .insert(layerData)
               .returning('*')
               .then(rows => rows[0]);
 

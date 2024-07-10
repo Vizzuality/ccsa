@@ -5,7 +5,7 @@
 import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::other-tool.other-tool', () => ({
-  async updateOrCreate(ctx: any) {
+  async approveOtherToolSuggestion(ctx: any) {
     const data = ctx.request.body.data;
 
     let otherTool;
