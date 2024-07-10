@@ -15,7 +15,7 @@ export default function DashboardContent() {
 
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
-  const role = ME_DATA?.role?.type;
+  const role = ME_DATA?.role?.type || "admin";
 
   const DynamicContent = dynamic(() => import(`@/containers/dashboard/${role}`), {
     ssr: false,

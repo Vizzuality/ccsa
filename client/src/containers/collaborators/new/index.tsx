@@ -70,25 +70,25 @@ export default function NewCollaboratorForm() {
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   // if there is no id in the route, we are creating a new collaborator, no need to look for
-  // an existing tool
+  // an existing one
   const { data: collaboratorData } = useGetCollaboratorsId(
     +id,
     {},
-    // {
-    //   query: {
-    //     enabled: !!id,
-    //   },
-    // },
+    {
+      query: {
+        enabled: !!id,
+      },
+    },
   );
 
   const { data: collaboratorSuggestedDataId } = useGetCollaboratorEditSuggestionsId(
     +id,
     {},
-    // {
-    //   query: {
-    //     enabled: !!id,
-    //   },
-    // },
+    {
+      query: {
+        enabled: !!id,
+      },
+    },
   );
 
   const previousData =
@@ -97,11 +97,11 @@ export default function NewCollaboratorForm() {
   const { mutate: mutatePostCollaboratorsTools } = usePostCollaborators({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success creating a new tool:", data);
-        push(`/dashboard`);
+        console.info("Success creating a new collaborator:", data);
+        push(`/collaborators`);
       },
       onError: (error: Error) => {
-        console.error("Error creating a new tool:", error);
+        console.error("Error creating a new collaborator:", error);
       },
     },
     request: {},
@@ -110,11 +110,11 @@ export default function NewCollaboratorForm() {
   const { mutate: mutatePutCollaboratorsEditSuggestionId } = usePutCollaboratorEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success creating a new tool:", data);
+        console.info("Success creating a new collaborator:", data);
         push(`/dashboard`);
       },
       onError: (error) => {
-        console.error("Error creating a new tool:", error);
+        console.error("Error creating a new collaborator:", error);
       },
     },
     request: {},
@@ -123,11 +123,11 @@ export default function NewCollaboratorForm() {
   const { mutate: mutatePostCollaboratorsEditSuggestion } = usePostCollaboratorEditSuggestions({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success creating a new tool:", data);
+        console.info("Success creating a new collaborator:", data);
         push(`/dashboard`);
       },
       onError: (error) => {
-        console.error("Error creating a new tool:", error);
+        console.error("Error creating a new collaborator:", error);
       },
     },
     request: {},
@@ -218,6 +218,7 @@ export default function NewCollaboratorForm() {
               link: values.link,
               name: values.name,
               type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
+              image: values.logo,
             },
           },
         });

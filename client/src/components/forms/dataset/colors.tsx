@@ -48,6 +48,18 @@ const getDefaultFormSchema = () =>
       .regex(hexColorRegex, { message: "Please enter a valid hex color for max" }),
   });
 
+const getBooleanFormSchema = () =>
+  z.object({
+    yes: z
+      .string()
+      .min(1, { message: "Please enter a valid hex color for YES" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for YES" }),
+    no: z
+      .string()
+      .min(1, { message: "Please enter a valid hex color for NO" })
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for NO" }),
+  });
+
 const getTextFormSchema = (categories: string[] | null): z.ZodObject<z.ZodRawShape> => {
   if (!categories) return z.object({});
   const schemaShape = categories.reduce(
@@ -75,6 +87,10 @@ const getFormSchema = ({
 }) => {
   if (valueType === "text") {
     return getTextFormSchema(categories);
+  }
+
+  if (valueType === "boolean") {
+    return getBooleanFormSchema();
   }
 
   return getDefaultFormSchema();
@@ -230,7 +246,7 @@ export default function DatasetColorsForm({
                   />
                 ))}
 
-              {(valueType === "number" || valueType === "resource" || valueType === "boolean") && (
+              {(valueType === "number" || valueType === "resource") && (
                 <>
                   <FormField
                     key="min"
@@ -263,6 +279,58 @@ export default function DatasetColorsForm({
                     render={({ field }) => (
                       <FormItem className="space-y-1.5">
                         <FormLabel className="text-xs font-semibold">Max value</FormLabel>
+                        <FormControl>
+                          <ColorPicker
+                            id="color"
+                            value={field.value}
+                            className={cn({
+                              "bg-green-400": changes?.includes(field.name),
+                            })}
+                            onChange={(e) => {
+                              return field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+
+              {valueType === "boolean" && (
+                <>
+                  <FormField
+                    key="no"
+                    control={form.control}
+                    name="yes"
+                    render={({ field }) => (
+                      <FormItem className="space-y-1.5">
+                        <FormLabel className="text-xs font-semibold">YES value</FormLabel>
+                        <FormControl>
+                          <ColorPicker
+                            id="color"
+                            value={field.value}
+                            className={cn({
+                              "bg-green-400": changes?.includes(field.name),
+                            })}
+                            onChange={(e) => {
+                              return field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    key="no"
+                    control={form.control}
+                    name="no"
+                    render={({ field }) => (
+                      <FormItem className="space-y-1.5">
+                        <FormLabel className="text-xs font-semibold">NO value</FormLabel>
                         <FormControl>
                           <ColorPicker
                             id="color"

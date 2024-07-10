@@ -13,8 +13,7 @@ import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-su
 import type {
   UsersPermissionsRole,
   UsersPermissionsUser,
-  // DatasetValueType,
-  // Resource,
+  DatasetValueType,
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
@@ -25,62 +24,315 @@ import DatasetDataForm from "@/components/forms/dataset/data";
 import DatasetSettingsForm from "@/components/forms/dataset/settings";
 import { Data } from "@/components/forms/dataset/types";
 
-// import { updateOrCreateDataset } from "@/hooks/index";
+import { updateOrCreateDataset } from "@/hooks";
 
-// const getLimitsTypeNumber = (data: number[]) => {
-//   // Filter out objects with null values and extract the values
-//   const values = data.filter((item) => item !== null && !isNaN(item));
+import { PARAMS_CONFIG, DEFAULT_COLOR } from "./constants";
 
-//   // Find the min and max values
-//   const min = Math.min(...values);
-//   const max = Math.max(...values);
+type Colors = { [key: string]: string };
 
-//   return { min, max };
-// };
+const getLegendConfigNumber = (colors: Colors, minValue: number, maxValue: number) => {
+  return {
+    type: "gradient",
+    items: [
+      {
+        color: colors.min,
+        label: minValue,
+        value: minValue,
+      },
+      {
+        color: colors.max,
+        label: maxValue,
+        value: maxValue,
+      },
+    ],
+  };
+};
 
-// const getLimits = ({
-//   values,
-//   valueType,
-// }: {
-//   values: unknown;
-//   // (string | number | boolean | Resource[] | undefined)[];
-//   valueType: DatasetValueType | undefined;
-// }) => {
-//   switch (valueType) {
-//     case "resource":
-//       return { min: -50, max: 50 };
-//     case "text":
-//       values;
-//       return { min: 900, max: 1100 };
-//     case "boolean":
-//       return { min: 0, max: 100 };
-//     default:
-//       return getLimitsTypeNumber(values as number[]);
-//   }
-// };
+const getLegendConfigBoolean = (colors: Colors) => {
+  return {
+    type: "basic",
+    items: [
+      {
+        color: colors.yes,
+        label: "yes",
+        value: "yes",
+      },
+      {
+        color: colors.no,
+        label: "no",
+        value: "no",
+      },
+    ],
+  };
+};
 
-// const typeToKey = (type: DatasetValueType | undefined) => {
-//   switch (type) {
-//     case "resource":
-//       return "resources";
-//     case "text":
-//       return "text";
-//     case "boolean":
-//       return "boolean";
-//     default:
-//       return "number";
-//   }
-// };
+const getLegendConfigText = (data: Data["data"], colors: Colors) => {
+  const categories = [...new Set(Object.values(data))].filter(
+    (item) => item !== undefined,
+  ) as string[];
 
-// const getTransformedData = (data: Data["data"], type: DatasetValueType | undefined) => {
-//   const key = typeToKey(type);
-//   return Object.keys(data).map((country) => {
-//     return {
-//       country,
-//       [key]: data[country] || [],
-//     };
-//   });
-// };
+  return {
+    type: "basic",
+    items: categories.map((category) => ({
+      color: colors[category],
+      label: category,
+      value: category,
+    })),
+  };
+};
+
+const getLegendConfigResources = (colors: Colors) => {
+  return {
+    type: "gradient",
+    items: [
+      {
+        color: colors.min,
+        label: "@@#params.minValue",
+        value: "@@#params.minValue",
+      },
+      {
+        color: colors.max,
+        label: "@@#params.maxValue",
+        value: "@@#params.maxValue",
+      },
+    ],
+  };
+};
+
+const getNumberData = (data: Data) => {
+  const { category, ...restSettings } = data.settings;
+  const datasetValues = getTransformedData(data.data, "number");
+
+  const items = Object.values(data.data);
+  const values = items.filter((item) => item !== null && !!item) as number[];
+  // Find the min and max values
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+
+  const fillColor = createFillColorExpression(data, minValue, maxValue);
+  const configText = {
+    styles: [
+      {
+        id: data.settings.name,
+        type: "fill",
+        paint: {
+          "fill-color": fillColor,
+          "fill-opacity": "@@#params.opacity",
+        },
+        layout: {
+          visibility: {
+            v: "@@#params.visibility",
+            "@@function": "setVisibility",
+          },
+        },
+      },
+    ],
+  };
+
+  const layers = {
+    name: data.settings.name,
+    type: "countries",
+    config: configText,
+    params_config: PARAMS_CONFIG,
+    legend_config: getLegendConfigNumber(data.colors, minValue, maxValue),
+    interaction_config: {},
+  };
+
+  return {
+    ...restSettings,
+    value_type: data.settings.valueType,
+    category_ids: category,
+    dataset_values: datasetValues,
+    layers,
+  };
+};
+
+const getTextData = (data: Data) => {
+  const { category, ...restSettings } = data.settings;
+  const datasetValues = getTransformedData(data.data, "text");
+
+  const fillColor = transformToMatchExpression(data.colors);
+  const configText = {
+    styles: [
+      {
+        id: data.settings.name,
+        type: "fill",
+        paint: {
+          "fill-color": fillColor,
+          "fill-opacity": "@@#params.opacity",
+        },
+        layout: {
+          visibility: {
+            v: "@@#params.visibility",
+            "@@function": "setVisibility",
+          },
+        },
+      },
+    ],
+  };
+
+  const layers = {
+    name: data.settings.name,
+    type: "countries",
+    config: configText,
+    params_config: PARAMS_CONFIG,
+    legend_config: getLegendConfigText(data.data, data.colors),
+    interaction_config: {},
+  };
+
+  return {
+    ...restSettings,
+    value_type: data.settings.valueType,
+    category_ids: category,
+    dataset_values: datasetValues,
+    layers,
+  };
+};
+
+const getResourcesData = (data: Data) => {
+  const { category, ...restSettings } = data.settings;
+  const datasetValues = getTransformedData(data.data, "boolean");
+
+  const fillColor = createFillColorInterpolation(data.colors);
+  const configText = {
+    styles: [
+      {
+        id: data.settings.name,
+        type: "fill",
+        paint: {
+          "fill-color": fillColor,
+          "fill-opacity": "@@#params.opacity",
+        },
+        layout: {
+          visibility: {
+            v: "@@#params.visibility",
+            "@@function": "setVisibility",
+          },
+        },
+      },
+    ],
+  };
+
+  const layers = {
+    name: data.settings.name,
+    type: "countries",
+    config: configText,
+    params_config: PARAMS_CONFIG,
+    legend_config: getLegendConfigResources(data.colors),
+    interaction_config: {},
+  };
+
+  return {
+    ...restSettings,
+    value_type: data.settings.valueType,
+    category_ids: category,
+    dataset_values: datasetValues,
+    layers,
+  };
+};
+
+const getBooleanData = (data: Data) => {
+  const { category, ...restSettings } = data.settings;
+  const datasetValues = getTransformedData(data.data, "boolean");
+
+  const fillColor = transformToMatchExpression(data.colors);
+  const configText = {
+    styles: [
+      {
+        id: data.settings.name,
+        type: "fill",
+        paint: {
+          "fill-color": fillColor,
+          "fill-opacity": "@@#params.opacity",
+        },
+        layout: {
+          visibility: {
+            v: "@@#params.visibility",
+            "@@function": "setVisibility",
+          },
+        },
+      },
+    ],
+  };
+
+  const layers = {
+    name: data.settings.name,
+    type: "countries",
+    config: configText,
+    params_config: PARAMS_CONFIG,
+    legend_config: getLegendConfigBoolean(data.colors),
+    interaction_config: {},
+  };
+
+  return {
+    ...restSettings,
+    value_type: data.settings.valueType,
+    category_ids: category,
+    dataset_values: datasetValues,
+    layers,
+  };
+};
+
+const getDataParsed = (type: DatasetValueType | undefined, data: Data) => {
+  switch (type) {
+    case "resource":
+      return getResourcesData(data);
+    case "text":
+      return getTextData(data);
+    case "boolean":
+      return getBooleanData(data);
+    default:
+      return getNumberData(data);
+  }
+};
+
+const getTransformedData = (data: Data["data"], key: string) => {
+  return Object.keys(data).map((country) => {
+    return {
+      country,
+      [key]: data[country] || null,
+    };
+  });
+};
+
+const transformToMatchExpression = (data: { [key: string]: string }) => {
+  const matchExpression = Object.entries(data).reduce(
+    (acc, [key, value]) => {
+      acc.push(key, value);
+      return acc;
+    },
+    ["match", ["get", "value"]],
+  );
+  matchExpression.push(DEFAULT_COLOR);
+
+  return matchExpression;
+};
+
+const createFillColorExpression = (data: Data, minValue: number, maxValue: number) => {
+  const minColor = data.colors.min;
+  const maxColor = data.colors.max;
+  return [
+    "case",
+    ["all", ["has", "value"], ["==", ["typeof", ["get", "value"]], "number"]],
+    ["interpolate", ["linear"], ["get", "value"], minValue, minColor, maxValue, maxColor],
+    DEFAULT_COLOR,
+  ];
+};
+
+const createFillColorInterpolation = (data: Data["colors"]) => {
+  const minColor = data.min;
+  const maxColor = data.max;
+
+  return [
+    "interpolate",
+    ["linear"],
+    ["get", "value"],
+    "@@#params.minValue",
+    minColor,
+    "@@#params.maxValue",
+    maxColor,
+  ];
+};
 
 export default function NewDatasetForm() {
   const { data: session } = useSession();
@@ -95,30 +347,7 @@ export default function NewDatasetForm() {
   });
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
-  // UsersPermissionsRole
-
-  // const { mutate: mutateDataset } = usePostDatasets({
-  //   mutation: {
-  //     onSuccess: (data) => {
-  //       console.log("Success creating dataset:", data);
-  //     },
-  //     onError: (error) => {
-  //       console.error("Error creating dataset:", error);
-  //     },
-  //   },
-  // });
-
-  // const { mutate: mutateDatasetValues } = usePostDatasetValues({
-  //   mutation: {
-  //     onSuccess: (data) => {
-  //       console.log("Success creating dataset values:", data);
-  //     },
-  //     onError: (error) => {
-  //       console.error("Error creating dataset values:", error);
-  //     },
-  //   },
-  // });
-
+  // contributor role can just suggest changes
   const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
     mutation: {
       onSuccess: (data) => {
@@ -169,31 +398,12 @@ export default function NewDatasetForm() {
 
       // BULK UPLOAD REQUIRED
       if (ME_DATA?.role?.type === "admin") {
-        console.info(data);
-        // const { category, valueType, ...restSettings } = data.settings;
-        // const datasetValues = getTransformedData(data.data, valueType);
-        // const values = Object.values(data.data);
-        // const layers = {
-        //   name: data.settings.name,
-        // };
-        // const extremes = getLimits({ values, valueType });
-        // const parsedData = {
-        //   ...restSettings,
-        //   category_ids: category,
-        //   dataset_values: datasetValues,
-        //   layers,
-        // };
-
-        // updateOrCreateDataset(data);
-        //     {
-        //       method: 'POST',
-        //       path: '/collaborators/update-or-create',
-        //     },
-        //  },
-        alert("Bulk upload required");
+        const { valueType } = data.settings;
+        const parsedData = getDataParsed(valueType, data);
+        updateOrCreateDataset(parsedData, session?.apiToken as string);
       }
     },
-    [formValues, setFormValues, ME_DATA, mutateDatasetEditSuggestion],
+    [formValues, setFormValues, ME_DATA, mutateDatasetEditSuggestion, session?.apiToken],
   );
 
   return (

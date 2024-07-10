@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  // useMemo
-} from "react";
+import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -137,7 +134,7 @@ export default function ProjectForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a project:", data);
-        push(`/dashboard`);
+        push(`/projects?project=${data?.data?.id}`);
       },
       onError: (error) => {
         console.error("Error creating a project:", error);
@@ -150,7 +147,7 @@ export default function ProjectForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success updating a project:", data);
-        push(`/dashboard`);
+        push(`/projects?project=${data?.data?.id}`);
       },
       onError: (error) => {
         console.error("Error updating a project:", error);
@@ -187,15 +184,9 @@ export default function ProjectForm() {
 
   const previousData = projectsSuggestedData?.data?.attributes || projectData?.data?.attributes;
 
-  // const selectedCountrySource = useMemo(() => {
-  //   countriesData?.find((c) => c.label === previousData?.source_country);
-  // }, [previousData]);
-
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter project's details" }),
-    description: z.string().min(6, {
-      message: "Please enter a description with at least 6 characters",
-    }),
+    info: z.string().optional(),
     pillar: z.coerce.number().min(1, {
       message: "Please select at least one pillar",
     }),
@@ -232,7 +223,7 @@ export default function ProjectForm() {
     ...(id && {
       values: {
         name: previousData?.name || "",
-        description: previousData?.info || "",
+        info: previousData?.info || "",
         pillar:
           // previousData.updatedAt ||
           previousData?.pillar?.data?.id as number,
@@ -258,12 +249,19 @@ export default function ProjectForm() {
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id) {
           mutatePutProjectEditSuggestionId({
-            id: +id[0],
+            id: +id,
             data: {
               data: {
                 ...values,
                 author: user?.id,
                 review_status: "pending",
+                // project: {
+                //   connect: [
+                //     {
+                //       id: +id,
+                //     },
+                //   ],
+                // },
                 // TO - DO
                 // countries: {
                 //   connect: values.countries,
@@ -298,30 +296,33 @@ export default function ProjectForm() {
             },
           });
         }
-        push(`/dashboard`);
       }
-      mutatePutProjectsId;
+
       if (ME_DATA?.role?.type === "admin") {
-        mutatePostProjects({
-          data: {
-            ...(!!id && {
-              project: {
-                connect: +id,
-              },
-            }),
+        if (!id) {
+          mutatePostProjects({
             data: {
-              ...values,
+              data: {
+                ...values,
+              },
             },
-          },
-        });
-        push(`/projects`);
+          });
+        } else if (!!id) {
+          mutatePutProjectsId({
+            id: +id,
+            data: {
+              data: {
+                ...values,
+              },
+            },
+          });
+        }
       }
     },
     [
       ME_DATA?.role?.type,
       mutatePutProjectsId,
       id,
-      push,
       mutatePutProjectEditSuggestionId,
       user?.id,
       mutatePostProjectEditSuggestion,
@@ -389,19 +390,19 @@ export default function ProjectForm() {
               />
               <FormField
                 control={form.control}
-                name="description"
+                name="info"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Description</FormLabel>
+                    <FormLabel className="text-xs font-semibold">Info</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-black": changes?.includes(field.name),
                         })}
-                        placeholder="Name"
+                        placeholder="Add info about the project"
                       />
                     </FormControl>
                     <FormMessage />
@@ -573,27 +574,15 @@ export default function ProjectForm() {
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Source country</FormLabel>
                     <FormControl>
-                      <Select
+                      <Input
+                        {...field}
                         value={field.value}
-                        onValueChange={field.onChange}
-                        // defaultValue={selectedCountrySource?.value?.toString()}
-                      >
-                        <SelectTrigger
-                          className={cn({
-                            "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
-                          })}
-                        >
-                          <SelectValue placeholder="Select one" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {countriesData?.map(({ label, value }) => (
-                            <SelectItem key={value} value={value?.toString()}>
-                              {label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        className={cn({
+                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
+                          "bg-green-400": changes?.includes(field.name),
+                        })}
+                        placeholder="Source country"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

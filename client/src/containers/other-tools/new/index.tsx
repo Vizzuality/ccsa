@@ -354,7 +354,16 @@ export default function NewToolForm() {
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Category</FormLabel>
                     <FormControl>
-                      <Select value={`${field.value}`} onValueChange={(v) => field.onChange(+v)}>
+                      <Select
+                        value={`${field.value}`}
+                        onValueChange={(v) => field.onChange(+v)}
+                        defaultValue={
+                          categoriesData?.find(
+                            (category) =>
+                              category.value === previousData?.other_tools_category?.data?.id,
+                          )?.label
+                        }
+                      >
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,

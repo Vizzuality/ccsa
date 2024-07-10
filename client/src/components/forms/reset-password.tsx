@@ -53,10 +53,10 @@ export default function ResetPassword() {
   }
 
   return (
-    <div>
+    <div className="min-w-[310px]">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-96 space-y-4">
-          <fieldset className="w-full sm:grid sm:grid-cols-2 sm:gap-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <fieldset className="space-y-4">
             <FormField
               control={form.control}
               name="email"
