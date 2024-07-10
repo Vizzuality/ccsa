@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import axios, { AxiosHeaders } from "axios";
+import axios, { AxiosHeaders, AxiosRequestHeaders } from "axios";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -60,7 +60,11 @@ export function useValidateCsv(
   return useQuery(["validate-csv"], validateCSV);
 }
 
-export function uploadImage(data: File[], headers: any, options?: UseQueryOptions<unknown>) {
+export function uploadImage(
+  data: File[],
+  headers: { [key: string]: string },
+  options?: UseQueryOptions<unknown>,
+) {
   return api
     .request({
       method: "post",

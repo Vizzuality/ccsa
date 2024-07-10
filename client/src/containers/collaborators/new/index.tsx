@@ -2,7 +2,7 @@
 import { useCallback, useState } from "react";
 
 import { useDropzone } from "react-dropzone";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
@@ -54,13 +54,16 @@ import {
 } from "@/components/ui/select";
 
 import { uploadImage } from "@/hooks";
-import { image } from "@uiw/react-md-editor";
+// import { image } from "@uiw/react-md-editor";
 
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
 
 export default function NewCollaboratorForm() {
-  const [imageId, setImageId] = useState<string | null>(null);
+  const [
+    // imageId,
+    setImageId,
+  ] = useState<string | null>(null);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -241,7 +244,7 @@ export default function NewCollaboratorForm() {
                 link: values.link,
                 name: values.name,
                 type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
-                image: imageId,
+                // image: imageId,
               },
             },
           });
@@ -253,7 +256,7 @@ export default function NewCollaboratorForm() {
                 link: values.link,
                 name: values.name,
                 type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
-                image: imageId,
+                // image: imageId,
               },
             },
           });
@@ -294,7 +297,7 @@ export default function NewCollaboratorForm() {
           Authorization: `Bearer ${data?.apiToken}`,
           "Content-Disposition": `attachment; filename=${files[0].name}`,
         }).then((data) => {
-          setImageId(data.id);
+          // setImageId(data.id);
         });
       }
     },

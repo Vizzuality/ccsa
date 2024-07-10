@@ -215,7 +215,7 @@ export default function NewToolForm() {
                 author: user?.id,
                 review_status: "pending",
                 ...values,
-                // @ts-ignore
+                // @ts-expect-error TO-DO - fix types
                 other_tool: {
                   disconnect: [+id],
                   connect: [+id],
@@ -234,7 +234,7 @@ export default function NewToolForm() {
             data: {
               data: {
                 ...values,
-                // @ts-ignore
+                // @ts-expect-error TO-DO - fix types
                 other_tools_category: {
                   connect: [+values.category],
                   disconnect: [],

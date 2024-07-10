@@ -243,11 +243,14 @@ export default function ProjectForm() {
   const handleCancel = () => {
     push(`/?${URLParams.toString()}`);
   };
+  // console.log(projectsSuggestedData, id, !!id && !projectsSuggestedData, "fuera");
 
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
+      // debugger;
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id && !!projectsSuggestedData) {
+          console.log("edit suggestion id");
           mutatePutProjectEditSuggestionId({
             id: +id,
             data: {
@@ -260,14 +263,17 @@ export default function ProjectForm() {
           });
         }
         if (!!id && !projectsSuggestedData) {
+          // console.log("edit suggestion");
+          // console.log(projectsSuggestedData, id, !!id && !projectsSuggestedData, "dentro");
+          // debugger;
           mutatePostProjectEditSuggestion({
             data: {
               data: {
                 ...values,
-                // @ts-ignore
+                // @ts-expect-error TO-DO - fix types
                 project: {
-                  disconnect: [],
-                  connect: [+id],
+                  disconnect: null,
+                  connect: +id,
                 },
                 author: user?.id,
                 review_status: "pending",
@@ -276,6 +282,7 @@ export default function ProjectForm() {
           });
         }
         if (!id) {
+          console.log("id edit");
           mutatePostProjectEditSuggestion({
             data: {
               data: {
