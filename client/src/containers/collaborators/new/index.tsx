@@ -60,10 +60,7 @@ const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
 
 export default function NewCollaboratorForm() {
-  const [
-    // imageId,
-    setImageId,
-  ] = useState<string | null>(null);
+  const [imageId, setImageId] = useState<string>("");
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -220,6 +217,7 @@ export default function NewCollaboratorForm() {
                 // collaborator: { connect: [{ id: +id }] },
                 review_status: "pending",
                 ...values,
+                image: imageId,
               },
             },
           });
@@ -229,6 +227,7 @@ export default function NewCollaboratorForm() {
               data: {
                 review_status: "pending",
                 ...values,
+                image: imageId,
               },
             },
           });
@@ -244,7 +243,7 @@ export default function NewCollaboratorForm() {
                 link: values.link,
                 name: values.name,
                 type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
-                // image: imageId,
+                image: imageId,
               },
             },
           });
@@ -256,7 +255,7 @@ export default function NewCollaboratorForm() {
                 link: values.link,
                 name: values.name,
                 type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
-                // image: imageId,
+                image: imageId,
               },
             },
           });
@@ -271,6 +270,7 @@ export default function NewCollaboratorForm() {
       mutatePostCollaboratorsEditSuggestion,
       mutatePutCollaboratorsToolsId,
       mutatePostCollaboratorsTools,
+      imageId,
     ],
   );
 
@@ -290,14 +290,14 @@ export default function NewCollaboratorForm() {
   const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
     multiple: false,
     accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg"] },
-    onDropAccepted(files, event) {
+    onDropAccepted(files) {
       form.setValue("image", files[0]);
-      if (acceptedFiles.length > 0) {
+      if (files.length > 0) {
         uploadImage(files, {
           Authorization: `Bearer ${data?.apiToken}`,
-          "Content-Disposition": `attachment; filename=${files[0].name}`,
         }).then((data) => {
-          // setImageId(data.id);
+          console.log(data);
+          setImageId(data.id);
         });
       }
     },

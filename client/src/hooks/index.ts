@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import axios, { AxiosHeaders, AxiosRequestHeaders } from "axios";
+import axios, { AxiosHeaders } from "axios";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -65,13 +65,13 @@ export function uploadImage(
   headers: { [key: string]: string },
   options?: UseQueryOptions<unknown>,
 ) {
+  const formData = new FormData();
+  formData.append("files", data[0]);
   return api
     .request({
       method: "post",
       url: "/upload",
-      data: {
-        files: data,
-      },
+      data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
         ...headers,
