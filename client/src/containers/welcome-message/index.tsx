@@ -84,8 +84,8 @@ export default function WelcomeMessage() {
               {data?.data?.attributes?.image && (
                 <Image
                   // TO - DO - upload image to AWS
-                  src="https://ccsa-staging-assets-bucket.s3.amazonaws.com/welcome_image_34ad0d15bc.png"
-                  // src={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.image?.data?.attributes?.url}`}
+                  // src="https://ccsa-staging-assets-bucket.s3.amazonaws.com/welcome_image_34ad0d15bc.png"
+                  src={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.image?.data?.attributes?.url}`}
                   alt="Welcome message"
                   width={data?.data?.attributes?.image?.data?.attributes?.width}
                   height={data?.data?.attributes?.image?.data?.attributes?.height}

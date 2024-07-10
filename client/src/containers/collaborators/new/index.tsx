@@ -1,8 +1,8 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { useDropzone } from "react-dropzone";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
@@ -14,7 +14,11 @@ import { z } from "zod";
 import { cn } from "@/lib/classnames";
 import { getObjectDifferences } from "@/lib/utils/objects";
 
-import { usePostCollaborators, useGetCollaboratorsId } from "@/types/generated/collaborator";
+import {
+  usePostCollaborators,
+  useGetCollaboratorsId,
+  usePutCollaboratorsId,
+} from "@/types/generated/collaborator";
 import {
   useGetCollaboratorEditSuggestionsId,
   usePutCollaboratorEditSuggestionsId,
@@ -49,10 +53,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { uploadImage } from "@/hooks";
+import { image } from "@uiw/react-md-editor";
+
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
 
 export default function NewCollaboratorForm() {
+  const [imageId, setImageId] = useState<string | null>(null);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -95,6 +103,19 @@ export default function NewCollaboratorForm() {
     collaboratorData?.data?.attributes || collaboratorSuggestedDataId?.data?.attributes;
 
   const { mutate: mutatePostCollaboratorsTools } = usePostCollaborators({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success creating a new collaborator:", data);
+        push(`/collaborators`);
+      },
+      onError: (error: Error) => {
+        console.error("Error creating a new collaborator:", error);
+      },
+    },
+    request: {},
+  });
+
+  const { mutate: mutatePutCollaboratorsToolsId } = usePutCollaboratorsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new collaborator:", data);
@@ -157,7 +178,7 @@ export default function NewCollaboratorForm() {
         message: "Please select a relation type",
       }),
     link: z.string().url({ message: "Please enter a valid URL" }),
-    logo: z
+    image: z
       .any()
       .refine((file) => {
         return file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`;
@@ -176,7 +197,7 @@ export default function NewCollaboratorForm() {
       name: previousData?.name || "",
       relationship: previousData?.type || undefined,
       link: previousData?.link || "",
-      logo: null,
+      image: null,
     },
   });
 
@@ -212,17 +233,31 @@ export default function NewCollaboratorForm() {
       }
 
       if (ME_DATA?.role?.type === "admin") {
-        mutatePostCollaboratorsTools({
-          data: {
+        if (!!id) {
+          mutatePutCollaboratorsToolsId({
+            id: +id,
             data: {
-              link: values.link,
-              name: values.name,
-              type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
-              image: values.logo,
+              data: {
+                link: values.link,
+                name: values.name,
+                type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
+                image: imageId,
+              },
             },
-          },
-        });
-        push(`/collaborators`);
+          });
+        }
+        if (!id) {
+          mutatePostCollaboratorsTools({
+            data: {
+              data: {
+                link: values.link,
+                name: values.name,
+                type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
+                image: imageId,
+              },
+            },
+          });
+        }
       }
     },
     [
@@ -231,8 +266,8 @@ export default function NewCollaboratorForm() {
       collaboratorSuggestedDataId,
       mutatePutCollaboratorsEditSuggestionId,
       mutatePostCollaboratorsEditSuggestion,
+      mutatePutCollaboratorsToolsId,
       mutatePostCollaboratorsTools,
-      push,
     ],
   );
 
@@ -252,6 +287,17 @@ export default function NewCollaboratorForm() {
   const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
     multiple: false,
     accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg"] },
+    onDropAccepted(files, event) {
+      form.setValue("image", files[0]);
+      if (acceptedFiles.length > 0) {
+        uploadImage(files, {
+          Authorization: `Bearer ${data?.apiToken}`,
+          "Content-Disposition": `attachment; filename=${files[0].name}`,
+        }).then((data) => {
+          setImageId(data.id);
+        });
+      }
+    },
   });
 
   const changes =
@@ -353,7 +399,7 @@ export default function NewCollaboratorForm() {
 
               <FormField
                 control={form.control}
-                name="logo"
+                name="image"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Logo image</FormLabel>
@@ -366,7 +412,7 @@ export default function NewCollaboratorForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                       >
-                        <input type="file" {...getInputProps()} value={field.value} />
+                        <input type="file" {...getInputProps()} />
                         <Image
                           priority
                           alt="file"

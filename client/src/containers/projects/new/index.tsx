@@ -209,7 +209,7 @@ export default function ProjectForm() {
     funding: z.string().min(1, {
       message: "Please enter type of funding",
     }),
-    organization: z.string().min(1, {
+    organization_type: z.string().min(1, {
       message: "Please enter organization type",
     }),
     source_country: z.string().min(1, { message: "Please select a country" }),
@@ -233,7 +233,7 @@ export default function ProjectForm() {
         sdgs: previousData?.sdgs?.data?.map(({ id }: { id?: number }) => id as number) || [],
         status: previousData?.status || "",
         funding: previousData?.funding || "",
-        organization: previousData?.organization_type || "",
+        organization_type: previousData?.organization_type || "",
         source_country: previousData?.source_country || "",
         objective: previousData?.objective || "",
       },
@@ -247,7 +247,7 @@ export default function ProjectForm() {
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
-        if (!!id) {
+        if (!!id && !!projectsSuggestedData) {
           mutatePutProjectEditSuggestionId({
             id: +id,
             data: {
@@ -255,43 +255,33 @@ export default function ProjectForm() {
                 ...values,
                 author: user?.id,
                 review_status: "pending",
-                // project: {
-                //   connect: [
-                //     {
-                //       id: +id,
-                //     },
-                //   ],
-                // },
-                // TO - DO
-                // countries: {
-                //   connect: values.countries,
-                // },
-                // sdgs: {
-                //   connect: values.sdgs,
-                // },
-                // pillar: {
-                //   connect: [values.pillar],
-                // },
               },
             },
           });
-        } else if (!id) {
+        }
+        if (!!id && !projectsSuggestedData) {
+          mutatePostProjectEditSuggestion({
+            data: {
+              data: {
+                ...values,
+                // @ts-ignore
+                project: {
+                  disconnect: [],
+                  connect: [+id],
+                },
+                author: user?.id,
+                review_status: "pending",
+              },
+            },
+          });
+        }
+        if (!id) {
           mutatePostProjectEditSuggestion({
             data: {
               data: {
                 author: user?.id,
                 review_status: "pending",
                 ...values,
-                // TO - DO
-                // countries: {
-                //   connect: values.countries,
-                // },
-                // sdgs: {
-                //   connect: values.sdgs,
-                // },
-                // pillar: {
-                //   connect: [+values.pillar],
-                // },
               },
             },
           });
@@ -548,7 +538,7 @@ export default function ProjectForm() {
 
               <FormField
                 control={form.control}
-                name="organization"
+                name="organization_type"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Organization type</FormLabel>
