@@ -24,7 +24,7 @@ import DatasetDataForm from "@/components/forms/dataset/data";
 import DatasetSettingsForm from "@/components/forms/dataset/settings";
 import { Data } from "@/components/forms/dataset/types";
 
-import { updateOrCreateDataset } from "@/hooks";
+import { updateOrCreateDataset } from "@/services/datasets";
 
 import { PARAMS_CONFIG, DEFAULT_COLOR } from "./constants";
 

@@ -52,6 +52,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { updateOrCreateProject } from "@/services/projects";
+import { connect } from "http2";
+import { disconnect } from "process";
+
 export default function ProjectForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
@@ -243,11 +247,10 @@ export default function ProjectForm() {
   const handleCancel = () => {
     push(`/?${URLParams.toString()}`);
   };
-  // console.log(projectsSuggestedData, id, !!id && !projectsSuggestedData, "fuera");
-
+  console.log(projectsSuggestedData);
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
-      // debugger;
+      console.log(id, projectsSuggestedData, ME_DATA?.role?.type);
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id && !!projectsSuggestedData) {
           console.log("edit suggestion id");
@@ -263,9 +266,6 @@ export default function ProjectForm() {
           });
         }
         if (!!id && !projectsSuggestedData) {
-          // console.log("edit suggestion");
-          // console.log(projectsSuggestedData, id, !!id && !projectsSuggestedData, "dentro");
-          // debugger;
           mutatePostProjectEditSuggestion({
             data: {
               data: {
@@ -282,7 +282,6 @@ export default function ProjectForm() {
           });
         }
         if (!id) {
-          console.log("id edit");
           mutatePostProjectEditSuggestion({
             data: {
               data: {
@@ -295,8 +294,10 @@ export default function ProjectForm() {
         }
       }
 
-      if (ME_DATA?.role?.type === "admin") {
-        if (!id) {
+      if (ME_DATA?.role?.type === "admin" && data?.apiToken) {
+        // if there is no id, or the id comes from a
+        // suggestion, we are creating a new project
+        if (!id || !projectsSuggestedData) {
           mutatePostProjects({
             data: {
               data: {
@@ -304,12 +305,63 @@ export default function ProjectForm() {
               },
             },
           });
-        } else if (!!id) {
+        }
+
+        if (!!id && !!projectsSuggestedData) {
+          // if it comes from a suggestion I have to create a new one
+          // and update suggestion status
+          updateOrCreateProject(
+            {
+              data: {
+                ...values,
+                countries: {
+                  disconnect: [],
+                  connect: values.countries,
+                },
+                pillar: {
+                  disconnect: [],
+                  connect: values.pillar,
+                },
+                sdgs: {
+                  disconnect: [],
+                  connect: values.sdgs,
+                },
+                project_edit_suggestion: {
+                  disconnect: [],
+                  connect: projectsSuggestedData?.data?.id,
+                },
+              },
+            },
+            data?.apiToken,
+          );
+          mutatePutProjectEditSuggestionId({
+            id: +id,
+            data: {
+              data: {
+                ...values,
+                author: user?.id,
+                review_status: "approved",
+                // @ts-expect-error TO-DO - fix types
+                project: {
+                  disconnect: null,
+                  connect: +id,
+                },
+              },
+            },
+          });
+        }
+
+        if (!!id && !projectsSuggestedData) {
           mutatePutProjectsId({
             id: +id,
             data: {
               data: {
                 ...values,
+                // @ts-expect-error TO-DO - fix types
+                project: {
+                  disconnect: null,
+                  connect: +id,
+                },
               },
             },
           });

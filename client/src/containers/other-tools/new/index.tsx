@@ -52,6 +52,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { updateOrCreateOtherTools } from "@/services/other-tools";
+
 export default function NewToolForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
@@ -228,7 +230,7 @@ export default function NewToolForm() {
 
       // TO - DO
       if (ME_DATA?.role?.type === "admin") {
-        if (!!id && values.category) {
+        if (!!id && !editSuggestionIdData && values.category) {
           mutatePutOtherToolsId({
             id: +id,
             data: {
@@ -242,7 +244,40 @@ export default function NewToolForm() {
               },
             },
           });
-        } else if (!id) {
+        }
+        if (!!id && !!editSuggestionIdData && values.category && data?.apiToken) {
+          updateOrCreateOtherTools(
+            {
+              data: {
+                ...values,
+                other_tools_category: {
+                  disconnect: [],
+                  connect: values.category,
+                },
+
+                dataset_edit_suggestion: {
+                  disconnect: [],
+                  connect: +id,
+                },
+              },
+            },
+            data?.apiToken,
+          );
+          mutatePutOtherToolsId({
+            id: +id,
+            data: {
+              data: {
+                ...values,
+                // @ts-expect-error TO-DO - fix types
+                other_tools_category: {
+                  connect: [+values.category],
+                  disconnect: [],
+                },
+              },
+            },
+          });
+        }
+        if (!id) {
           mutatePostOtherTools({
             data: {
               data: {

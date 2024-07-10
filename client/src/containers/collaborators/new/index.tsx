@@ -53,11 +53,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { uploadImage } from "@/hooks";
-// import { image } from "@uiw/react-md-editor";
+import { uploadImage } from "@/services/hooks";
 
-const MAX_FILE_SIZE = 5000000;
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
+import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from "./constants";
 
 export default function NewCollaboratorForm() {
   const [imageId, setImageId] = useState<string>("");
@@ -81,7 +79,9 @@ export default function NewCollaboratorForm() {
   // an existing one
   const { data: collaboratorData } = useGetCollaboratorsId(
     +id,
-    {},
+    {
+      populate: "*",
+    },
     {
       query: {
         enabled: !!id,
@@ -213,8 +213,11 @@ export default function NewCollaboratorForm() {
             id: +id,
             data: {
               data: {
-                // TO DO
-                // collaborator: { connect: [{ id: +id }] },
+                // @ts-expect-error TO-DO - fix types
+                collaborator: {
+                  disconnect: [],
+                  connect: [values?.relationship],
+                },
                 review_status: "pending",
                 ...values,
                 image: imageId,
@@ -307,7 +310,17 @@ export default function NewCollaboratorForm() {
     !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedDataId?.data?.attributes
       ? []
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
+  console.log(
+    collaboratorSuggestedDataId?.data?.attributes?.link,
+    collaboratorSuggestedDataId,
+    collaboratorData,
+  );
 
+  const imageLink =
+    collaboratorSuggestedDataId?.data?.attributes?.link ||
+    collaboratorData?.data?.attributes?.link ||
+    "";
+  console.log(imageLink);
   return (
     <>
       <DashboardFormControls
@@ -410,10 +423,15 @@ export default function NewCollaboratorForm() {
                       <div
                         {...getRootProps()}
                         className={cn({
-                          "m-auto !flex w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 py-6 text-xs placeholder:text-gray-300/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
+                          "m-auto !flex w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 bg-cover py-6 text-xs placeholder:text-gray-300/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
                             true,
                           "bg-green-400": changes?.includes(field.name),
                         })}
+                        style={{
+                          backgroundImage: `url(${imageLink})`,
+                          backgroundPosition: "center",
+                          backgroundSize: "cover",
+                        }}
                       >
                         <input type="file" {...getInputProps()} />
                         <Image
