@@ -1,10 +1,18 @@
 module.exports = ({ env }) => ({
   upload: {
     config: {
-      sizeLimit: 250 * 1024 * 1024 // 256mb in bytes
+      sizeLimit: 200 * 1024 * 1024,
+      breakpoints: {
+        xlarge: 1920,
+        large: 1000,
+        medium: 750,
+        small: 500,
+        xsmall: 64,
+      },
+      provider: "local",
     },
   },
-  'config-sync': {
+  "config-sync": {
     enabled: true,
     config: {
       excludedConfig: [
@@ -13,21 +21,21 @@ module.exports = ({ env }) => ({
         "core-store.strapi_content_types_schema",
         "core-store.ee_information",
         "core-store.plugin_users-permissions_email",
-        "core-store.plugin_users-permissions_advanced"
+        "core-store.plugin_users-permissions_advanced",
       ],
     },
   },
   email: {
     config: {
-      provider: 'amazon-ses',
+      provider: "amazon-ses",
       providerOptions: {
-        key: env('AWS_SES_ACCESS_KEY_ID'),
-        secret: env('AWS_SES_ACCESS_KEY_SECRET'),
-        amazon: `https://email.${env('AWS_REGION')}.amazonaws.com`,
+        key: env("AWS_SES_ACCESS_KEY_ID"),
+        secret: env("AWS_SES_ACCESS_KEY_SECRET"),
+        amazon: `https://email.${env("AWS_REGION")}.amazonaws.com`,
       },
       settings: {
-        defaultFrom: `no-reply@no-reply.${env('AWS_SES_DOMAIN')}`,
-        defaultReplyTo: `no-reply@no-reply.${env('AWS_SES_DOMAIN')}`,
+        defaultFrom: `no-reply@no-reply.${env("AWS_SES_DOMAIN")}`,
+        defaultReplyTo: `no-reply@no-reply.${env("AWS_SES_DOMAIN")}`,
       },
     },
   },
@@ -36,37 +44,37 @@ module.exports = ({ env }) => ({
       "x-strapi-config": {
         mutateDocumentation: (generatedDocumentationDraft) => {
           // Custom CSV endpoints
-          generatedDocumentationDraft.paths['/csv/parse-csv'] = {
+          generatedDocumentationDraft.paths["/csv/parse-csv"] = {
             post: {
-              tags: ['CSV'],
-              summary: 'Upload a CSV file and parse it',
-              operationId: 'uploadCsv',
+              tags: ["CSV"],
+              summary: "Upload a CSV file and parse it",
+              operationId: "uploadCsv",
               requestBody: {
                 content: {
-                  'multipart/form-data': {
+                  "multipart/form-data": {
                     schema: {
-                      type: 'object',
+                      type: "object",
                       properties: {
                         files: {
-                          type: 'string',
-                          format: 'binary',
+                          type: "string",
+                          format: "binary",
                         },
                       },
-                      required: ['files'],
+                      required: ["files"],
                     },
                   },
                 },
                 required: true,
               },
               responses: {
-                '200': {
-                  description: 'Parsed CSV data',
+                "200": {
+                  description: "Parsed CSV data",
                   content: {
-                    'application/json': {
+                    "application/json": {
                       schema: {
-                        type: 'array',
+                        type: "array",
                         items: {
-                          type: 'object',
+                          type: "object",
                         },
                       },
                     },
@@ -76,29 +84,29 @@ module.exports = ({ env }) => ({
             },
           };
 
-          generatedDocumentationDraft.paths['/csv/json-to-csv'] = {
+          generatedDocumentationDraft.paths["/csv/json-to-csv"] = {
             post: {
-              tags: ['CSV'],
-              summary: 'Convert JSON to CSV',
-              operationId: 'jsonToCsv',
+              tags: ["CSV"],
+              summary: "Convert JSON to CSV",
+              operationId: "jsonToCsv",
               requestBody: {
                 content: {
-                  'application/json': {
+                  "application/json": {
                     schema: {
-                      type: 'object',
+                      type: "object",
                     },
                   },
                 },
                 required: true,
               },
               responses: {
-                '200': {
-                  description: 'Converted CSV data',
+                "200": {
+                  description: "Converted CSV data",
                   content: {
-                    'text/csv': {
+                    "text/csv": {
                       schema: {
-                        type: 'string',
-                        format: 'csv',
+                        type: "string",
+                        format: "csv",
                       },
                     },
                   },
@@ -110,49 +118,63 @@ module.exports = ({ env }) => ({
           Object.keys(generatedDocumentationDraft.paths).forEach((path) => {
             // mutate `fields` to string array
             if (generatedDocumentationDraft.paths[path].get?.parameters) {
-              const fields = generatedDocumentationDraft.paths[path].get.parameters.find((param) => param.name === "fields");
+              const fields = generatedDocumentationDraft.paths[
+                path
+              ].get.parameters.find((param) => param.name === "fields");
 
               if (fields) {
-                const fieldsIndex = generatedDocumentationDraft.paths[path].get.parameters.findIndex((param) => param.name === "fields");
-                generatedDocumentationDraft.paths[path].get.parameters[fieldsIndex] = {
-                  "name": "fields",
-                  "in": "query",
-                  "description": "Fields to return (ex: ['title','author','test'])",
-                  "deprecated": false,
-                  "required": false,
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                const fieldsIndex = generatedDocumentationDraft.paths[
+                  path
+                ].get.parameters.findIndex((param) => param.name === "fields");
+                generatedDocumentationDraft.paths[path].get.parameters[
+                  fieldsIndex
+                ] = {
+                  name: "fields",
+                  in: "query",
+                  description:
+                    "Fields to return (ex: ['title','author','test'])",
+                  deprecated: false,
+                  required: false,
+                  schema: {
+                    type: "array",
+                    items: {
+                      type: "string",
+                    },
+                  },
                 };
               }
             }
 
             // mutate `populate` to one of string | object
             if (generatedDocumentationDraft.paths[path].get?.parameters) {
-              const populate = generatedDocumentationDraft.paths[path].get.parameters.find((param) => param.name === "populate");
+              const populate = generatedDocumentationDraft.paths[
+                path
+              ].get.parameters.find((param) => param.name === "populate");
 
               if (populate) {
-                const populateIndex = generatedDocumentationDraft.paths[path].get.parameters.findIndex((param) => param.name === "populate");
-                generatedDocumentationDraft.paths[path].get.parameters[populateIndex] = {
-                  "name": "populate",
-                  "in": "query",
-                  "description": "Relations to return",
-                  "deprecated": false,
-                  "required": false,
-                  "schema": {
-                    "oneOf": [
+                const populateIndex = generatedDocumentationDraft.paths[
+                  path
+                ].get.parameters.findIndex(
+                  (param) => param.name === "populate"
+                );
+                generatedDocumentationDraft.paths[path].get.parameters[
+                  populateIndex
+                ] = {
+                  name: "populate",
+                  in: "query",
+                  description: "Relations to return",
+                  deprecated: false,
+                  required: false,
+                  schema: {
+                    oneOf: [
                       {
-                        "type": "string"
+                        type: "string",
                       },
                       {
-                        "type": "object",
-
-                      }
-                    ]
-                  }
+                        type: "object",
+                      },
+                    ],
+                  },
                 };
               }
             }
@@ -161,29 +183,28 @@ module.exports = ({ env }) => ({
             if (path.includes("{id}")) {
               // add `populate` as params
               if (generatedDocumentationDraft.paths[path].get) {
-                const populate = generatedDocumentationDraft.paths[path].get.parameters.find((param) => param.name === "populate");
+                const populate = generatedDocumentationDraft.paths[
+                  path
+                ].get.parameters.find((param) => param.name === "populate");
 
                 if (!populate) {
-                  generatedDocumentationDraft.paths[path].get.parameters.push(
-                    {
-                      "name": "populate",
-                      "in": "query",
-                      "description": "Relations to return",
-                      "deprecated": false,
-                      "required": false,
-                      "schema": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "object",
-
-                          }
-                        ]
-                      }
+                  generatedDocumentationDraft.paths[path].get.parameters.push({
+                    name: "populate",
+                    in: "query",
+                    description: "Relations to return",
+                    deprecated: false,
+                    required: false,
+                    schema: {
+                      oneOf: [
+                        {
+                          type: "string",
+                        },
+                        {
+                          type: "object",
+                        },
+                      ],
                     },
-                  );
+                  });
                 }
               }
             }

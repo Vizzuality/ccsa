@@ -32,6 +32,7 @@ module.exports = {
           "Sdg",
           "Download-email",
           "Other-tool",
+          "Other-tools-category",
           "Project-edit-suggestion",
           "Tool-edit-suggestion",
           "Dataset-value",

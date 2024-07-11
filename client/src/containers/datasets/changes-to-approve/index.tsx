@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
+import { getDataParsed } from "@/lib/utils/datasets";
 import { formatDate } from "@/lib/utils/formats";
 import { getObjectDifferences } from "@/lib/utils/objects";
 
@@ -29,6 +30,8 @@ import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 import { Data } from "@/components/forms/dataset/types";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import { updateOrCreateDataset } from "@/services/datasets";
 
 import ColorsContentToApprove from "./colors-content";
 import DataContentToApprove from "./data-content";
@@ -213,11 +216,32 @@ export default function FormToApprove() {
         });
       }
 
-      if (ME_DATA?.role?.type === "admin" && datasetDataPendingToApprove?.data?.id) {
-        alert("Bulk upload required");
+      if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
+        const { valueType } = data.settings;
+        const parsedData = getDataParsed(valueType, data);
+        updateOrCreateDataset(
+          {
+            ...(id && !datasetDataPendingToApprove && { dataset_id: id }),
+            ...(id &&
+              !!datasetDataPendingToApprove && {
+                dataset_id: datasetData?.data?.id,
+              }),
+            ...parsedData,
+          },
+          session?.apiToken,
+          // to do review data + change sug status
+        );
       }
     },
-    [ME_DATA, formValues, datasetDataPendingToApprove, mutatePutDatasetEditSuggestion],
+    [
+      ME_DATA,
+      formValues,
+      datasetDataPendingToApprove,
+      mutatePutDatasetEditSuggestion,
+      datasetData?.data?.id,
+      id,
+      session?.apiToken,
+    ],
   );
 
   const isNewDataset = !datasetDataPendingToApprove?.data?.attributes?.dataset?.data;

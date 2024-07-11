@@ -86,15 +86,15 @@ export type PostUsersPermissionsRoles200 = {
   ok?: PostUsersPermissionsRoles200Ok;
 };
 
-export type GetUsersPermissionsRoles200RolesItemAllOf = {
-  nb_users?: number;
-};
-
 export type GetUsersPermissionsRoles200RolesItem = UsersPermissionsRole &
   GetUsersPermissionsRoles200RolesItemAllOf;
 
 export type GetUsersPermissionsRoles200 = {
   roles?: GetUsersPermissionsRoles200RolesItem[];
+};
+
+export type GetUsersPermissionsRoles200RolesItemAllOf = {
+  nb_users?: number;
 };
 
 export type GetUsersPermissionsPermissions200 = {
@@ -469,6 +469,60 @@ export type GetPillarsParams = {
    * Relations to return
    */
   populate?: string | GetPillarsPopulateOneOf;
+  /**
+   * Filters to apply
+   */
+  filters?: { [key: string]: any };
+  /**
+   * Locale to apply
+   */
+  locale?: string;
+};
+
+export type GetOtherToolsCategoriesIdPopulateOneOf = { [key: string]: any };
+
+export type GetOtherToolsCategoriesIdParams = {
+  /**
+   * Relations to return
+   */
+  populate?: string | GetOtherToolsCategoriesIdPopulateOneOf;
+};
+
+export type GetOtherToolsCategoriesPopulateOneOf = { [key: string]: any };
+
+export type GetOtherToolsCategoriesParams = {
+  /**
+   * Sort by attributes ascending (asc) or descending (desc)
+   */
+  sort?: string;
+  /**
+   * Return page/pageSize (default: true)
+   */
+  "pagination[withCount]"?: boolean;
+  /**
+   * Page number (default: 0)
+   */
+  "pagination[page]"?: number;
+  /**
+   * Page size (default: 25)
+   */
+  "pagination[pageSize]"?: number;
+  /**
+   * Offset value (default: 0)
+   */
+  "pagination[start]"?: number;
+  /**
+   * Number of entities to return (default: 25)
+   */
+  "pagination[limit]"?: number;
+  /**
+   * Fields to return (ex: ['title','author','test'])
+   */
+  fields?: string[];
+  /**
+   * Relations to return
+   */
+  populate?: string | GetOtherToolsCategoriesPopulateOneOf;
   /**
    * Filters to apply
    */

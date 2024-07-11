@@ -1,4 +1,4 @@
-import { isDatasetValueProperty } from "@/lib/datasets";
+import { isDatasetValueProperty } from "@/lib/utils/datasets";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasets } from "@/types/generated/dataset";

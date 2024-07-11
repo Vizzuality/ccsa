@@ -1,35 +1,42 @@
-export default ({ env }) => ([
-  'strapi::errors',
+export default ({ env }) => [
+  "strapi::errors",
   {
-    name: 'strapi::security',
+    name: "strapi::security",
     config: {
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          'connect-src': ["'self'", 'https:'],
-          'img-src': [
+          "connect-src": ["'self'", "https:"],
+          "img-src": [
             "'self'",
-            'data:',
-            'blob:',
-            'dl.airtable.com',
-            `${env('AWS_BUCKET')}.s3.amazonaws.com`,
+            "data:",
+            "blob:",
+            "dl.airtable.com",
+            `${env("AWS_BUCKET")}.s3.amazonaws.com`,
           ],
-          'media-src': [
+          "media-src": [
             "'self'",
-            'data:',
-            'blob:',
-            'dl.airtable.com',
-            `${env('AWS_BUCKET')}.s3.amazonaws.com`,
+            "data:",
+            "blob:",
+            "dl.airtable.com",
+            `${env("AWS_BUCKET")}.s3.amazonaws.com`,
           ],
           upgradeInsecureRequests: null,
         },
       },
     },
   },
-  'strapi::cors',
-  'strapi::poweredBy',
-  'strapi::logger',
-  'strapi::query',
+  {
+    name: "strapi::cors",
+    // config: {
+    //   enabled: true,
+    //   headers: "*",
+    //   origin: ["http://localhost:3000"],
+    // },
+  },
+  "strapi::poweredBy",
+  "strapi::logger",
+  "strapi::query",
   {
     name: "strapi::body",
     config: {
@@ -41,7 +48,7 @@ export default ({ env }) => ([
       },
     },
   },
-  'strapi::session',
-  'strapi::favicon',
-  'strapi::public',
-]);
+  "strapi::session",
+  "strapi::favicon",
+  "strapi::public",
+];

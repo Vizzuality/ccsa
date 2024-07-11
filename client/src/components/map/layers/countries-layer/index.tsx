@@ -4,8 +4,8 @@ import { Source, Layer, GeoJSONSourceRaw } from "react-map-gl";
 
 import { Feature } from "geojson";
 
-import { isDatasetValueProperty } from "@/lib/datasets";
 import { parseConfig } from "@/lib/json-converter";
+import { isDatasetValueProperty } from "@/lib/utils/datasets";
 import { getResourceParamConfig } from "@/lib/utils/layer-config";
 
 import { useGetCountries } from "@/types/generated/country";
