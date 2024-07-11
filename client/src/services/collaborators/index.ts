@@ -8,7 +8,7 @@ const api = axios.create({
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
   },
 });
-export const updateOrCreateOtherTools = async (
+export const updateOrCreateCollaborator = async (
   data: unknown,
   userToken: string,
   options?: UseQueryOptions<unknown>,
@@ -16,7 +16,7 @@ export const updateOrCreateOtherTools = async (
   return await api
     .request({
       method: "post",
-      url: "/other-tools/approve-other-tool-suggestion",
+      url: "/collaborators/approve-collaborator-suggestion",
       data: {
         data,
       },

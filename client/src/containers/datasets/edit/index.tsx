@@ -7,8 +7,14 @@ import { useParams, useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 
+import { getDataParsed } from "@/lib/utils/datasets";
+
 import { useGetDatasetsId } from "@/types/generated/dataset";
-import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
+import {
+  useGetDatasetEditSuggestionsId,
+  usePostDatasetEditSuggestions,
+  usePutDatasetEditSuggestionsId,
+} from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
@@ -19,6 +25,8 @@ import DatasetColorsForm from "@/components/forms/dataset/colors";
 import DatasetDataForm from "@/components/forms/dataset/data";
 import DatasetSettingsForm from "@/components/forms/dataset/settings";
 import { Data } from "@/components/forms/dataset/types";
+
+import { updateOrCreateDataset } from "@/services/datasets";
 
 export default function EditDatasetForm() {
   const { data: session } = useSession();
@@ -38,6 +46,10 @@ export default function EditDatasetForm() {
     populate: "*",
   });
 
+  const { data: datasetEditData } = useGetDatasetEditSuggestionsId(Number(id), {
+    populate: "*",
+  });
+
   const { data: datasetValuesData } = useGetDatasetValues({
     filters: {
       dataset: id,
@@ -51,7 +63,20 @@ export default function EditDatasetForm() {
     },
   });
 
-  const { mutate: mutateDatasetEditSuggestion } = usePostDatasetEditSuggestions({
+  const { mutate: mutatePutDatasetEditSuggestionId } = usePutDatasetEditSuggestionsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success updating dataset:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error updating dataset:", error);
+      },
+    },
+    request: {},
+  });
+
+  const { mutate: mutatePostDatasetEditSuggestion } = usePostDatasetEditSuggestions({
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating dataset:", data);
@@ -124,34 +149,74 @@ export default function EditDatasetForm() {
       setFormValues(data);
 
       if (ME_DATA?.role?.type === "authenticated") {
-        mutateDatasetEditSuggestion({
-          data: {
-            ...(datasetData?.data?.id && {
-              dataset: {
-                connect: datasetData.data.id,
-              },
-            }),
+        if (!id || (!!id && !datasetEditData)) {
+          mutatePostDatasetEditSuggestion({
             data: {
-              ...data.settings,
-              value_type: data.settings.valueType,
-              review_status: "pending",
-              ...data.data,
-              colors: data.colors,
+              // @ts-expect-error TO-DO - fix types
+              data: {
+                ...data.settings,
+                value_type: data.settings.valueType,
+                review_status: "pending",
+                colors: data.colors,
+                data: {
+                  ...data.data,
+                },
+                ...(id &&
+                  !datasetEditData && {
+                    dataset: {
+                      connect: [+id],
+                      disconnect: [],
+                    },
+                  }),
+              },
             },
-          },
-        });
+          });
+        }
+        if (!!id && !!datasetEditData) {
+          mutatePutDatasetEditSuggestionId({
+            id: +id,
+            data: {
+              data: {
+                ...data.settings,
+                value_type: data.settings.valueType,
+                review_status: "pending",
+                colors: data.colors,
+                data: {
+                  ...data.data,
+                },
+              },
+            },
+          });
+        }
       }
 
-      if (ME_DATA?.role?.type === "admin") {
-        alert("Bulk upload required");
+      if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
+        const { valueType } = data.settings;
+        const parsedData = getDataParsed(valueType, data);
+        updateOrCreateDataset(
+          {
+            ...(id && !datasetEditData && { dataset_id: id }),
+            ...(id &&
+              !!datasetEditData && {
+                dataset_id: datasetData?.data?.attributes,
+              }),
+            ...parsedData,
+          },
+          session?.apiToken,
+          // to do review data + change sug status
+        );
       }
     },
     [
       formValues,
       setFormValues,
       ME_DATA?.role?.type,
-      mutateDatasetEditSuggestion,
-      datasetData?.data?.id,
+      mutatePostDatasetEditSuggestion,
+      datasetData?.data,
+      datasetEditData,
+      id,
+      mutatePutDatasetEditSuggestionId,
+      session?.apiToken,
     ],
   );
 

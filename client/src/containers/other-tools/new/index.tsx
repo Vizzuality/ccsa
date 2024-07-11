@@ -13,12 +13,8 @@ import { z } from "zod";
 import { cn } from "@/lib/classnames";
 import { getObjectDifferences } from "@/lib/utils/objects";
 
-import { useGetCategories } from "@/types/generated/category";
-import {
-  usePostOtherTools,
-  useGetOtherToolsId,
-  usePutOtherToolsId,
-} from "@/types/generated/other-tool";
+import { useGetOtherToolsId } from "@/types/generated/other-tool";
+import { useGetOtherToolsCategories } from "@/types/generated/other-tools-category";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import {
   useGetToolEditSuggestionsId,
@@ -62,7 +58,7 @@ export default function NewToolForm() {
 
   const { id } = params;
 
-  const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
+  const { data: categoriesData } = useGetOtherToolsCategories(GET_CATEGORIES_OPTIONS(), {
     query: {
       select: (data) =>
         data?.data?.map((data) => ({
@@ -104,32 +100,6 @@ export default function NewToolForm() {
       },
     },
   );
-
-  const { mutate: mutatePostOtherTools } = usePostOtherTools({
-    mutation: {
-      onSuccess: (data) => {
-        console.info("Success creating a new tool:", data);
-        push(`/other-tools`);
-      },
-      onError: (error) => {
-        console.error("Error creating a new tool:", error);
-      },
-    },
-    request: {},
-  });
-
-  const { mutate: mutatePutOtherToolsId } = usePutOtherToolsId({
-    mutation: {
-      onSuccess: (data) => {
-        console.info("Success updating the tool:", data);
-        push(`/other-tools`);
-      },
-      onError: (error) => {
-        console.error("Error updating the new tool:", error);
-      },
-    },
-    request: {},
-  });
 
   const { mutate: mutatePostToolEditSuggestion } = usePostToolEditSuggestions({
     mutation: {
@@ -186,7 +156,7 @@ export default function NewToolForm() {
     values: {
       name: previousData?.name || "",
       link: previousData?.link || "",
-      category: previousData?.other_tools_category?.data?.id || undefined,
+      category: previousData?.other_tools_category?.data?.id as number,
       description: previousData?.description || "",
     },
   });
@@ -198,30 +168,37 @@ export default function NewToolForm() {
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
-        if (!!id) {
+        if (!!id && !!editSuggestionIdData) {
           mutatePutToolEditSuggestionId({
             id: +id[0],
             data: {
               data: {
-                author: user?.id,
                 review_status: "pending",
                 ...values,
               },
             },
           });
         }
-        if (!!id && !otherToolData) {
+        if ((!!id && !editSuggestionIdData) || !id) {
+          ("if there is id but not suggestion or if there is no id, post new suggestion");
           mutatePostToolEditSuggestion({
             data: {
+              // @ts-expect-error TO-DO - fix types
               data: {
-                author: user?.id,
                 review_status: "pending",
                 ...values,
-                // @ts-expect-error TO-DO - fix types
-                other_tool: {
-                  disconnect: [+id],
-                  connect: [+id],
-                },
+                ...(values?.category && {
+                  other_tools_category: {
+                    disconnect: [],
+                    connect: [+values?.category],
+                  },
+                }),
+                ...(id && {
+                  other_tool: {
+                    disconnect: [+id],
+                    connect: [+id],
+                  },
+                }),
               },
             },
           });
@@ -230,72 +207,32 @@ export default function NewToolForm() {
 
       // TO - DO
       if (ME_DATA?.role?.type === "admin") {
-        if (!!id && !editSuggestionIdData && values.category) {
-          mutatePutOtherToolsId({
-            id: +id,
-            data: {
-              data: {
-                ...values,
-                // @ts-expect-error TO-DO - fix types
-                other_tools_category: {
-                  connect: [+values.category],
-                  disconnect: [],
-                },
-              },
-            },
-          });
-        }
-        if (!!id && !!editSuggestionIdData && values.category && data?.apiToken) {
+        if (data?.apiToken) {
           updateOrCreateOtherTools(
             {
-              data: {
-                ...values,
-                other_tools_category: {
-                  disconnect: [],
-                  connect: values.category,
-                },
-
-                dataset_edit_suggestion: {
-                  disconnect: [],
-                  connect: +id,
-                },
-              },
+              ...(id && !editSuggestionIdData && { id }),
+              ...(id &&
+                !!editSuggestionIdData && {
+                  id: editSuggestionIdData?.data?.attributes?.other_tool?.data?.id,
+                }),
+              ...values,
+              other_tools_category: values.category,
             },
             data?.apiToken,
           );
-          mutatePutOtherToolsId({
-            id: +id,
-            data: {
-              data: {
-                ...values,
-                // @ts-expect-error TO-DO - fix types
-                other_tools_category: {
-                  connect: [+values.category],
-                  disconnect: [],
-                },
-              },
-            },
-          });
         }
-        if (!id) {
-          mutatePostOtherTools({
-            data: {
-              data: {
-                ...values,
-              },
-            },
-          });
-        }
+        // to do change pending status
+        push(`/other-tools`);
       }
     },
     [
       mutatePostToolEditSuggestion,
-      mutatePostOtherTools,
-      mutatePutOtherToolsId,
       ME_DATA,
-      user?.id,
       id,
       mutatePutToolEditSuggestionId,
+      data?.apiToken,
+      push,
+      editSuggestionIdData,
     ],
   );
 

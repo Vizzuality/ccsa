@@ -16,7 +16,7 @@ import { getObjectDifferences } from "@/lib/utils/objects";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetPillars } from "@/types/generated/pillar";
-import { useGetProjectsId, usePostProjects, usePutProjectsId } from "@/types/generated/project";
+import { useGetProjectsId } from "@/types/generated/project";
 import {
   useGetProjectEditSuggestionsId,
   usePostProjectEditSuggestions,
@@ -53,8 +53,6 @@ import {
 } from "@/components/ui/select";
 
 import { updateOrCreateProject } from "@/services/projects";
-import { connect } from "http2";
-import { disconnect } from "process";
 
 export default function ProjectForm() {
   const { push } = useRouter();
@@ -134,32 +132,6 @@ export default function ProjectForm() {
     },
   );
 
-  const { mutate: mutatePostProjects } = usePostProjects({
-    mutation: {
-      onSuccess: (data) => {
-        console.info("Success creating a project:", data);
-        push(`/projects?project=${data?.data?.id}`);
-      },
-      onError: (error) => {
-        console.error("Error creating a project:", error);
-      },
-    },
-    request: {},
-  });
-
-  const { mutate: mutatePutProjectsId } = usePutProjectsId({
-    mutation: {
-      onSuccess: (data) => {
-        console.info("Success updating a project:", data);
-        push(`/projects?project=${data?.data?.id}`);
-      },
-      onError: (error) => {
-        console.error("Error updating a project:", error);
-      },
-    },
-    request: {},
-  });
-
   const { mutate: mutatePostProjectEditSuggestion } = usePostProjectEditSuggestions({
     mutation: {
       onSuccess: (data) => {
@@ -231,7 +203,7 @@ export default function ProjectForm() {
         pillar:
           // previousData.updatedAt ||
           previousData?.pillar?.data?.id as number,
-        amount: previousData?.amount || undefined,
+        amount: previousData?.amount as number,
         countries:
           previousData?.countries?.data?.map(({ id }: { id?: number }) => id as number) || [],
         sdgs: previousData?.sdgs?.data?.map(({ id }: { id?: number }) => id as number) || [],
@@ -247,47 +219,65 @@ export default function ProjectForm() {
   const handleCancel = () => {
     push(`/?${URLParams.toString()}`);
   };
-  console.log(projectsSuggestedData);
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
-      console.log(id, projectsSuggestedData, ME_DATA?.role?.type);
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id && !!projectsSuggestedData) {
-          console.log("edit suggestion id");
           mutatePutProjectEditSuggestionId({
             id: +id,
             data: {
               data: {
                 ...values,
-                author: user?.id,
+                countries: {
+                  // @ts-expect-error TO-DO - fix types
+                  connect: values.countries,
+                  disconnect: [],
+                },
+                ...(values.pillar && {
+                  pillar: {
+                    disconnect: [],
+                    connect: [values.pillar],
+                  },
+                }),
+                ...(values.sdgs && {
+                  sdgs: {
+                    disconnect: [],
+                    connect: values.sdgs,
+                  },
+                }),
                 review_status: "pending",
               },
             },
           });
         }
-        if (!!id && !projectsSuggestedData) {
+        if ((!!id && !projectsSuggestedData) || !id) {
           mutatePostProjectEditSuggestion({
             data: {
               data: {
                 ...values,
                 // @ts-expect-error TO-DO - fix types
                 project: {
-                  disconnect: null,
-                  connect: +id,
+                  disconnect: [],
+                  connect: [+id],
                 },
-                author: user?.id,
+                countries: {
+                  // @ts-expect-error TO-DO - fix types
+                  connect: values.countries,
+                  disconnect: [],
+                },
+                ...(values.pillar && {
+                  pillar: {
+                    disconnect: [],
+                    connect: [values.pillar],
+                  },
+                }),
+                ...(values.sdgs && {
+                  sdgs: {
+                    disconnect: [],
+                    connect: values.sdgs,
+                  },
+                }),
                 review_status: "pending",
-              },
-            },
-          });
-        }
-        if (!id) {
-          mutatePostProjectEditSuggestion({
-            data: {
-              data: {
-                author: user?.id,
-                review_status: "pending",
-                ...values,
               },
             },
           });
@@ -297,85 +287,32 @@ export default function ProjectForm() {
       if (ME_DATA?.role?.type === "admin" && data?.apiToken) {
         // if there is no id, or the id comes from a
         // suggestion, we are creating a new project
-        if (!id || !projectsSuggestedData) {
-          mutatePostProjects({
-            data: {
-              data: {
-                ...values,
-              },
-            },
-          });
-        }
 
-        if (!!id && !!projectsSuggestedData) {
-          // if it comes from a suggestion I have to create a new one
-          // and update suggestion status
-          updateOrCreateProject(
-            {
-              data: {
-                ...values,
-                countries: {
-                  disconnect: [],
-                  connect: values.countries,
-                },
-                pillar: {
-                  disconnect: [],
-                  connect: values.pillar,
-                },
-                sdgs: {
-                  disconnect: [],
-                  connect: values.sdgs,
-                },
-                project_edit_suggestion: {
-                  disconnect: [],
-                  connect: projectsSuggestedData?.data?.id,
-                },
-              },
-            },
-            data?.apiToken,
-          );
-          mutatePutProjectEditSuggestionId({
-            id: +id,
-            data: {
-              data: {
-                ...values,
-                author: user?.id,
-                review_status: "approved",
-                // @ts-expect-error TO-DO - fix types
-                project: {
-                  disconnect: null,
-                  connect: +id,
-                },
-              },
-            },
-          });
-        }
-
-        if (!!id && !projectsSuggestedData) {
-          mutatePutProjectsId({
-            id: +id,
-            data: {
-              data: {
-                ...values,
-                // @ts-expect-error TO-DO - fix types
-                project: {
-                  disconnect: null,
-                  connect: +id,
-                },
-              },
-            },
-          });
-        }
+        updateOrCreateProject(
+          {
+            ...(id && !projectsSuggestedData && { id }),
+            ...(id &&
+              !!projectsSuggestedData && {
+                id: 366,
+              }),
+            ...values,
+          },
+          data?.apiToken,
+          // to do review data + change sug status
+        );
+        // to do change pending status
+        push(`/projects`);
       }
     },
+
     [
       ME_DATA?.role?.type,
-      mutatePutProjectsId,
+      data?.apiToken,
+      push,
       id,
       mutatePutProjectEditSuggestionId,
-      user?.id,
       mutatePostProjectEditSuggestion,
-      mutatePostProjects,
+      projectsSuggestedData,
     ],
   );
 

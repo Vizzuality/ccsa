@@ -14,11 +14,7 @@ import { z } from "zod";
 import { cn } from "@/lib/classnames";
 import { getObjectDifferences } from "@/lib/utils/objects";
 
-import {
-  usePostCollaborators,
-  useGetCollaboratorsId,
-  usePutCollaboratorsId,
-} from "@/types/generated/collaborator";
+import { useGetCollaboratorsId } from "@/types/generated/collaborator";
 import {
   useGetCollaboratorEditSuggestionsId,
   usePutCollaboratorEditSuggestionsId,
@@ -53,12 +49,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { uploadImage } from "@/services/hooks";
+import { updateOrCreateCollaborator } from "@/services/collaborators";
+import { uploadImage } from "@/services/uploads";
 
 import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from "./constants";
 
 export default function NewCollaboratorForm() {
-  const [imageId, setImageId] = useState<string>("");
+  const [imageId, setImageId] = useState<number>(8);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -91,7 +88,9 @@ export default function NewCollaboratorForm() {
 
   const { data: collaboratorSuggestedDataId } = useGetCollaboratorEditSuggestionsId(
     +id,
-    {},
+    {
+      populate: "*",
+    },
     {
       query: {
         enabled: !!id,
@@ -102,40 +101,14 @@ export default function NewCollaboratorForm() {
   const previousData =
     collaboratorData?.data?.attributes || collaboratorSuggestedDataId?.data?.attributes;
 
-  const { mutate: mutatePostCollaboratorsTools } = usePostCollaborators({
-    mutation: {
-      onSuccess: (data) => {
-        console.info("Success creating a new collaborator:", data);
-        push(`/collaborators`);
-      },
-      onError: (error: Error) => {
-        console.error("Error creating a new collaborator:", error);
-      },
-    },
-    request: {},
-  });
-
-  const { mutate: mutatePutCollaboratorsToolsId } = usePutCollaboratorsId({
-    mutation: {
-      onSuccess: (data) => {
-        console.info("Success creating a new collaborator:", data);
-        push(`/collaborators`);
-      },
-      onError: (error: Error) => {
-        console.error("Error creating a new collaborator:", error);
-      },
-    },
-    request: {},
-  });
-
   const { mutate: mutatePutCollaboratorsEditSuggestionId } = usePutCollaboratorEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success creating a new collaborator:", data);
+        console.info("Success updating a new collaborator:", data);
         push(`/dashboard`);
       },
       onError: (error) => {
-        console.error("Error creating a new collaborator:", error);
+        console.error("Error updating a new collaborator:", error);
       },
     },
     request: {},
@@ -171,7 +144,7 @@ export default function NewCollaboratorForm() {
     name: z.string().refine((val) => !!val, {
       message: "Please enter organization name",
     }),
-    relationship: z
+    type: z
       .enum(relationTypes)
       .optional()
       .refine((val) => !!val, {
@@ -195,7 +168,7 @@ export default function NewCollaboratorForm() {
     resolver: zodResolver(formSchema),
     values: {
       name: previousData?.name || "",
-      relationship: previousData?.type || undefined,
+      type: (previousData?.type as CollaboratorEditSuggestionCollaboratorDataAttributesType) || "",
       link: previousData?.link || "",
       image: null,
     },
@@ -213,66 +186,59 @@ export default function NewCollaboratorForm() {
             id: +id,
             data: {
               data: {
-                // @ts-expect-error TO-DO - fix types
-                collaborator: {
-                  disconnect: [],
-                  connect: [values?.relationship],
-                },
                 review_status: "pending",
                 ...values,
                 image: imageId,
               },
             },
           });
-        } else {
+        }
+        if ((!!id && !collaboratorSuggestedDataId) || !id) {
+          // is an edition to an existing one, has there is a suggestion
+          // we have to post to a new one
+          // no need to send author because BE handles it
           mutatePostCollaboratorsEditSuggestion({
             data: {
               data: {
                 review_status: "pending",
                 ...values,
                 image: imageId,
+                // @ts-expect-error TO-DO - fix types
+                collaborator: {
+                  connect: [+id],
+                  disconnect: [],
+                },
               },
             },
           });
         }
       }
 
-      if (ME_DATA?.role?.type === "admin") {
-        if (!!id) {
-          mutatePutCollaboratorsToolsId({
-            id: +id,
-            data: {
-              data: {
-                link: values.link,
-                name: values.name,
-                type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
-                image: imageId,
-              },
-            },
-          });
-        }
-        if (!id) {
-          mutatePostCollaboratorsTools({
-            data: {
-              data: {
-                link: values.link,
-                name: values.name,
-                type: values.relationship as CollaboratorEditSuggestionCollaboratorDataAttributesType,
-                image: imageId,
-              },
-            },
-          });
-        }
+      if (ME_DATA?.role?.type === "admin" && data?.apiToken) {
+        updateOrCreateCollaborator(
+          {
+            ...(id && !collaboratorSuggestedDataId && { id }),
+            ...(id &&
+              !!collaboratorSuggestedDataId && {
+                id: collaboratorSuggestedDataId?.data?.attributes?.collaborator?.data?.id,
+              }),
+            ...values,
+            image: imageId,
+          },
+          data?.apiToken,
+        );
+        // put sugestion to change status
+        push(`/collaborators`);
       }
     },
     [
+      data?.apiToken,
+      push,
       ME_DATA?.role?.type,
       id,
       collaboratorSuggestedDataId,
       mutatePutCollaboratorsEditSuggestionId,
       mutatePostCollaboratorsEditSuggestion,
-      mutatePutCollaboratorsToolsId,
-      mutatePostCollaboratorsTools,
       imageId,
     ],
   );
@@ -299,7 +265,6 @@ export default function NewCollaboratorForm() {
         uploadImage(files, {
           Authorization: `Bearer ${data?.apiToken}`,
         }).then((data) => {
-          console.log(data);
           setImageId(data.id);
         });
       }
@@ -310,17 +275,12 @@ export default function NewCollaboratorForm() {
     !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedDataId?.data?.attributes
       ? []
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
-  console.log(
-    collaboratorSuggestedDataId?.data?.attributes?.link,
-    collaboratorSuggestedDataId,
-    collaboratorData,
-  );
 
   const imageLink =
     collaboratorSuggestedDataId?.data?.attributes?.link ||
     collaboratorData?.data?.attributes?.link ||
     "";
-  console.log(imageLink);
+
   return (
     <>
       <DashboardFormControls
@@ -364,7 +324,7 @@ export default function NewCollaboratorForm() {
 
               <FormField
                 control={form.control}
-                name="relationship"
+                name="type"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of relationship</FormLabel>
