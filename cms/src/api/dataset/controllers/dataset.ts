@@ -186,7 +186,6 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
             // Remove existing relation between dataset and layer
             await trx('layers_dataset_links')
               .where({ dataset_id: dataset.id })
-              .andWhere({ layer_id: layer.layer_id })
               .del();
 
             // Link new layer
@@ -198,6 +197,10 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
 
             return layer.layer_id;
           } else {
+            // Remove existing relation between dataset and any
+            await trx('layers_dataset_links')
+              .where({ dataset_id: dataset.id })
+              .del();
             // Create new layer
             const newLayer = await trx('layers')
               .insert(layerData)
