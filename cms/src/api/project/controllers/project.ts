@@ -8,6 +8,7 @@ export default factories.createCoreController('api::project.project', () => ({
   async approveProjectSuggestion(ctx) {
     const data = ctx.request.body.data;
     let project;
+    const currentDate = new Date();
 
     if (data.id) {
       const { id, ...payload } = ctx.request.body.data
@@ -15,12 +16,12 @@ export default factories.createCoreController('api::project.project', () => ({
 
       if (project) {
 
-        project = await strapi.entityService.update('api::project.project', id, { data: payload });
+        project = await strapi.entityService.update('api::project.project', id, { data: { ...payload, publishedAt: currentDate } });
       } else {
-        project = await strapi.entityService.create('api::project.project', { data: payload });
+        project = await strapi.entityService.create('api::project.project', { data: { ...payload, publishedAt: currentDate } });
       }
     } else {
-      project = await strapi.entityService.create('api::project.project', { data });
+      project = await strapi.entityService.create('api::project.project',  { data: { ...data, publishedAt: currentDate } });
     }
     ctx.send(project);
   },
