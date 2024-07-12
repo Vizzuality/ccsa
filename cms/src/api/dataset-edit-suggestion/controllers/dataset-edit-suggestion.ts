@@ -16,7 +16,7 @@ export default factories.createCoreController('api::dataset-edit-suggestion.data
       await strapi.plugins['email'].services.email.send({
         to: userEmail,
         subject: 'Dataset Edit Suggestion Received',
-        html: `<h3>Your Dataset Edit suggestion has been received</h3>
+        html: `<h3>Your Dataset suggestion has been received</h3>
                <p>Thank you for your cooperation, your Dataset Edit suggestion will be reviewed by the admins as soon as possible</p>`
       });
 
@@ -32,8 +32,8 @@ export default factories.createCoreController('api::dataset-edit-suggestion.data
           await strapi.plugins['email'].services.email.send({
             to: admin.email,
             subject: 'Collaborator Edit Suggestion Created',
-            html: `<h3>Dataset Edit Suggestion Created</h3>
-                   <p>A Dataset Edit suggestion has been created. Please review it at your earliest convenience.</p>`
+            html: `<h3>Dataset Suggestion Created</h3>
+                   <p>A Dataset suggestion has been created. Please review it at your earliest convenience.</p>`
           });
         }
       } else {

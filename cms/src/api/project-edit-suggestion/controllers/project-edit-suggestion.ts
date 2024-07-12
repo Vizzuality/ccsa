@@ -15,9 +15,9 @@ export default factories.createCoreController('api::project-edit-suggestion.proj
 
       await strapi.plugins['email'].services.email.send({
         to: userEmail,
-        subject: 'Project Edit Suggestion Received',
-        html: `<h3>Your Project Edit suggestion has been received</h3>
-               <p>Thank you for your cooperation, your Project Edit suggestion will be reviewed by the admins as soon as possible</p>`
+        subject: 'Project Suggestion Received',
+        html: `<h3>Your Project suggestion has been received</h3>
+               <p>Thank you for your cooperation, your Project suggestion will be reviewed by the admins as soon as possible</p>`
       });
 
       const adminRole = await strapi.query('plugin::users-permissions.role').findOne({
@@ -32,8 +32,8 @@ export default factories.createCoreController('api::project-edit-suggestion.proj
           await strapi.plugins['email'].services.email.send({
             to: admin.email,
             subject: 'Project Edit Suggestion Created',
-            html: `<h3>Project Edit Suggestion Created</h3>
-                   <p>A Project Edit suggestion has been created. Please review it at your earliest convenience.</p>`
+            html: `<h3>Project Suggestion Created</h3>
+                   <p>A Project suggestion has been created. Please review it at your earliest convenience.</p>`
           });
         }
       } else {

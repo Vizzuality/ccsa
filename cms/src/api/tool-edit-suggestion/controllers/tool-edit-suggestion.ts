@@ -15,9 +15,9 @@ export default factories.createCoreController('api::tool-edit-suggestion.tool-ed
 
       await strapi.plugins['email'].services.email.send({
         to: userEmail,
-        subject: 'Tool Edit Suggestion Received',
-        html: `<h3>Your Tool Edit suggestion has been received</h3>
-               <p>Thank you for your cooperation, your Tool Edit suggestion will be reviewed by the admins as soon as possible</p>`
+        subject: 'Tool Suggestion Received',
+        html: `<h3>Your Tool suggestion has been received</h3>
+               <p>Thank you for your cooperation, your Tool suggestion will be reviewed by the admins as soon as possible</p>`
       });
 
       const adminRole = await strapi.query('plugin::users-permissions.role').findOne({
@@ -31,9 +31,9 @@ export default factories.createCoreController('api::tool-edit-suggestion.tool-ed
         for (const admin of adminRole.users) {
           await strapi.plugins['email'].services.email.send({
             to: admin.email,
-            subject: 'Tool Edit Suggestion Created',
-            html: `<h3>Tool Edit Suggestion Created</h3>
-                   <p>A Tool Edit suggestion has been created. Please review it at your earliest convenience.</p>`
+            subject: 'Tool Suggestion Created',
+            html: `<h3>Tool Suggestion Created</h3>
+                   <p>A Tool suggestion has been created. Please review it at your earliest convenience.</p>`
           });
         }
       } else {

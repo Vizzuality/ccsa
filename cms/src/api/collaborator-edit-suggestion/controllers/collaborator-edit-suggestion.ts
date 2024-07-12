@@ -15,7 +15,7 @@ export default factories.createCoreController('api::collaborator-edit-suggestion
 
       await strapi.plugins['email'].services.email.send({
         to: userEmail,
-        subject: 'Collaborator Edit Suggestion Received',
+        subject: 'Collaborator Suggestion Received',
         html: `<h3>Your Collaborator Edit suggestion has been received</h3>
                <p>Thank you for your cooperation, your Collaborator Edit suggestion will be reviewed by the admins as soon as possible</p>`
       });
@@ -31,9 +31,9 @@ export default factories.createCoreController('api::collaborator-edit-suggestion
         for (const admin of adminRole.users) {
           await strapi.plugins['email'].services.email.send({
             to: admin.email,
-            subject: 'Collaborator Edit Suggestion Created',
-            html: `<h3>Collaborator Edit Suggestion Created</h3>
-                   <p>A Collaborator Edit suggestion has been created. Please review it at your earliest convenience.</p>`
+            subject: 'Collaborator Suggestion Created',
+            html: `<h3>Collaborator Suggestion Created</h3>
+                   <p>A Collaborator suggestion has been created. Please review it at your earliest convenience.</p>`
           });
         }
       } else {
