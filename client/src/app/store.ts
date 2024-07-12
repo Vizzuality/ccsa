@@ -17,7 +17,7 @@ import {
   datasetStepParser,
 } from "@/app/parsers";
 
-import { Data } from "@/components/forms/dataset/types";
+import { Data, DatasetValuesCSV } from "@/components/forms/dataset/types";
 
 export const useSyncDatasets = () => {
   return useQueryState("datasets", datasetsParser);
@@ -151,3 +151,5 @@ export const datasetValuesAtom = atom<Data>({
   data: {},
   colors: {},
 });
+
+export const datasetValuesJsonUploadedAtom = atom<DatasetValuesCSV[]>([]);

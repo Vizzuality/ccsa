@@ -2,6 +2,16 @@ import { Dataset } from "@/types/generated/strapi.schemas";
 
 export type VALUE_TYPE = Dataset["value_type"];
 
+export interface DatasetValuesCSV {
+  country_id: string;
+  number?: number;
+  boolean?: boolean;
+  text?: string;
+  link_title?: string;
+  link_url?: string;
+  description?: string;
+}
+
 export interface Data {
   settings: {
     name: string;

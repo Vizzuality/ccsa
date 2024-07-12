@@ -191,7 +191,7 @@ const getTextData = (data: Data) => {
 
 const getResourcesData = (data: Data) => {
   const { category, ...restSettings } = data.settings;
-  const datasetValues = getTransformedData(data.data, "boolean");
+  const datasetValues = getTransformedData(data.data, "resource");
 
   const fillColor = createFillColorInterpolation(data.colors);
   const configText = {

@@ -95,10 +95,15 @@ export default function NewDatasetForm() {
       if (ME_DATA?.role?.type === "admin") {
         const { valueType } = data.settings;
         const parsedData = getDataParsed(valueType, data);
-        updateOrCreateDataset(parsedData, session?.apiToken as string);
+        updateOrCreateDataset(parsedData, session?.apiToken as string)
+          .then(() => {
+            push(`/`);
+            console.info("Success creating dataset:", data);
+          })
+          .catch((error: Error) => console.error("Error creating dataset:", error));
       }
     },
-    [formValues, setFormValues, ME_DATA, mutatePostDatasetEditSuggestion, session?.apiToken],
+    [formValues, setFormValues, ME_DATA, mutatePostDatasetEditSuggestion, session?.apiToken, push],
   );
 
   return (
