@@ -43,5 +43,36 @@ export default factories.createCoreController('api::tool-edit-suggestion.tool-ed
       strapi.log.error('Unable to send email: User is not authenticated or email is missing.');
     }
     return response;
+  },
+
+  async update(ctx) {
+    const response = await super.update(ctx);
+
+    const newReviewStatus = response.data.attributes.review_status;
+
+    if (newReviewStatus === 'approved' || newReviewStatus === 'rejected') {
+      const suggestionId = ctx.params.id;
+      const suggestion = await strapi.query('api::tool-edit-suggestion.tool-edit-suggestion').findOne({
+        where: { id: suggestionId },
+        populate: ['author']
+      });
+
+      if (suggestion && suggestion.author && suggestion.author.email) {
+        const userEmail = suggestion.author.email;
+
+        strapi.log.info(`Sending email notification to the author about the Tool Suggestion review status change`);
+
+        await strapi.plugins['email'].services.email.send({
+          to: userEmail,
+          subject: `Tool Suggestion ${newReviewStatus.charAt(0).toUpperCase() + newReviewStatus.slice(1)}`,
+          html: `<h3>Your Tool suggestion has been ${newReviewStatus}</h3>
+                 <p>Your Tool suggestion review status has been updated to "${newReviewStatus}".</p>`
+        });
+      } else {
+        strapi.log.error('Unable to send email: Author is missing or email is not provided.');
+      }
+    }
+
+    return response;
   }
 }));
