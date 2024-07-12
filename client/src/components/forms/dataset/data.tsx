@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { LuTrash2 } from "react-icons/lu";
 import { z } from "zod";
@@ -19,7 +20,7 @@ import { CountryListResponseDataItem } from "@/types/generated/strapi.schemas";
 import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams } from "@/app/store";
+import { useSyncSearchParams, datasetValuesJsonUploadedAtom } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 
@@ -49,7 +50,7 @@ import {
 
 import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
-import type { VALUE_TYPE, Data, Resource } from "./types";
+import type { VALUE_TYPE, Data, Resource, DatasetValuesCSV } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
 
 export default function DatasetDataForm({
@@ -67,6 +68,7 @@ export default function DatasetDataForm({
   onSubmit: (data: Data["data"]) => void;
   changes?: string[];
 }) {
+  const [datasetValues] = useAtom(datasetValuesJsonUploadedAtom);
   const data = rawData.data;
 
   const { push } = useRouter();
@@ -81,7 +83,6 @@ export default function DatasetDataForm({
   const isDatasetNew = isEmpty(data);
 
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
-
   const countries = useMemo(
     () => countriesData?.data?.map((country) => country) || [],
     [countriesData],
@@ -96,6 +97,38 @@ export default function DatasetDataForm({
     [rawData.settings.valueType, countries],
   );
 
+  function transformData(data: DatasetValuesCSV[]): {
+    [key: string]: number | string | Resource[] | boolean | undefined;
+  } {
+    const result: { [key: string]: number | string | Resource[] | boolean | undefined } = {};
+    if (rawData.settings.valueType) return {};
+    const type = rawData.settings.valueType as unknown as keyof DatasetValuesCSV;
+
+    if (!!rawData.settings.valueType && rawData.settings.valueType !== "resource") {
+      data.forEach((item) => {
+        result[item.country_id] = item[type];
+      });
+    } else if (rawData.settings.valueType === "resource") {
+      data.forEach((item) => {
+        const resource: Resource = {
+          title: item.link_title!,
+          link: item.link_url!,
+          description: item.description!,
+        };
+
+        if (!result[item.country_id]) {
+          result[item.country_id] = [];
+        }
+
+        (result[item.country_id] as Resource[]).push(resource);
+      });
+    }
+
+    return result;
+  }
+
+  const parsedDatasetCSVValues = transformData(datasetValues);
+
   const values = useMemo(() => {
     const c = countries
       .map((c) => c?.attributes?.iso3 as string)
@@ -103,14 +136,14 @@ export default function DatasetDataForm({
         (acc, country) => {
           return {
             ...acc,
-            [`${country}`]: data[`${country}`],
+            [`${country}`]: parsedDatasetCSVValues[country] || data[`${country}`],
           };
         },
         {} as Data["data"],
       );
 
     return c;
-  }, [countries, data]);
+  }, [countries, data, parsedDatasetCSVValues]);
 
   const form = useForm<Data["data"]>({
     resolver: zodResolver(formSchema),

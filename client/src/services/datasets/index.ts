@@ -1,5 +1,5 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import axios, { AxiosHeaders } from "axios";
+import { UseQueryOptions } from "@tanstack/react-query";
+import axios from "axios";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -32,32 +32,29 @@ export const updateOrCreateDataset = async (
     });
 };
 
-export function useValidateCsv(
-  data: File,
-  headers: AxiosHeaders,
+export function validateCsv(
+  data: File[],
+  headers: { [key: string]: string },
   options?: UseQueryOptions<unknown>,
 ) {
-  const validateCSV = () => {
-    return api
-      .request({
-        method: "post",
-        url: "/csv/parse-csv",
-        data: {
-          files: data,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          ...headers,
-        },
-        ...options,
-      })
-      .then(({ data }) => data)
-      .catch((err) => {
-        return err;
-      });
-  };
+  const formData = new FormData();
+  formData.append("csv", data[0]);
 
-  return useQuery(["validate-csv"], validateCSV);
+  return api
+    .request({
+      method: "post",
+      url: "/csv/parse-csv",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...headers,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
 }
 
 export function uploadImage(

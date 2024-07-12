@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/select";
 
 import { updateOrCreateCollaborator } from "@/services/collaborators";
-import { uploadImage } from "@/services/uploads";
+import { uploadImage } from "@/services/datasets";
 
 import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from "./constants";
 
