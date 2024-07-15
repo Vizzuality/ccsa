@@ -105,7 +105,6 @@ export default function NewDatasetForm() {
           })
           .catch((error: Error) => {
             toast.error("There was a problem creating the dataset");
-
             console.error("Error creating dataset:", error);
           });
       }

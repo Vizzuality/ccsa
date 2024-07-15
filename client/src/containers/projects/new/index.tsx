@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import Error from "next/error";
 import { useParams, useRouter } from "next/navigation";
@@ -299,37 +300,45 @@ export default function ProjectForm() {
           },
           data?.apiToken,
           // to do review data + change sug status
-        ).then(() => {
-          if (projectsSuggestedData) {
-            mutatePutProjectEditSuggestionId({
-              id: +id,
-              data: {
+        )
+          .then(() => {
+            console.info("Success creating dataset");
+            toast.success("Success creating dataset");
+
+            if (projectsSuggestedData) {
+              mutatePutProjectEditSuggestionId({
+                id: +id,
                 data: {
-                  ...values,
-                  countries: {
-                    // @ts-expect-error TO-DO - fix types
-                    connect: values.countries,
-                    disconnect: [],
+                  data: {
+                    ...values,
+                    countries: {
+                      // @ts-expect-error TO-DO - fix types
+                      connect: values.countries,
+                      disconnect: [],
+                    },
+                    ...(values.pillar && {
+                      pillar: {
+                        disconnect: [],
+                        connect: [values.pillar],
+                      },
+                    }),
+                    ...(values.sdgs && {
+                      sdgs: {
+                        disconnect: [],
+                        connect: values.sdgs,
+                      },
+                    }),
+                    review_status: "approved",
                   },
-                  ...(values.pillar && {
-                    pillar: {
-                      disconnect: [],
-                      connect: [values.pillar],
-                    },
-                  }),
-                  ...(values.sdgs && {
-                    sdgs: {
-                      disconnect: [],
-                      connect: values.sdgs,
-                    },
-                  }),
-                  review_status: "approved",
                 },
-              },
-            });
-          }
-          push(`/projects`);
-        });
+              });
+            }
+            push(`/projects`);
+          })
+          .catch((error: Error) => {
+            toast.error("There was a problem creating the dataset");
+            console.error("Error creating dataset:", error);
+          });
       }
     },
 

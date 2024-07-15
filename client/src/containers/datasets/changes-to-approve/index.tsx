@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useMemo } from "react";
 
+import { toast } from "react-toastify";
+
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -230,25 +232,32 @@ export default function FormToApprove() {
           },
           session?.apiToken,
           // to do review data + change sug status
-        ).then((data) => {
-          console.info("Success updating dataset:", data);
-          if (datasetDataPendingToApprove?.data?.id) {
-            mutatePutDatasetEditSuggestion({
-              id: datasetDataPendingToApprove?.data?.id,
-              data: {
+        )
+          .then((data) => {
+            console.info("Success updating dataset:", data);
+            toast.success("Success creating dataset");
+
+            if (datasetDataPendingToApprove?.data?.id) {
+              mutatePutDatasetEditSuggestion({
+                id: datasetDataPendingToApprove?.data?.id,
                 data: {
-                  ...data.settings,
-                  value_type: data.settings.valueType,
-                  data: data.data,
-                  colors: data.colors,
-                  review_status: "approved",
+                  data: {
+                    ...data.settings,
+                    value_type: data.settings.valueType,
+                    data: data.data,
+                    colors: data.colors,
+                    review_status: "approved",
+                  },
                 },
-              },
-            });
-          }
-          setFormValues(DATA_INITIAL_VALUES);
-          push(`/`);
-        });
+              });
+            }
+            setFormValues(DATA_INITIAL_VALUES);
+            push(`/`);
+          })
+          .catch((error: Error) => {
+            toast.error("There was a problem creating the dataset");
+            console.error("Error creating dataset:", error);
+          });
       }
     },
     [
@@ -260,6 +269,7 @@ export default function FormToApprove() {
       id,
       session?.apiToken,
       push,
+      DATA_INITIAL_VALUES,
     ],
   );
 

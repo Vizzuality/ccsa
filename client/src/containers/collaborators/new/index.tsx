@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
@@ -53,7 +54,7 @@ import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
 
 export default function NewCollaboratorForm() {
-  const [imageId, setImageId] = useState<number>(8);
+  const [imageId, setImageId] = useState<number>(null);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -214,24 +215,31 @@ export default function NewCollaboratorForm() {
             image: imageId,
           },
           data?.apiToken,
-        ).then((data) => {
-          console.info("Success creating collaborator:", data);
-          mutatePostCollaboratorsEditSuggestion({
-            data: {
+        )
+          .then((data) => {
+            console.info("Success creating collaborator:", data);
+            toast.success("Success creating collaborator");
+
+            mutatePostCollaboratorsEditSuggestion({
               data: {
-                review_status: "approved",
-                ...values,
-                image: imageId,
-                // @ts-expect-error TO-DO - fix types
-                collaborator: {
-                  connect: [+id],
-                  disconnect: [],
+                data: {
+                  review_status: "approved",
+                  ...values,
+                  image: imageId,
+                  // @ts-expect-error TO-DO - fix types
+                  collaborator: {
+                    connect: [+id],
+                    disconnect: [],
+                  },
                 },
               },
-            },
+            });
+            push(`/collaborators`);
+          })
+          .catch((error: Error) => {
+            toast.error("There was a problem creating the collaborator");
+            console.error("Error creating collaborator:", error);
           });
-          push(`/collaborators`);
-        });
       }
     },
     [

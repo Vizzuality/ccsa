@@ -13,8 +13,8 @@ export const updateOrCreateOtherTools = async (
   userToken: string,
   options?: UseQueryOptions<unknown>,
 ) => {
-  return await api
-    .request({
+  try {
+    const response = await api.request({
       method: "post",
       url: "/other-tools/approve-other-tool-suggestion",
       data: {
@@ -25,9 +25,9 @@ export const updateOrCreateOtherTools = async (
         Authorization: `Bearer ${userToken}`,
       },
       ...options,
-    })
-    .then(({ data }) => data)
-    .catch((err) => {
-      return err;
     });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to update/create other tool");
+  }
 };
