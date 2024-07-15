@@ -27,9 +27,13 @@ const CollaboratorsList = () => {
     isFetching,
     isFetched,
     isError,
-  } = useGetCollaborators({
-    ...(search ? { filters: { name: { $containsi: search } } } : {}),
-  });
+  } = useGetCollaborators(
+    {
+      populate: "*",
+      ...(search ? { filters: { name: { $containsi: search } } } : {}),
+    },
+    {},
+  );
 
   const collaborators = useMemo(
     () => groupBy(collaboratorsData?.data, "attributes.type"),

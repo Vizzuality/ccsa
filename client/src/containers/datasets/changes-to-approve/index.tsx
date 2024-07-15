@@ -230,7 +230,23 @@ export default function FormToApprove() {
           },
           session?.apiToken,
           // to do review data + change sug status
-        );
+        ).then((data) => {
+          console.info("Success updating dataset:", data);
+          if (datasetDataPendingToApprove?.data?.id) {
+            mutatePutDatasetEditSuggestion({
+              id: datasetDataPendingToApprove?.data?.id,
+              data: {
+                data: {
+                  ...data.settings,
+                  value_type: data.settings.valueType,
+                  data: data.data,
+                  colors: data.colors,
+                  review_status: "approved",
+                },
+              },
+            });
+          }
+        });
       }
     },
     [

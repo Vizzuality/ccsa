@@ -28,6 +28,18 @@ import { Data } from "@/components/forms/dataset/types";
 
 import { updateOrCreateDataset } from "@/services/datasets";
 
+// const getPreviousDataParsed = (data: Data) => {
+//   return {
+//     settings: {
+//       name: data?.name,
+//       description: data?.description,
+//       valueType: data?.value_type,
+//       category: data?.category?.id,
+//       unit: data?.unit,
+//     },
+//   };
+// };
+
 export default function EditDatasetForm() {
   const { data: session } = useSession();
   const { push } = useRouter();
@@ -62,6 +74,11 @@ export default function EditDatasetForm() {
       resources: true,
     },
   });
+
+  // const parsedData = getPreviousDataParsed(datasetEditData?.data?.attributes?.data);
+
+  // const previousData =
+  //   datasetEditData?.data?.attributes?.data || datasetData?.data?.attributes || {};
 
   const { mutate: mutatePutDatasetEditSuggestionId } = usePutDatasetEditSuggestionsId({
     mutation: {
@@ -204,7 +221,26 @@ export default function EditDatasetForm() {
           },
           session?.apiToken,
           // to do review data + change sug status
-        );
+        ).then((data) => {
+          console.info("Success updating dataset:", data);
+          if (!!id && !!datasetEditData) {
+            mutatePutDatasetEditSuggestionId({
+              id: +id,
+              data: {
+                data: {
+                  ...data.settings,
+                  value_type: data.settings.valueType,
+                  review_status: "approved",
+                  colors: data.colors,
+                  data: {
+                    ...data.data,
+                  },
+                },
+              },
+            });
+          }
+          push(`/`);
+        });
       }
     },
     [
@@ -217,6 +253,7 @@ export default function EditDatasetForm() {
       id,
       mutatePutDatasetEditSuggestionId,
       session?.apiToken,
+      push,
     ],
   );
 

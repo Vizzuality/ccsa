@@ -180,7 +180,6 @@ export default function NewToolForm() {
           });
         }
         if ((!!id && !editSuggestionIdData) || !id) {
-          ("if there is id but not suggestion or if there is no id, post new suggestion");
           mutatePostToolEditSuggestion({
             data: {
               // @ts-expect-error TO-DO - fix types
@@ -219,10 +218,35 @@ export default function NewToolForm() {
               other_tools_category: values.category,
             },
             data?.apiToken,
-          );
+          ).then(() => {
+            console.info("Success creating the tool");
+
+            if ((!!id && !editSuggestionIdData) || !id) {
+              mutatePostToolEditSuggestion({
+                data: {
+                  // @ts-expect-error TO-DO - fix types
+                  data: {
+                    review_status: "approved",
+                    ...values,
+                    ...(values?.category && {
+                      other_tools_category: {
+                        disconnect: [],
+                        connect: [+values?.category],
+                      },
+                    }),
+                    ...(id && {
+                      other_tool: {
+                        disconnect: [+id],
+                        connect: [+id],
+                      },
+                    }),
+                  },
+                },
+              });
+            }
+            push(`/other-tools`);
+          });
         }
-        // to do change pending status
-        push(`/other-tools`);
       }
     },
     [
