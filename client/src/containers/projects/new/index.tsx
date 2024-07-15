@@ -299,9 +299,37 @@ export default function ProjectForm() {
           },
           data?.apiToken,
           // to do review data + change sug status
-        );
-        // to do change pending status
-        push(`/projects`);
+        ).then(() => {
+          if (projectsSuggestedData) {
+            mutatePutProjectEditSuggestionId({
+              id: +id,
+              data: {
+                data: {
+                  ...values,
+                  countries: {
+                    // @ts-expect-error TO-DO - fix types
+                    connect: values.countries,
+                    disconnect: [],
+                  },
+                  ...(values.pillar && {
+                    pillar: {
+                      disconnect: [],
+                      connect: [values.pillar],
+                    },
+                  }),
+                  ...(values.sdgs && {
+                    sdgs: {
+                      disconnect: [],
+                      connect: values.sdgs,
+                    },
+                  }),
+                  review_status: "approved",
+                },
+              },
+            });
+          }
+          push(`/projects`);
+        });
       }
     },
 

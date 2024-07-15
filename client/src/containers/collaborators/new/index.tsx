@@ -52,8 +52,6 @@ import {
 import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
 
-import { MAX_FILE_SIZE, ACCEPTED_IMAGE_TYPES } from "./constants";
-
 export default function NewCollaboratorForm() {
   const [imageId, setImageId] = useState<number>(8);
   const { push } = useRouter();
@@ -151,17 +149,7 @@ export default function NewCollaboratorForm() {
         message: "Please select a relation type",
       }),
     link: z.string().url({ message: "Please enter a valid URL" }),
-    image: z
-      .any()
-      .refine((file) => {
-        return file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`;
-      })
-      .refine((file) => {
-        return (
-          ACCEPTED_IMAGE_TYPES.includes(file?.type),
-          "Only .jpg, .jpeg, .png and .webp formats are supported."
-        );
-      }),
+    image: z.number().min(1, { message: "Please ass image" }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -170,7 +158,7 @@ export default function NewCollaboratorForm() {
       name: previousData?.name || "",
       type: (previousData?.type as CollaboratorEditSuggestionCollaboratorDataAttributesType) || "",
       link: previousData?.link || "",
-      image: null,
+      image: previousData?.image?.data?.id as number,
     },
   });
 
@@ -226,9 +214,24 @@ export default function NewCollaboratorForm() {
             image: imageId,
           },
           data?.apiToken,
-        );
-        // put sugestion to change status
-        push(`/collaborators`);
+        ).then((data) => {
+          console.info("Success creating collaborator:", data);
+          mutatePostCollaboratorsEditSuggestion({
+            data: {
+              data: {
+                review_status: "approved",
+                ...values,
+                image: imageId,
+                // @ts-expect-error TO-DO - fix types
+                collaborator: {
+                  connect: [+id],
+                  disconnect: [],
+                },
+              },
+            },
+          });
+          push(`/collaborators`);
+        });
       }
     },
     [
@@ -258,14 +261,16 @@ export default function NewCollaboratorForm() {
 
   const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
     multiple: false,
-    accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg"] },
+    maxFiles: 1,
+    maxSize: 500000,
+    accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg", ".webp", "./svgs"] },
     onDropAccepted(files) {
-      form.setValue("image", files[0]);
       if (files.length > 0) {
         uploadImage(files, {
           Authorization: `Bearer ${data?.apiToken}`,
         }).then((data) => {
-          setImageId(data.id);
+          form.setValue("image", data[0].id);
+          setImageId(data[0].id);
         });
       }
     },
@@ -275,11 +280,6 @@ export default function NewCollaboratorForm() {
     !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedDataId?.data?.attributes
       ? []
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
-
-  const imageLink =
-    collaboratorSuggestedDataId?.data?.attributes?.link ||
-    collaboratorData?.data?.attributes?.link ||
-    "";
 
   return (
     <>
@@ -379,21 +379,22 @@ export default function NewCollaboratorForm() {
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Logo image</FormLabel>
+
                     <FormControl>
                       <div
                         {...getRootProps()}
                         className={cn({
-                          "m-auto !flex w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 bg-cover py-6 text-xs placeholder:text-gray-300/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
+                          "center cover m-auto !flex h-48 w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 bg-opacity-10 bg-cover py-6 text-xs placeholder:text-gray-300/95 hover:border-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
                             true,
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         style={{
-                          backgroundImage: `url(${imageLink})`,
-                          backgroundPosition: "center",
-                          backgroundSize: "cover",
+                          // env.NEXT_PUBLIC_CMS_URL
+                          backgroundImage: `url(http://0.0.0.0:1337${previousData?.image?.data?.attributes?.url})`,
                         }}
                       >
                         <input type="file" {...getInputProps()} />
+
                         <Image
                           priority
                           alt="file"
@@ -402,18 +403,12 @@ export default function NewCollaboratorForm() {
                           src="/images/image-file.png"
                           className="m-auto flex"
                         />
-
-                        {!acceptedFiles.length && (
+                        {!previousData?.image?.data?.attributes?.url && (
                           <div className="flex flex-col space-y-2 text-center">
                             <p className="font-semibold">
                               Drag and drop here, or <span className="text-primary">browse</span>
                             </p>
                             <p className="font-light">Supports: PNG, JPG, JPEG, GIF, WEBP</p>
-                          </div>
-                        )}
-                        {!!acceptedFiles.length && (
-                          <div className="flex flex-col space-y-2 text-center">
-                            <p className="font-light">{acceptedFiles[0]?.name}</p>
                           </div>
                         )}
                       </div>
@@ -422,6 +417,11 @@ export default function NewCollaboratorForm() {
                   </FormItem>
                 )}
               />
+              {!!acceptedFiles.length && (
+                <div className="flex flex-col space-y-2 text-center">
+                  <button className="text-xs">{acceptedFiles[0]?.name}</button>
+                </div>
+              )}
             </fieldset>
             <Button type="submit" className="hidden">
               Submit

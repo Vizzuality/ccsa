@@ -2,7 +2,6 @@
 
 import { useCallback } from "react";
 
-// import { usePostDatasets } from "@/types/generated/dataset";
 import { useRouter } from "next/navigation";
 
 import { useAtom } from "jotai";
@@ -11,11 +10,11 @@ import { useSession } from "next-auth/react";
 import { getDataParsed } from "@/lib/utils/datasets";
 
 import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
-// import { usePostDatasetValues } from "@/types/generated/dataset-value";
+
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { datasetStepAtom, datasetValuesAtom } from "@/app/store";
+import { datasetStepAtom, datasetValuesAtom, INITIAL_DATASET_VALUES } from "@/app/store";
 
 import DatasetColorsForm from "@/components/forms/dataset/colors";
 import DatasetDataForm from "@/components/forms/dataset/data";
@@ -97,8 +96,9 @@ export default function NewDatasetForm() {
         const parsedData = getDataParsed(valueType, data);
         updateOrCreateDataset(parsedData, session?.apiToken as string)
           .then(() => {
-            push(`/`);
             console.info("Success creating dataset:", data);
+            setFormValues(INITIAL_DATASET_VALUES);
+            push(`/`);
           })
           .catch((error: Error) => console.error("Error creating dataset:", error));
       }

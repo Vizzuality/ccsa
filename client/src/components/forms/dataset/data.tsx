@@ -83,6 +83,7 @@ export default function DatasetDataForm({
   const isDatasetNew = isEmpty(data);
 
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
+
   const countries = useMemo(
     () => countriesData?.data?.map((country) => country) || [],
     [countriesData],
@@ -101,15 +102,14 @@ export default function DatasetDataForm({
     [key: string]: number | string | Resource[] | boolean | undefined;
   } {
     const result: { [key: string]: number | string | Resource[] | boolean | undefined } = {};
-    if (rawData.settings.valueType) return {};
     const type = rawData.settings.valueType as unknown as keyof DatasetValuesCSV;
 
     if (!!rawData.settings.valueType && rawData.settings.valueType !== "resource") {
-      data.forEach((item) => {
+      data?.forEach((item) => {
         result[item.country_id] = item[type];
       });
     } else if (rawData.settings.valueType === "resource") {
-      data.forEach((item) => {
+      data?.forEach((item) => {
         const resource: Resource = {
           title: item.link_title!,
           link: item.link_url!,
@@ -450,7 +450,8 @@ export default function DatasetDataForm({
                                         <Input
                                           {...field}
                                           value={
-                                            typeof field.value === "number"
+                                            typeof field.value === "number" ||
+                                            typeof field.value === "string"
                                               ? field.value
                                               : undefined
                                           }

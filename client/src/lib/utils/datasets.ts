@@ -133,6 +133,7 @@ const getNumberData = (data: Data) => {
       params_config: PARAMS_CONFIG,
       legend_config: getLegendConfigNumber(data.colors, minValue, maxValue),
       interaction_config: {},
+      colors: data.colors,
     },
   ];
 
@@ -177,6 +178,7 @@ const getTextData = (data: Data) => {
       params_config: PARAMS_CONFIG,
       legend_config: getLegendConfigText(data.data, data.colors),
       interaction_config: {},
+      colors: data.colors,
     },
   ];
 
@@ -221,6 +223,7 @@ const getResourcesData = (data: Data) => {
       params_config: PARAMS_CONFIG,
       legend_config: getLegendConfigResources(data.colors),
       interaction_config: {},
+      colors: data.colors,
     },
   ];
 
@@ -265,6 +268,7 @@ const getBooleanData = (data: Data) => {
       params_config: PARAMS_CONFIG,
       legend_config: getLegendConfigBoolean(data.colors),
       interaction_config: {},
+      colors: data.colors,
     },
   ];
 
@@ -294,7 +298,7 @@ const getTransformedData = (data: Data["data"], key: string) => {
   return Object.keys(data).map((country) => {
     return {
       country,
-      [key]: data[country] || null,
+      [`value_${key}`]: data[country] || null,
     };
   });
 };
