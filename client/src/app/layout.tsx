@@ -1,7 +1,10 @@
 import "@/styles/globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { PropsWithChildren } from "react";
+
+import { ToastContainer } from "react-toastify";
 
 import type { Metadata } from "next";
 
@@ -52,6 +55,18 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             <div className="fixed bottom-0 left-1/2 z-10 -translate-x-1/2">
               <PoweredBy />
             </div>
+            <ToastContainer
+              position="top-right"
+              autoClose={2000}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </body>
 
           <GoogleAnalytics gaId={env.NEXT_PUBLIC_GA_TRACKING_ID} />

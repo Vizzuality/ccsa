@@ -102,7 +102,7 @@ export const COLORS_FIELDS_RESOURCE = [
   {
     valueType: "resource",
     label: "Title",
-    value: "title",
+    value: "link_title",
   },
   {
     valueType: "resource",
@@ -112,6 +112,6 @@ export const COLORS_FIELDS_RESOURCE = [
   {
     valueType: "resource",
     label: "Link",
-    value: "link",
+    value: "link_url",
   },
 ];

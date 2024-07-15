@@ -2,6 +2,8 @@
 
 import { useCallback } from "react";
 
+import { toast } from "react-toastify";
+
 import { useRouter } from "next/navigation";
 
 import { useAtom } from "jotai";
@@ -10,7 +12,6 @@ import { useSession } from "next-auth/react";
 import { getDataParsed } from "@/lib/utils/datasets";
 
 import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
-
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
@@ -97,10 +98,16 @@ export default function NewDatasetForm() {
         updateOrCreateDataset(parsedData, session?.apiToken as string)
           .then(() => {
             console.info("Success creating dataset:", data);
+            toast.success("Success creating dataset");
+
             setFormValues(INITIAL_DATASET_VALUES);
             push(`/`);
           })
-          .catch((error: Error) => console.error("Error creating dataset:", error));
+          .catch((error: Error) => {
+            toast.error("There was a problem creating the dataset");
+
+            console.error("Error creating dataset:", error);
+          });
       }
     },
     [formValues, setFormValues, ME_DATA, mutatePostDatasetEditSuggestion, session?.apiToken, push],

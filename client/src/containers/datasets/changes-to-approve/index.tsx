@@ -246,6 +246,8 @@ export default function FormToApprove() {
               },
             });
           }
+          setFormValues(DATA_INITIAL_VALUES);
+          push(`/`);
         });
       }
     },
@@ -257,6 +259,7 @@ export default function FormToApprove() {
       datasetData?.data?.id,
       id,
       session?.apiToken,
+      push,
     ],
   );
 

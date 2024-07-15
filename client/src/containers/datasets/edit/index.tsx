@@ -2,6 +2,8 @@
 
 import { useCallback, useMemo } from "react";
 
+import { toast } from "react-toastify";
+
 import { useParams, useRouter } from "next/navigation";
 
 import { useAtom } from "jotai";
@@ -19,7 +21,7 @@ import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { datasetStepAtom, datasetValuesAtom } from "@/app/store";
+import { datasetStepAtom, datasetValuesAtom, INITIAL_DATASET_VALUES } from "@/app/store";
 
 import DatasetColorsForm from "@/components/forms/dataset/colors";
 import DatasetDataForm from "@/components/forms/dataset/data";
@@ -27,18 +29,6 @@ import DatasetSettingsForm from "@/components/forms/dataset/settings";
 import { Data } from "@/components/forms/dataset/types";
 
 import { updateOrCreateDataset } from "@/services/datasets";
-
-// const getPreviousDataParsed = (data: Data) => {
-//   return {
-//     settings: {
-//       name: data?.name,
-//       description: data?.description,
-//       valueType: data?.value_type,
-//       category: data?.category?.id,
-//       unit: data?.unit,
-//     },
-//   };
-// };
 
 export default function EditDatasetForm() {
   const { data: session } = useSession();
@@ -72,13 +62,9 @@ export default function EditDatasetForm() {
         fields: ["name", "iso3"],
       },
       resources: true,
+      dataset_values: true,
     },
   });
-
-  // const parsedData = getPreviousDataParsed(datasetEditData?.data?.attributes?.data);
-
-  // const previousData =
-  //   datasetEditData?.data?.attributes?.data || datasetData?.data?.attributes || {};
 
   const { mutate: mutatePutDatasetEditSuggestionId } = usePutDatasetEditSuggestionsId({
     mutation: {
@@ -131,7 +117,6 @@ export default function EditDatasetForm() {
           if (datasetData?.data?.attributes?.value_type === "boolean") {
             return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean };
           }
-
           return acc;
         },
         {} as Data["data"],
@@ -222,6 +207,7 @@ export default function EditDatasetForm() {
           session?.apiToken,
           // to do review data + change sug status
         ).then((data) => {
+          toast.success("Dataset updated successfully");
           console.info("Success updating dataset:", data);
           if (!!id && !!datasetEditData) {
             mutatePutDatasetEditSuggestionId({
@@ -239,6 +225,7 @@ export default function EditDatasetForm() {
               },
             });
           }
+          setFormValues(INITIAL_DATASET_VALUES);
           push(`/`);
         });
       }

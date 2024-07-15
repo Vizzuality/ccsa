@@ -43,7 +43,7 @@ export default async function EditDatasetPage({ params }: { params: { id: number
 
   return (
     <Hydrate state={dehydratedState}>
-      <EditDatasetForm />;
+      <EditDatasetForm />
     </Hydrate>
   );
 }

@@ -21,8 +21,8 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
         acc[`${country}`] = z
           .array(
             z.object({
-              title: z.string().min(1, { message: "Please enter a title" }),
-              link: z.string().url({ message: "Please enter a valid URL" }),
+              link_title: z.string().min(1, { message: "Please enter a title" }),
+              link_url: z.string().url({ message: "Please enter a valid URL" }),
               description: z.string().min(1, { message: "Please enter a description" }),
             }),
           )

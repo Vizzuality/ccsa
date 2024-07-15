@@ -21,14 +21,16 @@ export interface Data {
     unit?: string;
     updatedAt?: string;
   };
-  data: { [key: string]: string | number | boolean | undefined | Resource[] };
+  data: {
+    [key: string]: string | number | boolean | undefined | Resource[];
+  };
   colors: Record<string, string>;
 }
 
 export interface Resource {
-  title: string;
+  link_title: string;
   description: string;
-  link: string;
+  link_url: string;
 }
 interface NumberDataColumn {
   valueType: "number";

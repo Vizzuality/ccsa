@@ -2818,6 +2818,7 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
     dataset?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset;
     resources?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResources;
+    text?: string;
     updatedAt?: string;
     updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
     value_boolean?: boolean;
@@ -4482,6 +4483,7 @@ export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIte
   createdBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
   dataset?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset;
   resources?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesResources;
+  text?: string;
   updatedAt?: string;
   updatedBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
   value_boolean?: boolean;
@@ -5873,6 +5875,7 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributes = 
   createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
   dataset?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset;
   resources?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResources;
+  text?: string;
   updatedAt?: string;
   updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
   value_boolean?: boolean;
@@ -7204,6 +7207,7 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
     dataset?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset;
     resources?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResources;
+    text?: string;
     updatedAt?: string;
     updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
     value_boolean?: boolean;
@@ -9108,6 +9112,7 @@ export type LayerDatasetDataAttributesDatasetValuesDataItemAttributes = {
   createdBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCreatedBy;
   dataset?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesDataset;
   resources?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesResources;
+  text?: string;
   updatedAt?: string;
   updatedBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedBy;
   value_boolean?: boolean;
@@ -10205,6 +10210,7 @@ export interface DatasetValue {
   createdBy?: DatasetValueCreatedBy;
   dataset?: DatasetValueDataset;
   resources?: DatasetValueResources;
+  text?: string;
   updatedAt?: string;
   updatedBy?: DatasetValueUpdatedBy;
   value_boolean?: boolean;
@@ -10339,6 +10345,7 @@ export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributes = {
   createdBy?: DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesCreatedBy;
   dataset?: DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesDataset;
   resources?: DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResources;
+  text?: string;
   updatedAt?: string;
   updatedBy?: DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedBy;
   value_boolean?: boolean;
@@ -11183,6 +11190,7 @@ export type DatasetValueRequestData = {
   country?: DatasetValueRequestDataCountry;
   dataset?: DatasetValueRequestDataDataset;
   resources?: DatasetValueRequestDataResourcesItem[];
+  text?: string;
   value_boolean?: boolean;
   value_number?: number;
   value_text?: string;
@@ -11617,6 +11625,7 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetsDataItemAttribute
     createdBy?: DatasetEditSuggestionCategoryDataAttributesDatasetsDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
     dataset?: DatasetEditSuggestionCategoryDataAttributesDatasetsDataItemAttributesDatasetValuesDataItemAttributesDataset;
     resources?: DatasetEditSuggestionCategoryDataAttributesDatasetsDataItemAttributesDatasetValuesDataItemAttributesResources;
+    text?: string;
     updatedAt?: string;
     updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetsDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
     value_boolean?: boolean;
@@ -13021,6 +13030,7 @@ export type DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetValues
     createdBy?: DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
     dataset?: DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetValuesDataItemAttributesDataset;
     resources?: DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetValuesDataItemAttributesResources;
+    text?: string;
     updatedAt?: string;
     updatedBy?: DatasetCategoryDataAttributesDatasetsDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
     value_boolean?: boolean;
@@ -13359,6 +13369,7 @@ export type CountryDatasetValuesDataItemAttributes = {
   createdBy?: CountryDatasetValuesDataItemAttributesCreatedBy;
   dataset?: CountryDatasetValuesDataItemAttributesDataset;
   resources?: CountryDatasetValuesDataItemAttributesResources;
+  text?: string;
   updatedAt?: string;
   updatedBy?: CountryDatasetValuesDataItemAttributesUpdatedBy;
   value_boolean?: boolean;
@@ -16464,6 +16475,7 @@ export type CategoryDatasetsDataItemAttributesDatasetValuesDataItemAttributes = 
   createdBy?: CategoryDatasetsDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
   dataset?: CategoryDatasetsDataItemAttributesDatasetValuesDataItemAttributesDataset;
   resources?: CategoryDatasetsDataItemAttributesDatasetValuesDataItemAttributesResources;
+  text?: string;
   updatedAt?: string;
   updatedBy?: CategoryDatasetsDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
   value_boolean?: boolean;
