@@ -119,11 +119,11 @@ const useTableData = () => {
                 : undefined;
 
               // If is not a resource dataset get the value
-              const valueType = attributes?.value_type && `value_${attributes?.value_type}`;
+              const value_type = attributes?.value_type && `value_${attributes?.value_type}`;
               const value =
                 !isResource &&
-                isDatasetValueProperty(valueType) &&
-                datasetValue?.attributes?.[valueType];
+                isDatasetValueProperty(value_type) &&
+                datasetValue?.attributes?.[value_type];
               const country = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
               return {
                 iso3: c,

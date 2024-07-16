@@ -22,7 +22,7 @@ import { Data, DatasetValuesCSV } from "@/components/forms/dataset/types";
 export const INITIAL_DATASET_VALUES: Data = {
   settings: {
     name: "",
-    valueType: undefined,
+    value_type: undefined,
     category: undefined,
     unit: "",
     description: "",

@@ -139,7 +139,7 @@ const getNumberData = (data: Data) => {
 
   return {
     ...restSettings,
-    value_type: data.settings.valueType,
+    value_type: data.settings.value_type,
     category_ids: [category],
     dataset_values: datasetValues,
     layers,
@@ -184,7 +184,7 @@ const getTextData = (data: Data) => {
 
   return {
     ...restSettings,
-    value_type: data.settings.valueType,
+    value_type: data.settings.value_type,
     category_ids: [category],
     dataset_values: datasetValues,
     layers,
@@ -229,7 +229,7 @@ const getResourcesData = (data: Data) => {
 
   return {
     ...restSettings,
-    value_type: data.settings.valueType,
+    value_type: data.settings.value_type,
     category_ids: [category],
     dataset_values: datasetValues,
     layers,
@@ -274,7 +274,7 @@ const getBooleanData = (data: Data) => {
 
   return {
     ...restSettings,
-    value_type: data.settings.valueType,
+    value_type: data.settings.value_type,
     category_ids: [category],
     dataset_values: datasetValues,
     layers,

@@ -90,19 +90,26 @@ export default function DatasetDataForm({
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
   const isDatasetNew = isEmpty(data);
 
-  const { data: datasetValuesData } = useGetDatasetValues({
-    filters: {
-      dataset: datasetID,
-    },
-    "pagination[pageSize]": 300,
-    populate: {
-      country: {
-        fields: ["name", "iso3"],
+  const { data: datasetValuesData } = useGetDatasetValues(
+    {
+      filters: {
+        dataset: datasetID,
       },
-      resources: true,
-      dataset_values: true,
+      "pagination[pageSize]": 300,
+      populate: {
+        country: {
+          fields: ["name", "iso3"],
+        },
+        resources: true,
+        dataset_values: true,
+      },
     },
-  });
+    {
+      query: {
+        enabled: !isDatasetNew,
+      },
+    },
+  );
 
   const parsedPreviousDatasetValues = useMemo<{
     [key: string]: Resource[];
@@ -134,23 +141,23 @@ export default function DatasetDataForm({
   const formSchema = useMemo(
     () =>
       getFormSchema(
-        rawData.settings.valueType as VALUE_TYPE,
+        rawData.settings.value_type as VALUE_TYPE,
         countries.map((c) => c?.attributes?.iso3) as string[],
       ),
-    [rawData.settings.valueType, countries],
+    [rawData.settings.value_type, countries],
   );
 
   function transformData(data: DatasetValuesCSV[]): {
     [key: string]: number | string | Resource[] | boolean | undefined;
   } {
     const result: { [key: string]: number | string | Resource[] | boolean | undefined } = {};
-    const type = rawData.settings.valueType as unknown as keyof DatasetValuesCSV;
+    const type = rawData.settings.value_type as unknown as keyof DatasetValuesCSV;
 
-    if (!!rawData.settings.valueType && rawData.settings.valueType !== "resource") {
+    if (!!rawData.settings.value_type && rawData.settings.value_type !== "resource") {
       data?.forEach((item) => {
         result[item.country_id] = item[type];
       });
-    } else if (rawData.settings.valueType === "resource") {
+    } else if (rawData.settings.value_type === "resource") {
       data?.forEach((item) => {
         const resource: Resource = {
           link_title: item.link_title!,
@@ -188,14 +195,14 @@ export default function DatasetDataForm({
       );
 
     return c;
-  }, [countries, data, parsedDatasetCSVValues]);
+  }, [countries, data, parsedDatasetCSVValues, parsedPreviousDatasetValues]);
 
   const form = useForm<Data["data"]>({
     resolver: zodResolver(formSchema),
     values,
   });
 
-  const COLUMNS = DATA_COLUMNS_TYPE[rawData.settings.valueType as VALUE_TYPE];
+  const COLUMNS = DATA_COLUMNS_TYPE[rawData.settings.value_type as VALUE_TYPE];
 
   const handleCancel = () => {
     // onSubmit(DATA_INITIAL_VALUES.data);
@@ -253,7 +260,7 @@ export default function DatasetDataForm({
     [onSubmit],
   );
 
-  if (!rawData.settings.valueType) return null;
+  if (!rawData.settings.value_type) return null;
 
   return (
     <>

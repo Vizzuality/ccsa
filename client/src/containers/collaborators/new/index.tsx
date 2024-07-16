@@ -54,7 +54,7 @@ import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
 
 export default function NewCollaboratorForm() {
-  const [imageId, setImageId] = useState<number>(null);
+  const [imageId, setImageId] = useState<number | null>(null);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -177,7 +177,7 @@ export default function NewCollaboratorForm() {
               data: {
                 review_status: "pending",
                 ...values,
-                image: imageId,
+                image: imageId as number,
               },
             },
           });
@@ -191,7 +191,7 @@ export default function NewCollaboratorForm() {
               data: {
                 review_status: "pending",
                 ...values,
-                image: imageId,
+                image: imageId as number,
                 // @ts-expect-error TO-DO - fix types
                 collaborator: {
                   connect: [+id],
@@ -225,7 +225,7 @@ export default function NewCollaboratorForm() {
                 data: {
                   review_status: "approved",
                   ...values,
-                  image: imageId,
+                  image: imageId as number,
                   // @ts-expect-error TO-DO - fix types
                   collaborator: {
                     connect: [+id],

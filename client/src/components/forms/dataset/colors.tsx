@@ -80,16 +80,16 @@ const getTextFormSchema = (categories: string[] | null): z.ZodObject<z.ZodRawSha
 
 const getFormSchema = ({
   categories,
-  valueType,
+  value_type,
 }: {
   categories: string[] | null;
-  valueType?: VALUE_TYPE;
+  value_type?: VALUE_TYPE;
 }) => {
-  if (valueType === "text") {
+  if (value_type === "text") {
     return getTextFormSchema(categories);
   }
 
-  if (valueType === "boolean") {
+  if (value_type === "boolean") {
     return getBooleanFormSchema();
   }
 
@@ -98,14 +98,14 @@ const getFormSchema = ({
 
 const getCategories = ({
   data,
-  valueType,
+  value_type,
 }: {
   data: Data["data"];
-  valueType?: VALUE_TYPE;
+  value_type?: VALUE_TYPE;
 }): string[] | null => {
-  if (!valueType || !data) return null;
+  if (!value_type || !data) return null;
 
-  if (valueType === "text") {
+  if (value_type === "text") {
     return compact(uniq(Object.values(data).map((value) => value as string)));
   }
 
@@ -141,12 +141,12 @@ export default function DatasetColorsForm({
 
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
-  const valueType = rawData?.settings?.valueType;
+  const value_type = rawData?.settings?.value_type;
 
-  const categories = getCategories({ data, valueType });
+  const categories = getCategories({ data, value_type });
 
   const values = useMemo(() => {
-    if (valueType === "text") {
+    if (value_type === "text") {
       return categories!.reduce(
         (acc, category) => {
           return {
@@ -162,9 +162,9 @@ export default function DatasetColorsForm({
       min: colors.min,
       max: colors.max,
     };
-  }, [colors, categories, valueType]);
+  }, [colors, categories, value_type]);
 
-  const formSchema = getFormSchema({ categories, valueType });
+  const formSchema = getFormSchema({ categories, value_type });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values,
@@ -197,7 +197,7 @@ export default function DatasetColorsForm({
       // });
     }
   };
-  if (!valueType) return null;
+  if (!value_type) return null;
 
   return (
     <>
@@ -218,8 +218,8 @@ export default function DatasetColorsForm({
         <Form {...form}>
           <form id={id} className="space-y-4" onSubmit={form.handleSubmit(handleSubmit)}>
             <fieldset className="grid grid-cols-2 gap-6">
-              {/* {valueType === "number" && <DynamicForm form={form} />} */}
-              {valueType === "text" &&
+              {/* {value_type === "number" && <DynamicForm form={form} />} */}
+              {value_type === "text" &&
                 categories?.map((category) => (
                   <FormField
                     key={category}
@@ -246,7 +246,7 @@ export default function DatasetColorsForm({
                   />
                 ))}
 
-              {(valueType === "number" || valueType === "resource") && (
+              {(value_type === "number" || value_type === "resource") && (
                 <>
                   <FormField
                     key="min"
@@ -298,7 +298,7 @@ export default function DatasetColorsForm({
                 </>
               )}
 
-              {valueType === "boolean" && (
+              {value_type === "boolean" && (
                 <>
                   <FormField
                     key="no"

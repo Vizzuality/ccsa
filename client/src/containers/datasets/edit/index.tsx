@@ -96,7 +96,7 @@ export default function EditDatasetForm() {
     const settings = {
       name: datasetData?.data?.attributes?.name || "",
       description: datasetData?.data?.attributes?.description || "",
-      valueType: datasetData?.data?.attributes?.value_type || undefined,
+      value_type: datasetData?.data?.attributes?.value_type || undefined,
       category: datasetData?.data?.attributes?.category?.data?.id || undefined,
       unit: datasetData?.data?.attributes?.unit || undefined,
     };
@@ -157,7 +157,7 @@ export default function EditDatasetForm() {
               // @ts-expect-error TO-DO - fix types
               data: {
                 ...data.settings,
-                value_type: data.settings.valueType,
+                value_type: data.settings.value_type,
                 review_status: "pending",
                 colors: data.colors,
                 data: {
@@ -174,13 +174,20 @@ export default function EditDatasetForm() {
             },
           });
         }
+
         if (!!id && !!datasetEditData) {
+          const categoryId =
+            typeof data.settings.category === "number"
+              ? data.settings?.category
+              : data?.settings?.category?.data?.id;
+
           mutatePutDatasetEditSuggestionId({
             id: +id,
             data: {
               data: {
                 ...data.settings,
-                value_type: data.settings.valueType,
+                value_type: data.settings.value_type,
+                category: categoryId as number,
                 review_status: "pending",
                 colors: data.colors,
                 data: {
@@ -193,8 +200,8 @@ export default function EditDatasetForm() {
       }
 
       if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
-        const { valueType } = data.settings;
-        const parsedData = getDataParsed(valueType, data);
+        const { value_type } = data.settings;
+        const parsedData = getDataParsed(value_type, data);
         updateOrCreateDataset(
           {
             ...(id && !datasetEditData && { dataset_id: id }),
@@ -215,7 +222,7 @@ export default function EditDatasetForm() {
               data: {
                 data: {
                   ...data.settings,
-                  value_type: data.settings.valueType,
+                  value_type: data.settings.value_type,
                   review_status: "approved",
                   colors: data.colors,
                   data: {

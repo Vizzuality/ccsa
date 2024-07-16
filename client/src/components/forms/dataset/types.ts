@@ -1,4 +1,4 @@
-import { Dataset } from "@/types/generated/strapi.schemas";
+import { CategoryResponse, Dataset } from "@/types/generated/strapi.schemas";
 
 export type VALUE_TYPE = Dataset["value_type"];
 
@@ -16,8 +16,8 @@ export interface Data {
   settings: {
     name: string;
     description: string;
-    valueType?: Dataset["value_type"];
-    category?: number;
+    value_type?: Dataset["value_type"];
+    category?: number | CategoryResponse;
     unit?: string;
     updatedAt?: string;
   };
@@ -33,25 +33,25 @@ export interface Resource {
   link_url: string;
 }
 interface NumberDataColumn {
-  valueType: "number";
+  value_type: "number";
   label: string;
   value: "country_id" | "number";
 }
 
 interface TextDataColumn {
-  valueType: "text";
+  value_type: "text";
   label: string;
   value: "country_id" | "text";
 }
 
 interface BooleanDataColumn {
-  valueType: "boolean";
+  value_type: "boolean";
   label: string;
   value: "country_id" | "boolean";
 }
 
 interface ResourceDataColumn {
-  valueType: "resource";
+  value_type: "resource";
   label: string;
   value: "country_id" | "resource";
 }

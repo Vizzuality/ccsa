@@ -77,14 +77,14 @@ export default function NewDatasetForm() {
           data: {
             data: {
               ...data.settings,
-              value_type: data.settings.valueType,
+              value_type: data.settings.value_type,
               data: data.data,
               colors: data.colors,
               review_status: "pending",
               // @ts-expect-error TO-DO - fix types
               categories: {
-                connect: [],
-                disconnect: [values.categories],
+                connect: [values.categories],
+                disconnect: [],
               },
             },
           },
@@ -93,8 +93,8 @@ export default function NewDatasetForm() {
 
       // BULK UPLOAD REQUIRED
       if (ME_DATA?.role?.type === "admin") {
-        const { valueType } = data.settings;
-        const parsedData = getDataParsed(valueType, data);
+        const { value_type } = data.settings;
+        const parsedData = getDataParsed(value_type, data);
         updateOrCreateDataset(parsedData, session?.apiToken as string)
           .then(() => {
             console.info("Success creating dataset:", data);
@@ -104,8 +104,10 @@ export default function NewDatasetForm() {
             push(`/`);
           })
           .catch((error: Error) => {
-            toast.error("There was a problem creating the dataset");
-            console.error("Error creating dataset:", error);
+            if (error) {
+              toast.error("There was a problem creating the dataset");
+              console.error("Error creating dataset:", error);
+            }
           });
       }
     },

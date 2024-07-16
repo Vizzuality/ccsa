@@ -14,14 +14,18 @@ import { cn } from "@/lib/classnames";
 import { isEmpty } from "@/lib/utils/objects";
 
 import { useGetCategories } from "@/types/generated/category";
-import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import {
+  UsersPermissionsRole,
+  UsersPermissionsUser,
+  CategoryResponse,
+} from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
-import { Data } from "@/components/forms/dataset/types";
+import { Data, VALUE_TYPE } from "@/components/forms/dataset/types";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
 import StepDescription from "@/components/new-dataset/step-description";
@@ -84,16 +88,16 @@ export default function DatasetSettingsForm({
     },
   });
 
-  const valueTypes = ["text", "number", "boolean", "resource"] as const;
-  const valueTypesOptions = valueTypes.map((type) => ({
+  const value_types = ["text", "number", "boolean", "resource"] as const;
+  const valueTypesOptions = value_types.map((type) => ({
     label: type,
     value: type,
   }));
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter dataset name" }),
-    valueType: z
-      .enum(valueTypes)
+    value_type: z
+      .enum(value_types)
       .optional()
       .refine((val) => !!val, {
         message: "Please select a value type",
@@ -115,12 +119,24 @@ export default function DatasetSettingsForm({
     }),
   });
 
+  // Type Guard to Check if Category is CategoryResponse
+  const isCategoryResponse = (
+    category: number | CategoryResponse,
+  ): category is CategoryResponse => {
+    return (category as CategoryResponse).data !== undefined;
+  };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
       name: data.name,
-      valueType: data.valueType,
-      category: data.category,
+      value_type: data.value_type as VALUE_TYPE,
+
+      category:
+        data?.category && isCategoryResponse(data?.category)
+          ? (data?.category?.data?.id as number)
+          : (data.category as number),
+
       unit: data.unit,
       description: data.description,
     },
@@ -133,9 +149,14 @@ export default function DatasetSettingsForm({
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       // Save this into useState
-      onSubmit(values);
+      const categoryId =
+        typeof data.category === "number" ? data.category : data?.category?.data?.id;
+      onSubmit({
+        ...values,
+        category: categoryId,
+      });
     },
-    [onSubmit],
+    [onSubmit, data],
   );
 
   return (
@@ -179,7 +200,7 @@ export default function DatasetSettingsForm({
               />
               <FormField
                 control={form.control}
-                name="valueType"
+                name="value_type"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of value</FormLabel>

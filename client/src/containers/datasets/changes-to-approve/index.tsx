@@ -29,7 +29,7 @@ import type {
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { Data } from "@/components/forms/dataset/types";
+import { Data, VALUE_TYPE } from "@/components/forms/dataset/types";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -115,7 +115,7 @@ export default function FormToApprove() {
     const settings = {
       name: datasetData?.data?.attributes?.name || "",
       description: datasetData?.data?.attributes?.description || "",
-      valueType: datasetData?.data?.attributes?.value_type || undefined,
+      value_type: datasetData?.data?.attributes?.value_type || undefined,
       category: datasetData?.data?.attributes?.category?.data?.id || undefined,
       unit: datasetData?.data?.attributes?.unit,
     };
@@ -154,7 +154,7 @@ export default function FormToApprove() {
       datasetDataPendingToApprove?.data?.attributes || ({} as DatasetEditSuggestion);
 
     return {
-      settings: { ...restSettings, valueType: restSettings.value_type },
+      settings: { ...restSettings, value_type: restSettings.value_type },
       data: data,
       colors: colors,
     } as Data;
@@ -209,7 +209,8 @@ export default function FormToApprove() {
           data: {
             data: {
               ...data.settings,
-              value_type: data.settings.valueType,
+              category: data.settings.category as number,
+              value_type: data.settings.value_type as VALUE_TYPE,
               data: data.data,
               colors: data.colors,
               review_status: "pending",
@@ -219,8 +220,8 @@ export default function FormToApprove() {
       }
 
       if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
-        const { valueType } = data.settings;
-        const parsedData = getDataParsed(valueType, data);
+        const { value_type } = data.settings;
+        const parsedData = getDataParsed(value_type, data);
         updateOrCreateDataset(
           {
             ...(id && !datasetDataPendingToApprove && { dataset_id: id }),
@@ -243,7 +244,7 @@ export default function FormToApprove() {
                 data: {
                   data: {
                     ...data.settings,
-                    value_type: data.settings.valueType,
+                    value_type: data.value_type,
                     data: data.data,
                     colors: data.colors,
                     review_status: "approved",
@@ -255,8 +256,10 @@ export default function FormToApprove() {
             push(`/`);
           })
           .catch((error: Error) => {
-            toast.error("There was a problem creating the dataset");
-            console.error("Error creating dataset:", error);
+            if (error) {
+              toast.error("There was a problem creating the dataset");
+              console.error("Error creating dataset:", error);
+            }
           });
       }
     },

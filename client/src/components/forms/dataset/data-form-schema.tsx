@@ -2,8 +2,8 @@ import { z } from "zod";
 
 import type { VALUE_TYPE } from "./types";
 
-export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
-  if (valueType === "number") {
+export const getFormSchema = (value_type: VALUE_TYPE, countries: string[]) => {
+  if (value_type === "number") {
     return z.object(
       countries.reduce(
         (acc, country) => {
@@ -15,7 +15,7 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
     );
   }
 
-  if (valueType === "resource") {
+  if (value_type === "resource") {
     return z.object(
       countries.reduce((acc, country) => {
         acc[`${country}`] = z
@@ -32,7 +32,7 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
     );
   }
 
-  if (valueType === "text") {
+  if (value_type === "text") {
     return z.object(
       countries.reduce(
         (acc, country) => {
@@ -44,7 +44,7 @@ export const getFormSchema = (valueType: VALUE_TYPE, countries: string[]) => {
     );
   }
 
-  if (valueType === "boolean") {
+  if (value_type === "boolean") {
     return z.object(
       countries.reduce(
         (acc, country) => {

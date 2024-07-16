@@ -4,48 +4,48 @@ import type { DATA_COLUMN, VALUE_TYPE } from "./types";
 export const DATA_COLUMNS_TYPE: Record<VALUE_TYPE, DATA_COLUMN[]> = {
   number: [
     {
-      valueType: "number",
+      value_type: "number",
       label: "Country id",
       value: "country_id",
     },
     {
-      valueType: "number",
+      value_type: "number",
       label: "Number",
       value: "number",
     },
   ],
   text: [
     {
-      valueType: "text",
+      value_type: "text",
       label: "Country id",
       value: "country_id",
     },
     {
-      valueType: "text",
+      value_type: "text",
       label: "Text",
       value: "text",
     },
   ],
   boolean: [
     {
-      valueType: "boolean",
+      value_type: "boolean",
       label: "Country id",
       value: "country_id",
     },
     {
-      valueType: "boolean",
+      value_type: "boolean",
       label: "Boolean",
       value: "boolean",
     },
   ],
   resource: [
     {
-      valueType: "resource",
+      value_type: "resource",
       label: "Country id",
       value: "country_id",
     },
     {
-      valueType: "resource",
+      value_type: "resource",
       label: "Resource",
       value: "resource",
     },
@@ -56,12 +56,12 @@ export const DATA_COLUMNS_TYPE: Record<VALUE_TYPE, DATA_COLUMN[]> = {
 
 export const COLORS_FIELDS_NUMBER = [
   {
-    valueType: "number",
+    value_type: "number",
     label: "Min value",
     value: "min_value",
   },
   {
-    valueType: "number",
+    value_type: "number",
     label: "Max value",
     value: "max_value",
   },
@@ -69,12 +69,12 @@ export const COLORS_FIELDS_NUMBER = [
 
 export const COLORS_FIELDS_TEXT = [
   {
-    valueType: "text",
+    value_type: "text",
     label: "Country id",
     value: "country_id",
   },
   {
-    valueType: "text",
+    value_type: "text",
     label: "Text",
     value: "text",
   },
@@ -82,12 +82,12 @@ export const COLORS_FIELDS_TEXT = [
 
 export const COLORS_FIELDS_BOOLEAN = [
   {
-    valueType: "boolean",
+    value_type: "boolean",
     label: "TRUE value",
     value: "true_value",
   },
   {
-    valueType: "boolean",
+    value_type: "boolean",
     label: "FALSE value",
     value: "false_value",
   },
@@ -95,22 +95,22 @@ export const COLORS_FIELDS_BOOLEAN = [
 
 export const COLORS_FIELDS_RESOURCE = [
   {
-    valueType: "resource",
+    value_type: "resource",
     label: "Country id",
     value: "country_id",
   },
   {
-    valueType: "resource",
+    value_type: "resource",
     label: "Title",
     value: "link_title",
   },
   {
-    valueType: "resource",
+    value_type: "resource",
     label: "Description",
     value: "description",
   },
   {
-    valueType: "resource",
+    value_type: "resource",
     label: "Link",
     value: "link_url",
   },
