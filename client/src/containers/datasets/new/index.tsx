@@ -2,6 +2,8 @@
 
 import { useCallback } from "react";
 
+import { toast } from "react-toastify";
+
 import { useRouter } from "next/navigation";
 
 import { useAtom } from "jotai";
@@ -10,7 +12,6 @@ import { useSession } from "next-auth/react";
 import { getDataParsed } from "@/lib/utils/datasets";
 
 import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
-
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
@@ -76,14 +77,14 @@ export default function NewDatasetForm() {
           data: {
             data: {
               ...data.settings,
-              value_type: data.settings.valueType,
+              value_type: data.settings.value_type,
               data: data.data,
               colors: data.colors,
               review_status: "pending",
               // @ts-expect-error TO-DO - fix types
               categories: {
-                connect: [],
-                disconnect: [values.categories],
+                connect: [values.categories],
+                disconnect: [],
               },
             },
           },
@@ -92,15 +93,22 @@ export default function NewDatasetForm() {
 
       // BULK UPLOAD REQUIRED
       if (ME_DATA?.role?.type === "admin") {
-        const { valueType } = data.settings;
-        const parsedData = getDataParsed(valueType, data);
+        const { value_type } = data.settings;
+        const parsedData = getDataParsed(value_type, data);
         updateOrCreateDataset(parsedData, session?.apiToken as string)
           .then(() => {
             console.info("Success creating dataset:", data);
+            toast.success("Success creating dataset");
+
             setFormValues(INITIAL_DATASET_VALUES);
             push(`/`);
           })
-          .catch((error: Error) => console.error("Error creating dataset:", error));
+          .catch((error: Error) => {
+            if (error) {
+              toast.error("There was a problem creating the dataset");
+              console.error("Error creating dataset:", error);
+            }
+          });
       }
     },
     [formValues, setFormValues, ME_DATA, mutatePostDatasetEditSuggestion, session?.apiToken, push],

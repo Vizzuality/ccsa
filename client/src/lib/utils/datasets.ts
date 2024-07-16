@@ -139,7 +139,7 @@ const getNumberData = (data: Data) => {
 
   return {
     ...restSettings,
-    value_type: data.settings.valueType,
+    value_type: data.settings.value_type,
     category_ids: [category],
     dataset_values: datasetValues,
     layers,
@@ -184,7 +184,7 @@ const getTextData = (data: Data) => {
 
   return {
     ...restSettings,
-    value_type: data.settings.valueType,
+    value_type: data.settings.value_type,
     category_ids: [category],
     dataset_values: datasetValues,
     layers,
@@ -193,7 +193,7 @@ const getTextData = (data: Data) => {
 
 const getResourcesData = (data: Data) => {
   const { category, ...restSettings } = data.settings;
-  const datasetValues = getTransformedData(data.data, "resource");
+  const datasetValues = getTransformedData(data.data, "resources");
 
   const fillColor = createFillColorInterpolation(data.colors);
   const configText = {
@@ -229,7 +229,7 @@ const getResourcesData = (data: Data) => {
 
   return {
     ...restSettings,
-    value_type: data.settings.valueType,
+    value_type: data.settings.value_type,
     category_ids: [category],
     dataset_values: datasetValues,
     layers,
@@ -274,7 +274,7 @@ const getBooleanData = (data: Data) => {
 
   return {
     ...restSettings,
-    value_type: data.settings.valueType,
+    value_type: data.settings.value_type,
     category_ids: [category],
     dataset_values: datasetValues,
     layers,
@@ -298,7 +298,14 @@ const getTransformedData = (data: Data["data"], key: string) => {
   return Object.keys(data).map((country) => {
     return {
       country,
-      [`value_${key}`]: data[country] || null,
+      ...(key !== "resources" && ({ [`value_${key}`]: data[country] } || null)),
+      ...((key === "resources" && { [key]: data[country] }) || {
+        resources: {
+          link: null,
+          description: null,
+          link2: null,
+        },
+      }),
     };
   });
 };

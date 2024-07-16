@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { useParams, useRouter } from "next/navigation";
 
@@ -218,34 +219,40 @@ export default function NewToolForm() {
               other_tools_category: values.category,
             },
             data?.apiToken,
-          ).then(() => {
-            console.info("Success creating the tool");
+          )
+            .then(() => {
+              console.info("Success creating the tool");
+              toast.success("Success creating the tool");
 
-            if ((!!id && !editSuggestionIdData) || !id) {
-              mutatePostToolEditSuggestion({
-                data: {
-                  // @ts-expect-error TO-DO - fix types
+              if ((!!id && !editSuggestionIdData) || !id) {
+                mutatePostToolEditSuggestion({
                   data: {
-                    review_status: "approved",
-                    ...values,
-                    ...(values?.category && {
-                      other_tools_category: {
-                        disconnect: [],
-                        connect: [+values?.category],
-                      },
-                    }),
-                    ...(id && {
-                      other_tool: {
-                        disconnect: [+id],
-                        connect: [+id],
-                      },
-                    }),
+                    // @ts-expect-error TO-DO - fix types
+                    data: {
+                      review_status: "approved",
+                      ...values,
+                      ...(values?.category && {
+                        other_tools_category: {
+                          disconnect: [],
+                          connect: [+values?.category],
+                        },
+                      }),
+                      ...(id && {
+                        other_tool: {
+                          disconnect: [+id],
+                          connect: [+id],
+                        },
+                      }),
+                    },
                   },
-                },
-              });
-            }
-            push(`/other-tools`);
-          });
+                });
+              }
+              push(`/other-tools`);
+            })
+            .catch((error: Error) => {
+              toast.error("There was a problem creating the tool");
+              console.error("Error creating the tool:", error);
+            });
         }
       }
     },
