@@ -18,7 +18,6 @@ export default function SettingsContentToApprove({
   changes: string[];
   handleSubmit: (data: Data["settings"]) => void;
 }) {
-  console.log(data);
   return (
     <div className="flex items-center py-10 sm:px-10 md:px-24 lg:px-32">
       <div className="flex w-full justify-between space-x-10">

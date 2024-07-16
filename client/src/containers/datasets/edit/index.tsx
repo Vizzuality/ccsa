@@ -213,28 +213,36 @@ export default function EditDatasetForm() {
           },
           session?.apiToken,
           // to do review data + change sug status
-        ).then((data) => {
-          toast.success("Dataset updated successfully");
-          console.info("Success updating dataset:", data);
-          if (!!id && !!datasetEditData) {
-            mutatePutDatasetEditSuggestionId({
-              id: +id,
-              data: {
+        )
+          .then(() => {
+            console.info("Success creating dataset:", data);
+            toast.success("Success creating dataset");
+            if (!!id && !!datasetEditData) {
+              mutatePutDatasetEditSuggestionId({
+                id: +id,
                 data: {
-                  ...data.settings,
-                  value_type: data.settings.value_type,
-                  review_status: "approved",
-                  colors: data.colors,
                   data: {
-                    ...data.data,
+                    ...data.settings,
+                    value_type: data.settings.value_type,
+                    category: datasetEditData.settings?.category?.data?.id,
+                    review_status: "approved",
+                    colors: data.colors,
+                    data: {
+                      ...data.data,
+                    },
                   },
                 },
-              },
-            });
-          }
-          setFormValues(INITIAL_DATASET_VALUES);
-          push(`/`);
-        });
+              });
+            }
+            setFormValues(INITIAL_DATASET_VALUES);
+            push(`/`);
+          })
+          .catch((error: Error) => {
+            if (error) {
+              toast.error("There was a problem creating the dataset");
+              console.error("Error creating dataset:", error);
+            }
+          });
       }
     },
     [

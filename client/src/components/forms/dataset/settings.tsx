@@ -153,7 +153,7 @@ export default function DatasetSettingsForm({
         typeof data.category === "number" ? data.category : data?.category?.data?.id;
       onSubmit({
         ...values,
-        category: categoryId,
+        category: categoryId || values.category,
       });
     },
     [onSubmit, data],

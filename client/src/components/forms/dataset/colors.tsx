@@ -157,7 +157,12 @@ export default function DatasetColorsForm({
         {} as Record<string, string | number>,
       );
     }
-
+    if (value_type === "boolean") {
+      return {
+        yes: colors.yes,
+        no: colors.no,
+      };
+    }
     return {
       min: colors.min,
       max: colors.max,

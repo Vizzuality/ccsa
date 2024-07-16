@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 import { toast } from "react-toastify";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";

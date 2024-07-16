@@ -301,9 +301,9 @@ const getTransformedData = (data: Data["data"], key: string) => {
       ...(key !== "resources" && ({ [`value_${key}`]: data[country] } || null)),
       ...((key === "resources" && { [key]: data[country] }) || {
         resources: {
-          link: null,
+          link_title: null,
           description: null,
-          link2: null,
+          link_url: null,
         },
       }),
     };
