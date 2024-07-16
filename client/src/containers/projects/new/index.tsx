@@ -375,7 +375,7 @@ export default function ProjectForm() {
     <>
       <DashboardFormControls
         isNew={!id}
-        title="New project"
+        title={!id ? "New project" : "Edit project"}
         id="projects-create"
         cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
