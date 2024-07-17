@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 import { toast } from "react-toastify";
 
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
@@ -43,6 +43,7 @@ export default function NewDatasetForm() {
       onSuccess: (data) => {
         console.info("Success creating dataset:", data);
         push(`/dashboard`);
+        setStep(1);
       },
       onError: (error: Error) => {
         console.error("Error creating dataset:", error);
@@ -91,7 +92,6 @@ export default function NewDatasetForm() {
         });
       }
 
-      // BULK UPLOAD REQUIRED
       if (ME_DATA?.role?.type === "admin") {
         const { value_type } = data.settings;
         const parsedData = getDataParsed(value_type, data);
@@ -102,6 +102,7 @@ export default function NewDatasetForm() {
 
             setFormValues(INITIAL_DATASET_VALUES);
             push(`/`);
+            setStep(1);
           })
           .catch((error: Error) => {
             if (error) {
@@ -111,7 +112,15 @@ export default function NewDatasetForm() {
           });
       }
     },
-    [formValues, setFormValues, ME_DATA, mutatePostDatasetEditSuggestion, session?.apiToken, push],
+    [
+      formValues,
+      setFormValues,
+      ME_DATA,
+      mutatePostDatasetEditSuggestion,
+      session?.apiToken,
+      push,
+      setStep,
+    ],
   );
 
   return (

@@ -8,17 +8,6 @@ type PossibleObject =
   | Project
   | undefined;
 
-// Type guard to check if an object has an index signature
-function hasIndexSignature(
-  obj: PossibleObject,
-): obj is { [key: string]: unknown } | Record<string, unknown> {
-  return (
-    obj !== undefined &&
-    typeof obj === "object" &&
-    ("[key: string]" in obj || Object.prototype.toString.call(obj) === "[object Object]")
-  );
-}
-
 export function compareData(obj1: Record<string, string>, obj2: Record<string, string>) {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
@@ -47,11 +36,6 @@ export function getObjectDifferences(obj1: PossibleObject, obj2: PossibleObject)
   // If either object is undefined, return an empty array
   if (!obj1 || !obj2) return [];
 
-  // Ensure both objects have index signatures
-  if (!hasIndexSignature(obj1) || !hasIndexSignature(obj2)) {
-    throw new Error("One of the objects does not have an index signature");
-  }
-
   // Create a set of keys from both objects
   const keys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
 
@@ -60,7 +44,14 @@ export function getObjectDifferences(obj1: PossibleObject, obj2: PossibleObject)
 
   // Iterate over the keys and compare the values in both objects
   keys.forEach((key) => {
-    if (obj1[key] !== obj2[key] && !!obj1[key] && !!obj2[key]) {
+    const val1 = obj1[key as keyof PossibleObject];
+    const val2 = obj2[key as keyof PossibleObject];
+
+    // Consider 0 and null as equal
+    const areValuesEqual =
+      val1 === val2 || (val1 === 0 && val2 === null) || (val1 === null && val2 === 0);
+
+    if (!areValuesEqual) {
       differences.push(key);
     }
   });

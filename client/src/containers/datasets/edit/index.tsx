@@ -224,7 +224,7 @@ export default function EditDatasetForm() {
                   data: {
                     ...data.settings,
                     value_type: data.settings.value_type,
-                    category: datasetEditData.settings?.category?.data?.id,
+                    category: datasetEditData?.data?.attributes?.category?.data?.id,
                     review_status: "approved",
                     colors: data.colors,
                     data: {
