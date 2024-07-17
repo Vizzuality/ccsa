@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 import { Hydrate, dehydrate } from "@tanstack/react-query";
 
@@ -6,6 +7,15 @@ import getQueryClient from "@/lib/react-query/getQueryClient";
 
 import { getGetDatasetsIdQueryOptions } from "@/types/generated/dataset";
 import { getGetDatasetValuesQueryOptions } from "@/types/generated/dataset-value";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 import EditDatasetForm from "@/containers/datasets/edit";
 
@@ -43,6 +53,27 @@ export default async function EditDatasetPage({ params }: { params: { id: number
 
   return (
     <Hydrate state={dehydratedState}>
+      <div className="relative z-20 flex w-full flex-col space-y-8 p-4 sm:px-10 md:px-24 lg:px-32">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/">Map</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/dashboard">My profile</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Edit dataset</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       <EditDatasetForm />
     </Hydrate>
   );
