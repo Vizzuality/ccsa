@@ -11,6 +11,7 @@ export default factories.createCoreController('api::tool-edit-suggestion.tool-ed
 
     if (ctx.state.user && ctx.state.user.email) {
       const userEmail = ctx.state.user.email;
+      const dashboardUrl = process.env.NEXT_PUBLIC_URL;
 
       try {
         strapi.log.info(`Sending email confirmation to the author of Tool Edit suggestion`);
@@ -19,7 +20,8 @@ export default factories.createCoreController('api::tool-edit-suggestion.tool-ed
           to: userEmail,
           subject: 'Tool Suggestion Received',
           html: `<h3>Your Tool suggestion has been received</h3>
-                 <p>Thank you for your cooperation, your Tool suggestion will be reviewed by the admins as soon as possible</p>`
+                 <p>Thank you for your cooperation, your Tool suggestion will be reviewed by the admins as soon as possible</p>
+                 <p>To review your suggestion, please, access <a href="${dashboardUrl}/dashboard">Dashboard</a>.</p>`
         });
 
         emailStatus.userEmailSent = true;
@@ -41,7 +43,7 @@ export default factories.createCoreController('api::tool-edit-suggestion.tool-ed
               to: admin.email,
               subject: 'Tool Suggestion Created',
               html: `<h3>Tool Suggestion Created</h3>
-                     <p>A Tool suggestion has been created. Please review it at your earliest convenience.</p>`
+                     <p>A Tool suggestion has been created. To review the suggestion, please, access <a href="${dashboardUrl}/dashboard">Dashboard</a>.</p>`
             });
           }
 
