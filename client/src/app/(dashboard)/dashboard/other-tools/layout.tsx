@@ -34,7 +34,7 @@ export default async function DashboardOtherToolsLayout({
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>New tool</BreadcrumbPage>
+                <BreadcrumbPage>Other tools</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

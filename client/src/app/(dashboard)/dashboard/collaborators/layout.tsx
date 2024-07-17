@@ -35,7 +35,7 @@ export default async function DashboardCollaboratorsLayout({
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>New collaborator</BreadcrumbPage>
+                <BreadcrumbPage>Collaborator</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
