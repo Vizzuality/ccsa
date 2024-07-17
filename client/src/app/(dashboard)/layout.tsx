@@ -4,7 +4,7 @@ import getQueryClient from "@/lib/react-query/getQueryClient";
 
 import DashboardHeader from "@/containers/dashboard-header";
 
-export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
   const dehydratedState = dehydrate(queryClient);

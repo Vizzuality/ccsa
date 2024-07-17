@@ -13,11 +13,14 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardOtherToolsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const queryClient = getQueryClient();
 
   const dehydratedState = dehydrate(queryClient);
-
   return (
     <Hydrate state={dehydratedState}>
       <main className="h-[100svh] w-full">

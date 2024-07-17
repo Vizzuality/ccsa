@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 import { Hydrate, dehydrate } from "@tanstack/react-query";
 
@@ -11,6 +12,15 @@ import {
 } from "@/types/generated/dataset-edit-suggestion";
 import { getGetDatasetValuesQueryOptions } from "@/types/generated/dataset-value";
 import { DatasetEditSuggestionResponse } from "@/types/generated/strapi.schemas";
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 import DatasetChangesToApprove from "@/containers/datasets/changes-to-approve";
 
@@ -77,6 +87,27 @@ export default async function ChangesToApprovePage({ params }: { params: { id: n
 
   return (
     <Hydrate state={dehydratedState}>
+      <div className="relative z-20 flex w-full flex-col space-y-8 p-4 sm:px-10 md:px-24 lg:px-32">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/">Map</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/dashboard">My profile</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Suggested changes</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       <DatasetChangesToApprove />
     </Hydrate>
   );
