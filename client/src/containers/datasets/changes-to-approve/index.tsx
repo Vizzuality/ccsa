@@ -23,6 +23,7 @@ import {
 import { usePutDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type {
+  CategoryResponse,
   DatasetEditSuggestion,
   UsersPermissionsRole,
   UsersPermissionsUser,
@@ -277,10 +278,26 @@ export default function FormToApprove() {
   );
 
   const isNewDataset = !datasetDataPendingToApprove?.data?.attributes?.dataset?.data;
+  interface ParsedSettings extends Omit<Data["settings"], "category"> {
+    category: CategoryResponse;
+  }
+
+  // Need to parse data that comes from relations to be able to compare it
+  const parseSettings = {
+    ...previousData?.settings,
+    // @ts-expect-error TO-DO - fix types - category comes from a relation
+    category: previousData?.settings?.category?.data?.id || previousData?.settings?.category,
+  } as ParsedSettings;
+
+  const parsedFormValues = {
+    ...formValues?.settings,
+    // @ts-expect-error TO-DO - fix types - category comes from a relation
+    category: formValues?.settings?.category?.data?.id || previousData?.settings?.category,
+  } as ParsedSettings;
 
   const settingsChanges = !previousData?.settings
     ? []
-    : getObjectDifferences(formValues.settings, previousData?.settings);
+    : getObjectDifferences(parsedFormValues, parseSettings);
 
   const dataChanges = !previousData?.data
     ? []

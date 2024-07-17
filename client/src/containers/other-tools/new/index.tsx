@@ -284,7 +284,7 @@ export default function NewToolForm() {
     <>
       <DashboardFormControls
         isNew={!id}
-        title="New tool"
+        title={!id ? "New tool" : "Edit tool"}
         id="other-tool-create"
         cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}

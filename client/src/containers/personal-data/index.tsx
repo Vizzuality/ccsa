@@ -14,7 +14,11 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { z } from "zod";
 
 import { usePostAuthChangePassword } from "@/types/generated/users-permissions-auth";
-import { useDeleteUsersId, usePutUsersId } from "@/types/generated/users-permissions-users-roles";
+import {
+  useDeleteUsersId,
+  useGetUsersId,
+  usePutUsersId,
+} from "@/types/generated/users-permissions-users-roles";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -66,13 +70,16 @@ export default function PersonalDataForm() {
   const { data: session } = useSession();
   const user = session?.user;
 
+  const { data: meData } = useGetUsersId(`${user?.id}`);
+
   // 1. Define your form.
   const formData = useForm<z.infer<typeof formSchemaData>>({
     resolver: zodResolver(formSchemaData),
-    defaultValues: {
-      username: user?.username || "",
-      email: user?.email || "",
-      organization: user?.organization || "",
+    values: {
+      username: meData?.username || "",
+      email: meData?.email || "",
+      // @ts-expect-error TO-DO - fix types
+      organization: meData?.organization || "",
     },
   });
 

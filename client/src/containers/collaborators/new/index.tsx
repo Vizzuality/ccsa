@@ -293,8 +293,8 @@ export default function NewCollaboratorForm() {
     <>
       <DashboardFormControls
         id="collaborators-create"
-        title="New collaborator"
         isNew={!id}
+        title={!id ? "New collaborator" : "Edit collaborator"}
         cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
