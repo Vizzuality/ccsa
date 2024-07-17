@@ -11,6 +11,7 @@ export default factories.createCoreController('api::collaborator-edit-suggestion
 
     if (ctx.state.user && ctx.state.user.email) {
       const userEmail = ctx.state.user.email;
+      const dashboardUrl = process.env.NEXT_PUBLIC_URL;
 
       try {
         strapi.log.info(`Sending email confirmation to the author of Collaborator Edit suggestion`);
@@ -19,7 +20,8 @@ export default factories.createCoreController('api::collaborator-edit-suggestion
           to: userEmail,
           subject: 'Collaborator Suggestion Received',
           html: `<h3>Your Collaborator Edit suggestion has been received</h3>
-                 <p>Thank you for your cooperation, your Collaborator Edit suggestion will be reviewed by the admins as soon as possible</p>`
+                 <p>Thank you for your cooperation, your Collaborator Edit suggestion will be reviewed by the admins as soon as possible</p>
+                 <p>To review your suggestion, please, access <a href="${dashboardUrl}/dashboard">Dashboard</a>.</p>`
         });
 
         emailStatus.userEmailSent = true;
@@ -41,7 +43,7 @@ export default factories.createCoreController('api::collaborator-edit-suggestion
               to: admin.email,
               subject: 'Collaborator Suggestion Created',
               html: `<h3>Collaborator Suggestion Created</h3>
-                     <p>A Collaborator suggestion has been created. Please review it at your earliest convenience.</p>`
+                     <p>A Collaborator suggestion has been created. To review the suggestion, please, access <a href="${dashboardUrl}/dashboard">Dashboard</a>.</p>`
             });
           }
 

@@ -11,6 +11,7 @@ export default factories.createCoreController('api::dataset-edit-suggestion.data
 
     if (ctx.state.user && ctx.state.user.email) {
       const userEmail = ctx.state.user.email;
+      const dashboardUrl = process.env.NEXT_PUBLIC_URL;
 
       try {
         strapi.log.info(`Sending email confirmation to the author of Dataset Edit suggestion`);
@@ -19,7 +20,8 @@ export default factories.createCoreController('api::dataset-edit-suggestion.data
           to: userEmail,
           subject: 'Dataset Edit Suggestion Received',
           html: `<h3>Your Dataset suggestion has been received</h3>
-                 <p>Thank you for your cooperation, your Dataset Edit suggestion will be reviewed by the admins as soon as possible</p>`
+                 <p>Thank you for your cooperation, your Dataset Edit suggestion will be reviewed by the admins as soon as possible</p>
+                 <p>To review your suggestion, please, access <a href="${dashboardUrl}/dashboard">Dashboard</a>.</p>`
         });
 
         emailStatus.userEmailSent = true;
@@ -41,7 +43,7 @@ export default factories.createCoreController('api::dataset-edit-suggestion.data
               to: admin.email,
               subject: 'Dataset Edit Suggestion Created',
               html: `<h3>Dataset Suggestion Created</h3>
-                     <p>A Dataset suggestion has been created. Please review it at your earliest convenience.</p>`
+                     <p>A Dataset suggestion has been created. To review the suggestion, please, access <a href="${dashboardUrl}/dashboard">Dashboard</a>.</p>`
             });
           }
 
