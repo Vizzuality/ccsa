@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import Link from "next/link";
 
 import { Hydrate, dehydrate } from "@tanstack/react-query";
@@ -13,6 +14,8 @@ import {
 import { getGetDatasetValuesQueryOptions } from "@/types/generated/dataset-value";
 import { DatasetEditSuggestionResponse } from "@/types/generated/strapi.schemas";
 
+import DatasetChangesToApprove from "@/containers/datasets/changes-to-approve";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,8 +24,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-
-import DatasetChangesToApprove from "@/containers/datasets/changes-to-approve";
 
 export const metadata: Metadata = {
   title: "Changes to approve | Caribbean Climate smart map",
