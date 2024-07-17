@@ -19,7 +19,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardDatasetsLayout({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery(getGetCountriesQueryOptions(GET_COUNTRIES_OPTIONS));
