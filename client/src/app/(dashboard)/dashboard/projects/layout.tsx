@@ -31,7 +31,7 @@ export default async function DashboardProjectsLayout({ children }: { children: 
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>New project</BreadcrumbPage>
+                <BreadcrumbPage>Project</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
