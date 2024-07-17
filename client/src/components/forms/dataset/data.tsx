@@ -185,8 +185,8 @@ export default function DatasetDataForm({
           return {
             ...acc,
             [`${country}`]:
-              parsedDatasetCSVValues[country] ||
-              data[`${country}`] ||
+              parsedDatasetCSVValues?.[country] ||
+              data?.[`${country}`] ||
               parsedPreviousDatasetValues?.[`${country}`],
           };
         },

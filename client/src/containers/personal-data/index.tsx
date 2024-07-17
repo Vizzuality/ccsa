@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -106,10 +107,12 @@ export default function PersonalDataForm() {
   const { mutate: updateUserData } = usePutUsersId({
     mutation: {
       onSuccess: () => {
-        console.error("Data updated");
+        console.info("Data updated successfully");
+        toast.success("Data updated successfully");
       },
-      onError: (error) => {
+      onError: (error: Error) => {
         console.error("Error updating data:", error);
+        toast.error("Error updating data");
       },
     },
   });
@@ -117,7 +120,8 @@ export default function PersonalDataForm() {
   const { mutate: updateUserPassword } = usePostAuthChangePassword({
     mutation: {
       onSuccess: () => {
-        console.error("Password updated");
+        console.info("Password updated successfully");
+        toast.success("Password updated successfully");
       },
       onError: (error) => {
         console.error("Error updating updating password:", error);
@@ -129,6 +133,7 @@ export default function PersonalDataForm() {
             formPassword.setError("newPassword", { message: response?.message });
           }
         }
+        toast.error("Error updating password");
       },
     },
     request: {

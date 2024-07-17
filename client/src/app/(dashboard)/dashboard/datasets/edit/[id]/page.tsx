@@ -8,6 +8,8 @@ import getQueryClient from "@/lib/react-query/getQueryClient";
 import { getGetDatasetsIdQueryOptions } from "@/types/generated/dataset";
 import { getGetDatasetValuesQueryOptions } from "@/types/generated/dataset-value";
 
+import EditDatasetForm from "@/containers/datasets/edit";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,8 +18,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-
-import EditDatasetForm from "@/containers/datasets/edit";
 
 export const metadata: Metadata = {
   title: "Edit dataset form | Caribbean Climate smart map",
