@@ -137,10 +137,12 @@ export default function ProjectForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a project suggestion:", data);
+        toast.success("Success creating a project suggestion");
         push(`/dashboard`);
       },
       onError: (error: Error) => {
         console.error("Error creating a project suggestion:", error);
+        toast.error("There was a problem creating the project suggestion");
       },
     },
     request: {},
@@ -150,10 +152,12 @@ export default function ProjectForm() {
     mutation: {
       onSuccess: () => {
         console.info("Success updating a project suggestion");
+        toast.success("Success updating a project suggestion");
         push(`/dashboard`);
       },
       onError: (error: Error) => {
         console.error("Error updating a project suggestion:", error);
+        toast.error("There was a problem updating the project suggestion");
       },
     },
     request: {},
@@ -256,11 +260,12 @@ export default function ProjectForm() {
             data: {
               data: {
                 ...values,
-                // @ts-expect-error TO-DO - fix types
-                project: {
-                  disconnect: [],
-                  connect: [+id],
-                },
+                ...(id && {
+                  project: {
+                    disconnect: [],
+                    connect: [+id],
+                  },
+                }),
                 countries: {
                   // @ts-expect-error TO-DO - fix types
                   connect: values.countries,
