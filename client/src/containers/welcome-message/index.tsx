@@ -108,7 +108,7 @@ export default function WelcomeMessage() {
                 controls
                 // TO DO - get URL dynamically
                 // url={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.video?.data?.attributes?.url}`}
-                url="https://ccsa-staging-assets-bucket.s3.amazonaws.com/welcome_image_34ad0d15bc.png"
+                url="https://ccsa-staging-assets-bucket.s3.amazonaws.com/SID_4_Pre_Event_MAP_Video_4f0cdbfa51.mp4"
                 width={"100%"}
                 height={"100%"}
               />
