@@ -1,5 +1,7 @@
 import { ToolEditSuggestion, Project, Collaborator } from "@/types/generated/strapi.schemas";
 
+import { VALUE_TYPE, Data } from "@/components/forms/dataset/types";
+
 type PossibleObject =
   | { [key: string]: unknown }
   | Record<string, unknown>
@@ -7,6 +9,13 @@ type PossibleObject =
   | ToolEditSuggestion
   | Project
   | undefined;
+
+type AttributeType = "link_title" | "description" | "link_url";
+
+interface ChangeType {
+  attr: AttributeType;
+  index: number;
+}
 
 export function compareData(obj1: Record<string, string>, obj2: Record<string, string>) {
   const keys1 = Object.keys(obj1);
@@ -58,6 +67,60 @@ export function getObjectDifferences(obj1: PossibleObject, obj2: PossibleObject)
 
   // Return the differences or an empty array if there are none
   return differences.length > 0 ? differences : [];
+}
+
+export function compareDatasetsDataObjects(
+  obj1: Data["data"],
+  obj2?: Data["data"],
+  type?: VALUE_TYPE,
+): { [key: string]: ChangeType[] }[] | string[] {
+  if (!obj2) {
+    return [];
+  }
+  if (type === "resource") {
+    const changes: { [key: string]: ChangeType[] }[] = [];
+
+    Object.keys(obj1).forEach((key) => {
+      const arr1 = obj1[key];
+      const arr2 = obj2[key];
+      const keyChanges: ChangeType[] = [];
+
+      if (Array.isArray(arr1) && Array.isArray(arr2)) {
+        const maxLength = Math.max(arr1.length, arr2.length);
+
+        for (let i = 0; i < maxLength; i++) {
+          const item1 = arr1[i] || {};
+          const item2 = arr2[i] || {};
+
+          const attributes: AttributeType[] = ["link_title", "description", "link_url"];
+          attributes.forEach((attr) => {
+            if (item1[attr] !== item2[attr]) {
+              keyChanges.push({ attr, index: i });
+            }
+          });
+        }
+      }
+
+      if (keyChanges.length > 0) {
+        changes.push({ [key]: keyChanges });
+      }
+    });
+
+    return changes;
+  } else {
+    const changes: string[] = [];
+
+    Object.keys(obj1).forEach((key) => {
+      const value1 = obj1[key];
+      const value2 = obj2[key];
+
+      if (value1 !== value2) {
+        changes.push(key);
+      }
+    });
+
+    return changes;
+  }
 }
 
 export function isEmpty(obj: Record<string, unknown>) {

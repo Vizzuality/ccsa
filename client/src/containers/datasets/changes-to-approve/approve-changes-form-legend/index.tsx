@@ -1,11 +1,13 @@
 "use client";
 
+import { Change } from "@/components/forms/dataset/data";
+
 export default function ApproveChangesFormLegend({
   isNewDataset,
   changes,
 }: {
   isNewDataset: boolean;
-  changes: string[];
+  changes: string[] | Change[];
 }) {
   return (
     <div className="flex w-full max-w-[368px] flex-1 flex-col justify-start">

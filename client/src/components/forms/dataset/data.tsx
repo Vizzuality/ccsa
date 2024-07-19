@@ -21,6 +21,7 @@ import {
   UsersPermissionsRole,
   UsersPermissionsUser,
   CountryListResponseDataItem,
+  Resource,
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
@@ -54,8 +55,19 @@ import {
 
 import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
-import type { VALUE_TYPE, Data, Resource, DatasetValuesCSV } from "./types";
+import type { VALUE_TYPE, Data, DatasetValuesCSV } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
+
+// Types for deep nested objects function
+type ParamType = "link_url" | "description" | "link_title";
+
+interface Field {
+  name: string;
+}
+
+export interface Change {
+  [key: string]: { attr: ParamType; index: number }[];
+}
 
 export default function DatasetDataForm({
   title,
@@ -70,7 +82,7 @@ export default function DatasetDataForm({
   header?: boolean;
   data: Data;
   onSubmit: (data: Data["data"]) => void;
-  changes?: string[];
+  changes?: (Change | string)[];
 }) {
   const [datasetValues] = useAtom(datasetValuesJsonUploadedAtom);
   const data = rawData.data;
@@ -259,6 +271,19 @@ export default function DatasetDataForm({
     [onSubmit],
   );
 
+  const checkChanges = useCallback(
+    (field: Field, index: number, param: ParamType) => {
+      return changes?.find(
+        (c) =>
+          Object.keys(c)?.[0] === field.name &&
+          Object.values(c)?.[0]?.find(
+            (v: { attr: string; index: number }) => v.attr === param && v.index === index,
+          ),
+      );
+    },
+    [changes],
+  );
+
   if (!rawData.settings.value_type) return null;
 
   return (
@@ -305,158 +330,168 @@ export default function DatasetDataForm({
                             <FormField
                               control={form.control}
                               name={`${country.attributes?.iso3}`}
-                              render={({ field }) => {
-                                return (
-                                  <FormItem className="col-span-2 space-y-1.5">
-                                    <FormLabel className="hidden text-xs">{`${country.attributes?.iso3}-${label}`}</FormLabel>
-                                    <FormControl>
-                                      <div className="space-y-2">
-                                        {value === "resource" &&
-                                          Array.isArray(field?.value) &&
-                                          field?.value?.map((resource, index) => (
-                                            <div className="" key={index}>
-                                              <div className="flex items-end gap-2" key={index}>
-                                                <div>
-                                                  <label
-                                                    htmlFor={`${country.attributes?.iso3}-title-${index}`}
-                                                    className="text-xs"
-                                                  >
-                                                    Title
-                                                  </label>
-                                                  <Input
-                                                    {...field}
-                                                    name={`${country.attributes?.iso3}-title-${index}`}
-                                                    value={resource.link_title}
-                                                    onChange={(e) => {
-                                                      let newValues: Resource[] = [
-                                                        {
-                                                          link_title: "",
-                                                          description: "",
-                                                          link_url: "",
-                                                        },
-                                                      ];
-
-                                                      if (Array.isArray(field?.value)) {
-                                                        newValues = field?.value?.map((r, i) => {
-                                                          if (i === index) {
-                                                            return {
-                                                              ...r,
-                                                              link_title: e.target.value,
-                                                            };
-                                                          }
-                                                          return r;
-                                                        });
-                                                      }
-                                                      field.onChange(newValues);
-                                                    }}
-                                                    className={cn({
-                                                      "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
-                                                        true,
-                                                      "bg-green-400": changes?.includes(field.name),
-                                                    })}
-                                                  />
-                                                </div>
-                                                <div>
-                                                  <label
-                                                    htmlFor={`${country.attributes?.iso3}-description-${index}`}
-                                                    className="text-xs"
-                                                  >
-                                                    Description
-                                                  </label>
-                                                  <Input
-                                                    {...field}
-                                                    name={`${country.attributes?.iso3}-description-${index}`}
-                                                    value={resource.description}
-                                                    onChange={(e) => {
-                                                      let newValues: Resource[] = [
-                                                        {
-                                                          link_title: "",
-                                                          description: "",
-                                                          link_url: "",
-                                                        },
-                                                      ];
-
-                                                      if (Array.isArray(field?.value)) {
-                                                        newValues = field?.value?.map((r, i) => {
-                                                          if (i === index) {
-                                                            return {
-                                                              ...r,
-                                                              description: e.target.value,
-                                                            };
-                                                          }
-                                                          return r;
-                                                        });
-                                                      }
-                                                      field.onChange(newValues);
-                                                    }}
-                                                    className={cn({
-                                                      "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
-                                                        true,
-                                                      "bg-green-400": changes?.includes(field.name),
-                                                    })}
-                                                  />
-                                                </div>
-                                                <div>
-                                                  <label
-                                                    htmlFor={`${country.attributes?.iso3}-link-${index}`}
-                                                    className="text-xs"
-                                                  >
-                                                    Link
-                                                  </label>
-                                                  <Input
-                                                    {...field}
-                                                    name={`${country.attributes?.iso3}-link-${index}`}
-                                                    value={resource.link_url}
-                                                    onChange={(e) => {
-                                                      let newValues: Resource[] = [
-                                                        {
-                                                          link_title: "",
-                                                          description: "",
-                                                          link_url: "",
-                                                        },
-                                                      ];
-
-                                                      if (Array.isArray(field?.value)) {
-                                                        newValues = field?.value?.map((r, i) => {
-                                                          if (i === index) {
-                                                            return {
-                                                              ...r,
-                                                              link_url: e.target.value,
-                                                            };
-                                                          }
-                                                          return r;
-                                                        });
-                                                      }
-                                                      field.onChange(newValues);
-                                                    }}
-                                                    className={cn({
-                                                      "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
-                                                        true,
-                                                      "bg-green-400": changes?.includes(field.name),
-                                                    })}
-                                                  />
-                                                </div>
-
-                                                <Button
-                                                  className="shrink-0"
-                                                  type="button"
-                                                  variant="destructive-outline"
-                                                  size="icon"
-                                                  onClick={() => {
-                                                    handleDeleteResource(country, index);
-                                                  }}
+                              render={({ field }) => (
+                                <FormItem className="col-span-2 space-y-1.5">
+                                  <FormLabel className="hidden text-xs">{`${country.attributes?.iso3}-${label}`}</FormLabel>
+                                  <FormControl>
+                                    <div className="space-y-2">
+                                      {value === "resource" &&
+                                        Array.isArray(field?.value) &&
+                                        field?.value?.map((resource, index) => (
+                                          <div className="" key={index}>
+                                            <div className="flex items-end gap-2" key={index}>
+                                              <div>
+                                                <label
+                                                  htmlFor={`${country.attributes?.iso3}-title-${index}`}
+                                                  className="text-xs"
                                                 >
-                                                  <LuTrash2 />
-                                                </Button>
+                                                  Title
+                                                </label>
+                                                <Input
+                                                  {...field}
+                                                  name={`${country.attributes?.iso3}-title-${index}`}
+                                                  value={resource.link_title}
+                                                  onChange={(e) => {
+                                                    let newValues: Resource[] = [
+                                                      {
+                                                        link_title: "",
+                                                        description: "",
+                                                        link_url: "",
+                                                      },
+                                                    ];
+
+                                                    if (Array.isArray(field?.value)) {
+                                                      newValues = field?.value?.map((r, i) => {
+                                                        if (i === index) {
+                                                          return {
+                                                            ...r,
+                                                            link_title: e.target.value,
+                                                          };
+                                                        }
+                                                        return r;
+                                                      });
+                                                    }
+                                                    field.onChange(newValues);
+                                                  }}
+                                                  className={cn({
+                                                    "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
+                                                      true,
+                                                    "bg-green-400": checkChanges(
+                                                      field,
+                                                      index,
+                                                      "link_title",
+                                                    ),
+                                                  })}
+                                                />
                                               </div>
-                                              <FormMessageArray index={index} />
+                                              <div>
+                                                <label
+                                                  htmlFor={`${country.attributes?.iso3}-description-${index}`}
+                                                  className="text-xs"
+                                                >
+                                                  Description
+                                                </label>
+                                                <Input
+                                                  {...field}
+                                                  name={`${country.attributes?.iso3}-description-${index}`}
+                                                  value={resource.description}
+                                                  onChange={(e) => {
+                                                    let newValues: Resource[] = [
+                                                      {
+                                                        link_title: "",
+                                                        description: "",
+                                                        link_url: "",
+                                                      },
+                                                    ];
+
+                                                    if (Array.isArray(field?.value)) {
+                                                      newValues = field?.value?.map((r, i) => {
+                                                        if (i === index) {
+                                                          return {
+                                                            ...r,
+                                                            description: e.target.value,
+                                                          };
+                                                        }
+                                                        return r;
+                                                      });
+                                                    }
+                                                    field.onChange(newValues);
+                                                  }}
+                                                  className={cn({
+                                                    "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
+                                                      true,
+                                                    "bg-green-400": checkChanges(
+                                                      field,
+                                                      index,
+                                                      "link_title",
+                                                    ),
+                                                  })}
+                                                />
+                                              </div>
+                                              <div>
+                                                <label
+                                                  htmlFor={`${country.attributes?.iso3}-link-${index}`}
+                                                  className="text-xs"
+                                                >
+                                                  Link
+                                                </label>
+                                                <Input
+                                                  {...field}
+                                                  name={`${country.attributes?.iso3}-link-${index}`}
+                                                  value={resource.link_url}
+                                                  onChange={(e) => {
+                                                    let newValues: Resource[] = [
+                                                      {
+                                                        link_title: "",
+                                                        description: "",
+                                                        link_url: "",
+                                                      },
+                                                    ];
+
+                                                    if (Array.isArray(field?.value)) {
+                                                      newValues = field?.value?.map((r, i) => {
+                                                        if (i === index) {
+                                                          return {
+                                                            ...r,
+                                                            link_url: e.target.value,
+                                                          };
+                                                        }
+                                                        return r;
+                                                      });
+                                                    }
+                                                    field.onChange(newValues);
+                                                  }}
+                                                  className={cn({
+                                                    "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
+                                                      true,
+                                                    "bg-green-400": checkChanges(
+                                                      field,
+                                                      index,
+                                                      "link_title",
+                                                    ),
+                                                  })}
+                                                />
+                                              </div>
+
+                                              <Button
+                                                className="shrink-0"
+                                                type="button"
+                                                variant="destructive-outline"
+                                                size="icon"
+                                                onClick={() => {
+                                                  handleDeleteResource(country, index);
+                                                }}
+                                              >
+                                                <LuTrash2 />
+                                              </Button>
                                             </div>
-                                          ))}
-                                      </div>
-                                    </FormControl>
-                                  </FormItem>
-                                );
-                              }}
+                                            <FormMessageArray index={index} />
+                                          </div>
+                                        ))}
+                                    </div>
+                                  </FormControl>
+                                </FormItem>
+                              )}
                             />
 
                             <Button

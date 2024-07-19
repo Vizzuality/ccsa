@@ -7,12 +7,18 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { uniq, compact } from "lodash-es";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
 
+import {
+  getGetDatasetEditSuggestionsIdQueryKey,
+  useGetDatasetEditSuggestionsId,
+} from "@/types/generated/dataset-edit-suggestion";
+import { usePutDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
@@ -130,7 +136,12 @@ export default function DatasetColorsForm({
   const data = rawData.data;
   const colors = rawData.colors;
   const { push } = useRouter();
+  const queryClient = useQueryClient();
   const URLParams = useSyncSearchParams();
+
+  const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(id), {
+    populate: "*",
+  });
 
   const { data: session } = useSession();
   const user = session?.user;
@@ -144,6 +155,22 @@ export default function DatasetColorsForm({
   const value_type = rawData?.settings?.value_type;
 
   const categories = getCategories({ data, value_type });
+
+  const { mutate: mutatePutDatasetEditSuggestion } = usePutDatasetEditSuggestionsId({
+    mutation: {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: getGetDatasetEditSuggestionsIdQueryKey(Number(id)),
+        });
+        console.info("Success updating dataset:", data);
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        console.error("Error updating dataset:", error);
+      },
+    },
+    request: {},
+  });
 
   const values = useMemo(() => {
     if (value_type === "text") {
@@ -188,18 +215,15 @@ export default function DatasetColorsForm({
     [onSubmit],
   );
   const handleReject = () => {
-    if (
-      ME_DATA?.role?.type === "admin"
-      // && editSuggestionIdData?.data?.id
-    ) {
-      // mutatePutToolEditSuggestionId({
-      //   id: editSuggestionIdData?.data?.id,
-      //   data: {
-      //     data: {
-      //       review_status: "declined",
-      //     },
-      //   },
-      // });
+    if (ME_DATA?.role?.type === "admin" && datasetDataPendingToApprove?.data?.id) {
+      mutatePutDatasetEditSuggestion({
+        id: datasetDataPendingToApprove?.data?.id,
+        data: {
+          data: {
+            review_status: "declined",
+          },
+        },
+      });
     }
   };
   if (!value_type) return null;

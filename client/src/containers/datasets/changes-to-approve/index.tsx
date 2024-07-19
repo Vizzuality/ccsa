@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 
 import { getDataParsed } from "@/lib/utils/datasets";
 import { formatDate } from "@/lib/utils/formats";
-import { getObjectDifferences } from "@/lib/utils/objects";
+import { compareDatasetsDataObjects, getObjectDifferences } from "@/lib/utils/objects";
 
 import { useGetDatasetsId } from "@/types/generated/dataset";
 import {
@@ -25,6 +25,7 @@ import { useGetDatasetValues } from "@/types/generated/dataset-value";
 import type {
   CategoryResponse,
   DatasetEditSuggestion,
+  Resource,
   UsersPermissionsRole,
   UsersPermissionsUser,
 } from "@/types/generated/strapi.schemas";
@@ -110,15 +111,19 @@ export default function FormToApprove() {
     request: {},
   });
 
+  const previousDataSource = datasetDataPendingToApprove || datasetData;
+
   const previousData = useMemo<Data | null>(() => {
-    if (!datasetId || !datasetData || !datasetValuesData) return null;
+    if (!previousDataSource) {
+      return null;
+    }
 
     const settings = {
-      name: datasetData?.data?.attributes?.name || "",
-      description: datasetData?.data?.attributes?.description || "",
-      value_type: datasetData?.data?.attributes?.value_type || undefined,
-      category: datasetData?.data?.attributes?.category?.data?.id || undefined,
-      unit: datasetData?.data?.attributes?.unit,
+      name: previousDataSource?.data?.attributes?.name || "",
+      description: previousDataSource?.data?.attributes?.description || "",
+      value_type: previousDataSource?.data?.attributes?.value_type || undefined,
+      category: previousDataSource?.data?.attributes?.category?.data?.id || undefined,
+      unit: previousDataSource?.data?.attributes?.unit,
     };
 
     const data =
@@ -126,16 +131,25 @@ export default function FormToApprove() {
         (acc, curr) => {
           const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
 
-          if (datasetData?.data?.attributes?.value_type === "number") {
+          if (previousDataSource?.data?.attributes?.value_type === "number") {
             return { ...acc, [`${countryIso}`]: curr?.attributes?.value_number };
           }
 
-          if (datasetData?.data?.attributes?.value_type === "text") {
+          if (previousDataSource?.data?.attributes?.value_type === "text") {
             return { ...acc, [`${countryIso}`]: curr?.attributes?.value_text };
           }
 
-          if (datasetData?.data?.attributes?.value_type === "boolean") {
+          if (previousDataSource?.data?.attributes?.value_type === "boolean") {
             return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean };
+          }
+
+          if (previousDataSource?.data?.attributes?.value_type === "resource") {
+            return {
+              ...acc,
+              [`${countryIso}`]: curr?.attributes?.resources?.data?.map(
+                ({ attributes }) => attributes as Resource,
+              ),
+            };
           }
 
           return acc;
@@ -144,11 +158,11 @@ export default function FormToApprove() {
       ) || {};
 
     const colors =
-      (datasetData?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors ||
+      (previousDataSource?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors ||
       ({} as Data["colors"]);
 
     return { settings, data, colors };
-  }, [datasetId, datasetData, datasetValuesData]);
+  }, [datasetValuesData, previousDataSource]);
 
   const DATA_INITIAL_VALUES = useMemo(() => {
     const { colors, data, ...restSettings } =
@@ -299,9 +313,14 @@ export default function FormToApprove() {
     ? []
     : getObjectDifferences(parsedFormValues, parseSettings);
 
-  const dataChanges = !previousData?.data
-    ? []
-    : getObjectDifferences(formValues.data, previousData?.data);
+  const dataChanges =
+    !previousData?.data && !formValues.settings.value_type
+      ? []
+      : compareDatasetsDataObjects(
+          formValues.data,
+          previousData?.data,
+          formValues.settings?.value_type,
+        );
 
   const colorsChanges = !previousData?.colors
     ? []

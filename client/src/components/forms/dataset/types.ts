@@ -1,4 +1,4 @@
-import { CategoryResponse, Dataset } from "@/types/generated/strapi.schemas";
+import { CategoryResponse, Dataset, Resource } from "@/types/generated/strapi.schemas";
 
 export type VALUE_TYPE = Dataset["value_type"];
 
@@ -27,11 +27,6 @@ export interface Data {
   colors: Record<string, string>;
 }
 
-export interface Resource {
-  link_title: string;
-  description: string;
-  link_url: string;
-}
 interface NumberDataColumn {
   value_type: "number";
   label: string;
