@@ -42,11 +42,14 @@ export default function NewDatasetForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating dataset:", data);
+        toast.success("Success creating dataset suggestion");
         push(`/dashboard`);
+        setFormValues(INITIAL_DATASET_VALUES);
         setStep(1);
       },
       onError: (error: Error) => {
         console.error("Error creating dataset:", error);
+        toast.error("There was a problem creating the dataset suggestion");
       },
     },
     request: {},
@@ -99,7 +102,6 @@ export default function NewDatasetForm() {
           .then(() => {
             console.info("Success creating dataset:", data);
             toast.success("Success creating dataset");
-
             setFormValues(INITIAL_DATASET_VALUES);
             push(`/`);
             setStep(1);
