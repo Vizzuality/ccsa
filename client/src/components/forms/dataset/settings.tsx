@@ -298,7 +298,7 @@ export default function DatasetSettingsForm({
                         placeholder="Add a description"
                         className={cn({
                           "w-full": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "border-2 border-green-400": changes?.includes(field.name),
                         })}
                         onChange={field.onChange}
                       />

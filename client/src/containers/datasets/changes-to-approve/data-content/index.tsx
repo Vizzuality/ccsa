@@ -2,7 +2,7 @@
 
 import ApproveChangesFormLegend from "@/containers/datasets/changes-to-approve/approve-changes-form-legend";
 
-import DatasetDataForm from "@/components/forms/dataset/data";
+import DatasetDataForm, { Change } from "@/components/forms/dataset/data";
 import type { Data } from "@/components/forms/dataset/types";
 
 export default function DataContentToApprove({
@@ -15,7 +15,7 @@ export default function DataContentToApprove({
   data: Data;
   id: string;
   isNewDataset: boolean;
-  changes: string[];
+  changes: string[] | Change[];
   handleSubmit: (data: Data["data"]) => void;
 }) {
   return (
