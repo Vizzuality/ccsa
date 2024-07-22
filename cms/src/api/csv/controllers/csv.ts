@@ -31,7 +31,7 @@ function validateTextCsv(data, validCountryIds) {
 function validateBooleanCsv(data, validCountryIds) {
   for (const row of data) {
     if (!validCountryIds.includes(row.country_id)) return false;
-    if (typeof row.boolean !== 'boolean') return false;
+    if (row.boolean !== 'true' && row.boolean !== 'false') return false;
   }
   return true;
 }
