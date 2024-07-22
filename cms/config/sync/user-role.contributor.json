@@ -163,6 +163,15 @@
       "action": "plugin::content-type-builder.content-types.getContentTypes"
     },
     {
+      "action": "plugin::upload.content-api.find"
+    },
+    {
+      "action": "plugin::upload.content-api.findOne"
+    },
+    {
+      "action": "plugin::upload.content-api.upload"
+    },
+    {
       "action": "plugin::users-permissions.auth.callback"
     },
     {
