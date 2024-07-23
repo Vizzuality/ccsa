@@ -80,7 +80,6 @@ export default function DatasetDataForm({
   data: rawData,
   onSubmit,
   changes,
-  isNewDataset,
 }: {
   title: string;
   id: string;
@@ -88,7 +87,6 @@ export default function DatasetDataForm({
   data: Data;
   onSubmit: (data: Data["data"]) => void;
   changes?: (Change | string)[];
-  isNewDataset?: boolean;
 }) {
   const [datasetValues] = useAtom(datasetValuesJsonUploadedAtom);
   const data = rawData.data;
@@ -216,7 +214,7 @@ export default function DatasetDataForm({
 
   const form = useForm<Data["data"]>({
     resolver: zodResolver(formSchema),
-    ...(!isNewDataset && { values: values }),
+    values,
   });
 
   const COLUMNS = DATA_COLUMNS_TYPE[rawData.settings.value_type as VALUE_TYPE];

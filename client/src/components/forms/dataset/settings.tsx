@@ -67,7 +67,6 @@ export default function DatasetSettingsForm({
   onSubmit: (data: Data["settings"]) => void;
 }) {
   const data = rawData.settings;
-  console.log(data);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 

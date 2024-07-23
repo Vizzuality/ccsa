@@ -53,6 +53,8 @@ import {
 import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
 
+import env from "@/env.mjs";
+
 export default function NewCollaboratorForm() {
   const [imageId, setImageId] = useState<number | null>(null);
   const { push } = useRouter();
@@ -301,9 +303,7 @@ export default function NewCollaboratorForm() {
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
   console.info(
     `url(${previousData?.image?.data?.attributes?.url})`,
-    previousData,
-    collaboratorData,
-    collaboratorSuggestedDataId,
+    `url(${env.NEXT_PUBLIC_CMS_URL}${previousData?.image?.data?.attributes?.url})`,
   );
   return (
     <>
@@ -413,8 +413,8 @@ export default function NewCollaboratorForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         style={{
-                          // env.NEXT_PUBLIC_CMS_URL
-                          backgroundImage: `url(${previousData?.image?.data?.attributes?.url})`,
+                          // env.NEXT_PUBLIC_API_URL
+                          backgroundImage: `url(${env.NEXT_PUBLIC_CMS_URL}${previousData?.image?.data?.attributes?.url})`,
                         }}
                       >
                         <input {...getInputProps()} ref={fileInputRef} type="file" />

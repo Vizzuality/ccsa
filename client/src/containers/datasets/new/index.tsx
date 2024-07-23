@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useState } from "react";
 
 import { toast } from "react-toastify";
 
@@ -15,7 +15,7 @@ import { usePostDatasetEditSuggestions } from "@/types/generated/dataset-edit-su
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { datasetStepAtom, datasetValuesAtom, INITIAL_DATASET_VALUES } from "@/app/store";
+import { datasetStepAtom, INITIAL_DATASET_VALUES } from "@/app/store";
 
 import DatasetColorsForm from "@/components/forms/dataset/colors";
 import DatasetDataForm from "@/components/forms/dataset/data";
@@ -30,11 +30,10 @@ export default function NewDatasetForm() {
   const { push } = useRouter();
 
   const [step, setStep] = useAtom(datasetStepAtom);
-  const [formValues, setFormValues] = useAtom(datasetValuesAtom);
-
-  useEffect(() => {
-    setFormValues(INITIAL_DATASET_VALUES);
-  }, []);
+  // we are using useSate instead of useAtom because we need to reset the form values
+  // every time we enter as this is always going to be a new form, no need to pull values from anywhere else
+  // but need to keep the info through the steps
+  const [formValues, setFormValues] = useState(INITIAL_DATASET_VALUES);
 
   const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
     populate: "role",
