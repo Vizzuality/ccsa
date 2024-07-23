@@ -307,8 +307,8 @@ export default function ProjectForm() {
           // to do review data + change sug status
         )
           .then(() => {
-            console.info("Success creating dataset");
-            toast.success("Success creating dataset");
+            console.info("Success creating a new project");
+            toast.success("Success creating a new project");
 
             if (projectsSuggestedData) {
               mutatePutProjectEditSuggestionId({
