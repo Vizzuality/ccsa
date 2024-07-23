@@ -21,7 +21,7 @@ import {
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams } from "@/app/store";
+import { useSyncSearchParams, INITIAL_DATASET_VALUES } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
@@ -67,6 +67,7 @@ export default function DatasetSettingsForm({
   onSubmit: (data: Data["settings"]) => void;
 }) {
   const data = rawData.settings;
+  console.log(data);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -128,6 +129,7 @@ export default function DatasetSettingsForm({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+
     values: {
       name: data.name,
       value_type: data.value_type as VALUE_TYPE,
@@ -143,6 +145,7 @@ export default function DatasetSettingsForm({
   });
 
   const handleCancel = () => {
+    onSubmit(INITIAL_DATASET_VALUES.settings);
     push(`/?${URLParams.toString()}`);
   };
 

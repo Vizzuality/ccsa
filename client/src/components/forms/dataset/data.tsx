@@ -25,7 +25,11 @@ import {
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams, datasetValuesJsonUploadedAtom } from "@/app/store";
+import {
+  useSyncSearchParams,
+  datasetValuesJsonUploadedAtom,
+  INITIAL_DATASET_VALUES,
+} from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 
@@ -76,6 +80,7 @@ export default function DatasetDataForm({
   data: rawData,
   onSubmit,
   changes,
+  isNewDataset,
 }: {
   title: string;
   id: string;
@@ -83,6 +88,7 @@ export default function DatasetDataForm({
   data: Data;
   onSubmit: (data: Data["data"]) => void;
   changes?: (Change | string)[];
+  isNewDataset?: boolean;
 }) {
   const [datasetValues] = useAtom(datasetValuesJsonUploadedAtom);
   const data = rawData.data;
@@ -210,13 +216,13 @@ export default function DatasetDataForm({
 
   const form = useForm<Data["data"]>({
     resolver: zodResolver(formSchema),
-    values,
+    ...(!isNewDataset && { values: values }),
   });
 
   const COLUMNS = DATA_COLUMNS_TYPE[rawData.settings.value_type as VALUE_TYPE];
 
   const handleCancel = () => {
-    // onSubmit(DATA_INITIAL_VALUES.data);
+    onSubmit(INITIAL_DATASET_VALUES.data);
     push(`/?${URLParams.toString()}`);
   };
 

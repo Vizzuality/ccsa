@@ -299,7 +299,12 @@ export default function NewCollaboratorForm() {
     !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedDataId?.data?.attributes
       ? []
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
-
+  console.info(
+    `url(${previousData?.image?.data?.attributes?.url})`,
+    previousData,
+    collaboratorData,
+    collaboratorSuggestedDataId,
+  );
   return (
     <>
       <DashboardFormControls

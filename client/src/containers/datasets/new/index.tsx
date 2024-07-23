@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import { toast } from "react-toastify";
 
@@ -31,6 +31,10 @@ export default function NewDatasetForm() {
 
   const [step, setStep] = useAtom(datasetStepAtom);
   const [formValues, setFormValues] = useAtom(datasetValuesAtom);
+
+  useEffect(() => {
+    setFormValues(INITIAL_DATASET_VALUES);
+  }, []);
 
   const { data: meData } = useGetUsersId(`${session?.user?.id}`, {
     populate: "role",

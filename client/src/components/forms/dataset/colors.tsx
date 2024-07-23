@@ -22,7 +22,7 @@ import { usePutDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-s
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams } from "@/app/store";
+import { useSyncSearchParams, INITIAL_DATASET_VALUES } from "@/app/store";
 
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import NewDatasetNavigation from "@/components/new-dataset/form-navigation";
@@ -203,7 +203,7 @@ export default function DatasetColorsForm({
   });
 
   const handleCancel = () => {
-    // onSubmit(DATA_INITIAL_VALUES.colors);
+    onSubmit(INITIAL_DATASET_VALUES.colors);
     push(`/?${URLParams.toString()}`);
   };
 
