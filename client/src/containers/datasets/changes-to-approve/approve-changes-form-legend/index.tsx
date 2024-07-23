@@ -5,19 +5,26 @@ import { Change } from "@/components/forms/dataset/data";
 export default function ApproveChangesFormLegend({
   isNewDataset,
   changes,
+  status,
 }: {
   isNewDataset: boolean;
   changes: string[] | Change[];
+  status?: "approved" | "pending" | "declined";
 }) {
   return (
     <div className="flex w-full max-w-[368px] flex-1 flex-col justify-start">
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
-          {!isNewDataset && <span className="h-4 w-4 bg-green-400" />}
-          {!isNewDataset && <span>New changes</span>}
-          {isNewDataset && <span>Changes pending to be approved</span>}
+          {!isNewDataset && status !== "declined" && <span className="h-4 w-4 bg-green-400" />}
+          {!isNewDataset && status !== "declined" && <span>New changes</span>}
+          {isNewDataset && status !== "declined" && <span>Changes pending to be approved</span>}
+          {status === "declined" && (
+            <span className="rounded-sm border border-red-500 px-2.5 py-1 text-red-500">
+              Declined
+            </span>
+          )}
         </div>
-        {!isNewDataset && (
+        {!isNewDataset && status !== "declined" && (
           <p>
             {changes?.length > 0
               ? "Changes summary. Lorem ipsum dolor sit amet consectetur. Sit cursus sit pellentesque amet pellentesque tellus. Elit aliquam nec viverra egestas id ipsum vitae."

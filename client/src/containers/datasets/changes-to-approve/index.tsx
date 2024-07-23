@@ -5,8 +5,7 @@ import { useState, useCallback, useMemo } from "react";
 import { toast } from "react-toastify";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -31,6 +30,8 @@ import type {
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
+import { INITIAL_DATASET_VALUES } from "@/app/store";
+
 import { Data, VALUE_TYPE } from "@/components/forms/dataset/types";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -42,17 +43,6 @@ import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
 
 type TabsProps = "settings" | "data" | "colors";
-
-const DATA_RESET_VALUES = {
-  settings: {
-    value_type: undefined,
-    category: undefined,
-    name: "",
-    description: "",
-  },
-  data: {},
-  colors: {},
-};
 
 export default function FormToApprove() {
   const [tab, setTab] = useState<TabsProps>("settings");
@@ -175,7 +165,7 @@ export default function FormToApprove() {
     return { settings, data, colors };
   }, [datasetValuesData, previousDataSource]);
 
-  const DATA_INITIAL_VALUES = useMemo(() => {
+  const DATA_PREVIOUS_VALUES = useMemo(() => {
     const { colors, data, ...restSettings } =
       datasetDataPendingToApprove?.data?.attributes || ({} as DatasetEditSuggestion);
 
@@ -186,7 +176,7 @@ export default function FormToApprove() {
     } as Data;
   }, [datasetDataPendingToApprove]);
 
-  const [formValues, setFormValues] = useState<Data>(DATA_INITIAL_VALUES);
+  const [formValues, setFormValues] = useState<Data>(DATA_PREVIOUS_VALUES);
 
   const ControlsStateId = {
     settings: "dataset-settings-approve-edition",
@@ -278,7 +268,7 @@ export default function FormToApprove() {
                 },
               });
             }
-            setFormValues(DATA_RESET_VALUES);
+            setFormValues(INITIAL_DATASET_VALUES);
             push(`/`);
           })
           .catch((error: Error) => {

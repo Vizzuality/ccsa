@@ -176,9 +176,16 @@ export default function NewToolForm() {
           mutatePutToolEditSuggestionId({
             id: +id[0],
             data: {
+              // @ts-expect-error TO-DO - fix types
               data: {
                 review_status: "pending",
                 ...values,
+                ...(values?.category && {
+                  other_tools_category: {
+                    disconnect: [],
+                    connect: [+values?.category],
+                  },
+                }),
               },
             },
           });
@@ -235,7 +242,13 @@ export default function NewToolForm() {
                       review_status: "approved",
                       ...values,
                       ...(values?.category && {
-                        other_tools_category: {
+                        category: {
+                          disconnect: [],
+                          connect: [+values?.category],
+                        },
+                      }),
+                      ...(values?.category && {
+                        category: {
                           disconnect: [],
                           connect: [+values?.category],
                         },

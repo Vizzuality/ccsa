@@ -20,6 +20,7 @@ export interface Data {
     category?: number | CategoryResponse;
     unit?: string;
     updatedAt?: string;
+    review_status?: "approved" | "pending" | "declined";
   };
   data: {
     [key: string]: string | number | boolean | undefined | Resource[];
