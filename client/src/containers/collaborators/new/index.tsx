@@ -107,7 +107,7 @@ export default function NewCollaboratorForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success updating a new collaborator:", data);
-        push(`/dashboard`);
+        ME_DATA?.role?.type === "authenticated" && push(`/dashboard`);
       },
       onError: (error) => {
         console.error("Error updating a new collaborator:", error);
@@ -120,7 +120,7 @@ export default function NewCollaboratorForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new collaborator:", data);
-        push(`/dashboard`);
+        ME_DATA?.role?.type === "authenticated" && push(`/dashboard`);
       },
       onError: (error) => {
         console.error("Error creating a new collaborator:", error);
