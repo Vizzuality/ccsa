@@ -25,7 +25,11 @@ import {
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams, datasetValuesJsonUploadedAtom } from "@/app/store";
+import {
+  useSyncSearchParams,
+  datasetValuesJsonUploadedAtom,
+  INITIAL_DATASET_VALUES,
+} from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 
@@ -216,7 +220,7 @@ export default function DatasetDataForm({
   const COLUMNS = DATA_COLUMNS_TYPE[rawData.settings.value_type as VALUE_TYPE];
 
   const handleCancel = () => {
-    // onSubmit(DATA_INITIAL_VALUES.data);
+    onSubmit(INITIAL_DATASET_VALUES.data);
     push(`/?${URLParams.toString()}`);
   };
 
