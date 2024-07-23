@@ -43,6 +43,17 @@ import SettingsContentToApprove from "./settings-content";
 
 type TabsProps = "settings" | "data" | "colors";
 
+const DATA_RESET_VALUES = {
+  settings: {
+    value_type: undefined,
+    category: undefined,
+    name: "",
+    description: "",
+  },
+  data: {},
+  colors: {},
+};
+
 export default function FormToApprove() {
   const [tab, setTab] = useState<TabsProps>("settings");
   const { data: session } = useSession();
@@ -224,8 +235,8 @@ export default function FormToApprove() {
           data: {
             data: {
               ...data.settings,
-              category: data.settings.category as number,
-              value_type: data.settings.value_type as VALUE_TYPE,
+              category: data?.settings?.category as number,
+              value_type: data.settings?.value_type as VALUE_TYPE,
               data: data.data,
               colors: data.colors,
               review_status: "pending",
@@ -235,7 +246,7 @@ export default function FormToApprove() {
       }
 
       if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
-        const { value_type } = data.settings;
+        const { value_type } = data?.settings || {};
         const parsedData = getDataParsed(value_type, data);
         updateOrCreateDataset(
           {
@@ -250,7 +261,7 @@ export default function FormToApprove() {
           // to do review data + change sug status
         )
           .then((data) => {
-            console.info("Success updating dataset:", data);
+            console.info("Success creating dataset:", data);
             toast.success("Success creating dataset");
 
             if (datasetDataPendingToApprove?.data?.id) {
@@ -267,7 +278,7 @@ export default function FormToApprove() {
                 },
               });
             }
-            setFormValues(DATA_INITIAL_VALUES);
+            setFormValues(DATA_RESET_VALUES);
             push(`/`);
           })
           .catch((error: Error) => {
@@ -287,7 +298,6 @@ export default function FormToApprove() {
       id,
       session?.apiToken,
       push,
-      DATA_INITIAL_VALUES,
     ],
   );
 

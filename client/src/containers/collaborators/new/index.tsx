@@ -409,7 +409,7 @@ export default function NewCollaboratorForm() {
                         })}
                         style={{
                           // env.NEXT_PUBLIC_CMS_URL
-                          backgroundImage: `url(http://0.0.0.0:1337${previousData?.image?.data?.attributes?.url})`,
+                          backgroundImage: `url(${previousData?.image?.data?.attributes?.url})`,
                         }}
                       >
                         <input {...getInputProps()} ref={fileInputRef} type="file" />
