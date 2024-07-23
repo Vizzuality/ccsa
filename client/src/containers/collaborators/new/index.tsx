@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react";
 
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
@@ -57,6 +57,7 @@ export default function NewCollaboratorForm() {
   const [imageId, setImageId] = useState<number | null>(null);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
+  const fileInputRef = useRef(null);
 
   const params = useParams();
 
@@ -270,17 +271,25 @@ export default function NewCollaboratorForm() {
   const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
     multiple: false,
     maxFiles: 1,
-    maxSize: 500000,
-    accept: { "image/*": [".png", ".gif", ".jpeg", ".jpg", ".webp", "./svgs"] },
+    maxSize: 5000000,
+    accept: { "image/*": [".gif", ".jpeg", ".jpg", ".webp", ".png", ".svgs"] },
     onDropAccepted(files) {
       if (files.length > 0) {
         uploadImage(files, {
           Authorization: `Bearer ${data?.apiToken}`,
-        }).then((data) => {
-          form.setValue("image", data[0].id);
-          setImageId(data[0].id);
-        });
+        })
+          .then((data) => {
+            form.setValue("image", data[0].id);
+            setImageId(data[0].id);
+          })
+          .catch((error) => {
+            console.error("Error uploading image:", error[0]?.message);
+            toast.error("Error uploading image");
+          });
       }
+    },
+    onDropRejected(error) {
+      toast.error("Error uploading image: " + error[0]?.errors[0]?.message);
     },
   });
 
@@ -401,7 +410,7 @@ export default function NewCollaboratorForm() {
                           backgroundImage: `url(http://0.0.0.0:1337${previousData?.image?.data?.attributes?.url})`,
                         }}
                       >
-                        <input type="file" {...getInputProps()} />
+                        <input {...getInputProps()} ref={fileInputRef} type="file" />
 
                         <Image
                           priority
@@ -426,7 +435,7 @@ export default function NewCollaboratorForm() {
                 )}
               />
               {!!acceptedFiles.length && (
-                <div className="flex flex-col space-y-2 text-center">
+                <div className="flex flex-col space-y-2 rounded-sm bg-gray-100 py-2 text-center">
                   <button className="text-xs">{acceptedFiles[0]?.name}</button>
                 </div>
               )}

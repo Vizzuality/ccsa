@@ -4,10 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { useSession } from "next-auth/react";
 import { LuUser2 } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
+
+import { useGetUsersMe } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
 
@@ -20,8 +21,7 @@ const Navigation = (): JSX.Element => {
   const pathname = usePathname();
 
   const sp = useSyncSearchParams();
-
-  const { data: session } = useSession();
+  const { data: user } = useGetUsersMe();
 
   return (
     <nav className="relative z-20 flex h-full w-20 shrink-0 flex-col justify-between border-r-2 border-gray-300/20 bg-white">
@@ -149,7 +149,7 @@ const Navigation = (): JSX.Element => {
           })}
         />
         <Link
-          href={!session ? "/signin" : "/dashboard"}
+          href={!user ? "/signin" : "/dashboard"}
           className={cn({
             "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
             "bg-[#FF7816]/10": pathname === "/collaborators",
@@ -165,7 +165,7 @@ const Navigation = (): JSX.Element => {
               "stroke-[#FF7816]": pathname === "/collaborators",
             })}
           />
-          <span className="text-xxs">{session ? session.user?.username : "Log in"}</span>
+          <span className="text-xxs">{user ? user?.username : "Log in"}</span>
         </Link>
       </div>
     </nav>

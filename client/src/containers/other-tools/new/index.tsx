@@ -106,6 +106,7 @@ export default function NewToolForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new tool:", data);
+        toast.success("Success updating the tool");
         push(`/dashboard`);
       },
       onError: (error) => {
@@ -119,10 +120,12 @@ export default function NewToolForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success updating the tool:", data);
+        toast.success("Success updating the tool");
         push(`/dashboard`);
       },
-      onError: (error) => {
+      onError: (error: Error) => {
         console.error("Error updating the tool:", error);
+        console.error("updating the tool", error);
       },
     },
     request: {},

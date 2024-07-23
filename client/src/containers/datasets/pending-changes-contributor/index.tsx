@@ -9,8 +9,10 @@ import { useGetCollaboratorEditSuggestions } from "@/types/generated/collaborato
 import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 import { useGetProjectEditSuggestions } from "@/types/generated/project-edit-suggestion";
 import type {
-  DatasetEditSuggestionListResponseDataItem,
-  ToolEditSuggestionListResponseDataItem,
+  DatasetEditSuggestion,
+  ToolEditSuggestion,
+  ProjectEditSuggestion,
+  CollaboratorEditSuggestion,
 } from "@/types/generated/strapi.schemas";
 import { useGetToolEditSuggestions } from "@/types/generated/tool-edit-suggestion";
 
@@ -23,45 +25,96 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-type DataTypes = {
-  [key: string]: {
-    label: string;
-    data:
-      | DatasetEditSuggestionListResponseDataItem[]
-      | ToolEditSuggestionListResponseDataItem[]
-      | undefined;
-    route: "datasets/changes-to-approve" | "other-tools" | "collaborators" | "projects";
-  };
-};
+type Label = "Datasets" | "Tool" | "Collaborator" | "Project";
+type Route = "datasets/changes-to-approve" | "other-tools" | "collaborators" | "projects";
+
+interface extendedDataset extends DatasetEditSuggestion {
+  id?: number;
+  label: Label;
+  route: Route;
+}
+
+interface extendedCollaboratorData extends CollaboratorEditSuggestion {
+  id?: number;
+  label: Label;
+  route: Route;
+}
+
+interface extendedProjectData extends ProjectEditSuggestion {
+  id?: number;
+  label: Label;
+  route: Route;
+}
+
+interface extendedToolData extends ToolEditSuggestion {
+  id?: number;
+  label: Label;
+  route: Route;
+}
+
+type DataTypes = (
+  | extendedDataset
+  | extendedToolData
+  | extendedCollaboratorData
+  | extendedProjectData
+)[];
 
 export default function DatasetPendingChangesContributor() {
   const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions();
   const { data: otherToolDataSuggestions } = useGetToolEditSuggestions();
   const { data: collaboratorsDataSuggestions } = useGetCollaboratorEditSuggestions();
   const { data: projectsDataSuggestions } = useGetProjectEditSuggestions();
+  const data: DataTypes = [
+    ...(datasetsDataSuggestions?.data?.map(({ id, attributes }) => ({
+      id,
+      ...attributes,
+      review_status: attributes?.review_status || "pending",
+      label: "Datasets" as Label,
+      route: "datasets/changes-to-approve" as Route,
+    })) || []),
 
-  const data: DataTypes = {
-    datasets: {
-      label: "Datasets",
-      route: "datasets/changes-to-approve",
-      data: datasetsDataSuggestions?.data,
-    },
-    otherTools: {
-      label: "Tools",
-      route: "other-tools",
-      data: otherToolDataSuggestions?.data,
-    },
-    collaborators: {
-      label: "Collaborator",
-      route: "collaborators",
-      data: collaboratorsDataSuggestions?.data,
-    },
-    projects: {
-      label: "Project",
-      route: "projects",
-      data: projectsDataSuggestions?.data,
-    },
-  };
+    ...(otherToolDataSuggestions?.data?.map(({ id, attributes }) => ({
+      id,
+      ...attributes,
+      review_status: attributes?.review_status || "pending",
+      label: "Tool" as Label,
+      route: "other-tools" as Route,
+    })) || []),
+
+    ...(collaboratorsDataSuggestions?.data?.map(({ id, attributes }) => ({
+      id,
+      ...attributes,
+      review_status: attributes?.review_status || "pending",
+      label: "Collaborator" as Label,
+      route: "collaborators" as Route,
+    })) || []),
+
+    ...(projectsDataSuggestions?.data?.map(({ id, attributes }) => ({
+      id,
+      ...attributes,
+      review_status: attributes?.review_status || "pending",
+      label: "Project" as Label,
+      route: "projects" as Route,
+    })) || []),
+  ];
+
+  function orderAndFlattenData(data: DataTypes): DataTypes {
+    const statusOrder = ["pending", "approved", "declined"];
+
+    return data.sort((a, b) => {
+      const statusComparison =
+        statusOrder.indexOf(a.review_status) - statusOrder.indexOf(b.review_status);
+      if (statusComparison !== 0) {
+        return statusComparison;
+      }
+
+      const dateA = new Date(a.updatedAt || 0);
+      const dateB = new Date(b.updatedAt || 0);
+      return dateB.getTime() - dateA.getTime();
+    });
+  }
+
+  const orderedData = orderAndFlattenData(data);
 
   return (
     <div className="space-y-10 p-4 py-10 sm:px-10 md:px-24 lg:px-32">
@@ -76,63 +129,50 @@ export default function DatasetPendingChangesContributor() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Object.keys(data).map(
-            (key) =>
-              data[key]?.data?.map((suggestion) => {
-                return (
-                  <TableRow key={suggestion?.attributes?.createdAt}>
-                    <TableCell className="whitespace-nowrap font-medium">
-                      <Link
-                        href={`/dashboard/${data[key].route}/${suggestion?.id}`}
-                        className="flex w-full"
-                      >
-                        {data[key].label}
-                      </Link>
-                    </TableCell>
-
-                    <TableCell>
-                      <Link
-                        href={`/dashboard/${data[key].route}/${suggestion?.id}`}
-                        className="flex w-full"
-                      >
-                        {suggestion.attributes?.name}
-                      </Link>
-                    </TableCell>
-
-                    <TableCell>
-                      <Link
-                        href={`/dashboard/${data[key].route}/${suggestion?.id}`}
-                        className="flex w-full"
-                      >
-                        <span
-                          className={cn({
-                            "rounded-sm border px-2.5 py-1": true,
-                            "border-green-300 border-opacity-30 bg-green-300 bg-opacity-20 text-green-400":
-                              suggestion.attributes?.review_status === "approved",
-                            "border-primary bg-primary/10 text-primary":
-                              suggestion.attributes?.review_status === "pending",
-                            "border-red-500 text-red-500":
-                              suggestion?.attributes?.review_status === "declined",
-                          })}
-                        >
-                          {suggestion.attributes?.review_status}
-                        </span>
-                      </Link>
-                    </TableCell>
-
-                    <TableCell>
-                      <Link
-                        href={`/dashboard/datasets/changes-to-approve/${suggestion?.id}`}
-                        className="flex w-full"
-                      >
-                        {suggestion?.attributes?.createdAt &&
-                          formatDate(suggestion?.attributes?.createdAt)}
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                );
-              }),
-          )}
+          {orderedData.map((d) => (
+            <TableRow key={d.createdAt}>
+              <TableCell className="whitespace-nowrap font-medium">
+                <Link href={`/dashboard/${d.route}/${d.id}`} className="flex w-full">
+                  {d.label}
+                </Link>
+              </TableCell>
+              <TableCell className="whitespace-nowrap font-medium">
+                <Link href={`/dashboard/${d.route}/${d.id}`}>{d.name}</Link>
+              </TableCell>
+              <TableCell className="w-full">
+                <Link href={`/dashboard/${d.route}/${d.id}`} className="w-full">
+                  {d.author?.data?.attributes?.email}
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link
+                  href={`/dashboard/datasets/changes-to-approve/${d.id}`}
+                  className="flex w-full"
+                >
+                  <span
+                    className={cn({
+                      "rounded-sm border px-2.5 py-1": true,
+                      "border-opacity310 border-green-300 bg-green-300 bg-opacity-20 text-green-400":
+                        d.review_status === "approved",
+                      "border-primary bg-primary/10 text-primary": d.review_status === "pending",
+                      "border-red-500 text-red-500": d.review_status === "declined",
+                    })}
+                  >
+                    {d.review_status}
+                  </span>
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link
+                  href={`/dashboard/${d.route}/${d.id}`}
+                  className="flex w-full whitespace-nowrap"
+                >
+                  {d.updatedAt && d.createdAt && formatDate(d.updatedAt)}
+                  {!d.updatedAt && d.createdAt && formatDate(d.createdAt)}
+                </Link>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>
