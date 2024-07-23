@@ -189,15 +189,17 @@ export default function NewCollaboratorForm() {
           // no need to send author because BE handles it
           mutatePostCollaboratorsEditSuggestion({
             data: {
+              // @ts-expect-error wrong strapi typing
               data: {
                 review_status: "pending",
                 ...values,
                 image: imageId as number,
-                // @ts-expect-error TO-DO - fix types
-                collaborator: {
-                  connect: [+id],
-                  disconnect: [],
-                },
+                ...(id && {
+                  collaborator: {
+                    connect: [+id],
+                    disconnect: [],
+                  },
+                }),
               },
             },
           });
@@ -271,7 +273,7 @@ export default function NewCollaboratorForm() {
   const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
     multiple: false,
     maxFiles: 1,
-    maxSize: 5000000,
+    maxSize: 50000000,
     accept: { "image/*": [".gif", ".jpeg", ".jpg", ".webp", ".png", ".svgs"] },
     onDropAccepted(files) {
       if (files.length > 0) {

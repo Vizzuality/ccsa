@@ -139,11 +139,6 @@ export default function DatasetPendingChangesContributor() {
               <TableCell className="whitespace-nowrap font-medium">
                 <Link href={`/dashboard/${d.route}/${d.id}`}>{d.name}</Link>
               </TableCell>
-              <TableCell className="w-full">
-                <Link href={`/dashboard/${d.route}/${d.id}`} className="w-full">
-                  {d.author?.data?.attributes?.email}
-                </Link>
-              </TableCell>
               <TableCell>
                 <Link
                   href={`/dashboard/datasets/changes-to-approve/${d.id}`}

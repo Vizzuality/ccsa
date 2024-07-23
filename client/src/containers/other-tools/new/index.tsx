@@ -106,7 +106,7 @@ export default function NewToolForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating a new tool:", data);
-        toast.success("Success updating the tool");
+        toast.success("Success creating a new tool");
         push(`/dashboard`);
       },
       onError: (error) => {
