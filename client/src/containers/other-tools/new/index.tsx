@@ -105,9 +105,11 @@ export default function NewToolForm() {
   const { mutate: mutatePostToolEditSuggestion } = usePostToolEditSuggestions({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success creating a new tool:", data);
-        toast.success("Success creating a new tool");
-        push(`/dashboard`);
+        if (ME_DATA?.role?.type === "authenticated") {
+          console.info("Success creating a new tool suggestion:", data);
+          toast.success("Success creating a new tool suggestion");
+          push(`/dashboard`);
+        }
       },
       onError: (error) => {
         console.error("Error creating a new tool:", error);
@@ -119,13 +121,13 @@ export default function NewToolForm() {
   const { mutate: mutatePutToolEditSuggestionId } = usePutToolEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success updating the tool:", data);
-        toast.success("Success updating the tool");
+        console.info("Success updating the tool suggestion:", data);
+        toast.success("Success updating the tool suggestion");
         push(`/dashboard`);
       },
       onError: (error: Error) => {
-        console.error("Error updating the tool:", error);
-        console.error("updating the tool", error);
+        console.error("Error updating the tool suggestion:", error);
+        console.error("Error updating the tool suggestion", error);
       },
     },
     request: {},
@@ -231,10 +233,14 @@ export default function NewToolForm() {
             data?.apiToken,
           )
             .then(() => {
-              console.info("Success creating the tool");
-              toast.success("Success creating the tool");
+              if (!id) {
+                console.info("Success creating the tool");
+                toast.success("Success creating the tool");
+              }
 
-              if ((!!id && !editSuggestionIdData) || !id) {
+              if (!!id && !editSuggestionIdData) {
+                console.info("Success updating the tool");
+                toast.success("Success updating the tool");
                 mutatePostToolEditSuggestion({
                   data: {
                     // @ts-expect-error TO-DO - fix types

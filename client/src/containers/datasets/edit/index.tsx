@@ -115,7 +115,7 @@ export default function EditDatasetForm() {
           }
 
           if (datasetData?.data?.attributes?.value_type === "boolean") {
-            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean };
+            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean ? true : false };
           }
           return acc;
         },
@@ -128,7 +128,6 @@ export default function EditDatasetForm() {
 
     setFormValues({ settings, data, colors });
   }, [datasetData, datasetValuesData, setFormValues]);
-
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
       setFormValues({ ...formValues, settings: values });
@@ -206,10 +205,11 @@ export default function EditDatasetForm() {
           {
             ...(id && !datasetEditData && { dataset_id: id }),
             ...(id &&
-              !!datasetEditData && {
-                dataset_id: datasetData?.data?.attributes,
+              !!datasetEditData?.data?.id && {
+                dataset_id: +datasetEditData?.data?.id,
               }),
             ...parsedData,
+            category_ids: [data.settings.category],
           },
           session?.apiToken,
           // to do review data + change sug status
@@ -250,7 +250,6 @@ export default function EditDatasetForm() {
       setFormValues,
       ME_DATA?.role?.type,
       mutatePostDatasetEditSuggestion,
-      datasetData?.data,
       datasetEditData,
       id,
       mutatePutDatasetEditSuggestionId,

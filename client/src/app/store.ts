@@ -155,4 +155,6 @@ export const datasetStepAtom = atom<number>(1);
 
 export const datasetValuesAtom = atom<Data>(INITIAL_DATASET_VALUES);
 
+export const datasetValuesNewAtom = atom<Data>(INITIAL_DATASET_VALUES);
+
 export const datasetValuesJsonUploadedAtom = atom<DatasetValuesCSV[]>([]);

@@ -126,7 +126,7 @@ export default function DatasetDataForm({
     },
   );
 
-  const parsedPreviousDatasetValues = useMemo<{
+  const parsedPreviousDatasetValuesResources = useMemo<{
     [key: string]: Resource[];
   }>(() => {
     const transformedObject: { [key: string]: Resource[] } = {};
@@ -194,23 +194,46 @@ export default function DatasetDataForm({
   const parsedDatasetCSVValues = transformData(datasetValues);
 
   const values = useMemo(() => {
+    // Check if parsedDatasetCSVValues is an empty object
+    const isParsedDatasetCSVValuesEmpty = Object.keys(parsedDatasetCSVValues || {}).length === 0;
+    if (rawData.settings.value_type === "resource" && isParsedDatasetCSVValuesEmpty) {
+      return countries
+        .map((c) => c?.attributes?.iso3 as string)
+        .reduce(
+          (acc, country) => {
+            return {
+              ...acc,
+              [`${country}`]: parsedPreviousDatasetValuesResources?.[`${country}`],
+            };
+          },
+          {} as Data["data"],
+        );
+    }
+
     const c = countries
       .map((c) => c?.attributes?.iso3 as string)
       .reduce(
         (acc, country) => {
           return {
             ...acc,
-            [`${country}`]:
-              parsedDatasetCSVValues?.[country] ||
-              data?.[`${country}`] ||
-              parsedPreviousDatasetValues?.[`${country}`],
+            [`${country}`]: isParsedDatasetCSVValuesEmpty
+              ? data?.[country]
+              : parsedDatasetCSVValues?.[country] ||
+                data?.[country] ||
+                parsedPreviousDatasetValuesResources?.[`${country}`],
           };
         },
         {} as Data["data"],
       );
 
     return c;
-  }, [countries, data, parsedDatasetCSVValues, parsedPreviousDatasetValues]);
+  }, [
+    countries,
+    data,
+    parsedDatasetCSVValues,
+    parsedPreviousDatasetValuesResources,
+    rawData.settings.value_type,
+  ]);
 
   const form = useForm<Data["data"]>({
     resolver: zodResolver(formSchema),
