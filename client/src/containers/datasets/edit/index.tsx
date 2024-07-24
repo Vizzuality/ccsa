@@ -201,6 +201,7 @@ export default function EditDatasetForm() {
       if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
         const { value_type } = data.settings;
         const parsedData = getDataParsed(value_type, data);
+
         updateOrCreateDataset(
           {
             ...(id && !datasetEditData && { dataset_id: id }),

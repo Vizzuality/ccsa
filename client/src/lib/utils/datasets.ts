@@ -226,7 +226,6 @@ const getResourcesData = (data: Data) => {
       colors: data.colors,
     },
   ];
-
   return {
     ...restSettings,
     value_type: data.settings.value_type,
