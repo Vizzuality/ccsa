@@ -166,15 +166,48 @@ export default function FormToApprove() {
   }, [datasetValuesData, previousDataSource]);
 
   const DATA_PREVIOUS_VALUES = useMemo(() => {
-    const { colors, data, ...restSettings } =
-      datasetDataPendingToApprove?.data?.attributes || ({} as DatasetEditSuggestion);
+    datasetData?.data?.attributes || ({} as DatasetEditSuggestion);
 
     return {
-      settings: { ...restSettings, value_type: restSettings.value_type },
-      data: data,
-      colors: colors,
+      settings: {
+        ...datasetData?.data?.attributes,
+        category: datasetData?.data?.attributes?.category?.data?.id,
+        value_type: datasetData?.data?.attributes?.value_type as VALUE_TYPE,
+      },
+      data:
+        {
+          ...datasetValuesData?.data?.reduce(
+            (acc, curr) => {
+              const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
+
+              if (datasetData?.data?.attributes?.value_type === "number") {
+                return { ...acc, [`${countryIso}`]: curr?.attributes?.value_number };
+              }
+
+              if (datasetData?.data?.attributes?.value_type === "text") {
+                return { ...acc, [`${countryIso}`]: curr?.attributes?.value_text };
+              }
+
+              if (datasetData?.data?.attributes?.value_type === "boolean") {
+                return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean };
+              }
+
+              if (previousDataSource?.data?.attributes?.value_type === "resource") {
+                return {
+                  ...acc,
+                  [`${countryIso}`]: curr?.attributes?.resources?.data?.map(
+                    ({ attributes }) => attributes as Resource,
+                  ),
+                };
+              }
+              return acc;
+            },
+            {} as Data["data"],
+          ),
+        } || {},
+      colors: datasetData?.data?.attributes?.layers?.data?.[0]?.attributes?.colors,
     } as Data;
-  }, [datasetDataPendingToApprove]);
+  }, [datasetData, datasetValuesData]);
 
   const [formValues, setFormValues] = useState<Data>(DATA_PREVIOUS_VALUES);
 
@@ -238,6 +271,7 @@ export default function FormToApprove() {
       if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
         const { value_type } = data?.settings || {};
         const parsedData = getDataParsed(value_type, data);
+
         updateOrCreateDataset(
           {
             ...(id && !datasetDataPendingToApprove && { dataset_id: id }),
@@ -245,7 +279,12 @@ export default function FormToApprove() {
               !!datasetDataPendingToApprove && {
                 dataset_id: datasetData?.data?.id,
               }),
+
             ...parsedData,
+            // @ts-expect-error TO-DO - fix types
+            dataset_edit_suggestion_ids: parsedData?.dataset_edit_suggestions?.data.map(
+              (d: { id: number }) => d?.id,
+            ),
           },
           session?.apiToken,
           // to do review data + change sug status

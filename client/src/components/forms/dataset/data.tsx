@@ -90,7 +90,6 @@ export default function DatasetDataForm({
 }) {
   const [datasetValues] = useAtom(datasetValuesJsonUploadedAtom);
   const data = rawData.data;
-
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
   const params = useParams();
@@ -197,17 +196,7 @@ export default function DatasetDataForm({
     // Check if parsedDatasetCSVValues is an empty object
     const isParsedDatasetCSVValuesEmpty = Object.keys(parsedDatasetCSVValues || {}).length === 0;
     if (rawData.settings.value_type === "resource" && isParsedDatasetCSVValuesEmpty) {
-      return countries
-        .map((c) => c?.attributes?.iso3 as string)
-        .reduce(
-          (acc, country) => {
-            return {
-              ...acc,
-              [`${country}`]: parsedPreviousDatasetValuesResources?.[`${country}`],
-            };
-          },
-          {} as Data["data"],
-        );
+      return rawData.data;
     }
 
     const c = countries
