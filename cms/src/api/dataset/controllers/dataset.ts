@@ -133,9 +133,12 @@ export default factories.createCoreController('api::dataset.dataset', () => ({
           // Create resources if received:
           if (value.resources && value.resources.length > 0) {
             const createdResources = await Promise.all(value.resources.map(async (resource: any) => {
+              const { link_url = '', link_title = '', description = '' } = resource;
               const newResource = await trx('resources')
                 .insert({
-                  ...resource,
+                  link_url,
+                  link_title,
+                  description,
                   created_at: currentTime,
                   updated_at: currentTime,
                   published_at: currentTime,
