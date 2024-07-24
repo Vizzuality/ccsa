@@ -1,15 +1,31 @@
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 
 import { useDropzone } from "react-dropzone";
 
-import { useSetAtom } from "jotai";
+import { usePathname } from "next/navigation";
+
+import { useSetAtom, useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 
-import { datasetValuesJsonUploadedAtom } from "@/app/store";
+import { downloadCSV } from "@/lib/utils/csv";
+
+import { Dataset } from "@/types/generated/strapi.schemas";
+
+import {
+  datasetValuesJsonUploadedAtom,
+  datasetValuesNewAtom,
+  datasetValuesAtom,
+} from "@/app/store";
 
 import { validateCsv } from "@/services/datasets";
 
 export default function Step2() {
+  const [formValuesNew] = useAtom(datasetValuesNewAtom);
+  const [formValuesEdit] = useAtom(datasetValuesAtom);
+  const path = usePathname();
+
+  const values = path.includes("new") ? formValuesNew : formValuesEdit;
+  const valueType = values.settings.value_type as Dataset["value_type"];
   const setDatasetValues = useSetAtom(datasetValuesJsonUploadedAtom);
   const fileInputRef = useRef(null);
 
@@ -30,21 +46,30 @@ export default function Step2() {
     },
   });
 
+  const handleDownload = useCallback(() => {
+    downloadCSV(values.data, valueType, "myData.csv");
+  }, [values.data, valueType]);
+
   return (
-    <div className="flex space-x-2 text-xs font-light">
-      <div {...getRootProps()}>
-        <span>Add data manually or </span>
-        <span className="cursor-pointer text-xs text-primary underline">
-          import a CSV
-          <input
-            type="file"
-            accept=".csv"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            {...getInputProps()}
-          />
-        </span>
+    <div className="flex justify-between text-xs font-light">
+      <div className="space-x-2">
+        <div {...getRootProps()}>
+          <span>Add data manually or </span>
+          <span className="cursor-pointer text-primary underline">
+            import a CSV
+            <input
+              type="file"
+              accept=".csv"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              {...getInputProps()}
+            />
+          </span>
+        </div>
       </div>
+      <button onClick={handleDownload} className="text-primary underline">
+        Download template
+      </button>
     </div>
   );
 }

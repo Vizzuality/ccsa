@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSetAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
 
@@ -21,7 +22,7 @@ import {
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams, INITIAL_DATASET_VALUES } from "@/app/store";
+import { datasetStepAtom, useSyncSearchParams, INITIAL_DATASET_VALUES } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
@@ -66,10 +67,10 @@ export default function DatasetSettingsForm({
   changes?: string[];
   onSubmit: (data: Data["settings"]) => void;
 }) {
+  const setStep = useSetAtom(datasetStepAtom);
   const data = rawData.settings;
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
-
   const { data: session } = useSession();
   const user = session?.user;
   const { data: meData } = useGetUsersId(`${user?.id}`, {
@@ -145,6 +146,7 @@ export default function DatasetSettingsForm({
 
   const handleCancel = () => {
     onSubmit(INITIAL_DATASET_VALUES.settings);
+    setStep(1);
     push(`/?${URLParams.toString()}`);
   };
 
