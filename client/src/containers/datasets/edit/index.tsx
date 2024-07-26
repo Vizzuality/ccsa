@@ -180,7 +180,6 @@ export default function EditDatasetForm() {
               ? data.settings?.category
               : data?.settings?.category?.data?.id;
 
-          console.log({ data, datasetEditData });
           mutatePutDatasetEditSuggestionId({
             id: +id,
             data: {
