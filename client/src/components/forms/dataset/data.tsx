@@ -216,13 +216,7 @@ export default function DatasetDataForm({
       );
 
     return c;
-  }, [
-    countries,
-    data,
-    parsedDatasetCSVValues,
-    parsedPreviousDatasetValuesResources,
-    rawData.settings.value_type,
-  ]);
+  }, [countries, data, parsedDatasetCSVValues, parsedPreviousDatasetValuesResources, rawData]);
 
   const form = useForm<Data["data"]>({
     resolver: zodResolver(formSchema),
