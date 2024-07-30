@@ -151,16 +151,16 @@
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.update"
     },
     {
+      "action": "api::types-of-funding.types-of-funding.find"
+    },
+    {
+      "action": "api::types-of-funding.types-of-funding.findOne"
+    },
+    {
       "action": "api::welcome-message.welcome-message.find"
     },
     {
       "action": "plugin::email.email.send"
-    },
-    {
-      "action": "plugin::upload.content-api.find"
-    },
-    {
-      "action": "plugin::upload.content-api.findOne"
     },
     {
       "action": "plugin::upload.content-api.upload"

@@ -834,12 +834,12 @@
           "amount",
           "sdgs",
           "status",
-          "funding",
           "source_country",
           "organization_type",
           "objective",
           "info",
-          "project_edit_suggestions"
+          "project_edit_suggestions",
+          "funding"
         ]
       },
       "conditions": []
@@ -872,12 +872,12 @@
           "amount",
           "sdgs",
           "status",
-          "funding",
           "source_country",
           "organization_type",
           "objective",
           "info",
-          "project_edit_suggestions"
+          "project_edit_suggestions",
+          "funding"
         ]
       },
       "conditions": []
@@ -896,12 +896,12 @@
           "amount",
           "sdgs",
           "status",
-          "funding",
           "source_country",
           "organization_type",
           "objective",
           "info",
-          "project_edit_suggestions"
+          "project_edit_suggestions",
+          "funding"
         ]
       },
       "conditions": []
@@ -1073,6 +1073,56 @@
           "author",
           "other_tools_category",
           "other_tool"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::types-of-funding.types-of-funding",
+      "properties": {
+        "fields": [
+          "name",
+          "description"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::types-of-funding.types-of-funding",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::types-of-funding.types-of-funding",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::types-of-funding.types-of-funding",
+      "properties": {
+        "fields": [
+          "name",
+          "description"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::types-of-funding.types-of-funding",
+      "properties": {
+        "fields": [
+          "name",
+          "description"
         ]
       },
       "conditions": []

@@ -45,9 +45,6 @@
     "status": {
       "type": "string"
     },
-    "funding": {
-      "type": "string"
-    },
     "source_country": {
       "type": "string"
     },
@@ -65,6 +62,11 @@
       "relation": "oneToMany",
       "target": "api::project-edit-suggestion.project-edit-suggestion",
       "mappedBy": "project"
+    },
+    "funding": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::types-of-funding.types-of-funding"
     }
   }
 }

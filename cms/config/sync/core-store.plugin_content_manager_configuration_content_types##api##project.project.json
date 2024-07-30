@@ -135,20 +135,6 @@
           "sortable": true
         }
       },
-      "funding": {
-        "edit": {
-          "label": "funding",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "funding",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "source_country": {
         "edit": {
           "label": "source_country",
@@ -218,6 +204,21 @@
           "label": "project_edit_suggestions",
           "searchable": false,
           "sortable": false
+        }
+      },
+      "funding": {
+        "edit": {
+          "label": "funding",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "funding",
+          "searchable": true,
+          "sortable": true
         }
       },
       "createdAt": {
@@ -335,10 +336,6 @@
         ],
         [
           {
-            "name": "funding",
-            "size": 6
-          },
-          {
             "name": "source_country",
             "size": 6
           }
@@ -360,6 +357,12 @@
           },
           {
             "name": "project_edit_suggestions",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "funding",
             "size": 6
           }
         ]
