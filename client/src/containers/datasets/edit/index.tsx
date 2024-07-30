@@ -18,7 +18,12 @@ import {
   usePutDatasetEditSuggestionsId,
 } from "@/types/generated/dataset-edit-suggestion";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
-import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import type {
+  DatasetValueListResponse,
+  UsersPermissionsRole,
+  UsersPermissionsUser,
+  DatasetEditSuggestionResponse,
+} from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { datasetStepAtom, datasetValuesAtom, INITIAL_DATASET_VALUES } from "@/app/store";
@@ -26,9 +31,40 @@ import { datasetStepAtom, datasetValuesAtom, INITIAL_DATASET_VALUES } from "@/ap
 import DatasetColorsForm from "@/components/forms/dataset/colors";
 import DatasetDataForm from "@/components/forms/dataset/data";
 import DatasetSettingsForm from "@/components/forms/dataset/settings";
-import { Data } from "@/components/forms/dataset/types";
+import { Data, VALUE_TYPE } from "@/components/forms/dataset/types";
 
 import { updateOrCreateDataset } from "@/services/datasets";
+
+const getDatasetValues = (
+  editionFromSuggestion: boolean,
+  datasetValuesData: DatasetValueListResponse | undefined,
+  datasetEditData: DatasetEditSuggestionResponse | undefined,
+  type: VALUE_TYPE | undefined,
+) => {
+  if (editionFromSuggestion) {
+    return datasetEditData?.data?.attributes?.data as Data["data"];
+  } else {
+    return (datasetValuesData?.data?.reduce(
+      (acc, curr) => {
+        const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
+
+        if (type === "number") {
+          return { ...acc, [`${countryIso}`]: curr?.attributes?.value_number };
+        }
+
+        if (type === "text") {
+          return { ...acc, [`${countryIso}`]: curr?.attributes?.value_text };
+        }
+
+        if (type === "boolean") {
+          return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean ? true : false };
+        }
+        return acc;
+      },
+      {} as Data["data"],
+    ) || {}) as Data["data"];
+  }
+};
 
 export default function EditDatasetForm() {
   const { data: session } = useSession();
@@ -48,10 +84,8 @@ export default function EditDatasetForm() {
     populate: "*",
   });
 
-  const { data: datasetEditData } = useGetDatasetEditSuggestionsId(Number(id), {
-    populate: "*",
-  });
-
+  // useGetDatasetId returns dataset values but there is no relation within the iso3 field
+  // so we need to use useGetDatasetValues to get the country iso3 field for dataset values
   const { data: datasetValuesData } = useGetDatasetValues({
     filters: {
       dataset: id,
@@ -64,6 +98,10 @@ export default function EditDatasetForm() {
       resources: true,
       dataset_values: true,
     },
+  });
+
+  const { data: datasetEditData } = useGetDatasetEditSuggestionsId(Number(id), {
+    populate: "*",
   });
 
   const { mutate: mutatePutDatasetEditSuggestionId } = usePutDatasetEditSuggestionsId({
@@ -92,42 +130,40 @@ export default function EditDatasetForm() {
     request: {},
   });
 
+  const previousData = datasetEditData?.data?.attributes || datasetData?.data?.attributes;
+  const editionFromSuggestion = !!datasetEditData;
+
   useMemo(() => {
     const settings = {
-      name: datasetData?.data?.attributes?.name || "",
-      description: datasetData?.data?.attributes?.description || "",
-      value_type: datasetData?.data?.attributes?.value_type || undefined,
-      category: datasetData?.data?.attributes?.category?.data?.id || undefined,
-      unit: datasetData?.data?.attributes?.unit || undefined,
+      name: previousData?.name || "",
+      description: previousData?.description || "",
+      value_type: previousData?.value_type || undefined,
+      category: previousData?.category?.data?.id || undefined,
+      unit: previousData?.unit || undefined,
     };
 
-    const data =
-      datasetValuesData?.data?.reduce(
-        (acc, curr) => {
-          const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
-
-          if (datasetData?.data?.attributes?.value_type === "number") {
-            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_number };
-          }
-
-          if (datasetData?.data?.attributes?.value_type === "text") {
-            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_text };
-          }
-
-          if (datasetData?.data?.attributes?.value_type === "boolean") {
-            return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean ? true : false };
-          }
-          return acc;
-        },
-        {} as Data["data"],
-      ) || {};
+    const data = getDatasetValues(
+      editionFromSuggestion,
+      datasetValuesData,
+      datasetEditData,
+      datasetData?.data?.attributes?.value_type,
+    );
 
     const colors =
+      datasetEditData?.data?.attributes?.colors ||
       (datasetData?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors ||
       ({} as Data["colors"]);
 
     setFormValues({ settings, data, colors });
-  }, [datasetData, datasetValuesData, setFormValues]);
+  }, [
+    datasetData,
+    datasetValuesData,
+    datasetEditData,
+    editionFromSuggestion,
+    previousData,
+    setFormValues,
+  ]);
+
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
       setFormValues({ ...formValues, settings: values });

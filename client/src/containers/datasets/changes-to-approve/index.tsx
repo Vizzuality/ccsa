@@ -207,7 +207,7 @@ export default function FormToApprove() {
         } || {},
       colors: datasetData?.data?.attributes?.layers?.data?.[0]?.attributes?.colors,
     } as Data;
-  }, [datasetData, datasetValuesData]);
+  }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
 
   const [formValues, setFormValues] = useState<Data>(DATA_PREVIOUS_VALUES);
 

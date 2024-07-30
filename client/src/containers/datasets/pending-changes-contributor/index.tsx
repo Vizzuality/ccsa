@@ -70,7 +70,7 @@ export default function DatasetPendingChangesContributor() {
       ...attributes,
       review_status: attributes?.review_status || "pending",
       label: "Datasets" as Label,
-      route: "datasets/changes-to-approve" as Route,
+      route: "datasets/edit" as Route,
     })) || []),
 
     ...(otherToolDataSuggestions?.data?.map(({ id, attributes }) => ({
@@ -140,10 +140,7 @@ export default function DatasetPendingChangesContributor() {
                 <Link href={`/dashboard/${d.route}/${d.id}`}>{d.name}</Link>
               </TableCell>
               <TableCell>
-                <Link
-                  href={`/dashboard/datasets/changes-to-approve/${d.id}`}
-                  className="flex w-full"
-                >
+                <Link href={`/dashboard/datasets/edit/${d.id}`} className="flex w-full">
                   <span
                     className={cn({
                       "rounded-sm border px-2.5 py-1": true,
