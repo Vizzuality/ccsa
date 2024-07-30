@@ -191,8 +191,8 @@ export default function DatasetColorsForm({
       };
     }
     return {
-      min: colors.min,
-      max: colors.max,
+      min: colors?.min,
+      max: colors?.max,
     };
   }, [colors, categories, value_type]);
 

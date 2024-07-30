@@ -253,6 +253,10 @@ export default function FormToApprove() {
 
       // not updating correctly
       if (ME_DATA?.role?.type === "authenticated" && datasetDataPendingToApprove?.data?.id) {
+        const { value_type } = data?.settings || {};
+
+        const parsedData = getDataParsed(value_type, data);
+        console.info("data contr", data, parsedData);
         mutatePutDatasetEditSuggestion({
           id: datasetDataPendingToApprove?.data?.id,
           data: {
@@ -271,6 +275,7 @@ export default function FormToApprove() {
       if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
         const { value_type } = data?.settings || {};
         const parsedData = getDataParsed(value_type, data);
+        console.info("data admin", datasetDataPendingToApprove, parsedData);
 
         updateOrCreateDataset(
           {
