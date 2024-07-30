@@ -54,6 +54,7 @@ import {
 } from "@/components/ui/select";
 
 import { updateOrCreateProject } from "@/services/projects";
+import { useGetTypesOfFundings } from "@/types/generated/types-of-funding";
 
 export default function ProjectForm() {
   const { push } = useRouter();
@@ -102,6 +103,22 @@ export default function ProjectForm() {
           data?.data?.map((sdg) => ({
             label: sdg?.attributes?.name as string,
             value: sdg?.id as number,
+          })),
+      },
+    },
+  );
+
+  const { data: typesOfFundingData } = useGetTypesOfFundings(
+    {
+      "pagination[pageSize]": 100,
+      sort: "name:asc",
+    },
+    {
+      query: {
+        select: (data) =>
+          data?.data?.map((funding) => ({
+            label: funding?.attributes?.name as string,
+            value: funding?.id as number,
           })),
       },
     },
@@ -187,8 +204,8 @@ export default function ProjectForm() {
     status: z.string().min(1, {
       message: "Please enter status",
     }),
-    funding: z.string().min(1, {
-      message: "Please enter type of funding",
+    funding: z.coerce.number().min(1, {
+      message: "Please select type of funding",
     }),
     organization_type: z.string().min(1, {
       message: "Please enter organization type",
@@ -213,7 +230,7 @@ export default function ProjectForm() {
           previousData?.countries?.data?.map(({ id }: { id?: number }) => id as number) || [],
         sdgs: previousData?.sdgs?.data?.map(({ id }: { id?: number }) => id as number) || [],
         status: previousData?.status || "",
-        funding: previousData?.funding || "",
+        funding: previousData?.funding?.data?.id as number,
         organization_type: previousData?.organization_type || "",
         source_country: previousData?.source_country || "",
         objective: previousData?.objective || "",
@@ -559,15 +576,25 @@ export default function ProjectForm() {
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">Type of funding</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        className={cn({
-                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
-                        })}
-                        placeholder="Name"
-                      />
+                      <Select value={field.value?.toString()} onValueChange={field.onChange}>
+                        <SelectTrigger
+                          className={cn({
+                            "h-10 w-full border-0 bg-gray-300/20": true,
+                            "bg-green-400": changes?.includes(field.name),
+                          })}
+                        >
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {(typesOfFundingData || []).map(({ label, value }) => {
+                            return (
+                              <SelectItem key={value} value={value?.toString()}>
+                                {label}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
