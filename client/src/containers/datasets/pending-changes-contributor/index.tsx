@@ -3,15 +3,13 @@
 import { useGetCollaboratorEditSuggestions } from "@/types/generated/collaborator-edit-suggestion";
 import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 import { useGetProjectEditSuggestions } from "@/types/generated/project-edit-suggestion";
-
 import { useGetToolEditSuggestions } from "@/types/generated/tool-edit-suggestion";
 
+import { DataTypes, Label, Route } from "@/components/forms/dataset/types";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-import { DataTypes, Label, Route } from "@/components/forms/dataset/types";
-
-import PendingDeclinedChangesRow from "./pending-declined-changes-row";
 import ApprovedChangesRow from "./approved-changes-row";
+import PendingDeclinedChangesRow from "./pending-declined-changes-row";
 
 export default function PendingChangesContributor() {
   const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions();

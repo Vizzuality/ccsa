@@ -1,6 +1,7 @@
-import { CategoryResponse, Dataset, Resource } from "@/types/generated/strapi.schemas";
-
 import type {
+  CategoryResponse,
+  Dataset,
+  Resource,
   DatasetEditSuggestion,
   ToolEditSuggestion,
   ProjectEditSuggestion,

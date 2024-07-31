@@ -5,13 +5,13 @@ import Link from "next/link";
 import { cn } from "@/lib/classnames";
 import { formatDate } from "@/lib/utils/formats";
 
-import { TableCell, TableRow } from "@/components/ui/table";
 import {
   extendedToolData,
   extendedDataset,
   extendedCollaboratorData,
   extendedProjectData,
 } from "@/components/forms/dataset/types";
+import { TableCell, TableRow } from "@/components/ui/table";
 
 type PendingChangesCell =
   | extendedDataset

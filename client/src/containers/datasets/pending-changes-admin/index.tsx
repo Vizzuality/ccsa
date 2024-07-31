@@ -8,14 +8,9 @@ import { formatDate } from "@/lib/utils/formats";
 import { useGetCollaboratorEditSuggestions } from "@/types/generated/collaborator-edit-suggestion";
 import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 import { useGetProjectEditSuggestions } from "@/types/generated/project-edit-suggestion";
-import type {
-  DatasetEditSuggestion,
-  ToolEditSuggestion,
-  ProjectEditSuggestion,
-  CollaboratorEditSuggestion,
-} from "@/types/generated/strapi.schemas";
 import { useGetToolEditSuggestions } from "@/types/generated/tool-edit-suggestion";
 
+import { DataTypes, Label, Route } from "@/components/forms/dataset/types";
 import {
   Table,
   TableBody,
@@ -24,8 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import { DataTypes, Label, Route } from "@/components/forms/dataset/types";
 
 export default function PendingChangesAdmin() {
   const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions({

@@ -118,11 +118,11 @@ export default function EditDatasetForm() {
   const { mutate: mutatePutDatasetEditSuggestionId } = usePutDatasetEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success updating dataset:", data);
+        console.info("Success updating dataset suggestion:", data);
         push(`/dashboard`);
       },
       onError: (error) => {
-        console.error("Error updating dataset:", error);
+        console.error("Error updating dataset suggestion:", error);
       },
     },
     request: {},

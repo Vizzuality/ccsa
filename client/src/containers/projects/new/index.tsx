@@ -25,6 +25,7 @@ import {
 } from "@/types/generated/project-edit-suggestion";
 import { useGetSdgs } from "@/types/generated/sdg";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
+import { useGetTypesOfFundings } from "@/types/generated/types-of-funding";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
@@ -54,7 +55,6 @@ import {
 } from "@/components/ui/select";
 
 import { updateOrCreateProject } from "@/services/projects";
-import { useGetTypesOfFundings } from "@/types/generated/types-of-funding";
 
 export default function ProjectForm() {
   const { push } = useRouter();
