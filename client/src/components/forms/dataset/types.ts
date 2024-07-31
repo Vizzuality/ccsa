@@ -1,5 +1,12 @@
 import { CategoryResponse, Dataset, Resource } from "@/types/generated/strapi.schemas";
 
+import type {
+  DatasetEditSuggestion,
+  ToolEditSuggestion,
+  ProjectEditSuggestion,
+  CollaboratorEditSuggestion,
+} from "@/types/generated/strapi.schemas";
+
 export type VALUE_TYPE = Dataset["value_type"];
 
 export interface DatasetValuesCSV {
@@ -57,3 +64,37 @@ export type DATA_COLUMN =
   | TextDataColumn
   | BooleanDataColumn
   | ResourceDataColumn;
+
+export type Label = "Datasets" | "Tool" | "Collaborator" | "Project";
+export type Route = "datasets/changes-to-approve" | "other-tools" | "collaborators" | "projects";
+
+export interface extendedDataset extends DatasetEditSuggestion {
+  id?: number;
+  label: Label;
+  route: Route;
+}
+
+export interface extendedCollaboratorData extends CollaboratorEditSuggestion {
+  id?: number;
+  label: Label;
+  route: Route;
+}
+
+export interface extendedProjectData extends ProjectEditSuggestion {
+  id?: number;
+  label: Label;
+  route: Route;
+}
+
+export interface extendedToolData extends ToolEditSuggestion {
+  id?: number;
+  label: Label;
+  route: Route;
+}
+
+export type DataTypes = (
+  | extendedDataset
+  | extendedToolData
+  | extendedCollaboratorData
+  | extendedProjectData
+)[];

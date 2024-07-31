@@ -25,41 +25,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-type Label = "Datasets" | "Tool" | "Collaborator" | "Project";
-type Route = "datasets/changes-to-approve" | "other-tools" | "collaborators" | "projects";
+import { DataTypes, Label, Route } from "@/components/forms/dataset/types";
 
-interface extendedDataset extends DatasetEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedCollaboratorData extends CollaboratorEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedProjectData extends ProjectEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedToolData extends ToolEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-type DataTypes = (
-  | extendedDataset
-  | extendedToolData
-  | extendedCollaboratorData
-  | extendedProjectData
-)[];
-
-export default function DatasetPendingChangesAdmin() {
+export default function PendingChangesAdmin() {
   const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions({
     populate: "*",
   });
