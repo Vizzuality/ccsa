@@ -67,6 +67,9 @@
       "action": "api::country.country.update"
     },
     {
+      "action": "api::csv.csv.csvToJson"
+    },
+    {
       "action": "api::csv.csv.jsonToCsv"
     },
     {
@@ -275,6 +278,12 @@
     },
     {
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.update"
+    },
+    {
+      "action": "api::types-of-funding.types-of-funding.find"
+    },
+    {
+      "action": "api::types-of-funding.types-of-funding.findOne"
     },
     {
       "action": "api::welcome-message.welcome-message.find"

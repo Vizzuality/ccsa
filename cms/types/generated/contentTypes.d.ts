@@ -1246,7 +1246,6 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'api::sdg.sdg'
     >;
     status: Attribute.String;
-    funding: Attribute.String;
     source_country: Attribute.String;
     organization_type: Attribute.String;
     objective: Attribute.Text;
@@ -1255,6 +1254,11 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'api::project.project',
       'oneToMany',
       'api::project-edit-suggestion.project-edit-suggestion'
+    >;
+    funding: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::types-of-funding.types-of-funding'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1292,7 +1296,11 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
     account: Attribute.String;
     amount: Attribute.Float;
     status: Attribute.String;
-    funding: Attribute.String;
+    funding: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'api::types-of-funding.types-of-funding'
+    >;
     source_country: Attribute.String;
     organization_type: Attribute.String;
     objective: Attribute.Text;
@@ -1460,6 +1468,38 @@ export interface ApiToolEditSuggestionToolEditSuggestion
   };
 }
 
+export interface ApiTypesOfFundingTypesOfFunding extends Schema.CollectionType {
+  collectionName: 'types_of_fundings';
+  info: {
+    singularName: 'types-of-funding';
+    pluralName: 'types-of-fundings';
+    displayName: 'Funding';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::types-of-funding.types-of-funding',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::types-of-funding.types-of-funding',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiWelcomeMessageWelcomeMessage extends Schema.SingleType {
   collectionName: 'welcome_messages';
   info: {
@@ -1528,6 +1568,7 @@ declare module '@strapi/types' {
       'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;
       'api::tool-edit-suggestion.tool-edit-suggestion': ApiToolEditSuggestionToolEditSuggestion;
+      'api::types-of-funding.types-of-funding': ApiTypesOfFundingTypesOfFunding;
       'api::welcome-message.welcome-message': ApiWelcomeMessageWelcomeMessage;
     }
   }

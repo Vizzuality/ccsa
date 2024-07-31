@@ -88,6 +88,12 @@
       "action": "api::sdg.sdg.findOne"
     },
     {
+      "action": "api::types-of-funding.types-of-funding.find"
+    },
+    {
+      "action": "api::types-of-funding.types-of-funding.findOne"
+    },
+    {
       "action": "api::welcome-message.welcome-message.find"
     },
     {

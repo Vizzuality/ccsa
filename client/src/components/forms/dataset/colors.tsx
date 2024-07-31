@@ -3,6 +3,7 @@
 import { useCallback, useMemo } from "react";
 
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { useRouter } from "next/navigation";
 
@@ -163,9 +164,11 @@ export default function DatasetColorsForm({
           queryKey: getGetDatasetEditSuggestionsIdQueryKey(Number(id)),
         });
         console.info("Success updating dataset:", data);
+        toast.success("Dataset updating dataset suggestion");
         push(`/dashboard`);
       },
       onError: (error) => {
+        toast.error("Error updating dataset suggestion");
         console.error("Error updating dataset:", error);
       },
     },

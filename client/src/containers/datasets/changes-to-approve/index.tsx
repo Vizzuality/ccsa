@@ -103,9 +103,11 @@ export default function FormToApprove() {
           queryKey: getGetDatasetEditSuggestionsIdQueryKey(Number(id)),
         });
         console.info("Success updating dataset:", data);
+        toast.success("Success updating dataset suggestion");
         push(`/dashboard`);
       },
       onError: (error) => {
+        toast.error("There was a problem updating the dataset suggestion");
         console.error("Error updating dataset:", error);
       },
     },

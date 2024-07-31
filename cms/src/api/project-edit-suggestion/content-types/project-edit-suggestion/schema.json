@@ -29,7 +29,9 @@
       "type": "string"
     },
     "funding": {
-      "type": "string"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::types-of-funding.types-of-funding"
     },
     "source_country": {
       "type": "string"

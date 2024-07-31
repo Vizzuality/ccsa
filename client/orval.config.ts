@@ -34,6 +34,7 @@ module.exports = {
           "Other-tool",
           "Other-tools-category",
           "Project-edit-suggestion",
+          "Types-of-funding",
           "Tool-edit-suggestion",
           "Dataset-value",
           "Dataset-edit-suggestion",

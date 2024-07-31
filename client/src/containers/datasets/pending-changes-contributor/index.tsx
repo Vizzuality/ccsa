@@ -1,65 +1,17 @@
 "use client";
 
-import Link from "next/link";
-
-import { cn } from "@/lib/classnames";
-import { formatDate } from "@/lib/utils/formats";
-
 import { useGetCollaboratorEditSuggestions } from "@/types/generated/collaborator-edit-suggestion";
 import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 import { useGetProjectEditSuggestions } from "@/types/generated/project-edit-suggestion";
-import type {
-  DatasetEditSuggestion,
-  ToolEditSuggestion,
-  ProjectEditSuggestion,
-  CollaboratorEditSuggestion,
-} from "@/types/generated/strapi.schemas";
 import { useGetToolEditSuggestions } from "@/types/generated/tool-edit-suggestion";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { DataTypes, Label, Route } from "@/components/forms/dataset/types";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-type Label = "Datasets" | "Tool" | "Collaborator" | "Project";
-type Route = "datasets/changes-to-approve" | "other-tools" | "collaborators" | "projects";
+import ApprovedChangesRow from "./approved-changes-row";
+import PendingDeclinedChangesRow from "./pending-declined-changes-row";
 
-interface extendedDataset extends DatasetEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedCollaboratorData extends CollaboratorEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedProjectData extends ProjectEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedToolData extends ToolEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-type DataTypes = (
-  | extendedDataset
-  | extendedToolData
-  | extendedCollaboratorData
-  | extendedProjectData
-)[];
-
-export default function DatasetPendingChangesContributor() {
+export default function PendingChangesContributor() {
   const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions();
   const { data: otherToolDataSuggestions } = useGetToolEditSuggestions();
   const { data: collaboratorsDataSuggestions } = useGetCollaboratorEditSuggestions();
@@ -129,42 +81,14 @@ export default function DatasetPendingChangesContributor() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {orderedData.map((d) => (
-            <TableRow key={d.createdAt}>
-              <TableCell className="whitespace-nowrap font-medium">
-                <Link href={`/dashboard/${d.route}/${d.id}`} className="flex w-full">
-                  {d.label}
-                </Link>
-              </TableCell>
-              <TableCell className="whitespace-nowrap font-medium">
-                <Link href={`/dashboard/${d.route}/${d.id}`}>{d.name}</Link>
-              </TableCell>
-              <TableCell>
-                <Link href={`/dashboard/datasets/edit/${d.id}`} className="flex w-full">
-                  <span
-                    className={cn({
-                      "rounded-sm border px-2.5 py-1": true,
-                      "border-opacity310 border-green-300 bg-green-300 bg-opacity-20 text-green-400":
-                        d.review_status === "approved",
-                      "border-primary bg-primary/10 text-primary": d.review_status === "pending",
-                      "border-red-500 text-red-500": d.review_status === "declined",
-                    })}
-                  >
-                    {d.review_status}
-                  </span>
-                </Link>
-              </TableCell>
-              <TableCell>
-                <Link
-                  href={`/dashboard/${d.route}/${d.id}`}
-                  className="flex w-full whitespace-nowrap"
-                >
-                  {d.updatedAt && d.createdAt && formatDate(d.updatedAt)}
-                  {!d.updatedAt && d.createdAt && formatDate(d.createdAt)}
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
+          {!!orderedData.length &&
+            orderedData.map((d) => {
+              if (d.review_status !== "approved") {
+                return <PendingDeclinedChangesRow key={d.id} {...d} />;
+              } else {
+                return <ApprovedChangesRow key={d.id} {...d} />;
+              }
+            })}
         </TableBody>
       </Table>
     </div>

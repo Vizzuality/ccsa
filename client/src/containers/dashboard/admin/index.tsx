@@ -1,6 +1,6 @@
 "use client";
 
-import DatasetPendingChangesAdmin from "@/containers/datasets/pending-changes-admin";
+import PendingChangesAdmin from "@/containers/datasets/pending-changes-admin";
 import PersonalData from "@/containers/personal-data";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,7 +13,7 @@ export default function DashboardContentAdmin() {
         <TabsTrigger value="account">Personal data</TabsTrigger>
       </TabsList>
       <TabsContent value="changes">
-        <DatasetPendingChangesAdmin />
+        <PendingChangesAdmin />
       </TabsContent>
       <TabsContent value="account">
         <PersonalData />

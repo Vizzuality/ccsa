@@ -59,6 +59,17 @@ const getDatasetValues = (
         if (type === "boolean") {
           return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean ? true : false };
         }
+
+        if (type === "resource") {
+          return {
+            ...acc,
+            [`${countryIso}`]: curr?.attributes?.resources?.data?.map(({ attributes }) => ({
+              description: attributes?.description,
+              link_title: attributes?.link_title,
+              link_url: attributes?.link_url,
+            })),
+          };
+        }
         return acc;
       },
       {} as Data["data"],
@@ -107,11 +118,11 @@ export default function EditDatasetForm() {
   const { mutate: mutatePutDatasetEditSuggestionId } = usePutDatasetEditSuggestionsId({
     mutation: {
       onSuccess: (data) => {
-        console.info("Success updating dataset:", data);
+        console.info("Success updating dataset suggestion:", data);
         push(`/dashboard`);
       },
       onError: (error) => {
-        console.error("Error updating dataset:", error);
+        console.error("Error updating dataset suggestion:", error);
       },
     },
     request: {},

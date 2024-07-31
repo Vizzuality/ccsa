@@ -8,14 +8,9 @@ import { formatDate } from "@/lib/utils/formats";
 import { useGetCollaboratorEditSuggestions } from "@/types/generated/collaborator-edit-suggestion";
 import { useGetDatasetEditSuggestions } from "@/types/generated/dataset-edit-suggestion";
 import { useGetProjectEditSuggestions } from "@/types/generated/project-edit-suggestion";
-import type {
-  DatasetEditSuggestion,
-  ToolEditSuggestion,
-  ProjectEditSuggestion,
-  CollaboratorEditSuggestion,
-} from "@/types/generated/strapi.schemas";
 import { useGetToolEditSuggestions } from "@/types/generated/tool-edit-suggestion";
 
+import { DataTypes, Label, Route } from "@/components/forms/dataset/types";
 import {
   Table,
   TableBody,
@@ -25,41 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-type Label = "Datasets" | "Tool" | "Collaborator" | "Project";
-type Route = "datasets/changes-to-approve" | "other-tools" | "collaborators" | "projects";
-
-interface extendedDataset extends DatasetEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedCollaboratorData extends CollaboratorEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedProjectData extends ProjectEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-interface extendedToolData extends ToolEditSuggestion {
-  id?: number;
-  label: Label;
-  route: Route;
-}
-
-type DataTypes = (
-  | extendedDataset
-  | extendedToolData
-  | extendedCollaboratorData
-  | extendedProjectData
-)[];
-
-export default function DatasetPendingChangesAdmin() {
+export default function PendingChangesAdmin() {
   const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions({
     populate: "*",
   });
