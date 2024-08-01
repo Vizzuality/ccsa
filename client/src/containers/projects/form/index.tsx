@@ -17,7 +17,7 @@ import { getObjectDifferences } from "@/lib/utils/objects";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetPillars } from "@/types/generated/pillar";
-import { useGetProjectsId } from "@/types/generated/project";
+import { useDeleteProjectsId, useGetProjectsId } from "@/types/generated/project";
 import {
   useGetProjectEditSuggestionsId,
   usePostProjectEditSuggestions,
@@ -180,6 +180,20 @@ export default function ProjectForm() {
     request: {},
   });
 
+  const { mutate: mutateDeleteProject } = useDeleteProjectsId({
+    mutation: {
+      onSuccess: () => {
+        console.info("Success deleting a project");
+        toast.success("Success deleting a project");
+        push(`/dashboard`);
+      },
+      onError: (error: Error) => {
+        console.error("Error deleting a project:", error);
+        toast.error("There was a problem deleting the project");
+      },
+    },
+  });
+
   const previousData = projectsSuggestedData?.data?.attributes || projectData?.data?.attributes;
 
   const formSchema = z.object({
@@ -241,6 +255,7 @@ export default function ProjectForm() {
   const handleCancel = () => {
     push(`/?${URLParams.toString()}`);
   };
+
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       if (ME_DATA?.role?.type === "authenticated") {
@@ -388,6 +403,10 @@ export default function ProjectForm() {
     }
   };
 
+  const handleDelete = () => {
+    mutateDeleteProject({ id: +id });
+  };
+
   const changes =
     !projectData?.data?.attributes && !!id && projectsSuggestedData?.data?.attributes
       ? []
@@ -399,12 +418,19 @@ export default function ProjectForm() {
         isNew={!id}
         title={!id ? "New project" : "Edit project"}
         id="projects-create"
-        cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
+        handleDelete={handleDelete}
+        status={projectsSuggestedData?.data?.attributes?.review_status}
       />
+
       <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
-        <p className="m-auto w-full max-w-sm">Fill the project&apos;s information</p>
+        <p className="m-auto w-full max-w-sm">
+          Fill the project&apos;s information{" "}
+          <span className="text-sm font-light">
+            (<sup className="">*</sup>required fields)
+          </span>
+        </p>
         <Form {...form}>
           <form
             id="projects-create"
@@ -417,7 +443,9 @@ export default function ProjectForm() {
                 name="name"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Project detail</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Project detail<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -438,7 +466,9 @@ export default function ProjectForm() {
                 name="info"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Info</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Info<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -461,7 +491,9 @@ export default function ProjectForm() {
                 render={({ field }) => {
                   return (
                     <FormItem className="space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">Pillar</FormLabel>
+                      <FormLabel className="text-xs font-semibold">
+                        Pillar<sup className="pl-0.5">*</sup>
+                      </FormLabel>
                       <Select value={field.value?.toString()} onValueChange={field.onChange}>
                         <SelectTrigger
                           className={cn({
@@ -491,7 +523,9 @@ export default function ProjectForm() {
                 name="amount"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Amount</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Amount<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -513,7 +547,9 @@ export default function ProjectForm() {
                 render={({ field }) => {
                   return (
                     <FormItem className="space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">Countries</FormLabel>
+                      <FormLabel className="text-xs font-semibold">
+                        Countries<sup className="pl-0.5">*</sup>
+                      </FormLabel>
                       <FormControl>
                         <MultiCombobox
                           values={field.value}
@@ -533,7 +569,9 @@ export default function ProjectForm() {
                 render={({ field }) => {
                   return (
                     <FormItem className="space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">SDG</FormLabel>
+                      <FormLabel className="text-xs font-semibold">
+                        SDG<sup className="pl-0.5">*</sup>
+                      </FormLabel>
                       <FormControl>
                         <MultiCombobox
                           values={field.value}
@@ -552,7 +590,9 @@ export default function ProjectForm() {
                 name="status"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Status</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Status<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -574,7 +614,9 @@ export default function ProjectForm() {
                 name="funding"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Type of funding</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Type of funding<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Select value={field.value?.toString()} onValueChange={field.onChange}>
                         <SelectTrigger
@@ -606,7 +648,9 @@ export default function ProjectForm() {
                 name="organization_type"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Organization type</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Organization type<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}

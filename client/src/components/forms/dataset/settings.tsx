@@ -170,8 +170,8 @@ export default function DatasetSettingsForm({
           id={id}
           title={title}
           isNew={isDatasetNew}
-          cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
           handleCancel={handleCancel}
+          status={data.review_status}
         />
       )}
       <NewDatasetDataFormWrapper header={header}>

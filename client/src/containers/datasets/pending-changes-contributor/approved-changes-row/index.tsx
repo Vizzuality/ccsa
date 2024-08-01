@@ -2,6 +2,8 @@
 
 import { formatDate } from "@/lib/utils/formats";
 
+import { useAtom } from "jotai";
+
 import {
   extendedCollaboratorData,
   extendedDataset,

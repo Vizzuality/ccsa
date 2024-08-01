@@ -27,7 +27,7 @@ export default function ApproveChangesFormLegend({
         {!isNewDataset && status !== "declined" && (
           <p>
             {changes?.length > 0
-              ? "Changes summary. Lorem ipsum dolor sit amet consectetur. Sit cursus sit pellentesque amet pellentesque tellus. Elit aliquam nec viverra egestas id ipsum vitae."
+              ? "Changes summary. Please see the attached recommended edit. If any further changes are required to complete the submission and make it ready for upload, please make the adjustments here."
               : "No changes has been applied."}
           </p>
         )}

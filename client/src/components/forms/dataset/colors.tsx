@@ -40,6 +40,7 @@ import {
 
 import type { Data, VALUE_TYPE } from "./types";
 import NewDatasetDataFormWrapper from "./wrapper";
+import { useDeleteDatasetsId } from "@/types/generated/dataset";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
@@ -175,6 +176,20 @@ export default function DatasetColorsForm({
     request: {},
   });
 
+  const { mutate: mutateDeleteDatasetId } = useDeleteDatasetsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting dataset:", data);
+        toast.success("Dataset deleted");
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        toast.error("Error deleting dataset");
+        console.error("Error deleting dataset:", error);
+      },
+    },
+  });
+
   const values = useMemo(() => {
     if (value_type === "text") {
       return categories!.reduce(
@@ -210,6 +225,10 @@ export default function DatasetColorsForm({
     push(`/?${URLParams.toString()}`);
   };
 
+  const handleDelete = useCallback(() => {
+    mutateDeleteDatasetId({ id: +id });
+  }, []);
+
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       // Save this into useState
@@ -238,9 +257,9 @@ export default function DatasetColorsForm({
           isNew={!id}
           title={title}
           id={id}
-          cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
           handleReject={handleReject}
           handleCancel={handleCancel}
+          handleDelete={handleDelete}
         />
       )}
       <NewDatasetDataFormWrapper header={header}>

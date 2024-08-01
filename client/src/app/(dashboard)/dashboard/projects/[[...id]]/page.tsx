@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import ProjectForm from "@/containers/projects/new";
+import ProjectForm from "@/containers/projects/form";
 
 export const metadata: Metadata = {
   title: "Create new project | Caribbean Climate smart map",

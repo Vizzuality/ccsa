@@ -15,7 +15,7 @@ import { z } from "zod";
 import { cn } from "@/lib/classnames";
 import { getObjectDifferences } from "@/lib/utils/objects";
 
-import { useGetCollaboratorsId } from "@/types/generated/collaborator";
+import { useDeleteCollaboratorsId, useGetCollaboratorsId } from "@/types/generated/collaborator";
 import {
   useGetCollaboratorEditSuggestionsId,
   usePutCollaboratorEditSuggestionsId,
@@ -125,6 +125,18 @@ export default function NewCollaboratorForm() {
       },
     },
     request: {},
+  });
+
+  const { mutate: mutateDeleteCollaborator } = useDeleteCollaboratorsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting collaborator:", data);
+        push(`/collaborators`);
+      },
+      onError: (error) => {
+        console.error("Error deleting collaborator:", error);
+      },
+    },
   });
 
   const relationshipOptions = [
@@ -295,6 +307,10 @@ export default function NewCollaboratorForm() {
     },
   });
 
+  const handleDelete = () => {
+    mutateDeleteCollaborator({ id: +id });
+  };
+
   const changes =
     !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedDataId?.data?.attributes
       ? []
@@ -306,12 +322,18 @@ export default function NewCollaboratorForm() {
         id="collaborators-create"
         isNew={!id}
         title={!id ? "New collaborator" : "Edit collaborator"}
-        cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
+        handleDelete={handleDelete}
+        status={collaboratorSuggestedDataId?.data?.attributes?.review_status}
       />
       <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
-        <p>Fill the organization&apos;s information</p>
+        <p>
+          Fill the organization&apos;s information{" "}
+          <span className="text-sm font-light">
+            (<sup className="">*</sup>required fields)
+          </span>
+        </p>
         <Form {...form}>
           <form
             id="collaborators-create"
@@ -324,7 +346,9 @@ export default function NewCollaboratorForm() {
                 name="name"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Organization name</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Organization name<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -346,7 +370,9 @@ export default function NewCollaboratorForm() {
                 name="type"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Type of relationship</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Type of relationship<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Select value={`${field.value}`} onValueChange={(v) => field.onChange(v)}>
                         <SelectTrigger
@@ -375,7 +401,9 @@ export default function NewCollaboratorForm() {
                 name="link"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Website link</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Website link<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -397,7 +425,9 @@ export default function NewCollaboratorForm() {
                 name="image"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Logo image</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Logo image<sup className="pl-0.5">*</sup>
+                    </FormLabel>
 
                     <FormControl>
                       <div
