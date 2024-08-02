@@ -17,12 +17,7 @@ import { isEmpty } from "@/lib/utils/objects";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
-import {
-  UsersPermissionsRole,
-  UsersPermissionsUser,
-  CountryListResponseDataItem,
-  Resource,
-} from "@/types/generated/strapi.schemas";
+import { CountryListResponseDataItem, Resource } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import {
@@ -60,7 +55,7 @@ import {
 import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
 import type { VALUE_TYPE, Data, DatasetValuesCSV } from "./types";
-import NewDatasetDataFormWrapper from "./wrapper";
+import DashboardFormWrapper from "./wrapper";
 
 // Types for deep nested objects function
 type ParamType = "link_url" | "description" | "link_title";
@@ -101,7 +96,6 @@ export default function DatasetDataForm({
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
   });
-  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
   const isDatasetNew = isEmpty(data);
 
   const { data: datasetValuesData } = useGetDatasetValues(
@@ -303,11 +297,11 @@ export default function DatasetDataForm({
           id={id}
           title={title}
           isNew={isDatasetNew}
-          cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
           handleCancel={handleCancel}
+          status={rawData.settings.review_status}
         />
       )}
-      <NewDatasetDataFormWrapper header={header}>
+      <DashboardFormWrapper header={header}>
         {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}
         <Form {...form}>
@@ -355,7 +349,7 @@ export default function DatasetDataForm({
                                                   htmlFor={`${country.attributes?.iso3}-title-${index}`}
                                                   className="text-xs"
                                                 >
-                                                  Title
+                                                  Title<sup className="pl-0.5">*</sup>
                                                 </label>
                                                 <Input
                                                   {...field}
@@ -399,7 +393,7 @@ export default function DatasetDataForm({
                                                   htmlFor={`${country.attributes?.iso3}-description-${index}`}
                                                   className="text-xs"
                                                 >
-                                                  Description
+                                                  Description<sup className="pl-0.5">*</sup>
                                                 </label>
                                                 <Input
                                                   {...field}
@@ -443,7 +437,7 @@ export default function DatasetDataForm({
                                                   htmlFor={`${country.attributes?.iso3}-link-${index}`}
                                                   className="text-xs"
                                                 >
-                                                  Link
+                                                  Link<sup className="pl-0.5">*</sup>
                                                 </label>
                                                 <Input
                                                   {...field}
@@ -586,7 +580,7 @@ export default function DatasetDataForm({
             </Table>
           </form>
         </Form>
-      </NewDatasetDataFormWrapper>
+      </DashboardFormWrapper>
     </>
   );
 }

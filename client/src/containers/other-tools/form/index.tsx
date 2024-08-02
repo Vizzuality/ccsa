@@ -14,7 +14,7 @@ import { z } from "zod";
 import { cn } from "@/lib/classnames";
 import { getObjectDifferences } from "@/lib/utils/objects";
 
-import { useGetOtherToolsId } from "@/types/generated/other-tool";
+import { useDeleteOtherToolsId, useGetOtherToolsId } from "@/types/generated/other-tool";
 import { useGetOtherToolsCategories } from "@/types/generated/other-tools-category";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import {
@@ -28,7 +28,7 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
-import NewDatasetDataFormWrapper from "@/components/forms/dataset/wrapper";
+import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,7 +51,7 @@ import {
 
 import { updateOrCreateOtherTools } from "@/services/other-tools";
 
-export default function NewToolForm() {
+export default function ToolForm() {
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
 
@@ -116,6 +116,19 @@ export default function NewToolForm() {
       },
     },
     request: {},
+  });
+
+  const { mutate: mutateDeleteOtherToolsId } = useDeleteOtherToolsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting the tool:", data);
+        toast.success("Success deleting the tool");
+        push(`/datasets`);
+      },
+      onError: (error: Error) => {
+        console.error("Error deleting the tool:", error);
+      },
+    },
   });
 
   const { mutate: mutatePutToolEditSuggestionId } = usePutToolEditSuggestionsId({
@@ -302,18 +315,28 @@ export default function NewToolForm() {
     }
   };
 
+  const handleDelete = useCallback(() => {
+    mutateDeleteOtherToolsId({ id: +id });
+  }, [mutateDeleteOtherToolsId, id]);
+
   return (
     <>
       <DashboardFormControls
         isNew={!id}
         title={!id ? "New tool" : "Edit tool"}
         id="other-tool-create"
-        cancelVariant={ME_DATA?.role?.type === "admin" && !!id ? "reject" : "cancel"}
         handleReject={handleReject}
         handleCancel={handleCancel}
+        handleDelete={handleDelete}
+        status={editSuggestionIdData?.data?.attributes?.review_status}
       />
-      <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
-        <p>Fill the tool&apos;s information</p>
+      <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
+        <p>
+          Fill the tool&apos;s information{" "}
+          <span className="text-sm font-light">
+            (<sup>*</sup>required fields)
+          </span>
+        </p>
         <Form {...form}>
           <form
             id="other-tool-create"
@@ -326,7 +349,9 @@ export default function NewToolForm() {
                 name="name"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Tool name</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Tool name<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -347,7 +372,9 @@ export default function NewToolForm() {
                 name="link"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Website link</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Website link<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -369,7 +396,9 @@ export default function NewToolForm() {
                 name="description"
                 render={({ field }) => (
                   <FormItem className="col-span-2 space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Description</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Description<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <MarkdownEditor
                         {...field}
@@ -393,7 +422,9 @@ export default function NewToolForm() {
                 name="category"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Category</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Category<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Select
                         value={`${field.value}`}
@@ -432,7 +463,7 @@ export default function NewToolForm() {
             </Button>
           </form>
         </Form>
-      </NewDatasetDataFormWrapper>
+      </DashboardFormWrapper>
     </>
   );
 }

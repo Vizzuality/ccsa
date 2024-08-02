@@ -42,7 +42,7 @@ export default function NewDatasetPage() {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <NewDatasetForm />;
+      <NewDatasetForm />
     </>
   );
 }

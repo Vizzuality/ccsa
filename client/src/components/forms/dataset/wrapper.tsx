@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/classnames";
 
-export default function NewDatasetDataFormWrapper({
+export default function DashboardFormWrapper({
   children,
   header = true,
   className,
