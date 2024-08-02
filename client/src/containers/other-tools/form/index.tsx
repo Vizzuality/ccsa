@@ -28,7 +28,7 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
-import NewDatasetDataFormWrapper from "@/components/forms/dataset/wrapper";
+import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,7 +50,6 @@ import {
 } from "@/components/ui/select";
 
 import { updateOrCreateOtherTools } from "@/services/other-tools";
-import { useDeleteDatasetsId } from "@/types/generated/dataset";
 
 export default function ToolForm() {
   const { push } = useRouter();
@@ -119,7 +118,7 @@ export default function ToolForm() {
     request: {},
   });
 
-  const { mutate: mutateDeleteTools } = useDeleteOtherToolsId({
+  const { mutate: mutateDeleteOtherToolsId } = useDeleteOtherToolsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success deleting the tool:", data);
@@ -317,8 +316,8 @@ export default function ToolForm() {
   };
 
   const handleDelete = useCallback(() => {
-    mutateDeleteTools({ id: +id });
-  }, []);
+    mutateDeleteOtherToolsId({ id: +id });
+  }, [mutateDeleteOtherToolsId, id]);
 
   return (
     <>
@@ -331,11 +330,11 @@ export default function ToolForm() {
         handleDelete={handleDelete}
         status={editSuggestionIdData?.data?.attributes?.review_status}
       />
-      <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
+      <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>
           Fill the tool&apos;s information{" "}
           <span className="text-sm font-light">
-            (<sup className="">*</sup>required fields)
+            (<sup>*</sup>required fields)
           </span>
         </p>
         <Form {...form}>
@@ -464,7 +463,7 @@ export default function ToolForm() {
             </Button>
           </form>
         </Form>
-      </NewDatasetDataFormWrapper>
+      </DashboardFormWrapper>
     </>
   );
 }

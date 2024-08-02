@@ -39,7 +39,7 @@ import {
 } from "@/components/ui/form";
 
 import type { Data, VALUE_TYPE } from "./types";
-import NewDatasetDataFormWrapper from "./wrapper";
+import DashboardFormWrapper from "./wrapper";
 import { useDeleteDatasetsId } from "@/types/generated/dataset";
 
 const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
@@ -176,7 +176,7 @@ export default function DatasetColorsForm({
     request: {},
   });
 
-  const { mutate: mutateDeleteDatasetId } = useDeleteDatasetsId({
+  const { mutate: mutateDeleteDatasetsId } = useDeleteDatasetsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success deleting dataset:", data);
@@ -226,8 +226,8 @@ export default function DatasetColorsForm({
   };
 
   const handleDelete = useCallback(() => {
-    mutateDeleteDatasetId({ id: +id });
-  }, []);
+    mutateDeleteDatasetsId({ id: +id });
+  }, [mutateDeleteDatasetsId, id]);
 
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
@@ -262,7 +262,7 @@ export default function DatasetColorsForm({
           handleDelete={handleDelete}
         />
       )}
-      <NewDatasetDataFormWrapper header={header}>
+      <DashboardFormWrapper header={header}>
         {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}
 
@@ -403,7 +403,7 @@ export default function DatasetColorsForm({
             </fieldset>
           </form>
         </Form>
-      </NewDatasetDataFormWrapper>
+      </DashboardFormWrapper>
     </>
   );
 }

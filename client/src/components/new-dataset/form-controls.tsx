@@ -1,15 +1,15 @@
 "use client";
 
-import { FC, useCallback } from "react";
+import { FC } from "react";
 
 import { useSession } from "next-auth/react";
+
+import { LuTrash2 } from "react-icons/lu";
 
 import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { Button } from "@/components/ui/button";
-
-import { LuTrash2 } from "react-icons/lu";
 
 type DashboardFormControls = {
   isNew?: boolean;

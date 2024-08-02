@@ -30,7 +30,7 @@ import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
 
-import NewDatasetDataFormWrapper from "@/components/forms/dataset/wrapper";
+import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,7 +53,7 @@ import {
 import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
 
-export default function NewCollaboratorForm() {
+export default function CollaboratorForm() {
   const [imageId, setImageId] = useState<number | null>(null);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
@@ -127,7 +127,7 @@ export default function NewCollaboratorForm() {
     request: {},
   });
 
-  const { mutate: mutateDeleteCollaborator } = useDeleteCollaboratorsId({
+  const { mutate: mutateDeleteCollaboratorId } = useDeleteCollaboratorsId({
     mutation: {
       onSuccess: (data) => {
         console.info("Success deleting collaborator:", data);
@@ -307,9 +307,9 @@ export default function NewCollaboratorForm() {
     },
   });
 
-  const handleDelete = () => {
-    mutateDeleteCollaborator({ id: +id });
-  };
+  const handleDelete = useCallback(() => {
+    mutateDeleteCollaboratorId({ id: +id });
+  }, [id, mutateDeleteCollaboratorId]);
 
   const changes =
     !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedDataId?.data?.attributes
@@ -327,11 +327,11 @@ export default function NewCollaboratorForm() {
         handleDelete={handleDelete}
         status={collaboratorSuggestedDataId?.data?.attributes?.review_status}
       />
-      <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
+      <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>
           Fill the organization&apos;s information{" "}
           <span className="text-sm font-light">
-            (<sup className="">*</sup>required fields)
+            (<sup>*</sup>required fields)
           </span>
         </p>
         <Form {...form}>
@@ -477,7 +477,7 @@ export default function NewCollaboratorForm() {
             </Button>
           </form>
         </Form>
-      </NewDatasetDataFormWrapper>
+      </DashboardFormWrapper>
     </>
   );
 }

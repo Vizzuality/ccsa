@@ -15,11 +15,7 @@ import { cn } from "@/lib/classnames";
 import { isEmpty } from "@/lib/utils/objects";
 
 import { useGetCategories } from "@/types/generated/category";
-import {
-  UsersPermissionsRole,
-  UsersPermissionsUser,
-  CategoryResponse,
-} from "@/types/generated/strapi.schemas";
+import { CategoryResponse } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { datasetStepAtom, useSyncSearchParams, INITIAL_DATASET_VALUES } from "@/app/store";
@@ -50,7 +46,7 @@ import {
 } from "@/components/ui/select";
 
 // import { usePostDatasets } from "@/types/generated/dataset";
-import NewDatasetDataFormWrapper from "./wrapper";
+import DashboardFormWrapper from "./wrapper";
 
 export default function DatasetSettingsForm({
   title,
@@ -76,7 +72,6 @@ export default function DatasetSettingsForm({
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
   });
-  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
   const isDatasetNew = isEmpty(data);
 
   const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
@@ -174,7 +169,7 @@ export default function DatasetSettingsForm({
           status={data.review_status}
         />
       )}
-      <NewDatasetDataFormWrapper header={header}>
+      <DashboardFormWrapper header={header}>
         {header && <NewDatasetNavigation data={rawData} id={id} form={form} />}
         {header && <StepDescription />}
 
@@ -186,7 +181,9 @@ export default function DatasetSettingsForm({
                 name="name"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Name</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Name<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -207,7 +204,9 @@ export default function DatasetSettingsForm({
                 name="value_type"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Type of value</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Type of value<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger
@@ -236,7 +235,9 @@ export default function DatasetSettingsForm({
                 name="category"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Category</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Category<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Select value={`${field.value}`} onValueChange={(v) => field.onChange(+v)}>
                         <SelectTrigger
@@ -292,7 +293,9 @@ export default function DatasetSettingsForm({
                 name="description"
                 render={({ field }) => (
                   <FormItem className="col-span-2 space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Description</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Description<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <MarkdownEditor
                         {...field}
@@ -317,7 +320,7 @@ export default function DatasetSettingsForm({
             </Button>
           </form>
         </Form>
-      </NewDatasetDataFormWrapper>
+      </DashboardFormWrapper>
     </>
   );
 }

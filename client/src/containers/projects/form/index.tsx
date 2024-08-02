@@ -33,7 +33,7 @@ import { useSyncSearchParams } from "@/app/store";
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
 
-import NewDatasetDataFormWrapper from "@/components/forms/dataset/wrapper";
+import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
 import {
@@ -180,7 +180,7 @@ export default function ProjectForm() {
     request: {},
   });
 
-  const { mutate: mutateDeleteProject } = useDeleteProjectsId({
+  const { mutate: mutateDeleteProjectsId } = useDeleteProjectsId({
     mutation: {
       onSuccess: () => {
         console.info("Success deleting a project");
@@ -403,9 +403,9 @@ export default function ProjectForm() {
     }
   };
 
-  const handleDelete = () => {
-    mutateDeleteProject({ id: +id });
-  };
+  const handleDelete = useCallback(() => {
+    mutateDeleteProjectsId({ id: +id });
+  }, [id, mutateDeleteProjectsId]);
 
   const changes =
     !projectData?.data?.attributes && !!id && projectsSuggestedData?.data?.attributes
@@ -424,11 +424,11 @@ export default function ProjectForm() {
         status={projectsSuggestedData?.data?.attributes?.review_status}
       />
 
-      <NewDatasetDataFormWrapper header={true} className="m-auto w-full max-w-sm">
+      <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p className="m-auto w-full max-w-sm">
           Fill the project&apos;s information{" "}
           <span className="text-sm font-light">
-            (<sup className="">*</sup>required fields)
+            (<sup>*</sup>required fields)
           </span>
         </p>
         <Form {...form}>
@@ -715,7 +715,7 @@ export default function ProjectForm() {
             </Button>
           </form>
         </Form>
-      </NewDatasetDataFormWrapper>
+      </DashboardFormWrapper>
     </>
   );
 }
