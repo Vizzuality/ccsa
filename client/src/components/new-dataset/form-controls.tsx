@@ -9,6 +9,17 @@ import { LuTrash2 } from "react-icons/lu";
 import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
 type DashboardFormControls = {
@@ -54,15 +65,29 @@ export const DashboardFormControls: FC<DashboardFormControls> = ({
         </div>
         <div className="flex items-center space-x-2 text-sm sm:flex-row">
           {isAdmin && !isNew && (
-            <Button
-              size="sm"
-              variant="destructive-outline"
-              onClick={handleDelete}
-              className="space-x-2"
-            >
-              <span>Delete</span>
-              <LuTrash2 />
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button size="sm" variant="destructive-outline" className="space-x-2">
+                  <span>Delete</span>
+                  <LuTrash2 />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently remove your data from our
+                    database.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction variant="destructive" onClick={handleDelete}>
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           )}
           <Button
             size="sm"
