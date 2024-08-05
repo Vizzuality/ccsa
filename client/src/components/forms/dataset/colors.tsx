@@ -15,6 +15,8 @@ import { z } from "zod";
 
 import { cn } from "@/lib/classnames";
 
+import chroma from "chroma-js";
+
 import {
   getGetDatasetEditSuggestionsIdQueryKey,
   useGetDatasetEditSuggestionsId,
@@ -38,6 +40,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
+import { DEFAULT_COLORS } from "@/components/forms/dataset/constants";
 import type { Data, VALUE_TYPE } from "./types";
 import DashboardFormWrapper from "./wrapper";
 import { useDeleteDatasetsId } from "@/types/generated/dataset";
@@ -49,11 +52,14 @@ const getDefaultFormSchema = () =>
     min: z
       .string()
       .min(1, { message: "Please enter a valid hex color for min" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for min" }),
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for min" })
+      .optional(),
+
     max: z
       .string()
       .min(1, { message: "Please enter a valid hex color for min" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for max" }),
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for max" })
+      .optional(),
   });
 
 const getBooleanFormSchema = () =>
@@ -61,26 +67,28 @@ const getBooleanFormSchema = () =>
     yes: z
       .string()
       .min(1, { message: "Please enter a valid hex color for YES" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for YES" }),
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for YES" })
+      .optional(),
     no: z
       .string()
       .min(1, { message: "Please enter a valid hex color for NO" })
-      .regex(hexColorRegex, { message: "Please enter a valid hex color for NO" }),
+      .regex(hexColorRegex, { message: "Please enter a valid hex color for NO" })
+      .optional(),
   });
 
 const getTextFormSchema = (categories: string[] | null): z.ZodObject<z.ZodRawShape> => {
   if (!categories) return z.object({});
+
   const schemaShape = categories.reduce(
-    (acc, category) => {
-      return {
-        ...acc,
-        [category]: z
-          .string()
-          .min(1, { message: "Please chose a color" })
-          .regex(hexColorRegex, { message: "Please enter a valid hex color" }),
-      };
+    (acc: Record<string, z.ZodOptional<z.ZodString>>, category) => {
+      acc[category] = z
+        .string()
+        .min(1, { message: "Please choose a color" })
+        .regex(hexColorRegex, { message: "Please enter a valid hex color" })
+        .optional();
+      return acc;
     },
-    {} as Record<string, z.ZodString>,
+    {},
   );
 
   return z.object(schemaShape);
@@ -192,11 +200,15 @@ export default function DatasetColorsForm({
 
   const values = useMemo(() => {
     if (value_type === "text") {
+      const colorsLength = categories?.length;
+      const defaultColors = chroma
+        .scale([DEFAULT_COLORS.min, DEFAULT_COLORS.max])
+        .colors(colorsLength);
       return categories!.reduce(
-        (acc, category) => {
+        (acc, category, i) => {
           return {
             ...acc,
-            [category]: colors[category] || "",
+            [category]: colors[category] || defaultColors[i],
           };
         },
         {} as Record<string, string | number>,
@@ -204,13 +216,13 @@ export default function DatasetColorsForm({
     }
     if (value_type === "boolean") {
       return {
-        yes: colors.yes,
-        no: colors.no,
+        yes: colors.yes || DEFAULT_COLORS.max,
+        no: colors.no || DEFAULT_COLORS.min,
       };
     }
     return {
-      min: colors?.min,
-      max: colors?.max,
+      min: colors?.min || DEFAULT_COLORS.min,
+      max: colors?.max || DEFAULT_COLORS.max,
     };
   }, [colors, categories, value_type]);
 

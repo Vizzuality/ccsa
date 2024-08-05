@@ -6,6 +6,9 @@ import { usePathname } from "next/navigation";
 
 import { useSetAtom, useAtom } from "jotai";
 import { useSession } from "next-auth/react";
+import { LuInfo } from "react-icons/lu";
+
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 
 import { downloadCSV } from "@/lib/utils/csv";
 
@@ -18,6 +21,7 @@ import {
 } from "@/app/store";
 
 import { validateCsv } from "@/services/datasets";
+import CSVInfoContent from "./csv-info-content";
 
 export default function Step2() {
   const [formValuesNew] = useAtom(datasetValuesNewAtom);
@@ -52,7 +56,7 @@ export default function Step2() {
 
   return (
     <div className="flex justify-between text-xs font-light">
-      <div className="space-x-2">
+      <div className="flex items-center ">
         <div {...getRootProps()}>
           <span>Add data manually or </span>
           <span className="cursor-pointer text-primary underline">
@@ -66,6 +70,15 @@ export default function Step2() {
             />
           </span>
         </div>
+        <Dialog>
+          <DialogTrigger onClick={(e) => e.stopPropagation()}>
+            <LuInfo className="mb-2.5 h-5 w-5 pl-1 font-bold text-primary" />
+          </DialogTrigger>
+
+          <DialogContent>
+            <CSVInfoContent valueType={valueType} />
+          </DialogContent>
+        </Dialog>
       </div>
       <button onClick={handleDownload} className="text-primary underline">
         Download template
