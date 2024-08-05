@@ -4894,6 +4894,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/chroma-js@npm:^2.4.4":
+  version: 2.4.4
+  resolution: "@types/chroma-js@npm:2.4.4"
+  checksum: 32d69cb4c071b3d18650b803a7858d5d14e6b59fc55deb540ea29d6172f3334cddf1823ab1221cb123077171db0510b48562bac2a5853dc71f60318c5ae250bb
+  languageName: node
+  linkType: hard
+
 "@types/connect@npm:*":
   version: 3.4.37
   resolution: "@types/connect@npm:3.4.37"
@@ -6380,6 +6387,7 @@ __metadata:
     "@tanstack/eslint-plugin-query": 4.34.1
     "@tanstack/react-query": 4.35.3
     "@turf/centroid": 7.0.0-alpha.2
+    "@types/chroma-js": ^2.4.4
     "@types/express": 4.17.18
     "@types/geojson": ^7946.0.12
     "@types/lodash-es": ^4.17.10
@@ -6394,9 +6402,11 @@ __metadata:
     "@vinhpd/react-simple-captcha": ^9.0.1
     autoprefixer: 10.4.16
     axios: ^1.5.1
+    chroma-js: 2.6.0
     class-variance-authority: 0.7.0
     clsx: 2.0.0
     cmdk: ^0.2.0
+    date-fns: 3.6.0
     deck.gl: ^8.9.31
     eslint: ^9.8.0
     eslint-config-next: 13.5.3
@@ -6514,6 +6524,13 @@ __metadata:
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
   checksum: c57cf9dd0791e2f18a5ee9c1a299ae6e801ff58fee96dc8bfd0dcb4738a6ce58dd252a3605b1c93c6418fe4f9d5093b28ffbf4d66648cb2a9c67eaef9679be2f
+  languageName: node
+  linkType: hard
+
+"chroma-js@npm:2.6.0":
+  version: 2.6.0
+  resolution: "chroma-js@npm:2.6.0"
+  checksum: 6b361e4a35fb13af8772ca537d83bae6e0c3b8deebe71957227f5c59b197a8ad5062e3ca826d0578f726f978a94d08948147e567f96bbe9ed27f516061e27cb8
   languageName: node
   linkType: hard
 
@@ -7021,6 +7038,13 @@ __metadata:
   version: 2.0.2
   resolution: "data-uri-to-buffer@npm:2.0.2"
   checksum: 152bec5e77513ee253a7c686700a1723246f582dad8b614e8eaaaba7fa45a15c8671ae4b8f4843f4f3a002dae1d3e7a20f852f7d7bdc8b4c15cfe7adfdfb07f8
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:3.6.0":
+  version: 3.6.0
+  resolution: "date-fns@npm:3.6.0"
+  checksum: 0daa1e9a436cf99f9f2ae9232b55e11f3dd46132bee10987164f3eebd29f245b2e066d7d7db40782627411ecf18551d8f4c9fcdf2226e48bb66545407d448ab7
   languageName: node
   linkType: hard
 

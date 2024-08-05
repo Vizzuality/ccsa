@@ -1,3 +1,4 @@
+import exp from "constants";
 import type { DATA_COLUMN, VALUE_TYPE } from "./types";
 
 // Form DATA (step 2)
@@ -115,3 +116,15 @@ export const COLORS_FIELDS_RESOURCE = [
     value: "link_url",
   },
 ];
+
+export const VALUE_TYPE_DICTIONARY = {
+  text: "Text",
+  number: "Number",
+  boolean: "True / False",
+  resource: "Resource / Link",
+};
+
+export const DEFAULT_COLORS = {
+  min: "#84DAF4",
+  max: "#999",
+};

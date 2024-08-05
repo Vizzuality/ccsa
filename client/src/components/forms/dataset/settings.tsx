@@ -45,7 +45,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// import { usePostDatasets } from "@/types/generated/dataset";
+import { VALUE_TYPE_DICTIONARY } from "./constants";
 import DashboardFormWrapper from "./wrapper";
 
 export default function DatasetSettingsForm({
@@ -86,7 +86,7 @@ export default function DatasetSettingsForm({
 
   const value_types = ["text", "number", "boolean", "resource"] as const;
   const valueTypesOptions = value_types.map((type) => ({
-    label: type,
+    label: VALUE_TYPE_DICTIONARY[type],
     value: type,
   }));
 
