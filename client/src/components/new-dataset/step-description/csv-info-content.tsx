@@ -1,7 +1,6 @@
 import { VALUE_TYPE } from "@/components/forms/dataset/types";
 
 export default function CSVInfoContent({ valueType }: { valueType: VALUE_TYPE }) {
-  console.log(valueType);
   return (
     <div className="space-y-5 p-5">
       <h3 className="font-bold">CSV Import Information</h3>

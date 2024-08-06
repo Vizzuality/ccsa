@@ -5,7 +5,7 @@ import { useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
@@ -149,7 +149,10 @@ export default function DatasetColorsForm({
   const queryClient = useQueryClient();
   const URLParams = useSyncSearchParams();
 
-  const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(id), {
+  const params = useParams();
+  const { id: datasetId } = params;
+
+  const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(datasetId), {
     populate: "*",
   });
 
@@ -160,6 +163,8 @@ export default function DatasetColorsForm({
     populate: "role",
   });
 
+  const previousData = (datasetDataPendingToApprove?.data?.attributes?.colors ||
+    colors) as Data["colors"];
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
   const value_type = rawData?.settings?.value_type;
@@ -208,7 +213,7 @@ export default function DatasetColorsForm({
         (acc, category, i) => {
           return {
             ...acc,
-            [category]: colors[category] || defaultColors[i],
+            [category]: previousData?.[category] || defaultColors[i],
           };
         },
         {} as Record<string, string | number>,
@@ -216,15 +221,15 @@ export default function DatasetColorsForm({
     }
     if (value_type === "boolean") {
       return {
-        yes: colors.yes || DEFAULT_COLORS.max,
-        no: colors.no || DEFAULT_COLORS.min,
+        yes: previousData?.yes || DEFAULT_COLORS.max,
+        no: previousData.no || DEFAULT_COLORS.min,
       };
     }
     return {
-      min: colors?.min || DEFAULT_COLORS.min,
-      max: colors?.max || DEFAULT_COLORS.max,
+      min: previousData?.min || DEFAULT_COLORS.min,
+      max: previousData?.max || DEFAULT_COLORS.max,
     };
-  }, [colors, categories, value_type]);
+  }, [previousData, categories, value_type]);
 
   const formSchema = getFormSchema({ categories, value_type });
   const form = useForm<z.infer<typeof formSchema>>({
@@ -243,7 +248,6 @@ export default function DatasetColorsForm({
 
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
-      // Save this into useState
       onSubmit(values);
     },
     [onSubmit],
