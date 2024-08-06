@@ -77,6 +77,13 @@ export function compareDatasetsDataObjects(
   if (!obj2) {
     return [];
   }
+
+  const isEqual = (val1: any, val2: any): boolean => {
+    if (val1 === val2) return true;
+    if ((val1 === 0 && val2 === null) || (val1 === null && val2 === 0)) return true;
+    return false;
+  };
+
   if (type === "resource") {
     const changes: { [key: string]: ChangeType[] }[] = [];
 
@@ -94,7 +101,7 @@ export function compareDatasetsDataObjects(
 
           const attributes: AttributeType[] = ["link_title", "description", "link_url"];
           attributes.forEach((attr) => {
-            if (item1[attr] !== item2[attr]) {
+            if (!isEqual(item1[attr], item2[attr])) {
               keyChanges.push({ attr, index: i });
             }
           });
@@ -114,7 +121,7 @@ export function compareDatasetsDataObjects(
       const value1 = obj1[key];
       const value2 = obj2[key];
 
-      if (value1 !== value2) {
+      if (!isEqual(value1, value2)) {
         changes.push(key);
       }
     });

@@ -56,6 +56,7 @@ import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
 import type { VALUE_TYPE, Data, DatasetValuesCSV } from "./types";
 import DashboardFormWrapper from "./wrapper";
+import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 
 // Types for deep nested objects function
 type ParamType = "link_url" | "description" | "link_title";
@@ -86,8 +87,11 @@ export default function DatasetDataForm({
   const [datasetValues] = useAtom(datasetValuesJsonUploadedAtom);
   const data = rawData.data;
   const { push } = useRouter();
+
   const URLParams = useSyncSearchParams();
   const params = useParams();
+  const { id: datasetId } = params;
+  const editedSuggestionData = useGetDatasetEditSuggestionsId(+datasetId);
 
   const { id: datasetID } = params;
 
@@ -123,7 +127,6 @@ export default function DatasetDataForm({
     [key: string]: Resource[];
   }>(() => {
     const transformedObject: { [key: string]: Resource[] } = {};
-
     datasetValuesData?.data?.forEach(({ attributes }) => {
       const countryCode = attributes?.country?.data?.attributes?.iso3;
       if (countryCode) {
@@ -192,6 +195,9 @@ export default function DatasetDataForm({
     if (rawData.settings.value_type === "resource" && isParsedDatasetCSVValuesEmpty) {
       return rawData.data;
     }
+
+    if (editedSuggestionData?.data?.data?.attributes?.data)
+      return editedSuggestionData?.data?.data?.attributes?.data as Data["data"];
 
     const c = countries
       .map((c) => c?.attributes?.iso3 as string)

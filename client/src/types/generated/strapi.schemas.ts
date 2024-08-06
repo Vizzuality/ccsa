@@ -12860,6 +12860,9 @@ export interface Dataset {
   updatedAt?: string;
   updatedBy?: DatasetUpdatedBy;
   value_type: DatasetValueType;
+  colors?: {
+    [key: string]: string;
+  };
 }
 
 export type DatasetLayersDataItemAttributes = { [key: string]: any };

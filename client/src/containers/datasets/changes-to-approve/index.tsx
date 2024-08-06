@@ -55,7 +55,6 @@ export default function FormToApprove() {
   const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(id), {
     populate: "*",
   });
-
   const datasetId = datasetDataPendingToApprove?.data?.attributes?.dataset?.data?.id;
 
   // Check previous data for that dataset
@@ -103,8 +102,10 @@ export default function FormToApprove() {
           queryKey: getGetDatasetEditSuggestionsIdQueryKey(Number(id)),
         });
         console.info("Success updating dataset:", data);
-        toast.success("Success updating dataset suggestion");
-        push(`/dashboard`);
+        if (ME_DATA?.role?.type === "authenticated") {
+          toast.success("Success updating dataset suggestion");
+          push(`/dashboard`);
+        }
       },
       onError: (error) => {
         toast.error("There was a problem updating the dataset suggestion");
@@ -130,6 +131,7 @@ export default function FormToApprove() {
     };
 
     const data =
+      (datasetDataPendingToApprove?.data?.attributes?.data as Data["data"]) ||
       datasetValuesData?.data?.reduce(
         (acc, curr) => {
           const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
@@ -158,12 +160,13 @@ export default function FormToApprove() {
           return acc;
         },
         {} as Data["data"],
-      ) || {};
+      ) ||
+      {};
 
     const colors =
       (previousDataSource?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors ||
+      previousDataSource?.data?.attributes?.colors ||
       ({} as Data["colors"]);
-
     return { settings, data, colors };
   }, [datasetValuesData, previousDataSource]);
 
@@ -258,7 +261,7 @@ export default function FormToApprove() {
         const { value_type } = data?.settings || {};
 
         const parsedData = getDataParsed(value_type, data);
-        console.info("data contr", data, parsedData);
+
         mutatePutDatasetEditSuggestion({
           id: datasetDataPendingToApprove?.data?.id,
           data: {
@@ -277,7 +280,6 @@ export default function FormToApprove() {
       if (ME_DATA?.role?.type === "admin" && session?.apiToken) {
         const { value_type } = data?.settings || {};
         const parsedData = getDataParsed(value_type, data);
-        console.info("data admin", datasetDataPendingToApprove, parsedData);
 
         updateOrCreateDataset(
           {
