@@ -164,8 +164,8 @@ export default function FormToApprove() {
       {};
 
     const colors =
+      datasetDataPendingToApprove?.data?.attributes?.colors ||
       (previousDataSource?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors ||
-      previousDataSource?.data?.attributes?.colors ||
       ({} as Data["colors"]);
     return { settings, data, colors };
   }, [datasetValuesData, previousDataSource]);

@@ -19,7 +19,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
+import ApprovedChangesRow from "./approved-changes-row";
+import PendingDeclinedChangesRow from "./pending-declined-changes-row";
 export default function PendingChangesAdmin() {
   const { data: datasetsDataSuggestions } = useGetDatasetEditSuggestions({
     populate: "*",
@@ -99,50 +100,14 @@ export default function PendingChangesAdmin() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {orderedData.map((d) => (
-            <TableRow key={d.createdAt}>
-              <TableCell className="whitespace-nowrap font-medium">
-                <Link href={`/dashboard/${d.route}/${d.id}`} className="flex w-full">
-                  {d.label}
-                </Link>
-              </TableCell>
-              <TableCell className="whitespace-nowrap font-medium">
-                <Link href={`/dashboard/${d.route}/${d.id}`}>{d.name}</Link>
-              </TableCell>
-              <TableCell className="w-full">
-                <Link href={`/dashboard/${d.route}/${d.id}`} className="w-full">
-                  {d.author?.data?.attributes?.email}
-                </Link>
-              </TableCell>
-              <TableCell>
-                <Link
-                  href={`/dashboard/datasets/changes-to-approve/${d.id}`}
-                  className="flex w-full"
-                >
-                  <span
-                    className={cn({
-                      "rounded-sm border px-2.5 py-1": true,
-                      "border-opacity310 border-green-300 bg-green-300 bg-opacity-20 text-green-400":
-                        d.review_status === "approved",
-                      "border-primary bg-primary/10 text-primary": d.review_status === "pending",
-                      "border-red-500 text-red-500": d.review_status === "declined",
-                    })}
-                  >
-                    {d.review_status}
-                  </span>
-                </Link>
-              </TableCell>
-              <TableCell>
-                <Link
-                  href={`/dashboard/${d.route}/${d.id}`}
-                  className="flex w-full whitespace-nowrap"
-                >
-                  {d.updatedAt && d.createdAt && formatDate(d.updatedAt)}
-                  {!d.updatedAt && d.createdAt && formatDate(d.createdAt)}
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
+          {!!orderedData.length &&
+            orderedData.map((d) => {
+              if (d.review_status !== "approved") {
+                return <PendingDeclinedChangesRow key={d.id} {...d} />;
+              } else {
+                return <ApprovedChangesRow key={d.id} {...d} />;
+              }
+            })}
         </TableBody>
       </Table>
     </div>
