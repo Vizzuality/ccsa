@@ -98,14 +98,30 @@ export default factories.createCoreController(
               `Sending email notification to the author about the Project Suggestion review status change`
             );
 
+            let htmlContent;
+
+            if (newReviewStatus === "approved") {
+              htmlContent = `<h3>We are pleased to inform you that your recent submission to the Climate Smart Map has been reviewed and approved for upload.</h3>
+                             <p>Thank you for your valuable contribution to enhancing data accessibility in the Caribbean. Your efforts play a crucial role in accelerating our progress towards achieving our climate objectives.</p>
+                             <p>You can view your approved submission on the Dashboard. If you have any further suggestions or if there is anything we can do to improve the Climate Smart Map or support your involvement, please let us know.</p>
+                             <p>We encourage you to share the Climate Smart Map with others to amplify its impact. Together, we can bring more funding and attention to the Caribbean's climate initiatives.</p>`;
+            } else if (newReviewStatus === "rejected") {
+              htmlContent = `<h3>Thank you for submitting your edit to the Climate Smart Map. After careful review, we regret to inform you that your submission has not been approved for upload at this time.</h3>
+                             <p>We appreciate your effort and dedication to enhancing data accessibility in the Caribbean.</p>
+                             <p>You can view the feedback and status of your submission on the Dashboard. Many times we need verification of the source of the data or an element was incomplete for which we need your input. If you have any questions or need further clarification, please do not hesitate to reach out to us.</p>
+                             <p>We value your contributions and encourage you to continue supporting the Climate Smart Map. If you have other suggestions or ideas, please feel free to share them with us. Together, we can work towards our collective goal of bringing more funding and attention to the Caribbean's climate initiatives.</p>`;
+            } else {
+              htmlContent = `<h3>Your Project suggestion has been ${newReviewStatus}</h3>
+                   <p>Your Project suggestion review status has been updated to "${newReviewStatus}".</p>`;
+            }
+
             await strapi.plugins["email"].services.email.send({
               to: userEmail,
               subject: `Project Suggestion ${
                 newReviewStatus.charAt(0).toUpperCase() +
                 newReviewStatus.slice(1)
               }`,
-              html: `<h3>Your Project suggestion has been ${newReviewStatus}</h3>
-                   <p>Your Project suggestion review status has been updated to "${newReviewStatus}".</p>`,
+              html: htmlContent,
             });
 
             emailStatus.userEmailSent = true;
