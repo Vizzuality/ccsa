@@ -104,8 +104,8 @@ export const DashboardFormControls: FC<DashboardFormControls> = ({
                   Reject
                 </Button>
               </DialogTrigger>
-              <DialogTitle>Reasons for Suggestion Rejection</DialogTitle>
               <DialogContent>
+                <DialogTitle>Reasons for Suggestion Rejection</DialogTitle>
                 <Textarea />
               </DialogContent>
             </Dialog>
