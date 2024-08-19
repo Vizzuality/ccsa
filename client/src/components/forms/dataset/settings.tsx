@@ -15,7 +15,11 @@ import { cn } from "@/lib/classnames";
 import { isEmpty } from "@/lib/utils/objects";
 
 import { useGetCategories } from "@/types/generated/category";
-import { CategoryResponse } from "@/types/generated/strapi.schemas";
+import {
+  CategoryResponse,
+  UsersPermissionsRole,
+  UsersPermissionsUser,
+} from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { datasetStepAtom, useSyncSearchParams, INITIAL_DATASET_VALUES } from "@/app/store";
@@ -55,6 +59,7 @@ export default function DatasetSettingsForm({
   data: rawData,
   changes,
   onSubmit,
+  status,
 }: {
   title: string;
   id: string;
@@ -62,6 +67,7 @@ export default function DatasetSettingsForm({
   data: Data;
   changes?: string[];
   onSubmit: (data: Data["settings"]) => void;
+  status?: "approved" | "pending" | "declined" | undefined;
 }) {
   const setStep = useSetAtom(datasetStepAtom);
   const data = rawData.settings;
@@ -72,6 +78,8 @@ export default function DatasetSettingsForm({
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
   });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+
   const isDatasetNew = isEmpty(data);
 
   const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
@@ -193,6 +201,7 @@ export default function DatasetSettingsForm({
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                       />
                     </FormControl>
                     <FormMessage />
@@ -214,6 +223,7 @@ export default function DatasetSettingsForm({
                             "h-10 w-full border-0 bg-gray-300/20": true,
                             "bg-green-400": changes?.includes(field.name),
                           })}
+                          disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                         >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
@@ -245,6 +255,7 @@ export default function DatasetSettingsForm({
                             "h-10 w-full border-0 bg-gray-300/20": true,
                             "bg-green-400": changes?.includes(field.name),
                           })}
+                          disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                         >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
@@ -280,6 +291,7 @@ export default function DatasetSettingsForm({
                             "bg-green-400": changes?.includes(field.name),
                           })}
                           placeholder="unit"
+                          disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                         />
                         <p className="text-xs">This will appear in the legend (e.g. dollars)</p>
                       </>
@@ -306,6 +318,8 @@ export default function DatasetSettingsForm({
                         className={cn({
                           "w-full": true,
                           "border-2 border-green-400": changes?.includes(field.name),
+                          "cursor-not-allowed":
+                            ME_DATA?.role?.type === "authenticated" && status === "declined",
                         })}
                         onChange={field.onChange}
                       />

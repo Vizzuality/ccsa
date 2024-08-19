@@ -34,6 +34,7 @@ import { INITIAL_DATASET_VALUES } from "@/app/store";
 
 import { Data, VALUE_TYPE } from "@/components/forms/dataset/types";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { updateOrCreateDataset } from "@/services/datasets";
@@ -41,6 +42,8 @@ import { updateOrCreateDataset } from "@/services/datasets";
 import ColorsContentToApprove from "./colors-content";
 import DataContentToApprove from "./data-content";
 import SettingsContentToApprove from "./settings-content";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 type TabsProps = "settings" | "data" | "colors";
 
@@ -171,7 +174,7 @@ export default function FormToApprove() {
   }, [datasetValuesData, previousDataSource]);
 
   const DATA_PREVIOUS_VALUES = useMemo(() => {
-    datasetData?.data?.attributes || ({} as DatasetEditSuggestion);
+    previousDataSource?.data?.attributes || ({} as DatasetEditSuggestion);
 
     return {
       settings: {
@@ -373,7 +376,7 @@ export default function FormToApprove() {
   const colorsChanges = !previousData?.colors
     ? []
     : getObjectDifferences(formValues.colors, previousData?.colors);
-
+  // TO DO - add textarea changes
   return (
     <>
       <div className="flex items-center justify-between py-4 sm:px-10 md:px-24 lg:px-32">
@@ -393,9 +396,25 @@ export default function FormToApprove() {
           </Link>
 
           {ME_DATA?.role?.type === "admin" && (
-            <Button size="sm" variant="destructive" onClick={handleReject}>
-              Reject
-            </Button>
+            <Dialog>
+              <DialogTrigger onClick={(e) => e.stopPropagation()}>
+                <Button size="sm" variant="destructive">
+                  Reject
+                </Button>
+              </DialogTrigger>
+
+              <DialogContent className="py-4">
+                <DialogTitle className="p-4">Reasons for Suggestion Rejection</DialogTitle>
+                <div className="space-y-4 px-4">
+                  <Textarea />
+                  <div className="flex justify-end pb-4">
+                    <Button size="sm" onClick={handleReject}>
+                      Submit
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           )}
 
           <Button form={ControlsStateId[tab]} size="sm" type="submit">
@@ -421,6 +440,7 @@ export default function FormToApprove() {
             isNewDataset={isNewDataset}
             changes={settingsChanges}
             handleSubmit={handleSettingsSubmit}
+            status={datasetDataPendingToApprove?.data?.attributes?.review_status}
           />
         </TabsContent>
         <TabsContent value="data">
@@ -430,6 +450,7 @@ export default function FormToApprove() {
             id={ControlsStateId.data}
             changes={dataChanges}
             handleSubmit={handleDataSubmit}
+            status={datasetDataPendingToApprove?.data?.attributes?.review_status}
           />
         </TabsContent>
         <TabsContent value="colors">
@@ -439,6 +460,7 @@ export default function FormToApprove() {
             isNewDataset={isNewDataset}
             changes={colorsChanges}
             handleSubmit={handleColorsSubmit}
+            status={datasetDataPendingToApprove?.data?.attributes?.review_status}
           />
         </TabsContent>
       </Tabs>

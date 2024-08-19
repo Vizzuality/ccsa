@@ -21,6 +21,7 @@ interface MultiComboboxProps {
   options?: { value: string | number; label: string }[];
   placeholder?: string;
   onChange: (value: (string | number)[]) => void;
+  disabled?: boolean;
 }
 
 export function MultiCombobox({
@@ -28,6 +29,7 @@ export function MultiCombobox({
   options = [],
   placeholder,
   onChange,
+  disabled,
 }: MultiComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -52,6 +54,7 @@ export function MultiCombobox({
           role="combobox"
           aria-expanded={open}
           className="w-full justify-between"
+          disabled={disabled}
         >
           {SELECTED}
           <LuChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

@@ -12,6 +12,7 @@ type ColorPickerProps = {
   value: string;
   className?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 };
 
 const ColorPicker: FC<ColorPickerProps> = ({
@@ -19,6 +20,7 @@ const ColorPicker: FC<ColorPickerProps> = ({
   value,
   className,
   onChange,
+  disabled,
 }: ColorPickerProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,7 +32,11 @@ const ColorPicker: FC<ColorPickerProps> = ({
         value={value}
         onChange={onChange}
         onClick={() => setIsOpen(!isOpen)}
-        className={cn("absolute inset-0 top-2 h-full w-full cursor-pointer opacity-0", className)}
+        className={cn(className, {
+          "absolute inset-0 top-2 h-full w-full cursor-pointer bg-transparent opacity-0": true,
+          "hidden bg-transparent bg-none": disabled,
+        })}
+        disabled={disabled}
       />
       <div
         className={cn({

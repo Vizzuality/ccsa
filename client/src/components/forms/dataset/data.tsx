@@ -17,7 +17,12 @@ import { isEmpty } from "@/lib/utils/objects";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasetValues } from "@/types/generated/dataset-value";
-import { CountryListResponseDataItem, Resource } from "@/types/generated/strapi.schemas";
+import {
+  CountryListResponseDataItem,
+  Resource,
+  UsersPermissionsUser,
+  UsersPermissionsRole,
+} from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import {
@@ -76,6 +81,7 @@ export default function DatasetDataForm({
   data: rawData,
   onSubmit,
   changes,
+  status,
 }: {
   title: string;
   id: string;
@@ -83,6 +89,7 @@ export default function DatasetDataForm({
   data: Data;
   onSubmit: (data: Data["data"]) => void;
   changes?: (Change | string)[];
+  status?: "approved" | "pending" | "declined" | undefined;
 }) {
   const [datasetValues] = useAtom(datasetValuesJsonUploadedAtom);
   const data = rawData.data;
@@ -100,6 +107,8 @@ export default function DatasetDataForm({
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
   });
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+
   const isDatasetNew = isEmpty(data);
 
   const { data: datasetValuesData } = useGetDatasetValues(
@@ -392,6 +401,10 @@ export default function DatasetDataForm({
                                                       "link_title",
                                                     ),
                                                   })}
+                                                  disabled={
+                                                    status === "declined" &&
+                                                    ME_DATA?.role?.type !== "admin"
+                                                  }
                                                 />
                                               </div>
                                               <div>
@@ -436,6 +449,10 @@ export default function DatasetDataForm({
                                                       "link_title",
                                                     ),
                                                   })}
+                                                  disabled={
+                                                    status === "declined" &&
+                                                    ME_DATA?.role?.type !== "admin"
+                                                  }
                                                 />
                                               </div>
                                               <div>
@@ -480,6 +497,10 @@ export default function DatasetDataForm({
                                                       "link_title",
                                                     ),
                                                   })}
+                                                  disabled={
+                                                    status === "declined" &&
+                                                    ME_DATA?.role?.type !== "admin"
+                                                  }
                                                 />
                                               </div>
 

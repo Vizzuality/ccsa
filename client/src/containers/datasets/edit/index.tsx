@@ -132,6 +132,7 @@ export default function EditDatasetForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success creating dataset:", data);
+        setCurrentStep(1);
         push(`/dashboard`);
       },
       onError: (error) => {
@@ -314,6 +315,7 @@ export default function EditDatasetForm() {
           title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleSettingsSubmit}
+          status={datasetEditData?.data?.attributes?.review_status}
         />
       )}
       {currentStep === 2 && (
@@ -322,6 +324,7 @@ export default function EditDatasetForm() {
           title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleDataSubmit}
+          status={datasetEditData?.data?.attributes?.review_status}
         />
       )}
       {currentStep === 3 && (
@@ -330,6 +333,7 @@ export default function EditDatasetForm() {
           title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleColorsSubmit}
+          status={datasetEditData?.data?.attributes?.review_status}
         />
       )}
     </>
