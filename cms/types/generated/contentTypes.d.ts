@@ -787,6 +787,7 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
       'api::collaborator.collaborator'
     >;
     image: Attribute.Media;
+    review_decision_details: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -947,6 +948,7 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
       'api::dataset.dataset'
     >;
     colors: Attribute.JSON;
+    review_decision_details: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1333,6 +1335,7 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
       'manyToOne',
       'api::project.project'
     >;
+    review_decision_details: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1450,6 +1453,7 @@ export interface ApiToolEditSuggestionToolEditSuggestion
       'manyToOne',
       'api::other-tool.other-tool'
     >;
+    review_decision_details: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

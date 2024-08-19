@@ -82,6 +82,9 @@
       "relation": "manyToOne",
       "target": "api::project.project",
       "inversedBy": "project_edit_suggestions"
+    },
+    "review_decision_details": {
+      "type": "text"
     }
   }
 }

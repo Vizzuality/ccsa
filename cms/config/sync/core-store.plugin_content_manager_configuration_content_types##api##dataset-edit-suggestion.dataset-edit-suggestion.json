@@ -178,6 +178,20 @@
           "sortable": false
         }
       },
+      "review_decision_details": {
+        "edit": {
+          "label": "review_decision_details",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "review_decision_details",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -238,6 +252,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "name",
+        "unit",
+        "value_type"
+      ],
       "edit": [
         [
           {
@@ -301,14 +321,12 @@
           {
             "name": "dataset",
             "size": 6
+          },
+          {
+            "name": "review_decision_details",
+            "size": 6
           }
         ]
-      ],
-      "list": [
-        "id",
-        "name",
-        "unit",
-        "value_type"
       ]
     }
   },
