@@ -21,6 +21,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { DialogContent, Dialog, DialogTrigger, DialogTitle } from "@radix-ui/react-dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 type DashboardFormControls = {
   isNew?: boolean;
@@ -89,14 +91,25 @@ export const DashboardFormControls: FC<DashboardFormControls> = ({
               </AlertDialogContent>
             </AlertDialog>
           )}
-          <Button
-            size="sm"
-            variant={(!isAdmin && isNew) || !isAdmin ? "destructive" : "primary-outline"}
-            onClick={onClick}
-          >
-            {((isAdmin && isNew) || !isAdmin) && "Cancel"}
-            {isAdmin && !isNew && "Reject"}
-          </Button>
+          {(isAdmin && isNew) ||
+            (!isAdmin && (
+              <Button size="sm" variant="primary-outline" onClick={onClick}>
+                Cancel
+              </Button>
+            ))}
+          {isAdmin && !isNew && (
+            <Dialog>
+              <DialogTrigger onClick={(e) => e.stopPropagation()}>
+                <Button size="sm" variant="destructive" onClick={handleReject}>
+                  Reject
+                </Button>
+              </DialogTrigger>
+              <DialogTitle>Reasons for Suggestion Rejection</DialogTitle>
+              <DialogContent>
+                <Textarea />
+              </DialogContent>
+            </Dialog>
+          )}
 
           <Button form={id} size="sm" type="submit">
             {!isAdmin && "Continue"}

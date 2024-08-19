@@ -135,6 +135,7 @@ export default function DatasetColorsForm({
   data: rawData,
   onSubmit,
   changes,
+  status,
 }: {
   title: string;
   id: string;
@@ -142,6 +143,7 @@ export default function DatasetColorsForm({
   data: Data;
   onSubmit: (data: Data["colors"]) => void;
   changes?: string[];
+  status?: "approved" | "pending" | "declined" | undefined;
 }) {
   const data = rawData.data;
   const colors = rawData.colors;
@@ -305,6 +307,7 @@ export default function DatasetColorsForm({
                             onChange={(e) => {
                               return field.onChange(e.target.value);
                             }}
+                            disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                           />
                         </FormControl>
                         <FormMessage />
@@ -332,6 +335,7 @@ export default function DatasetColorsForm({
                             onChange={(e) => {
                               return field.onChange(e.target.value);
                             }}
+                            disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                           />
                         </FormControl>
                         <FormMessage />
@@ -356,6 +360,7 @@ export default function DatasetColorsForm({
                             onChange={(e) => {
                               return field.onChange(e.target.value);
                             }}
+                            disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                           />
                         </FormControl>
                         <FormMessage />
@@ -384,6 +389,7 @@ export default function DatasetColorsForm({
                             onChange={(e) => {
                               return field.onChange(e.target.value);
                             }}
+                            disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                           />
                         </FormControl>
                         <FormMessage />
@@ -408,6 +414,7 @@ export default function DatasetColorsForm({
                             onChange={(e) => {
                               return field.onChange(e.target.value);
                             }}
+                            disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                           />
                         </FormControl>
                         <FormMessage />

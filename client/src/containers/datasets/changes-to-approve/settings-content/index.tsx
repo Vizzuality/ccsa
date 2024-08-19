@@ -11,21 +11,19 @@ export default function SettingsContentToApprove({
   isNewDataset,
   changes,
   handleSubmit,
+  status,
 }: {
   data: Data;
   id: string;
   isNewDataset: boolean;
   changes: string[];
   handleSubmit: (data: Data["settings"]) => void;
+  status: "approved" | "pending" | "declined" | undefined;
 }) {
   return (
     <div className="flex items-center py-10 sm:px-10 md:px-24 lg:px-32">
       <div className="flex w-full justify-between space-x-10">
-        <ApproveChangesFormLegend
-          changes={changes}
-          isNewDataset={isNewDataset}
-          status={data?.settings?.review_status}
-        />
+        <ApproveChangesFormLegend changes={changes} isNewDataset={isNewDataset} status={status} />
 
         <DatasetSettingsForm
           id={id}
@@ -34,6 +32,7 @@ export default function SettingsContentToApprove({
           header={false}
           onSubmit={handleSubmit}
           changes={changes}
+          status={status}
         />
       </div>
     </div>

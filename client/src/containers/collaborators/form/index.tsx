@@ -316,6 +316,7 @@ export default function CollaboratorForm() {
       ? []
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
 
+  const suggestionStatus = collaboratorSuggestedDataId?.data?.attributes?.review_status;
   return (
     <>
       <DashboardFormControls
@@ -325,7 +326,7 @@ export default function CollaboratorForm() {
         handleReject={handleReject}
         handleCancel={handleCancel}
         handleDelete={handleDelete}
-        status={collaboratorSuggestedDataId?.data?.attributes?.review_status}
+        status={suggestionStatus}
       />
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>
@@ -358,6 +359,9 @@ export default function CollaboratorForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -380,6 +384,10 @@ export default function CollaboratorForm() {
                             "h-10 w-full border-0 bg-gray-300/20": true,
                             "bg-green-400": changes?.includes(field.name),
                           })}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
                         >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
@@ -413,6 +421,9 @@ export default function CollaboratorForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -442,7 +453,15 @@ export default function CollaboratorForm() {
                           backgroundImage: `url(${previousData?.image?.data?.attributes?.url})`,
                         }}
                       >
-                        <input {...getInputProps()} ref={fileInputRef} type="file" />
+                        <input
+                          {...getInputProps()}
+                          ref={fileInputRef}
+                          type="file"
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
+                        />
 
                         <Image
                           priority

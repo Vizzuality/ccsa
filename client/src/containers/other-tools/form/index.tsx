@@ -319,6 +319,8 @@ export default function ToolForm() {
     mutateDeleteOtherToolsId({ id: +id });
   }, [mutateDeleteOtherToolsId, id]);
 
+  const suggestionStatus = editSuggestionIdData?.data?.attributes?.review_status;
+
   return (
     <>
       <DashboardFormControls
@@ -361,6 +363,9 @@ export default function ToolForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -384,6 +389,9 @@ export default function ToolForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -409,6 +417,9 @@ export default function ToolForm() {
                         className={cn({
                           "w-full": true,
                           "bg-green-400": changes?.includes(field.name),
+                          "cursor-not-allowed":
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined",
                         })}
                         onChange={field.onChange}
                       />
@@ -435,12 +446,19 @@ export default function ToolForm() {
                               category.value === previousData?.other_tools_category?.data?.id,
                           )?.label
                         }
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       >
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
                             "bg-green-400": changes?.includes(field.name),
                           })}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
                         >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>

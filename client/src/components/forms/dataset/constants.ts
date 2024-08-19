@@ -125,6 +125,6 @@ export const VALUE_TYPE_DICTIONARY = {
 };
 
 export const DEFAULT_COLORS = {
-  min: "#84DAF4",
-  max: "#999",
+  max: "#84DAF4",
+  min: "#999",
 };

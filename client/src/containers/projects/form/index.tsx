@@ -412,6 +412,7 @@ export default function ProjectForm() {
       ? []
       : getObjectDifferences(projectData?.data?.attributes, form.getValues());
 
+  const suggestionStatus = projectsSuggestedData?.data?.attributes?.review_status;
   return (
     <>
       <DashboardFormControls
@@ -421,7 +422,7 @@ export default function ProjectForm() {
         handleReject={handleReject}
         handleCancel={handleCancel}
         handleDelete={handleDelete}
-        status={projectsSuggestedData?.data?.attributes?.review_status}
+        status={suggestionStatus}
       />
 
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
@@ -455,6 +456,9 @@ export default function ProjectForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -478,6 +482,9 @@ export default function ProjectForm() {
                           "bg-green-400 placeholder:text-black": changes?.includes(field.name),
                         })}
                         placeholder="Add info about the project"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -500,6 +507,10 @@ export default function ProjectForm() {
                             "h-10 w-full border-0 bg-gray-300/20": true,
                             "bg-green-400": changes?.includes(field.name),
                           })}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
                         >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
@@ -535,6 +546,9 @@ export default function ProjectForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Amount"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -556,6 +570,10 @@ export default function ProjectForm() {
                           options={countriesData}
                           placeholder="Select at least one country"
                           onChange={field.onChange}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
                         />
                       </FormControl>
                       <FormMessage />
@@ -578,6 +596,10 @@ export default function ProjectForm() {
                           options={sdgsData}
                           placeholder="Select at least one SDG"
                           onChange={field.onChange}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
                         />
                       </FormControl>
                       <FormMessage />
@@ -602,6 +624,9 @@ export default function ProjectForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -624,6 +649,10 @@ export default function ProjectForm() {
                             "h-10 w-full border-0 bg-gray-300/20": true,
                             "bg-green-400": changes?.includes(field.name),
                           })}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
                         >
                           <SelectValue placeholder="Select one" />
                         </SelectTrigger>
@@ -660,6 +689,9 @@ export default function ProjectForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -681,6 +713,9 @@ export default function ProjectForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Source country"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
@@ -703,6 +738,9 @@ export default function ProjectForm() {
                           "bg-green-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
                       />
                     </FormControl>
                     <FormMessage />
