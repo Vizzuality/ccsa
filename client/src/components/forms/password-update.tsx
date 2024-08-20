@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import isEmpty from "lodash/isEmpty";
@@ -72,6 +72,7 @@ export default function UpdatePasswordForm() {
 
   const params = useSearchParams();
   const recoveryCode = params.get("code") as string;
+  const { push } = useRouter();
 
   const formPassword = useForm<z.infer<typeof formSchemaPassword>>({
     resolver: zodResolver(formSchemaPassword),
@@ -83,9 +84,12 @@ export default function UpdatePasswordForm() {
 
   const { mutate: updateUserPassword } = usePostAuthResetPassword({
     mutation: {
-      onSuccess: () => {
+      onSuccess: (data) => {
         console.info("Password updated successfully");
         toast.success("Password updated successfully");
+        const authToken = data.jwt as string;
+        localStorage.setItem("token", authToken);
+        push(`/`);
       },
       onError: (error) => {
         console.error("Error updating updating password:", error);
