@@ -62,7 +62,7 @@ const formSchemaPassword = z
     path: ["passwordConfirmation"],
   });
 
-export default function PersonalDataForm() {
+export default function UpdatePasswordForm() {
   const [fieldsVisibility, setFieldsVisibility] = useState<{
     [key: string]: boolean;
   }>({
