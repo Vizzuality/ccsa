@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import isEmpty from "lodash/isEmpty";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { z } from "zod";
-
+import { signIn } from "next-auth/react";
 import { usePostAuthResetPassword } from "@/types/generated/users-permissions-auth";
 
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,6 @@ import { Input } from "@/components/ui/input";
 export type FormPasswordFieldsProps = {
   label: string;
   name: "newPassword" | "passwordConfirmation";
-  type: string;
   placeholder: string;
 }[];
 
@@ -36,13 +35,11 @@ export const FORM_PASSWORD_FIELDS: FormPasswordFieldsProps = [
   {
     label: "New password",
     name: "newPassword",
-    type: "password",
     placeholder: "Enter your new password",
   },
   {
     label: "Confirm new password",
     name: "passwordConfirmation",
-    type: "password",
     placeholder: "Confirm your new password",
   },
 ];
@@ -87,9 +84,16 @@ export default function UpdatePasswordForm() {
       onSuccess: (data) => {
         console.info("Password updated successfully");
         toast.success("Password updated successfully");
-        const authToken = data.jwt as string;
-        localStorage.setItem("token", authToken);
-        push(`/`);
+
+        if (data.jwt) {
+          signIn("credentials", {
+            redirect: false,
+            jwt: data.jwt,
+            user: data.user,
+          });
+
+          push(`/`);
+        }
       },
       onError: (error) => {
         console.error("Error updating updating password:", error);
@@ -121,7 +125,7 @@ export default function UpdatePasswordForm() {
         <form onSubmit={formPassword.handleSubmit(onSubmitPassword)} className="space-y-6">
           <div className="space-y-4">
             <fieldset className="space-y-4">
-              {FORM_PASSWORD_FIELDS.map(({ name, label, type, placeholder }) => (
+              {FORM_PASSWORD_FIELDS.map(({ name, label, placeholder }) => (
                 <FormField
                   key={label}
                   control={formPassword.control}
@@ -133,7 +137,7 @@ export default function UpdatePasswordForm() {
                         <div className="relative">
                           <Input
                             {...field}
-                            type={type}
+                            type={fieldsVisibility?.[name] ? "text" : "password"}
                             className="h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95"
                             placeholder={placeholder}
                           />
