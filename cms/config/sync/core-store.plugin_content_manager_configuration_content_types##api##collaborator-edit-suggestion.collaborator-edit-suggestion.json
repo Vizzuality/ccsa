@@ -120,6 +120,20 @@
           "sortable": false
         }
       },
+      "review_decision_details": {
+        "edit": {
+          "label": "review_decision_details",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "review_decision_details",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -220,6 +234,10 @@
         [
           {
             "name": "image",
+            "size": 6
+          },
+          {
+            "name": "review_decision_details",
             "size": 6
           }
         ]

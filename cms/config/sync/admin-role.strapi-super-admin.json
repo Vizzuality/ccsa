@@ -68,7 +68,8 @@
           "review_status",
           "author",
           "collaborator",
-          "image"
+          "image",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -99,7 +100,8 @@
           "review_status",
           "author",
           "collaborator",
-          "image"
+          "image",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -116,7 +118,8 @@
           "review_status",
           "author",
           "collaborator",
-          "image"
+          "image",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -258,7 +261,8 @@
           "category",
           "layers",
           "dataset",
-          "colors"
+          "colors",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -293,7 +297,8 @@
           "category",
           "layers",
           "dataset",
-          "colors"
+          "colors",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -314,7 +319,8 @@
           "category",
           "layers",
           "dataset",
-          "colors"
+          "colors",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -749,7 +755,8 @@
           "countries",
           "pillar",
           "sdgs",
-          "project"
+          "project",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -789,7 +796,8 @@
           "countries",
           "pillar",
           "sdgs",
-          "project"
+          "project",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -815,7 +823,8 @@
           "countries",
           "pillar",
           "sdgs",
-          "project"
+          "project",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -1024,7 +1033,8 @@
           "review_status",
           "author",
           "other_tools_category",
-          "other_tool"
+          "other_tool",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -1055,7 +1065,8 @@
           "review_status",
           "author",
           "other_tools_category",
-          "other_tool"
+          "other_tool",
+          "review_decision_details"
         ]
       },
       "conditions": []
@@ -1072,7 +1083,8 @@
           "review_status",
           "author",
           "other_tools_category",
-          "other_tool"
+          "other_tool",
+          "review_decision_details"
         ]
       },
       "conditions": []

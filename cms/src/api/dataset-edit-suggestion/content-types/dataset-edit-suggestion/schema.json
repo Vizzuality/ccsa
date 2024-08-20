@@ -26,11 +26,20 @@
     },
     "value_type": {
       "type": "enumeration",
-      "enum": ["text", "number", "boolean", "resource"]
+      "enum": [
+        "text",
+        "number",
+        "boolean",
+        "resource"
+      ]
     },
     "review_status": {
       "type": "enumeration",
-      "enum": ["pending", "approved", "declined"],
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
       "default": "pending",
       "required": true
     },
@@ -60,6 +69,9 @@
     "colors": {
       "type": "json",
       "required": false
+    },
+    "review_decision_details": {
+      "type": "text"
     }
   }
 }

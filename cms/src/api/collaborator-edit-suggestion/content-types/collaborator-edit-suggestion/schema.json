@@ -20,11 +20,18 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["donor", "collaborator"]
+      "enum": [
+        "donor",
+        "collaborator"
+      ]
     },
     "review_status": {
       "type": "enumeration",
-      "enum": ["pending", "approved", "declined"],
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
       "required": true,
       "default": "pending"
     },
@@ -40,9 +47,15 @@
       "inversedBy": "collaborator_edit_suggestions"
     },
     "image": {
-      "allowedTypes": ["images"],
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "review_decision_details": {
+      "type": "text"
     }
   }
 }

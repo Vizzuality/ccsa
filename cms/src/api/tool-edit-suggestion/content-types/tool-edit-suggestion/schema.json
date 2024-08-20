@@ -46,6 +46,9 @@
       "relation": "manyToOne",
       "target": "api::other-tool.other-tool",
       "inversedBy": "tool_edit_suggestions"
+    },
+    "review_decision_details": {
+      "type": "text"
     }
   }
 }
