@@ -85,15 +85,16 @@ export default function UpdatePasswordForm() {
         console.info("Password updated successfully");
         toast.success("Password updated successfully");
 
-        if (data.jwt) {
-          signIn("credentials", {
-            redirect: false,
-            jwt: data.jwt,
-            user: data.user,
-          });
+        // TO - DO - test this properly
+        // if (data.jwt) {
+        //   signIn("credentials", {
+        //     redirect: false,
+        //     jwt: data.jwt,
+        //     user: data.user,
+        //   });
 
-          push(`/`);
-        }
+        // }
+        push(`/signin?code=${recoveryCode}`);
       },
       onError: (error) => {
         console.error("Error updating updating password:", error);
