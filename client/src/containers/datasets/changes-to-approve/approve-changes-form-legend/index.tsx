@@ -6,10 +6,12 @@ export default function ApproveChangesFormLegend({
   isNewDataset,
   changes,
   status,
+  message,
 }: {
   isNewDataset: boolean;
   changes: string[] | Change[];
   status?: "approved" | "pending" | "declined";
+  message?: string;
 }) {
   return (
     <div className="flex w-full max-w-[368px] flex-1 flex-col justify-start">
@@ -19,9 +21,12 @@ export default function ApproveChangesFormLegend({
           {!isNewDataset && status !== "declined" && <span>New changes</span>}
           {isNewDataset && status !== "declined" && <span>Changes pending to be approved</span>}
           {status === "declined" && (
-            <span className="rounded-sm border border-red-500 px-2.5 py-1 text-red-500">
-              Declined
-            </span>
+            <div className="space-y-5">
+              <span className="rounded-sm border border-red-500 px-2.5 py-1 text-red-500">
+                Declined
+              </span>
+              {message && <p className="first-letter:uppercase">{message}</p>}
+            </div>
           )}
         </div>
         {!isNewDataset && status !== "declined" && (

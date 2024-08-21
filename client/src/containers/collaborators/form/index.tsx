@@ -269,13 +269,14 @@ export default function CollaboratorForm() {
     ],
   );
 
-  const handleReject = () => {
+  const handleReject = ({ message }: { message: string }) => {
     if (ME_DATA?.role?.type === "admin" && collaboratorSuggestedDataId?.data?.id) {
       mutatePutCollaboratorsEditSuggestionId({
         id: collaboratorSuggestedDataId?.data?.id,
         data: {
           data: {
             review_status: "declined",
+            review_decision_details: message,
           },
         },
       });
@@ -327,6 +328,7 @@ export default function CollaboratorForm() {
         handleCancel={handleCancel}
         handleDelete={handleDelete}
         status={suggestionStatus}
+        message={collaboratorSuggestedDataId?.data?.attributes?.review_decision_details}
       />
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>

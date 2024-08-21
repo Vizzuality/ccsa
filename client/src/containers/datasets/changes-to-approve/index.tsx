@@ -2,13 +2,17 @@
 
 import { useState, useCallback, useMemo } from "react";
 
+import { useForm } from "react-hook-form";
+
 import { toast } from "react-toastify";
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { z } from "zod";
 
 import { getDataParsed } from "@/lib/utils/datasets";
 import { formatDate } from "@/lib/utils/formats";
@@ -35,6 +39,7 @@ import { INITIAL_DATASET_VALUES } from "@/app/store";
 import { Data, VALUE_TYPE } from "@/components/forms/dataset/types";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { updateOrCreateDataset } from "@/services/datasets";
@@ -219,24 +224,37 @@ export default function FormToApprove() {
 
   const [formValues, setFormValues] = useState<Data>(DATA_PREVIOUS_VALUES);
 
+  const formSchema = z.object({
+    message: z.string().min(1, { message: "Please provide a reason for the rejection" }),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      message: "",
+    },
+  });
+
   const ControlsStateId = {
     settings: "dataset-settings-approve-edition",
     data: "dataset-data-approve-edition",
     colors: "dataset-colors-approve-edition",
   } satisfies { [key in TabsProps]: string };
 
-  const handleReject = () => {
+  const handleReject = useCallback((values: z.infer<typeof formSchema>) => {
     if (ME_DATA?.role?.type === "admin" && datasetDataPendingToApprove?.data?.id) {
       mutatePutDatasetEditSuggestion({
         id: datasetDataPendingToApprove?.data?.id,
         data: {
           data: {
             review_status: "declined",
+            review_decision_details: values.message,
           },
         },
       });
+      push(`/dashboard`);
     }
-  };
+  }, []);
 
   const handleSettingsSubmit = useCallback(
     (values: Data["settings"]) => {
@@ -397,22 +415,48 @@ export default function FormToApprove() {
 
           {ME_DATA?.role?.type === "admin" && (
             <Dialog>
-              <DialogTrigger onClick={(e) => e.stopPropagation()}>
+              <DialogTrigger onClick={(e) => e.stopPropagation()} asChild>
                 <Button size="sm" variant="destructive">
                   Reject
                 </Button>
               </DialogTrigger>
 
-              <DialogContent className="py-4">
+              <DialogContent className="max-w-2xl py-4">
                 <DialogTitle className="p-4">Reasons for Suggestion Rejection</DialogTitle>
-                <div className="space-y-4 px-4">
-                  <Textarea />
-                  <div className="flex justify-end pb-4">
-                    <Button size="sm" onClick={handleReject}>
-                      Submit
-                    </Button>
-                  </div>
-                </div>
+                <Form {...form}>
+                  <form
+                    id="decline-message"
+                    className="space-y-4 px-4"
+                    onSubmit={form.handleSubmit(handleReject)}
+                  >
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem className="space-y-1.5">
+                          {/* <FormLabel className="text-xs font-semibold">
+                            Name<sup className="pl-0.5">*</sup>
+                          </FormLabel> */}
+                          <FormControl>
+                            <Textarea
+                              {...field}
+                              value={field.value}
+                              className="border-none bg-gray-300/20 placeholder:text-gray-300/95"
+                              placeholder="Entry your message here"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="flex justify-end pb-4">
+                      <Button size="sm" form="decline-message">
+                        Submit
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
               </DialogContent>
             </Dialog>
           )}
@@ -441,6 +485,7 @@ export default function FormToApprove() {
             changes={settingsChanges}
             handleSubmit={handleSettingsSubmit}
             status={datasetDataPendingToApprove?.data?.attributes?.review_status}
+            message={datasetDataPendingToApprove?.data?.attributes?.review_decision_details}
           />
         </TabsContent>
         <TabsContent value="data">
@@ -451,6 +496,7 @@ export default function FormToApprove() {
             changes={dataChanges}
             handleSubmit={handleDataSubmit}
             status={datasetDataPendingToApprove?.data?.attributes?.review_status}
+            message={datasetDataPendingToApprove?.data?.attributes?.review_decision_details}
           />
         </TabsContent>
         <TabsContent value="colors">
@@ -461,6 +507,7 @@ export default function FormToApprove() {
             changes={colorsChanges}
             handleSubmit={handleColorsSubmit}
             status={datasetDataPendingToApprove?.data?.attributes?.review_status}
+            message={datasetDataPendingToApprove?.data?.attributes?.review_decision_details}
           />
         </TabsContent>
       </Tabs>

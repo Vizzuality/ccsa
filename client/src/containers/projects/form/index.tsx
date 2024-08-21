@@ -390,13 +390,14 @@ export default function ProjectForm() {
     ],
   );
 
-  const handleReject = () => {
+  const handleReject = ({ message }: { message?: string }) => {
     if (ME_DATA?.role?.type === "admin" && projectsSuggestedData?.data?.id) {
       mutatePutProjectEditSuggestionId({
         id: projectsSuggestedData?.data?.id,
         data: {
           data: {
             review_status: "declined",
+            review_decision_details: message,
           },
         },
       });
@@ -423,6 +424,7 @@ export default function ProjectForm() {
         handleCancel={handleCancel}
         handleDelete={handleDelete}
         status={suggestionStatus}
+        message={projectsSuggestedData?.data?.attributes?.review_decision_details}
       />
 
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">

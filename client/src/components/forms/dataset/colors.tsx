@@ -136,6 +136,7 @@ export default function DatasetColorsForm({
   onSubmit,
   changes,
   status,
+  message,
 }: {
   title: string;
   id: string;
@@ -144,6 +145,7 @@ export default function DatasetColorsForm({
   onSubmit: (data: Data["colors"]) => void;
   changes?: string[];
   status?: "approved" | "pending" | "declined" | undefined;
+  message?: string;
 }) {
   const data = rawData.data;
   const colors = rawData.colors;
@@ -254,13 +256,14 @@ export default function DatasetColorsForm({
     },
     [onSubmit],
   );
-  const handleReject = () => {
+  const handleReject = ({ message }: { message?: string }) => {
     if (ME_DATA?.role?.type === "admin" && datasetDataPendingToApprove?.data?.id) {
       mutatePutDatasetEditSuggestion({
         id: datasetDataPendingToApprove?.data?.id,
         data: {
           data: {
             review_status: "declined",
+            review_decision_details: message,
           },
         },
       });
@@ -278,6 +281,7 @@ export default function DatasetColorsForm({
           handleReject={handleReject}
           handleCancel={handleCancel}
           handleDelete={handleDelete}
+          message={message}
         />
       )}
       <DashboardFormWrapper header={header}>

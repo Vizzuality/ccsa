@@ -2038,6 +2038,7 @@ export interface ToolEditSuggestion {
   other_tool?: ToolEditSuggestionOtherTool;
   other_tools_category?: ToolEditSuggestionOtherToolsCategory;
   publishedAt?: string;
+  review_decision_details?: string;
   review_status: ToolEditSuggestionReviewStatus;
   updatedAt?: string;
   updatedBy?: ToolEditSuggestionUpdatedBy;
@@ -2210,6 +2211,7 @@ export type ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItem
   other_tool?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesOtherTool;
   other_tools_category?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesOtherToolsCategory;
   publishedAt?: string;
+  review_decision_details?: string;
   review_status?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesReviewStatus;
   updatedAt?: string;
   updatedBy?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesUpdatedBy;
@@ -2656,6 +2658,7 @@ export type ToolEditSuggestionRequestData = {
   name?: string;
   other_tool?: ToolEditSuggestionRequestDataOtherTool;
   other_tools_category?: ToolEditSuggestionRequestDataOtherToolsCategory;
+  review_decision_details?: string;
   review_status: ToolEditSuggestionRequestDataReviewStatus;
 };
 
@@ -2850,6 +2853,7 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
     pillar?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesPillar;
     project?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesProject;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
     sdgs?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs;
     source_country?: string;
@@ -3450,6 +3454,7 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     layers?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -4366,6 +4371,7 @@ export interface ProjectEditSuggestion {
   pillar?: ProjectEditSuggestionPillar;
   project?: ProjectEditSuggestionProject;
   publishedAt?: string;
+  review_decision_details?: string;
   review_status: ProjectEditSuggestionReviewStatus;
   sdgs?: ProjectEditSuggestionSdgs;
   source_country?: string;
@@ -4578,6 +4584,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
     pillar?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesPillar;
     project?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesProject;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
     sdgs?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgs;
     source_country?: string;
@@ -5347,6 +5354,7 @@ export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIte
     layers?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -5789,6 +5797,7 @@ export type ProjectEditSuggestionRequestData = {
   organization_type?: string;
   pillar?: ProjectEditSuggestionRequestDataPillar;
   project?: ProjectEditSuggestionRequestDataProject;
+  review_decision_details?: string;
   review_status: ProjectEditSuggestionRequestDataReviewStatus;
   sdgs?: ProjectEditSuggestionRequestDataSdgsItem[];
   source_country?: string;
@@ -6037,6 +6046,7 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
     pillar?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesPillar;
     project?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesProject;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
     sdgs?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgs;
     source_country?: string;
@@ -6645,6 +6655,7 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     layers?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -7442,6 +7453,7 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
     pillar?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesPillar;
     project?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesProject;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
     sdgs?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs;
     source_country?: string;
@@ -8041,6 +8053,7 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     layers?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -8964,6 +8977,7 @@ export type OtherToolToolEditSuggestionsDataItemAttributes = {
   other_tool?: OtherToolToolEditSuggestionsDataItemAttributesOtherTool;
   other_tools_category?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolsCategory;
   publishedAt?: string;
+  review_decision_details?: string;
   review_status?: OtherToolToolEditSuggestionsDataItemAttributesReviewStatus;
   updatedAt?: string;
   updatedBy?: OtherToolToolEditSuggestionsDataItemAttributesUpdatedBy;
@@ -9943,6 +9957,7 @@ export type LayerDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestio
     layers?: LayerDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: LayerDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -11128,6 +11143,7 @@ export type DatasetValueDatasetDataAttributesCategoryDataAttributesDatasetEditSu
     layers?: DatasetValueDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: DatasetValueDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -11766,6 +11782,7 @@ export interface DatasetEditSuggestion {
   layers?: DatasetEditSuggestionLayers;
   name?: string;
   publishedAt?: string;
+  review_decision_details?: string;
   review_status: DatasetEditSuggestionReviewStatus;
   unit?: string;
   updatedAt?: string;
@@ -12052,6 +12069,7 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetsDataItemAttribute
     layers?: DatasetEditSuggestionCategoryDataAttributesDatasetsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: DatasetEditSuggestionCategoryDataAttributesDatasetsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -12798,6 +12816,7 @@ export type DatasetEditSuggestionRequestData = {
   description?: string;
   layers?: DatasetEditSuggestionRequestDataLayersItem[];
   name?: string;
+  review_decision_details?: string;
   review_status: DatasetEditSuggestionRequestDataReviewStatus;
   unit?: string;
   value_type?: DatasetEditSuggestionRequestDataValueType;
@@ -13090,6 +13109,7 @@ export type DatasetCategoryDataAttributesDatasetsDataItemAttributesLayersDataIte
     layers?: DatasetCategoryDataAttributesDatasetsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: DatasetCategoryDataAttributesDatasetsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -14180,6 +14200,7 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesCategoryD
     layers?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
@@ -14956,6 +14977,7 @@ export interface CollaboratorEditSuggestion {
   link?: string;
   name?: string;
   publishedAt?: string;
+  review_decision_details?: string;
   review_status: CollaboratorEditSuggestionReviewStatus;
   type?: CollaboratorEditSuggestionType;
   updatedAt?: string;
@@ -15161,6 +15183,7 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEdit
     link?: string;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesReviewStatus;
     type?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesType;
     updatedAt?: string;
@@ -15856,6 +15879,7 @@ export type CollaboratorEditSuggestionRequestData = {
   image?: CollaboratorEditSuggestionRequestDataImage;
   link?: string;
   name?: string;
+  review_decision_details?: string;
   review_status: CollaboratorEditSuggestionRequestDataReviewStatus;
   type?: CollaboratorEditSuggestionRequestDataType;
 };
@@ -16042,6 +16066,7 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributes = {
   link?: string;
   name?: string;
   publishedAt?: string;
+  review_decision_details?: string;
   review_status?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesReviewStatus;
   type?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesType;
   updatedAt?: string;
@@ -17272,6 +17297,7 @@ export type CategoryDatasetsDataItemAttributesCategoryDataAttributesDatasetEditS
     layers?: CategoryDatasetsDataItemAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayers;
     name?: string;
     publishedAt?: string;
+    review_decision_details?: string;
     review_status?: CategoryDatasetsDataItemAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
     unit?: string;
     updatedAt?: string;
