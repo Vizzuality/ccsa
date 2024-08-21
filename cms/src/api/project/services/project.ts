@@ -14,7 +14,6 @@ interface ProjectRow {
   [key: string]: any;
 }
 
-// Separate functions for each collection
 async function findCountryIdByName(name: string): Promise<number> {
   const result: any = await strapi.entityService.findMany('api::country.country', {
     filters: { name },
