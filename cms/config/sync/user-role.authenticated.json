@@ -115,6 +115,9 @@
       "action": "api::project-edit-suggestion.project-edit-suggestion.findOne"
     },
     {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.importProjectsSuggestions"
+    },
+    {
       "action": "api::project-edit-suggestion.project-edit-suggestion.update"
     },
     {
@@ -161,6 +164,9 @@
     },
     {
       "action": "plugin::email.email.send"
+    },
+    {
+      "action": "plugin::import-export-entries.import.importData"
     },
     {
       "action": "plugin::upload.content-api.upload"
