@@ -232,6 +232,9 @@
       "action": "api::project.project.findOne"
     },
     {
+      "action": "api::project.project.importProjects"
+    },
+    {
       "action": "api::project.project.update"
     },
     {
