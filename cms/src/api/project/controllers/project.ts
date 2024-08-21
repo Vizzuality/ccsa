@@ -29,14 +29,13 @@ export default factories.createCoreController('api::project.project', () => ({
   },
 
   async importProjects(ctx) {
-    const { file } = ctx.request.files as { file: any }; // Assuming file is uploaded as 'file'
+    const { file } = ctx.request.files as { file: any };
 
     if (!file) {
       return ctx.badRequest('No file uploaded');
     }
 
     try {
-      // Use the service to parse and replace IDs
       const { csvData, rowCount } = await strapi
         .service('api::project.project')
         .parseAndReplaceIds(file);

@@ -54,7 +54,7 @@ async function findPillarIdByName(name: string): Promise<number> {
 }
 
 export default factories.createCoreService('api::project.project', {
-  async parseAndReplaceIds(file) {
+  async parseAndReplaceIds(file, author = null) {
     // Read and parse the CSV file
     const fileContent = fs.readFileSync(file.path, 'utf8');
     const records: ProjectRow[] = csv.parse(fileContent, {
@@ -73,13 +73,20 @@ export default factories.createCoreService('api::project.project', {
       const pillarIds = await Promise.all(pillarNames.map(name => findPillarIdByName(name)));
       const publishedAt = new Date().toISOString();
 
-      return {
+      const updatedRow: any = {
         ...row,
         countries: countryIds,
         sdgs: sdgIds,
         pillars: pillarIds,
-        publishedAt
+        publishedAt,
       };
+
+      // Add author relation if provided
+      if (author) {
+        updatedRow.author = [author];
+      }
+
+      return updatedRow;
     }));
 
     const updatedCSV = stringify.stringify(updatedRecords, { header: true });

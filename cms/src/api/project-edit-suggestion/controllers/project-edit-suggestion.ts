@@ -140,17 +140,17 @@ export default factories.createCoreController(
       return { ...response, emailStatus };
     },
     async importProjectsSuggestions(ctx) {
-      const { file } = ctx.request.files as { file: any }; // Assuming file is uploaded as 'file'
+      const { file } = ctx.request.files as { file: any };
+      const authorId = ctx.state.user?.id;
 
       if (!file) {
         return ctx.badRequest('No file uploaded');
       }
 
       try {
-        // Use the service to parse and replace IDs
         const { csvData, rowCount } = await strapi
           .service('api::project.project')
-          .parseAndReplaceIds(file);
+          .parseAndReplaceIds(file, authorId);
 
         // Prepare the data for the import endpoint
         const importData = {
