@@ -70,6 +70,9 @@
       "action": "api::pillar.pillar.findOne"
     },
     {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.importProjectsSuggestions"
+    },
+    {
       "action": "api::project.project.find"
     },
     {

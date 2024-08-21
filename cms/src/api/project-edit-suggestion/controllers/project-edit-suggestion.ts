@@ -3,6 +3,8 @@
  */
 
 import { factories } from "@strapi/strapi";
+import fs from "fs";
+import axios from "axios";
 
 export default factories.createCoreController(
   "api::project-edit-suggestion.project-edit-suggestion",
@@ -136,6 +138,53 @@ export default factories.createCoreController(
       }
 
       return { ...response, emailStatus };
+    },
+    async importProjectsSuggestions(ctx) {
+      const { file } = ctx.request.files as { file: any };
+      const authorId = ctx.state.user?.id;
+
+      if (!file) {
+        return ctx.badRequest('No file uploaded');
+      }
+
+      try {
+        const { csvData, rowCount } = await strapi
+          .service('api::project.project')
+          .parseAndReplaceIds(file, authorId);
+
+        // Prepare the data for the import endpoint
+        const importData = {
+          slug: 'api::project-edit-suggestion.project-edit-suggestion',
+          data: csvData,
+          format: 'csv',
+          idField: 'id',
+        };
+
+        // Post the data to the import plugin
+        const response = await axios.post(
+          `${strapi.config.server.url}/api/import-export-entries/content/import`,
+          importData,
+          {
+            headers: {
+              Authorization: `${ctx.req.rawHeaders[1] || ''}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        // Return the response from the import plugin
+        ctx.send({
+          message: 'File processed and imported successfully',
+          projectsImported: rowCount,
+          data: response.data,
+        });
+      } catch (error: any) {
+        ctx.throw(500, `Failed to import data: ${error.message}`);
+      } finally {
+        if (file && file.path) {
+          fs.unlinkSync(file.path);
+        }
+      }
     },
   })
 );

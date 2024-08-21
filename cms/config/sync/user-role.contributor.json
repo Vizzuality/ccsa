@@ -112,6 +112,9 @@
       "action": "api::project-edit-suggestion.project-edit-suggestion.findOne"
     },
     {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.importProjectsSuggestions"
+    },
+    {
       "action": "api::project-edit-suggestion.project-edit-suggestion.update"
     },
     {
@@ -167,6 +170,9 @@
     },
     {
       "action": "plugin::content-type-builder.content-types.getContentTypes"
+    },
+    {
+      "action": "plugin::import-export-entries.import.importData"
     },
     {
       "action": "plugin::users-permissions.auth.callback"

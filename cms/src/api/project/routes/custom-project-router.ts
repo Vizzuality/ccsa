@@ -9,5 +9,14 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/projects/import',
+      handler: 'project.importProjects',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };
