@@ -29,6 +29,7 @@ export interface Data {
     unit?: string;
     updatedAt?: string;
     review_status?: "approved" | "pending" | "declined";
+    review_decision_details?: string;
   };
   data: {
     [key: string]: string | number | boolean | undefined | Resource[];

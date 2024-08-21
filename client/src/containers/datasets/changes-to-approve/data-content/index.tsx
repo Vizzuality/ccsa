@@ -12,6 +12,7 @@ export default function DataContentToApprove({
   changes,
   handleSubmit,
   status,
+  message,
 }: {
   data: Data;
   id: string;
@@ -19,11 +20,17 @@ export default function DataContentToApprove({
   changes: string[] | Change[];
   handleSubmit: (data: Data["data"]) => void;
   status: "approved" | "pending" | "declined" | undefined;
+  message?: string;
 }) {
   return (
     <div className="flex items-center py-10 sm:px-10 md:px-24 lg:px-32">
       <div className="flex w-full justify-between space-x-10">
-        <ApproveChangesFormLegend changes={changes} isNewDataset={isNewDataset} status={status} />
+        <ApproveChangesFormLegend
+          changes={changes}
+          isNewDataset={isNewDataset}
+          status={status}
+          message={message}
+        />
 
         <div className="w-full min-w-fit max-w-5xl flex-1 gap-4">
           <DatasetDataForm

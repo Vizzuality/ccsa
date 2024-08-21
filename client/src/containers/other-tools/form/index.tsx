@@ -302,13 +302,14 @@ export default function ToolForm() {
     ],
   );
 
-  const handleReject = () => {
+  const handleReject = ({ message }: { message?: string }) => {
     if (ME_DATA?.role?.type === "admin" && editSuggestionIdData?.data?.id) {
       mutatePutToolEditSuggestionId({
         id: editSuggestionIdData?.data?.id,
         data: {
           data: {
             review_status: "declined",
+            review_decision_details: message,
           },
         },
       });
@@ -331,6 +332,7 @@ export default function ToolForm() {
         handleCancel={handleCancel}
         handleDelete={handleDelete}
         status={editSuggestionIdData?.data?.attributes?.review_status}
+        message={editSuggestionIdData?.data?.attributes?.review_decision_details}
       />
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>
