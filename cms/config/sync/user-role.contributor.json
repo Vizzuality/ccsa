@@ -22,6 +22,9 @@
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.findOne"
     },
     {
+      "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.importCollaboratorEditSuggestions"
+    },
+    {
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.update"
     },
     {
@@ -146,6 +149,9 @@
     },
     {
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.findOne"
+    },
+    {
+      "action": "api::tool-edit-suggestion.tool-edit-suggestion.importOtherToolsEditSuggestions"
     },
     {
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.update"

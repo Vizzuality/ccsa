@@ -9,5 +9,14 @@ export default {
         middlewares: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/other-tools/import',
+      handler: 'other-tool.importOtherTools',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

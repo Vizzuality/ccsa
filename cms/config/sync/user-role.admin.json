@@ -31,6 +31,9 @@
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.findOne"
     },
     {
+      "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.importCollaboratorEditSuggestions"
+    },
+    {
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.update"
     },
     {
@@ -47,6 +50,9 @@
     },
     {
       "action": "api::collaborator.collaborator.findOne"
+    },
+    {
+      "action": "api::collaborator.collaborator.importCollaborators"
     },
     {
       "action": "api::collaborator.collaborator.update"
@@ -169,6 +175,9 @@
       "action": "api::other-tool.other-tool.findOne"
     },
     {
+      "action": "api::other-tool.other-tool.importOtherTools"
+    },
+    {
       "action": "api::other-tool.other-tool.update"
     },
     {
@@ -281,6 +290,9 @@
     },
     {
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.findOne"
+    },
+    {
+      "action": "api::tool-edit-suggestion.tool-edit-suggestion.importOtherToolsEditSuggestions"
     },
     {
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.update"

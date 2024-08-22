@@ -9,5 +9,14 @@ export default {
         middlewares: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/collaborators/import',
+      handler: 'collaborator.importCollaborators',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

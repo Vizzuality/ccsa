@@ -3,6 +3,8 @@
  */
 
 import { factories } from "@strapi/strapi";
+import axios from 'axios';
+import * as fs from 'fs';
 
 export default factories.createCoreController(
   "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
@@ -139,5 +141,55 @@ export default factories.createCoreController(
 
       return { ...response, emailStatus };
     },
+
+    async importCollaboratorEditSuggestions(ctx) {
+      const { file } = ctx.request.files as { file: any }; // Assuming file is uploaded as 'file'
+      const authorId = ctx.state.user?.id; // Get the author ID from the authenticated user state
+
+      if (!file) {
+        return ctx.badRequest('No file uploaded');
+      }
+
+      try {
+        // Use the service to parse and prepare CSV data, including the authorId from the user state
+        const { csvData, rowCount } = await strapi
+          .service('api::collaborator.collaborator')
+          .parseAndPrepareCSV(file, authorId);
+
+        // Prepare the data for the import endpoint
+        const importData = {
+          slug: 'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
+          data: csvData,
+          format: 'csv',
+          idField: 'id',
+        };
+
+        // Post the data to the import plugin
+        const response = await axios.post(
+          `${strapi.config.server.url}/api/import-export-entries/content/import`,
+          importData,
+          {
+            headers: {
+              Authorization: `${ctx.req.rawHeaders[1] || ''}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        // Return the response from the import plugin
+        ctx.send({
+          message: 'File processed and imported successfully',
+          collaboratorsImported: rowCount,
+          data: response.data,
+        });
+      } catch (error: any) {
+        ctx.throw(500, `Failed to import data: ${error.message}`);
+      } finally {
+        if (file && file.path) {
+          fs.unlinkSync(file.path);
+        }
+      }
+    },
+
   })
 );
