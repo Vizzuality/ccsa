@@ -165,7 +165,9 @@ const Navigation = (): JSX.Element => {
               "stroke-[#FF7816]": pathname === "/collaborators",
             })}
           />
-          <span className="text-xxs">{user ? user?.username : "Log in"}</span>
+          <span className="w-full flex-wrap overflow-hidden truncate text-xxs">
+            {user ? user?.username : "Log in"}
+          </span>
         </Link>
       </div>
     </nav>

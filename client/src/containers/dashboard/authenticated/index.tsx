@@ -10,7 +10,7 @@ export default function DatasetPendingChangesContentContributor() {
     <Tabs defaultValue="changes" className="w-full divide-y-2 divide-gray-300/20">
       <TabsList className="p-4 sm:px-10 md:px-24 lg:px-32">
         <TabsTrigger value="changes">Suggested updates</TabsTrigger>
-        <TabsTrigger value="account">Personal data</TabsTrigger>
+        <TabsTrigger value="account">Account information</TabsTrigger>
       </TabsList>
       <TabsContent value="changes">
         <DatasetPendingChanges />
