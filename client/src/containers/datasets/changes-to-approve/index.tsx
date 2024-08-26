@@ -434,9 +434,6 @@ export default function FormToApprove() {
                       name="message"
                       render={({ field }) => (
                         <FormItem className="space-y-1.5">
-                          {/* <FormLabel className="text-xs font-semibold">
-                            Name<sup className="pl-0.5">*</sup>
-                          </FormLabel> */}
                           <FormControl>
                             <Textarea
                               {...field}

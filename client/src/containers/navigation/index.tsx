@@ -23,6 +23,8 @@ const Navigation = (): JSX.Element => {
   const sp = useSyncSearchParams();
   const { data: user } = useGetUsersMe();
 
+  const userNameWithoutSpaces = user?.username?.replace(" ", "");
+
   return (
     <nav className="relative z-20 flex h-full w-20 shrink-0 flex-col justify-between border-r-2 border-gray-300/20 bg-white">
       <ul className="w-full text-xxs">
@@ -165,7 +167,13 @@ const Navigation = (): JSX.Element => {
               "stroke-[#FF7816]": pathname === "/collaborators",
             })}
           />
-          <span className="w-full flex-wrap overflow-hidden truncate text-xxs">
+          <span
+            className={cn({
+              "w-full flex-wrap text-xxs": true,
+              "overflow-hidden truncate":
+                userNameWithoutSpaces && userNameWithoutSpaces?.length > 15,
+            })}
+          >
             {user ? user?.username : "Log in"}
           </span>
         </Link>

@@ -57,7 +57,7 @@ const CountriesTable = () => {
 
   return (
     <div className="w-full overflow-auto">
-      {!!TABLE_ROWS_DATA && !TABLE_ROWS_DATA.length && (
+      {((!!TABLE_ROWS_DATA && !TABLE_ROWS_DATA.length) || !TABLE_ROWS_DATA) && (
         <span className="whitespace-nowrap font-open-sans text-xxs font-semibold uppercase leading-none text-gray-900">
           Please activate at least one dataset to view and download its details.
         </span>
