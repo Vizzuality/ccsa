@@ -270,9 +270,9 @@ export default function CollaboratorForm() {
   );
 
   const handleReject = ({ message }: { message: string }) => {
-    if (ME_DATA?.role?.type === "admin" && collaboratorSuggestedDataId?.data?.id) {
+    if (ME_DATA?.role?.type === "admin" && !!id) {
       mutatePutCollaboratorsEditSuggestionId({
-        id: collaboratorSuggestedDataId?.data?.id,
+        id: +id[0],
         data: {
           data: {
             review_status: "declined",
@@ -463,6 +463,7 @@ export default function CollaboratorForm() {
                             ME_DATA?.role?.type === "authenticated" &&
                             suggestionStatus === "declined"
                           }
+                          className="h-full w-full cursor-pointer"
                         />
 
                         <Image
