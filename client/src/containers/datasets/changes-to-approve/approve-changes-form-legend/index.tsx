@@ -33,7 +33,7 @@ export default function ApproveChangesFormLegend({
           <p>
             {changes?.length > 0
               ? "Changes summary. Please see the attached recommended edit. If any further changes are required to complete the submission and make it ready for upload, please make the adjustments here."
-              : "No changes has been applied."}
+              : "No changes have been applied."}
           </p>
         )}
       </div>

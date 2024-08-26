@@ -190,7 +190,7 @@ export default function PersonalDataForm() {
     <div className="space-y-10 p-4 py-10 sm:px-10 md:px-24 lg:px-32">
       <div className="space-y-10">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold -tracking-[0.0375rem]">Personal data</h1>
+          <h1 className="text-3xl font-bold -tracking-[0.0375rem]">Account information</h1>
           <Button
             type="button"
             variant="destructive-outline"
