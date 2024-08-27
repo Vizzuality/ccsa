@@ -1,5 +1,5 @@
 {
-  "/dataset-values": {
+  "/organization-types": {
     "get": {
       "responses": {
         "200": {
@@ -7,7 +7,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetValueListResponse"
+                "$ref": "#/components/schemas/OrganizationTypeListResponse"
               }
             }
           }
@@ -64,7 +64,7 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Organization-type"
       ],
       "parameters": [
         {
@@ -170,7 +170,7 @@
           }
         }
       ],
-      "operationId": "get/dataset-values"
+      "operationId": "get/organization-types"
     },
     "post": {
       "responses": {
@@ -179,7 +179,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetValueResponse"
+                "$ref": "#/components/schemas/OrganizationTypeResponse"
               }
             }
           }
@@ -236,23 +236,23 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Organization-type"
       ],
       "parameters": [],
-      "operationId": "post/dataset-values",
+      "operationId": "post/organization-types",
       "requestBody": {
         "required": true,
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/DatasetValueRequest"
+              "$ref": "#/components/schemas/OrganizationTypeRequest"
             }
           }
         }
       }
     }
   },
-  "/dataset-values/{id}": {
+  "/organization-types/{id}": {
     "get": {
       "responses": {
         "200": {
@@ -260,7 +260,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetValueResponse"
+                "$ref": "#/components/schemas/OrganizationTypeResponse"
               }
             }
           }
@@ -317,7 +317,7 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Organization-type"
       ],
       "parameters": [
         {
@@ -331,7 +331,7 @@
           }
         }
       ],
-      "operationId": "get/dataset-values/{id}"
+      "operationId": "get/organization-types/{id}"
     },
     "put": {
       "responses": {
@@ -340,7 +340,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetValueResponse"
+                "$ref": "#/components/schemas/OrganizationTypeResponse"
               }
             }
           }
@@ -397,7 +397,7 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Organization-type"
       ],
       "parameters": [
         {
@@ -411,13 +411,13 @@
           }
         }
       ],
-      "operationId": "put/dataset-values/{id}",
+      "operationId": "put/organization-types/{id}",
       "requestBody": {
         "required": true,
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/DatasetValueRequest"
+              "$ref": "#/components/schemas/OrganizationTypeRequest"
             }
           }
         }
@@ -488,7 +488,7 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Organization-type"
       ],
       "parameters": [
         {
@@ -502,7 +502,7 @@
           }
         }
       ],
-      "operationId": "delete/dataset-values/{id}"
+      "operationId": "delete/organization-types/{id}"
     }
   }
 }

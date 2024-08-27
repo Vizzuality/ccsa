@@ -17,7 +17,12 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["mapbox", "deckgl", "countries", "component"],
+      "enum": [
+        "mapbox",
+        "deckgl",
+        "countries",
+        "component"
+      ],
       "required": true,
       "default": "mapbox"
     },

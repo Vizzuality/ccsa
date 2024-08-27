@@ -690,11 +690,6 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
-    datasets: Attribute.Relation<
-      'api::category.category',
-      'oneToMany',
-      'api::dataset.dataset'
-    >;
     dataset_edit_suggestions: Attribute.Relation<
       'api::category.category',
       'oneToMany',
@@ -860,11 +855,6 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     datum: Attribute.JSON & Attribute.Required;
-    category: Attribute.Relation<
-      'api::dataset.dataset',
-      'manyToOne',
-      'api::category.category'
-    >;
     description: Attribute.RichText & Attribute.Required;
     layers: Attribute.Relation<
       'api::dataset.dataset',
@@ -885,6 +875,11 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'api::dataset.dataset',
       'oneToMany',
       'api::dataset-value.dataset-value'
+    >;
+    category: Attribute.Relation<
+      'api::dataset.dataset',
+      'oneToOne',
+      'api::category.category'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1093,6 +1088,37 @@ export interface ApiLayerLayer extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::layer.layer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrganizationTypeOrganizationType
+  extends Schema.CollectionType {
+  collectionName: 'organization_types';
+  info: {
+    singularName: 'organization-type';
+    pluralName: 'organization-types';
+    displayName: 'Organization type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::organization-type.organization-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::organization-type.organization-type',
       'oneToOne',
       'admin::user'
     > &
@@ -1354,6 +1380,37 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
   };
 }
 
+export interface ApiProjectStatusProjectStatus extends Schema.CollectionType {
+  collectionName: 'project_statuses';
+  info: {
+    singularName: 'project-status';
+    pluralName: 'project-statuses';
+    displayName: 'Project status';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::project-status.project-status',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::project-status.project-status',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiResourceResource extends Schema.CollectionType {
   collectionName: 'resources';
   info: {
@@ -1564,11 +1621,13 @@ declare module '@strapi/types' {
       'api::dataset-value.dataset-value': ApiDatasetValueDatasetValue;
       'api::download-email.download-email': ApiDownloadEmailDownloadEmail;
       'api::layer.layer': ApiLayerLayer;
+      'api::organization-type.organization-type': ApiOrganizationTypeOrganizationType;
       'api::other-tool.other-tool': ApiOtherToolOtherTool;
       'api::other-tools-category.other-tools-category': ApiOtherToolsCategoryOtherToolsCategory;
       'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;
       'api::project-edit-suggestion.project-edit-suggestion': ApiProjectEditSuggestionProjectEditSuggestion;
+      'api::project-status.project-status': ApiProjectStatusProjectStatus;
       'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;
       'api::tool-edit-suggestion.tool-edit-suggestion': ApiToolEditSuggestionToolEditSuggestion;

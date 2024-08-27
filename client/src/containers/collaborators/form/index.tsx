@@ -105,7 +105,14 @@ export default function CollaboratorForm() {
     mutation: {
       onSuccess: (data) => {
         console.info("Success updating a new collaborator:", data);
-        ME_DATA?.role?.type === "authenticated" && push(`/dashboard`);
+        if (
+          data?.data?.attributes?.review_status === "declined" ||
+          data?.data?.attributes?.review_status === "pending" ||
+          ME_DATA?.role?.type === "authenticated"
+        ) {
+          push(`/dashboard`);
+        }
+        push(`/collaborators`);
       },
       onError: (error) => {
         console.error("Error updating a new collaborator:", error);

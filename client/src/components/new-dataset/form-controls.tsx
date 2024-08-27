@@ -86,7 +86,12 @@ export const DashboardFormControls: FC<DashboardFormControls> = ({
               <p className="text-sm text-gray-500">
                 Status: <span className="inline-block first-letter:uppercase">{status}</span>
               </p>
-              {message && <p className="text-sm text-gray-500 first-letter:uppercase">{message}</p>}
+              {message && status === "declined" && (
+                <p className="text-sm text-gray-500 first-letter:uppercase">
+                  Reason for Declining:{" "}
+                  <span className="inline-block first-letter:uppercase">{message}</span>
+                </p>
+              )}
             </div>
           )}
         </div>

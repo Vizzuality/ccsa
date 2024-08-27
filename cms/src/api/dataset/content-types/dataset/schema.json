@@ -20,12 +20,6 @@
       "type": "json",
       "required": true
     },
-    "category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::category.category",
-      "inversedBy": "datasets"
-    },
     "description": {
       "type": "richtext",
       "required": true
@@ -61,6 +55,11 @@
       "relation": "oneToMany",
       "target": "api::dataset-value.dataset-value",
       "mappedBy": "dataset"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
     }
   }
 }

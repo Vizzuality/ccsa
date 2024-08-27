@@ -23,6 +23,8 @@ import {
   usePostProjectEditSuggestions,
   usePutProjectEditSuggestionsId,
 } from "@/types/generated/project-edit-suggestion";
+import { useGetProjectStatuses } from "@/types/generated/project-status";
+import { useGetOrganizationTypes } from "@/types/generated/organization-type";
 import { useGetSdgs } from "@/types/generated/sdg";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetTypesOfFundings } from "@/types/generated/types-of-funding";
@@ -32,7 +34,6 @@ import { useSyncSearchParams } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
-
 import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
@@ -55,6 +56,7 @@ import {
 } from "@/components/ui/select";
 
 import { updateOrCreateProject } from "@/services/projects";
+// import CSVImport from "@/components/new-dataset/step-description/csv-import";
 
 export default function ProjectForm() {
   const { push } = useRouter();
@@ -124,6 +126,38 @@ export default function ProjectForm() {
     },
   );
 
+  const { data: typesOfProjectStatus } = useGetProjectStatuses(
+    {
+      "pagination[pageSize]": 100,
+      sort: "name:asc",
+    },
+    {
+      query: {
+        select: (data) =>
+          data?.data?.map((status) => ({
+            label: status?.attributes?.name as string,
+            value: status?.id as number,
+          })),
+      },
+    },
+  );
+
+  const { data: organizationTypes } = useGetOrganizationTypes(
+    {
+      "pagination[pageSize]": 100,
+      sort: "name:asc",
+    },
+    {
+      query: {
+        select: (data) =>
+          data?.data?.map((status) => ({
+            label: status?.attributes?.name as string,
+            value: status?.id as number,
+          })),
+      },
+    },
+  );
+
   // if there is no id in the route, we are creating a new project, no need to look for
   // an existing one
   const { data: projectData } = useGetProjectsId(
@@ -167,10 +201,17 @@ export default function ProjectForm() {
 
   const { mutate: mutatePutProjectEditSuggestionId } = usePutProjectEditSuggestionsId({
     mutation: {
-      onSuccess: () => {
+      onSuccess: (data) => {
         console.info("Success updating a project suggestion");
         toast.success("Success updating a project suggestion");
-        push(`/dashboard`);
+        if (
+          data?.data?.attributes?.review_status === "declined" ||
+          data?.data?.attributes?.review_status === "pending" ||
+          ME_DATA?.role?.type === "authenticated"
+        ) {
+          push(`/dashboard`);
+        }
+        push(`/projects`);
       },
       onError: (error: Error) => {
         console.error("Error updating a project suggestion:", error);
@@ -339,7 +380,7 @@ export default function ProjectForm() {
           // to do review data + change sug status
         )
           .then(() => {
-            console.info("Success creating a new project");
+            console.info("Success creating a new project esta entrando aqui");
             toast.success("Success creating a new project");
 
             if (projectsSuggestedData) {
@@ -427,6 +468,27 @@ export default function ProjectForm() {
         message={projectsSuggestedData?.data?.attributes?.review_decision_details}
       />
 
+      {/* <div className="py-10 sm:px-10 md:px-24 lg:px-32">
+        <CSVImport
+          valueType="project"
+          values={{
+            data: {
+              name: "",
+              highlight: "",
+              status: "",
+              objective: "",
+              amount: "",
+              countries: "",
+              source_country: "",
+              sdgs: "",
+              pillars: "",
+              organization_type: "",
+              info: "", // If no info, keep it as an empty string
+              funding: "", // If no funding, keep it as an empty string
+            },
+          }}
+        />
+      </div> */}
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p className="m-auto w-full max-w-sm">
           Fill the project&apos;s information{" "}
@@ -618,18 +680,29 @@ export default function ProjectForm() {
                       Status<sup className="pl-0.5">*</sup>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        className={cn({
-                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
-                        })}
-                        placeholder="Name"
-                        disabled={
-                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
-                        }
-                      />
+                      <Select value={field.value?.toString()} onValueChange={field.onChange}>
+                        <SelectTrigger
+                          className={cn({
+                            "h-10 w-full border-0 bg-gray-300/20": true,
+                            "bg-green-400": changes?.includes(field.name),
+                          })}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
+                        >
+                          <SelectValue placeholder="Project status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {(typesOfProjectStatus || []).map(({ label, value }) => {
+                            return (
+                              <SelectItem key={value} value={value?.toString()}>
+                                {label}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -683,18 +756,29 @@ export default function ProjectForm() {
                       Organization type<sup className="pl-0.5">*</sup>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        className={cn({
-                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
-                        })}
-                        placeholder="Name"
-                        disabled={
-                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
-                        }
-                      />
+                      <Select value={field.value?.toString()} onValueChange={field.onChange}>
+                        <SelectTrigger
+                          className={cn({
+                            "h-10 w-full border-0 bg-gray-300/20": true,
+                            "bg-green-400": changes?.includes(field.name),
+                          })}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
+                        >
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {(organizationTypes || []).map(({ label, value }) => {
+                            return (
+                              <SelectItem key={value} value={value?.toString()}>
+                                {label}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -705,7 +789,9 @@ export default function ProjectForm() {
                 name="source_country"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Source country</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Source country<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -730,7 +816,9 @@ export default function ProjectForm() {
                 name="objective"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Objective</FormLabel>
+                    <FormLabel className="text-xs font-semibold">
+                      Objective<sup className="pl-0.5">*</sup>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}

@@ -1,5 +1,5 @@
 {
-  "/dataset-values": {
+  "/project-statuses": {
     "get": {
       "responses": {
         "200": {
@@ -7,7 +7,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetValueListResponse"
+                "$ref": "#/components/schemas/ProjectStatusListResponse"
               }
             }
           }
@@ -64,7 +64,7 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Project-status"
       ],
       "parameters": [
         {
@@ -170,7 +170,7 @@
           }
         }
       ],
-      "operationId": "get/dataset-values"
+      "operationId": "get/project-statuses"
     },
     "post": {
       "responses": {
@@ -179,7 +179,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetValueResponse"
+                "$ref": "#/components/schemas/ProjectStatusResponse"
               }
             }
           }
@@ -236,23 +236,23 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Project-status"
       ],
       "parameters": [],
-      "operationId": "post/dataset-values",
+      "operationId": "post/project-statuses",
       "requestBody": {
         "required": true,
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/DatasetValueRequest"
+              "$ref": "#/components/schemas/ProjectStatusRequest"
             }
           }
         }
       }
     }
   },
-  "/dataset-values/{id}": {
+  "/project-statuses/{id}": {
     "get": {
       "responses": {
         "200": {
@@ -260,7 +260,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetValueResponse"
+                "$ref": "#/components/schemas/ProjectStatusResponse"
               }
             }
           }
@@ -317,7 +317,7 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Project-status"
       ],
       "parameters": [
         {
@@ -331,7 +331,7 @@
           }
         }
       ],
-      "operationId": "get/dataset-values/{id}"
+      "operationId": "get/project-statuses/{id}"
     },
     "put": {
       "responses": {
@@ -340,7 +340,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DatasetValueResponse"
+                "$ref": "#/components/schemas/ProjectStatusResponse"
               }
             }
           }
@@ -397,7 +397,7 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Project-status"
       ],
       "parameters": [
         {
@@ -411,13 +411,13 @@
           }
         }
       ],
-      "operationId": "put/dataset-values/{id}",
+      "operationId": "put/project-statuses/{id}",
       "requestBody": {
         "required": true,
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/DatasetValueRequest"
+              "$ref": "#/components/schemas/ProjectStatusRequest"
             }
           }
         }
@@ -488,7 +488,7 @@
         }
       },
       "tags": [
-        "Dataset-value"
+        "Project-status"
       ],
       "parameters": [
         {
@@ -502,7 +502,7 @@
           }
         }
       ],
-      "operationId": "delete/dataset-values/{id}"
+      "operationId": "delete/project-statuses/{id}"
     }
   }
 }
