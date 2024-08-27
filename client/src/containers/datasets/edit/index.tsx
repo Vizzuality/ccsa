@@ -163,8 +163,8 @@ export default function EditDatasetForm() {
 
     const colors =
       datasetEditData?.data?.attributes?.colors ||
-      (datasetData?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors ||
-      ({} as Data["colors"]);
+      ((datasetData?.data?.attributes?.layers?.data || [])[0]?.attributes
+        ?.colors as Data["colors"]);
 
     setFormValues({ settings, data, colors });
   }, [

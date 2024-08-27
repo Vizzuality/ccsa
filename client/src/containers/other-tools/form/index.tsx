@@ -136,7 +136,14 @@ export default function ToolForm() {
       onSuccess: (data) => {
         console.info("Success updating the tool suggestion:", data);
         toast.success("Success updating the tool suggestion");
-        push(`/dashboard`);
+        if (
+          ME_DATA?.role?.type === "authenticated" ||
+          data?.data?.attributes?.review_status === "declined" ||
+          data?.data?.attributes?.review_status === "pending"
+        ) {
+          push(`/dashboard`);
+        }
+        push(`/other-tools`);
       },
       onError: (error: Error) => {
         console.error("Error updating the tool suggestion:", error);

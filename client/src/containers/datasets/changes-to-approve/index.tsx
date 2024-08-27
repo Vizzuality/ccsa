@@ -32,6 +32,7 @@ import type {
   UsersPermissionsRole,
   UsersPermissionsUser,
 } from "@/types/generated/strapi.schemas";
+
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { INITIAL_DATASET_VALUES } from "@/app/store";
@@ -114,6 +115,13 @@ export default function FormToApprove() {
           toast.success("Success updating dataset suggestion");
           push(`/dashboard`);
         }
+        if (
+          data?.data?.attributes?.review_status === "declined" ||
+          data?.data?.attributes?.review_status === "pending"
+        ) {
+          push(`/dashboard`);
+        }
+        push(`/`);
       },
       onError: (error) => {
         toast.error("There was a problem updating the dataset suggestion");

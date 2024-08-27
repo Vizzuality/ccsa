@@ -104,6 +104,86 @@ export default function CSVInfoContent({ valueType }: { valueType: VALUE_TYPE })
         </div>
       )}
 
+      {/* {valueType === "project" && (
+        <div className="text-sm">
+          <h4 className="font-metropolis tracking-tight">Project/s</h4>
+          <div className="space-y-2.5">
+            <p>
+              <span className="font-semibold">Columns:</span>{" "}
+              <code>
+                name, highlight, status, objective, amount, countries, source_country, sdgs,
+                pillars, organization_type, info, funding
+              </code>
+              .
+            </p>
+            <p className="font-semibold">Example:</p>
+            <div className="flex flex-col bg-gray-100 p-4">
+              <code>
+                name, highlight, status, objective, amount, countries, source_country, sdgs,
+                pillars, organization_type, info, funding
+              </code>
+              <code>
+                Import test 1, Highlight 1, In Execution, This project has been delivered, 120000,
+                Jamaica; Bahamas; Belize, The United States, SDG 12 - Responsible production and
+                consumption; SDG 13 - Climate Action; SDG 17 - Partnership for the goals, 1.5% New
+                Green Jobs for Physical & Economic Resilience, For-profit, ,
+              </code>
+              <code>
+                Import test 2, Highlight 2, Completed, This project has been delivered, 120001,
+                Trinidad and Tobago; Belize, Trinidad & Tobago, SDG 7 - Affordable and clean energy;
+                SDG 8 - Decent work and economic growth; SDG 9 - Industry Innovation and
+                Infrastructure; SDG 11 - Sustainable Cities and Communities; SDG 12 - Responsible
+                production and consumption; SDG 13 - Climate Action; SDG 17 - Partnership for the
+                goals, 90% Renewable Energy for All, For-profit, ,
+              </code>
+              <code>
+                Import test 3, Highlight 3, Start-up to Early Stage, This project has been
+                delivered, 120002, Belize; Bahamas, Belize, SDG 7 - Affordable and clean energy; SDG
+                13 - Climate Action; SDG 17 - Partnership for the goals, 90% Renewable Energy for
+                All, For-profit, ,
+              </code>
+              <code>
+                Import test 4, Highlight 4, Start-up to Early Stage, This project has been
+                delivered, 120003, Bahamas, Barbados, SDG 7 - Affordable and clean energy; SDG 8 -
+                Decent work and economic growth; SDG 9 - Industry Innovation and Infrastructure; SDG
+                11 - Sustainable Cities and Communities; SDG 12 - Responsible production and
+                consumption; SDG 13 - Climate Action; SDG 17 - Partnership for the goals, 90%
+                Renewable Energy for All, For-profit, ,
+              </code>
+            </div>
+            <p>
+              If there are multiple resources for a single country, the CSV should look like this:
+            </p>
+            <div className="flex flex-col bg-gray-100 p-4">
+              <code>country_id, link_title, link_url, description</code>
+
+              <code>JAM, Highlight 1, http://example.com, Project related to Jamaica and SDGs</code>
+
+              <code>BHS, Highlight 1, http://example.com, Project related to Bahamas and SDGs</code>
+
+              <code>BLZ, Highlight 1, http://example.com, Project related to Belize and SDGs</code>
+
+              <code>
+                TTO, Highlight 2, http://example.com, Project related to Trinidad and Tobago and
+                SDGs
+              </code>
+
+              <code>BLZ, Highlight 2, http://example.com, Project related to Belize and SDGs</code>
+
+              <code>BLZ, Highlight 3, http://example.com, Project related to Belize and SDGs</code>
+
+              <code>BHS, Highlight 3, http://example.com, Project related to Bahamas and SDGs</code>
+
+              <code>BHS, Highlight 4, http://example.com, Project related to Bahamas and SDGs</code>
+
+              <code>
+                BRB, Highlight 4, http://example.com, Project related to Barbados and SDGs
+              </code>
+            </div>
+          </div>
+        </div>
+      )} */}
+
       <p className="note">
         If you are not sure how to proceed, you can download a template on this page with all
         available countries to fill in the values.

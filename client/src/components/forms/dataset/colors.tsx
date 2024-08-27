@@ -183,6 +183,13 @@ export default function DatasetColorsForm({
         });
         console.info("Success updating dataset:", data);
         toast.success("Dataset updating dataset suggestion");
+        if (
+          data?.data?.attributes?.review_status === "declined" ||
+          data?.data?.attributes?.review_status === "pending" ||
+          ME_DATA?.role?.type === "authenticated"
+        ) {
+          push(`/dataset/${id}`);
+        }
         push(`/dashboard`);
       },
       onError: (error) => {
