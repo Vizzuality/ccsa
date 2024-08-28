@@ -145,6 +145,12 @@
       "action": "api::layer.layer.update"
     },
     {
+      "action": "api::organization-type.organization-type.find"
+    },
+    {
+      "action": "api::organization-type.organization-type.findOne"
+    },
+    {
       "action": "api::other-tool.other-tool.create"
     },
     {
@@ -205,6 +211,9 @@
       "action": "api::project-edit-suggestion.project-edit-suggestion.update"
     },
     {
+      "action": "api::project.project.approveProjectSuggestion"
+    },
+    {
       "action": "api::project.project.create"
     },
     {
@@ -215,6 +224,9 @@
     },
     {
       "action": "api::project.project.findOne"
+    },
+    {
+      "action": "api::project.project.importProjects"
     },
     {
       "action": "api::project.project.update"
@@ -272,6 +284,12 @@
     },
     {
       "action": "api::welcome-message.welcome-message.find"
+    },
+    {
+      "action": "api::world-country.world-country.find"
+    },
+    {
+      "action": "api::world-country.world-country.findOne"
     },
     {
       "action": "plugin::content-type-builder.components.getComponent"

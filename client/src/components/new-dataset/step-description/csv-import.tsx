@@ -2,43 +2,80 @@ import React, { useCallback, useRef } from "react";
 
 import { useDropzone } from "react-dropzone";
 
-import { useSetAtom, useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { LuInfo } from "react-icons/lu";
+
+import { useRouter } from "next/navigation";
 
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 
 import { downloadCSV } from "@/lib/utils/csv";
-
+import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { datasetValuesJsonUploadedAtom } from "@/app/store";
-import { Dataset } from "@/types/generated/strapi.schemas";
+import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { validateCsv } from "@/services/datasets";
+import { validateDatasetValuesCsv } from "@/services/datasets";
+
+import { uploadProjectsCsv, uploadProjectsSuggestionCsv } from "@/services/projects";
 import CSVInfoContent from "./csv-info-content";
+
+import type { CSVImportTypes } from "./types";
 
 export default function CSVImport({
   valueType,
   values,
 }: {
-  valueType: Dataset["value_type"];
+  valueType: CSVImportTypes;
   values: any;
 }) {
+  const { push } = useRouter();
   const setDatasetValues = useSetAtom(datasetValuesJsonUploadedAtom);
   const fileInputRef = useRef(null);
 
   const { data: session } = useSession();
   const apiToken = session?.apiToken;
 
+  const user = session?.user;
+
+  const { data: meData } = useGetUsersId(`${user?.id}`, {
+    populate: "role",
+  });
+
+  const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
+
   const { getInputProps, getRootProps } = useDropzone({
     multiple: false,
     accept: { "text/csv": [".csv"] },
     onDropAccepted(files) {
       if (files.length > 0) {
-        validateCsv(files, {
-          Authorization: `Bearer ${apiToken}`,
-        }).then(({ data }) => {
-          setDatasetValues(data);
-        });
+        if (
+          valueType === "boolean" ||
+          valueType === "number" ||
+          valueType === "text" ||
+          valueType === "resource"
+        ) {
+          validateDatasetValuesCsv(files, {
+            Authorization: `Bearer ${apiToken}`,
+          }).then(({ data }) => {
+            setDatasetValues(data);
+          });
+        }
+        if (valueType === "project") {
+          ME_DATA?.role?.type === "admin" &&
+            uploadProjectsCsv(files, {
+              Authorization: `Bearer ${apiToken}`,
+            }).then(({ data }) => {
+              console.log(data);
+              // push("/projects");
+            });
+          ME_DATA?.role?.type === "authenticated" &&
+            uploadProjectsSuggestionCsv(files, {
+              Authorization: `Bearer ${apiToken}`,
+            }).then(({ data }) => {
+              push("/projects");
+            });
+        }
       }
     },
   });

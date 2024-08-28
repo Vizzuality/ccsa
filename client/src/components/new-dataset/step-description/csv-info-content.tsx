@@ -1,6 +1,6 @@
-import { VALUE_TYPE } from "@/components/forms/dataset/types";
+import { CSVImportTypes } from "./types";
 
-export default function CSVInfoContent({ valueType }: { valueType: VALUE_TYPE }) {
+export default function CSVInfoContent({ valueType }: { valueType: CSVImportTypes }) {
   return (
     <div className="space-y-5 p-5">
       <h3 className="font-bold">CSV Import Information</h3>
@@ -104,7 +104,7 @@ export default function CSVInfoContent({ valueType }: { valueType: VALUE_TYPE })
         </div>
       )}
 
-      {/* {valueType === "project" && (
+      {valueType === "project" && (
         <div className="text-sm">
           <h4 className="font-metropolis tracking-tight">Project/s</h4>
           <div className="space-y-2.5">
@@ -182,7 +182,7 @@ export default function CSVInfoContent({ valueType }: { valueType: VALUE_TYPE })
             </div>
           </div>
         </div>
-      )} */}
+      )}
 
       <p className="note">
         If you are not sure how to proceed, you can download a template on this page with all

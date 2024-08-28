@@ -1,4 +1,5 @@
-import { Dataset, Resource } from "@/types/generated/strapi.schemas";
+import { CSVImportTypes } from "@/components/new-dataset/step-description/types";
+import { Resource } from "@/types/generated/strapi.schemas";
 
 interface DataObject {
   [key: string]: number | string | boolean | Resource[] | undefined;
@@ -10,10 +11,24 @@ const csvTypeMapping: Record<string, string[]> = {
   text: ["country_id", "text"],
   boolean: ["country_id", "boolean"],
   resource: ["country_id", "link_title", "link_url", "description"],
+  project: [
+    "name",
+    "info",
+    "pillars",
+    "amount",
+    "countries",
+    "sdgs",
+    "status",
+    "funding",
+    "organization_type",
+    "source_country",
+    "objective",
+    "highlight",
+  ],
 };
 
 // Function to generate CSV content from data
-function generateCSVContent(data: DataObject, type: Dataset["value_type"]): string {
+function generateCSVContent(data: DataObject, type: CSVImportTypes): string {
   // Get the columns from the csvTypeMapping
   const columns = csvTypeMapping[type];
 
@@ -50,7 +65,7 @@ function generateCSVContent(data: DataObject, type: Dataset["value_type"]): stri
 // Function to download a CSV file
 export function downloadCSV(
   data: DataObject,
-  type: Dataset["value_type"],
+  type: CSVImportTypes,
   filename: string = "data.csv",
 ): void {
   // Generate CSV content
