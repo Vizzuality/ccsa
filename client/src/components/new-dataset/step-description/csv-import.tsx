@@ -21,6 +21,8 @@ import { uploadProjectsCsv, uploadProjectsSuggestionCsv } from "@/services/proje
 import CSVInfoContent from "./csv-info-content";
 
 import type { CSVImportTypes } from "./types";
+import { uploadCollaboratorsCsv } from "@/services/collaborators";
+import { uploadOtherToolsCsv, uploadOtherToolsSuggestionCsv } from "@/services/other-tools";
 
 export default function CSVImport({
   valueType,
@@ -65,15 +67,42 @@ export default function CSVImport({
           ME_DATA?.role?.type === "admin" &&
             uploadProjectsCsv(files, {
               Authorization: `Bearer ${apiToken}`,
-            }).then(({ data }) => {
-              console.log(data);
-              // push("/projects");
+            }).then(() => {
+              push("/projects");
             });
           ME_DATA?.role?.type === "authenticated" &&
             uploadProjectsSuggestionCsv(files, {
               Authorization: `Bearer ${apiToken}`,
-            }).then(({ data }) => {
-              push("/projects");
+            }).then(() => {
+              push("/dashboard");
+            });
+        }
+        if (valueType === "collaborators") {
+          ME_DATA?.role?.type === "admin" &&
+            uploadCollaboratorsCsv(files, {
+              Authorization: `Bearer ${apiToken}`,
+            }).then(() => {
+              push("/collaborators");
+            });
+          ME_DATA?.role?.type === "authenticated" &&
+            uploadProjectsSuggestionCsv(files, {
+              Authorization: `Bearer ${apiToken}`,
+            }).then(() => {
+              push("/dashboard");
+            });
+        }
+        if (valueType === "other-tools") {
+          ME_DATA?.role?.type === "admin" &&
+            uploadOtherToolsCsv(files, {
+              Authorization: `Bearer ${apiToken}`,
+            }).then(() => {
+              push("/other-tools");
+            });
+          ME_DATA?.role?.type === "authenticated" &&
+            uploadOtherToolsSuggestionCsv(files, {
+              Authorization: `Bearer ${apiToken}`,
+            }).then(() => {
+              push("/dashboard");
             });
         }
       }

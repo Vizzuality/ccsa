@@ -31,7 +31,13 @@
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.findOne"
     },
     {
+      "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.importCollaboratorEditSuggestions"
+    },
+    {
       "action": "api::collaborator-edit-suggestion.collaborator-edit-suggestion.update"
+    },
+    {
+      "action": "api::collaborator.collaborator.approveCollaboratorSuggestion"
     },
     {
       "action": "api::collaborator.collaborator.create"
@@ -44,6 +50,9 @@
     },
     {
       "action": "api::collaborator.collaborator.findOne"
+    },
+    {
+      "action": "api::collaborator.collaborator.importCollaborators"
     },
     {
       "action": "api::collaborator.collaborator.update"
@@ -100,6 +109,9 @@
       "action": "api::dataset-value.dataset-value.update"
     },
     {
+      "action": "api::dataset.dataset.approveDatasetSuggestion"
+    },
+    {
       "action": "api::dataset.dataset.create"
     },
     {
@@ -113,6 +125,9 @@
     },
     {
       "action": "api::dataset.dataset.update"
+    },
+    {
+      "action": "api::dataset.dataset.updateOrCreate"
     },
     {
       "action": "api::download-email.download-email.create"
@@ -151,6 +166,9 @@
       "action": "api::organization-type.organization-type.findOne"
     },
     {
+      "action": "api::other-tool.other-tool.approveOtherToolSuggestion"
+    },
+    {
       "action": "api::other-tool.other-tool.create"
     },
     {
@@ -161,6 +179,9 @@
     },
     {
       "action": "api::other-tool.other-tool.findOne"
+    },
+    {
+      "action": "api::other-tool.other-tool.importOtherTools"
     },
     {
       "action": "api::other-tool.other-tool.update"
@@ -208,7 +229,16 @@
       "action": "api::project-edit-suggestion.project-edit-suggestion.findOne"
     },
     {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.importProjectsSuggestions"
+    },
+    {
       "action": "api::project-edit-suggestion.project-edit-suggestion.update"
+    },
+    {
+      "action": "api::project-status.project-status.find"
+    },
+    {
+      "action": "api::project-status.project-status.findOne"
     },
     {
       "action": "api::project.project.approveProjectSuggestion"
@@ -272,6 +302,9 @@
     },
     {
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.findOne"
+    },
+    {
+      "action": "api::tool-edit-suggestion.tool-edit-suggestion.importOtherToolsEditSuggestions"
     },
     {
       "action": "api::tool-edit-suggestion.tool-edit-suggestion.update"

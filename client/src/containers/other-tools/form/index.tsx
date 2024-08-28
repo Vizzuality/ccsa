@@ -25,7 +25,7 @@ import {
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
-
+import CSVImport from "@/components/new-dataset/step-description/csv-import";
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
 import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
@@ -341,6 +341,19 @@ export default function ToolForm() {
         status={editSuggestionIdData?.data?.attributes?.review_status}
         message={editSuggestionIdData?.data?.attributes?.review_decision_details}
       />
+      <div className="py-10 sm:px-10 md:px-24 lg:px-32">
+        <CSVImport
+          valueType="other-tools"
+          values={{
+            data: {
+              name: "",
+              link: "",
+              category: "",
+              description: "",
+            },
+          }}
+        />
+      </div>
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>
           Fill the tool&apos;s information{" "}

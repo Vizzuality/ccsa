@@ -31,3 +31,53 @@ export const updateOrCreateCollaborator = async (
     throw new Error("Failed to update/create collaborator");
   }
 };
+
+export function uploadCollaboratorsCsv(
+  data: File[],
+  headers: { [key: string]: string },
+  options?: UseQueryOptions<unknown>,
+) {
+  const formData = new FormData();
+  formData.append("file", data[0]);
+
+  return api
+    .request({
+      method: "post",
+      url: "/collaborators/import",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...headers,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
+}
+
+export function uploadCollaboratorsSuggestionCsv(
+  data: File[],
+  headers: { [key: string]: string },
+  options?: UseQueryOptions<unknown>,
+) {
+  const formData = new FormData();
+  formData.append("csv", data[0]);
+
+  return api
+    .request({
+      method: "post",
+      url: "/collaborators-edit-suggestions/import",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...headers,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
+}

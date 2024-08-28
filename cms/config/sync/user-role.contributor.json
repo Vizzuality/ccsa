@@ -97,6 +97,9 @@
       "action": "api::other-tool.other-tool.findOne"
     },
     {
+      "action": "api::other-tool.other-tool.importOtherTools"
+    },
+    {
       "action": "api::other-tools-category.other-tools-category.find"
     },
     {
@@ -131,6 +134,9 @@
     },
     {
       "action": "api::project.project.findOne"
+    },
+    {
+      "action": "api::project.project.importProjects"
     },
     {
       "action": "api::resource.resource.find"
@@ -191,6 +197,15 @@
     },
     {
       "action": "plugin::import-export-entries.import.importData"
+    },
+    {
+      "action": "plugin::upload.content-api.find"
+    },
+    {
+      "action": "plugin::upload.content-api.findOne"
+    },
+    {
+      "action": "plugin::upload.content-api.upload"
     },
     {
       "action": "plugin::users-permissions.auth.callback"
