@@ -37,15 +37,6 @@ export default factories.createCoreController("api::project.project", () => ({
 
   async importProjects(ctx) {
     const { file } = ctx.request.files as { file: any };
-    console.log(
-      "**********************************************************trapi.config.server.url**********************************************************",
-
-      ctx.req.rawHeaders[1],
-      ctx.req,
-      ctx.request,
-      "ctx.req.rawHeaders[1],",
-      "**********************************************************trapi.config.server.url**********************************************************"
-    );
 
     if (!file) {
       return ctx.badRequest("No file uploaded");
@@ -64,13 +55,15 @@ export default factories.createCoreController("api::project.project", () => ({
         idField: "id",
       };
 
+      const token = ctx.request.header.authorization
+
       // Post the data to the import plugin
       const response = await axios.post(
         `${strapi.config.server.url}/api/import-export-entries/content/import`,
         importData,
         {
           headers: {
-            Authorization: `${ctx.req.rawHeaders[1] || ""}`, // Ensure the request is authenticated
+            Authorization: `${token}`,
             "Content-Type": "application/json",
           },
         }
