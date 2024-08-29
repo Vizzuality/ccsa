@@ -1,7 +1,7 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::category.category",
+  "key": "plugin_content_manager_configuration_content_types::api::organization-type.organization-type",
   "value": {
-    "uid": "api::category.category",
+    "uid": "api::organization-type.organization-type",
     "settings": {
       "bulkable": true,
       "filterable": true,
@@ -32,36 +32,6 @@
           "label": "name",
           "searchable": true,
           "sortable": true
-        }
-      },
-      "dataset_edit_suggestions": {
-        "edit": {
-          "label": "dataset_edit_suggestions",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "dataset_edit_suggestions",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "dataset": {
-        "edit": {
-          "label": "dataset",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "dataset",
-          "searchable": false,
-          "sortable": false
         }
       },
       "createdAt": {
@@ -128,22 +98,12 @@
         "id",
         "name",
         "createdAt",
-        "dataset"
+        "updatedAt"
       ],
       "edit": [
         [
           {
             "name": "name",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "dataset_edit_suggestions",
-            "size": 6
-          },
-          {
-            "name": "dataset",
             "size": 6
           }
         ]

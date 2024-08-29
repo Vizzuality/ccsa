@@ -8,6 +8,7 @@ const api = axios.create({
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
   },
 });
+
 export const updateOrCreateOtherTools = async (
   data: unknown,
   userToken: string,
@@ -31,3 +32,53 @@ export const updateOrCreateOtherTools = async (
     throw new Error("Failed to update/create other tool");
   }
 };
+
+export function uploadOtherToolsCsv(
+  data: File[],
+  headers: { [key: string]: string },
+  options?: UseQueryOptions<unknown>,
+) {
+  const formData = new FormData();
+  formData.append("file", data[0]);
+
+  return api
+    .request({
+      method: "post",
+      url: "/other-tools/import",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...headers,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
+}
+
+export function uploadToolEditSuggestionCsv(
+  data: File[],
+  headers: { [key: string]: string },
+  options?: UseQueryOptions<unknown>,
+) {
+  const formData = new FormData();
+  formData.append("csv", data[0]);
+
+  return api
+    .request({
+      method: "post",
+      url: "/tool-edit-suggestions/import",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...headers,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
+}

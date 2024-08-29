@@ -29,6 +29,7 @@ import { useGetSdgs } from "@/types/generated/sdg";
 import type { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { useGetTypesOfFundings } from "@/types/generated/types-of-funding";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
+import { useGetWorldCountries } from "@/types/generated/world-country";
 
 import { useSyncSearchParams } from "@/app/store";
 
@@ -56,7 +57,7 @@ import {
 } from "@/components/ui/select";
 
 import { updateOrCreateProject } from "@/services/projects";
-// import CSVImport from "@/components/new-dataset/step-description/csv-import";
+import CSVImport from "@/components/new-dataset/step-description/csv-import";
 
 export default function ProjectForm() {
   const { push } = useRouter();
@@ -153,6 +154,22 @@ export default function ProjectForm() {
           data?.data?.map((status) => ({
             label: status?.attributes?.name as string,
             value: status?.id as number,
+          })),
+      },
+    },
+  );
+
+  const { data: worldCountries } = useGetWorldCountries(
+    {
+      "pagination[pageSize]": 100,
+      sort: "name:asc",
+    },
+    {
+      query: {
+        select: (data) =>
+          data?.data?.map((status) => ({
+            label: status?.attributes?.name as string,
+            value: status?.attributes?.code as string,
           })),
       },
     },
@@ -468,7 +485,7 @@ export default function ProjectForm() {
         message={projectsSuggestedData?.data?.attributes?.review_decision_details}
       />
 
-      {/* <div className="py-10 sm:px-10 md:px-24 lg:px-32">
+      <div className="py-10 sm:px-10 md:px-24 lg:px-32">
         <CSVImport
           valueType="project"
           values={{
@@ -488,7 +505,7 @@ export default function ProjectForm() {
             },
           }}
         />
-      </div> */}
+      </div>
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p className="m-auto w-full max-w-sm">
           Fill the project&apos;s information{" "}
@@ -793,18 +810,29 @@ export default function ProjectForm() {
                       Source country<sup className="pl-0.5">*</sup>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        className={cn({
-                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
-                        })}
-                        placeholder="Source country"
-                        disabled={
-                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
-                        }
-                      />
+                      <Select value={field.value?.toString()} onValueChange={field.onChange}>
+                        <SelectTrigger
+                          className={cn({
+                            "h-10 w-full border-0 bg-gray-300/20": true,
+                            "bg-green-400": changes?.includes(field.name),
+                          })}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
+                        >
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {(worldCountries || []).map(({ label, value }) => {
+                            return (
+                              <SelectItem key={value} value={value?.toString()}>
+                                {label}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

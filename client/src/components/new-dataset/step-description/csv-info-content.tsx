@@ -1,6 +1,6 @@
-import { VALUE_TYPE } from "@/components/forms/dataset/types";
+import { CSVImportTypes } from "./types";
 
-export default function CSVInfoContent({ valueType }: { valueType: VALUE_TYPE }) {
+export default function CSVInfoContent({ valueType }: { valueType: CSVImportTypes }) {
   return (
     <div className="space-y-5 p-5">
       <h3 className="font-bold">CSV Import Information</h3>
@@ -104,7 +104,7 @@ export default function CSVInfoContent({ valueType }: { valueType: VALUE_TYPE })
         </div>
       )}
 
-      {/* {valueType === "project" && (
+      {valueType === "project" && (
         <div className="text-sm">
           <h4 className="font-metropolis tracking-tight">Project/s</h4>
           <div className="space-y-2.5">
@@ -182,7 +182,62 @@ export default function CSVInfoContent({ valueType }: { valueType: VALUE_TYPE })
             </div>
           </div>
         </div>
-      )} */}
+      )}
+
+      {valueType === "other-tools" && (
+        <div className="text-sm">
+          <h4 className="font-metropolis tracking-tight">Other Tools</h4>
+          <div className="space-y-2.5">
+            <p>
+              <span className="font-semibold">Columns:</span>{" "}
+              <code>name, link, category, description</code>.
+            </p>
+            <p className="font-semibold">Categories:</p>
+            <ul className="ml-5 list-disc">
+              <li>Biodiversity</li>
+              <li>Blue Economy</li>
+              <li>Climate Impacts</li>
+              <li>Conservation</li>
+              <li>Data</li>
+              <li>Energy</li>
+              <li>General</li>
+              <li>Trade</li>
+              <li>Vulnerability</li>
+            </ul>
+            <p className="font-semibold">Example:</p>
+            <div className="flex flex-col bg-gray-100 p-4">
+              <code>name, link, category, description</code>
+              <code>
+                Tool A, http://example.com, Data, A tool for data analysis and visualization.
+              </code>
+              <code>
+                Tool B, http://example2.com, Climate Impacts, A tool for assessing climate impacts.
+              </code>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {valueType === "collaborators" && (
+        <div className="text-sm">
+          <h4 className="font-metropolis tracking-tight">Collaborators</h4>
+          <div className="space-y-2.5">
+            <p>
+              <span className="font-semibold">Columns:</span> <code>name, type, link</code>.
+            </p>
+            <p>
+              <span className="font-semibold">Type:</span> The type field should be either{" "}
+              <code>Donor</code> or <code>Collaborator</code>.
+            </p>
+            <p className="font-semibold">Example:</p>
+            <div className="flex flex-col bg-gray-100 p-4">
+              <code>name, type, link</code>
+              <code>John Doe, Donor, http://university.edu</code>
+              <code>Jane Smith, Collaborator, http://company.com</code>
+            </div>
+          </div>
+        </div>
+      )}
 
       <p className="note">
         If you are not sure how to proceed, you can download a template on this page with all

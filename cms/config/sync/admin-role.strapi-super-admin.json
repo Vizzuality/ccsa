@@ -10,8 +10,8 @@
       "properties": {
         "fields": [
           "name",
-          "datasets",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset"
         ]
       },
       "conditions": []
@@ -37,8 +37,8 @@
       "properties": {
         "fields": [
           "name",
-          "datasets",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset"
         ]
       },
       "conditions": []
@@ -50,8 +50,8 @@
       "properties": {
         "fields": [
           "name",
-          "datasets",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset"
         ]
       },
       "conditions": []
@@ -388,13 +388,13 @@
         "fields": [
           "name",
           "datum",
-          "category",
           "description",
           "layers",
           "unit",
           "value_type",
           "dataset_edit_suggestions",
-          "dataset_values"
+          "dataset_values",
+          "category"
         ]
       },
       "conditions": []
@@ -421,13 +421,13 @@
         "fields": [
           "name",
           "datum",
-          "category",
           "description",
           "layers",
           "unit",
           "value_type",
           "dataset_edit_suggestions",
-          "dataset_values"
+          "dataset_values",
+          "category"
         ]
       },
       "conditions": []
@@ -440,13 +440,13 @@
         "fields": [
           "name",
           "datum",
-          "category",
           "description",
           "layers",
           "unit",
           "value_type",
           "dataset_edit_suggestions",
-          "dataset_values"
+          "dataset_values",
+          "category"
         ]
       },
       "conditions": []
@@ -568,6 +568,53 @@
           "dataset",
           "colors",
           "dataset_edit_suggestion"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::organization-type.organization-type",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::organization-type.organization-type",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::organization-type.organization-type",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::organization-type.organization-type",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::organization-type.organization-type",
+      "properties": {
+        "fields": [
+          "name"
         ]
       },
       "conditions": []
@@ -825,6 +872,53 @@
           "sdgs",
           "project",
           "review_decision_details"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::project-status.project-status",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project-status.project-status",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project-status.project-status",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-status.project-status",
+      "properties": {
+        "fields": [
+          "name"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project-status.project-status",
+      "properties": {
+        "fields": [
+          "name"
         ]
       },
       "conditions": []
@@ -1194,6 +1288,56 @@
           "video",
           "image",
           "button"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::world-country.world-country",
+      "properties": {
+        "fields": [
+          "code",
+          "name"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::world-country.world-country",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::world-country.world-country",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::world-country.world-country",
+      "properties": {
+        "fields": [
+          "code",
+          "name"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::world-country.world-country",
+      "properties": {
+        "fields": [
+          "code",
+          "name"
         ]
       },
       "conditions": []

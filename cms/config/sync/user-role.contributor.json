@@ -85,10 +85,19 @@
       "action": "api::layer.layer.findOne"
     },
     {
+      "action": "api::organization-type.organization-type.find"
+    },
+    {
+      "action": "api::organization-type.organization-type.findOne"
+    },
+    {
       "action": "api::other-tool.other-tool.find"
     },
     {
       "action": "api::other-tool.other-tool.findOne"
+    },
+    {
+      "action": "api::other-tool.other-tool.importOtherTools"
     },
     {
       "action": "api::other-tools-category.other-tools-category.find"
@@ -125,6 +134,9 @@
     },
     {
       "action": "api::project.project.findOne"
+    },
+    {
+      "action": "api::project.project.importProjects"
     },
     {
       "action": "api::resource.resource.find"
@@ -166,6 +178,12 @@
       "action": "api::welcome-message.welcome-message.find"
     },
     {
+      "action": "api::world-country.world-country.find"
+    },
+    {
+      "action": "api::world-country.world-country.findOne"
+    },
+    {
       "action": "plugin::content-type-builder.components.getComponent"
     },
     {
@@ -179,6 +197,15 @@
     },
     {
       "action": "plugin::import-export-entries.import.importData"
+    },
+    {
+      "action": "plugin::upload.content-api.find"
+    },
+    {
+      "action": "plugin::upload.content-api.findOne"
+    },
+    {
+      "action": "plugin::upload.content-api.upload"
     },
     {
       "action": "plugin::users-permissions.auth.callback"

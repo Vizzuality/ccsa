@@ -52,6 +52,12 @@
       "action": "api::layer.layer.findOne"
     },
     {
+      "action": "api::organization-type.organization-type.find"
+    },
+    {
+      "action": "api::organization-type.organization-type.findOne"
+    },
+    {
       "action": "api::other-tool.other-tool.find"
     },
     {
@@ -98,6 +104,12 @@
     },
     {
       "action": "api::welcome-message.welcome-message.find"
+    },
+    {
+      "action": "api::world-country.world-country.find"
+    },
+    {
+      "action": "api::world-country.world-country.findOne"
     },
     {
       "action": "plugin::email.email.send"

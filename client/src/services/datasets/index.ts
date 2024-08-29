@@ -33,8 +33,7 @@ export const updateOrCreateDataset = async (
     throw new Error("Failed to update/create dataset");
   }
 };
-
-export function validateCsv(
+export function validateDatasetValuesCsv(
   data: File[],
   headers: { [key: string]: string },
   options?: UseQueryOptions<unknown>,

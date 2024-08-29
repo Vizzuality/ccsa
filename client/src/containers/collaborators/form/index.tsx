@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-
+import CSVImport from "@/components/new-dataset/step-description/csv-import";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
@@ -337,6 +337,18 @@ export default function CollaboratorForm() {
         status={suggestionStatus}
         message={collaboratorSuggestedDataId?.data?.attributes?.review_decision_details}
       />
+      <div className="py-10 sm:px-10 md:px-24 lg:px-32">
+        <CSVImport
+          valueType="collaborators"
+          values={{
+            data: {
+              name: "",
+              type: "",
+              link: "",
+            },
+          }}
+        />
+      </div>
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p>
           Fill the organization&apos;s information{" "}

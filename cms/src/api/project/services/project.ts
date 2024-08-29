@@ -10,7 +10,7 @@ import * as stringify from 'csv-stringify/sync';
 interface ProjectRow {
   countries: string;
   sdgs: string;
-  pillars: string;
+  pillar: string;
   [key: string]: any;
 }
 
@@ -66,7 +66,7 @@ export default factories.createCoreService('api::project.project', {
     const updatedRecords = await Promise.all(records.map(async (row: ProjectRow) => {
       const countryNames = row.countries.split(';').map(name => name.trim());
       const sdgNames = row.sdgs.split(';').map(name => name.trim());
-      const pillarNames = row.pillars.split(';').map(name => name.trim());
+      const pillarNames = row.pillar.split(';').map(name => name.trim());
 
       const countryIds = await Promise.all(countryNames.map(name => findCountryIdByName(name)));
       const sdgIds = await Promise.all(sdgNames.map(name => findSdgIdByName(name)));
@@ -77,7 +77,7 @@ export default factories.createCoreService('api::project.project', {
         ...row,
         countries: countryIds,
         sdgs: sdgIds,
-        pillars: pillarIds,
+        pillar: pillarIds,
         publishedAt,
       };
 

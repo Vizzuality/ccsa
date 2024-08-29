@@ -695,6 +695,11 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'oneToMany',
       'api::dataset-edit-suggestion.dataset-edit-suggestion'
     >;
+    dataset: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::dataset.dataset'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -878,9 +883,10 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
     >;
     category: Attribute.Relation<
       'api::dataset.dataset',
-      'oneToOne',
+      'manyToOne',
       'api::category.category'
     >;
+    colors: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1596,6 +1602,38 @@ export interface ApiWelcomeMessageWelcomeMessage extends Schema.SingleType {
   };
 }
 
+export interface ApiWorldCountryWorldCountry extends Schema.CollectionType {
+  collectionName: 'world_countries';
+  info: {
+    singularName: 'world-country';
+    pluralName: 'world-countries';
+    displayName: 'World country';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    code: Attribute.String;
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::world-country.world-country',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::world-country.world-country',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1633,6 +1671,7 @@ declare module '@strapi/types' {
       'api::tool-edit-suggestion.tool-edit-suggestion': ApiToolEditSuggestionToolEditSuggestion;
       'api::types-of-funding.types-of-funding': ApiTypesOfFundingTypesOfFunding;
       'api::welcome-message.welcome-message': ApiWelcomeMessageWelcomeMessage;
+      'api::world-country.world-country': ApiWorldCountryWorldCountry;
     }
   }
 }

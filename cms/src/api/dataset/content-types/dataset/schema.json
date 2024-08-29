@@ -58,8 +58,12 @@
     },
     "category": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category"
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "dataset"
+    },
+    "colors": {
+      "type": "json"
     }
   }
 }

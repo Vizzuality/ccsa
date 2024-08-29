@@ -31,3 +31,53 @@ export const updateOrCreateProject = async (
     throw new Error("Failed to update/create project");
   }
 };
+
+export function uploadProjectsCsv(
+  data: File[],
+  headers: { [key: string]: string },
+  options?: UseQueryOptions<unknown>,
+) {
+  const formData = new FormData();
+  formData.append("file", data[0]);
+
+  return api
+    .request({
+      method: "post",
+      url: "/projects/import",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...headers,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
+}
+
+export function uploadProjectsSuggestionCsv(
+  data: File[],
+  headers: { [key: string]: string },
+  options?: UseQueryOptions<unknown>,
+) {
+  const formData = new FormData();
+  formData.append("csv", data[0]);
+
+  return api
+    .request({
+      method: "post",
+      url: "/project-edit-suggestions/import",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...headers,
+      },
+      ...options,
+    })
+    .then(({ data }) => data)
+    .catch((err) => {
+      return err;
+    });
+}

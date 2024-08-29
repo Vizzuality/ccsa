@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::category.category",
+  "key": "plugin_content_manager_configuration_content_types::api::world-country.world-country",
   "value": {
-    "uid": "api::category.category",
+    "uid": "api::world-country.world-country",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "name",
-      "defaultSortBy": "name",
+      "mainField": "code",
+      "defaultSortBy": "code",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -16,6 +16,20 @@
         "edit": {},
         "list": {
           "label": "id",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "code": {
+        "edit": {
+          "label": "code",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "code",
           "searchable": true,
           "sortable": true
         }
@@ -32,36 +46,6 @@
           "label": "name",
           "searchable": true,
           "sortable": true
-        }
-      },
-      "dataset_edit_suggestions": {
-        "edit": {
-          "label": "dataset_edit_suggestions",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "dataset_edit_suggestions",
-          "searchable": false,
-          "sortable": false
-        }
-      },
-      "dataset": {
-        "edit": {
-          "label": "dataset",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "dataset",
-          "searchable": false,
-          "sortable": false
         }
       },
       "createdAt": {
@@ -126,24 +110,18 @@
     "layouts": {
       "list": [
         "id",
+        "code",
         "name",
-        "createdAt",
-        "dataset"
+        "createdAt"
       ],
       "edit": [
         [
           {
-            "name": "name",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "dataset_edit_suggestions",
+            "name": "code",
             "size": 6
           },
           {
-            "name": "dataset",
+            "name": "name",
             "size": 6
           }
         ]
