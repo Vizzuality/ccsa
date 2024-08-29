@@ -49,6 +49,21 @@
           "sortable": false
         }
       },
+      "dataset": {
+        "edit": {
+          "label": "dataset",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "dataset",
+          "searchable": false,
+          "sortable": false
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -112,7 +127,8 @@
       "list": [
         "id",
         "name",
-        "createdAt"
+        "createdAt",
+        "dataset"
       ],
       "edit": [
         [
@@ -124,6 +140,10 @@
         [
           {
             "name": "dataset_edit_suggestions",
+            "size": 6
+          },
+          {
+            "name": "dataset",
             "size": 6
           }
         ]

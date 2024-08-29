@@ -10,7 +10,8 @@
       "properties": {
         "fields": [
           "name",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset"
         ]
       },
       "conditions": []
@@ -36,7 +37,8 @@
       "properties": {
         "fields": [
           "name",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset"
         ]
       },
       "conditions": []
@@ -48,7 +50,8 @@
       "properties": {
         "fields": [
           "name",
-          "dataset_edit_suggestions"
+          "dataset_edit_suggestions",
+          "dataset"
         ]
       },
       "conditions": []

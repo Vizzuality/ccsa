@@ -21,8 +21,11 @@ import { uploadProjectsCsv, uploadProjectsSuggestionCsv } from "@/services/proje
 import CSVInfoContent from "./csv-info-content";
 
 import type { CSVImportTypes } from "./types";
-import { uploadCollaboratorsCsv } from "@/services/collaborators";
-import { uploadOtherToolsCsv, uploadOtherToolsSuggestionCsv } from "@/services/other-tools";
+import {
+  uploadCollaboratorsCsv,
+  uploadCollaboratorEditSuggestionsCsv,
+} from "@/services/collaborators";
+import { uploadOtherToolsCsv, uploadToolEditSuggestionCsv } from "@/services/other-tools";
 
 export default function CSVImport({
   valueType,
@@ -85,7 +88,7 @@ export default function CSVImport({
               push("/collaborators");
             });
           ME_DATA?.role?.type === "authenticated" &&
-            uploadProjectsSuggestionCsv(files, {
+            uploadCollaboratorEditSuggestionsCsv(files, {
               Authorization: `Bearer ${apiToken}`,
             }).then(() => {
               push("/dashboard");
@@ -99,7 +102,7 @@ export default function CSVImport({
               push("/other-tools");
             });
           ME_DATA?.role?.type === "authenticated" &&
-            uploadOtherToolsSuggestionCsv(files, {
+            uploadToolEditSuggestionCsv(files, {
               Authorization: `Bearer ${apiToken}`,
             }).then(() => {
               push("/dashboard");

@@ -57,7 +57,7 @@ export function uploadCollaboratorsCsv(
     });
 }
 
-export function uploadCollaboratorsSuggestionCsv(
+export function uploadCollaboratorEditSuggestionsCsv(
   data: File[],
   headers: { [key: string]: string },
   options?: UseQueryOptions<unknown>,
@@ -68,7 +68,7 @@ export function uploadCollaboratorsSuggestionCsv(
   return api
     .request({
       method: "post",
-      url: "/collaborators-edit-suggestions/import",
+      url: "/collaborator-edit-suggestions/import",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",

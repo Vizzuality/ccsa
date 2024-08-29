@@ -695,6 +695,11 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'oneToMany',
       'api::dataset-edit-suggestion.dataset-edit-suggestion'
     >;
+    dataset: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::dataset.dataset'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -878,7 +883,7 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
     >;
     category: Attribute.Relation<
       'api::dataset.dataset',
-      'oneToOne',
+      'manyToOne',
       'api::category.category'
     >;
     createdAt: Attribute.DateTime;

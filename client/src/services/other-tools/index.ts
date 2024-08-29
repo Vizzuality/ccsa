@@ -58,7 +58,7 @@ export function uploadOtherToolsCsv(
     });
 }
 
-export function uploadOtherToolsSuggestionCsv(
+export function uploadToolEditSuggestionCsv(
   data: File[],
   headers: { [key: string]: string },
   options?: UseQueryOptions<unknown>,
@@ -69,7 +69,7 @@ export function uploadOtherToolsSuggestionCsv(
   return api
     .request({
       method: "post",
-      url: "/other-tools-edit-suggestions/import",
+      url: "/tool-edit-suggestions/import",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
