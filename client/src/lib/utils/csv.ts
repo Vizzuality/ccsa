@@ -25,6 +25,8 @@ const csvTypeMapping: Record<string, string[]> = {
     "objective",
     "highlight",
   ],
+  "other-tools": ["name", "description", "link", "category"],
+  collaborators: ["name", "type", "link"],
 };
 
 // Function to generate CSV content from data
@@ -69,6 +71,8 @@ export function downloadCSV(
   filename: string = "data.csv",
 ): void {
   // Generate CSV content
+  console.log(data, type);
+  debugger;
   const csvContent = generateCSVContent(data, type);
 
   // Create a Blob from the CSV content

@@ -886,6 +886,7 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'manyToOne',
       'api::category.category'
     >;
+    colors: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

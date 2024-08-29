@@ -161,10 +161,8 @@ export default function EditDatasetForm() {
       datasetData?.data?.attributes?.value_type,
     );
 
-    const colors =
-      datasetEditData?.data?.attributes?.colors ||
-      ((datasetData?.data?.attributes?.layers?.data || [])[0]?.attributes
-        ?.colors as Data["colors"]);
+    const colors = (datasetEditData?.data?.attributes?.colors ||
+      (datasetData?.data?.attributes?.layers?.data || [])[0]?.attributes?.colors) as Data["colors"];
 
     setFormValues({ settings, data, colors });
   }, [

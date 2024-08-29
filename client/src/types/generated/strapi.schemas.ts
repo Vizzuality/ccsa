@@ -3680,6 +3680,7 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
   {
     category?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
+    colors?: unknown;
     createdAt?: string;
     createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
     dataset_edit_suggestions?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
@@ -5773,6 +5774,7 @@ export const ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIt
 export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
   {
     category?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
+    colors?: unknown;
     createdAt?: string;
     createdBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
     dataset_edit_suggestions?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
@@ -7076,6 +7078,7 @@ export const ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDa
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
   {
     category?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
+    colors?: unknown;
     createdAt?: string;
     createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
     dataset_edit_suggestions?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
@@ -8508,6 +8511,7 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
   {
     category?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
+    colors?: unknown;
     createdAt?: string;
     createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
     dataset_edit_suggestions?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
@@ -10460,6 +10464,7 @@ export const LayerDatasetDataAttributesValueType = {
 
 export type LayerDatasetDataAttributes = {
   category?: LayerDatasetDataAttributesCategory;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: LayerDatasetDataAttributesCreatedBy;
   dataset_edit_suggestions?: LayerDatasetDataAttributesDatasetEditSuggestions;
@@ -11716,6 +11721,7 @@ export type DatasetValueDatasetDataAttributesLayers = {
 
 export type DatasetValueDatasetDataAttributes = {
   category?: DatasetValueDatasetDataAttributesCategory;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: DatasetValueDatasetDataAttributesCreatedBy;
   dataset_edit_suggestions?: DatasetValueDatasetDataAttributesDatasetEditSuggestions;
@@ -12916,6 +12922,7 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributes =
   {
     category?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesCategory;
+    colors?: unknown;
     createdAt?: string;
     createdBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesCreatedBy;
     dataset_edit_suggestions?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
@@ -13706,6 +13713,7 @@ export const DatasetValueType = {
 
 export interface Dataset {
   category?: DatasetCategory;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: DatasetCreatedBy;
   dataset_edit_suggestions?: DatasetDatasetEditSuggestions;
@@ -13820,6 +13828,7 @@ export const DatasetLayersDataItemAttributesDatasetDataAttributesValueType = {
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributes = {
   category?: DatasetLayersDataItemAttributesDatasetDataAttributesCategory;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesCreatedBy;
   dataset_edit_suggestions?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
@@ -14725,6 +14734,7 @@ export type DatasetRequestDataCategory = number | string;
 
 export type DatasetRequestData = {
   category?: DatasetRequestDataCategory;
+  colors?: unknown;
   dataset_edit_suggestions?: DatasetRequestDataDatasetEditSuggestionsItem[];
   dataset_values?: DatasetRequestDataDatasetValuesItem[];
   datum: unknown;
@@ -14893,6 +14903,7 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayers = 
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributes = {
   category?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
+  colors?: unknown;
   createdAt?: string;
   createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
   dataset_edit_suggestions?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
@@ -18003,6 +18014,7 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribut
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributes =
   {
     category?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesCategory;
+    colors?: unknown;
     createdAt?: string;
     createdBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesCreatedBy;
     dataset_edit_suggestions?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetEditSuggestions;

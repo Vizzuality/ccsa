@@ -61,6 +61,9 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "dataset"
+    },
+    "colors": {
+      "type": "json"
     }
   }
 }
