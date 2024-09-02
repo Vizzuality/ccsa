@@ -20,6 +20,7 @@ import {
   useGetCollaboratorEditSuggestionsId,
   usePutCollaboratorEditSuggestionsId,
   usePostCollaboratorEditSuggestions,
+  useDeleteCollaboratorEditSuggestionsId,
 } from "@/types/generated/collaborator-edit-suggestion";
 import {
   UsersPermissionsRole,
@@ -52,6 +53,8 @@ import {
 
 import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
+import { project } from "deck.gl/typed";
+import e from "express";
 
 export default function CollaboratorForm() {
   const [imageId, setImageId] = useState<number | null>(null);
@@ -145,6 +148,19 @@ export default function CollaboratorForm() {
       },
     },
   });
+
+  const { mutate: mutateDeleteCollaboratorEditSuggestionsId } =
+    useDeleteCollaboratorEditSuggestionsId({
+      mutation: {
+        onSuccess: (data) => {
+          console.info("Success deleting collaborator suggestion:", data);
+          push(`/collaborators`);
+        },
+        onError: (error) => {
+          console.error("Error deleting collaborator suggestion:", error);
+        },
+      },
+    });
 
   const relationshipOptions = [
     {
@@ -316,7 +332,11 @@ export default function CollaboratorForm() {
   });
 
   const handleDelete = useCallback(() => {
-    mutateDeleteCollaboratorId({ id: +id });
+    if (collaboratorData?.data?.id) {
+      mutateDeleteCollaboratorId({ id: +id });
+    } else if (collaboratorSuggestedDataId?.data?.id) {
+      mutateDeleteCollaboratorEditSuggestionsId({ id: +id });
+    }
   }, [id, mutateDeleteCollaboratorId]);
 
   const changes =
