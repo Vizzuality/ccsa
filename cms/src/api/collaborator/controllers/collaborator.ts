@@ -49,13 +49,15 @@ export default factories.createCoreController('api::collaborator.collaborator', 
         idField: 'id',
       };
 
+      const token = ctx.request.header.authorization
+
       // Post the data to the import plugin
       const response = await axios.post(
         `${strapi.config.server.url}/api/import-export-entries/content/import`,
         importData,
         {
           headers: {
-            Authorization: `${ctx.req.rawHeaders[1] || ''}`,
+            Authorization: `${token}`,
             'Content-Type': 'application/json',
           },
         }
