@@ -63,8 +63,8 @@ const CollaboratorTypeItem = ({ id, attributes, status }: CollaboratorTypeItemPr
       <div className="relative z-10 flex min-h-[134px] w-full flex-1 items-center justify-center p-8">
         <Image
           src={
-            `/images/collaborators/collaborator-${id}.png` ||
-            (collaboratorData?.data?.attributes?.image?.data?.attributes?.url as string)
+            (collaboratorData?.data?.attributes?.image?.data?.attributes?.url as string) ||
+            `/images/collaborators/collaborator-${id}.png`
           }
           alt={attributes?.name || "Collaborator logo"}
           width={134}
