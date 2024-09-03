@@ -21,6 +21,7 @@ import {
   useGetToolEditSuggestionsId,
   usePostToolEditSuggestions,
   usePutToolEditSuggestionsId,
+  useDeleteToolEditSuggestionsId,
 } from "@/types/generated/tool-edit-suggestion";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
@@ -123,11 +124,22 @@ export default function ToolForm() {
       onSuccess: (data) => {
         console.info("Success deleting the tool:", data);
         toast.success("Success deleting the tool");
-        push(`/datasets`);
+        push(`/other-tools`);
       },
       onError: (error: Error) => {
         console.error("Error deleting the tool:", error);
       },
+    },
+  });
+
+  const { mutate: mutateDeleteToolSuggestionsId } = useDeleteToolEditSuggestionsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting the suggested tool:", data);
+        toast.success("Success deleting the suggested tool");
+        push(`/other-tools`);
+      },
+      onError: (error: Error) => {},
     },
   });
 
@@ -324,7 +336,11 @@ export default function ToolForm() {
   };
 
   const handleDelete = useCallback(() => {
-    mutateDeleteOtherToolsId({ id: +id });
+    if (otherToolData?.data?.id) {
+      mutateDeleteOtherToolsId({ id: +id });
+    } else if (editSuggestionIdData?.data?.id) {
+      mutateDeleteToolSuggestionsId({ id: editSuggestionIdData?.data?.id });
+    }
   }, [mutateDeleteOtherToolsId, id]);
 
   const suggestionStatus = editSuggestionIdData?.data?.attributes?.review_status;

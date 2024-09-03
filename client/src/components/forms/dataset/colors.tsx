@@ -19,6 +19,7 @@ import chroma from "chroma-js";
 
 import {
   getGetDatasetEditSuggestionsIdQueryKey,
+  useDeleteDatasetEditSuggestionsId,
   useGetDatasetEditSuggestionsId,
 } from "@/types/generated/dataset-edit-suggestion";
 import { usePutDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
@@ -210,6 +211,20 @@ export default function DatasetColorsForm({
       onError: (error) => {
         toast.error("Error deleting dataset");
         console.error("Error deleting dataset:", error);
+      },
+    },
+  });
+
+  const { mutate: mutateDeleteDatasetEditSuggestionsId } = useDeleteDatasetEditSuggestionsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting suggested dataset:", data);
+        toast.success("Success deleting suggested dataset");
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        toast.error("Error deleting suggested dataset");
+        console.error("Error deleting suggested dataset :", error);
       },
     },
   });

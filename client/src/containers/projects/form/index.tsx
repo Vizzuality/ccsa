@@ -22,6 +22,7 @@ import {
   useGetProjectEditSuggestionsId,
   usePostProjectEditSuggestions,
   usePutProjectEditSuggestionsId,
+  useDeleteProjectEditSuggestionsId,
 } from "@/types/generated/project-edit-suggestion";
 import { useGetProjectStatuses } from "@/types/generated/project-status";
 import { useGetOrganizationTypes } from "@/types/generated/organization-type";
@@ -161,7 +162,6 @@ export default function ProjectForm() {
 
   const { data: worldCountries } = useGetWorldCountries(
     {
-      "pagination[pageSize]": 100,
       sort: "name:asc",
     },
     {
@@ -248,6 +248,20 @@ export default function ProjectForm() {
       onError: (error: Error) => {
         console.error("Error deleting a project:", error);
         toast.error("There was a problem deleting the project");
+      },
+    },
+  });
+
+  const { mutate: mutateDeleteProjectEditSuggestionId } = useDeleteProjectEditSuggestionsId({
+    mutation: {
+      onSuccess: () => {
+        console.info("Success deleting a suggested project");
+        toast.success("Success deleting a suggested project");
+        push(`/dashboard`);
+      },
+      onError: (error: Error) => {
+        console.error("Error deleting a project suggestion:", error);
+        toast.error("There was a problem deleting the project suggestion");
       },
     },
   });
@@ -463,7 +477,13 @@ export default function ProjectForm() {
   };
 
   const handleDelete = useCallback(() => {
-    mutateDeleteProjectsId({ id: +id });
+    if (projectData?.data?.id) {
+      mutateDeleteProjectsId({ id: +id });
+    } else if (projectsSuggestedData?.data?.id) {
+      mutateDeleteProjectEditSuggestionId({
+        id: projectsSuggestedData?.data?.id,
+      });
+    }
   }, [id, mutateDeleteProjectsId]);
 
   const changes =
