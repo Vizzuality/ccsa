@@ -554,7 +554,7 @@ export default function ProjectForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                         disabled={
@@ -580,7 +580,7 @@ export default function ProjectForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400 placeholder:text-black": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Add info about the project"
                         disabled={
@@ -606,7 +606,7 @@ export default function ProjectForm() {
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={
                             ME_DATA?.role?.type === "authenticated" &&
@@ -644,7 +644,7 @@ export default function ProjectForm() {
                         value={typeof field.value === "number" ? +field.value : undefined}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Amount"
                         disabled={
@@ -721,7 +721,7 @@ export default function ProjectForm() {
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={
                             ME_DATA?.role?.type === "authenticated" &&
@@ -759,7 +759,7 @@ export default function ProjectForm() {
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={
                             ME_DATA?.role?.type === "authenticated" &&
@@ -797,7 +797,7 @@ export default function ProjectForm() {
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={
                             ME_DATA?.role?.type === "authenticated" &&
@@ -834,7 +834,7 @@ export default function ProjectForm() {
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={
                             ME_DATA?.role?.type === "authenticated" &&
@@ -873,7 +873,7 @@ export default function ProjectForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                         disabled={

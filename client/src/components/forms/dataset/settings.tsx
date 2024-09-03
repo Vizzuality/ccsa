@@ -2,9 +2,10 @@
 
 import { useCallback } from "react";
 
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSetAtom } from "jotai";
@@ -51,6 +52,8 @@ import {
 
 import { VALUE_TYPE_DICTIONARY } from "./constants";
 import DashboardFormWrapper from "./wrapper";
+import { useDeleteDatasetsId } from "@/types/generated/dataset";
+import { useDeleteDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
 
 export default function DatasetSettingsForm({
   title,
@@ -82,6 +85,9 @@ export default function DatasetSettingsForm({
 
   const isDatasetNew = isEmpty(data);
 
+  const params = useParams();
+  const { id: datasetId } = params;
+
   const { data: categoriesData } = useGetCategories(GET_CATEGORIES_OPTIONS(), {
     query: {
       select: (data) =>
@@ -89,6 +95,34 @@ export default function DatasetSettingsForm({
           label: data.attributes?.name as string,
           value: data.id as number,
         })),
+    },
+  });
+
+  const { mutate: mutateDeleteDatasetsId } = useDeleteDatasetsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting dataset:", data);
+        toast.success("Dataset deleted");
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        toast.error("Error deleting dataset");
+        console.error("Error deleting dataset:", error);
+      },
+    },
+  });
+
+  const { mutate: mutateDeleteDatasetEditSuggestionsId } = useDeleteDatasetEditSuggestionsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting suggested dataset:", data);
+        toast.success("Success deleting suggested dataset");
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        toast.error("Error deleting suggested dataset");
+        console.error("Error deleting suggested dataset :", error);
+      },
     },
   });
 
@@ -166,6 +200,14 @@ export default function DatasetSettingsForm({
     [onSubmit, data],
   );
 
+  const handleDelete = useCallback(() => {
+    if (isDatasetNew) {
+      mutateDeleteDatasetEditSuggestionsId({ id: +datasetId });
+    } else {
+      mutateDeleteDatasetsId({ id: +datasetId });
+    }
+  }, [mutateDeleteDatasetsId, datasetId]);
+
   return (
     <>
       {header && (
@@ -174,6 +216,7 @@ export default function DatasetSettingsForm({
           title={title}
           isNew={isDatasetNew}
           handleCancel={handleCancel}
+          handleDelete={handleDelete}
           status={data.review_status}
         />
       )}
@@ -198,7 +241,7 @@ export default function DatasetSettingsForm({
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                         disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
@@ -221,7 +264,7 @@ export default function DatasetSettingsForm({
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                         >
@@ -253,7 +296,7 @@ export default function DatasetSettingsForm({
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                         >
@@ -288,7 +331,7 @@ export default function DatasetSettingsForm({
                           value={field.value}
                           className={cn({
                             "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           placeholder="unit"
                           disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}

@@ -402,7 +402,7 @@ export default function FormToApprove() {
   const colorsChanges = !previousData?.colors
     ? []
     : getObjectDifferences(formValues.colors, previousData?.colors);
-  // TO DO - add textarea changes
+
   return (
     <>
       <div className="flex items-center justify-between py-4 sm:px-10 md:px-24 lg:px-32">
