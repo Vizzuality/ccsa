@@ -162,6 +162,7 @@ export default function ProjectForm() {
 
   const { data: worldCountries } = useGetWorldCountries(
     {
+      "pagination[pageSize]": 300,
       sort: "name:asc",
     },
     {
