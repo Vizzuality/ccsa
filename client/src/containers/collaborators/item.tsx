@@ -5,6 +5,8 @@ import { capitalize } from "lodash-es";
 import { useSession } from "next-auth/react";
 import { LuChevronDown, LuExternalLink } from "react-icons/lu";
 
+import { useGetCollaboratorsId } from "@/types/generated/collaborator";
+
 import { cn } from "@/lib/classnames";
 
 import { Collaborator, CollaboratorListResponseDataItem } from "@/types/generated/strapi.schemas";
@@ -17,44 +19,61 @@ type CollaboratorTypeItemProps = {
   status?: "authenticated" | "loading" | "unauthenticated";
 };
 
-const CollaboratorTypeItem = ({ id, attributes, status }: CollaboratorTypeItemProps) => (
-  <div
-    key={id}
-    className="group relative flex flex-col justify-end overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
-  >
-    {status === "authenticated" && (
-      <Link
-        href={`/dashboard/collaborators/${id}`}
-        className="absolute right-2 top-2 z-20 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 py-1 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
-      >
-        Edit
-      </Link>
-    )}
+const CollaboratorTypeItem = ({ id, attributes, status }: CollaboratorTypeItemProps) => {
+  const { data: collaboratorData } = useGetCollaboratorsId(
+    id as number,
+    {
+      populate: "*",
+    },
+    {
+      query: {
+        enabled: !!id,
+      },
+    },
+  );
 
-    <div className="absolute h-full w-full translate-y-full bg-gradient-to-t from-gray-600 to-white transition-all duration-500 group-hover:translate-y-0" />
-    <div className="absolute z-20 w-full">
-      <a
-        className={cn(
-          "flex w-full justify-between px-5 pb-2 font-open-sans text-xs font-semibold text-transparent group-hover:text-white",
-        )}
-        href={attributes?.link}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {attributes?.name}
-        <LuExternalLink className="ml-1 h-4 w-4 stroke-none group-hover:stroke-white" />
-      </a>
+  return (
+    <div
+      key={id}
+      className="group relative flex flex-col justify-end overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+    >
+      {status === "authenticated" && (
+        <Link
+          href={`/dashboard/collaborators/${id}`}
+          className="absolute right-2 top-2 z-20 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-primary bg-transparent px-2.5 py-1 text-[10px] text-sm font-medium text-primary ring-offset-background transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 "
+        >
+          Edit
+        </Link>
+      )}
+
+      <div className="absolute h-full w-full translate-y-full bg-gradient-to-t from-gray-600 to-white transition-all duration-500 group-hover:translate-y-0" />
+      <div className="absolute z-20 w-full">
+        <a
+          className={cn(
+            "flex w-full justify-between px-5 pb-2 font-open-sans text-xs font-semibold text-transparent group-hover:text-white",
+          )}
+          href={attributes?.link}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {attributes?.name}
+          <LuExternalLink className="ml-1 h-4 w-4 stroke-none group-hover:stroke-white" />
+        </a>
+      </div>
+      <div className="relative z-10 flex min-h-[134px] w-full flex-1 items-center justify-center p-8">
+        <Image
+          src={
+            `/images/collaborators/collaborator-${id}.png` ||
+            (collaboratorData?.data?.attributes?.image?.data?.attributes?.url as string)
+          }
+          alt={attributes?.name || "Collaborator logo"}
+          width={134}
+          height={134}
+        />
+      </div>
     </div>
-    <div className="relative z-10 flex min-h-[134px] w-full flex-1 items-center justify-center p-8">
-      <Image
-        src={`/images/collaborators/collaborator-${id}.png`}
-        alt={attributes?.name || "Collaborator logo"}
-        width={134}
-        height={134}
-      />
-    </div>
-  </div>
-);
+  );
+};
 
 type CollaboratorItemProps = {
   collaboratorType: string;
