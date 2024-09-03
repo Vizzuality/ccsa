@@ -397,7 +397,7 @@ export default function CollaboratorForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                         disabled={
@@ -423,7 +423,7 @@ export default function CollaboratorForm() {
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={
                             ME_DATA?.role?.type === "authenticated" &&
@@ -459,7 +459,7 @@ export default function CollaboratorForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                         disabled={
@@ -487,7 +487,7 @@ export default function CollaboratorForm() {
                         className={cn({
                           "center cover m-auto !flex h-48 w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 bg-opacity-10 bg-cover py-6 text-xs placeholder:text-gray-300/95 hover:border-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
                             true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         style={{
                           // env.NEXT_PUBLIC_API_URL

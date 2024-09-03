@@ -71,8 +71,6 @@ export function downloadCSV(
   filename: string = "data.csv",
 ): void {
   // Generate CSV content
-  console.log(data, type);
-  debugger;
   const csvContent = generateCSVContent(data, type);
 
   // Create a Blob from the CSV content

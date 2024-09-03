@@ -398,7 +398,7 @@ export default function ToolForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                         disabled={
@@ -424,7 +424,7 @@ export default function ToolForm() {
                         value={field.value}
                         className={cn({
                           "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
                         disabled={
@@ -454,7 +454,7 @@ export default function ToolForm() {
                         placeholder="Add a description"
                         className={cn({
                           "w-full": true,
-                          "bg-green-400": changes?.includes(field.name),
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           "cursor-not-allowed":
                             ME_DATA?.role?.type === "authenticated" &&
                             suggestionStatus === "declined",
@@ -491,7 +491,7 @@ export default function ToolForm() {
                         <SelectTrigger
                           className={cn({
                             "h-10 w-full border-0 bg-gray-300/20": true,
-                            "bg-green-400": changes?.includes(field.name),
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                           })}
                           disabled={
                             ME_DATA?.role?.type === "authenticated" &&

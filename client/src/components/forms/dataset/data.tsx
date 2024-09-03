@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo } from "react";
 
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
 import { useRouter, useParams } from "next/navigation";
@@ -61,7 +62,11 @@ import { DATA_COLUMNS_TYPE } from "./constants";
 import { getFormSchema } from "./data-form-schema";
 import type { VALUE_TYPE, Data, DatasetValuesCSV } from "./types";
 import DashboardFormWrapper from "./wrapper";
-import { useGetDatasetEditSuggestionsId } from "@/types/generated/dataset-edit-suggestion";
+import {
+  useDeleteDatasetEditSuggestionsId,
+  useGetDatasetEditSuggestionsId,
+} from "@/types/generated/dataset-edit-suggestion";
+import { useDeleteDatasetsId } from "@/types/generated/dataset";
 
 // Types for deep nested objects function
 type ParamType = "link_url" | "description" | "link_title";
@@ -100,8 +105,6 @@ export default function DatasetDataForm({
   const { id: datasetId } = params;
   const editedSuggestionData = useGetDatasetEditSuggestionsId(+datasetId);
 
-  const { id: datasetID } = params;
-
   const { data: session } = useSession();
   const user = session?.user;
   const { data: meData } = useGetUsersId(`${user?.id}`, {
@@ -114,7 +117,7 @@ export default function DatasetDataForm({
   const { data: datasetValuesData } = useGetDatasetValues(
     {
       filters: {
-        dataset: datasetID,
+        dataset: datasetId,
       },
       "pagination[pageSize]": 300,
       populate: {
@@ -232,6 +235,34 @@ export default function DatasetDataForm({
     values,
   });
 
+  const { mutate: mutateDeleteDatasetsId } = useDeleteDatasetsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting dataset:", data);
+        toast.success("Dataset deleted");
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        toast.error("Error deleting dataset");
+        console.error("Error deleting dataset:", error);
+      },
+    },
+  });
+
+  const { mutate: mutateDeleteDatasetEditSuggestionsId } = useDeleteDatasetEditSuggestionsId({
+    mutation: {
+      onSuccess: (data) => {
+        console.info("Success deleting suggested dataset:", data);
+        toast.success("Success deleting suggested dataset");
+        push(`/dashboard`);
+      },
+      onError: (error) => {
+        toast.error("Error deleting suggested dataset");
+        console.error("Error deleting suggested dataset :", error);
+      },
+    },
+  });
+
   const COLUMNS = DATA_COLUMNS_TYPE[rawData.settings.value_type as VALUE_TYPE];
 
   const handleCancel = () => {
@@ -290,6 +321,14 @@ export default function DatasetDataForm({
     [onSubmit],
   );
 
+  const handleDelete = useCallback(() => {
+    if (datasetId) {
+      mutateDeleteDatasetEditSuggestionsId({ id: +datasetId });
+    } else {
+      mutateDeleteDatasetsId({ id: +datasetId });
+    }
+  }, [mutateDeleteDatasetsId, id]);
+
   const checkChanges = useCallback(
     (field: Field, index: number, param: ParamType) => {
       return changes?.find(
@@ -313,6 +352,7 @@ export default function DatasetDataForm({
           title={title}
           isNew={isDatasetNew}
           handleCancel={handleCancel}
+          handleDelete={handleDelete}
           status={rawData.settings.review_status}
         />
       )}
@@ -395,11 +435,8 @@ export default function DatasetDataForm({
                                                   className={cn({
                                                     "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
                                                       true,
-                                                    "bg-green-400": checkChanges(
-                                                      field,
-                                                      index,
-                                                      "link_title",
-                                                    ),
+                                                    "bg-green-400 placeholder:text-gray-400":
+                                                      checkChanges(field, index, "link_title"),
                                                   })}
                                                   disabled={
                                                     status === "declined" &&
@@ -443,11 +480,8 @@ export default function DatasetDataForm({
                                                   className={cn({
                                                     "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
                                                       true,
-                                                    "bg-green-400": checkChanges(
-                                                      field,
-                                                      index,
-                                                      "link_title",
-                                                    ),
+                                                    "bg-green-400 placeholder:text-gray-400":
+                                                      checkChanges(field, index, "link_title"),
                                                   })}
                                                   disabled={
                                                     status === "declined" &&
@@ -491,11 +525,8 @@ export default function DatasetDataForm({
                                                   className={cn({
                                                     "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
                                                       true,
-                                                    "bg-green-400": checkChanges(
-                                                      field,
-                                                      index,
-                                                      "link_title",
-                                                    ),
+                                                    "bg-green-400 placeholder:text-gray-400":
+                                                      checkChanges(field, index, "link_title"),
                                                   })}
                                                   disabled={
                                                     status === "declined" &&
@@ -561,7 +592,8 @@ export default function DatasetDataForm({
                                           className={cn({
                                             "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
                                               true,
-                                            "bg-green-400": changes?.includes(field.name),
+                                            "bg-green-400 placeholder:text-gray-400":
+                                              changes?.includes(field.name),
                                           })}
                                         />
                                       )}
@@ -578,7 +610,8 @@ export default function DatasetDataForm({
                                           className={cn({
                                             "h-9 border-none bg-gray-300/20 placeholder:text-gray-300/95":
                                               true,
-                                            "bg-green-400": changes?.includes(field.name),
+                                            "bg-green-400 placeholder:text-gray-400":
+                                              changes?.includes(field.name),
                                           })}
                                         />
                                       )}

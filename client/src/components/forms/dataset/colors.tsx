@@ -269,7 +269,11 @@ export default function DatasetColorsForm({
   };
 
   const handleDelete = useCallback(() => {
-    mutateDeleteDatasetsId({ id: +id });
+    if (datasetDataPendingToApprove?.data?.id) {
+      mutateDeleteDatasetEditSuggestionsId({ id: +datasetId });
+    } else {
+      mutateDeleteDatasetsId({ id: +datasetId });
+    }
   }, [mutateDeleteDatasetsId, id]);
 
   const handleSubmit = useCallback(
@@ -328,7 +332,9 @@ export default function DatasetColorsForm({
                             id="color"
                             value={field.value}
                             className={cn({
-                              "bg-green-400": changes?.includes(field.name),
+                              "bg-green-400 placeholder:text-gray-400": changes?.includes(
+                                field.name,
+                              ),
                             })}
                             onChange={(e) => {
                               return field.onChange(e.target.value);
@@ -356,7 +362,9 @@ export default function DatasetColorsForm({
                             id="color"
                             value={field.value}
                             className={cn({
-                              "bg-green-400": changes?.includes(field.name),
+                              "bg-green-400 placeholder:text-gray-400": changes?.includes(
+                                field.name,
+                              ),
                             })}
                             onChange={(e) => {
                               return field.onChange(e.target.value);
@@ -381,7 +389,9 @@ export default function DatasetColorsForm({
                             id="color"
                             value={field.value}
                             className={cn({
-                              "bg-green-400": changes?.includes(field.name),
+                              "bg-green-400 placeholder:text-gray-400": changes?.includes(
+                                field.name,
+                              ),
                             })}
                             onChange={(e) => {
                               return field.onChange(e.target.value);
@@ -410,7 +420,9 @@ export default function DatasetColorsForm({
                             id="color"
                             value={field.value}
                             className={cn({
-                              "bg-green-400": changes?.includes(field.name),
+                              "bg-green-400 placeholder:text-gray-400": changes?.includes(
+                                field.name,
+                              ),
                             })}
                             onChange={(e) => {
                               return field.onChange(e.target.value);
@@ -435,7 +447,9 @@ export default function DatasetColorsForm({
                             id="color"
                             value={field.value}
                             className={cn({
-                              "bg-green-400": changes?.includes(field.name),
+                              "bg-green-400 placeholder:text-gray-400": changes?.includes(
+                                field.name,
+                              ),
                             })}
                             onChange={(e) => {
                               return field.onChange(e.target.value);
