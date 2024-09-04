@@ -151,35 +151,6 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
                 Renewable Energy for All, For-profit, ,
               </code>
             </div>
-            <p>
-              If there are multiple resources for a single country, the CSV should look like this:
-            </p>
-            <div className="flex flex-col bg-gray-100 p-4">
-              <code>country_id, link_title, link_url, description</code>
-
-              <code>JAM, Highlight 1, http://example.com, Project related to Jamaica and SDGs</code>
-
-              <code>BHS, Highlight 1, http://example.com, Project related to Bahamas and SDGs</code>
-
-              <code>BLZ, Highlight 1, http://example.com, Project related to Belize and SDGs</code>
-
-              <code>
-                TTO, Highlight 2, http://example.com, Project related to Trinidad and Tobago and
-                SDGs
-              </code>
-
-              <code>BLZ, Highlight 2, http://example.com, Project related to Belize and SDGs</code>
-
-              <code>BLZ, Highlight 3, http://example.com, Project related to Belize and SDGs</code>
-
-              <code>BHS, Highlight 3, http://example.com, Project related to Bahamas and SDGs</code>
-
-              <code>BHS, Highlight 4, http://example.com, Project related to Bahamas and SDGs</code>
-
-              <code>
-                BRB, Highlight 4, http://example.com, Project related to Barbados and SDGs
-              </code>
-            </div>
           </div>
         </div>
       )}
