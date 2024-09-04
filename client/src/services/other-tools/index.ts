@@ -70,7 +70,7 @@ export function uploadToolEditSuggestionCsv(
   options?: UseQueryOptions<unknown>,
 ) {
   const formData = new FormData();
-  formData.append("csv", data[0]);
+  formData.append("file", data[0]);
 
   return api
     .request({
