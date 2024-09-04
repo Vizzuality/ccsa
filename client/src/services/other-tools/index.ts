@@ -1,6 +1,8 @@
 import { UseQueryOptions } from "@tanstack/react-query";
 import axios from "axios";
 
+import { toast } from "react-toastify";
+
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
@@ -52,8 +54,12 @@ export function uploadOtherToolsCsv(
       },
       ...options,
     })
-    .then(({ data }) => data)
+    .then(({ data }) => {
+      console.info("Tools uploaded successfully:", data);
+      toast.success("Tools uploaded successfully");
+    })
     .catch((err) => {
+      toast.error(err.message);
       return err;
     });
 }
@@ -77,8 +83,12 @@ export function uploadToolEditSuggestionCsv(
       },
       ...options,
     })
-    .then(({ data }) => data)
+    .then(({ data }) => {
+      console.info("Tools suggestions uploaded successfully:", data);
+      toast.success("Tools suggestions uploaded successfully");
+    })
     .catch((err) => {
+      toast.error(err.message);
       return err;
     });
 }

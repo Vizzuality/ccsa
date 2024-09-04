@@ -1,5 +1,6 @@
 import { UseQueryOptions } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -51,8 +52,12 @@ export function uploadProjectsCsv(
       },
       ...options,
     })
-    .then(({ data }) => data)
+    .then(({ data }) => {
+      console.info("Projects uploaded successfully:", data);
+      toast.success("Projects uploaded successfully");
+    })
     .catch((err) => {
+      toast.error(err.message);
       return err;
     });
 }
@@ -76,8 +81,12 @@ export function uploadProjectsSuggestionCsv(
       },
       ...options,
     })
-    .then(({ data }) => data)
+    .then(({ data }) => {
+      console.info("Projects suggestions uploaded successfully:", data);
+      toast.success("Projects suggestions uploaded successfully");
+    })
     .catch((err) => {
+      toast.error(err.message);
       return err;
     });
 }

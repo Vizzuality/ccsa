@@ -26,6 +26,7 @@ import {
   uploadCollaboratorEditSuggestionsCsv,
 } from "@/services/collaborators";
 import { uploadOtherToolsCsv, uploadToolEditSuggestionCsv } from "@/services/other-tools";
+import { toast } from "react-toastify";
 
 export default function CSVImport({
   valueType,
@@ -70,42 +71,54 @@ export default function CSVImport({
           ME_DATA?.role?.type === "admin" &&
             uploadProjectsCsv(files, {
               Authorization: `Bearer ${apiToken}`,
-            }).then(() => {
-              push("/projects");
+            }).then((data) => {
+              if (data.status === 200) {
+                push("/projects");
+              }
             });
           ME_DATA?.role?.type === "authenticated" &&
             uploadProjectsSuggestionCsv(files, {
               Authorization: `Bearer ${apiToken}`,
-            }).then(() => {
-              push("/dashboard");
+            }).then((data) => {
+              if (data.status === 200) {
+                push("/dashboard");
+              }
             });
         }
         if (valueType === "collaborators") {
           ME_DATA?.role?.type === "admin" &&
             uploadCollaboratorsCsv(files, {
               Authorization: `Bearer ${apiToken}`,
-            }).then(() => {
-              push("/collaborators");
+            }).then((data) => {
+              if (data.status === 200) {
+                push("/collaborators");
+              }
             });
           ME_DATA?.role?.type === "authenticated" &&
             uploadCollaboratorEditSuggestionsCsv(files, {
               Authorization: `Bearer ${apiToken}`,
-            }).then(() => {
-              push("/dashboard");
+            }).then((data) => {
+              if (data.status === 200) {
+                push("/dashboard");
+              }
             });
         }
         if (valueType === "other-tools") {
           ME_DATA?.role?.type === "admin" &&
             uploadOtherToolsCsv(files, {
               Authorization: `Bearer ${apiToken}`,
-            }).then(() => {
-              push("/other-tools");
+            }).then((data) => {
+              if (data.status === 200) {
+                push("/other-tools");
+              }
             });
           ME_DATA?.role?.type === "authenticated" &&
             uploadToolEditSuggestionCsv(files, {
               Authorization: `Bearer ${apiToken}`,
-            }).then(() => {
-              push("/dashboard");
+            }).then((data) => {
+              if (data.status === 200) {
+                push("/dashboard");
+              }
             });
         }
       }
