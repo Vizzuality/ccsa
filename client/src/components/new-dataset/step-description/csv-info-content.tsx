@@ -111,16 +111,16 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
             <p>
               <span className="font-semibold">Columns:</span>{" "}
               <code>
-                name, highlight, status, objective, amount, countries, source_country, sdgs,
-                pillars, organization_type, info, funding
+                name, highlight, status, objective, amount, countries, source_country, sdgs, pillar,
+                organization_type, info, funding
               </code>
               .
             </p>
             <p className="font-semibold">Example:</p>
             <div className="flex flex-col bg-gray-100 p-4">
               <code>
-                name, highlight, status, objective, amount, countries, source_country, sdgs,
-                pillars, organization_type, info, funding
+                name, highlight, status, objective, amount, countries, source_country, sdgs, pillar,
+                organization_type, info, funding
               </code>
               <code>
                 Import test 1, Highlight 1, In Execution, This project has been delivered, 120000,
