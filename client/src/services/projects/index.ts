@@ -57,7 +57,8 @@ export function uploadProjectsCsv(
       toast.success("Projects uploaded successfully");
     })
     .catch((err) => {
-      toast.error(err.message);
+      console.log(err);
+      toast.error(err.response.data.error.message);
       return err;
     });
 }
@@ -86,7 +87,8 @@ export function uploadProjectsSuggestionCsv(
       toast.success("Projects suggestions uploaded successfully");
     })
     .catch((err) => {
-      toast.error(err.message);
+      console.log(err);
+      toast.error(err.response.data.error.message);
       return err;
     });
 }

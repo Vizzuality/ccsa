@@ -59,7 +59,7 @@ export function uploadOtherToolsCsv(
       toast.success("Tools uploaded successfully");
     })
     .catch((err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.error.message);
       return err;
     });
 }
@@ -88,7 +88,7 @@ export function uploadToolEditSuggestionCsv(
       toast.success("Tools suggestions uploaded successfully");
     })
     .catch((err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.error.message);
       return err;
     });
 }

@@ -59,7 +59,7 @@ export function validateDatasetValuesCsv(
     })
     .catch((err) => {
       console.error("There was an error uploading the file:", err.message);
-      toast.error("There was an error uploading the file:", err.message);
+      toast.error("There was an error uploading the file:", err.response.data.error.message);
       return err;
     });
 }

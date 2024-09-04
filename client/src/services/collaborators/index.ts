@@ -58,7 +58,7 @@ export function uploadCollaboratorsCsv(
       toast.success("Collaborators uploaded successfully");
     })
     .catch((err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.error.message);
       return err;
     });
 }
@@ -87,7 +87,7 @@ export function uploadCollaboratorEditSuggestionsCsv(
       toast.success("Collaborators suggestions uploaded successfully");
     })
     .catch((err) => {
-      toast.error(err.message);
+      toast.error(err.response.data.error.message);
       return err;
     });
 }
