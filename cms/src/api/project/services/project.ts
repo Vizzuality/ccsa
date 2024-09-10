@@ -57,10 +57,29 @@ export default factories.createCoreService('api::project.project', {
   async parseAndReplaceIds(file, author = null) {
     // Read and parse the CSV file
     const fileContent = fs.readFileSync(file.path, 'utf8');
+
+    const allowedColumns = ['name', 'highlight', 'status', 'objective', 'amount', 'countries', 'source_country', 'sdgs', 'pillar', 'organization_type', 'info', 'funding'];
+
     const records: ProjectRow[] = csv.parse(fileContent, {
       columns: true,
       skip_empty_lines: true,
     });
+
+    if (records.length === 0) {
+      throw new Error('CSV file is empty');
+    }
+
+    const csvColumns = Object.keys(records[0]);
+
+    const invalidColumns = csvColumns.filter(col => !allowedColumns.includes(col));
+    if (invalidColumns.length > 0) {
+      throw new Error(`Invalid columns detected: ${invalidColumns.join(', ')}`);
+    }
+
+    const missingColumns = allowedColumns.filter(col => !csvColumns.includes(col));
+    if (missingColumns.length > 0) {
+      throw new Error(`Missing required columns: ${missingColumns.join(', ')}`);
+    }
 
     // Process each row
     const updatedRecords = await Promise.all(records.map(async (row: ProjectRow) => {
