@@ -25,12 +25,32 @@ export default factories.createCoreService('api::other-tool.other-tool', {
   async parseAndReplaceIds(file: any, author: number | null = null): Promise<{ csvData: string; rowCount: number }> {
     // Read and parse the CSV file
     const fileContent = fs.readFileSync(file.path, 'utf8');
+
+    const allowedColumns = ['name', 'description', 'link', 'other_tools_category'];
+
     const records: any[] = csv.parse(fileContent, {
       columns: true,
       skip_empty_lines: true,
     });
 
-    // Process each row
+    if (records.length === 0) {
+      throw new Error('CSV file is empty');
+    }
+
+    const csvColumns = Object.keys(records[0]);
+
+    // Check for any columns not allowed
+    const invalidColumns = csvColumns.filter(col => !allowedColumns.includes(col));
+    if (invalidColumns.length > 0) {
+      throw new Error(`Invalid columns detected: ${invalidColumns.join(', ')}`);
+    }
+
+    // Check for missing columns and throw an error if any are missing
+    const missingColumns = allowedColumns.filter(col => !csvColumns.includes(col));
+    if (missingColumns.length > 0) {
+      throw new Error(`Missing required columns: ${missingColumns.join(', ')}`);
+    }
+
     const updatedRecords = await Promise.all(records.map(async (row: any) => {
       const categoryNames = row.other_tools_category.split(';').map(name => name.trim());
 
