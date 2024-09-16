@@ -169,7 +169,8 @@
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true
+          "editable": true,
+          "mainField": "type"
         },
         "list": {
           "label": "objective",

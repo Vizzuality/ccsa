@@ -48,21 +48,6 @@
           "sortable": false
         }
       },
-      "category": {
-        "edit": {
-          "label": "category",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "category",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "description": {
         "edit": {
           "label": "description",
@@ -146,6 +131,35 @@
         },
         "list": {
           "label": "dataset_values",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "category": {
+        "edit": {
+          "label": "category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "category",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "colors": {
+        "edit": {
+          "label": "colors",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "colors",
           "searchable": false,
           "sortable": false
         }
@@ -265,6 +279,12 @@
           {
             "name": "dataset_values",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "colors",
+            "size": 12
           }
         ]
       ]

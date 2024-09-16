@@ -394,7 +394,8 @@
           "value_type",
           "dataset_edit_suggestions",
           "dataset_values",
-          "category"
+          "category",
+          "colors"
         ]
       },
       "conditions": []
@@ -427,7 +428,8 @@
           "value_type",
           "dataset_edit_suggestions",
           "dataset_values",
-          "category"
+          "category",
+          "colors"
         ]
       },
       "conditions": []
@@ -446,7 +448,8 @@
           "value_type",
           "dataset_edit_suggestions",
           "dataset_values",
-          "category"
+          "category",
+          "colors"
         ]
       },
       "conditions": []
@@ -568,6 +571,53 @@
           "dataset",
           "colors",
           "dataset_edit_suggestion"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::objective.objective",
+      "properties": {
+        "fields": [
+          "type"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::objective.objective",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::objective.objective",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::objective.objective",
+      "properties": {
+        "fields": [
+          "type"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::objective.objective",
+      "properties": {
+        "fields": [
+          "type"
         ]
       },
       "conditions": []
