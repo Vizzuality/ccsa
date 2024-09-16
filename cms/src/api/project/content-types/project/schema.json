@@ -52,7 +52,9 @@
       "type": "string"
     },
     "objective": {
-      "type": "text"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::objective.objective"
     },
     "info": {
       "type": "string"

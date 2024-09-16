@@ -1101,6 +1101,37 @@ export interface ApiLayerLayer extends Schema.CollectionType {
   };
 }
 
+export interface ApiObjectiveObjective extends Schema.CollectionType {
+  collectionName: 'objectives';
+  info: {
+    singularName: 'objective';
+    pluralName: 'objectives';
+    displayName: 'Objective';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    type: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::objective.objective',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::objective.objective',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrganizationTypeOrganizationType
   extends Schema.CollectionType {
   collectionName: 'organization_types';
@@ -1282,7 +1313,11 @@ export interface ApiProjectProject extends Schema.CollectionType {
     status: Attribute.String;
     source_country: Attribute.String;
     organization_type: Attribute.String;
-    objective: Attribute.Text;
+    objective: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::objective.objective'
+    >;
     info: Attribute.String;
     project_edit_suggestions: Attribute.Relation<
       'api::project.project',
@@ -1659,6 +1694,7 @@ declare module '@strapi/types' {
       'api::dataset-value.dataset-value': ApiDatasetValueDatasetValue;
       'api::download-email.download-email': ApiDownloadEmailDownloadEmail;
       'api::layer.layer': ApiLayerLayer;
+      'api::objective.objective': ApiObjectiveObjective;
       'api::organization-type.organization-type': ApiOrganizationTypeOrganizationType;
       'api::other-tool.other-tool': ApiOtherToolOtherTool;
       'api::other-tools-category.other-tools-category': ApiOtherToolsCategoryOtherToolsCategory;

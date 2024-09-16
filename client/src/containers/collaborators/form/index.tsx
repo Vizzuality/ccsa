@@ -319,6 +319,7 @@ export default function CollaboratorForm() {
           .then((data) => {
             form.setValue("image", data[0].id);
             setImageId(data[0].id);
+            toast.success(`Image ${data?.[0].name} uploaded successfully`);
           })
           .catch((error) => {
             console.error("Error uploading image:", error[0]?.message);
