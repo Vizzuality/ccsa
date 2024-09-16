@@ -70,7 +70,7 @@ export default function CollaboratorForm() {
   const browsers = ["Chrome", "Firefox", "Edg", "OPR"]; // Array with common non-Safari browsers
 
   const isSafari =
-    browsers.some((browser) => !userAgent.includes(browser)) && userAgent.includes("Safari");
+    browsers.every((browser) => !userAgent.includes(browser)) && userAgent.includes("Safari");
 
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
@@ -526,8 +526,8 @@ export default function CollaboratorForm() {
                           className="m-auto flex"
                         />
                         {!previousData?.image?.data?.attributes?.url && isSafari && (
-                          <div className="flex flex-col space-y-2 text-center">
-                            <div className="font-semibold">
+                          <div className="flex flex-col space-y-2 text-center font-semibold">
+                            <div>
                               Drag and drop here, or{" "}
                               <button type="button" className="text-primary" onClick={handleClick}>
                                 browse
