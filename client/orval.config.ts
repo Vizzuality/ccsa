@@ -31,6 +31,7 @@ module.exports = {
           "Pillar",
           "Sdg",
           "Download-email",
+          "Objective",
           "Organization-type",
           "Other-tool",
           "Other-tools-category",

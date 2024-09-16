@@ -59,6 +59,7 @@ import {
 
 import { updateOrCreateProject } from "@/services/projects";
 import CSVImport from "@/components/new-dataset/step-description/csv-import";
+import { useGetObjectives } from "@/types/generated/objective";
 
 export default function ProjectForm() {
   const { push } = useRouter();
@@ -171,6 +172,22 @@ export default function ProjectForm() {
           data?.data?.map((status) => ({
             label: status?.attributes?.name as string,
             value: status?.attributes?.code as string,
+          })),
+      },
+    },
+  );
+
+  const { data: projectObjectives } = useGetObjectives(
+    {
+      "pagination[pageSize]": 300,
+      sort: "name:asc",
+    },
+    {
+      query: {
+        select: (data) =>
+          data?.data?.map((objective) => ({
+            label: objective?.attributes?.type as string,
+            value: objective?.id as number,
           })),
       },
     },
@@ -320,11 +337,11 @@ export default function ProjectForm() {
         funding: previousData?.funding?.data?.id as number,
         organization_type: previousData?.organization_type || "",
         source_country: previousData?.source_country || "",
-        objective: previousData?.objective || "",
+        objective: previousData?.objective as string,
       },
     }),
   });
-
+  console.log(previousData);
   const handleCancel = () => {
     push(`/?${URLParams.toString()}`);
   };
@@ -869,18 +886,29 @@ export default function ProjectForm() {
                       Objective<sup className="pl-0.5">*</sup>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        className={cn({
-                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
-                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
-                        })}
-                        placeholder="Name"
-                        disabled={
-                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
-                        }
-                      />
+                      <Select value={field.value?.toString()} onValueChange={field.onChange}>
+                        <SelectTrigger
+                          className={cn({
+                            "h-10 w-full border-0 bg-gray-300/20": true,
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
+                          })}
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
+                        >
+                          <SelectValue placeholder="Select one" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {(projectObjectives || []).map(({ label, value }) => {
+                            return (
+                              <SelectItem key={value} value={value?.toString()}>
+                                {label}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

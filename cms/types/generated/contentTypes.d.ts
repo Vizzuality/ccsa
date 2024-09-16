@@ -1372,7 +1372,11 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
     >;
     source_country: Attribute.String;
     organization_type: Attribute.String;
-    objective: Attribute.Text;
+    objective: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'api::objective.objective'
+    >;
     info: Attribute.String;
     review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
       Attribute.Required &

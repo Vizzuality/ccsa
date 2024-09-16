@@ -803,6 +803,60 @@ export type GetOrganizationTypesParams = {
   locale?: string;
 };
 
+export type GetObjectivesIdPopulateOneOf = { [key: string]: any };
+
+export type GetObjectivesIdParams = {
+  /**
+   * Relations to return
+   */
+  populate?: string | GetObjectivesIdPopulateOneOf;
+};
+
+export type GetObjectivesPopulateOneOf = { [key: string]: any };
+
+export type GetObjectivesParams = {
+  /**
+   * Sort by attributes ascending (asc) or descending (desc)
+   */
+  sort?: string;
+  /**
+   * Return page/pageSize (default: true)
+   */
+  "pagination[withCount]"?: boolean;
+  /**
+   * Page number (default: 0)
+   */
+  "pagination[page]"?: number;
+  /**
+   * Page size (default: 25)
+   */
+  "pagination[pageSize]"?: number;
+  /**
+   * Offset value (default: 0)
+   */
+  "pagination[start]"?: number;
+  /**
+   * Number of entities to return (default: 25)
+   */
+  "pagination[limit]"?: number;
+  /**
+   * Fields to return (ex: ['title','author','test'])
+   */
+  fields?: string[];
+  /**
+   * Relations to return
+   */
+  populate?: string | GetObjectivesPopulateOneOf;
+  /**
+   * Filters to apply
+   */
+  filters?: { [key: string]: any };
+  /**
+   * Locale to apply
+   */
+  locale?: string;
+};
+
 export type GetLayersIdPopulateOneOf = { [key: string]: any };
 
 export type GetLayersIdParams = {
@@ -1364,13 +1418,29 @@ export interface UploadFile {
 
 export type WorldCountryResponseMeta = { [key: string]: any };
 
+export interface WorldCountryResponseDataObject {
+  attributes?: WorldCountry;
+  id?: number;
+}
+
 export interface WorldCountryResponse {
   data?: WorldCountryResponseDataObject;
   meta?: WorldCountryResponseMeta;
 }
 
+export type WorldCountryUpdatedByDataAttributes = { [key: string]: any };
+
+export type WorldCountryUpdatedByData = {
+  attributes?: WorldCountryUpdatedByDataAttributes;
+  id?: number;
+};
+
 export type WorldCountryUpdatedBy = {
   data?: WorldCountryUpdatedByData;
+};
+
+export type WorldCountryCreatedBy = {
+  data?: WorldCountryCreatedByData;
 };
 
 export interface WorldCountry {
@@ -1383,27 +1453,6 @@ export interface WorldCountry {
   updatedBy?: WorldCountryUpdatedBy;
 }
 
-export interface WorldCountryResponseDataObject {
-  attributes?: WorldCountry;
-  id?: number;
-}
-
-export type WorldCountryUpdatedByDataAttributes = { [key: string]: any };
-
-export type WorldCountryUpdatedByData = {
-  attributes?: WorldCountryUpdatedByDataAttributes;
-  id?: number;
-};
-
-export type WorldCountryCreatedByData = {
-  attributes?: WorldCountryCreatedByDataAttributes;
-  id?: number;
-};
-
-export type WorldCountryCreatedBy = {
-  data?: WorldCountryCreatedByData;
-};
-
 export type WorldCountryCreatedByDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
 export type WorldCountryCreatedByDataAttributesUpdatedByData = {
@@ -1413,6 +1462,11 @@ export type WorldCountryCreatedByDataAttributesUpdatedByData = {
 
 export type WorldCountryCreatedByDataAttributesUpdatedBy = {
   data?: WorldCountryCreatedByDataAttributesUpdatedByData;
+};
+
+export type WorldCountryCreatedByDataAttributesRolesDataItem = {
+  attributes?: WorldCountryCreatedByDataAttributesRolesDataItemAttributes;
+  id?: number;
 };
 
 export type WorldCountryCreatedByDataAttributesRoles = {
@@ -1434,6 +1488,11 @@ export type WorldCountryCreatedByDataAttributes = {
   updatedAt?: string;
   updatedBy?: WorldCountryCreatedByDataAttributesUpdatedBy;
   username?: string;
+};
+
+export type WorldCountryCreatedByData = {
+  attributes?: WorldCountryCreatedByDataAttributes;
+  id?: number;
 };
 
 export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes = {
@@ -1471,6 +1530,18 @@ export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermission
   data?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
 };
 
+export type WorldCountryCreatedByDataAttributesRolesDataItemAttributes = {
+  code?: string;
+  createdAt?: string;
+  createdBy?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  permissions?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissions;
+  updatedAt?: string;
+  updatedBy?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+  users?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesUsers;
+};
+
 export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -1485,9 +1556,6 @@ export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermission
     data?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
-export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
-  { [key: string]: any };
-
 export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData =
   {
     attributes?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes;
@@ -1497,20 +1565,6 @@ export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermission
 export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole =
   {
     data?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
-  };
-
-export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData =
-  {
-    attributes?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
 export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
@@ -1527,6 +1581,23 @@ export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermission
     updatedBy?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
+export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
+  { [key: string]: any };
+
+export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData =
+  {
+    attributes?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
 export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes = {
   [key: string]: any;
 };
@@ -1538,23 +1609,6 @@ export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesCreatedByD
 
 export type WorldCountryCreatedByDataAttributesRolesDataItemAttributesCreatedBy = {
   data?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesCreatedByData;
-};
-
-export type WorldCountryCreatedByDataAttributesRolesDataItemAttributes = {
-  code?: string;
-  createdAt?: string;
-  createdBy?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  permissions?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesPermissions;
-  updatedAt?: string;
-  updatedBy?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-  users?: WorldCountryCreatedByDataAttributesRolesDataItemAttributesUsers;
-};
-
-export type WorldCountryCreatedByDataAttributesRolesDataItem = {
-  attributes?: WorldCountryCreatedByDataAttributesRolesDataItemAttributes;
-  id?: number;
 };
 
 export type WorldCountryCreatedByDataAttributesCreatedByDataAttributes = { [key: string]: any };
@@ -1600,11 +1654,6 @@ export interface WorldCountryRequest {
 
 export type WelcomeMessageResponseMeta = { [key: string]: any };
 
-export interface WelcomeMessageResponse {
-  data?: WelcomeMessageResponseDataObject;
-  meta?: WelcomeMessageResponseMeta;
-}
-
 export type WelcomeMessageVideoData = {
   attributes?: WelcomeMessageVideoDataAttributes;
   id?: number;
@@ -1632,6 +1681,11 @@ export interface WelcomeMessageResponseDataObject {
   id?: number;
 }
 
+export interface WelcomeMessageResponse {
+  data?: WelcomeMessageResponseDataObject;
+  meta?: WelcomeMessageResponseMeta;
+}
+
 export type WelcomeMessageVideoDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
 export type WelcomeMessageVideoDataAttributesUpdatedByData = {
@@ -1643,8 +1697,24 @@ export type WelcomeMessageVideoDataAttributesUpdatedBy = {
   data?: WelcomeMessageVideoDataAttributesUpdatedByData;
 };
 
+export type WelcomeMessageVideoDataAttributesRelatedDataItemAttributes = { [key: string]: any };
+
+export type WelcomeMessageVideoDataAttributesRelatedDataItem = {
+  attributes?: WelcomeMessageVideoDataAttributesRelatedDataItemAttributes;
+  id?: number;
+};
+
 export type WelcomeMessageVideoDataAttributesRelated = {
   data?: WelcomeMessageVideoDataAttributesRelatedDataItem[];
+};
+
+export type WelcomeMessageVideoDataAttributesFolderData = {
+  attributes?: WelcomeMessageVideoDataAttributesFolderDataAttributes;
+  id?: number;
+};
+
+export type WelcomeMessageVideoDataAttributesFolder = {
+  data?: WelcomeMessageVideoDataAttributesFolderData;
 };
 
 export type WelcomeMessageVideoDataAttributes = {
@@ -1671,22 +1741,6 @@ export type WelcomeMessageVideoDataAttributes = {
   width?: number;
 };
 
-export type WelcomeMessageVideoDataAttributesRelatedDataItemAttributes = { [key: string]: any };
-
-export type WelcomeMessageVideoDataAttributesRelatedDataItem = {
-  attributes?: WelcomeMessageVideoDataAttributesRelatedDataItemAttributes;
-  id?: number;
-};
-
-export type WelcomeMessageVideoDataAttributesFolderData = {
-  attributes?: WelcomeMessageVideoDataAttributesFolderDataAttributes;
-  id?: number;
-};
-
-export type WelcomeMessageVideoDataAttributesFolder = {
-  data?: WelcomeMessageVideoDataAttributesFolderData;
-};
-
 export type WelcomeMessageVideoDataAttributesFolderDataAttributesUpdatedByDataAttributes = {
   [key: string]: any;
 };
@@ -1711,6 +1765,30 @@ export type WelcomeMessageVideoDataAttributesFolderDataAttributesParentData = {
 
 export type WelcomeMessageVideoDataAttributesFolderDataAttributesParent = {
   data?: WelcomeMessageVideoDataAttributesFolderDataAttributesParentData;
+};
+
+export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributes = {
+  alternativeText?: string;
+  caption?: string;
+  createdAt?: string;
+  createdBy?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
+  ext?: string;
+  folder?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
+  folderPath?: string;
+  formats?: unknown;
+  hash?: string;
+  height?: number;
+  mime?: string;
+  name?: string;
+  previewUrl?: string;
+  provider?: string;
+  provider_metadata?: unknown;
+  related?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
+  size?: number;
+  updatedAt?: string;
+  updatedBy?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
+  url?: string;
+  width?: number;
 };
 
 export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItem = {
@@ -1748,30 +1826,6 @@ export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAt
   {
     data?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
   };
-
-export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributes = {
-  alternativeText?: string;
-  caption?: string;
-  createdAt?: string;
-  createdBy?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
-  ext?: string;
-  folder?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
-  folderPath?: string;
-  formats?: unknown;
-  hash?: string;
-  height?: number;
-  mime?: string;
-  name?: string;
-  previewUrl?: string;
-  provider?: string;
-  provider_metadata?: unknown;
-  related?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
-  size?: number;
-  updatedAt?: string;
-  updatedBy?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
-  url?: string;
-  width?: number;
-};
 
 export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
   { [key: string]: any };
@@ -1919,6 +1973,20 @@ export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAt
     data?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
+export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -1945,20 +2013,6 @@ export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAt
 export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
-export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type WelcomeMessageVideoDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -2057,28 +2111,6 @@ export type WelcomeMessageImageDataAttributesUpdatedBy = {
   data?: WelcomeMessageImageDataAttributesUpdatedByData;
 };
 
-export type WelcomeMessageImageDataAttributesRelatedDataItemAttributes = { [key: string]: any };
-
-export type WelcomeMessageImageDataAttributesRelatedDataItem = {
-  attributes?: WelcomeMessageImageDataAttributesRelatedDataItemAttributes;
-  id?: number;
-};
-
-export type WelcomeMessageImageDataAttributesRelated = {
-  data?: WelcomeMessageImageDataAttributesRelatedDataItem[];
-};
-
-export type WelcomeMessageImageDataAttributesFolderDataAttributes = { [key: string]: any };
-
-export type WelcomeMessageImageDataAttributesFolderData = {
-  attributes?: WelcomeMessageImageDataAttributesFolderDataAttributes;
-  id?: number;
-};
-
-export type WelcomeMessageImageDataAttributesFolder = {
-  data?: WelcomeMessageImageDataAttributesFolderData;
-};
-
 export type WelcomeMessageImageDataAttributes = {
   alternativeText?: string;
   caption?: string;
@@ -2101,6 +2133,28 @@ export type WelcomeMessageImageDataAttributes = {
   updatedBy?: WelcomeMessageImageDataAttributesUpdatedBy;
   url?: string;
   width?: number;
+};
+
+export type WelcomeMessageImageDataAttributesRelatedDataItemAttributes = { [key: string]: any };
+
+export type WelcomeMessageImageDataAttributesRelatedDataItem = {
+  attributes?: WelcomeMessageImageDataAttributesRelatedDataItemAttributes;
+  id?: number;
+};
+
+export type WelcomeMessageImageDataAttributesRelated = {
+  data?: WelcomeMessageImageDataAttributesRelatedDataItem[];
+};
+
+export type WelcomeMessageImageDataAttributesFolderDataAttributes = { [key: string]: any };
+
+export type WelcomeMessageImageDataAttributesFolderData = {
+  attributes?: WelcomeMessageImageDataAttributesFolderDataAttributes;
+  id?: number;
+};
+
+export type WelcomeMessageImageDataAttributesFolder = {
+  data?: WelcomeMessageImageDataAttributesFolderData;
 };
 
 export type WelcomeMessageImageDataAttributesCreatedByDataAttributes = { [key: string]: any };
@@ -2146,10 +2200,6 @@ export interface WelcomeMessageListResponse {
   meta?: WelcomeMessageListResponseMeta;
 }
 
-export interface WelcomeMessageRequest {
-  data: WelcomeMessageRequestData;
-}
-
 export type WelcomeMessageRequestDataVideo = number | string;
 
 export type WelcomeMessageRequestDataImage = number | string;
@@ -2162,17 +2212,11 @@ export type WelcomeMessageRequestData = {
   video?: WelcomeMessageRequestDataVideo;
 };
 
-export type TypesOfFundingResponseMeta = { [key: string]: any };
-
-export interface TypesOfFunding {
-  createdAt?: string;
-  createdBy?: TypesOfFundingCreatedBy;
-  description?: string;
-  name?: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: TypesOfFundingUpdatedBy;
+export interface WelcomeMessageRequest {
+  data: WelcomeMessageRequestData;
 }
+
+export type TypesOfFundingResponseMeta = { [key: string]: any };
 
 export interface TypesOfFundingResponseDataObject {
   attributes?: TypesOfFunding;
@@ -2194,6 +2238,16 @@ export type TypesOfFundingUpdatedByData = {
 export type TypesOfFundingUpdatedBy = {
   data?: TypesOfFundingUpdatedByData;
 };
+
+export interface TypesOfFunding {
+  createdAt?: string;
+  createdBy?: TypesOfFundingCreatedBy;
+  description?: string;
+  name?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: TypesOfFundingUpdatedBy;
+}
 
 export type TypesOfFundingCreatedByDataAttributes = {
   blocked?: boolean;
@@ -2267,6 +2321,20 @@ export type TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesUpdatedB
   data?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
 };
 
+export type TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem = {
   attributes?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
   id?: number;
@@ -2300,20 +2368,6 @@ export type TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissi
 export type TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy =
   {
     data?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
-  };
-
-export type TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
@@ -2357,15 +2411,15 @@ export type TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesCreatedB
   data?: TypesOfFundingCreatedByDataAttributesRolesDataItemAttributesCreatedByData;
 };
 
+export type TypesOfFundingCreatedByDataAttributesCreatedBy = {
+  data?: TypesOfFundingCreatedByDataAttributesCreatedByData;
+};
+
 export type TypesOfFundingCreatedByDataAttributesCreatedByDataAttributes = { [key: string]: any };
 
 export type TypesOfFundingCreatedByDataAttributesCreatedByData = {
   attributes?: TypesOfFundingCreatedByDataAttributesCreatedByDataAttributes;
   id?: number;
-};
-
-export type TypesOfFundingCreatedByDataAttributesCreatedBy = {
-  data?: TypesOfFundingCreatedByDataAttributesCreatedByData;
 };
 
 export type TypesOfFundingListResponseMetaPagination = {
@@ -2399,6 +2453,11 @@ export interface TypesOfFundingRequest {
 }
 
 export type ToolEditSuggestionResponseMeta = { [key: string]: any };
+
+export interface ToolEditSuggestionResponseDataObject {
+  attributes?: ToolEditSuggestion;
+  id?: number;
+}
 
 export interface ToolEditSuggestionResponse {
   data?: ToolEditSuggestionResponseDataObject;
@@ -2451,11 +2510,6 @@ export interface ToolEditSuggestion {
   updatedBy?: ToolEditSuggestionUpdatedBy;
 }
 
-export interface ToolEditSuggestionResponseDataObject {
-  attributes?: ToolEditSuggestion;
-  id?: number;
-}
-
 export type ToolEditSuggestionOtherToolsCategoryDataAttributesUpdatedByDataAttributes = {
   [key: string]: any;
 };
@@ -2469,15 +2523,6 @@ export type ToolEditSuggestionOtherToolsCategoryDataAttributesUpdatedBy = {
   data?: ToolEditSuggestionOtherToolsCategoryDataAttributesUpdatedByData;
 };
 
-export type ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedByData = {
-  attributes?: ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedByDataAttributes;
-  id?: number;
-};
-
-export type ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedBy = {
-  data?: ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedByData;
-};
-
 export type ToolEditSuggestionOtherToolsCategoryDataAttributes = {
   createdAt?: string;
   createdBy?: ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedBy;
@@ -2489,6 +2534,28 @@ export type ToolEditSuggestionOtherToolsCategoryDataAttributes = {
 
 export type ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedByDataAttributes = {
   [key: string]: any;
+};
+
+export type ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedByData = {
+  attributes?: ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedByDataAttributes;
+  id?: number;
+};
+
+export type ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedBy = {
+  data?: ToolEditSuggestionOtherToolsCategoryDataAttributesCreatedByData;
+};
+
+export type ToolEditSuggestionOtherToolDataAttributes = {
+  createdAt?: string;
+  createdBy?: ToolEditSuggestionOtherToolDataAttributesCreatedBy;
+  description?: string;
+  link?: string;
+  name?: string;
+  other_tools_category?: ToolEditSuggestionOtherToolDataAttributesOtherToolsCategory;
+  publishedAt?: string;
+  tool_edit_suggestions?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestions;
+  updatedAt?: string;
+  updatedBy?: ToolEditSuggestionOtherToolDataAttributesUpdatedBy;
 };
 
 export type ToolEditSuggestionOtherToolData = {
@@ -2547,22 +2614,6 @@ export const ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataIte
     declined: "declined",
   } as const;
 
-export type ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributes = {
-  author?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesAuthor;
-  createdAt?: string;
-  createdBy?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesCreatedBy;
-  description?: string;
-  link?: string;
-  name?: string;
-  other_tool?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesOtherTool;
-  other_tools_category?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesOtherToolsCategory;
-  publishedAt?: string;
-  review_decision_details?: string;
-  review_status?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesReviewStatus;
-  updatedAt?: string;
-  updatedBy?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesUpdatedBy;
-};
-
 export type ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesOtherToolsCategoryDataAttributes =
   { [key: string]: any };
 
@@ -2605,6 +2656,22 @@ export type ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItem
     data?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesCreatedByData;
   };
 
+export type ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributes = {
+  author?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesAuthor;
+  createdAt?: string;
+  createdBy?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesCreatedBy;
+  description?: string;
+  link?: string;
+  name?: string;
+  other_tool?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesOtherTool;
+  other_tools_category?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesOtherToolsCategory;
+  publishedAt?: string;
+  review_decision_details?: string;
+  review_status?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesReviewStatus;
+  updatedAt?: string;
+  updatedBy?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesUpdatedBy;
+};
+
 export type ToolEditSuggestionOtherToolDataAttributesToolEditSuggestionsDataItemAttributesAuthorDataAttributes =
   { [key: string]: any };
 
@@ -2644,19 +2711,6 @@ export type ToolEditSuggestionOtherToolDataAttributesCreatedBy = {
   data?: ToolEditSuggestionOtherToolDataAttributesCreatedByData;
 };
 
-export type ToolEditSuggestionOtherToolDataAttributes = {
-  createdAt?: string;
-  createdBy?: ToolEditSuggestionOtherToolDataAttributesCreatedBy;
-  description?: string;
-  link?: string;
-  name?: string;
-  other_tools_category?: ToolEditSuggestionOtherToolDataAttributesOtherToolsCategory;
-  publishedAt?: string;
-  tool_edit_suggestions?: ToolEditSuggestionOtherToolDataAttributesToolEditSuggestions;
-  updatedAt?: string;
-  updatedBy?: ToolEditSuggestionOtherToolDataAttributesUpdatedBy;
-};
-
 export type ToolEditSuggestionCreatedByDataAttributes = { [key: string]: any };
 
 export type ToolEditSuggestionCreatedByData = {
@@ -2666,27 +2720,6 @@ export type ToolEditSuggestionCreatedByData = {
 
 export type ToolEditSuggestionCreatedBy = {
   data?: ToolEditSuggestionCreatedByData;
-};
-
-export type ToolEditSuggestionAuthorDataAttributes = {
-  blocked?: boolean;
-  confirmationToken?: string;
-  confirmed?: boolean;
-  createdAt?: string;
-  createdBy?: ToolEditSuggestionAuthorDataAttributesCreatedBy;
-  email?: string;
-  organization?: string;
-  provider?: string;
-  resetPasswordToken?: string;
-  role?: ToolEditSuggestionAuthorDataAttributesRole;
-  updatedAt?: string;
-  updatedBy?: ToolEditSuggestionAuthorDataAttributesUpdatedBy;
-  username?: string;
-};
-
-export type ToolEditSuggestionAuthorData = {
-  attributes?: ToolEditSuggestionAuthorDataAttributes;
-  id?: number;
 };
 
 export type ToolEditSuggestionAuthor = {
@@ -2711,6 +2744,27 @@ export type ToolEditSuggestionAuthorDataAttributesRoleData = {
 
 export type ToolEditSuggestionAuthorDataAttributesRole = {
   data?: ToolEditSuggestionAuthorDataAttributesRoleData;
+};
+
+export type ToolEditSuggestionAuthorDataAttributes = {
+  blocked?: boolean;
+  confirmationToken?: string;
+  confirmed?: boolean;
+  createdAt?: string;
+  createdBy?: ToolEditSuggestionAuthorDataAttributesCreatedBy;
+  email?: string;
+  organization?: string;
+  provider?: string;
+  resetPasswordToken?: string;
+  role?: ToolEditSuggestionAuthorDataAttributesRole;
+  updatedAt?: string;
+  updatedBy?: ToolEditSuggestionAuthorDataAttributesUpdatedBy;
+  username?: string;
+};
+
+export type ToolEditSuggestionAuthorData = {
+  attributes?: ToolEditSuggestionAuthorDataAttributes;
+  id?: number;
 };
 
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes = {
@@ -2750,6 +2804,16 @@ export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedByDat
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy = {
   data?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedByData;
 };
+
+export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    createdAt?: string;
+    createdBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
+    role?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
+    updatedAt?: string;
+    updatedBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
 
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItem = {
   attributes?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes;
@@ -2791,16 +2855,6 @@ export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsD
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
-export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    createdAt?: string;
-    createdBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
-    role?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
-    updatedAt?: string;
-    updatedBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
@@ -2866,19 +2920,6 @@ export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsD
     data?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
   };
 
-export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
-  };
-
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -2893,20 +2934,6 @@ export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsD
     data?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
   };
 
-export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
   {
     attributes?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
@@ -2916,6 +2943,19 @@ export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsD
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
   {
     data?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
+  };
+
+export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -2932,9 +2972,6 @@ export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsD
     data?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
-export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
-  { [key: string]: any };
-
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData =
   {
     attributes?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes;
@@ -2945,6 +2982,23 @@ export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsD
   {
     data?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
   };
+
+export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
+export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
+  { [key: string]: any };
 
 export type ToolEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
@@ -3066,6 +3120,11 @@ export interface ToolEditSuggestionRequest {
 
 export type SdgResponseMeta = { [key: string]: any };
 
+export interface SdgResponseDataObject {
+  attributes?: Sdg;
+  id?: number;
+}
+
 export interface SdgResponse {
   data?: SdgResponseDataObject;
   meta?: SdgResponseMeta;
@@ -3102,11 +3161,6 @@ export interface Sdg {
   updatedBy?: SdgUpdatedBy;
 }
 
-export interface SdgResponseDataObject {
-  attributes?: Sdg;
-  id?: number;
-}
-
 export type SdgProjectsDataItemAttributesUpdatedByDataAttributes = { [key: string]: any };
 
 export type SdgProjectsDataItemAttributesUpdatedByData = {
@@ -3116,28 +3170,6 @@ export type SdgProjectsDataItemAttributesUpdatedByData = {
 
 export type SdgProjectsDataItemAttributesUpdatedBy = {
   data?: SdgProjectsDataItemAttributesUpdatedByData;
-};
-
-export type SdgProjectsDataItemAttributes = {
-  account?: string;
-  amount?: number;
-  countries?: SdgProjectsDataItemAttributesCountries;
-  createdAt?: string;
-  createdBy?: SdgProjectsDataItemAttributesCreatedBy;
-  funding?: SdgProjectsDataItemAttributesFunding;
-  highlight?: string;
-  info?: string;
-  name?: string;
-  objective?: string;
-  organization_type?: string;
-  pillar?: SdgProjectsDataItemAttributesPillar;
-  project_edit_suggestions?: SdgProjectsDataItemAttributesProjectEditSuggestions;
-  publishedAt?: string;
-  sdgs?: SdgProjectsDataItemAttributesSdgs;
-  source_country?: string;
-  status?: string;
-  updatedAt?: string;
-  updatedBy?: SdgProjectsDataItemAttributesUpdatedBy;
 };
 
 export type SdgProjectsDataItemAttributesSdgsDataItemAttributes = { [key: string]: any };
@@ -3164,18 +3196,6 @@ export type SdgProjectsDataItemAttributesProjectEditSuggestions = {
   data?: SdgProjectsDataItemAttributesProjectEditSuggestionsDataItem[];
 };
 
-export type SdgProjectsDataItemAttributesPillarDataAttributes = {
-  createdAt?: string;
-  createdBy?: SdgProjectsDataItemAttributesPillarDataAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  project_edit_suggestions?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestions;
-  projects?: SdgProjectsDataItemAttributesPillarDataAttributesProjects;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: SdgProjectsDataItemAttributesPillarDataAttributesUpdatedBy;
-};
-
 export type SdgProjectsDataItemAttributesPillarData = {
   attributes?: SdgProjectsDataItemAttributesPillarDataAttributes;
   id?: number;
@@ -3183,6 +3203,28 @@ export type SdgProjectsDataItemAttributesPillarData = {
 
 export type SdgProjectsDataItemAttributesPillar = {
   data?: SdgProjectsDataItemAttributesPillarData;
+};
+
+export type SdgProjectsDataItemAttributes = {
+  account?: string;
+  amount?: number;
+  countries?: SdgProjectsDataItemAttributesCountries;
+  createdAt?: string;
+  createdBy?: SdgProjectsDataItemAttributesCreatedBy;
+  funding?: SdgProjectsDataItemAttributesFunding;
+  highlight?: string;
+  info?: string;
+  name?: string;
+  objective?: SdgProjectsDataItemAttributesObjective;
+  organization_type?: string;
+  pillar?: SdgProjectsDataItemAttributesPillar;
+  project_edit_suggestions?: SdgProjectsDataItemAttributesProjectEditSuggestions;
+  publishedAt?: string;
+  sdgs?: SdgProjectsDataItemAttributesSdgs;
+  source_country?: string;
+  status?: string;
+  updatedAt?: string;
+  updatedBy?: SdgProjectsDataItemAttributesUpdatedBy;
 };
 
 export type SdgProjectsDataItemAttributesPillarDataAttributesUpdatedByDataAttributes = {
@@ -3198,10 +3240,6 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesUpdatedBy = {
   data?: SdgProjectsDataItemAttributesPillarDataAttributesUpdatedByData;
 };
 
-export type SdgProjectsDataItemAttributesPillarDataAttributesProjectsDataItemAttributes = {
-  [key: string]: any;
-};
-
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectsDataItem = {
   attributes?: SdgProjectsDataItemAttributesPillarDataAttributesProjectsDataItemAttributes;
   id?: number;
@@ -3209,6 +3247,22 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectsDataItem = 
 
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjects = {
   data?: SdgProjectsDataItemAttributesPillarDataAttributesProjectsDataItem[];
+};
+
+export type SdgProjectsDataItemAttributesPillarDataAttributes = {
+  createdAt?: string;
+  createdBy?: SdgProjectsDataItemAttributesPillarDataAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  project_edit_suggestions?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestions;
+  projects?: SdgProjectsDataItemAttributesPillarDataAttributesProjects;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: SdgProjectsDataItemAttributesPillarDataAttributesUpdatedBy;
+};
+
+export type SdgProjectsDataItemAttributesPillarDataAttributesProjectsDataItemAttributes = {
+  [key: string]: any;
 };
 
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItem = {
@@ -3243,32 +3297,6 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs =
   {
     data?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem[];
-  };
-
-export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributes =
-  {
-    account?: string;
-    amount?: number;
-    author?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesAuthor;
-    countries?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCountries;
-    createdAt?: string;
-    createdBy?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCreatedBy;
-    funding?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFunding;
-    highlight?: string;
-    info?: string;
-    name?: string;
-    objective?: string;
-    organization_type?: string;
-    pillar?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesPillar;
-    project?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesProject;
-    publishedAt?: string;
-    review_decision_details?: string;
-    review_status?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
-    sdgs?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs;
-    source_country?: string;
-    status?: string;
-    updatedAt?: string;
-    updatedBy?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
   };
 
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesUpdatedByDataAttributes =
@@ -3313,17 +3341,6 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
     data?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItem[];
   };
 
-export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByData =
-  {
-    attributes?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedBy =
-  {
-    data?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByData;
-  };
-
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes =
   {
     createdAt?: string;
@@ -3338,6 +3355,17 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
 
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
+
+export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByData =
+  {
+    attributes?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedBy =
+  {
+    data?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByData;
+  };
 
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus =
   (typeof SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus)[keyof typeof SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus];
@@ -3387,6 +3415,32 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFunding =
   {
     data?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingData;
+  };
+
+export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributes =
+  {
+    account?: string;
+    amount?: number;
+    author?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesAuthor;
+    countries?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCountries;
+    createdAt?: string;
+    createdBy?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCreatedBy;
+    funding?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFunding;
+    highlight?: string;
+    info?: string;
+    name?: string;
+    objective?: string;
+    organization_type?: string;
+    pillar?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesPillar;
+    project?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesProject;
+    publishedAt?: string;
+    review_decision_details?: string;
+    review_status?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
+    sdgs?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs;
+    source_country?: string;
+    status?: string;
+    updatedAt?: string;
+    updatedBy?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
   };
 
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesUpdatedByDataAttributes =
@@ -3483,6 +3537,50 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesCreatedBy = {
   data?: SdgProjectsDataItemAttributesPillarDataAttributesCreatedByData;
 };
 
+export type SdgProjectsDataItemAttributesObjectiveDataAttributes = {
+  createdAt?: string;
+  createdBy?: SdgProjectsDataItemAttributesObjectiveDataAttributesCreatedBy;
+  publishedAt?: string;
+  type?: string;
+  updatedAt?: string;
+  updatedBy?: SdgProjectsDataItemAttributesObjectiveDataAttributesUpdatedBy;
+};
+
+export type SdgProjectsDataItemAttributesObjectiveData = {
+  attributes?: SdgProjectsDataItemAttributesObjectiveDataAttributes;
+  id?: number;
+};
+
+export type SdgProjectsDataItemAttributesObjective = {
+  data?: SdgProjectsDataItemAttributesObjectiveData;
+};
+
+export type SdgProjectsDataItemAttributesObjectiveDataAttributesUpdatedByDataAttributes = {
+  [key: string]: any;
+};
+
+export type SdgProjectsDataItemAttributesObjectiveDataAttributesUpdatedByData = {
+  attributes?: SdgProjectsDataItemAttributesObjectiveDataAttributesUpdatedByDataAttributes;
+  id?: number;
+};
+
+export type SdgProjectsDataItemAttributesObjectiveDataAttributesUpdatedBy = {
+  data?: SdgProjectsDataItemAttributesObjectiveDataAttributesUpdatedByData;
+};
+
+export type SdgProjectsDataItemAttributesObjectiveDataAttributesCreatedByDataAttributes = {
+  [key: string]: any;
+};
+
+export type SdgProjectsDataItemAttributesObjectiveDataAttributesCreatedByData = {
+  attributes?: SdgProjectsDataItemAttributesObjectiveDataAttributesCreatedByDataAttributes;
+  id?: number;
+};
+
+export type SdgProjectsDataItemAttributesObjectiveDataAttributesCreatedBy = {
+  data?: SdgProjectsDataItemAttributesObjectiveDataAttributesCreatedByData;
+};
+
 export type SdgProjectsDataItemAttributesFundingDataAttributes = { [key: string]: any };
 
 export type SdgProjectsDataItemAttributesFundingData = {
@@ -3503,20 +3601,6 @@ export type SdgProjectsDataItemAttributesCreatedByData = {
 
 export type SdgProjectsDataItemAttributesCreatedBy = {
   data?: SdgProjectsDataItemAttributesCreatedByData;
-};
-
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributes = {
-  bbox?: unknown;
-  createdAt?: string;
-  createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesCreatedBy;
-  dataset_values?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValues;
-  geometry?: unknown;
-  iso3?: string;
-  link?: string;
-  name?: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesUpdatedBy;
 };
 
 export type SdgProjectsDataItemAttributesCountriesDataItem = {
@@ -3550,6 +3634,20 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
   data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItem[];
 };
 
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributes = {
+  bbox?: unknown;
+  createdAt?: string;
+  createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesCreatedBy;
+  dataset_values?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValues;
+  geometry?: unknown;
+  iso3?: string;
+  link?: string;
+  name?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesUpdatedBy;
+};
+
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -3578,17 +3676,6 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     value_text?: string;
   };
 
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData =
-  {
-    attributes?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy =
-  {
-    data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData;
-  };
-
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
   {
     createdAt?: string;
@@ -3615,6 +3702,17 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData =
+  {
+    attributes?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy =
+  {
+    data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData;
+  };
+
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -3629,17 +3727,6 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByData;
   };
 
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData =
-  {
-    attributes?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes;
-    id?: number;
-  };
-
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset =
-  {
-    data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData;
-  };
-
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType =
   (typeof SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType)[keyof typeof SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType];
 
@@ -3651,6 +3738,36 @@ export const SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValu
     boolean: "boolean",
     resource: "resource",
   } as const;
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
+  {
+    category?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
+    dataset_edit_suggestions?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
+    dataset_values?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValues;
+    datum?: unknown;
+    description?: string;
+    layers?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy;
+    value_type?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType;
+  };
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData =
+  {
+    attributes?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes;
+    id?: number;
+  };
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset =
+  {
+    data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData;
+  };
 
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -3675,25 +3792,6 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers =
   {
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem[];
-  };
-
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
-  {
-    category?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
-    dataset_edit_suggestions?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
-    dataset_values?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValues;
-    datum?: unknown;
-    description?: string;
-    layers?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy;
-    value_type?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType;
   };
 
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes =
@@ -3721,11 +3819,6 @@ export const SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValu
     countries: "countries",
     component: "component",
   } as const;
-
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion =
-  {
-    data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData;
-  };
 
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes =
   {
@@ -3756,6 +3849,38 @@ export const SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValu
     boolean: "boolean",
     resource: "resource",
   } as const;
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
+  {
+    author?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
+    category?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
+    data?: unknown;
+    dataset?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
+    description?: string;
+    layers?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    review_decision_details?: string;
+    review_status?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
+    value_type?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
+  };
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
+  {
+    attributes?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
+    id?: number;
+  };
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion =
+  {
+    data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData;
+  };
 
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -3796,33 +3921,6 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem[];
   };
 
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
-  {
-    author?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
-    category?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
-    data?: unknown;
-    dataset?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
-    description?: string;
-    layers?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    review_decision_details?: string;
-    review_status?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
-    value_type?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
-  };
-
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
-  {
-    attributes?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
-    id?: number;
-  };
-
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDatasetDataAttributes =
   { [key: string]: any };
 
@@ -3851,18 +3949,6 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedByData;
   };
 
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
-    dataset?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
-    dataset_edit_suggestions?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
-  };
-
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryData =
   {
     attributes?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes;
@@ -3886,6 +3972,18 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy =
   {
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedByData;
+  };
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
+    dataset?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
+    dataset_edit_suggestions?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
   };
 
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributes =
@@ -3997,6 +4095,19 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItem[];
   };
 
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions;
+    type?: string;
+    updatedAt?: string;
+    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
+    users?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
+  };
+
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -4020,19 +4131,6 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions =
   {
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
-  };
-
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions;
-    type?: string;
-    updatedAt?: string;
-    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
-    users?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
   };
 
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -4155,20 +4253,6 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
   };
 
-export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
   {
     attributes?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
@@ -4205,6 +4289,20 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy =
   {
     data?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
+  };
+
+export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
@@ -4475,14 +4573,25 @@ export interface SdgRequest {
 
 export type ResourceResponseMeta = { [key: string]: any };
 
-export interface ResourceResponseDataObject {
-  attributes?: Resource;
-  id?: number;
-}
-
 export interface ResourceResponse {
   data?: ResourceResponseDataObject;
   meta?: ResourceResponseMeta;
+}
+
+export interface Resource {
+  createdAt?: string;
+  createdBy?: ResourceCreatedBy;
+  description?: string;
+  link_title: string;
+  link_url: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: ResourceUpdatedBy;
+}
+
+export interface ResourceResponseDataObject {
+  attributes?: Resource;
+  id?: number;
 }
 
 export type ResourceUpdatedByDataAttributes = { [key: string]: any };
@@ -4496,20 +4605,14 @@ export type ResourceUpdatedBy = {
   data?: ResourceUpdatedByData;
 };
 
+export type ResourceCreatedByData = {
+  attributes?: ResourceCreatedByDataAttributes;
+  id?: number;
+};
+
 export type ResourceCreatedBy = {
   data?: ResourceCreatedByData;
 };
-
-export interface Resource {
-  createdAt?: string;
-  createdBy?: ResourceCreatedBy;
-  description?: string;
-  link_title: string;
-  link_url: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: ResourceUpdatedBy;
-}
 
 export type ResourceCreatedByDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
@@ -4520,15 +4623,6 @@ export type ResourceCreatedByDataAttributesUpdatedByData = {
 
 export type ResourceCreatedByDataAttributesUpdatedBy = {
   data?: ResourceCreatedByDataAttributesUpdatedByData;
-};
-
-export type ResourceCreatedByDataAttributesRolesDataItem = {
-  attributes?: ResourceCreatedByDataAttributesRolesDataItemAttributes;
-  id?: number;
-};
-
-export type ResourceCreatedByDataAttributesRoles = {
-  data?: ResourceCreatedByDataAttributesRolesDataItem[];
 };
 
 export type ResourceCreatedByDataAttributes = {
@@ -4548,9 +4642,25 @@ export type ResourceCreatedByDataAttributes = {
   username?: string;
 };
 
-export type ResourceCreatedByData = {
-  attributes?: ResourceCreatedByDataAttributes;
+export type ResourceCreatedByDataAttributesRolesDataItemAttributes = {
+  code?: string;
+  createdAt?: string;
+  createdBy?: ResourceCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  permissions?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissions;
+  updatedAt?: string;
+  updatedBy?: ResourceCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+  users?: ResourceCreatedByDataAttributesRolesDataItemAttributesUsers;
+};
+
+export type ResourceCreatedByDataAttributesRolesDataItem = {
+  attributes?: ResourceCreatedByDataAttributesRolesDataItemAttributes;
   id?: number;
+};
+
+export type ResourceCreatedByDataAttributesRoles = {
+  data?: ResourceCreatedByDataAttributesRolesDataItem[];
 };
 
 export type ResourceCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes = {
@@ -4566,18 +4676,6 @@ export type ResourceCreatedByDataAttributesRolesDataItemAttributesUsers = {
   data?: ResourceCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
 };
 
-export type ResourceCreatedByDataAttributesRolesDataItemAttributes = {
-  code?: string;
-  createdAt?: string;
-  createdBy?: ResourceCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  permissions?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissions;
-  updatedAt?: string;
-  updatedBy?: ResourceCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-  users?: ResourceCreatedByDataAttributesRolesDataItemAttributesUsers;
-};
-
 export type ResourceCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes = {
   [key: string]: any;
 };
@@ -4589,19 +4687,6 @@ export type ResourceCreatedByDataAttributesRolesDataItemAttributesUpdatedByData 
 
 export type ResourceCreatedByDataAttributesRolesDataItemAttributesUpdatedBy = {
   data?: ResourceCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
-};
-
-export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes = {
-  action?: string;
-  actionParameters?: unknown;
-  conditions?: unknown;
-  createdAt?: string;
-  createdBy?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-  properties?: unknown;
-  role?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-  subject?: string;
-  updatedAt?: string;
-  updatedBy?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
 };
 
 export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem = {
@@ -4627,6 +4712,24 @@ export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDat
     data?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
+export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole =
+  {
+    data?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
+  };
+
+export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes = {
+  action?: string;
+  actionParameters?: unknown;
+  conditions?: unknown;
+  createdAt?: string;
+  createdBy?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+  properties?: unknown;
+  role?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+  subject?: string;
+  updatedAt?: string;
+  updatedBy?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+};
+
 export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -4634,11 +4737,6 @@ export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDat
   {
     attributes?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes;
     id?: number;
-  };
-
-export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole =
-  {
-    data?: ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
   };
 
 export type ResourceCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
@@ -4733,10 +4831,6 @@ export type ProjectStatusUpdatedBy = {
   data?: ProjectStatusUpdatedByData;
 };
 
-export type ProjectStatusCreatedBy = {
-  data?: ProjectStatusCreatedByData;
-};
-
 export interface ProjectStatus {
   createdAt?: string;
   createdBy?: ProjectStatusCreatedBy;
@@ -4766,6 +4860,10 @@ export type ProjectStatusCreatedByDataAttributes = {
 export type ProjectStatusCreatedByData = {
   attributes?: ProjectStatusCreatedByDataAttributes;
   id?: number;
+};
+
+export type ProjectStatusCreatedBy = {
+  data?: ProjectStatusCreatedByData;
 };
 
 export type ProjectStatusCreatedByDataAttributesUpdatedByDataAttributes = { [key: string]: any };
@@ -4812,6 +4910,11 @@ export type ProjectStatusCreatedByDataAttributesRolesDataItemAttributesUpdatedBy
 
 export type ProjectStatusCreatedByDataAttributesRolesDataItemAttributesUpdatedBy = {
   data?: ProjectStatusCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
+};
+
+export type ProjectStatusCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem = {
+  attributes?: ProjectStatusCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
+  id?: number;
 };
 
 export type ProjectStatusCreatedByDataAttributesRolesDataItemAttributesPermissions = {
@@ -4885,11 +4988,6 @@ export type ProjectStatusCreatedByDataAttributesRolesDataItemAttributesPermissio
     updatedAt?: string;
     updatedBy?: ProjectStatusCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
-
-export type ProjectStatusCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem = {
-  attributes?: ProjectStatusCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
-  id?: number;
-};
 
 export type ProjectStatusCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes = {
   [key: string]: any;
@@ -4988,6 +5086,26 @@ export const ProjectEditSuggestionReviewStatus = {
   declined: "declined",
 } as const;
 
+export type ProjectEditSuggestionProjectDataAttributes = { [key: string]: any };
+
+export type ProjectEditSuggestionProjectData = {
+  attributes?: ProjectEditSuggestionProjectDataAttributes;
+  id?: number;
+};
+
+export type ProjectEditSuggestionProject = {
+  data?: ProjectEditSuggestionProjectData;
+};
+
+export type ProjectEditSuggestionPillarData = {
+  attributes?: ProjectEditSuggestionPillarDataAttributes;
+  id?: number;
+};
+
+export type ProjectEditSuggestionPillar = {
+  data?: ProjectEditSuggestionPillarData;
+};
+
 export interface ProjectEditSuggestion {
   account?: string;
   amount?: number;
@@ -5012,26 +5130,6 @@ export interface ProjectEditSuggestion {
   updatedAt?: string;
   updatedBy?: ProjectEditSuggestionUpdatedBy;
 }
-
-export type ProjectEditSuggestionProjectDataAttributes = { [key: string]: any };
-
-export type ProjectEditSuggestionProjectData = {
-  attributes?: ProjectEditSuggestionProjectDataAttributes;
-  id?: number;
-};
-
-export type ProjectEditSuggestionProject = {
-  data?: ProjectEditSuggestionProjectData;
-};
-
-export type ProjectEditSuggestionPillarData = {
-  attributes?: ProjectEditSuggestionPillarDataAttributes;
-  id?: number;
-};
-
-export type ProjectEditSuggestionPillar = {
-  data?: ProjectEditSuggestionPillarData;
-};
 
 export type ProjectEditSuggestionPillarDataAttributesUpdatedByDataAttributes = {
   [key: string]: any;
@@ -5093,7 +5191,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributes 
   highlight?: string;
   info?: string;
   name?: string;
-  objective?: string;
+  objective?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjective;
   organization_type?: string;
   pillar?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesPillar;
   project_edit_suggestions?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesProjectEditSuggestions;
@@ -5124,18 +5222,6 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
     data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesUpdatedByData;
   };
 
-export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributes =
-  {
-    createdAt?: string;
-    createdBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesCreatedBy;
-    name?: string;
-    project_edit_suggestions?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestions;
-    projects?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjects;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesUpdatedBy;
-  };
-
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectsDataItemAttributes =
   { [key: string]: any };
 
@@ -5150,32 +5236,6 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
     data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectsDataItem[];
   };
 
-export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributes =
-  {
-    account?: string;
-    amount?: number;
-    author?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesAuthor;
-    countries?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesCountries;
-    createdAt?: string;
-    createdBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesCreatedBy;
-    funding?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFunding;
-    highlight?: string;
-    info?: string;
-    name?: string;
-    objective?: string;
-    organization_type?: string;
-    pillar?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesPillar;
-    project?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesProject;
-    publishedAt?: string;
-    review_decision_details?: string;
-    review_status?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
-    sdgs?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgs;
-    source_country?: string;
-    status?: string;
-    updatedAt?: string;
-    updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
-  };
-
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItem =
   {
     attributes?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributes;
@@ -5185,6 +5245,18 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestions =
   {
     data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItem[];
+  };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributes =
+  {
+    createdAt?: string;
+    createdBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesCreatedBy;
+    name?: string;
+    project_edit_suggestions?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestions;
+    projects?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjects;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesUpdatedBy;
   };
 
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesUpdatedByDataAttributes =
@@ -5201,9 +5273,6 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
     data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesUpdatedByData;
   };
 
-export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes =
-  { [key: string]: any };
-
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem =
   {
     attributes?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes;
@@ -5214,6 +5283,9 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
   {
     data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem[];
   };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes =
+  { [key: string]: any };
 
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus =
   (typeof ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus)[keyof typeof ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus];
@@ -5280,6 +5352,32 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesCreatedBy =
   {
     data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesCreatedByData;
+  };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributes =
+  {
+    account?: string;
+    amount?: number;
+    author?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesAuthor;
+    countries?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesCountries;
+    createdAt?: string;
+    createdBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesCreatedBy;
+    funding?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFunding;
+    highlight?: string;
+    info?: string;
+    name?: string;
+    objective?: string;
+    organization_type?: string;
+    pillar?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesPillar;
+    project?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesProject;
+    publishedAt?: string;
+    review_decision_details?: string;
+    review_status?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
+    sdgs?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgs;
+    source_country?: string;
+    status?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
   };
 
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesCountriesDataItemAttributes =
@@ -5350,6 +5448,53 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesP
   data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesPillarData;
 };
 
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveData = {
+  attributes?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributes;
+  id?: number;
+};
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjective = {
+  data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveData;
+};
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedByData =
+  {
+    attributes?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedBy =
+  {
+    data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedByData;
+  };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedByData =
+  {
+    attributes?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedBy =
+  {
+    data?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedByData;
+  };
+
+export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedBy;
+    publishedAt?: string;
+    type?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedBy;
+  };
+
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesFundingDataAttributes =
   { [key: string]: any };
 
@@ -5412,16 +5557,6 @@ export type ProjectEditSuggestionPillarDataAttributesCreatedBy = {
   data?: ProjectEditSuggestionPillarDataAttributesCreatedByData;
 };
 
-export type ProjectEditSuggestionFundingDataAttributes = {
-  createdAt?: string;
-  createdBy?: ProjectEditSuggestionFundingDataAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: ProjectEditSuggestionFundingDataAttributesUpdatedBy;
-};
-
 export type ProjectEditSuggestionFundingData = {
   attributes?: ProjectEditSuggestionFundingDataAttributes;
   id?: number;
@@ -5442,6 +5577,20 @@ export type ProjectEditSuggestionFundingDataAttributesUpdatedByData = {
 
 export type ProjectEditSuggestionFundingDataAttributesUpdatedBy = {
   data?: ProjectEditSuggestionFundingDataAttributesUpdatedByData;
+};
+
+export type ProjectEditSuggestionFundingDataAttributesCreatedBy = {
+  data?: ProjectEditSuggestionFundingDataAttributesCreatedByData;
+};
+
+export type ProjectEditSuggestionFundingDataAttributes = {
+  createdAt?: string;
+  createdBy?: ProjectEditSuggestionFundingDataAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: ProjectEditSuggestionFundingDataAttributesUpdatedBy;
 };
 
 export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesUpdatedByDataAttributes =
@@ -5487,10 +5636,6 @@ export type ProjectEditSuggestionFundingDataAttributesCreatedByData = {
   id?: number;
 };
 
-export type ProjectEditSuggestionFundingDataAttributesCreatedBy = {
-  data?: ProjectEditSuggestionFundingDataAttributesCreatedByData;
-};
-
 export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
   { [key: string]: any };
 
@@ -5503,6 +5648,19 @@ export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRol
 export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsers =
   {
     data?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
+  };
+
+export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
@@ -5544,19 +5702,6 @@ export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRol
     data?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
   };
 
-export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
-  };
-
 export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -5585,11 +5730,6 @@ export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRol
     data?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
   };
 
-export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
 export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -5597,6 +5737,11 @@ export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRol
   {
     attributes?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
     id?: number;
+  };
+
+export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
 export type ProjectEditSuggestionFundingDataAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -5658,15 +5803,6 @@ export type ProjectEditSuggestionCountriesDataItemAttributesUpdatedBy = {
   data?: ProjectEditSuggestionCountriesDataItemAttributesUpdatedByData;
 };
 
-export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItem = {
-  attributes?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributes;
-  id?: number;
-};
-
-export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValues = {
-  data?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItem[];
-};
-
 export type ProjectEditSuggestionCountriesDataItemAttributes = {
   bbox?: unknown;
   createdAt?: string;
@@ -5706,6 +5842,15 @@ export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIte
   value_boolean?: boolean;
   value_number?: number;
   value_text?: string;
+};
+
+export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItem = {
+  attributes?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributes;
+  id?: number;
+};
+
+export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValues = {
+  data?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItem[];
 };
 
 export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
@@ -5815,12 +5960,6 @@ export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIte
     data?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData;
   };
 
-export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem =
-  {
-    attributes?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes;
-    id?: number;
-  };
-
 export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers =
   {
     data?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem[];
@@ -5870,37 +6009,10 @@ export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIte
     updatedBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedBy;
   };
 
-export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType =
-  (typeof ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType)[keyof typeof ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType =
+export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem =
   {
-    text: "text",
-    number: "number",
-    boolean: "boolean",
-    resource: "resource",
-  } as const;
-
-export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
-  {
-    author?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
-    category?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
-    data?: unknown;
-    dataset?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
-    description?: string;
-    layers?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    review_decision_details?: string;
-    review_status?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
-    value_type?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
+    attributes?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes;
+    id?: number;
   };
 
 export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
@@ -5913,6 +6025,18 @@ export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIte
   {
     data?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData;
   };
+
+export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType =
+  (typeof ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType)[keyof typeof ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType =
+  {
+    text: "text",
+    number: "number",
+    boolean: "boolean",
+    resource: "resource",
+  } as const;
 
 export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -5990,6 +6114,27 @@ export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIte
 export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory =
   {
     data?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryData;
+  };
+
+export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
+  {
+    author?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
+    category?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
+    data?: unknown;
+    dataset?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
+    description?: string;
+    layers?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    review_decision_details?: string;
+    review_status?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
+    value_type?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
   };
 
 export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedByDataAttributes =
@@ -6216,11 +6361,6 @@ export type ProjectEditSuggestionAuthorDataAttributesUpdatedBy = {
   data?: ProjectEditSuggestionAuthorDataAttributesUpdatedByData;
 };
 
-export type ProjectEditSuggestionAuthorDataAttributesRoleData = {
-  attributes?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributes;
-  id?: number;
-};
-
 export type ProjectEditSuggestionAuthorDataAttributesRole = {
   data?: ProjectEditSuggestionAuthorDataAttributesRoleData;
 };
@@ -6259,18 +6399,6 @@ export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUsers = {
   data?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUsersDataItem[];
 };
 
-export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributes = {
-  createdAt?: string;
-  createdBy?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  permissions?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissions;
-  type?: string;
-  updatedAt?: string;
-  updatedBy?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy;
-  users?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUsers;
-};
-
 export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes = {
   [key: string]: any;
 };
@@ -6283,6 +6411,37 @@ export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy
 export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy = {
   data?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedByData;
 };
+
+export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributes = {
+  createdAt?: string;
+  createdBy?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  permissions?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissions;
+  type?: string;
+  updatedAt?: string;
+  updatedBy?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy;
+  users?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesUsers;
+};
+
+export type ProjectEditSuggestionAuthorDataAttributesRoleData = {
+  attributes?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributes;
+  id?: number;
+};
+
+export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData =
+  {
+    attributes?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy =
+  {
+    data?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData;
+  };
 
 export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
   {
@@ -6302,20 +6461,6 @@ export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissio
 export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissions = {
   data?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
 };
-
-export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData =
-  {
-    attributes?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy =
-  {
-    data?: ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData;
-  };
 
 export type ProjectEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
@@ -6440,36 +6585,14 @@ export type ProjectEditSuggestionRequestData = {
 
 export type ProjectResponseMeta = { [key: string]: any };
 
-export interface ProjectResponse {
-  data?: ProjectResponseDataObject;
-  meta?: ProjectResponseMeta;
-}
-
-export interface Project {
-  account?: string;
-  amount?: number;
-  countries?: ProjectCountries;
-  createdAt?: string;
-  createdBy?: ProjectCreatedBy;
-  funding?: ProjectFunding;
-  highlight?: string;
-  info?: string;
-  name: string;
-  objective?: string;
-  organization_type?: string;
-  pillar?: ProjectPillar;
-  project_edit_suggestions?: ProjectProjectEditSuggestions;
-  publishedAt?: string;
-  sdgs?: ProjectSdgs;
-  source_country?: string;
-  status?: string;
-  updatedAt?: string;
-  updatedBy?: ProjectUpdatedBy;
-}
-
 export interface ProjectResponseDataObject {
   attributes?: Project;
   id?: number;
+}
+
+export interface ProjectResponse {
+  data?: ProjectResponseDataObject;
+  meta?: ProjectResponseMeta;
 }
 
 export type ProjectUpdatedByDataAttributes = { [key: string]: any };
@@ -6513,6 +6636,28 @@ export type ProjectPillarData = {
 export type ProjectPillar = {
   data?: ProjectPillarData;
 };
+
+export interface Project {
+  account?: string;
+  amount?: number;
+  countries?: ProjectCountries;
+  createdAt?: string;
+  createdBy?: ProjectCreatedBy;
+  funding?: ProjectFunding;
+  highlight?: string;
+  info?: string;
+  name: string;
+  objective?: ProjectObjective;
+  organization_type?: string;
+  pillar?: ProjectPillar;
+  project_edit_suggestions?: ProjectProjectEditSuggestions;
+  publishedAt?: string;
+  sdgs?: ProjectSdgs;
+  source_country?: string;
+  status?: string;
+  updatedAt?: string;
+  updatedBy?: ProjectUpdatedBy;
+}
 
 export type ProjectPillarDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
@@ -6559,26 +6704,13 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesUpdatedBy = {
   data?: ProjectPillarDataAttributesProjectsDataItemAttributesUpdatedByData;
 };
 
-export type ProjectPillarDataAttributesProjectsDataItemAttributes = {
-  account?: string;
-  amount?: number;
-  countries?: ProjectPillarDataAttributesProjectsDataItemAttributesCountries;
-  createdAt?: string;
-  createdBy?: ProjectPillarDataAttributesProjectsDataItemAttributesCreatedBy;
-  funding?: ProjectPillarDataAttributesProjectsDataItemAttributesFunding;
-  highlight?: string;
-  info?: string;
-  name?: string;
-  objective?: string;
-  organization_type?: string;
-  pillar?: ProjectPillarDataAttributesProjectsDataItemAttributesPillar;
-  project_edit_suggestions?: ProjectPillarDataAttributesProjectsDataItemAttributesProjectEditSuggestions;
-  publishedAt?: string;
-  sdgs?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgs;
-  source_country?: string;
-  status?: string;
-  updatedAt?: string;
-  updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesUpdatedBy;
+export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItem = {
+  attributes?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributes;
+  id?: number;
+};
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgs = {
+  data?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItem[];
 };
 
 export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributes = {
@@ -6590,15 +6722,6 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
   publishedAt?: string;
   updatedAt?: string;
   updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesUpdatedBy;
-};
-
-export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItem = {
-  attributes?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributes;
-  id?: number;
-};
-
-export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgs = {
-  data?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItem[];
 };
 
 export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesUpdatedByDataAttributes =
@@ -6652,6 +6775,31 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
     data?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesUpdatedByData;
   };
 
+export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes =
+  { [key: string]: any };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem =
+  {
+    attributes?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes;
+    id?: number;
+  };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgs =
+  {
+    data?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem[];
+  };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus =
+  (typeof ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus)[keyof typeof ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus =
+  {
+    pending: "pending",
+    approved: "approved",
+    declined: "declined",
+  } as const;
+
 export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributes =
   {
     account?: string;
@@ -6677,31 +6825,6 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
     updatedAt?: string;
     updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
   };
-
-export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes =
-  { [key: string]: any };
-
-export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem =
-  {
-    attributes?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes;
-    id?: number;
-  };
-
-export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgs =
-  {
-    data?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem[];
-  };
-
-export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus =
-  (typeof ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus)[keyof typeof ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus =
-  {
-    pending: "pending",
-    approved: "approved",
-    declined: "declined",
-  } as const;
 
 export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesProjectDataAttributes =
   { [key: string]: any };
@@ -6729,11 +6852,6 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
 export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesPillar =
   {
     data?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesPillarData;
-  };
-
-export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesUpdatedBy =
-  {
-    data?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesUpdatedByData;
   };
 
 export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributes =
@@ -6765,6 +6883,11 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
   {
     attributes?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesUpdatedByDataAttributes;
     id?: number;
+  };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesUpdatedBy =
+  {
+    data?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesUpdatedByData;
   };
 
 export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesCreatedByDataAttributes =
@@ -6861,6 +6984,74 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesPillar = {
   data?: ProjectPillarDataAttributesProjectsDataItemAttributesPillarData;
 };
 
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributes = {
+  createdAt?: string;
+  createdBy?: ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedBy;
+  publishedAt?: string;
+  type?: string;
+  updatedAt?: string;
+  updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedBy;
+};
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveData = {
+  attributes?: ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributes;
+  id?: number;
+};
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjective = {
+  data?: ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveData;
+};
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributes = {
+  account?: string;
+  amount?: number;
+  countries?: ProjectPillarDataAttributesProjectsDataItemAttributesCountries;
+  createdAt?: string;
+  createdBy?: ProjectPillarDataAttributesProjectsDataItemAttributesCreatedBy;
+  funding?: ProjectPillarDataAttributesProjectsDataItemAttributesFunding;
+  highlight?: string;
+  info?: string;
+  name?: string;
+  objective?: ProjectPillarDataAttributesProjectsDataItemAttributesObjective;
+  organization_type?: string;
+  pillar?: ProjectPillarDataAttributesProjectsDataItemAttributesPillar;
+  project_edit_suggestions?: ProjectPillarDataAttributesProjectsDataItemAttributesProjectEditSuggestions;
+  publishedAt?: string;
+  sdgs?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgs;
+  source_country?: string;
+  status?: string;
+  updatedAt?: string;
+  updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesUpdatedBy;
+};
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedByData =
+  {
+    attributes?: ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedBy =
+  {
+    data?: ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesUpdatedByData;
+  };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedByData =
+  {
+    attributes?: ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedBy =
+  {
+    data?: ProjectPillarDataAttributesProjectsDataItemAttributesObjectiveDataAttributesCreatedByData;
+  };
+
 export type ProjectPillarDataAttributesProjectsDataItemAttributesFundingDataAttributes = {
   [key: string]: any;
 };
@@ -6924,6 +7115,17 @@ export type ProjectPillarDataAttributesCreatedBy = {
   data?: ProjectPillarDataAttributesCreatedByData;
 };
 
+export type ProjectObjectiveDataAttributes = { [key: string]: any };
+
+export type ProjectObjectiveData = {
+  attributes?: ProjectObjectiveDataAttributes;
+  id?: number;
+};
+
+export type ProjectObjective = {
+  data?: ProjectObjectiveData;
+};
+
 export type ProjectFundingDataAttributes = { [key: string]: any };
 
 export type ProjectFundingData = {
@@ -6966,6 +7168,19 @@ export type ProjectCountriesDataItemAttributesUpdatedBy = {
   data?: ProjectCountriesDataItemAttributesUpdatedByData;
 };
 
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributes = {
+  country?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesCountry;
+  createdAt?: string;
+  createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
+  dataset?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset;
+  resources?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResources;
+  updatedAt?: string;
+  updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
+  value_boolean?: boolean;
+  value_number?: number;
+  value_text?: string;
+};
+
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItem = {
   attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributes;
   id?: number;
@@ -6987,19 +7202,6 @@ export type ProjectCountriesDataItemAttributes = {
   publishedAt?: string;
   updatedAt?: string;
   updatedBy?: ProjectCountriesDataItemAttributesUpdatedBy;
-};
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributes = {
-  country?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesCountry;
-  createdAt?: string;
-  createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
-  dataset?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset;
-  resources?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResources;
-  updatedAt?: string;
-  updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
-  value_boolean?: boolean;
-  value_number?: number;
-  value_text?: string;
 };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesUpdatedByDataAttributes =
@@ -7037,6 +7239,18 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesRes
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData;
   };
 
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
+  {
+    createdAt?: string;
+    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
+    description?: string;
+    link_title?: string;
+    link_url?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
+  };
+
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -7051,17 +7265,14 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesRes
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByData;
   };
 
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
-  {
-    createdAt?: string;
-    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
-    description?: string;
-    link_title?: string;
-    link_url?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
-  };
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData = {
+  attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes;
+  id?: number;
+};
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset = {
+  data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData;
+};
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType =
   (typeof ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType)[keyof typeof ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType];
@@ -7074,34 +7285,6 @@ export const ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDa
     boolean: "boolean",
     resource: "resource",
   } as const;
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
-  {
-    category?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
-    dataset_edit_suggestions?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
-    dataset_values?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValues;
-    datum?: unknown;
-    description?: string;
-    layers?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy;
-    value_type?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData = {
-  attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes;
-  id?: number;
-};
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset = {
-  data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData;
-};
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -7126,6 +7309,25 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers =
   {
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem[];
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
+  {
+    category?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesCreatedBy;
+    dataset_edit_suggestions?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
+    dataset_values?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValues;
+    datum?: unknown;
+    description?: string;
+    layers?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy;
+    value_type?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType;
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes =
@@ -7153,6 +7355,12 @@ export const ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDa
     countries: "countries",
     component: "component",
   } as const;
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
+  {
+    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
+    id?: number;
+  };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion =
   {
@@ -7188,33 +7396,6 @@ export const ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDa
     boolean: "boolean",
     resource: "resource",
   } as const;
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
-  {
-    author?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
-    category?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
-    data?: unknown;
-    dataset?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
-    description?: string;
-    layers?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    review_decision_details?: string;
-    review_status?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
-    value_type?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
-  {
-    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
-    id?: number;
-  };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -7253,6 +7434,27 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers =
   {
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem[];
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
+  {
+    author?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
+    category?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
+    data?: unknown;
+    dataset?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
+    description?: string;
+    layers?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    review_decision_details?: string;
+    review_status?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
+    value_type?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDatasetDataAttributes =
@@ -7308,6 +7510,9 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedByData;
   };
 
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributes =
+  { [key: string]: any };
+
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItem =
   {
     attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributes;
@@ -7318,21 +7523,6 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
   {
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItem[];
   };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
-    dataset?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
-    dataset_edit_suggestions?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributes =
-  { [key: string]: any };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetDataItemAttributes =
   { [key: string]: any };
@@ -7348,6 +7538,18 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetDataItem[];
   };
 
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
+    dataset?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
+    dataset_edit_suggestions?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
+  };
+
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -7360,36 +7562,6 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy =
   {
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedByData;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor =
-  {
-    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorData;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData =
-  {
-    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedBy =
-  {
-    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData =
-  {
-    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes;
-    id?: number;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole =
-  {
-    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData;
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributes =
@@ -7415,18 +7587,23 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     id?: number;
   };
 
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes =
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor =
+  {
+    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorData;
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItem =
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData =
   {
-    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes;
+    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByDataAttributes;
     id?: number;
   };
 
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers =
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedBy =
   {
-    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItem[];
+    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData;
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
@@ -7442,6 +7619,31 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     users?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
   };
 
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData =
+  {
+    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes;
+    id?: number;
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole =
+  {
+    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData;
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes =
+  { [key: string]: any };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItem =
+  {
+    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes;
+    id?: number;
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers =
+  {
+    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItem[];
+  };
+
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -7454,16 +7656,6 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy =
   {
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    createdAt?: string;
-    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
-    role?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
-    updatedAt?: string;
-    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem =
@@ -7516,6 +7708,16 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    createdAt?: string;
+    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
+    role?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
+    updatedAt?: string;
+    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -7528,6 +7730,17 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy =
   {
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData;
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
+  {
+    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
+    id?: number;
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
+  {
+    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
@@ -7546,30 +7759,6 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     updatedAt?: string;
     updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy;
     username?: string;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
-  {
-    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
-    id?: number;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
-  {
-    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -7600,6 +7789,30 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
   };
 
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
+  {
+    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
+    id?: number;
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
+  {
+    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
+  };
+
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -7612,31 +7825,6 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy =
   {
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
-  {
-    attributes?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
-    id?: number;
-  };
-
-export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
-  {
-    data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
@@ -7665,6 +7853,20 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
+export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -7863,11 +8065,17 @@ export interface ProjectListResponse {
   meta?: ProjectListResponseMeta;
 }
 
+export interface ProjectRequest {
+  data: ProjectRequestData;
+}
+
 export type ProjectRequestDataSdgsItem = number | string;
 
 export type ProjectRequestDataProjectEditSuggestionsItem = number | string;
 
 export type ProjectRequestDataPillar = number | string;
+
+export type ProjectRequestDataObjective = number | string;
 
 export type ProjectRequestDataFunding = number | string;
 
@@ -7881,7 +8089,7 @@ export type ProjectRequestData = {
   highlight?: string;
   info?: string;
   name: string;
-  objective?: string;
+  objective?: ProjectRequestDataObjective;
   organization_type?: string;
   pillar?: ProjectRequestDataPillar;
   project_edit_suggestions?: ProjectRequestDataProjectEditSuggestionsItem[];
@@ -7890,11 +8098,12 @@ export type ProjectRequestData = {
   status?: string;
 };
 
-export interface ProjectRequest {
-  data: ProjectRequestData;
-}
-
 export type PillarResponseMeta = { [key: string]: any };
+
+export interface PillarResponseDataObject {
+  attributes?: Pillar;
+  id?: number;
+}
 
 export interface PillarResponse {
   data?: PillarResponseDataObject;
@@ -7912,15 +8121,6 @@ export type PillarUpdatedBy = {
   data?: PillarUpdatedByData;
 };
 
-export type PillarProjectsDataItem = {
-  attributes?: PillarProjectsDataItemAttributes;
-  id?: number;
-};
-
-export type PillarProjects = {
-  data?: PillarProjectsDataItem[];
-};
-
 export interface Pillar {
   createdAt?: string;
   createdBy?: PillarCreatedBy;
@@ -7931,11 +8131,6 @@ export interface Pillar {
   publishedAt?: string;
   updatedAt?: string;
   updatedBy?: PillarUpdatedBy;
-}
-
-export interface PillarResponseDataObject {
-  attributes?: Pillar;
-  id?: number;
 }
 
 export type PillarProjectsDataItemAttributesUpdatedByDataAttributes = { [key: string]: any };
@@ -7959,7 +8154,7 @@ export type PillarProjectsDataItemAttributes = {
   highlight?: string;
   info?: string;
   name?: string;
-  objective?: string;
+  objective?: PillarProjectsDataItemAttributesObjective;
   organization_type?: string;
   pillar?: PillarProjectsDataItemAttributesPillar;
   project_edit_suggestions?: PillarProjectsDataItemAttributesProjectEditSuggestions;
@@ -7969,6 +8164,15 @@ export type PillarProjectsDataItemAttributes = {
   status?: string;
   updatedAt?: string;
   updatedBy?: PillarProjectsDataItemAttributesUpdatedBy;
+};
+
+export type PillarProjectsDataItem = {
+  attributes?: PillarProjectsDataItemAttributes;
+  id?: number;
+};
+
+export type PillarProjects = {
+  data?: PillarProjectsDataItem[];
 };
 
 export type PillarProjectsDataItemAttributesSdgsDataItemAttributes = { [key: string]: any };
@@ -7993,18 +8197,6 @@ export type PillarProjectsDataItemAttributesProjectEditSuggestionsDataItem = {
 
 export type PillarProjectsDataItemAttributesProjectEditSuggestions = {
   data?: PillarProjectsDataItemAttributesProjectEditSuggestionsDataItem[];
-};
-
-export type PillarProjectsDataItemAttributesPillarDataAttributes = {
-  createdAt?: string;
-  createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  project_edit_suggestions?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestions;
-  projects?: PillarProjectsDataItemAttributesPillarDataAttributesProjects;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesUpdatedBy;
 };
 
 export type PillarProjectsDataItemAttributesPillarData = {
@@ -8051,6 +8243,18 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
   data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItem[];
 };
 
+export type PillarProjectsDataItemAttributesPillarDataAttributes = {
+  createdAt?: string;
+  createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  project_edit_suggestions?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestions;
+  projects?: PillarProjectsDataItemAttributesPillarDataAttributesProjects;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesUpdatedBy;
+};
+
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -8063,17 +8267,6 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy =
   {
     data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesUpdatedByData;
-  };
-
-export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem =
-  {
-    attributes?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes;
-    id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs =
-  {
-    data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem[];
   };
 
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributes =
@@ -8100,6 +8293,29 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
     status?: string;
     updatedAt?: string;
     updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
+  };
+
+export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes =
+  {
+    createdAt?: string;
+    createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedBy;
+    name?: string;
+    project_edit_suggestions?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestions;
+    projects?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesProjects;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesUpdatedBy;
+  };
+
+export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem =
+  {
+    attributes?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes;
+    id?: number;
+  };
+
+export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs =
+  {
+    data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItem[];
   };
 
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesUpdatedByDataAttributes =
@@ -8144,6 +8360,9 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
     data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItem[];
   };
 
+export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByData =
   {
     attributes?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByDataAttributes;
@@ -8154,21 +8373,6 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
   {
     data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByData;
   };
-
-export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributes =
-  {
-    createdAt?: string;
-    createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedBy;
-    name?: string;
-    project_edit_suggestions?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestions;
-    projects?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesProjects;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesUpdatedBy;
-  };
-
-export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgsDataItemAttributesCreatedByDataAttributes =
-  { [key: string]: any };
 
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus =
   (typeof PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus)[keyof typeof PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus];
@@ -8207,6 +8411,17 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesPillar =
   {
     data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesPillarData;
+  };
+
+export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesUpdatedBy;
   };
 
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingData =
@@ -8248,15 +8463,9 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
     data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesCreatedByData;
   };
 
-export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributes =
+export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCreatedBy =
   {
-    createdAt?: string;
-    createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesFundingDataAttributesUpdatedBy;
+    data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCreatedByData;
   };
 
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCreatedByDataAttributes =
@@ -8266,11 +8475,6 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
   {
     attributes?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCreatedByDataAttributes;
     id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCreatedBy =
-  {
-    data?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCreatedByData;
   };
 
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesCountriesDataItemAttributes =
@@ -8312,6 +8516,50 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesCreatedByData = 
 
 export type PillarProjectsDataItemAttributesPillarDataAttributesCreatedBy = {
   data?: PillarProjectsDataItemAttributesPillarDataAttributesCreatedByData;
+};
+
+export type PillarProjectsDataItemAttributesObjectiveData = {
+  attributes?: PillarProjectsDataItemAttributesObjectiveDataAttributes;
+  id?: number;
+};
+
+export type PillarProjectsDataItemAttributesObjective = {
+  data?: PillarProjectsDataItemAttributesObjectiveData;
+};
+
+export type PillarProjectsDataItemAttributesObjectiveDataAttributesUpdatedByDataAttributes = {
+  [key: string]: any;
+};
+
+export type PillarProjectsDataItemAttributesObjectiveDataAttributesUpdatedByData = {
+  attributes?: PillarProjectsDataItemAttributesObjectiveDataAttributesUpdatedByDataAttributes;
+  id?: number;
+};
+
+export type PillarProjectsDataItemAttributesObjectiveDataAttributesUpdatedBy = {
+  data?: PillarProjectsDataItemAttributesObjectiveDataAttributesUpdatedByData;
+};
+
+export type PillarProjectsDataItemAttributesObjectiveDataAttributes = {
+  createdAt?: string;
+  createdBy?: PillarProjectsDataItemAttributesObjectiveDataAttributesCreatedBy;
+  publishedAt?: string;
+  type?: string;
+  updatedAt?: string;
+  updatedBy?: PillarProjectsDataItemAttributesObjectiveDataAttributesUpdatedBy;
+};
+
+export type PillarProjectsDataItemAttributesObjectiveDataAttributesCreatedByDataAttributes = {
+  [key: string]: any;
+};
+
+export type PillarProjectsDataItemAttributesObjectiveDataAttributesCreatedByData = {
+  attributes?: PillarProjectsDataItemAttributesObjectiveDataAttributesCreatedByDataAttributes;
+  id?: number;
+};
+
+export type PillarProjectsDataItemAttributesObjectiveDataAttributesCreatedBy = {
+  data?: PillarProjectsDataItemAttributesObjectiveDataAttributesCreatedByData;
 };
 
 export type PillarProjectsDataItemAttributesFundingDataAttributes = { [key: string]: any };
@@ -8409,17 +8657,6 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     value_text?: string;
   };
 
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy =
-  {
-    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData;
-  };
-
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
   {
     createdAt?: string;
@@ -8446,6 +8683,17 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy =
+  {
+    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData;
+  };
+
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -8460,17 +8708,6 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByData;
   };
 
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes;
-    id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset =
-  {
-    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData;
-  };
-
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType =
   (typeof PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType)[keyof typeof PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType];
 
@@ -8482,31 +8719,6 @@ export const PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetV
     boolean: "boolean",
     resource: "resource",
   } as const;
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy =
-  {
-    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes;
-    id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers =
-  {
-    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem[];
-  };
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
   {
@@ -8525,6 +8737,36 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     updatedAt?: string;
     updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy;
     value_type?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesValueType;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributes;
+    id?: number;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDataset =
+  {
+    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetData;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy =
+  {
+    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayers =
+  {
+    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem[];
   };
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes =
@@ -8553,6 +8795,12 @@ export const PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetV
     component: "component",
   } as const;
 
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
+    id?: number;
+  };
+
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion =
   {
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData;
@@ -8574,6 +8822,12 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     type?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType;
     updatedAt?: string;
     updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedBy;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes;
+    id?: number;
   };
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType =
@@ -8627,33 +8881,6 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem[];
   };
 
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
-  {
-    author?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
-    category?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
-    data?: unknown;
-    dataset?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
-    description?: string;
-    layers?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    review_decision_details?: string;
-    review_status?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
-    value_type?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
-    id?: number;
-  };
-
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDatasetDataAttributes =
   { [key: string]: any };
 
@@ -8703,6 +8930,27 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory =
   {
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryData;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
+  {
+    author?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
+    category?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
+    data?: unknown;
+    dataset?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
+    description?: string;
+    layers?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    review_decision_details?: string;
+    review_status?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
+    value_type?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
   };
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedByDataAttributes =
@@ -8761,6 +9009,31 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedByData;
   };
 
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedBy =
+  {
+    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes;
+    id?: number;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole =
+  {
+    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData;
+  };
+
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributes =
   {
     blocked?: boolean;
@@ -8789,31 +9062,6 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorData;
   };
 
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedBy =
-  {
-    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes;
-    id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole =
-  {
-    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData;
-  };
-
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes =
   { [key: string]: any };
 
@@ -8828,29 +9076,9 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItem[];
   };
 
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy =
   {
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes;
-    id?: number;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions =
-  {
-    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
   };
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
@@ -8864,6 +9092,26 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     updatedAt?: string;
     updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
     users?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes;
+    id?: number;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions =
+  {
+    data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
   };
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -8880,16 +9128,6 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    createdAt?: string;
-    createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
-    role?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
-    updatedAt?: string;
-    updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -8904,33 +9142,19 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
   };
 
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
-  {
-    blocked?: boolean;
-    createdAt?: string;
-    createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesCreatedBy;
-    email?: string;
-    firstname?: string;
-    isActive?: boolean;
-    lastname?: string;
-    preferedLanguage?: string;
-    registrationToken?: string;
-    resetPasswordToken?: string;
-    roles?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles;
-    updatedAt?: string;
-    updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy;
-    username?: string;
-  };
-
-export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
-  {
-    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    createdAt?: string;
+    createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
+    role?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
+    updatedAt?: string;
+    updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
@@ -8956,6 +9180,30 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
   {
     data?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
+  {
+    blocked?: boolean;
+    createdAt?: string;
+    createdBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesCreatedBy;
+    email?: string;
+    firstname?: string;
+    isActive?: boolean;
+    lastname?: string;
+    preferedLanguage?: string;
+    registrationToken?: string;
+    resetPasswordToken?: string;
+    roles?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles;
+    updatedAt?: string;
+    updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy;
+    username?: string;
+  };
+
+export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
+  {
+    attributes?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
   };
 
 export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -9328,6 +9576,11 @@ export type OtherToolsCategoryUpdatedBy = {
   data?: OtherToolsCategoryUpdatedByData;
 };
 
+export type OtherToolsCategoryCreatedByData = {
+  attributes?: OtherToolsCategoryCreatedByDataAttributes;
+  id?: number;
+};
+
 export type OtherToolsCategoryCreatedBy = {
   data?: OtherToolsCategoryCreatedByData;
 };
@@ -9380,9 +9633,16 @@ export type OtherToolsCategoryCreatedByDataAttributes = {
   username?: string;
 };
 
-export type OtherToolsCategoryCreatedByData = {
-  attributes?: OtherToolsCategoryCreatedByDataAttributes;
-  id?: number;
+export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributes = {
+  code?: string;
+  createdAt?: string;
+  createdBy?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  permissions?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissions;
+  updatedAt?: string;
+  updatedBy?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+  users?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUsers;
 };
 
 export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -9397,18 +9657,6 @@ export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUser
   data?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
 };
 
-export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributes = {
-  code?: string;
-  createdAt?: string;
-  createdBy?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  permissions?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissions;
-  updatedAt?: string;
-  updatedBy?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-  users?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUsers;
-};
-
 export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -9420,20 +9668,6 @@ export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUpda
 export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUpdatedBy = {
   data?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
 };
-
-export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
 
 export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem = {
   attributes?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
@@ -9484,6 +9718,20 @@ export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPerm
 export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
+export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type OtherToolsCategoryCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -9563,6 +9811,11 @@ export type OtherToolUpdatedBy = {
   data?: OtherToolUpdatedByData;
 };
 
+export type OtherToolToolEditSuggestionsDataItem = {
+  attributes?: OtherToolToolEditSuggestionsDataItemAttributes;
+  id?: number;
+};
+
 export type OtherToolToolEditSuggestions = {
   data?: OtherToolToolEditSuggestionsDataItem[];
 };
@@ -9579,11 +9832,6 @@ export interface OtherTool {
   updatedAt?: string;
   updatedBy?: OtherToolUpdatedBy;
 }
-
-export type OtherToolToolEditSuggestionsDataItem = {
-  attributes?: OtherToolToolEditSuggestionsDataItemAttributes;
-  id?: number;
-};
 
 export type OtherToolToolEditSuggestionsDataItemAttributesUpdatedByDataAttributes = {
   [key: string]: any;
@@ -9621,15 +9869,6 @@ export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolsCategory = {
   data?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolsCategoryData;
 };
 
-export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolData = {
-  attributes?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributes;
-  id?: number;
-};
-
-export type OtherToolToolEditSuggestionsDataItemAttributesOtherTool = {
-  data?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolData;
-};
-
 export type OtherToolToolEditSuggestionsDataItemAttributes = {
   author?: OtherToolToolEditSuggestionsDataItemAttributesAuthor;
   createdAt?: string;
@@ -9646,9 +9885,6 @@ export type OtherToolToolEditSuggestionsDataItemAttributes = {
   updatedBy?: OtherToolToolEditSuggestionsDataItemAttributesUpdatedBy;
 };
 
-export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
 export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesUpdatedByData = {
   attributes?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesUpdatedByDataAttributes;
   id?: number;
@@ -9657,6 +9893,31 @@ export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttribute
 export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesUpdatedBy = {
   data?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesUpdatedByData;
 };
+
+export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributes = {
+  createdAt?: string;
+  createdBy?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesCreatedBy;
+  description?: string;
+  link?: string;
+  name?: string;
+  other_tools_category?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesOtherToolsCategory;
+  publishedAt?: string;
+  tool_edit_suggestions?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesToolEditSuggestions;
+  updatedAt?: string;
+  updatedBy?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesUpdatedBy;
+};
+
+export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolData = {
+  attributes?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributes;
+  id?: number;
+};
+
+export type OtherToolToolEditSuggestionsDataItemAttributesOtherTool = {
+  data?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolData;
+};
+
+export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
 
 export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesToolEditSuggestionsDataItemAttributes =
   { [key: string]: any };
@@ -9686,19 +9947,6 @@ export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttribute
     data?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesOtherToolsCategoryData;
   };
 
-export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributes = {
-  createdAt?: string;
-  createdBy?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesCreatedBy;
-  description?: string;
-  link?: string;
-  name?: string;
-  other_tools_category?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesOtherToolsCategory;
-  publishedAt?: string;
-  tool_edit_suggestions?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesToolEditSuggestions;
-  updatedAt?: string;
-  updatedBy?: OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesUpdatedBy;
-};
-
 export type OtherToolToolEditSuggestionsDataItemAttributesOtherToolDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -9724,6 +9972,10 @@ export type OtherToolToolEditSuggestionsDataItemAttributesCreatedBy = {
   data?: OtherToolToolEditSuggestionsDataItemAttributesCreatedByData;
 };
 
+export type OtherToolToolEditSuggestionsDataItemAttributesAuthor = {
+  data?: OtherToolToolEditSuggestionsDataItemAttributesAuthorData;
+};
+
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -9734,11 +9986,6 @@ export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesUp
 
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesUpdatedBy = {
   data?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesUpdatedByData;
-};
-
-export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleData = {
-  attributes?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributes;
-  id?: number;
 };
 
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRole = {
@@ -9764,10 +10011,6 @@ export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributes =
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorData = {
   attributes?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributes;
   id?: number;
-};
-
-export type OtherToolToolEditSuggestionsDataItemAttributesAuthor = {
-  data?: OtherToolToolEditSuggestionsDataItemAttributesAuthorData;
 };
 
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes =
@@ -9798,16 +10041,6 @@ export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRo
     data?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData;
   };
 
-export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    createdAt?: string;
-    createdBy?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
-    role?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
-    updatedAt?: string;
-    updatedBy?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem =
   {
     attributes?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes;
@@ -9829,6 +10062,11 @@ export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRo
   updatedAt?: string;
   updatedBy?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
   users?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUsers;
+};
+
+export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleData = {
+  attributes?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributes;
+  id?: number;
 };
 
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -9859,11 +10097,6 @@ export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRo
     data?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
   };
 
-export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -9871,6 +10104,21 @@ export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRo
   {
     attributes?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
     id?: number;
+  };
+
+export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
+export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    createdAt?: string;
+    createdBy?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
+    role?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
+    updatedAt?: string;
+    updatedBy?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesCreatedByDataAttributes =
@@ -9899,6 +10147,11 @@ export type OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesCr
   data?: OtherToolToolEditSuggestionsDataItemAttributesAuthorDataAttributesCreatedByData;
 };
 
+export type OtherToolOtherToolsCategoryData = {
+  attributes?: OtherToolOtherToolsCategoryDataAttributes;
+  id?: number;
+};
+
 export type OtherToolOtherToolsCategory = {
   data?: OtherToolOtherToolsCategoryData;
 };
@@ -9916,11 +10169,6 @@ export type OtherToolOtherToolsCategoryDataAttributesUpdatedBy = {
   data?: OtherToolOtherToolsCategoryDataAttributesUpdatedByData;
 };
 
-export type OtherToolOtherToolsCategoryDataAttributesCreatedByData = {
-  attributes?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributes;
-  id?: number;
-};
-
 export type OtherToolOtherToolsCategoryDataAttributesCreatedBy = {
   data?: OtherToolOtherToolsCategoryDataAttributesCreatedByData;
 };
@@ -9934,8 +10182,25 @@ export type OtherToolOtherToolsCategoryDataAttributes = {
   updatedBy?: OtherToolOtherToolsCategoryDataAttributesUpdatedBy;
 };
 
-export type OtherToolOtherToolsCategoryData = {
-  attributes?: OtherToolOtherToolsCategoryDataAttributes;
+export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributes = {
+  blocked?: boolean;
+  createdAt?: string;
+  createdBy?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesCreatedBy;
+  email?: string;
+  firstname?: string;
+  isActive?: boolean;
+  lastname?: string;
+  preferedLanguage?: string;
+  registrationToken?: string;
+  resetPasswordToken?: string;
+  roles?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRoles;
+  updatedAt?: string;
+  updatedBy?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesUpdatedBy;
+  username?: string;
+};
+
+export type OtherToolOtherToolsCategoryDataAttributesCreatedByData = {
+  attributes?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributes;
   id?: number;
 };
 
@@ -9958,23 +10223,6 @@ export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRole
 
 export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRoles = {
   data?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItem[];
-};
-
-export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributes = {
-  blocked?: boolean;
-  createdAt?: string;
-  createdBy?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesCreatedBy;
-  email?: string;
-  firstname?: string;
-  isActive?: boolean;
-  lastname?: string;
-  preferedLanguage?: string;
-  registrationToken?: string;
-  resetPasswordToken?: string;
-  roles?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRoles;
-  updatedAt?: string;
-  updatedBy?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesUpdatedBy;
-  username?: string;
 };
 
 export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -10043,6 +10291,20 @@ export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRole
     data?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
+export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -10069,20 +10331,6 @@ export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRole
 export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
-export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type OtherToolOtherToolsCategoryDataAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -10161,6 +10409,20 @@ export type OtherToolRequestData = {
 
 export type OrganizationTypeResponseMeta = { [key: string]: any };
 
+export interface OrganizationType {
+  createdAt?: string;
+  createdBy?: OrganizationTypeCreatedBy;
+  name?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: OrganizationTypeUpdatedBy;
+}
+
+export interface OrganizationTypeResponseDataObject {
+  attributes?: OrganizationType;
+  id?: number;
+}
+
 export interface OrganizationTypeResponse {
   data?: OrganizationTypeResponseDataObject;
   meta?: OrganizationTypeResponseMeta;
@@ -10177,6 +10439,23 @@ export type OrganizationTypeUpdatedBy = {
   data?: OrganizationTypeUpdatedByData;
 };
 
+export type OrganizationTypeCreatedByDataAttributes = {
+  blocked?: boolean;
+  createdAt?: string;
+  createdBy?: OrganizationTypeCreatedByDataAttributesCreatedBy;
+  email?: string;
+  firstname?: string;
+  isActive?: boolean;
+  lastname?: string;
+  preferedLanguage?: string;
+  registrationToken?: string;
+  resetPasswordToken?: string;
+  roles?: OrganizationTypeCreatedByDataAttributesRoles;
+  updatedAt?: string;
+  updatedBy?: OrganizationTypeCreatedByDataAttributesUpdatedBy;
+  username?: string;
+};
+
 export type OrganizationTypeCreatedByData = {
   attributes?: OrganizationTypeCreatedByDataAttributes;
   id?: number;
@@ -10185,20 +10464,6 @@ export type OrganizationTypeCreatedByData = {
 export type OrganizationTypeCreatedBy = {
   data?: OrganizationTypeCreatedByData;
 };
-
-export interface OrganizationType {
-  createdAt?: string;
-  createdBy?: OrganizationTypeCreatedBy;
-  name?: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: OrganizationTypeUpdatedBy;
-}
-
-export interface OrganizationTypeResponseDataObject {
-  attributes?: OrganizationType;
-  id?: number;
-}
 
 export type OrganizationTypeCreatedByDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
@@ -10218,23 +10483,6 @@ export type OrganizationTypeCreatedByDataAttributesRolesDataItem = {
 
 export type OrganizationTypeCreatedByDataAttributesRoles = {
   data?: OrganizationTypeCreatedByDataAttributesRolesDataItem[];
-};
-
-export type OrganizationTypeCreatedByDataAttributes = {
-  blocked?: boolean;
-  createdAt?: string;
-  createdBy?: OrganizationTypeCreatedByDataAttributesCreatedBy;
-  email?: string;
-  firstname?: string;
-  isActive?: boolean;
-  lastname?: string;
-  preferedLanguage?: string;
-  registrationToken?: string;
-  resetPasswordToken?: string;
-  roles?: OrganizationTypeCreatedByDataAttributesRoles;
-  updatedAt?: string;
-  updatedBy?: OrganizationTypeCreatedByDataAttributesUpdatedBy;
-  username?: string;
 };
 
 export type OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -10296,6 +10544,20 @@ export type OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermis
     data?: OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
+export type OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -10322,20 +10584,6 @@ export type OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermis
 export type OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
-export type OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type OrganizationTypeCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -10390,6 +10638,239 @@ export interface OrganizationTypeRequest {
   data: OrganizationTypeRequestData;
 }
 
+export type ObjectiveResponseMeta = { [key: string]: any };
+
+export interface Objective {
+  createdAt?: string;
+  createdBy?: ObjectiveCreatedBy;
+  publishedAt?: string;
+  type?: string;
+  updatedAt?: string;
+  updatedBy?: ObjectiveUpdatedBy;
+}
+
+export interface ObjectiveResponseDataObject {
+  attributes?: Objective;
+  id?: number;
+}
+
+export interface ObjectiveResponse {
+  data?: ObjectiveResponseDataObject;
+  meta?: ObjectiveResponseMeta;
+}
+
+export type ObjectiveUpdatedByDataAttributes = { [key: string]: any };
+
+export type ObjectiveUpdatedByData = {
+  attributes?: ObjectiveUpdatedByDataAttributes;
+  id?: number;
+};
+
+export type ObjectiveUpdatedBy = {
+  data?: ObjectiveUpdatedByData;
+};
+
+export type ObjectiveCreatedByDataAttributes = {
+  blocked?: boolean;
+  createdAt?: string;
+  createdBy?: ObjectiveCreatedByDataAttributesCreatedBy;
+  email?: string;
+  firstname?: string;
+  isActive?: boolean;
+  lastname?: string;
+  preferedLanguage?: string;
+  registrationToken?: string;
+  resetPasswordToken?: string;
+  roles?: ObjectiveCreatedByDataAttributesRoles;
+  updatedAt?: string;
+  updatedBy?: ObjectiveCreatedByDataAttributesUpdatedBy;
+  username?: string;
+};
+
+export type ObjectiveCreatedByData = {
+  attributes?: ObjectiveCreatedByDataAttributes;
+  id?: number;
+};
+
+export type ObjectiveCreatedBy = {
+  data?: ObjectiveCreatedByData;
+};
+
+export type ObjectiveCreatedByDataAttributesUpdatedByDataAttributes = { [key: string]: any };
+
+export type ObjectiveCreatedByDataAttributesUpdatedByData = {
+  attributes?: ObjectiveCreatedByDataAttributesUpdatedByDataAttributes;
+  id?: number;
+};
+
+export type ObjectiveCreatedByDataAttributesUpdatedBy = {
+  data?: ObjectiveCreatedByDataAttributesUpdatedByData;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesUsers = {
+  data?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributes = {
+  code?: string;
+  createdAt?: string;
+  createdBy?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  permissions?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissions;
+  updatedAt?: string;
+  updatedBy?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+  users?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesUsers;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItem = {
+  attributes?: ObjectiveCreatedByDataAttributesRolesDataItemAttributes;
+  id?: number;
+};
+
+export type ObjectiveCreatedByDataAttributesRoles = {
+  data?: ObjectiveCreatedByDataAttributesRolesDataItem[];
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes = {
+  [key: string]: any;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesUsersDataItem = {
+  attributes?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes;
+  id?: number;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes = {
+  [key: string]: any;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesUpdatedByData = {
+  attributes?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes;
+  id?: number;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesUpdatedBy = {
+  data?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem = {
+  attributes?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
+  id?: number;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissions = {
+  data?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData =
+  {
+    attributes?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy =
+  {
+    data?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
+  };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
+  { [key: string]: any };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData =
+  {
+    attributes?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes;
+    id?: number;
+  };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole =
+  {
+    data?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
+  };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData =
+  {
+    attributes?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes = {
+  action?: string;
+  actionParameters?: unknown;
+  conditions?: unknown;
+  createdAt?: string;
+  createdBy?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+  properties?: unknown;
+  role?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+  subject?: string;
+  updatedAt?: string;
+  updatedBy?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes = {
+  [key: string]: any;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesCreatedByData = {
+  attributes?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes;
+  id?: number;
+};
+
+export type ObjectiveCreatedByDataAttributesRolesDataItemAttributesCreatedBy = {
+  data?: ObjectiveCreatedByDataAttributesRolesDataItemAttributesCreatedByData;
+};
+
+export type ObjectiveCreatedByDataAttributesCreatedByDataAttributes = { [key: string]: any };
+
+export type ObjectiveCreatedByDataAttributesCreatedByData = {
+  attributes?: ObjectiveCreatedByDataAttributesCreatedByDataAttributes;
+  id?: number;
+};
+
+export type ObjectiveCreatedByDataAttributesCreatedBy = {
+  data?: ObjectiveCreatedByDataAttributesCreatedByData;
+};
+
+export type ObjectiveListResponseMetaPagination = {
+  page?: number;
+  pageCount?: number;
+  pageSize?: number;
+  total?: number;
+};
+
+export type ObjectiveListResponseMeta = {
+  pagination?: ObjectiveListResponseMetaPagination;
+};
+
+export interface ObjectiveListResponseDataItem {
+  attributes?: Objective;
+  id?: number;
+}
+
+export interface ObjectiveListResponse {
+  data?: ObjectiveListResponseDataItem[];
+  meta?: ObjectiveListResponseMeta;
+}
+
+export type ObjectiveRequestData = {
+  type?: string;
+};
+
+export interface ObjectiveRequest {
+  data: ObjectiveRequestData;
+}
+
 export type LayerResponseMeta = { [key: string]: any };
 
 export interface LayerResponseDataObject {
@@ -10423,17 +10904,6 @@ export const LayerType = {
   component: "component",
 } as const;
 
-export type LayerDatasetEditSuggestionDataAttributes = { [key: string]: any };
-
-export type LayerDatasetEditSuggestionData = {
-  attributes?: LayerDatasetEditSuggestionDataAttributes;
-  id?: number;
-};
-
-export type LayerDatasetEditSuggestion = {
-  data?: LayerDatasetEditSuggestionData;
-};
-
 export interface Layer {
   colors?: unknown;
   config: unknown;
@@ -10450,6 +10920,21 @@ export interface Layer {
   updatedAt?: string;
   updatedBy?: LayerUpdatedBy;
 }
+
+export type LayerDatasetEditSuggestionDataAttributes = { [key: string]: any };
+
+export type LayerDatasetEditSuggestionData = {
+  attributes?: LayerDatasetEditSuggestionDataAttributes;
+  id?: number;
+};
+
+export type LayerDatasetEditSuggestion = {
+  data?: LayerDatasetEditSuggestionData;
+};
+
+export type LayerDataset = {
+  data?: LayerDatasetData;
+};
 
 export type LayerDatasetDataAttributesValueType =
   (typeof LayerDatasetDataAttributesValueType)[keyof typeof LayerDatasetDataAttributesValueType];
@@ -10485,10 +10970,6 @@ export type LayerDatasetData = {
   id?: number;
 };
 
-export type LayerDataset = {
-  data?: LayerDatasetData;
-};
-
 export type LayerDatasetDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
 export type LayerDatasetDataAttributesUpdatedByData = {
@@ -10498,15 +10979,6 @@ export type LayerDatasetDataAttributesUpdatedByData = {
 
 export type LayerDatasetDataAttributesUpdatedBy = {
   data?: LayerDatasetDataAttributesUpdatedByData;
-};
-
-export type LayerDatasetDataAttributesLayersDataItem = {
-  attributes?: LayerDatasetDataAttributesLayersDataItemAttributes;
-  id?: number;
-};
-
-export type LayerDatasetDataAttributesLayers = {
-  data?: LayerDatasetDataAttributesLayersDataItem[];
 };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes = {
@@ -10520,6 +10992,32 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesUpdatedByData = {
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesUpdatedBy = {
   data?: LayerDatasetDataAttributesLayersDataItemAttributesUpdatedByData;
+};
+
+export type LayerDatasetDataAttributesLayersDataItemAttributes = {
+  colors?: unknown;
+  config?: unknown;
+  createdAt?: string;
+  createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesCreatedBy;
+  dataset?: LayerDatasetDataAttributesLayersDataItemAttributesDataset;
+  dataset_edit_suggestion?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion;
+  interaction_config?: unknown;
+  legend_config?: unknown;
+  name?: string;
+  params_config?: unknown;
+  publishedAt?: string;
+  type?: LayerDatasetDataAttributesLayersDataItemAttributesType;
+  updatedAt?: string;
+  updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesUpdatedBy;
+};
+
+export type LayerDatasetDataAttributesLayersDataItem = {
+  attributes?: LayerDatasetDataAttributesLayersDataItemAttributes;
+  id?: number;
+};
+
+export type LayerDatasetDataAttributesLayers = {
+  data?: LayerDatasetDataAttributesLayersDataItem[];
 };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesType =
@@ -10540,23 +11038,6 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion = {
   data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData;
-};
-
-export type LayerDatasetDataAttributesLayersDataItemAttributes = {
-  colors?: unknown;
-  config?: unknown;
-  createdAt?: string;
-  createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesCreatedBy;
-  dataset?: LayerDatasetDataAttributesLayersDataItemAttributesDataset;
-  dataset_edit_suggestion?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion;
-  interaction_config?: unknown;
-  legend_config?: unknown;
-  name?: string;
-  params_config?: unknown;
-  publishedAt?: string;
-  type?: LayerDatasetDataAttributesLayersDataItemAttributesType;
-  updatedAt?: string;
-  updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesUpdatedBy;
 };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType =
@@ -10659,18 +11140,6 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedByData;
   };
 
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
-    dataset?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
-    dataset_edit_suggestions?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
-  };
-
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryData =
   {
     attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes;
@@ -10710,11 +11179,6 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItem[];
   };
 
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset =
-  {
-    data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetDataItem[];
-  };
-
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetDataItemAttributes =
   { [key: string]: any };
 
@@ -10722,6 +11186,23 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
   {
     attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetDataItemAttributes;
     id?: number;
+  };
+
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset =
+  {
+    data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetDataItem[];
+  };
+
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
+    dataset?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
+    dataset_edit_suggestions?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
   };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedByDataAttributes =
@@ -10755,12 +11236,6 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedBy =
   {
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData;
-  };
-
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData =
-  {
-    attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes;
-    id?: number;
   };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole =
@@ -10805,6 +11280,20 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItem[];
   };
 
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData =
+  {
+    attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy =
+  {
+    data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData;
+  };
+
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
   {
     createdAt?: string;
@@ -10818,18 +11307,21 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
     users?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
   };
 
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData =
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData =
   {
-    attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes;
+    attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes;
     id?: number;
   };
 
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy =
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData =
   {
-    data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData;
+    attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy =
+  {
+    data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
@@ -10856,17 +11348,6 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData =
-  {
-    attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy =
-  {
-    data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData;
-  };
-
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -10879,11 +11360,6 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole =
   {
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
-  };
-
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
@@ -10935,6 +11411,11 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
     id?: number;
   };
 
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
   { [key: string]: any };
 
@@ -10963,6 +11444,20 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
   };
 
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
   {
     attributes?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
@@ -10972,19 +11467,6 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
   {
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
-  };
-
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -11015,20 +11497,6 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
   };
 
-export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -11055,6 +11523,19 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy =
   {
     data?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByData;
+  };
+
+export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesCreatedByDataAttributes =
@@ -11125,6 +11606,10 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesCreatedBy = {
   data?: LayerDatasetDataAttributesLayersDataItemAttributesCreatedByData;
 };
 
+export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedBy = {
+  data?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedByData;
+};
+
 export type LayerDatasetDataAttributesDatasetValuesDataItemAttributes = {
   country?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountry;
   createdAt?: string;
@@ -11156,8 +11641,15 @@ export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedByDa
   id?: number;
 };
 
-export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedBy = {
-  data?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedByData;
+export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes = {
+  createdAt?: string;
+  createdBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
+  description?: string;
+  link_title?: string;
+  link_url?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
 };
 
 export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItem = {
@@ -11197,17 +11689,6 @@ export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDa
     data?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByData;
   };
 
-export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes = {
-  createdAt?: string;
-  createdBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
-  description?: string;
-  link_title?: string;
-  link_url?: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
-};
-
 export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesDatasetDataAttributes = {
   [key: string]: any;
 };
@@ -11232,20 +11713,6 @@ export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesCreatedByDa
 
 export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesCreatedBy = {
   data?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCreatedByData;
-};
-
-export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributes = {
-  bbox?: unknown;
-  createdAt?: string;
-  createdBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy;
-  dataset_values?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesDatasetValues;
-  geometry?: unknown;
-  iso3?: string;
-  link?: string;
-  name?: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy;
 };
 
 export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryData = {
@@ -11298,6 +11765,20 @@ export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryData
   {
     data?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedByData;
   };
+
+export type LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributes = {
+  bbox?: unknown;
+  createdAt?: string;
+  createdBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy;
+  dataset_values?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesDatasetValues;
+  geometry?: unknown;
+  iso3?: string;
+  link?: string;
+  name?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: LayerDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy;
+};
 
 export type LayerDatasetDataAttributesDatasetEditSuggestionsDataItemAttributes = {
   [key: string]: any;
@@ -11366,10 +11847,6 @@ export interface LayerListResponse {
   meta?: LayerListResponseMeta;
 }
 
-export interface LayerRequest {
-  data: LayerRequestData;
-}
-
 export type LayerRequestDataType = (typeof LayerRequestDataType)[keyof typeof LayerRequestDataType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -11396,12 +11873,11 @@ export type LayerRequestData = {
   type: LayerRequestDataType;
 };
 
-export type DownloadEmailResponseMeta = { [key: string]: any };
-
-export interface DownloadEmailResponse {
-  data?: DownloadEmailResponseDataObject;
-  meta?: DownloadEmailResponseMeta;
+export interface LayerRequest {
+  data: LayerRequestData;
 }
+
+export type DownloadEmailResponseMeta = { [key: string]: any };
 
 export interface DownloadEmail {
   createdAt?: string;
@@ -11418,6 +11894,11 @@ export interface DownloadEmailResponseDataObject {
   id?: number;
 }
 
+export interface DownloadEmailResponse {
+  data?: DownloadEmailResponseDataObject;
+  meta?: DownloadEmailResponseMeta;
+}
+
 export type DownloadEmailUpdatedByDataAttributes = { [key: string]: any };
 
 export type DownloadEmailUpdatedByData = {
@@ -11429,15 +11910,6 @@ export type DownloadEmailUpdatedBy = {
   data?: DownloadEmailUpdatedByData;
 };
 
-export type DownloadEmailCreatedByData = {
-  attributes?: DownloadEmailCreatedByDataAttributes;
-  id?: number;
-};
-
-export type DownloadEmailCreatedBy = {
-  data?: DownloadEmailCreatedByData;
-};
-
 export type DownloadEmailCreatedByDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
 export type DownloadEmailCreatedByDataAttributesUpdatedByData = {
@@ -11447,6 +11919,15 @@ export type DownloadEmailCreatedByDataAttributesUpdatedByData = {
 
 export type DownloadEmailCreatedByDataAttributesUpdatedBy = {
   data?: DownloadEmailCreatedByDataAttributesUpdatedByData;
+};
+
+export type DownloadEmailCreatedByDataAttributesRolesDataItem = {
+  attributes?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributes;
+  id?: number;
+};
+
+export type DownloadEmailCreatedByDataAttributesRoles = {
+  data?: DownloadEmailCreatedByDataAttributesRolesDataItem[];
 };
 
 export type DownloadEmailCreatedByDataAttributes = {
@@ -11466,25 +11947,13 @@ export type DownloadEmailCreatedByDataAttributes = {
   username?: string;
 };
 
-export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributes = {
-  code?: string;
-  createdAt?: string;
-  createdBy?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  permissions?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissions;
-  updatedAt?: string;
-  updatedBy?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-  users?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesUsers;
-};
-
-export type DownloadEmailCreatedByDataAttributesRolesDataItem = {
-  attributes?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributes;
+export type DownloadEmailCreatedByData = {
+  attributes?: DownloadEmailCreatedByDataAttributes;
   id?: number;
 };
 
-export type DownloadEmailCreatedByDataAttributesRoles = {
-  data?: DownloadEmailCreatedByDataAttributesRolesDataItem[];
+export type DownloadEmailCreatedBy = {
+  data?: DownloadEmailCreatedByData;
 };
 
 export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes = {
@@ -11513,20 +11982,6 @@ export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesUpdatedBy
   data?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
 };
 
-export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData =
-  {
-    attributes?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy =
-  {
-    data?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
-  };
-
 export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
   {
     action?: string;
@@ -11549,6 +12004,20 @@ export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissio
 export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissions = {
   data?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
 };
+
+export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData =
+  {
+    attributes?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy =
+  {
+    data?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
+  };
 
 export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
@@ -11589,6 +12058,18 @@ export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesCreatedBy
 
 export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributesCreatedBy = {
   data?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesCreatedByData;
+};
+
+export type DownloadEmailCreatedByDataAttributesRolesDataItemAttributes = {
+  code?: string;
+  createdAt?: string;
+  createdBy?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  permissions?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesPermissions;
+  updatedAt?: string;
+  updatedBy?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+  users?: DownloadEmailCreatedByDataAttributesRolesDataItemAttributesUsers;
 };
 
 export type DownloadEmailCreatedByDataAttributesCreatedByDataAttributes = { [key: string]: any };
@@ -11634,6 +12115,19 @@ export interface DownloadEmailRequest {
 
 export type DatasetValueResponseMeta = { [key: string]: any };
 
+export interface DatasetValue {
+  country?: DatasetValueCountry;
+  createdAt?: string;
+  createdBy?: DatasetValueCreatedBy;
+  dataset?: DatasetValueDataset;
+  resources?: DatasetValueResources;
+  updatedAt?: string;
+  updatedBy?: DatasetValueUpdatedBy;
+  value_boolean?: boolean;
+  value_number?: number;
+  value_text?: string;
+}
+
 export interface DatasetValueResponseDataObject {
   attributes?: DatasetValue;
   id?: number;
@@ -11666,27 +12160,9 @@ export type DatasetValueResources = {
   data?: DatasetValueResourcesDataItem[];
 };
 
-export type DatasetValueDatasetData = {
-  attributes?: DatasetValueDatasetDataAttributes;
-  id?: number;
-};
-
 export type DatasetValueDataset = {
   data?: DatasetValueDatasetData;
 };
-
-export interface DatasetValue {
-  country?: DatasetValueCountry;
-  createdAt?: string;
-  createdBy?: DatasetValueCreatedBy;
-  dataset?: DatasetValueDataset;
-  resources?: DatasetValueResources;
-  updatedAt?: string;
-  updatedBy?: DatasetValueUpdatedBy;
-  value_boolean?: boolean;
-  value_number?: number;
-  value_text?: string;
-}
 
 export type DatasetValueDatasetDataAttributesValueType =
   (typeof DatasetValueDatasetDataAttributesValueType)[keyof typeof DatasetValueDatasetDataAttributesValueType];
@@ -11735,6 +12211,11 @@ export type DatasetValueDatasetDataAttributes = {
   updatedAt?: string;
   updatedBy?: DatasetValueDatasetDataAttributesUpdatedBy;
   value_type?: DatasetValueDatasetDataAttributesValueType;
+};
+
+export type DatasetValueDatasetData = {
+  attributes?: DatasetValueDatasetDataAttributes;
+  id?: number;
 };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes = {
@@ -11824,6 +12305,20 @@ export const DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdi
     declined: "declined",
   } as const;
 
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItemAttributes =
+  { [key: string]: any };
+
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem =
+  {
+    attributes?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItemAttributes;
+    id?: number;
+  };
+
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers =
+  {
+    data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem[];
+  };
+
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
   {
     author?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
@@ -11843,20 +12338,6 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
     updatedAt?: string;
     updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
     value_type?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
-  };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItemAttributes =
-  { [key: string]: any };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem =
-  {
-    attributes?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItemAttributes;
-    id?: number;
-  };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers =
-  {
-    data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem[];
   };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDatasetDataAttributes =
@@ -11912,6 +12393,18 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedByData;
   };
 
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
+    dataset?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
+    dataset_edit_suggestions?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
+  };
+
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributes =
   { [key: string]: any };
 
@@ -11940,18 +12433,6 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetDataItem[];
   };
 
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
-    dataset?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
-    dataset_edit_suggestions?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
-  };
-
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -11964,23 +12445,6 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy =
   {
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedByData;
-  };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributes =
-  {
-    blocked?: boolean;
-    confirmationToken?: string;
-    confirmed?: boolean;
-    createdAt?: string;
-    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesCreatedBy;
-    email?: string;
-    organization?: string;
-    provider?: string;
-    resetPasswordToken?: string;
-    role?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole;
-    updatedAt?: string;
-    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedBy;
-    username?: string;
   };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorData =
@@ -12008,15 +12472,45 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedByData;
   };
 
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole =
+  {
+    data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData;
+  };
+
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributes =
+  {
+    blocked?: boolean;
+    confirmationToken?: string;
+    confirmed?: boolean;
+    createdAt?: string;
+    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesCreatedBy;
+    email?: string;
+    organization?: string;
+    provider?: string;
+    resetPasswordToken?: string;
+    role?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole;
+    updatedAt?: string;
+    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesUpdatedBy;
+    username?: string;
+  };
+
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions;
+    type?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
+    users?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
+  };
+
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData =
   {
     attributes?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes;
     id?: number;
-  };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRole =
-  {
-    data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleData;
   };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes =
@@ -12047,16 +12541,6 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByData;
   };
 
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    createdAt?: string;
-    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
-    role?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
-    updatedAt?: string;
-    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem =
   {
     attributes?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes;
@@ -12066,19 +12550,6 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions =
   {
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
-  };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions;
-    type?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
-    users?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
   };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -12107,6 +12578,27 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole =
   {
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
+  };
+
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
+  {
+    attributes?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    createdAt?: string;
+    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
+    role?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
+    updatedAt?: string;
+    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
@@ -12139,17 +12631,6 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
     updatedAt?: string;
     updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy;
     username?: string;
-  };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
-  {
-    attributes?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
@@ -12229,6 +12710,20 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
+export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
+  };
+
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -12255,20 +12750,6 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
-export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -12353,6 +12834,10 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesCreatedBy =
   data?: DatasetValueDatasetDataAttributesLayersDataItemAttributesCreatedByData;
 };
 
+export type DatasetValueDatasetDataAttributesDatasetValues = {
+  data?: DatasetValueDatasetDataAttributesDatasetValuesDataItem[];
+};
+
 export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -12392,10 +12877,6 @@ export type DatasetValueDatasetDataAttributesDatasetValuesDataItem = {
   id?: number;
 };
 
-export type DatasetValueDatasetDataAttributesDatasetValues = {
-  data?: DatasetValueDatasetDataAttributesDatasetValuesDataItem[];
-};
-
 export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -12408,11 +12889,6 @@ export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesReso
 export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy =
   {
     data?: DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData;
-  };
-
-export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy =
-  {
-    data?: DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByData;
   };
 
 export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
@@ -12434,6 +12910,11 @@ export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesReso
   {
     attributes?: DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByDataAttributes;
     id?: number;
+  };
+
+export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy =
+  {
+    data?: DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByData;
   };
 
 export type DatasetValueDatasetDataAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
@@ -12604,6 +13085,10 @@ export interface DatasetValueListResponse {
   meta?: DatasetValueListResponseMeta;
 }
 
+export interface DatasetValueRequest {
+  data: DatasetValueRequestData;
+}
+
 export type DatasetValueRequestDataResourcesItem = number | string;
 
 export type DatasetValueRequestDataDataset = number | string;
@@ -12619,11 +13104,17 @@ export type DatasetValueRequestData = {
   value_text?: string;
 };
 
-export interface DatasetValueRequest {
-  data: DatasetValueRequestData;
+export type DatasetEditSuggestionResponseMeta = { [key: string]: any };
+
+export interface DatasetEditSuggestionResponseDataObject {
+  attributes?: DatasetEditSuggestion;
+  id?: number;
 }
 
-export type DatasetEditSuggestionResponseMeta = { [key: string]: any };
+export interface DatasetEditSuggestionResponse {
+  data?: DatasetEditSuggestionResponseDataObject;
+  meta?: DatasetEditSuggestionResponseMeta;
+}
 
 export type DatasetEditSuggestionValueType =
   (typeof DatasetEditSuggestionValueType)[keyof typeof DatasetEditSuggestionValueType];
@@ -12635,36 +13126,6 @@ export const DatasetEditSuggestionValueType = {
   boolean: "boolean",
   resource: "resource",
 } as const;
-
-export interface DatasetEditSuggestion {
-  author?: DatasetEditSuggestionAuthor;
-  category?: DatasetEditSuggestionCategory;
-  colors?: unknown;
-  createdAt?: string;
-  createdBy?: DatasetEditSuggestionCreatedBy;
-  data?: unknown;
-  dataset?: DatasetEditSuggestionDataset;
-  description?: string;
-  layers?: DatasetEditSuggestionLayers;
-  name?: string;
-  publishedAt?: string;
-  review_decision_details?: string;
-  review_status: DatasetEditSuggestionReviewStatus;
-  unit?: string;
-  updatedAt?: string;
-  updatedBy?: DatasetEditSuggestionUpdatedBy;
-  value_type?: DatasetEditSuggestionValueType;
-}
-
-export interface DatasetEditSuggestionResponseDataObject {
-  attributes?: DatasetEditSuggestion;
-  id?: number;
-}
-
-export interface DatasetEditSuggestionResponse {
-  data?: DatasetEditSuggestionResponseDataObject;
-  meta?: DatasetEditSuggestionResponseMeta;
-}
 
 export type DatasetEditSuggestionUpdatedByDataAttributes = { [key: string]: any };
 
@@ -12698,6 +13159,26 @@ export type DatasetEditSuggestionLayers = {
   data?: DatasetEditSuggestionLayersDataItem[];
 };
 
+export interface DatasetEditSuggestion {
+  author?: DatasetEditSuggestionAuthor;
+  category?: DatasetEditSuggestionCategory;
+  colors?: unknown;
+  createdAt?: string;
+  createdBy?: DatasetEditSuggestionCreatedBy;
+  data?: unknown;
+  dataset?: DatasetEditSuggestionDataset;
+  description?: string;
+  layers?: DatasetEditSuggestionLayers;
+  name?: string;
+  publishedAt?: string;
+  review_decision_details?: string;
+  review_status: DatasetEditSuggestionReviewStatus;
+  unit?: string;
+  updatedAt?: string;
+  updatedBy?: DatasetEditSuggestionUpdatedBy;
+  value_type?: DatasetEditSuggestionValueType;
+}
+
 export type DatasetEditSuggestionDatasetDataAttributes = { [key: string]: any };
 
 export type DatasetEditSuggestionDatasetData = {
@@ -12720,6 +13201,11 @@ export type DatasetEditSuggestionCreatedBy = {
   data?: DatasetEditSuggestionCreatedByData;
 };
 
+export type DatasetEditSuggestionCategoryData = {
+  attributes?: DatasetEditSuggestionCategoryDataAttributes;
+  id?: number;
+};
+
 export type DatasetEditSuggestionCategory = {
   data?: DatasetEditSuggestionCategoryData;
 };
@@ -12737,11 +13223,6 @@ export type DatasetEditSuggestionCategoryDataAttributesUpdatedBy = {
   data?: DatasetEditSuggestionCategoryDataAttributesUpdatedByData;
 };
 
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItem = {
-  attributes?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributes;
-  id?: number;
-};
-
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestions = {
   data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItem[];
 };
@@ -12755,11 +13236,6 @@ export type DatasetEditSuggestionCategoryDataAttributes = {
   publishedAt?: string;
   updatedAt?: string;
   updatedBy?: DatasetEditSuggestionCategoryDataAttributesUpdatedBy;
-};
-
-export type DatasetEditSuggestionCategoryData = {
-  attributes?: DatasetEditSuggestionCategoryDataAttributes;
-  id?: number;
 };
 
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesValueType =
@@ -12830,6 +13306,11 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
   value_type?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesValueType;
 };
 
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItem = {
+  attributes?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributes;
+  id?: number;
+};
+
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -12856,23 +13337,9 @@ export const DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDa
     component: "component",
   } as const;
 
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
-  { [key: string]: any };
-
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionData =
-  {
-    attributes?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
-    id?: number;
-  };
-
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestion =
   {
     data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionData;
-  };
-
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDataset =
-  {
-    data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetData;
   };
 
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributes =
@@ -12891,6 +13358,26 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
     type?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesType;
     updatedAt?: string;
     updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesUpdatedBy;
+  };
+
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
+  { [key: string]: any };
+
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionData =
+  {
+    attributes?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
+    id?: number;
+  };
+
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetData =
+  {
+    attributes?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributes;
+    id?: number;
+  };
+
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDataset =
+  {
+    data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetData;
   };
 
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesValueType =
@@ -12919,31 +13406,6 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
     data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesUpdatedByData;
   };
 
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributes =
-  {
-    category?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesCreatedBy;
-    dataset_edit_suggestions?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
-    dataset_values?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValues;
-    datum?: unknown;
-    description?: string;
-    layers?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesUpdatedBy;
-    value_type?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesValueType;
-  };
-
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetData =
-  {
-    attributes?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributes;
-    id?: number;
-  };
-
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesLayersDataItemAttributes =
   { [key: string]: any };
 
@@ -12967,6 +13429,25 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValues =
   {
     data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItem[];
+  };
+
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributes =
+  {
+    category?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesCreatedBy;
+    dataset_edit_suggestions?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestions;
+    dataset_values?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValues;
+    datum?: unknown;
+    description?: string;
+    layers?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesUpdatedBy;
+    value_type?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesValueType;
   };
 
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedByDataAttributes =
@@ -13008,18 +13489,6 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
     value_text?: string;
   };
 
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
-  {
-    createdAt?: string;
-    createdBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
-    description?: string;
-    link_title?: string;
-    link_url?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
-  };
-
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -13032,6 +13501,18 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy =
   {
     data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData;
+  };
+
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
+  {
+    createdAt?: string;
+    createdBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
+    description?: string;
+    link_title?: string;
+    link_url?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
   };
 
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByDataAttributes =
@@ -13076,12 +13557,6 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
     data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCreatedByData;
   };
 
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryData =
-  {
-    attributes?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributes;
-    id?: number;
-  };
-
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountry =
   {
     data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryData;
@@ -13099,21 +13574,6 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy =
   {
     data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedByData;
-  };
-
-export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributes =
-  {
-    bbox?: unknown;
-    createdAt?: string;
-    createdBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy;
-    dataset_values?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesDatasetValues;
-    geometry?: unknown;
-    iso3?: string;
-    link?: string;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy;
   };
 
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesDatasetValuesDataItemAttributes =
@@ -13142,6 +13602,27 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy =
   {
     data?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedByData;
+  };
+
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributes =
+  {
+    bbox?: unknown;
+    createdAt?: string;
+    createdBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy;
+    dataset_values?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesDatasetValues;
+    geometry?: unknown;
+    iso3?: string;
+    link?: string;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy;
+  };
+
+export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryData =
+  {
+    attributes?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributes;
+    id?: number;
   };
 
 export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributes =
@@ -13282,28 +13763,6 @@ export type DatasetEditSuggestionCategoryDataAttributesCreatedBy = {
   data?: DatasetEditSuggestionCategoryDataAttributesCreatedByData;
 };
 
-export type DatasetEditSuggestionAuthorDataAttributesUpdatedByDataAttributes = {
-  [key: string]: any;
-};
-
-export type DatasetEditSuggestionAuthorDataAttributesUpdatedByData = {
-  attributes?: DatasetEditSuggestionAuthorDataAttributesUpdatedByDataAttributes;
-  id?: number;
-};
-
-export type DatasetEditSuggestionAuthorDataAttributesUpdatedBy = {
-  data?: DatasetEditSuggestionAuthorDataAttributesUpdatedByData;
-};
-
-export type DatasetEditSuggestionAuthorDataAttributesRoleData = {
-  attributes?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributes;
-  id?: number;
-};
-
-export type DatasetEditSuggestionAuthorDataAttributesRole = {
-  data?: DatasetEditSuggestionAuthorDataAttributesRoleData;
-};
-
 export type DatasetEditSuggestionAuthorDataAttributes = {
   blocked?: boolean;
   confirmationToken?: string;
@@ -13327,6 +13786,28 @@ export type DatasetEditSuggestionAuthorData = {
 
 export type DatasetEditSuggestionAuthor = {
   data?: DatasetEditSuggestionAuthorData;
+};
+
+export type DatasetEditSuggestionAuthorDataAttributesUpdatedByDataAttributes = {
+  [key: string]: any;
+};
+
+export type DatasetEditSuggestionAuthorDataAttributesUpdatedByData = {
+  attributes?: DatasetEditSuggestionAuthorDataAttributesUpdatedByDataAttributes;
+  id?: number;
+};
+
+export type DatasetEditSuggestionAuthorDataAttributesUpdatedBy = {
+  data?: DatasetEditSuggestionAuthorDataAttributesUpdatedByData;
+};
+
+export type DatasetEditSuggestionAuthorDataAttributesRoleData = {
+  attributes?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributes;
+  id?: number;
+};
+
+export type DatasetEditSuggestionAuthorDataAttributesRole = {
+  data?: DatasetEditSuggestionAuthorDataAttributesRoleData;
 };
 
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes = {
@@ -13414,6 +13895,17 @@ export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissio
     data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
   };
 
+export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
+  {
+    attributes?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -13426,12 +13918,6 @@ export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissio
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy =
   {
     data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData;
-  };
-
-export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
-  {
-    attributes?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
-    id?: number;
   };
 
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
@@ -13457,15 +13943,23 @@ export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissio
     username?: string;
   };
 
-export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
+export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
   {
-    attributes?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
+    code?: string;
+    createdAt?: string;
+    createdBy?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
-export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
   {
-    data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+    attributes?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
+    id?: number;
   };
 
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -13496,20 +13990,6 @@ export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissio
     data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
   };
 
-export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
   {
     attributes?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
@@ -13519,19 +13999,6 @@ export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissio
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
   {
     data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
-  };
-
-export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -13562,11 +14029,6 @@ export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissio
     data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleData;
   };
 
-export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -13574,6 +14036,25 @@ export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissio
   {
     attributes?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
     id?: number;
+  };
+
+export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
+export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type DatasetEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -13701,6 +14182,11 @@ export type DatasetEditSuggestionRequestData = {
 
 export type DatasetResponseMeta = { [key: string]: any };
 
+export interface DatasetResponse {
+  data?: DatasetResponseDataObject;
+  meta?: DatasetResponseMeta;
+}
+
 export type DatasetValueType = (typeof DatasetValueType)[keyof typeof DatasetValueType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -13734,11 +14220,6 @@ export interface DatasetResponseDataObject {
   id?: number;
 }
 
-export interface DatasetResponse {
-  data?: DatasetResponseDataObject;
-  meta?: DatasetResponseMeta;
-}
-
 export type DatasetUpdatedByDataAttributes = { [key: string]: any };
 
 export type DatasetUpdatedByData = {
@@ -13748,6 +14229,11 @@ export type DatasetUpdatedByData = {
 
 export type DatasetUpdatedBy = {
   data?: DatasetUpdatedByData;
+};
+
+export type DatasetLayersDataItem = {
+  attributes?: DatasetLayersDataItemAttributes;
+  id?: number;
 };
 
 export type DatasetLayers = {
@@ -13789,10 +14275,6 @@ export type DatasetLayersDataItemAttributesDatasetEditSuggestion = {
   data?: DatasetLayersDataItemAttributesDatasetEditSuggestionData;
 };
 
-export type DatasetLayersDataItemAttributesDataset = {
-  data?: DatasetLayersDataItemAttributesDatasetData;
-};
-
 export type DatasetLayersDataItemAttributes = {
   colors?: unknown;
   config?: unknown;
@@ -13808,11 +14290,6 @@ export type DatasetLayersDataItemAttributes = {
   type?: DatasetLayersDataItemAttributesType;
   updatedAt?: string;
   updatedBy?: DatasetLayersDataItemAttributesUpdatedBy;
-};
-
-export type DatasetLayersDataItem = {
-  attributes?: DatasetLayersDataItemAttributes;
-  id?: number;
 };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesValueType =
@@ -13849,6 +14326,10 @@ export type DatasetLayersDataItemAttributesDatasetData = {
   id?: number;
 };
 
+export type DatasetLayersDataItemAttributesDataset = {
+  data?: DatasetLayersDataItemAttributesDatasetData;
+};
+
 export type DatasetLayersDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes = {
   [key: string]: any;
 };
@@ -13862,10 +14343,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesUpdatedBy = {
   data?: DatasetLayersDataItemAttributesDatasetDataAttributesUpdatedByData;
 };
 
-export type DatasetLayersDataItemAttributesDatasetDataAttributesLayers = {
-  data?: DatasetLayersDataItemAttributesDatasetDataAttributesLayersDataItem[];
-};
-
 export type DatasetLayersDataItemAttributesDatasetDataAttributesLayersDataItemAttributes = {
   [key: string]: any;
 };
@@ -13873,6 +14350,23 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesLayersDataItemAt
 export type DatasetLayersDataItemAttributesDatasetDataAttributesLayersDataItem = {
   attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesLayersDataItemAttributes;
   id?: number;
+};
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesLayers = {
+  data?: DatasetLayersDataItemAttributesDatasetDataAttributesLayersDataItem[];
+};
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributes = {
+  country?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountry;
+  createdAt?: string;
+  createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCreatedBy;
+  dataset?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesDataset;
+  resources?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResources;
+  updatedAt?: string;
+  updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedBy;
+  value_boolean?: boolean;
+  value_number?: number;
+  value_text?: string;
 };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItem = {
@@ -13898,6 +14392,18 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDat
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedByData;
   };
 
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
+  {
+    createdAt?: string;
+    createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
+    description?: string;
+    link_title?: string;
+    link_url?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
+  };
+
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItem =
   {
     attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes;
@@ -13908,19 +14414,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDat
   {
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItem[];
   };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributes = {
-  country?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountry;
-  createdAt?: string;
-  createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCreatedBy;
-  dataset?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesDataset;
-  resources?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResources;
-  updatedAt?: string;
-  updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesUpdatedBy;
-  value_boolean?: boolean;
-  value_number?: number;
-  value_text?: string;
-};
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -13950,18 +14443,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDat
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByData;
   };
 
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
-  {
-    createdAt?: string;
-    createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
-    description?: string;
-    link_title?: string;
-    link_url?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
-  };
-
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesDatasetDataAttributes =
   { [key: string]: any };
 
@@ -13988,21 +14469,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDat
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCreatedBy =
   {
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCreatedByData;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributes =
-  {
-    bbox?: unknown;
-    createdAt?: string;
-    createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy;
-    dataset_values?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesDatasetValues;
-    geometry?: unknown;
-    iso3?: string;
-    link?: string;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy;
   };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryData =
@@ -14058,6 +14524,21 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDat
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedByData;
   };
 
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributes =
+  {
+    bbox?: unknown;
+    createdAt?: string;
+    createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy;
+    dataset_values?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesDatasetValues;
+    geometry?: unknown;
+    iso3?: string;
+    link?: string;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy;
+  };
+
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItem = {
   attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributes;
   id?: number;
@@ -14104,20 +14585,6 @@ export const DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugg
     declined: "declined",
   } as const;
 
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributes =
-  { [key: string]: any };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItem =
-  {
-    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributes;
-    id?: number;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayers =
-  {
-    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItem[];
-  };
-
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributes =
   {
     author?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthor;
@@ -14137,6 +14604,20 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     updatedAt?: string;
     updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesUpdatedBy;
     value_type?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesValueType;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributes =
+  { [key: string]: any };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItem =
+  {
+    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItemAttributes;
+    id?: number;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayers =
+  {
+    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesLayersDataItem[];
   };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesDatasetDataAttributes =
@@ -14165,18 +14646,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCreatedBy =
   {
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCreatedByData;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesCreatedBy;
-    dataset?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDataset;
-    dataset_edit_suggestions?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetEditSuggestions;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedBy;
   };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryData =
@@ -14246,6 +14715,18 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesCreatedByData;
   };
 
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesCreatedBy;
+    dataset?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDataset;
+    dataset_edit_suggestions?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetEditSuggestions;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedBy;
+  };
+
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorData =
   {
     attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributes;
@@ -14271,17 +14752,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesUpdatedByData;
   };
 
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleData =
-  {
-    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributes;
-    id?: number;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRole =
-  {
-    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleData;
-  };
-
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributes =
   {
     blocked?: boolean;
@@ -14297,6 +14767,30 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     updatedAt?: string;
     updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesUpdatedBy;
     username?: string;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissions;
+    type?: string;
+    updatedAt?: string;
+    updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
+    users?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUsers;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleData =
+  {
+    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributes;
+    id?: number;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRole =
+  {
+    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleData;
   };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes =
@@ -14338,19 +14832,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
   };
 
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissions;
-    type?: string;
-    updatedAt?: string;
-    updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
-    users?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesUsers;
-  };
-
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -14363,6 +14844,11 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy =
   {
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole =
+  {
+    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
   };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
@@ -14382,36 +14868,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
   {
     attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleDataAttributes;
     id?: number;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole =
-  {
-    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData =
-  {
-    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy =
-  {
-    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
-  {
-    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
-    id?: number;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
-  {
-    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
   };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
@@ -14443,6 +14899,31 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData =
+  {
+    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy =
+  {
+    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
+  {
+    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
+    id?: number;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
+  {
+    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
+  };
+
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
   { [key: string]: any };
 
@@ -14457,9 +14938,29 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
   };
 
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData =
+  {
+    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy =
   {
     data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
+  {
+    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
+    id?: number;
+  };
+
+export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
+  {
+    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
   };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
@@ -14473,26 +14974,6 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     updatedAt?: string;
     updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
     users?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData =
-  {
-    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
-  {
-    attributes?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes;
-    id?: number;
-  };
-
-export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
-  {
-    data?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
   };
 
 export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -14747,6 +15228,25 @@ export type DatasetRequestData = {
 
 export type CountryResponseMeta = { [key: string]: any };
 
+export interface Country {
+  bbox?: unknown;
+  createdAt?: string;
+  createdBy?: CountryCreatedBy;
+  dataset_values?: CountryDatasetValues;
+  geometry?: unknown;
+  iso3: string;
+  link?: string;
+  name: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: CountryUpdatedBy;
+}
+
+export interface CountryResponseDataObject {
+  attributes?: Country;
+  id?: number;
+}
+
 export interface CountryResponse {
   data?: CountryResponseDataObject;
   meta?: CountryResponseMeta;
@@ -14772,25 +15272,6 @@ export type CountryDatasetValues = {
   data?: CountryDatasetValuesDataItem[];
 };
 
-export interface Country {
-  bbox?: unknown;
-  createdAt?: string;
-  createdBy?: CountryCreatedBy;
-  dataset_values?: CountryDatasetValues;
-  geometry?: unknown;
-  iso3: string;
-  link?: string;
-  name: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: CountryUpdatedBy;
-}
-
-export interface CountryResponseDataObject {
-  attributes?: Country;
-  id?: number;
-}
-
 export type CountryDatasetValuesDataItemAttributesUpdatedByDataAttributes = { [key: string]: any };
 
 export type CountryDatasetValuesDataItemAttributesUpdatedByData = {
@@ -14800,6 +15281,15 @@ export type CountryDatasetValuesDataItemAttributesUpdatedByData = {
 
 export type CountryDatasetValuesDataItemAttributesUpdatedBy = {
   data?: CountryDatasetValuesDataItemAttributesUpdatedByData;
+};
+
+export type CountryDatasetValuesDataItemAttributesResourcesDataItem = {
+  attributes?: CountryDatasetValuesDataItemAttributesResourcesDataItemAttributes;
+  id?: number;
+};
+
+export type CountryDatasetValuesDataItemAttributesResources = {
+  data?: CountryDatasetValuesDataItemAttributesResourcesDataItem[];
 };
 
 export type CountryDatasetValuesDataItemAttributes = {
@@ -14815,26 +15305,6 @@ export type CountryDatasetValuesDataItemAttributes = {
   value_text?: string;
 };
 
-export type CountryDatasetValuesDataItemAttributesResourcesDataItemAttributes = {
-  createdAt?: string;
-  createdBy?: CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
-  description?: string;
-  link_title?: string;
-  link_url?: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
-};
-
-export type CountryDatasetValuesDataItemAttributesResourcesDataItem = {
-  attributes?: CountryDatasetValuesDataItemAttributesResourcesDataItemAttributes;
-  id?: number;
-};
-
-export type CountryDatasetValuesDataItemAttributesResources = {
-  data?: CountryDatasetValuesDataItemAttributesResourcesDataItem[];
-};
-
 export type CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -14845,6 +15315,17 @@ export type CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesUpd
 
 export type CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy = {
   data?: CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByData;
+};
+
+export type CountryDatasetValuesDataItemAttributesResourcesDataItemAttributes = {
+  createdAt?: string;
+  createdBy?: CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedBy;
+  description?: string;
+  link_title?: string;
+  link_url?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedBy;
 };
 
 export type CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByDataAttributes =
@@ -14859,15 +15340,6 @@ export type CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesCre
   data?: CountryDatasetValuesDataItemAttributesResourcesDataItemAttributesCreatedByData;
 };
 
-export type CountryDatasetValuesDataItemAttributesDatasetData = {
-  attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributes;
-  id?: number;
-};
-
-export type CountryDatasetValuesDataItemAttributesDataset = {
-  data?: CountryDatasetValuesDataItemAttributesDatasetData;
-};
-
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesValueType =
   (typeof CountryDatasetValuesDataItemAttributesDatasetDataAttributesValueType)[keyof typeof CountryDatasetValuesDataItemAttributesDatasetDataAttributesValueType];
 
@@ -14878,28 +15350,6 @@ export const CountryDatasetValuesDataItemAttributesDatasetDataAttributesValueTyp
   boolean: "boolean",
   resource: "resource",
 } as const;
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes = {
-  [key: string]: any;
-};
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData = {
-  attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes;
-  id?: number;
-};
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy = {
-  data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData;
-};
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem = {
-  attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes;
-  id?: number;
-};
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayers = {
-  data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem[];
-};
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributes = {
   category?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesCategory;
@@ -14919,41 +15369,31 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributes = {
   value_type?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesValueType;
 };
 
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
+export type CountryDatasetValuesDataItemAttributesDatasetData = {
+  attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributes;
+  id?: number;
+};
 
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByData =
-  {
-    attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
+export type CountryDatasetValuesDataItemAttributesDataset = {
+  data?: CountryDatasetValuesDataItemAttributesDatasetData;
+};
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes = {
+  [key: string]: any;
+};
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData = {
+  attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByDataAttributes;
+  id?: number;
+};
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedBy = {
+  data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesUpdatedByData;
+};
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedBy =
   {
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByData;
-  };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType =
-  (typeof CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType)[keyof typeof CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType =
-  {
-    mapbox: "mapbox",
-    deckgl: "deckgl",
-    countries: "countries",
-    component: "component",
-  } as const;
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
-  {
-    attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
-    id?: number;
-  };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion =
-  {
-    data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData;
   };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes = {
@@ -14973,6 +15413,41 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
   updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedBy;
 };
 
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem = {
+  attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributes;
+  id?: number;
+};
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayers = {
+  data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItem[];
+};
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByData =
+  {
+    attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType =
+  (typeof CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType)[keyof typeof CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesType =
+  {
+    mapbox: "mapbox",
+    deckgl: "deckgl",
+    countries: "countries",
+    component: "component",
+  } as const;
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestion =
+  {
+    data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData;
+  };
+
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType =
   (typeof CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType)[keyof typeof CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType];
 
@@ -14984,6 +15459,33 @@ export const CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDa
     boolean: "boolean",
     resource: "resource",
   } as const;
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
+  {
+    author?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
+    category?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
+    data?: unknown;
+    dataset?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
+    description?: string;
+    layers?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    review_decision_details?: string;
+    review_status?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
+    value_type?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
+  };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionData =
+  {
+    attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes;
+    id?: number;
+  };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
@@ -15010,26 +15512,8 @@ export const CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDa
     declined: "declined",
   } as const;
 
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
-  {
-    author?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthor;
-    category?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy;
-    data?: unknown;
-    dataset?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDataset;
-    description?: string;
-    layers?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    review_decision_details?: string;
-    review_status?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
-    value_type?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesValueType;
-  };
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItemAttributes =
+  { [key: string]: any };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem =
   {
@@ -15041,9 +15525,6 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
   {
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItem[];
   };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesLayersDataItemAttributes =
-  { [key: string]: any };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesDatasetDataAttributes =
   { [key: string]: any };
@@ -15071,6 +15552,18 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedBy =
   {
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCreatedByData;
+  };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
+    dataset?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
+    dataset_edit_suggestions?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
+    name?: string;
+    publishedAt?: string;
+    updatedAt?: string;
+    updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
   };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryData =
@@ -15124,18 +15617,6 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset =
   {
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetDataItem[];
-  };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedBy;
-    dataset?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDataset;
-    dataset_edit_suggestions?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesDatasetEditSuggestions;
-    name?: string;
-    publishedAt?: string;
-    updatedAt?: string;
-    updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesUpdatedBy;
   };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesCategoryDataAttributesCreatedByDataAttributes =
@@ -15219,6 +15700,19 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsersDataItem[];
   };
 
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
+  {
+    createdAt?: string;
+    createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions;
+    type?: string;
+    updatedAt?: string;
+    updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
+    users?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
+  };
+
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -15254,19 +15748,6 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
   };
 
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributes =
-  {
-    createdAt?: string;
-    createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissions;
-    type?: string;
-    updatedAt?: string;
-    updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUpdatedBy;
-    users?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesUsers;
-  };
-
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -15295,6 +15776,11 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
   };
 
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -15307,6 +15793,17 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy =
   {
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData;
+  };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
+  {
+    attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
+    id?: number;
+  };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
+  {
+    data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
   };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
@@ -15333,9 +15830,18 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
     id?: number;
   };
 
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
+  { [key: string]: any };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem =
   {
-    data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+    attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes;
+    id?: number;
+  };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers =
+  {
+    data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
   };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
@@ -15351,31 +15857,6 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
     users?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
-  {
-    attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
-    id?: number;
-  };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
-  {
-    data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
-  };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
-  { [key: string]: any };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem =
-  {
-    attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes;
-    id?: number;
-  };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers =
-  {
-    data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItem[];
-  };
-
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -15388,6 +15869,20 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy =
   {
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
+  };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    actionParameters?: unknown;
+    conditions?: unknown;
+    createdAt?: string;
+    createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
+    properties?: unknown;
+    role?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
+    subject?: string;
+    updatedAt?: string;
+    updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem =
@@ -15441,20 +15936,6 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    actionParameters?: unknown;
-    conditions?: unknown;
-    createdAt?: string;
-    createdBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesCreatedBy;
-    properties?: unknown;
-    role?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRole;
-    subject?: string;
-    updatedAt?: string;
-    updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByDataAttributes =
@@ -15541,9 +16022,6 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
     data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesCreatedByData;
   };
 
-export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributes =
-  { [key: string]: any };
-
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValuesDataItem = {
   attributes?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributes;
   id?: number;
@@ -15552,6 +16030,9 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetVa
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValues = {
   data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValuesDataItem[];
 };
+
+export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetValuesDataItemAttributes =
+  { [key: string]: any };
 
 export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributes =
   { [key: string]: any };
@@ -15592,15 +16073,15 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesCategory 
   data?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesCategoryData;
 };
 
-export type CountryDatasetValuesDataItemAttributesCreatedBy = {
-  data?: CountryDatasetValuesDataItemAttributesCreatedByData;
-};
-
 export type CountryDatasetValuesDataItemAttributesCreatedByDataAttributes = { [key: string]: any };
 
 export type CountryDatasetValuesDataItemAttributesCreatedByData = {
   attributes?: CountryDatasetValuesDataItemAttributesCreatedByDataAttributes;
   id?: number;
+};
+
+export type CountryDatasetValuesDataItemAttributesCreatedBy = {
+  data?: CountryDatasetValuesDataItemAttributesCreatedByData;
 };
 
 export type CountryDatasetValuesDataItemAttributesCountryData = {
@@ -15623,6 +16104,20 @@ export type CountryDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy
 
 export type CountryDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy = {
   data?: CountryDatasetValuesDataItemAttributesCountryDataAttributesUpdatedByData;
+};
+
+export type CountryDatasetValuesDataItemAttributesCountryDataAttributes = {
+  bbox?: unknown;
+  createdAt?: string;
+  createdBy?: CountryDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy;
+  dataset_values?: CountryDatasetValuesDataItemAttributesCountryDataAttributesDatasetValues;
+  geometry?: unknown;
+  iso3?: string;
+  link?: string;
+  name?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: CountryDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy;
 };
 
 export type CountryDatasetValuesDataItemAttributesCountryDataAttributesDatasetValuesDataItemAttributes =
@@ -15648,20 +16143,6 @@ export type CountryDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy
 
 export type CountryDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy = {
   data?: CountryDatasetValuesDataItemAttributesCountryDataAttributesCreatedByData;
-};
-
-export type CountryDatasetValuesDataItemAttributesCountryDataAttributes = {
-  bbox?: unknown;
-  createdAt?: string;
-  createdBy?: CountryDatasetValuesDataItemAttributesCountryDataAttributesCreatedBy;
-  dataset_values?: CountryDatasetValuesDataItemAttributesCountryDataAttributesDatasetValues;
-  geometry?: unknown;
-  iso3?: string;
-  link?: string;
-  name?: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: CountryDatasetValuesDataItemAttributesCountryDataAttributesUpdatedBy;
 };
 
 export type CountryCreatedByDataAttributes = { [key: string]: any };
@@ -15753,6 +16234,30 @@ export const CollaboratorEditSuggestionReviewStatus = {
   declined: "declined",
 } as const;
 
+export type CollaboratorEditSuggestionImageDataAttributes = {
+  alternativeText?: string;
+  caption?: string;
+  createdAt?: string;
+  createdBy?: CollaboratorEditSuggestionImageDataAttributesCreatedBy;
+  ext?: string;
+  folder?: CollaboratorEditSuggestionImageDataAttributesFolder;
+  folderPath?: string;
+  formats?: unknown;
+  hash?: string;
+  height?: number;
+  mime?: string;
+  name?: string;
+  previewUrl?: string;
+  provider?: string;
+  provider_metadata?: unknown;
+  related?: CollaboratorEditSuggestionImageDataAttributesRelated;
+  size?: number;
+  updatedAt?: string;
+  updatedBy?: CollaboratorEditSuggestionImageDataAttributesUpdatedBy;
+  url?: string;
+  width?: number;
+};
+
 export type CollaboratorEditSuggestionImageData = {
   attributes?: CollaboratorEditSuggestionImageDataAttributes;
   id?: number;
@@ -15817,30 +16322,6 @@ export type CollaboratorEditSuggestionImageDataAttributesFolder = {
   data?: CollaboratorEditSuggestionImageDataAttributesFolderData;
 };
 
-export type CollaboratorEditSuggestionImageDataAttributes = {
-  alternativeText?: string;
-  caption?: string;
-  createdAt?: string;
-  createdBy?: CollaboratorEditSuggestionImageDataAttributesCreatedBy;
-  ext?: string;
-  folder?: CollaboratorEditSuggestionImageDataAttributesFolder;
-  folderPath?: string;
-  formats?: unknown;
-  hash?: string;
-  height?: number;
-  mime?: string;
-  name?: string;
-  previewUrl?: string;
-  provider?: string;
-  provider_metadata?: unknown;
-  related?: CollaboratorEditSuggestionImageDataAttributesRelated;
-  size?: number;
-  updatedAt?: string;
-  updatedBy?: CollaboratorEditSuggestionImageDataAttributesUpdatedBy;
-  url?: string;
-  width?: number;
-};
-
 export type CollaboratorEditSuggestionImageDataAttributesCreatedByDataAttributes = {
   [key: string]: any;
 };
@@ -15863,6 +16344,11 @@ export type CollaboratorEditSuggestionCreatedByData = {
 
 export type CollaboratorEditSuggestionCreatedBy = {
   data?: CollaboratorEditSuggestionCreatedByData;
+};
+
+export type CollaboratorEditSuggestionCollaboratorData = {
+  attributes?: CollaboratorEditSuggestionCollaboratorDataAttributes;
+  id?: number;
 };
 
 export type CollaboratorEditSuggestionCollaborator = {
@@ -15913,11 +16399,6 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributes = {
   updatedBy?: CollaboratorEditSuggestionCollaboratorDataAttributesUpdatedBy;
 };
 
-export type CollaboratorEditSuggestionCollaboratorData = {
-  attributes?: CollaboratorEditSuggestionCollaboratorDataAttributes;
-  id?: number;
-};
-
 export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -15955,6 +16436,18 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttribu
   data?: CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesFolderData;
 };
 
+export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
+export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedByData = {
+  attributes?: CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedByDataAttributes;
+  id?: number;
+};
+
+export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedBy = {
+  data?: CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedByData;
+};
+
 export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributes = {
   alternativeText?: string;
   caption?: string;
@@ -15977,18 +16470,6 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttribu
   updatedBy?: CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesUpdatedBy;
   url?: string;
   width?: number;
-};
-
-export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedByDataAttributes =
-  { [key: string]: any };
-
-export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedByData = {
-  attributes?: CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedByDataAttributes;
-  id?: number;
-};
-
-export type CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedBy = {
-  data?: CollaboratorEditSuggestionCollaboratorDataAttributesImageDataAttributesCreatedByData;
 };
 
 export type CollaboratorEditSuggestionCollaboratorDataAttributesCreatedByDataAttributes = {
@@ -16155,20 +16636,6 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEdit
     data?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesUpdatedByData;
   };
 
-export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributes =
-  {
-    children?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesChildren;
-    createdAt?: string;
-    createdBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesCreatedBy;
-    files?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFiles;
-    name?: string;
-    parent?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesParent;
-    path?: string;
-    pathId?: number;
-    updatedAt?: string;
-    updatedBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesUpdatedBy;
-  };
-
 export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesParentDataAttributes =
   { [key: string]: any };
 
@@ -16192,31 +16659,6 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEdit
 export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFiles =
   {
     data?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItem[];
-  };
-
-export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
-    ext?: string;
-    folder?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
-    url?: string;
-    width?: number;
   };
 
 export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByDataAttributes =
@@ -16261,6 +16703,31 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEdit
     data?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesFolderData;
   };
 
+export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributes =
+  {
+    alternativeText?: string;
+    caption?: string;
+    createdAt?: string;
+    createdBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
+    ext?: string;
+    folder?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
+    folderPath?: string;
+    formats?: unknown;
+    hash?: string;
+    height?: number;
+    mime?: string;
+    name?: string;
+    previewUrl?: string;
+    provider?: string;
+    provider_metadata?: unknown;
+    related?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
+    size?: number;
+    updatedAt?: string;
+    updatedBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
+    url?: string;
+    width?: number;
+  };
+
 export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -16301,6 +16768,20 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEdit
 export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesChildren =
   {
     data?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesChildrenDataItem[];
+  };
+
+export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributes =
+  {
+    children?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesChildren;
+    createdAt?: string;
+    createdBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesCreatedBy;
+    files?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesFiles;
+    name?: string;
+    parent?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesParent;
+    path?: string;
+    pathId?: number;
+    updatedAt?: string;
+    updatedBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesFolderDataAttributesUpdatedBy;
   };
 
 export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesCreatedByDataAttributes =
@@ -16359,15 +16840,6 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEdit
     data?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesAuthorData;
   };
 
-export type CollaboratorEditSuggestionAuthorData = {
-  attributes?: CollaboratorEditSuggestionAuthorDataAttributes;
-  id?: number;
-};
-
-export type CollaboratorEditSuggestionAuthor = {
-  data?: CollaboratorEditSuggestionAuthorData;
-};
-
 export type CollaboratorEditSuggestionAuthorDataAttributesUpdatedByDataAttributes = {
   [key: string]: any;
 };
@@ -16379,6 +16851,15 @@ export type CollaboratorEditSuggestionAuthorDataAttributesUpdatedByData = {
 
 export type CollaboratorEditSuggestionAuthorDataAttributesUpdatedBy = {
   data?: CollaboratorEditSuggestionAuthorDataAttributesUpdatedByData;
+};
+
+export type CollaboratorEditSuggestionAuthorDataAttributesRoleData = {
+  attributes?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributes;
+  id?: number;
+};
+
+export type CollaboratorEditSuggestionAuthorDataAttributesRole = {
+  data?: CollaboratorEditSuggestionAuthorDataAttributesRoleData;
 };
 
 export type CollaboratorEditSuggestionAuthorDataAttributes = {
@@ -16397,25 +16878,13 @@ export type CollaboratorEditSuggestionAuthorDataAttributes = {
   username?: string;
 };
 
-export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributes = {
-  createdAt?: string;
-  createdBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesCreatedBy;
-  description?: string;
-  name?: string;
-  permissions?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissions;
-  type?: string;
-  updatedAt?: string;
-  updatedBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy;
-  users?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUsers;
-};
-
-export type CollaboratorEditSuggestionAuthorDataAttributesRoleData = {
-  attributes?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributes;
+export type CollaboratorEditSuggestionAuthorData = {
+  attributes?: CollaboratorEditSuggestionAuthorDataAttributes;
   id?: number;
 };
 
-export type CollaboratorEditSuggestionAuthorDataAttributesRole = {
-  data?: CollaboratorEditSuggestionAuthorDataAttributesRoleData;
+export type CollaboratorEditSuggestionAuthor = {
+  data?: CollaboratorEditSuggestionAuthorData;
 };
 
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUsersDataItemAttributes =
@@ -16430,6 +16899,22 @@ export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUser
   data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUsersDataItem[];
 };
 
+export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy = {
+  data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedByData;
+};
+
+export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributes = {
+  createdAt?: string;
+  createdBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesCreatedBy;
+  description?: string;
+  name?: string;
+  permissions?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissions;
+  type?: string;
+  updatedAt?: string;
+  updatedBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy;
+  users?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUsers;
+};
+
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -16438,8 +16923,13 @@ export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUpda
   id?: number;
 };
 
-export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedBy = {
-  data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesUpdatedByData;
+export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItem = {
+  attributes?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes;
+  id?: number;
+};
+
+export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissions = {
+  data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
 };
 
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -16456,25 +16946,6 @@ export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPerm
     data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedByData;
   };
 
-export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
-  {
-    action?: string;
-    createdAt?: string;
-    createdBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
-    role?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
-    updatedAt?: string;
-    updatedBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
-  };
-
-export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItem = {
-  attributes?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes;
-  id?: number;
-};
-
-export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissions = {
-  data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItem[];
-};
-
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
 
@@ -16487,6 +16958,21 @@ export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPerm
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole =
   {
     data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
+  };
+
+export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
+export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributes =
+  {
+    action?: string;
+    createdAt?: string;
+    createdBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy;
+    role?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRole;
+    updatedAt?: string;
+    updatedBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesUpdatedBy;
   };
 
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
@@ -16536,11 +17022,6 @@ export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPerm
   {
     attributes?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
     id?: number;
-  };
-
-export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
   };
 
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -16594,6 +17075,19 @@ export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPerm
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions =
   {
     data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItem[];
+  };
+
+export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
@@ -16650,19 +17144,6 @@ export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPerm
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy =
   {
     data?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedByData;
-  };
-
-export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
   };
 
 export type CollaboratorEditSuggestionAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesCreatedByDataAttributes =
@@ -16767,6 +17248,11 @@ export type CollaboratorEditSuggestionRequestData = {
 
 export type CollaboratorResponseMeta = { [key: string]: any };
 
+export interface CollaboratorResponseDataObject {
+  attributes?: Collaborator;
+  id?: number;
+}
+
 export interface CollaboratorResponse {
   data?: CollaboratorResponseDataObject;
   meta?: CollaboratorResponseMeta;
@@ -16813,11 +17299,6 @@ export interface Collaborator {
   updatedBy?: CollaboratorUpdatedBy;
 }
 
-export interface CollaboratorResponseDataObject {
-  attributes?: Collaborator;
-  id?: number;
-}
-
 export type CollaboratorImageDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
 export type CollaboratorImageDataAttributesUpdatedByData = {
@@ -16851,6 +17332,17 @@ export type CollaboratorImageDataAttributesFolder = {
   data?: CollaboratorImageDataAttributesFolderData;
 };
 
+export type CollaboratorImageDataAttributesCreatedByDataAttributes = { [key: string]: any };
+
+export type CollaboratorImageDataAttributesCreatedByData = {
+  attributes?: CollaboratorImageDataAttributesCreatedByDataAttributes;
+  id?: number;
+};
+
+export type CollaboratorImageDataAttributesCreatedBy = {
+  data?: CollaboratorImageDataAttributesCreatedByData;
+};
+
 export type CollaboratorImageDataAttributes = {
   alternativeText?: string;
   caption?: string;
@@ -16875,17 +17367,6 @@ export type CollaboratorImageDataAttributes = {
   width?: number;
 };
 
-export type CollaboratorImageDataAttributesCreatedByDataAttributes = { [key: string]: any };
-
-export type CollaboratorImageDataAttributesCreatedByData = {
-  attributes?: CollaboratorImageDataAttributesCreatedByDataAttributes;
-  id?: number;
-};
-
-export type CollaboratorImageDataAttributesCreatedBy = {
-  data?: CollaboratorImageDataAttributesCreatedByData;
-};
-
 export type CollaboratorCreatedByDataAttributes = { [key: string]: any };
 
 export type CollaboratorCreatedByData = {
@@ -16895,6 +17376,15 @@ export type CollaboratorCreatedByData = {
 
 export type CollaboratorCreatedBy = {
   data?: CollaboratorCreatedByData;
+};
+
+export type CollaboratorCollaboratorEditSuggestionsDataItem = {
+  attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributes;
+  id?: number;
+};
+
+export type CollaboratorCollaboratorEditSuggestions = {
+  data?: CollaboratorCollaboratorEditSuggestionsDataItem[];
 };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesUpdatedByDataAttributes = {
@@ -16929,6 +17419,15 @@ export const CollaboratorCollaboratorEditSuggestionsDataItemAttributesReviewStat
   declined: "declined",
 } as const;
 
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageData = {
+  attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributes;
+  id?: number;
+};
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImage = {
+  data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageData;
+};
+
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributes = {
   author?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthor;
   collaborator?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborator;
@@ -16945,14 +17444,19 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributes = {
   updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesUpdatedBy;
 };
 
-export type CollaboratorCollaboratorEditSuggestionsDataItem = {
-  attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributes;
-  id?: number;
-};
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
 
-export type CollaboratorCollaboratorEditSuggestions = {
-  data?: CollaboratorCollaboratorEditSuggestionsDataItem[];
-};
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedByData =
+  {
+    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedBy =
+  {
+    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedByData;
+  };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributes = {
   alternativeText?: string;
@@ -16977,29 +17481,6 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAt
   url?: string;
   width?: number;
 };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageData = {
-  attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributes;
-  id?: number;
-};
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImage = {
-  data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageData;
-};
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedByDataAttributes =
-  { [key: string]: any };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedByData =
-  {
-    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedBy =
-  {
-    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesUpdatedByData;
-  };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesImageDataAttributesRelatedDataItemAttributes =
   { [key: string]: any };
@@ -17054,6 +17535,11 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCreatedBy =
   data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCreatedByData;
 };
 
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorData = {
+  attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributes;
+  id?: number;
+};
+
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborator = {
   data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorData;
 };
@@ -17106,11 +17592,6 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
   updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesUpdatedBy;
 };
 
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorData = {
-  attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributes;
-  id?: number;
-};
-
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -17123,31 +17604,6 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesUpdatedBy =
   {
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesUpdatedByData;
-  };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelatedDataItemAttributes =
-  { [key: string]: any };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelatedDataItem =
-  {
-    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelatedDataItemAttributes;
-    id?: number;
-  };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelated =
-  {
-    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelatedDataItem[];
-  };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderData =
-  {
-    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributes;
-    id?: number;
-  };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolder =
-  {
-    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderData;
   };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributes =
@@ -17175,18 +17631,18 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
     width?: number;
   };
 
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedByDataAttributes =
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelatedDataItemAttributes =
   { [key: string]: any };
 
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedByData =
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelatedDataItem =
   {
-    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedByDataAttributes;
+    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelatedDataItemAttributes;
     id?: number;
   };
 
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedBy =
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelated =
   {
-    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedByData;
+    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesRelatedDataItem[];
   };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributes =
@@ -17203,6 +17659,31 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
     updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedBy;
   };
 
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderData =
+  {
+    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributes;
+    id?: number;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolder =
+  {
+    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderData;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedByDataAttributes =
+  { [key: string]: any };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedByData =
+  {
+    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedBy =
+  {
+    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesUpdatedByData;
+  };
+
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesParentDataAttributes =
   { [key: string]: any };
 
@@ -17215,6 +17696,12 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesParent =
   {
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesParentData;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItem =
+  {
+    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributes;
+    id?: number;
   };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFiles =
@@ -17234,6 +17721,31 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy =
   {
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedByData;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributes =
+  {
+    alternativeText?: string;
+    caption?: string;
+    createdAt?: string;
+    createdBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
+    ext?: string;
+    folder?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
+    folderPath?: string;
+    formats?: unknown;
+    hash?: string;
+    height?: number;
+    mime?: string;
+    name?: string;
+    previewUrl?: string;
+    provider?: string;
+    provider_metadata?: unknown;
+    related?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
+    size?: number;
+    updatedAt?: string;
+    updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
+    url?: string;
+    width?: number;
   };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesRelatedDataItemAttributes =
@@ -17278,37 +17790,6 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedByData;
   };
 
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributes =
-  {
-    alternativeText?: string;
-    caption?: string;
-    createdAt?: string;
-    createdBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesCreatedBy;
-    ext?: string;
-    folder?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesFolder;
-    folderPath?: string;
-    formats?: unknown;
-    hash?: string;
-    height?: number;
-    mime?: string;
-    name?: string;
-    previewUrl?: string;
-    provider?: string;
-    provider_metadata?: unknown;
-    related?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesRelated;
-    size?: number;
-    updatedAt?: string;
-    updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributesUpdatedBy;
-    url?: string;
-    width?: number;
-  };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItem =
-  {
-    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesFilesDataItemAttributes;
-    id?: number;
-  };
-
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesFolderDataAttributesCreatedByDataAttributes =
   { [key: string]: any };
 
@@ -17351,6 +17832,9 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesImageDataAttributesCreatedByData;
   };
 
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesCreatedByDataAttributes =
+  { [key: string]: any };
+
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesCreatedByData =
   {
     attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesCreatedByDataAttributes;
@@ -17361,9 +17845,6 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaborato
   {
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesCreatedByData;
   };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesCreatedByDataAttributes =
-  { [key: string]: any };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributes =
   { [key: string]: any };
@@ -17508,12 +17989,6 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataA
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
   };
 
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
-  {
-    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
   {
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
@@ -17543,25 +18018,6 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataA
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData;
   };
 
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
-  {
-    code?: string;
-    createdAt?: string;
-    createdBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
-    description?: string;
-    name?: string;
-    permissions?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
-    updatedAt?: string;
-    updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
-    users?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
-  };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
-  {
-    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
-    id?: number;
-  };
-
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
   {
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
@@ -17583,6 +18039,12 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataA
     updatedAt?: string;
     updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy;
     username?: string;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
+  {
+    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
   };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
@@ -17613,6 +18075,36 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataA
     data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedByData;
   };
 
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
+  {
+    code?: string;
+    createdAt?: string;
+    createdBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesCreatedBy;
+    description?: string;
+    name?: string;
+    permissions?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissions;
+    updatedAt?: string;
+    updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUpdatedBy;
+    users?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsers;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem =
+  {
+    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
+    id?: number;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData =
+  {
+    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
+    id?: number;
+  };
+
+export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy =
+  {
+    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
+  };
+
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributes =
   {
     action?: string;
@@ -17640,17 +18132,6 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataA
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes =
   { [key: string]: any };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData =
-  {
-    attributes?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByDataAttributes;
-    id?: number;
-  };
-
-export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedBy =
-  {
-    data?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesUpdatedByData;
-  };
 
 export type CollaboratorCollaboratorEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesPermissionsDataItemAttributesRoleDataAttributes =
   { [key: string]: any };
@@ -17757,10 +18238,6 @@ export interface CollaboratorListResponse {
   meta?: CollaboratorListResponseMeta;
 }
 
-export interface CollaboratorRequest {
-  data: CollaboratorRequestData;
-}
-
 export type CollaboratorRequestDataType =
   (typeof CollaboratorRequestDataType)[keyof typeof CollaboratorRequestDataType];
 
@@ -17782,27 +18259,20 @@ export type CollaboratorRequestData = {
   type: CollaboratorRequestDataType;
 };
 
+export interface CollaboratorRequest {
+  data: CollaboratorRequestData;
+}
+
 export type CategoryResponseMeta = { [key: string]: any };
-
-export interface CategoryResponse {
-  data?: CategoryResponseDataObject;
-  meta?: CategoryResponseMeta;
-}
-
-export interface Category {
-  createdAt?: string;
-  createdBy?: CategoryCreatedBy;
-  dataset?: CategoryDataset;
-  dataset_edit_suggestions?: CategoryDatasetEditSuggestions;
-  name: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  updatedBy?: CategoryUpdatedBy;
-}
 
 export interface CategoryResponseDataObject {
   attributes?: Category;
   id?: number;
+}
+
+export interface CategoryResponse {
+  data?: CategoryResponseDataObject;
+  meta?: CategoryResponseMeta;
 }
 
 export type CategoryUpdatedByDataAttributes = { [key: string]: any };
@@ -17816,14 +18286,20 @@ export type CategoryUpdatedBy = {
   data?: CategoryUpdatedByData;
 };
 
-export type CategoryDatasetEditSuggestionsDataItem = {
-  attributes?: CategoryDatasetEditSuggestionsDataItemAttributes;
-  id?: number;
-};
-
 export type CategoryDatasetEditSuggestions = {
   data?: CategoryDatasetEditSuggestionsDataItem[];
 };
+
+export interface Category {
+  createdAt?: string;
+  createdBy?: CategoryCreatedBy;
+  dataset?: CategoryDataset;
+  dataset_edit_suggestions?: CategoryDatasetEditSuggestions;
+  name: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  updatedBy?: CategoryUpdatedBy;
+}
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesValueType =
   (typeof CategoryDatasetEditSuggestionsDataItemAttributesValueType)[keyof typeof CategoryDatasetEditSuggestionsDataItemAttributesValueType];
@@ -17892,6 +18368,11 @@ export type CategoryDatasetEditSuggestionsDataItemAttributes = {
   value_type?: CategoryDatasetEditSuggestionsDataItemAttributesValueType;
 };
 
+export type CategoryDatasetEditSuggestionsDataItem = {
+  attributes?: CategoryDatasetEditSuggestionsDataItemAttributes;
+  id?: number;
+};
+
 export type CategoryDatasetEditSuggestionsDataItemAttributesDatasetDataAttributes = {
   [key: string]: any;
 };
@@ -17918,8 +18399,8 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCreatedBy = {
   data?: CategoryDatasetEditSuggestionsDataItemAttributesCreatedByData;
 };
 
-export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedBy = {
-  data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedByData;
+export type CategoryDatasetEditSuggestionsDataItemAttributesCategory = {
+  data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryData;
 };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributes = {
@@ -17938,16 +18419,16 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryData = {
   id?: number;
 };
 
-export type CategoryDatasetEditSuggestionsDataItemAttributesCategory = {
-  data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryData;
-};
-
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedByData = {
   attributes?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedByDataAttributes;
   id?: number;
+};
+
+export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedBy = {
+  data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesUpdatedByData;
 };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetEditSuggestionsDataItemAttributes =
@@ -18000,34 +18481,9 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribut
     data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesUpdatedByData;
   };
 
-export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItem =
-  {
-    attributes?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributes;
-    id?: number;
-  };
-
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayers =
   {
     data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItem[];
-  };
-
-export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributes =
-  {
-    category?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesCategory;
-    colors?: unknown;
-    createdAt?: string;
-    createdBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesCreatedBy;
-    dataset_edit_suggestions?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetEditSuggestions;
-    dataset_values?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValues;
-    datum?: unknown;
-    description?: string;
-    layers?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayers;
-    name?: string;
-    publishedAt?: string;
-    unit?: string;
-    updatedAt?: string;
-    updatedBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesUpdatedBy;
-    value_type?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesValueType;
   };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesUpdatedByDataAttributes =
@@ -18055,6 +18511,30 @@ export const CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribu
     countries: "countries",
     component: "component",
   } as const;
+
+export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributes =
+  {
+    colors?: unknown;
+    config?: unknown;
+    createdAt?: string;
+    createdBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesCreatedBy;
+    dataset?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesDataset;
+    dataset_edit_suggestion?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesDatasetEditSuggestion;
+    interaction_config?: unknown;
+    legend_config?: unknown;
+    name?: string;
+    params_config?: unknown;
+    publishedAt?: string;
+    type?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesType;
+    updatedAt?: string;
+    updatedBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesUpdatedBy;
+  };
+
+export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItem =
+  {
+    attributes?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributes;
+    id?: number;
+  };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributes =
   { [key: string]: any };
@@ -18098,24 +18578,6 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribut
     data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesCreatedByData;
   };
 
-export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributes =
-  {
-    colors?: unknown;
-    config?: unknown;
-    createdAt?: string;
-    createdBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesCreatedBy;
-    dataset?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesDataset;
-    dataset_edit_suggestion?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesDatasetEditSuggestion;
-    interaction_config?: unknown;
-    legend_config?: unknown;
-    name?: string;
-    params_config?: unknown;
-    publishedAt?: string;
-    type?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesType;
-    updatedAt?: string;
-    updatedBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayersDataItemAttributesUpdatedBy;
-  };
-
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItem =
   {
     attributes?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributes;
@@ -18125,6 +18587,25 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribut
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValues =
   {
     data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItem[];
+  };
+
+export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributes =
+  {
+    category?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesCategory;
+    colors?: unknown;
+    createdAt?: string;
+    createdBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesCreatedBy;
+    dataset_edit_suggestions?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetEditSuggestions;
+    dataset_values?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValues;
+    datum?: unknown;
+    description?: string;
+    layers?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesLayers;
+    name?: string;
+    publishedAt?: string;
+    unit?: string;
+    updatedAt?: string;
+    updatedBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesUpdatedBy;
+    value_type?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesValueType;
   };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesUpdatedByDataAttributes =
@@ -18139,6 +18620,20 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribut
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy =
   {
     data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesUpdatedByData;
+  };
+
+export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributes =
+  {
+    country?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountry;
+    createdAt?: string;
+    createdBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
+    dataset?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesDataset;
+    resources?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesResources;
+    updatedAt?: string;
+    updatedBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
+    value_boolean?: boolean;
+    value_number?: number;
+    value_text?: string;
   };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributes =
@@ -18162,20 +18657,6 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribut
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesResources =
   {
     data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItem[];
-  };
-
-export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributes =
-  {
-    country?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountry;
-    createdAt?: string;
-    createdBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCreatedBy;
-    dataset?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesDataset;
-    resources?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesResources;
-    updatedAt?: string;
-    updatedBy?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesUpdatedBy;
-    value_boolean?: boolean;
-    value_number?: number;
-    value_text?: string;
   };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesResourcesDataItemAttributesUpdatedByDataAttributes =
@@ -18234,6 +18715,11 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribut
     data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCreatedByData;
   };
 
+export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountry =
+  {
+    data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountryData;
+  };
+
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountryDataAttributes =
   {
     bbox?: unknown;
@@ -18253,11 +18739,6 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttribut
   {
     attributes?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountryDataAttributes;
     id?: number;
-  };
-
-export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountry =
-  {
-    data?: CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountryData;
   };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesCategoryDataAttributesDatasetDataItemAttributesDatasetValuesDataItemAttributesCountryDataAttributesUpdatedByDataAttributes =
@@ -18492,17 +18973,6 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributes
     data?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesRoleData;
   };
 
-export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
-  {
-    attributes?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
-    id?: number;
-  };
-
-export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
-  {
-    data?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
-  };
-
 export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByDataAttributes =
   { [key: string]: any };
 
@@ -18515,11 +18985,6 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributes
 export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedBy =
   {
     data?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesUpdatedByData;
-  };
-
-export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
-  {
-    data?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
   };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes =
@@ -18540,6 +19005,17 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributes
     username?: string;
   };
 
+export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData =
+  {
+    attributes?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributes;
+    id?: number;
+  };
+
+export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedBy =
+  {
+    data?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByData;
+  };
+
 export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes =
   {
     code?: string;
@@ -18557,6 +19033,11 @@ export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributes
   {
     attributes?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributes;
     id?: number;
+  };
+
+export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRoles =
+  {
+    data?: CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItem[];
   };
 
 export type CategoryDatasetEditSuggestionsDataItemAttributesAuthorDataAttributesRoleDataAttributesPermissionsDataItemAttributesCreatedByDataAttributesRolesDataItemAttributesUsersDataItemAttributes =
