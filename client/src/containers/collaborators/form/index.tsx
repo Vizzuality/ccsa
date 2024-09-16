@@ -53,14 +53,13 @@ import {
 
 import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
-import { project } from "deck.gl/typed";
-import e from "express";
 
 export default function CollaboratorForm() {
   const [imageId, setImageId] = useState<number | null>(null);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const userAgent = navigator.userAgent;
 
   const params = useParams();
 
@@ -68,6 +67,10 @@ export default function CollaboratorForm() {
 
   const { data } = useSession();
   const user = data?.user;
+  const browsers = ["Chrome", "Firefox", "Edg", "OPR"]; // Array with common non-Safari browsers
+
+  const isSafari =
+    browsers.some((browser) => !userAgent.includes(browser)) && userAgent.includes("Safari");
 
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
@@ -328,6 +331,7 @@ export default function CollaboratorForm() {
       }
     },
     onDropRejected(error) {
+      console.error("Error uploading image:", error[0]?.errors[0]?.message);
       toast.error("Error uploading image: " + error[0]?.errors[0]?.message);
     },
   });
@@ -339,6 +343,12 @@ export default function CollaboratorForm() {
       mutateDeleteCollaboratorEditSuggestionsId({ id: +id });
     }
   }, [id, mutateDeleteCollaboratorId]);
+
+  const handleClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   const changes =
     !collaboratorData?.data?.attributes && !!id && collaboratorSuggestedDataId?.data?.attributes
@@ -504,6 +514,7 @@ export default function CollaboratorForm() {
                             suggestionStatus === "declined"
                           }
                           className="h-full w-full cursor-pointer"
+                          accept="image/*;capture=camera"
                         />
 
                         <Image
@@ -514,7 +525,18 @@ export default function CollaboratorForm() {
                           src="/images/image-file.png"
                           className="m-auto flex"
                         />
-                        {!previousData?.image?.data?.attributes?.url && (
+                        {!previousData?.image?.data?.attributes?.url && isSafari && (
+                          <div className="flex flex-col space-y-2 text-center">
+                            <div className="font-semibold">
+                              Drag and drop here, or{" "}
+                              <button type="button" className="text-primary" onClick={handleClick}>
+                                browse
+                              </button>
+                            </div>
+                            <p className="font-light">Supports: PNG, JPG, JPEG, GIF, WEBP</p>
+                          </div>
+                        )}
+                        {!previousData?.image?.data?.attributes?.url && !isSafari && (
                           <div className="flex flex-col space-y-2 text-center">
                             <p className="font-semibold">
                               Drag and drop here, or <span className="text-primary">browse</span>
