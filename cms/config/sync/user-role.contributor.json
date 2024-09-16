@@ -85,6 +85,12 @@
       "action": "api::layer.layer.findOne"
     },
     {
+      "action": "api::objective.objective.find"
+    },
+    {
+      "action": "api::objective.objective.findOne"
+    },
+    {
       "action": "api::organization-type.organization-type.find"
     },
     {

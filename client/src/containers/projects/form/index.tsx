@@ -178,10 +178,7 @@ export default function ProjectForm() {
   );
 
   const { data: projectObjectives } = useGetObjectives(
-    {
-      "pagination[pageSize]": 300,
-      sort: "name:asc",
-    },
+    {},
     {
       query: {
         select: (data) =>

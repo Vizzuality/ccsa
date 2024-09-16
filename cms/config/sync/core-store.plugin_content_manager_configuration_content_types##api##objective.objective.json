@@ -96,9 +96,9 @@
     "layouts": {
       "list": [
         "id",
+        "type",
         "createdAt",
-        "updatedAt",
-        "type"
+        "updatedAt"
       ],
       "edit": [
         [
