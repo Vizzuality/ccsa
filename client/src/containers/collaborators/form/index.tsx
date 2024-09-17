@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
@@ -55,11 +55,18 @@ import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
 
 export default function CollaboratorForm() {
+  const [isChrome, setIsChrome] = useState(false);
+
+  useEffect(() => {
+    // Detect if the user agent is Chrome only on the client side
+    if (typeof window !== "undefined" && navigator.userAgent.includes("Chrome")) {
+      setIsChrome(true);
+    }
+  }, []);
   const [imageId, setImageId] = useState<number | null>(null);
   const { push } = useRouter();
   const URLParams = useSyncSearchParams();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const userAgent = navigator.userAgent;
 
   const params = useParams();
 
@@ -67,8 +74,6 @@ export default function CollaboratorForm() {
 
   const { data } = useSession();
   const user = data?.user;
-
-  const isChrome = userAgent.includes("Chrome");
 
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
@@ -186,7 +191,13 @@ export default function CollaboratorForm() {
       .refine((val) => !!val, {
         message: "Please select a relation type",
       }),
-    link: z.string().url({ message: "Please enter a valid URL" }),
+    link: z.string().refine(
+      (value) => {
+        // Allow URLs starting with "www." or valid URLs starting with "http" or "https"
+        return /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/[^\s]*)?$/.test(value);
+      },
+      { message: "Please enter a valid URL" },
+    ),
     image: z.number().min(1, { message: "Please ass image" }),
   });
 
