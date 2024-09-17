@@ -67,10 +67,8 @@ export default function CollaboratorForm() {
 
   const { data } = useSession();
   const user = data?.user;
-  const browsers = ["Chrome", "Firefox", "Edg", "OPR"]; // Array with common non-Safari browsers
 
-  const isSafari =
-    browsers.every((browser) => !userAgent.includes(browser)) && userAgent.includes("Safari");
+  const isChrome = userAgent.includes("Chrome");
 
   const { data: meData } = useGetUsersId(`${user?.id}`, {
     populate: "role",
@@ -356,6 +354,7 @@ export default function CollaboratorForm() {
       : getObjectDifferences(collaboratorData?.data?.attributes, form.getValues());
 
   const suggestionStatus = collaboratorSuggestedDataId?.data?.attributes?.review_status;
+
   return (
     <>
       <DashboardFormControls
@@ -525,7 +524,7 @@ export default function CollaboratorForm() {
                           src="/images/image-file.png"
                           className="m-auto flex"
                         />
-                        {!previousData?.image?.data?.attributes?.url && isSafari && (
+                        {!previousData?.image?.data?.attributes?.url && !isChrome && (
                           <div className="flex flex-col space-y-2 text-center font-semibold">
                             <div>
                               Drag and drop here, or{" "}
@@ -536,7 +535,7 @@ export default function CollaboratorForm() {
                             <p className="font-light">Supports: PNG, JPG, JPEG, GIF, WEBP</p>
                           </div>
                         )}
-                        {!previousData?.image?.data?.attributes?.url && !isSafari && (
+                        {!previousData?.image?.data?.attributes?.url && isChrome && (
                           <div className="flex flex-col space-y-2 text-center">
                             <p className="font-semibold">
                               Drag and drop here, or <span className="text-primary">browse</span>
