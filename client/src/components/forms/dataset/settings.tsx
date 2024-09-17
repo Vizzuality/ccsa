@@ -199,7 +199,7 @@ export default function DatasetSettingsForm({
     },
     [onSubmit, data],
   );
-
+  console.info({ data }, "settings");
   const handleDelete = useCallback(() => {
     if (isDatasetNew) {
       mutateDeleteDatasetEditSuggestionsId({ id: +datasetId });
