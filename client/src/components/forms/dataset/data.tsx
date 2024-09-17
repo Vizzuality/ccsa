@@ -322,12 +322,8 @@ export default function DatasetDataForm({
   );
 
   const handleDelete = useCallback(() => {
-    if (datasetId) {
-      mutateDeleteDatasetEditSuggestionsId({ id: +datasetId });
-    } else {
-      mutateDeleteDatasetsId({ id: +datasetId });
-    }
-  }, [mutateDeleteDatasetsId, id]);
+    mutateDeleteDatasetsId({ id: +datasetId });
+  }, [mutateDeleteDatasetsId, datasetId]);
 
   const checkChanges = useCallback(
     (field: Field, index: number, param: ParamType) => {

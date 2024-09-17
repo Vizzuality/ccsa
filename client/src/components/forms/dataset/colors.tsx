@@ -269,12 +269,8 @@ export default function DatasetColorsForm({
   };
 
   const handleDelete = useCallback(() => {
-    if (datasetDataPendingToApprove?.data?.id) {
-      mutateDeleteDatasetEditSuggestionsId({ id: +datasetId });
-    } else {
-      mutateDeleteDatasetsId({ id: +datasetId });
-    }
-  }, [mutateDeleteDatasetsId, id]);
+    mutateDeleteDatasetsId({ id: +datasetId });
+  }, [mutateDeleteDatasetsId, datasetId]);
 
   const handleSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {

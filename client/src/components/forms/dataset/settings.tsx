@@ -201,11 +201,7 @@ export default function DatasetSettingsForm({
   );
 
   const handleDelete = useCallback(() => {
-    if (isDatasetNew) {
-      mutateDeleteDatasetEditSuggestionsId({ id: +datasetId });
-    } else {
-      mutateDeleteDatasetsId({ id: +datasetId });
-    }
+    mutateDeleteDatasetsId({ id: +datasetId });
   }, [mutateDeleteDatasetsId, datasetId]);
 
   return (
