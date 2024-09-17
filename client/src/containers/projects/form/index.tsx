@@ -651,7 +651,7 @@ export default function ProjectForm() {
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">
-                      Amount<sup className="pl-0.5">*</sup>
+                      Amount (USD)<sup className="pl-0.5">*</sup>
                     </FormLabel>
                     <FormControl>
                       <Input
