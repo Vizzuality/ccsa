@@ -69,13 +69,13 @@ export default function FormToApprove() {
 
   // Check previous data for that dataset
   const { data: datasetData } = useGetDatasetsId(
-    Number(id),
+    Number(datasetId) || Number(id),
     {
       populate: "*",
     },
     {
       query: {
-        enabled: !!id,
+        enabled: !!datasetId || !!id,
       },
     },
   );
@@ -140,11 +140,11 @@ export default function FormToApprove() {
     }
 
     const settings = {
-      name: previousDataSource?.data?.attributes?.name || "",
-      description: previousDataSource?.data?.attributes?.description || "",
-      value_type: previousDataSource?.data?.attributes?.value_type || undefined,
-      category: previousDataSource?.data?.attributes?.category?.data?.id || undefined,
-      unit: previousDataSource?.data?.attributes?.unit,
+      name: datasetDataPendingToApprove?.data?.attributes?.name || "",
+      description: datasetDataPendingToApprove?.data?.attributes?.description || "",
+      value_type: datasetDataPendingToApprove?.data?.attributes?.value_type || undefined,
+      category: datasetDataPendingToApprove?.data?.attributes?.category?.data?.id || undefined,
+      unit: datasetDataPendingToApprove?.data?.attributes?.unit,
     };
 
     const data =
@@ -231,7 +231,51 @@ export default function FormToApprove() {
     } as Data;
   }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
 
-  const [formValues, setFormValues] = useState<Data>(DATA_PREVIOUS_VALUES);
+  const PENDING_TO_APPROVE_DATA = useMemo(() => {
+    datasetDataPendingToApprove?.data?.attributes || ({} as DatasetEditSuggestion);
+
+    return {
+      settings: {
+        ...datasetDataPendingToApprove?.data?.attributes,
+        category: datasetDataPendingToApprove?.data?.attributes?.category?.data?.id,
+        value_type: datasetDataPendingToApprove?.data?.attributes?.value_type as VALUE_TYPE,
+      },
+      data: datasetDataPendingToApprove?.data?.attributes?.data || {},
+      // {
+      //   ...datasetValuesData?.data?.reduce(
+      //     (acc, curr) => {
+      //       const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
+
+      //       if (datasetData?.data?.attributes?.value_type === "number") {
+      //         return { ...acc, [`${countryIso}`]: curr?.attributes?.value_number };
+      //       }
+
+      //       if (datasetData?.data?.attributes?.value_type === "text") {
+      //         return { ...acc, [`${countryIso}`]: curr?.attributes?.value_text };
+      //       }
+
+      //       if (datasetData?.data?.attributes?.value_type === "boolean") {
+      //         return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean };
+      //       }
+
+      //       if (previousDataSource?.data?.attributes?.value_type === "resource") {
+      //         return {
+      //           ...acc,
+      //           [`${countryIso}`]: curr?.attributes?.resources?.data?.map(
+      //             ({ attributes }) => attributes as Resource,
+      //           ),
+      //         };
+      //       }
+      //       return acc;
+      //     },
+      //     {} as Data["data"],
+      //   ),
+      // } || {},
+      colors: datasetData?.data?.attributes?.layers?.data?.[0]?.attributes?.colors,
+    } as Data;
+  }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
+
+  const [formValues, setFormValues] = useState<Data>(PENDING_TO_APPROVE_DATA);
 
   const formSchema = z.object({
     message: z.string().min(1, { message: "Please provide a reason for the rejection" }),
@@ -403,15 +447,6 @@ export default function FormToApprove() {
   const colorsChanges = !previousData?.colors
     ? []
     : getObjectDifferences(formValues.colors, previousData?.colors);
-
-  console.info({
-    formValues,
-    isNewDataset,
-    id,
-    datasetId,
-    datasetDataPendingToApprove,
-    datasetData,
-  });
 
   return (
     <>
