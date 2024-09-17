@@ -69,13 +69,13 @@ export default function FormToApprove() {
 
   // Check previous data for that dataset
   const { data: datasetData } = useGetDatasetsId(
-    Number(id),
+    Number(datasetId) || Number(id),
     {
       populate: "*",
     },
     {
       query: {
-        enabled: !!id,
+        enabled: !!datasetId || !!id,
       },
     },
   );
@@ -140,11 +140,11 @@ export default function FormToApprove() {
     }
 
     const settings = {
-      name: previousDataSource?.data?.attributes?.name || "",
-      description: previousDataSource?.data?.attributes?.description || "",
-      value_type: previousDataSource?.data?.attributes?.value_type || undefined,
-      category: previousDataSource?.data?.attributes?.category?.data?.id || undefined,
-      unit: previousDataSource?.data?.attributes?.unit,
+      name: datasetDataPendingToApprove?.data?.attributes?.name || "",
+      description: datasetDataPendingToApprove?.data?.attributes?.description || "",
+      value_type: datasetDataPendingToApprove?.data?.attributes?.value_type || undefined,
+      category: datasetDataPendingToApprove?.data?.attributes?.category?.data?.id || undefined,
+      unit: datasetDataPendingToApprove?.data?.attributes?.unit,
     };
 
     const data =
@@ -406,6 +406,7 @@ export default function FormToApprove() {
 
   console.info({
     formValues,
+    DATA_PREVIOUS_VALUES,
     isNewDataset,
     id,
     datasetId,
