@@ -231,7 +231,8 @@ export default function FormToApprove() {
     } as Data;
   }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
 
-  const DATA_PREVIOUS_VALUES_2 = useMemo(() => {
+
+  const PENDING_TO_APPROVE_DATA = useMemo(() => {
     datasetDataPendingToApprove?.data?.attributes || ({} as DatasetEditSuggestion);
 
     return {
@@ -275,7 +276,8 @@ export default function FormToApprove() {
     } as Data;
   }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
 
-  const [formValues, setFormValues] = useState<Data>(DATA_PREVIOUS_VALUES_2);
+  const [formValues, setFormValues] = useState<Data>(PENDING_TO_APPROVE_DATA);
+
 
   const formSchema = z.object({
     message: z.string().min(1, { message: "Please provide a reason for the rejection" }),
@@ -447,16 +449,6 @@ export default function FormToApprove() {
   const colorsChanges = !previousData?.colors
     ? []
     : getObjectDifferences(formValues.colors, previousData?.colors);
-
-  console.info({
-    formValues,
-    DATA_PREVIOUS_VALUES,
-    isNewDataset,
-    id,
-    datasetId,
-    datasetDataPendingToApprove,
-    datasetData,
-  });
 
   return (
     <>
