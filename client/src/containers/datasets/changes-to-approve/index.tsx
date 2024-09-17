@@ -231,7 +231,51 @@ export default function FormToApprove() {
     } as Data;
   }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
 
-  const [formValues, setFormValues] = useState<Data>(DATA_PREVIOUS_VALUES);
+  const DATA_PREVIOUS_VALUES_2 = useMemo(() => {
+    datasetDataPendingToApprove?.data?.attributes || ({} as DatasetEditSuggestion);
+
+    return {
+      settings: {
+        ...datasetDataPendingToApprove?.data?.attributes,
+        category: datasetDataPendingToApprove?.data?.attributes?.category?.data?.id,
+        value_type: datasetDataPendingToApprove?.data?.attributes?.value_type as VALUE_TYPE,
+      },
+      data: datasetDataPendingToApprove?.data?.attributes?.data || {},
+      // {
+      //   ...datasetValuesData?.data?.reduce(
+      //     (acc, curr) => {
+      //       const countryIso = curr?.attributes?.country?.data?.attributes?.iso3;
+
+      //       if (datasetData?.data?.attributes?.value_type === "number") {
+      //         return { ...acc, [`${countryIso}`]: curr?.attributes?.value_number };
+      //       }
+
+      //       if (datasetData?.data?.attributes?.value_type === "text") {
+      //         return { ...acc, [`${countryIso}`]: curr?.attributes?.value_text };
+      //       }
+
+      //       if (datasetData?.data?.attributes?.value_type === "boolean") {
+      //         return { ...acc, [`${countryIso}`]: curr?.attributes?.value_boolean };
+      //       }
+
+      //       if (previousDataSource?.data?.attributes?.value_type === "resource") {
+      //         return {
+      //           ...acc,
+      //           [`${countryIso}`]: curr?.attributes?.resources?.data?.map(
+      //             ({ attributes }) => attributes as Resource,
+      //           ),
+      //         };
+      //       }
+      //       return acc;
+      //     },
+      //     {} as Data["data"],
+      //   ),
+      // } || {},
+      colors: datasetData?.data?.attributes?.layers?.data?.[0]?.attributes?.colors,
+    } as Data;
+  }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
+
+  const [formValues, setFormValues] = useState<Data>(DATA_PREVIOUS_VALUES_2);
 
   const formSchema = z.object({
     message: z.string().min(1, { message: "Please provide a reason for the rejection" }),
