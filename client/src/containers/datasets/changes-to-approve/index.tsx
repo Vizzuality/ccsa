@@ -64,17 +64,18 @@ export default function FormToApprove() {
   const { data: datasetDataPendingToApprove } = useGetDatasetEditSuggestionsId(Number(id), {
     populate: "*",
   });
+
   const datasetId = datasetDataPendingToApprove?.data?.attributes?.dataset?.data?.id;
 
   // Check previous data for that dataset
   const { data: datasetData } = useGetDatasetsId(
-    Number(datasetId),
+    Number(id),
     {
       populate: "*",
     },
     {
       query: {
-        enabled: !!datasetId,
+        enabled: !!id,
       },
     },
   );
@@ -87,7 +88,7 @@ export default function FormToApprove() {
   const { data: datasetValuesData } = useGetDatasetValues(
     {
       filters: {
-        dataset: datasetId,
+        dataset: id,
       },
       "pagination[pageSize]": 300,
       populate: {
@@ -99,7 +100,7 @@ export default function FormToApprove() {
     },
     {
       query: {
-        enabled: !!datasetId,
+        enabled: !!id,
       },
     },
   );
@@ -402,6 +403,15 @@ export default function FormToApprove() {
   const colorsChanges = !previousData?.colors
     ? []
     : getObjectDifferences(formValues.colors, previousData?.colors);
+
+  console.info({
+    formValues,
+    isNewDataset,
+    id,
+    datasetId,
+    datasetDataPendingToApprove,
+    datasetData,
+  });
 
   return (
     <>
