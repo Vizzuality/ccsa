@@ -13,6 +13,7 @@ export default factories.createCoreService('api::collaborator.collaborator', {
     const fileContent = fs.readFileSync(file.path, 'utf8');
 
     const allowedColumns = ['name', 'link', 'type'];
+    const allowedTypes = ['donor', 'collaborator'];
 
     const records: any[] = csv.parse(fileContent, {
       columns: true,
@@ -36,8 +37,12 @@ export default factories.createCoreService('api::collaborator.collaborator', {
     }
 
     // Process each row
-    const updatedRecords = records.map((row: any) => {
+    const updatedRecords = records.map((row: any, index: number) => {
       const publishedAt = new Date().toISOString();
+
+      if (!allowedTypes.includes(row.type)) {
+        throw new Error(`Invalid type "${row.type}" in row ${index + 2}. Allowed values are "donor" or "collaborator".`);
+      }
 
       const updatedRow: any = {
         ...row,
