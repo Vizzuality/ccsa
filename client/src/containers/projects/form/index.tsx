@@ -338,7 +338,7 @@ export default function ProjectForm() {
       },
     }),
   });
-  console.log(previousData);
+
   const handleCancel = () => {
     push(`/?${URLParams.toString()}`);
   };

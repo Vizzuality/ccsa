@@ -90,7 +90,7 @@ export default function CSVImport({
             uploadCollaboratorsCsv(files, {
               Authorization: `Bearer ${apiToken}`,
             }).then((data) => {
-              if (data.status === 200) {
+              if (data?.status === 200 || data?.failures?.length === 0) {
                 push("/collaborators");
               }
             });
@@ -98,7 +98,7 @@ export default function CSVImport({
             uploadCollaboratorEditSuggestionsCsv(files, {
               Authorization: `Bearer ${apiToken}`,
             }).then((data) => {
-              if (data.status === 200) {
+              if (data?.status === 200 || data?.failures?.length === 0) {
                 push("/dashboard");
               }
             });
