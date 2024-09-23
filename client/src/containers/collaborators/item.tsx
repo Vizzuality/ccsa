@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,13 +15,30 @@ import { Collaborator, CollaboratorListResponseDataItem } from "@/types/generate
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
+import env from "@/env.mjs";
+
 type CollaboratorTypeItemProps = {
   id?: number;
   attributes?: Collaborator;
   status?: "authenticated" | "loading" | "unauthenticated";
 };
 
+function checkImage(url: string, callback: (isValid: boolean) => void) {
+  const img = document.createElement("img"); // Create an HTML image element
+
+  img.onload = function () {
+    callback(true); // Image is valid
+  };
+
+  img.onerror = function () {
+    callback(false); // Image is broken
+  };
+
+  img.src = url; // Set the image source
+}
+
 const CollaboratorTypeItem = ({ id, attributes, status }: CollaboratorTypeItemProps) => {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const { data: collaboratorData } = useGetCollaboratorsId(
     id as number,
     {
@@ -31,6 +50,29 @@ const CollaboratorTypeItem = ({ id, attributes, status }: CollaboratorTypeItemPr
       },
     },
   );
+
+  useEffect(() => {
+    const fallbackUrl = `/images/collaborators/collaborator-${id}.png`;
+    const placeholderUrl = `/images/collaborators/no-image-placeholder.png`;
+
+    // First image to check (from collaboratorData)
+    const initialUrl =
+      collaboratorData?.data?.attributes?.image?.data?.attributes?.url || fallbackUrl;
+
+    checkImage(initialUrl, (isValid) => {
+      if (isValid) {
+        setImageUrl(initialUrl);
+      } else {
+        checkImage(fallbackUrl, (isFallbackValid) => {
+          if (isFallbackValid) {
+            setImageUrl(fallbackUrl);
+          } else {
+            setImageUrl(placeholderUrl); // Use the placeholder if both images are broken
+          }
+        });
+      }
+    });
+  }, [id, collaboratorData]);
 
   return (
     <div
@@ -63,12 +105,14 @@ const CollaboratorTypeItem = ({ id, attributes, status }: CollaboratorTypeItemPr
       <div className="relative z-10 flex min-h-[134px] w-full flex-1 items-center justify-center p-8">
         <Image
           src={
-            (collaboratorData?.data?.attributes?.image?.data?.attributes?.url as string) ||
-            `/images/collaborators/collaborator-${id}.png`
+            imageUrl
+              ? `
+            ${collaboratorData?.data?.attributes?.image?.data?.attributes?.url}`
+              : `/images/collaborators/no-image-placeholder.png`
           }
           alt={attributes?.name || "Collaborator logo"}
-          width={134}
-          height={134}
+          width={imageUrl ? 134 : 90}
+          height={imageUrl ? 134 : 90}
         />
       </div>
     </div>
