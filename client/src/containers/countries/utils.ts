@@ -1,4 +1,4 @@
-import { isDatasetValueProperty } from "@/lib/datasets";
+import { isDatasetValueProperty } from "@/lib/utils/datasets";
 
 import { useGetCountries } from "@/types/generated/country";
 import { useGetDatasets } from "@/types/generated/dataset";
@@ -65,7 +65,14 @@ const useTableData = () => {
         dataset: { id: { $in: datasets } },
         country: { iso3: { $in: [country, ...countriesComparison] } },
       },
-      populate: "dataset,country,resources",
+      "pagination[pageSize]": 300,
+      populate: {
+        country: {
+          fields: ["name", "iso3"],
+        },
+        resources: true,
+        dataset: true,
+      },
     },
     getDatasetParams.options,
   );
@@ -112,11 +119,11 @@ const useTableData = () => {
                 : undefined;
 
               // If is not a resource dataset get the value
-              const valueType = attributes?.value_type && `value_${attributes?.value_type}`;
+              const value_type = attributes?.value_type && `value_${attributes?.value_type}`;
               const value =
                 !isResource &&
-                isDatasetValueProperty(valueType) &&
-                datasetValue?.attributes?.[valueType];
+                isDatasetValueProperty(value_type) &&
+                datasetValue?.attributes?.[value_type];
               const country = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
               return {
                 iso3: c,

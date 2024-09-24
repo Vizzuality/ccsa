@@ -63,7 +63,7 @@ const OtherTools = () => {
             isError={isError}
           >
             <div className="grid-cols-2 gap-4 space-y-4 sm:grid sm:space-y-0">
-              {otherTools?.data?.map((a) => <ToolCard key={a.id} tool={a.attributes} />)}
+              {otherTools?.data?.map((a) => <ToolCard key={a.id} tool={a.attributes} id={a.id} />)}
             </div>
           </ContentLoader>
         </div>

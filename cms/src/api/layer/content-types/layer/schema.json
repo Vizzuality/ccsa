@@ -47,6 +47,15 @@
       "relation": "manyToOne",
       "target": "api::dataset.dataset",
       "inversedBy": "layers"
+    },
+    "colors": {
+      "type": "json"
+    },
+    "dataset_edit_suggestion": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "inversedBy": "layers"
     }
   }
 }

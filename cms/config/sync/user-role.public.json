@@ -52,6 +52,18 @@
       "action": "api::layer.layer.findOne"
     },
     {
+      "action": "api::objective.objective.find"
+    },
+    {
+      "action": "api::objective.objective.findOne"
+    },
+    {
+      "action": "api::organization-type.organization-type.find"
+    },
+    {
+      "action": "api::organization-type.organization-type.findOne"
+    },
+    {
       "action": "api::other-tool.other-tool.find"
     },
     {
@@ -70,6 +82,9 @@
       "action": "api::pillar.pillar.findOne"
     },
     {
+      "action": "api::project-edit-suggestion.project-edit-suggestion.importProjectsSuggestions"
+    },
+    {
       "action": "api::project.project.find"
     },
     {
@@ -86,6 +101,24 @@
     },
     {
       "action": "api::sdg.sdg.findOne"
+    },
+    {
+      "action": "api::types-of-funding.types-of-funding.find"
+    },
+    {
+      "action": "api::types-of-funding.types-of-funding.findOne"
+    },
+    {
+      "action": "api::welcome-message.welcome-message.find"
+    },
+    {
+      "action": "api::world-country.world-country.find"
+    },
+    {
+      "action": "api::world-country.world-country.findOne"
+    },
+    {
+      "action": "plugin::email.email.send"
     },
     {
       "action": "plugin::users-permissions.auth.callback"

@@ -20,12 +20,6 @@
       "type": "json",
       "required": true
     },
-    "category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::category.category",
-      "inversedBy": "datasets"
-    },
     "description": {
       "type": "richtext",
       "required": true
@@ -42,8 +36,34 @@
     },
     "value_type": {
       "type": "enumeration",
-      "enum": ["text", "number", "boolean", "resource"],
+      "enum": [
+        "text",
+        "number",
+        "boolean",
+        "resource"
+      ],
       "required": true
+    },
+    "dataset_edit_suggestions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dataset-edit-suggestion.dataset-edit-suggestion",
+      "mappedBy": "dataset"
+    },
+    "dataset_values": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::dataset-value.dataset-value",
+      "mappedBy": "dataset"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "dataset"
+    },
+    "colors": {
+      "type": "json"
     }
   }
 }

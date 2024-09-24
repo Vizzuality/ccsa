@@ -34,9 +34,9 @@
           "sortable": true
         }
       },
-      "datasets": {
+      "dataset_edit_suggestions": {
         "edit": {
-          "label": "datasets",
+          "label": "dataset_edit_suggestions",
           "description": "",
           "placeholder": "",
           "visible": true,
@@ -44,7 +44,22 @@
           "mainField": "name"
         },
         "list": {
-          "label": "datasets",
+          "label": "dataset_edit_suggestions",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "dataset": {
+        "edit": {
+          "label": "dataset",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "dataset",
           "searchable": false,
           "sortable": false
         }
@@ -109,6 +124,12 @@
       }
     },
     "layouts": {
+      "list": [
+        "id",
+        "name",
+        "createdAt",
+        "dataset"
+      ],
       "edit": [
         [
           {
@@ -118,16 +139,14 @@
         ],
         [
           {
-            "name": "datasets",
-            "size": 4
+            "name": "dataset_edit_suggestions",
+            "size": 6
+          },
+          {
+            "name": "dataset",
+            "size": 6
           }
         ]
-      ],
-      "list": [
-        "id",
-        "name",
-        "createdAt",
-        "datasets"
       ]
     }
   },

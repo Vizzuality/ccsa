@@ -74,13 +74,16 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-open-sans text-foreground;
   }
-
 }
 
 .popover-content-width-same-as-its-trigger {
   /* width: 50vw; */
   width: var(--radix-popover-trigger-width);
   max-height: var(--radix-popover-content-available-height);
+}
+
+video::-webkit-media-controls-fullscreen-button {
+  display: none;
 }

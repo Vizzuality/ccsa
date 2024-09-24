@@ -1,10 +1,42 @@
-export default [
-  'strapi::errors',
-  'strapi::security',
-  'strapi::cors',
-  'strapi::poweredBy',
-  'strapi::logger',
-  'strapi::query',
+export default ({ env }) => [
+  "strapi::errors",
+  {
+    name: "strapi::security",
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          "connect-src": ["'self'", "https:"],
+          "img-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "dl.airtable.com",
+            `${env("AWS_BUCKET")}.s3.amazonaws.com`,
+          ],
+          "media-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            "dl.airtable.com",
+            `${env("AWS_BUCKET")}.s3.amazonaws.com`,
+          ],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
+  {
+    name: "strapi::cors",
+    // config: {
+    //   enabled: true,
+    //   headers: "*",
+    //   origin: ["http://localhost:3000"],
+    // },
+  },
+  "strapi::poweredBy",
+  "strapi::logger",
+  "strapi::query",
   {
     name: "strapi::body",
     config: {
@@ -16,7 +48,7 @@ export default [
       },
     },
   },
-  'strapi::session',
-  'strapi::favicon',
-  'strapi::public',
+  "strapi::session",
+  "strapi::favicon",
+  "strapi::public",
 ];

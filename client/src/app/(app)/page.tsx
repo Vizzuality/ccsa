@@ -1,8 +1,9 @@
-import PageTitle from "@/components/ui/page-title";
 import CountryPopup from "@/containers/countries/popup";
 import DatasetsCategories from "@/containers/datasets/categories";
 import DatasetsHeader from "@/containers/datasets/header";
 import DatasetsSearch from "@/containers/datasets/search";
+
+import PageTitle from "@/components/ui/page-title";
 
 export default function HomePage() {
   return (

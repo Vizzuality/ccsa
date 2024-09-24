@@ -14,13 +14,15 @@
   "attributes": {
     "dataset": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::dataset.dataset"
+      "relation": "manyToOne",
+      "target": "api::dataset.dataset",
+      "inversedBy": "dataset_values"
     },
     "country": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::country.country"
+      "relation": "manyToOne",
+      "target": "api::country.country",
+      "inversedBy": "dataset_values"
     },
     "value_text": {
       "type": "string"

@@ -631,7 +631,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -660,6 +659,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    organization: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -690,7 +690,12 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
-    datasets: Attribute.Relation<
+    dataset_edit_suggestions: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::dataset-edit-suggestion.dataset-edit-suggestion'
+    >;
+    dataset: Attribute.Relation<
       'api::category.category',
       'oneToMany',
       'api::dataset.dataset'
@@ -728,6 +733,12 @@ export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
     name: Attribute.String & Attribute.Required;
     link: Attribute.String;
     type: Attribute.Enumeration<['donor', 'collaborator']> & Attribute.Required;
+    collaborator_edit_suggestions: Attribute.Relation<
+      'api::collaborator.collaborator',
+      'oneToMany',
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion'
+    >;
+    image: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -739,6 +750,55 @@ export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::collaborator.collaborator',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
+  extends Schema.CollectionType {
+  collectionName: 'collaborator_edit_suggestions';
+  info: {
+    singularName: 'collaborator-edit-suggestion';
+    pluralName: 'collaborator-edit-suggestions';
+    displayName: 'Collaborator Edit Suggestion';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    link: Attribute.String;
+    type: Attribute.Enumeration<['donor', 'collaborator']>;
+    review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    collaborator: Attribute.Relation<
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
+      'manyToOne',
+      'api::collaborator.collaborator'
+    >;
+    image: Attribute.Media;
+    review_decision_details: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
       'oneToOne',
       'admin::user'
     > &
@@ -763,6 +823,11 @@ export interface ApiCountryCountry extends Schema.CollectionType {
     geometry: Attribute.JSON;
     bbox: Attribute.JSON;
     link: Attribute.String;
+    dataset_values: Attribute.Relation<
+      'api::country.country',
+      'oneToMany',
+      'api::dataset-value.dataset-value'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -795,11 +860,6 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     datum: Attribute.JSON & Attribute.Required;
-    category: Attribute.Relation<
-      'api::dataset.dataset',
-      'manyToOne',
-      'api::category.category'
-    >;
     description: Attribute.RichText & Attribute.Required;
     layers: Attribute.Relation<
       'api::dataset.dataset',
@@ -811,6 +871,22 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       ['text', 'number', 'boolean', 'resource']
     > &
       Attribute.Required;
+    dataset_edit_suggestions: Attribute.Relation<
+      'api::dataset.dataset',
+      'oneToMany',
+      'api::dataset-edit-suggestion.dataset-edit-suggestion'
+    >;
+    dataset_values: Attribute.Relation<
+      'api::dataset.dataset',
+      'oneToMany',
+      'api::dataset-value.dataset-value'
+    >;
+    category: Attribute.Relation<
+      'api::dataset.dataset',
+      'manyToOne',
+      'api::category.category'
+    >;
+    colors: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -822,6 +898,69 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::dataset.dataset',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDatasetEditSuggestionDatasetEditSuggestion
+  extends Schema.CollectionType {
+  collectionName: 'dataset_edit_suggestions';
+  info: {
+    singularName: 'dataset-edit-suggestion';
+    pluralName: 'dataset-edit-suggestions';
+    displayName: 'Dataset Edit Suggestion';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    data: Attribute.JSON;
+    description: Attribute.RichText;
+    unit: Attribute.String;
+    value_type: Attribute.Enumeration<
+      ['text', 'number', 'boolean', 'resource']
+    >;
+    review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    category: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'manyToOne',
+      'api::category.category'
+    >;
+    layers: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'oneToMany',
+      'api::layer.layer'
+    >;
+    dataset: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'manyToOne',
+      'api::dataset.dataset'
+    >;
+    colors: Attribute.JSON;
+    review_decision_details: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
       'oneToOne',
       'admin::user'
     > &
@@ -843,12 +982,12 @@ export interface ApiDatasetValueDatasetValue extends Schema.CollectionType {
   attributes: {
     dataset: Attribute.Relation<
       'api::dataset-value.dataset-value',
-      'oneToOne',
+      'manyToOne',
       'api::dataset.dataset'
     >;
     country: Attribute.Relation<
       'api::dataset-value.dataset-value',
-      'oneToOne',
+      'manyToOne',
       'api::country.country'
     >;
     value_text: Attribute.String;
@@ -938,6 +1077,12 @@ export interface ApiLayerLayer extends Schema.CollectionType {
       'manyToOne',
       'api::dataset.dataset'
     >;
+    colors: Attribute.JSON;
+    dataset_edit_suggestion: Attribute.Relation<
+      'api::layer.layer',
+      'manyToOne',
+      'api::dataset-edit-suggestion.dataset-edit-suggestion'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -949,6 +1094,68 @@ export interface ApiLayerLayer extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::layer.layer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiObjectiveObjective extends Schema.CollectionType {
+  collectionName: 'objectives';
+  info: {
+    singularName: 'objective';
+    pluralName: 'objectives';
+    displayName: 'Objective';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    type: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::objective.objective',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::objective.objective',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrganizationTypeOrganizationType
+  extends Schema.CollectionType {
+  collectionName: 'organization_types';
+  info: {
+    singularName: 'organization-type';
+    pluralName: 'organization-types';
+    displayName: 'Organization type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::organization-type.organization-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::organization-type.organization-type',
       'oneToOne',
       'admin::user'
     > &
@@ -975,6 +1182,11 @@ export interface ApiOtherToolOtherTool extends Schema.CollectionType {
       'api::other-tool.other-tool',
       'oneToOne',
       'api::other-tools-category.other-tools-category'
+    >;
+    tool_edit_suggestions: Attribute.Relation<
+      'api::other-tool.other-tool',
+      'oneToMany',
+      'api::tool-edit-suggestion.tool-edit-suggestion'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1044,6 +1256,11 @@ export interface ApiPillarPillar extends Schema.CollectionType {
       'api::project.project'
     >;
     description: Attribute.RichText & Attribute.Required;
+    project_edit_suggestions: Attribute.Relation<
+      'api::pillar.pillar',
+      'oneToMany',
+      'api::project-edit-suggestion.project-edit-suggestion'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1094,7 +1311,24 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'api::sdg.sdg'
     >;
     status: Attribute.String;
-    funding: Attribute.String;
+    source_country: Attribute.String;
+    organization_type: Attribute.String;
+    objective: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::objective.objective'
+    >;
+    info: Attribute.String;
+    project_edit_suggestions: Attribute.Relation<
+      'api::project.project',
+      'oneToMany',
+      'api::project-edit-suggestion.project-edit-suggestion'
+    >;
+    funding: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::types-of-funding.types-of-funding'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1106,6 +1340,115 @@ export interface ApiProjectProject extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::project.project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProjectEditSuggestionProjectEditSuggestion
+  extends Schema.CollectionType {
+  collectionName: 'project_edit_suggestions';
+  info: {
+    singularName: 'project-edit-suggestion';
+    pluralName: 'project-edit-suggestions';
+    displayName: 'Project Edit Suggestion';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    highlight: Attribute.RichText;
+    account: Attribute.String;
+    amount: Attribute.Float;
+    status: Attribute.String;
+    funding: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'api::types-of-funding.types-of-funding'
+    >;
+    source_country: Attribute.String;
+    organization_type: Attribute.String;
+    objective: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'api::objective.objective'
+    >;
+    info: Attribute.String;
+    review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    countries: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToMany',
+      'api::country.country'
+    >;
+    pillar: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'manyToOne',
+      'api::pillar.pillar'
+    >;
+    sdgs: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'manyToMany',
+      'api::sdg.sdg'
+    >;
+    project: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'manyToOne',
+      'api::project.project'
+    >;
+    review_decision_details: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProjectStatusProjectStatus extends Schema.CollectionType {
+  collectionName: 'project_statuses';
+  info: {
+    singularName: 'project-status';
+    pluralName: 'project-statuses';
+    displayName: 'Project status';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::project-status.project-status',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::project-status.project-status',
       'oneToOne',
       'admin::user'
     > &
@@ -1163,12 +1506,169 @@ export interface ApiSdgSdg extends Schema.CollectionType {
       'manyToMany',
       'api::project.project'
     >;
+    project_edit_suggestions: Attribute.Relation<
+      'api::sdg.sdg',
+      'manyToMany',
+      'api::project-edit-suggestion.project-edit-suggestion'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::sdg.sdg', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::sdg.sdg', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiToolEditSuggestionToolEditSuggestion
+  extends Schema.CollectionType {
+  collectionName: 'tool_edit_suggestions';
+  info: {
+    singularName: 'tool-edit-suggestion';
+    pluralName: 'tool-edit-suggestions';
+    displayName: 'Tool Edit Suggestion';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.String;
+    link: Attribute.String;
+    review_status: Attribute.Enumeration<['pending', 'approved', 'declined']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'pending'>;
+    author: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    other_tools_category: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'api::other-tools-category.other-tools-category'
+    >;
+    other_tool: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'manyToOne',
+      'api::other-tool.other-tool'
+    >;
+    review_decision_details: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTypesOfFundingTypesOfFunding extends Schema.CollectionType {
+  collectionName: 'types_of_fundings';
+  info: {
+    singularName: 'types-of-funding';
+    pluralName: 'types-of-fundings';
+    displayName: 'Funding';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::types-of-funding.types-of-funding',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::types-of-funding.types-of-funding',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiWelcomeMessageWelcomeMessage extends Schema.SingleType {
+  collectionName: 'welcome_messages';
+  info: {
+    singularName: 'welcome-message';
+    pluralName: 'welcome-messages';
+    displayName: 'Welcome message';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.Text;
+    subtitle: Attribute.Text;
+    video: Attribute.Media;
+    image: Attribute.Media;
+    button: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::welcome-message.welcome-message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::welcome-message.welcome-message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiWorldCountryWorldCountry extends Schema.CollectionType {
+  collectionName: 'world_countries';
+  info: {
+    singularName: 'world-country';
+    pluralName: 'world-countries';
+    displayName: 'World country';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    code: Attribute.String;
+    name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::world-country.world-country',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::world-country.world-country',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -1191,17 +1691,27 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::category.category': ApiCategoryCategory;
       'api::collaborator.collaborator': ApiCollaboratorCollaborator;
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion': ApiCollaboratorEditSuggestionCollaboratorEditSuggestion;
       'api::country.country': ApiCountryCountry;
       'api::dataset.dataset': ApiDatasetDataset;
+      'api::dataset-edit-suggestion.dataset-edit-suggestion': ApiDatasetEditSuggestionDatasetEditSuggestion;
       'api::dataset-value.dataset-value': ApiDatasetValueDatasetValue;
       'api::download-email.download-email': ApiDownloadEmailDownloadEmail;
       'api::layer.layer': ApiLayerLayer;
+      'api::objective.objective': ApiObjectiveObjective;
+      'api::organization-type.organization-type': ApiOrganizationTypeOrganizationType;
       'api::other-tool.other-tool': ApiOtherToolOtherTool;
       'api::other-tools-category.other-tools-category': ApiOtherToolsCategoryOtherToolsCategory;
       'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;
+      'api::project-edit-suggestion.project-edit-suggestion': ApiProjectEditSuggestionProjectEditSuggestion;
+      'api::project-status.project-status': ApiProjectStatusProjectStatus;
       'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;
+      'api::tool-edit-suggestion.tool-edit-suggestion': ApiToolEditSuggestionToolEditSuggestion;
+      'api::types-of-funding.types-of-funding': ApiTypesOfFundingTypesOfFunding;
+      'api::welcome-message.welcome-message': ApiWelcomeMessageWelcomeMessage;
+      'api::world-country.world-country': ApiWorldCountryWorldCountry;
     }
   }
 }

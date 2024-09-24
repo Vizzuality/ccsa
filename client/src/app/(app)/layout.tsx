@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 
+import dynamic from "next/dynamic";
 import { headers } from "next/headers";
 
 import { Hydrate, dehydrate } from "@tanstack/react-query";
@@ -7,6 +8,7 @@ import { Hydrate, dehydrate } from "@tanstack/react-query";
 import getQueryClient from "@/lib/react-query/getQueryClient";
 
 import { getGetCategoriesQueryKey, getGetCategoriesQueryOptions } from "@/types/generated/category";
+import { getGetCollaboratorsQueryOptions } from "@/types/generated/collaborator";
 import { getGetCountriesQueryOptions } from "@/types/generated/country";
 import { getGetDatasetsQueryOptions } from "@/types/generated/dataset";
 import { getGetPillarsQueryOptions } from "@/types/generated/pillar";
@@ -27,7 +29,8 @@ import Navigation from "@/containers/navigation";
 import Sidebar from "@/containers/sidebar";
 
 import LayoutProviders from "./layout-providers";
-import { getGetCollaboratorsQueryOptions } from "@/types/generated/collaborator";
+
+const WelcomeMessage = dynamic(() => import("@/containers/welcome-message"), { ssr: false });
 
 export default async function AppLayout({ children }: PropsWithChildren) {
   const url = new URL(headers().get("x-url")!);
@@ -87,6 +90,8 @@ export default async function AppLayout({ children }: PropsWithChildren) {
           <Sidebar>{children}</Sidebar>
           <Map />
         </main>
+
+        <WelcomeMessage />
       </Hydrate>
     </LayoutProviders>
   );

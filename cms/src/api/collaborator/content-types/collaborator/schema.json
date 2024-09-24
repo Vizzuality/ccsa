@@ -21,11 +21,21 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": [
-        "donor",
-        "collaborator"
-      ],
+      "enum": ["donor", "collaborator"],
       "required": true
+    },
+    "collaborator_edit_suggestions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::collaborator-edit-suggestion.collaborator-edit-suggestion",
+      "mappedBy": "collaborator"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

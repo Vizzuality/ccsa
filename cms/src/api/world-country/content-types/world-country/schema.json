@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "world_countries",
+  "info": {
+    "singularName": "world-country",
+    "pluralName": "world-countries",
+    "displayName": "World country",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

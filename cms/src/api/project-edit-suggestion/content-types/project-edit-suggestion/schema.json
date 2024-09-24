@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "project_edit_suggestions",
+  "info": {
+    "singularName": "project-edit-suggestion",
+    "pluralName": "project-edit-suggestions",
+    "displayName": "Project Edit Suggestion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "highlight": {
+      "type": "richtext"
+    },
+    "account": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "float"
+    },
+    "status": {
+      "type": "string"
+    },
+    "funding": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::types-of-funding.types-of-funding"
+    },
+    "source_country": {
+      "type": "string"
+    },
+    "organization_type": {
+      "type": "string"
+    },
+    "objective": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::objective.objective"
+    },
+    "info": {
+      "type": "string"
+    },
+    "review_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "approved",
+        "declined"
+      ],
+      "default": "pending",
+      "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "countries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::country.country"
+    },
+    "pillar": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pillar.pillar",
+      "inversedBy": "project_edit_suggestions"
+    },
+    "sdgs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sdg.sdg",
+      "inversedBy": "project_edit_suggestions"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "project_edit_suggestions"
+    },
+    "review_decision_details": {
+      "type": "text"
+    }
+  }
+}

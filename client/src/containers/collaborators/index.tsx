@@ -27,9 +27,13 @@ const CollaboratorsList = () => {
     isFetching,
     isFetched,
     isError,
-  } = useGetCollaborators({
-    ...(search ? { filters: { name: { $containsi: search } } } : {}),
-  });
+  } = useGetCollaborators(
+    {
+      populate: "*",
+      ...(search ? { filters: { name: { $containsi: search } } } : {}),
+    },
+    {},
+  );
 
   const collaborators = useMemo(
     () => groupBy(collaboratorsData?.data, "attributes.type"),
@@ -62,7 +66,7 @@ const CollaboratorsList = () => {
             isError={isError}
           >
             <Accordion
-              className="space-y-4"
+              className="pointer-events-auto space-y-4"
               type="multiple"
               defaultValue={["collaborator", "donor"]}
             >

@@ -48,21 +48,6 @@
           "sortable": false
         }
       },
-      "category": {
-        "edit": {
-          "label": "category",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "category",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "description": {
         "edit": {
           "label": "description",
@@ -118,6 +103,65 @@
           "label": "value_type",
           "searchable": true,
           "sortable": true
+        }
+      },
+      "dataset_edit_suggestions": {
+        "edit": {
+          "label": "dataset_edit_suggestions",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "dataset_edit_suggestions",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "dataset_values": {
+        "edit": {
+          "label": "dataset_values",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "value_text"
+        },
+        "list": {
+          "label": "dataset_values",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "category": {
+        "edit": {
+          "label": "category",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "category",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "colors": {
+        "edit": {
+          "label": "colors",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "colors",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -225,6 +269,22 @@
           {
             "name": "value_type",
             "size": 6
+          }
+        ],
+        [
+          {
+            "name": "dataset_edit_suggestions",
+            "size": 6
+          },
+          {
+            "name": "dataset_values",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "colors",
+            "size": 12
           }
         ]
       ]

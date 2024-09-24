@@ -17,10 +17,11 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface MultiComboboxProps {
-  values?: string[];
-  options?: { value: string; label: string }[];
+  values?: (string | number)[];
+  options?: { value: string | number; label: string }[];
   placeholder?: string;
-  onChange: (value: string[]) => void;
+  onChange: (value: (string | number)[]) => void;
+  disabled?: boolean;
 }
 
 export function MultiCombobox({
@@ -28,6 +29,7 @@ export function MultiCombobox({
   options = [],
   placeholder,
   onChange,
+  disabled,
 }: MultiComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -35,7 +37,10 @@ export function MultiCombobox({
     if (!values || !values.length) return placeholder || "Select...";
 
     if (values.length === 1) {
-      return options?.find((c) => c?.value.toLowerCase() === values[0].toLowerCase())?.label;
+      const selectedOption = options?.find(
+        (c) => c?.value.toString().toLowerCase() === values[0].toString().toLowerCase(),
+      );
+      return selectedOption?.label;
     }
 
     return `${values.length} selected`;
@@ -49,6 +54,7 @@ export function MultiCombobox({
           role="combobox"
           aria-expanded={open}
           className="w-full justify-between"
+          disabled={disabled}
         >
           {SELECTED}
           <LuChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

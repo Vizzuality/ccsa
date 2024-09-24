@@ -4,22 +4,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { LuUser2 } from "react-icons/lu";
+
 import { cn } from "@/lib/classnames";
+
+import { useGetUsersMe } from "@/types/generated/users-permissions-users-roles";
 
 import { useSyncSearchParams } from "@/app/store";
 
+import CollaboratorsSvg from "@/svgs/collaborators.svg";
 import ExploreSVG from "@/svgs/explore.svg";
 import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
-import CollaboratorsSvg from "@/svgs/collaborators.svg";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
 
   const sp = useSyncSearchParams();
+  const { data: user } = useGetUsersMe();
+
+  const userNameWithoutSpaces = user?.username?.replace(" ", "");
 
   return (
-    <nav className="relative z-20 block h-full w-20 shrink-0 border-r-2 border-gray-300/20 bg-white">
+    <nav className="relative z-20 flex h-full w-20 shrink-0 flex-col justify-between border-r-2 border-gray-300/20 bg-white">
       <ul className="w-full text-xxs">
         <li className="py-5 text-center">
           <Link className="flex flex-col items-center justify-center gap-1" href="/">
@@ -135,6 +142,42 @@ const Navigation = (): JSX.Element => {
           </Link>
         </li>
       </ul>
+      <div className="group relative py-5 text-center">
+        <div
+          className={cn({
+            "absolute left-0 top-0 h-full w-1 -translate-x-full bg-[#FF7816] transition-transform":
+              true,
+            "translate-x-0": pathname === "/collaborators",
+          })}
+        />
+        <Link
+          href={!user ? "/signin" : "/dashboard"}
+          className={cn({
+            "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
+            "bg-[#FF7816]/10": pathname === "/collaborators",
+            "text-gray-400 group-hover:text-gray-900": pathname !== "/collaborators",
+          })}
+        >
+          <LuUser2
+            title="Log in"
+            className={cn({
+              "mx-auto h-6 w-6 rounded-full border-2 border-gray-400 fill-none group-hover:border-gray-900":
+                true,
+              "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/collaborators",
+              "stroke-[#FF7816]": pathname === "/collaborators",
+            })}
+          />
+          <span
+            className={cn({
+              "w-full flex-wrap text-xxs": true,
+              "overflow-hidden truncate":
+                userNameWithoutSpaces && userNameWithoutSpaces?.length > 15,
+            })}
+          >
+            {user ? user?.username : "Log in"}
+          </span>
+        </Link>
+      </div>
     </nav>
   );
 };
