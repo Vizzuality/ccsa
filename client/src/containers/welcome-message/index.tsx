@@ -83,9 +83,7 @@ export default function WelcomeMessage() {
 
               {data?.data?.attributes?.image && (
                 <Image
-                  // TO DO - get URL dynamically
-                  // src="https://ccsa-staging-assets-bucket.s3.amazonaws.com/welcome_image_34ad0d15bc.png"
-                  src={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.image?.data?.attributes?.url}`}
+                  src={`${data?.data?.attributes?.image?.data?.attributes?.url}`}
                   alt="Welcome message"
                   width={data?.data?.attributes?.image?.data?.attributes?.width}
                   height={data?.data?.attributes?.image?.data?.attributes?.height}
@@ -106,9 +104,7 @@ export default function WelcomeMessage() {
                 onPlay={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
                 controls
-                // TO DO - get URL dynamically
-                // url={`${env.NEXT_PUBLIC_CMS_URL}${data?.data?.attributes?.video?.data?.attributes?.url}`}
-                url="https://ccsa-staging-assets-bucket.s3.amazonaws.com/SID_4_Pre_Event_MAP_Video_4f0cdbfa51.mp4"
+                url={`${data?.data?.attributes?.video?.data?.attributes?.url}`}
                 width={"100%"}
                 height={"100%"}
               />
