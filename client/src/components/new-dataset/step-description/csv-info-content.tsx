@@ -1,5 +1,12 @@
 import { CSVImportTypes } from "./types";
 
+import {
+  PROJECTS_CSV_CONTENT,
+  OTHER_TOOLS_CSV_CONTENT,
+  COLLABORATORS_CSV_CONTENT,
+  LINK_CSV_CONTENT,
+} from "./constants";
+
 export default function CSVInfoContent({ valueType }: { valueType: CSVImportTypes }) {
   return (
     <div className="space-y-5 p-5">
@@ -68,11 +75,11 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
 
       {valueType === "resource" && (
         <div className="text-sm">
-          <h4 className="font-metropolis tracking-tight">Link</h4>
+          <h4 className="font-metropolis tracking-tight">{LINK_CSV_CONTENT.title}</h4>
           <div className="space-y-2.5">
             <p>
               <span className="font-semibold">Columns:</span>{" "}
-              <code>country_id, link_title, link_url, description</code>.
+              <code>{LINK_CSV_CONTENT.columns.join(", ")}</code>.
             </p>
             <p>
               Where <code>country_id</code> refers to the ISO3 country code, <code>link_title</code>{" "}
@@ -83,22 +90,17 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
             </p>
             <p className="font-semibold">Example:</p>
             <div className="flex flex-col bg-gray-100 p-4">
-              <code>country_id, link_title, link_url, description</code>
-              <code>AIA, Example, http://example.com, link description</code>
+              <code>{LINK_CSV_CONTENT.columns.join(", ")}</code>
+              <code>{LINK_CSV_CONTENT.examples[0]}</code>
             </div>
             <p>
               If there are multiple resources for a single country, the CSV should look like this:
             </p>
             <div className="flex flex-col bg-gray-100 p-4">
-              <code>country_id, link_title, link_url, description</code>
-
-              <code>AIA, Title 1, http://example1.com, Description 1</code>
-
-              <code>AIA, Title 2, http://example2.com, Description 2</code>
-
-              <code>MEX, Title 3, http://example3.com, Description 3</code>
-
-              <code>VIR, Title 4, http://example4.com, Description 4</code>
+              {LINK_CSV_CONTENT.columns.join(", ")}
+              {LINK_CSV_CONTENT.examples.map((example) => (
+                <code key={example}>{example}</code>
+              ))}
             </div>
           </div>
         </div>
@@ -106,50 +108,18 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
 
       {valueType === "project" && (
         <div className="text-sm">
-          <h4 className="font-metropolis tracking-tight">Project/s</h4>
+          <h4 className="font-metropolis tracking-tight">{PROJECTS_CSV_CONTENT.title}</h4>
           <div className="space-y-2.5">
             <p>
               <span className="font-semibold">Columns:</span>{" "}
-              <code>
-                name, highlight, status, objective, amount, countries, source_country, sdgs, pillar,
-                organization_type, info, funding
-              </code>
-              .
+              <code>{PROJECTS_CSV_CONTENT.columns.join(", ")}</code>.
             </p>
             <p className="font-semibold">Example:</p>
-            <div className="flex flex-col bg-gray-100 p-4">
-              <code>
-                name, highlight, status, objective, amount, countries, source_country, sdgs, pillar,
-                organization_type, info, funding
-              </code>
-              <code>
-                Import test 1, Highlight 1, In Execution, This project has been delivered, 120000,
-                Jamaica; Bahamas; Belize, The United States, SDG 12 - Responsible production and
-                consumption; SDG 13 - Climate Action; SDG 17 - Partnership for the goals, 1.5% New
-                Green Jobs for Physical & Economic Resilience, For-profit, ,
-              </code>
-              <code>
-                Import test 2, Highlight 2, Completed, This project has been delivered, 120001,
-                Trinidad and Tobago; Belize, Trinidad & Tobago, SDG 7 - Affordable and clean energy;
-                SDG 8 - Decent work and economic growth; SDG 9 - Industry Innovation and
-                Infrastructure; SDG 11 - Sustainable Cities and Communities; SDG 12 - Responsible
-                production and consumption; SDG 13 - Climate Action; SDG 17 - Partnership for the
-                goals, 90% Renewable Energy for All, For-profit, ,
-              </code>
-              <code>
-                Import test 3, Highlight 3, Start-up to Early Stage, This project has been
-                delivered, 120002, Belize; Bahamas, Belize, SDG 7 - Affordable and clean energy; SDG
-                13 - Climate Action; SDG 17 - Partnership for the goals, 90% Renewable Energy for
-                All, For-profit, ,
-              </code>
-              <code>
-                Import test 4, Highlight 4, Start-up to Early Stage, This project has been
-                delivered, 120003, Bahamas, Barbados, SDG 7 - Affordable and clean energy; SDG 8 -
-                Decent work and economic growth; SDG 9 - Industry Innovation and Infrastructure; SDG
-                11 - Sustainable Cities and Communities; SDG 12 - Responsible production and
-                consumption; SDG 13 - Climate Action; SDG 17 - Partnership for the goals, 90%
-                Renewable Energy for All, For-profit, ,
-              </code>
+            <div className="flex flex-col space-y-2 bg-gray-100 p-4">
+              <code>{PROJECTS_CSV_CONTENT.columns.join(", ")}</code>
+              {PROJECTS_CSV_CONTENT.examples.map((example) => (
+                <code key={example}>{example}</code>
+              ))}
             </div>
           </div>
         </div>
@@ -157,33 +127,24 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
 
       {valueType === "other-tools" && (
         <div className="text-sm">
-          <h4 className="font-metropolis tracking-tight">Other Tools</h4>
+          <h4 className="font-metropolis tracking-tight">{OTHER_TOOLS_CSV_CONTENT.title}</h4>
           <div className="space-y-2.5">
             <p>
               <span className="font-semibold">Columns:</span>{" "}
-              <code>name, link, category, description</code>.
+              <code>{OTHER_TOOLS_CSV_CONTENT.columns.join(", ")}</code>.
             </p>
             <p className="font-semibold">Categories:</p>
             <ul className="ml-5 list-disc">
-              <li>Biodiversity</li>
-              <li>Blue Economy</li>
-              <li>Climate Impacts</li>
-              <li>Conservation</li>
-              <li>Data</li>
-              <li>Energy</li>
-              <li>General</li>
-              <li>Trade</li>
-              <li>Vulnerability</li>
+              {OTHER_TOOLS_CSV_CONTENT.categories.map((category) => (
+                <li key={category}>{category}</li>
+              ))}
             </ul>
             <p className="font-semibold">Example:</p>
             <div className="flex flex-col bg-gray-100 p-4">
-              <code>name, link, category, description</code>
-              <code>
-                Tool A, http://example.com, Data, A tool for data analysis and visualization.
-              </code>
-              <code>
-                Tool B, http://example2.com, Climate Impacts, A tool for assessing climate impacts.
-              </code>
+              <code>{OTHER_TOOLS_CSV_CONTENT.columns.join(", ")}</code>
+              {OTHER_TOOLS_CSV_CONTENT.examples.map((example) => (
+                <code key={example}>{example}</code>
+              ))}
             </div>
           </div>
         </div>
@@ -191,10 +152,11 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
 
       {valueType === "collaborators" && (
         <div className="text-sm">
-          <h4 className="font-metropolis tracking-tight">Collaborators</h4>
+          <h4 className="font-metropolis tracking-tight">{COLLABORATORS_CSV_CONTENT.title}</h4>
           <div className="space-y-2.5">
             <p>
-              <span className="font-semibold">Columns:</span> <code>name, type, link</code>.
+              <span className="font-semibold">Columns:</span>{" "}
+              <code>{COLLABORATORS_CSV_CONTENT.columns.join(", ")}</code>.
             </p>
             <p>
               <span className="font-semibold">Type:</span> The type field should be either{" "}
@@ -202,9 +164,10 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
             </p>
             <p className="font-semibold">Example:</p>
             <div className="flex flex-col bg-gray-100 p-4">
-              <code>name, type, link</code>
-              <code>John Doe, Donor, http://university.edu</code>
-              <code>Jane Smith, Collaborator, http://company.com</code>
+              <code>{COLLABORATORS_CSV_CONTENT.columns.join(", ")}</code>
+              {COLLABORATORS_CSV_CONTENT.examples.map((example) => (
+                <code key={example}>{example}</code>
+              ))}
             </div>
           </div>
         </div>
