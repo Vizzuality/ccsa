@@ -5,6 +5,7 @@ import Signup from "@/components/forms/signup";
 export const metadata: Metadata = {
   title: "Sign up | Caribbean Climate smart map",
   description: "Caribbean Climate smart map",
+  viewport: "width=1000, initial-scale=1",
 };
 
 export const viewport: Viewport = {
