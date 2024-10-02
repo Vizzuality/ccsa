@@ -85,7 +85,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   return (
     <LayoutProviders>
       <Hydrate state={dehydratedState}>
-        <main className="flex h-[100svh] w-full justify-between">
+        <main className="flex h-[100svh] min-h-[100vh] w-full justify-between">
           <Navigation />
           <Sidebar>{children}</Sidebar>
           <Map />
