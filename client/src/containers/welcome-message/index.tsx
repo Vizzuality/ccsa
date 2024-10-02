@@ -44,13 +44,13 @@ export default function WelcomeMessage() {
     setFullscreen(screenfull?.isFullscreen);
   };
 
-  useEffect(() => {
-    screenfull?.on("change", handleFullscreen);
+  // useEffect(() => {
+  //   screenfull?.on("change", handleFullscreen);
 
-    return () => {
-      screenfull?.off("change", handleFullscreen);
-    };
-  }, []);
+  //   return () => {
+  //     screenfull?.off("change", handleFullscreen);
+  //   };
+  // }, []);
 
   return (
     <Dialog open={!cookies.welcome}>
