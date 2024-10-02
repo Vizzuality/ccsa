@@ -29,7 +29,6 @@ import LayoutProviders from "./layout-providers";
 export const metadata: Metadata = {
   title: { template: "%s | CCSA", default: "CCSA" },
   description: "Caribbean Climate smart map",
-  viewport: "width=1000, initial-scale=1",
 };
 
 export const viewport: Viewport = {
