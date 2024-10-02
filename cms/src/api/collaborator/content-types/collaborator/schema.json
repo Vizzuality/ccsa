@@ -21,7 +21,10 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["donor", "collaborator"],
+      "enum": [
+        "donor",
+        "collaborator"
+      ],
       "required": true
     },
     "collaborator_edit_suggestions": {
