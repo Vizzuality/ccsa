@@ -23,11 +23,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export const viewport: Viewport = {
-  width: 1000,
-  initialScale: 1,
-};
-
 export default function NewDatasetPage() {
   return (
     <>

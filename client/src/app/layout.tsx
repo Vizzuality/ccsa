@@ -36,11 +36,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export const viewport: Viewport = {
-  width: 1000,
-  initialScale: 1,
-};
-
 export default async function RootLayout({ children }: PropsWithChildren) {
   const session = await getServerSession(authOptions);
 

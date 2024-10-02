@@ -1,9 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-import isEmpty from "lodash-es/isEmpty";
-
 import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 
@@ -46,12 +43,14 @@ export default function WelcomeMessage() {
 
   useEffect(() => {
     if (screenfull.isEnabled) {
-      screenfull?.on("change", handleFullscreen);
-
-      return () => {
-        screenfull.off("change", handleFullscreen);
-      };
+      screenfull.on("change", handleFullscreen);
     }
+
+    return () => {
+      if (screenfull.isEnabled) {
+        screenfull.off("change", handleFullscreen);
+      }
+    };
   }, []);
 
   return (
