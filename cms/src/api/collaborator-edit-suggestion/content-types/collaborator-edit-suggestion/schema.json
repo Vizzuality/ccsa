@@ -56,6 +56,9 @@
     },
     "review_decision_details": {
       "type": "text"
+    },
+    "reviewed_by": {
+      "type": "string"
     }
   }
 }
