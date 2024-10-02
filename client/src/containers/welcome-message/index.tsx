@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import isEmpty from "lodash-es/isEmpty";
+
 import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 
@@ -9,8 +11,6 @@ import Image from "next/image";
 
 import { LuPlay } from "react-icons/lu";
 import screenfull from "screenfull";
-
-import env from "@/env.mjs";
 
 import { cn } from "@/lib/classnames";
 
@@ -43,14 +43,15 @@ export default function WelcomeMessage() {
   const handleFullscreen = () => {
     setFullscreen(screenfull?.isFullscreen);
   };
+  useEffect(() => {
+    if (!isEmpty(screenfull)) {
+      screenfull?.on("change", handleFullscreen);
 
-  // useEffect(() => {
-  //   screenfull?.on("change", handleFullscreen);
-
-  //   return () => {
-  //     screenfull?.off("change", handleFullscreen);
-  //   };
-  // }, []);
+      return () => {
+        screenfull?.off("change", handleFullscreen);
+      };
+    }
+  }, []);
 
   return (
     <Dialog open={!cookies.welcome}>
