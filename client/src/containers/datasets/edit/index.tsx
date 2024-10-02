@@ -257,6 +257,10 @@ export default function EditDatasetForm() {
               }),
             ...parsedData,
             category_ids: [data.settings.category],
+            reviewed_by: {
+              connect: [ME_DATA?.id],
+              disconnect: [],
+            },
           },
           session?.apiToken,
           // to do review data + change sug status
@@ -276,6 +280,11 @@ export default function EditDatasetForm() {
                     colors: data.colors,
                     data: {
                       ...data.data,
+                    },
+                    // @ts-expect-error TO-DO - fix types
+                    reviewed_by: {
+                      connect: [ME_DATA.id],
+                      disconnect: [],
                     },
                   },
                 },

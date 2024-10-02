@@ -20,6 +20,7 @@ type PendingChangesCell =
   | extendedProjectData;
 
 export default function PendingDeclinedChangesContributorRow(data: PendingChangesCell) {
+  console.log(data);
   return (
     <TableRow key={data.createdAt}>
       <TableCell className="whitespace-nowrap font-medium">
@@ -42,6 +43,24 @@ export default function PendingDeclinedChangesContributorRow(data: PendingChange
           >
             {data.review_status}
           </span>
+        </Link>
+      </TableCell>
+      <TableCell>
+        <Link
+          href={`/dashboard/${data.route}/${data.id}`}
+          className="flex w-full whitespace-nowrap"
+          title={data?.reviewed_by?.data?.attributes?.email}
+        >
+          {data.review_status === "pending" ? "-" : data?.reviewed_by?.data?.attributes?.username}
+        </Link>
+      </TableCell>
+      <TableCell>
+        <Link
+          href={`/dashboard/${data.route}/${data.id}`}
+          className="flex w-full whitespace-nowrap"
+          title={data?.reviewed_by?.data?.attributes?.email}
+        >
+          {data.review_status === "pending" ? "-" : data?.reviewed_by?.data?.attributes?.username}
         </Link>
       </TableCell>
       <TableCell>

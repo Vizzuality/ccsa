@@ -69,6 +69,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::types-of-funding.types-of-funding"
+    },
+    "reviewed_by": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

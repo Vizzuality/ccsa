@@ -91,6 +91,21 @@
           "sortable": false
         }
       },
+      "reviewed_by": {
+        "edit": {
+          "label": "reviewed_by",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "username"
+        },
+        "list": {
+          "label": "reviewed_by",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -151,7 +166,12 @@
       }
     },
     "layouts": {
-      "list": ["id", "name", "createdAt", "updatedAt"],
+      "list": [
+        "id",
+        "name",
+        "createdAt",
+        "updatedAt"
+      ],
       "edit": [
         [
           {
@@ -176,6 +196,10 @@
         [
           {
             "name": "image",
+            "size": 6
+          },
+          {
+            "name": "reviewed_by",
             "size": 6
           }
         ]

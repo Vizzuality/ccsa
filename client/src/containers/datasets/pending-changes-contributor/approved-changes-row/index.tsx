@@ -31,6 +31,14 @@ export default function ApprovedContributorsRow(data: ApprovedProps) {
         </span>
       </TableCell>
       <TableCell>
+        <div
+          className="flex w-full whitespace-nowrap"
+          title={data?.reviewed_by?.data?.attributes?.email}
+        >
+          {data.review_status === "pending" ? "-" : data?.reviewed_by?.data?.attributes?.username}
+        </div>
+      </TableCell>
+      <TableCell>
         <div className="flex w-full whitespace-nowrap">
           {data.updatedAt && data.createdAt && formatDate(data.updatedAt)}
           {!data.updatedAt && data.createdAt && formatDate(data.createdAt)}

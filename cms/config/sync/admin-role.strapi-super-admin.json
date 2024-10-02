@@ -69,7 +69,8 @@
           "author",
           "collaborator",
           "image",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -101,7 +102,8 @@
           "author",
           "collaborator",
           "image",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -119,7 +121,8 @@
           "author",
           "collaborator",
           "image",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -134,7 +137,8 @@
           "link",
           "type",
           "collaborator_edit_suggestions",
-          "image"
+          "image",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -163,7 +167,8 @@
           "link",
           "type",
           "collaborator_edit_suggestions",
-          "image"
+          "image",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -178,7 +183,8 @@
           "link",
           "type",
           "collaborator_edit_suggestions",
-          "image"
+          "image",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -262,7 +268,8 @@
           "layers",
           "dataset",
           "colors",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -298,7 +305,8 @@
           "layers",
           "dataset",
           "colors",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -320,7 +328,8 @@
           "layers",
           "dataset",
           "colors",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -395,7 +404,8 @@
           "dataset_edit_suggestions",
           "dataset_values",
           "category",
-          "colors"
+          "colors",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -429,7 +439,8 @@
           "dataset_edit_suggestions",
           "dataset_values",
           "category",
-          "colors"
+          "colors",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -449,7 +460,8 @@
           "dataset_edit_suggestions",
           "dataset_values",
           "category",
-          "colors"
+          "colors",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -679,7 +691,8 @@
           "description",
           "link",
           "other_tools_category",
-          "tool_edit_suggestions"
+          "tool_edit_suggestions",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -708,7 +721,8 @@
           "description",
           "link",
           "other_tools_category",
-          "tool_edit_suggestions"
+          "tool_edit_suggestions",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -723,7 +737,8 @@
           "description",
           "link",
           "other_tools_category",
-          "tool_edit_suggestions"
+          "tool_edit_suggestions",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -853,7 +868,8 @@
           "pillar",
           "sdgs",
           "project",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -894,7 +910,8 @@
           "pillar",
           "sdgs",
           "project",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -921,7 +938,8 @@
           "pillar",
           "sdgs",
           "project",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -992,7 +1010,8 @@
           "objective",
           "info",
           "project_edit_suggestions",
-          "funding"
+          "funding",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -1030,7 +1049,8 @@
           "objective",
           "info",
           "project_edit_suggestions",
-          "funding"
+          "funding",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -1054,7 +1074,8 @@
           "objective",
           "info",
           "project_edit_suggestions",
-          "funding"
+          "funding",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -1178,7 +1199,8 @@
           "author",
           "other_tools_category",
           "other_tool",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -1210,7 +1232,8 @@
           "author",
           "other_tools_category",
           "other_tool",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -1228,7 +1251,8 @@
           "author",
           "other_tools_category",
           "other_tool",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []

@@ -96,6 +96,7 @@ export default function PendingChangesAdmin() {
             <TableHead className="w-[100px]">name</TableHead>
             <TableHead>Author</TableHead>
             <TableHead>State</TableHead>
+            <TableHead>Reviewer</TableHead>
             <TableHead>Date</TableHead>
           </TableRow>
         </TableHeader>

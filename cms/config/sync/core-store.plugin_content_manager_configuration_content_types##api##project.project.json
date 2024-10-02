@@ -222,6 +222,21 @@
           "sortable": true
         }
       },
+      "reviewed_by": {
+        "edit": {
+          "label": "reviewed_by",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "username"
+        },
+        "list": {
+          "label": "reviewed_by",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -364,6 +379,10 @@
         [
           {
             "name": "funding",
+            "size": 6
+          },
+          {
+            "name": "reviewed_by",
             "size": 6
           }
         ]
