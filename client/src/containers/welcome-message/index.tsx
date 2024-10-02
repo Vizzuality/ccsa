@@ -43,12 +43,13 @@ export default function WelcomeMessage() {
   const handleFullscreen = () => {
     setFullscreen(screenfull?.isFullscreen);
   };
+
   useEffect(() => {
-    if (!isEmpty(screenfull)) {
+    if (screenfull.isEnabled) {
       screenfull?.on("change", handleFullscreen);
 
       return () => {
-        screenfull?.off("change", handleFullscreen);
+        screenfull.off("change", handleFullscreen);
       };
     }
   }, []);
