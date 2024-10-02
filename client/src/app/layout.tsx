@@ -6,7 +6,7 @@ import { PropsWithChildren } from "react";
 
 import { ToastContainer } from "react-toastify";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Hydrate, dehydrate } from "@tanstack/react-query";
@@ -29,6 +29,11 @@ import LayoutProviders from "./layout-providers";
 export const metadata: Metadata = {
   title: { template: "%s | CCSA", default: "CCSA" },
   description: "Caribbean Climate smart map",
+};
+
+export const viewport: Viewport = {
+  width: 1000,
+  initialScale: 1,
 };
 
 export default async function RootLayout({ children }: PropsWithChildren) {
