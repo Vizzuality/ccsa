@@ -37,18 +37,18 @@ export default function WelcomeMessage() {
   const handlePlay = () => {
     if (!videoRefContainer.current) return;
     setPlaying((prev) => !prev);
-    screenfull.request(videoRefContainer.current);
+    screenfull?.request(videoRefContainer?.current);
   };
 
   const handleFullscreen = () => {
-    setFullscreen(screenfull.isFullscreen);
+    setFullscreen(screenfull?.isFullscreen);
   };
 
   useEffect(() => {
-    screenfull.on("change", handleFullscreen);
+    screenfull?.on("change", handleFullscreen);
 
     return () => {
-      screenfull.off("change", handleFullscreen);
+      screenfull?.off("change", handleFullscreen);
     };
   }, []);
 
