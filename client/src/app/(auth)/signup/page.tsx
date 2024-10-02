@@ -1,11 +1,15 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 import Signup from "@/components/forms/signup";
 
 export const metadata: Metadata = {
   title: "Sign up | Caribbean Climate smart map",
   description: "Caribbean Climate smart map",
-  viewport: "width=1000, initial-scale=1",
+};
+
+export const viewport: Viewport = {
+  width: 1000,
+  initialScale: 1,
 };
 
 export default function SignupPage() {
