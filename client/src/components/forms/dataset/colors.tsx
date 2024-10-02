@@ -333,7 +333,7 @@ export default function DatasetColorsForm({
                               ),
                             })}
                             onChange={(e) => {
-                              return field.onChange(e.target.value);
+                              return field.onChange(e?.target?.value);
                             }}
                             disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                           />
