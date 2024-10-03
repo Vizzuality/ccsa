@@ -788,6 +788,7 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
     >;
     image: Attribute.Media;
     review_decision_details: Attribute.Text;
+    reviewed_by: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -950,6 +951,7 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
     >;
     colors: Attribute.JSON;
     review_decision_details: Attribute.Text;
+    reviewed_by: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1407,6 +1409,7 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
       'api::project.project'
     >;
     review_decision_details: Attribute.Text;
+    reviewed_by: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
