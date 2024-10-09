@@ -64,6 +64,11 @@
     },
     "colors": {
       "type": "json"
+    },
+    "reviewed_by": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

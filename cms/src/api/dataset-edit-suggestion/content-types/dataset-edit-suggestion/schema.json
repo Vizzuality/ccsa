@@ -74,7 +74,9 @@
       "type": "text"
     },
     "reviewed_by": {
-      "type": "string"
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

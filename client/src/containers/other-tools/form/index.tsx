@@ -261,6 +261,10 @@ export default function ToolForm() {
                 }),
               ...values,
               other_tools_category: values.category,
+              reviewed_by: {
+                connect: [ME_DATA.id],
+                disconnect: [],
+              },
             },
             data?.apiToken,
           )
@@ -295,6 +299,12 @@ export default function ToolForm() {
                         other_tool: {
                           disconnect: [+id],
                           connect: [+id],
+                        },
+                      }),
+                      ...(ME_DATA.id && {
+                        reviewed_by: {
+                          connect: [ME_DATA.id],
+                          disconnect: [],
                         },
                       }),
                     },

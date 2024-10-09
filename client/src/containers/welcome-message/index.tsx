@@ -16,7 +16,6 @@ import { useGetWelcomeMessage } from "@/types/generated/welcome-message";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import isEmpty from "lodash-es/isEmpty";
 
 export default function WelcomeMessage() {
   const videoRef = useRef<ReactPlayer>(null);

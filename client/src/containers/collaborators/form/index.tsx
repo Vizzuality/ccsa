@@ -247,6 +247,12 @@ export default function CollaboratorForm() {
                     disconnect: [],
                   },
                 }),
+                ...(ME_DATA.id && {
+                  reviewed_by: {
+                    connect: [ME_DATA.id],
+                    disconnect: [],
+                  },
+                }),
               },
             },
           });
@@ -263,6 +269,12 @@ export default function CollaboratorForm() {
               }),
             ...values,
             image: imageId,
+            ...(ME_DATA.id && {
+              reviewed_by: {
+                connect: [ME_DATA.id],
+                disconnect: [],
+              },
+            }),
           },
           data?.apiToken,
         )
@@ -281,6 +293,12 @@ export default function CollaboratorForm() {
                     connect: [+id],
                     disconnect: [],
                   },
+                  ...(ME_DATA.id && {
+                    reviewed_by: {
+                      connect: [ME_DATA.id],
+                      disconnect: [],
+                    },
+                  }),
                 },
               },
             });

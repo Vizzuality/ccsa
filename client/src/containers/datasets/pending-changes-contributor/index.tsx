@@ -77,6 +77,7 @@ export default function PendingChangesContributor() {
             <TableHead className="w-[100px] whitespace-nowrap">Change type</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>State</TableHead>
+            <TableHead>Reviewer</TableHead>
             <TableHead>Date</TableHead>
           </TableRow>
         </TableHeader>

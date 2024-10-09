@@ -164,6 +164,21 @@
           "sortable": false
         }
       },
+      "reviewed_by": {
+        "edit": {
+          "label": "reviewed_by",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "username"
+        },
+        "list": {
+          "label": "reviewed_by",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -285,6 +300,12 @@
           {
             "name": "colors",
             "size": 12
+          }
+        ],
+        [
+          {
+            "name": "reviewed_by",
+            "size": 6
           }
         ]
       ]

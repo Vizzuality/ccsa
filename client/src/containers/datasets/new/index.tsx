@@ -100,7 +100,18 @@ export default function NewDatasetForm() {
       if (ME_DATA?.role?.type === "admin") {
         const { value_type } = data.settings;
         const parsedData = getDataParsed(value_type, data);
-        updateOrCreateDataset(parsedData, session?.apiToken as string)
+        updateOrCreateDataset(
+          {
+            ...parsedData,
+            ...(ME_DATA.id && {
+              reviewed_by: {
+                connect: [ME_DATA.id],
+                disconnect: [],
+              },
+            }),
+          },
+          session?.apiToken as string,
+        )
           .then(() => {
             console.info("Success creating dataset:", data);
             toast.success("Success creating dataset");

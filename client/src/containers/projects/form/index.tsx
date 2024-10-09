@@ -421,6 +421,12 @@ export default function ProjectForm() {
                 id: 366,
               }),
             ...values,
+            ...(ME_DATA.id && {
+              reviewed_by: {
+                connect: [ME_DATA.id],
+                disconnect: [],
+              },
+            }),
           },
           data?.apiToken,
           // to do review data + change sug status
@@ -453,6 +459,12 @@ export default function ProjectForm() {
                       },
                     }),
                     review_status: "approved",
+                    ...(ME_DATA.id && {
+                      reviewed_by: {
+                        connect: [ME_DATA.id],
+                        disconnect: [],
+                      },
+                    }),
                   },
                 },
               });

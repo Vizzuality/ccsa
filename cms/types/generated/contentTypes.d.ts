@@ -739,6 +739,11 @@ export interface ApiCollaboratorCollaborator extends Schema.CollectionType {
       'api::collaborator-edit-suggestion.collaborator-edit-suggestion'
     >;
     image: Attribute.Media;
+    reviewed_by: Attribute.Relation<
+      'api::collaborator.collaborator',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -788,7 +793,11 @@ export interface ApiCollaboratorEditSuggestionCollaboratorEditSuggestion
     >;
     image: Attribute.Media;
     review_decision_details: Attribute.Text;
-    reviewed_by: Attribute.String;
+    reviewed_by: Attribute.Relation<
+      'api::collaborator-edit-suggestion.collaborator-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -888,6 +897,11 @@ export interface ApiDatasetDataset extends Schema.CollectionType {
       'api::category.category'
     >;
     colors: Attribute.JSON;
+    reviewed_by: Attribute.Relation<
+      'api::dataset.dataset',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -951,7 +965,11 @@ export interface ApiDatasetEditSuggestionDatasetEditSuggestion
     >;
     colors: Attribute.JSON;
     review_decision_details: Attribute.Text;
-    reviewed_by: Attribute.String;
+    reviewed_by: Attribute.Relation<
+      'api::dataset-edit-suggestion.dataset-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1190,6 +1208,11 @@ export interface ApiOtherToolOtherTool extends Schema.CollectionType {
       'oneToMany',
       'api::tool-edit-suggestion.tool-edit-suggestion'
     >;
+    reviewed_by: Attribute.Relation<
+      'api::other-tool.other-tool',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1331,6 +1354,11 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'oneToOne',
       'api::types-of-funding.types-of-funding'
     >;
+    reviewed_by: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1409,7 +1437,11 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
       'api::project.project'
     >;
     review_decision_details: Attribute.Text;
-    reviewed_by: Attribute.String;
+    reviewed_by: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1559,6 +1591,11 @@ export interface ApiToolEditSuggestionToolEditSuggestion
       'api::other-tool.other-tool'
     >;
     review_decision_details: Attribute.Text;
+    reviewed_by: Attribute.Relation<
+      'api::tool-edit-suggestion.tool-edit-suggestion',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
