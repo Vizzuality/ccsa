@@ -49,7 +49,7 @@ const EmbedContent = () => {
             size="sm"
             onClick={() => {
               navigator.clipboard.writeText(
-                `<iframe src={"${URL}/embed?${searchParams.toString()}"} width="800px" height="600px" />`,
+                `<iframe src="${URL}/embed?${searchParams.toString()}" width="800px" height="600px" />`,
               );
               setCopiedIframe(true);
               setTimeout(() => setCopiedIframe(false), 3000);

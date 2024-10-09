@@ -3318,6 +3318,7 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
+    reviewed_by?: string;
     sdgs?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs;
     source_country?: string;
     status?: string;
@@ -3917,6 +3918,7 @@ export type SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValue
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    reviewed_by?: string;
     unit?: string;
     updatedAt?: string;
     updatedBy?: SdgProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
@@ -5140,6 +5142,7 @@ export interface ProjectEditSuggestion {
   publishedAt?: string;
   review_decision_details?: string;
   review_status: ProjectEditSuggestionReviewStatus;
+  reviewed_by?: string;
   sdgs?: ProjectEditSuggestionSdgs;
   source_country?: string;
   status?: string;
@@ -5414,6 +5417,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
+    reviewed_by?: string;
     sdgs?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgs;
     source_country?: string;
     status?: string;
@@ -6163,6 +6167,7 @@ export type ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataIte
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    reviewed_by?: string;
     unit?: string;
     updatedAt?: string;
     updatedBy?: ProjectEditSuggestionCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
@@ -6619,6 +6624,7 @@ export type ProjectEditSuggestionRequestData = {
   project?: ProjectEditSuggestionRequestDataProject;
   review_decision_details?: string;
   review_status: ProjectEditSuggestionRequestDataReviewStatus;
+  reviewed_by?: string;
   sdgs?: ProjectEditSuggestionRequestDataSdgsItem[];
   source_country?: string;
   status?: string;
@@ -6821,6 +6827,7 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
+    reviewed_by?: string;
     sdgs?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesSdgs;
     source_country?: string;
     status?: string;
@@ -7458,6 +7465,7 @@ export type ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDat
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    reviewed_by?: string;
     unit?: string;
     updatedAt?: string;
     updatedBy?: ProjectCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
@@ -8327,6 +8335,7 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesReviewStatus;
+    reviewed_by?: string;
     sdgs?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesSdgs;
     source_country?: string;
     status?: string;
@@ -8955,6 +8964,7 @@ export type PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetVa
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    reviewed_by?: string;
     unit?: string;
     updatedAt?: string;
     updatedBy?: PillarProjectsDataItemAttributesCountriesDataItemAttributesDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
@@ -11135,6 +11145,7 @@ export type LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggest
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    reviewed_by?: string;
     unit?: string;
     updatedAt?: string;
     updatedBy?: LayerDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
@@ -12393,6 +12404,7 @@ export type DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEdit
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    reviewed_by?: string;
     unit?: string;
     updatedAt?: string;
     updatedBy?: DatasetValueDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
@@ -13235,6 +13247,7 @@ export interface DatasetEditSuggestion {
   publishedAt?: string;
   review_decision_details?: string;
   review_status: DatasetEditSuggestionReviewStatus;
+  reviewed_by?: string;
   unit?: string;
   updatedAt?: string;
   updatedBy?: DatasetEditSuggestionUpdatedBy;
@@ -13337,6 +13350,7 @@ export type DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDat
   publishedAt?: string;
   review_decision_details?: string;
   review_status?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
+  reviewed_by?: string;
   unit?: string;
   updatedAt?: string;
   updatedBy?: DatasetEditSuggestionCategoryDataAttributesDatasetEditSuggestionsDataItemAttributesUpdatedBy;
@@ -14245,6 +14259,7 @@ export type DatasetEditSuggestionRequestData = {
   name?: string;
   review_decision_details?: string;
   review_status: DatasetEditSuggestionRequestDataReviewStatus;
+  reviewed_by?: string;
   unit?: string;
   value_type?: DatasetEditSuggestionRequestDataValueType;
 };
@@ -14687,6 +14702,7 @@ export type DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSugge
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesReviewStatus;
+    reviewed_by?: string;
     unit?: string;
     updatedAt?: string;
     updatedBy?: DatasetLayersDataItemAttributesDatasetDataAttributesDatasetEditSuggestionsDataItemAttributesUpdatedBy;
@@ -15579,6 +15595,7 @@ export type CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDat
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesReviewStatus;
+    reviewed_by?: string;
     unit?: string;
     updatedAt?: string;
     updatedBy?: CountryDatasetValuesDataItemAttributesDatasetDataAttributesLayersDataItemAttributesDatasetEditSuggestionDataAttributesUpdatedBy;
@@ -16599,6 +16616,7 @@ export type CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEdit
     publishedAt?: string;
     review_decision_details?: string;
     review_status?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesReviewStatus;
+    reviewed_by?: string;
     type?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesType;
     updatedAt?: string;
     updatedBy?: CollaboratorEditSuggestionCollaboratorDataAttributesCollaboratorEditSuggestionsDataItemAttributesUpdatedBy;
@@ -16942,6 +16960,7 @@ export interface CollaboratorEditSuggestion {
   publishedAt?: string;
   review_decision_details?: string;
   review_status: CollaboratorEditSuggestionReviewStatus;
+  reviewed_by?: string;
   type?: CollaboratorEditSuggestionType;
   updatedAt?: string;
   updatedBy?: CollaboratorEditSuggestionUpdatedBy;
@@ -17312,6 +17331,7 @@ export type CollaboratorEditSuggestionRequestData = {
   name?: string;
   review_decision_details?: string;
   review_status: CollaboratorEditSuggestionRequestDataReviewStatus;
+  reviewed_by?: string;
   type?: CollaboratorEditSuggestionRequestDataType;
 };
 
@@ -17494,6 +17514,7 @@ export type CollaboratorCollaboratorEditSuggestionsDataItemAttributes = {
   publishedAt?: string;
   review_decision_details?: string;
   review_status?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesReviewStatus;
+  reviewed_by?: string;
   type?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesType;
   updatedAt?: string;
   updatedBy?: CollaboratorCollaboratorEditSuggestionsDataItemAttributesUpdatedBy;
@@ -18427,6 +18448,7 @@ export type CategoryDatasetEditSuggestionsDataItemAttributes = {
   publishedAt?: string;
   review_decision_details?: string;
   review_status?: CategoryDatasetEditSuggestionsDataItemAttributesReviewStatus;
+  reviewed_by?: string;
   unit?: string;
   updatedAt?: string;
   updatedBy?: CategoryDatasetEditSuggestionsDataItemAttributesUpdatedBy;
