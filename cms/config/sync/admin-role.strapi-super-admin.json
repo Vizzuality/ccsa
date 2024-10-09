@@ -69,7 +69,8 @@
           "author",
           "collaborator",
           "image",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -101,7 +102,8 @@
           "author",
           "collaborator",
           "image",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -119,7 +121,8 @@
           "author",
           "collaborator",
           "image",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -262,7 +265,8 @@
           "layers",
           "dataset",
           "colors",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -298,7 +302,8 @@
           "layers",
           "dataset",
           "colors",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -320,7 +325,8 @@
           "layers",
           "dataset",
           "colors",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -853,7 +859,8 @@
           "pillar",
           "sdgs",
           "project",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -894,7 +901,8 @@
           "pillar",
           "sdgs",
           "project",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
@@ -921,7 +929,8 @@
           "pillar",
           "sdgs",
           "project",
-          "review_decision_details"
+          "review_decision_details",
+          "reviewed_by"
         ]
       },
       "conditions": []
