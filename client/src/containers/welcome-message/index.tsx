@@ -16,7 +16,6 @@ import { useGetWelcomeMessage } from "@/types/generated/welcome-message";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import isEmpty from "lodash-es/isEmpty";
 
 export default function WelcomeMessage() {
   const videoRef = useRef<ReactPlayer>(null);
@@ -43,7 +42,7 @@ export default function WelcomeMessage() {
   const handleFullscreen = () => {
     setFullscreen(screenfull?.isFullscreen);
   };
-  
+
   useEffect(() => {
     if (screenfull.isEnabled) {
       screenfull.on("change", handleFullscreen);
@@ -92,7 +91,7 @@ export default function WelcomeMessage() {
                   width={data?.data?.attributes?.image?.data?.attributes?.width}
                   height={data?.data?.attributes?.image?.data?.attributes?.height}
                   priority
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover rounded-lg"
                 />
               )}
             </div>

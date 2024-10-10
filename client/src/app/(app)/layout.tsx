@@ -29,6 +29,7 @@ import Navigation from "@/containers/navigation";
 import Sidebar from "@/containers/sidebar";
 
 import LayoutProviders from "./layout-providers";
+import { getGetWelcomeMessageQueryOptions } from "@/types/generated/welcome-message";
 
 const WelcomeMessage = dynamic(() => import("@/containers/welcome-message"), { ssr: false });
 
@@ -79,6 +80,10 @@ export default async function AppLayout({ children }: PropsWithChildren) {
 
   // Prefetch collaborators
   await queryClient.prefetchQuery(getGetCollaboratorsQueryOptions());
+
+  await queryClient.prefetchQuery(getGetWelcomeMessageQueryOptions({
+    populate: ["video", "image"],
+  }));
 
   const dehydratedState = dehydrate(queryClient);
 
