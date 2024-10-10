@@ -92,7 +92,7 @@ export default function WelcomeMessage() {
                   width={data?.data?.attributes?.image?.data?.attributes?.width}
                   height={data?.data?.attributes?.image?.data?.attributes?.height}
                   priority
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover rounded-lg"
                 />
               )}
             </div>
