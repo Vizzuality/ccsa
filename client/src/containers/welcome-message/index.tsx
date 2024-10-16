@@ -34,7 +34,7 @@ export default function WelcomeMessage() {
   const handlePlay = () => {
     if (!videoRefContainer.current) return;
     setPlaying((prev) => !prev);
-    screenfull?.request(videoRefContainer?.current);
+    screenfull?.request(videoRefContainer.current);
   };
 
   const handleFullscreen = () => {
@@ -89,7 +89,7 @@ export default function WelcomeMessage() {
                   width={data?.data?.attributes?.image?.data?.attributes?.width}
                   height={data?.data?.attributes?.image?.data?.attributes?.height}
                   priority
-                  className="h-full w-full object-cover"
+                  className="h-full w-full rounded-lg object-cover"
                 />
               )}
             </div>

@@ -1,4 +1,5 @@
 import { Metadata, Viewport } from "next";
+
 import Link from "next/link";
 
 import { Hydrate, dehydrate } from "@tanstack/react-query";
