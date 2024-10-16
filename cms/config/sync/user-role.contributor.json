@@ -136,6 +136,12 @@
       "action": "api::project-edit-suggestion.project-edit-suggestion.update"
     },
     {
+      "action": "api::project-status.project-status.find"
+    },
+    {
+      "action": "api::project-status.project-status.findOne"
+    },
+    {
       "action": "api::project.project.find"
     },
     {

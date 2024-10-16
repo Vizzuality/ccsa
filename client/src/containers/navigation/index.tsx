@@ -23,7 +23,7 @@ const Navigation = (): JSX.Element => {
   const sp = useSyncSearchParams();
   const { data: user } = useGetUsersMe();
 
-  const userNameWithoutSpaces = user?.username?.replace(" ", "");
+  const userNameWithoutSpaces = !user?.username?.includes(" ");
 
   return (
     <nav className="relative z-20 flex h-full w-20 shrink-0 flex-col justify-between border-r-2 border-gray-300/20 bg-white">
@@ -170,8 +170,7 @@ const Navigation = (): JSX.Element => {
           <span
             className={cn({
               "w-full flex-wrap text-xxs": true,
-              "overflow-hidden truncate":
-                userNameWithoutSpaces && userNameWithoutSpaces?.length > 15,
+              "overflow-hidden truncate px-2": userNameWithoutSpaces,
             })}
           >
             {user ? user?.username : "Log in"}

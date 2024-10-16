@@ -52,9 +52,10 @@ export function uploadProjectsCsv(
       },
       ...options,
     })
-    .then(({ data }) => {
-      console.info("Projects uploaded successfully:", data);
+    .then((response) => {
+      console.info("Projects uploaded successfully:", response.data);
       toast.success("Projects uploaded successfully");
+      return response;
     })
     .catch((err) => {
       toast.error(err.response.data.error.message);
