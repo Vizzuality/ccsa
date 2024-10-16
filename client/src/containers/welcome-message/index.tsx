@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
 import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 
@@ -37,7 +36,6 @@ export default function WelcomeMessage() {
     if (!videoRefContainer.current) return;
     setPlaying((prev) => !prev);
     screenfull?.request(videoRefContainer.current);
-
   };
 
   const handleFullscreen = () => {
@@ -92,7 +90,7 @@ export default function WelcomeMessage() {
                   width={data?.data?.attributes?.image?.data?.attributes?.width}
                   height={data?.data?.attributes?.image?.data?.attributes?.height}
                   priority
-                  className="h-full w-full object-cover rounded-lg"
+                  className="h-full w-full rounded-lg object-cover"
                 />
               )}
             </div>
