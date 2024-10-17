@@ -208,9 +208,6 @@
       "action": "plugin::content-type-builder.content-types.getContentTypes"
     },
     {
-      "action": "plugin::import-export-entries.export.exportData"
-    },
-    {
       "action": "plugin::import-export-entries.import.importData"
     },
     {
