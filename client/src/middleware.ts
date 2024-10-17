@@ -3,7 +3,7 @@ import { NextFetchEvent, NextResponse } from "next/server";
 
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 
-const privatePaths = ["/dashboard", "/datasets"];
+export const privatePaths = ["/dashboard", "/datasets"];
 
 const dataMiddleware = async (request: Request) => {
   // Store current request url in a custom header, which you can read later
@@ -20,7 +20,7 @@ const dataMiddleware = async (request: Request) => {
 
 const authMiddleware = withAuth({
   callbacks: {
-    authorized: ({ token }) => !!token,
+    authorized: ({ token }) => !!token && !token.error,
   },
 });
 

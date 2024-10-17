@@ -4,6 +4,10 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 import { postAuthLocal } from "@/types/generated/users-permissions-auth";
 
+import { jwtDecode } from "jwt-decode";
+
+const SESSION_MAX_AGE = 30 * 24 * 60 * 60; // 30 days
+
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
@@ -33,7 +37,7 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt", maxAge: SESSION_MAX_AGE },
   callbacks: {
     async session({ session, token }) {
       const sanitizedToken = Object.keys(token).reduce((p, c) => {
@@ -44,7 +48,34 @@ export const authOptions: AuthOptions = {
           return p;
         }
       }, {});
-      return { ...session, user: sanitizedToken, apiToken: token.apiToken };
+        const decoded = jwtDecode(token.apiToken);
+
+        const sessionToken = session.sessionToken ?? token;
+
+        if (sessionToken) {
+            const now = new Date().getTime();
+            const exp = (decoded.iat * 1000) + (SESSION_MAX_AGE * 1000);
+
+            if (now < exp) {
+                return ({
+                    ...session,
+                    user: sanitizedToken,
+                    apiToken: token.apiToken,
+                });
+            } else {
+                return ({
+                    ...session,
+                    user: sanitizedToken,
+                    error: "ExpiredTokenError",
+                });
+            }
+        }
+
+        return ({
+            ...session,
+            user: sanitizedToken,
+            apiToken: token.apiToken,
+        })
     },
     async jwt({ token, user }) {
       if (typeof user !== "undefined") {
