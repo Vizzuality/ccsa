@@ -1,27 +1,26 @@
-'use client';
+"use client";
 
-import {PropsWithChildren, useEffect} from "react";
-import {signOut, useSession} from "next-auth/react";
+import { PropsWithChildren, useEffect } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 import { privatePaths } from "@/middleware";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 
-export default function SessionChecker ({children}: PropsWithChildren) {
-    const { data: sessionData } = useSession();
-    const pathname = usePathname()
+export default function SessionChecker({ children }: PropsWithChildren) {
+  const { data: sessionData } = useSession();
+  const pathname = usePathname();
 
-    console.log(sessionData?.error)
-    useEffect(() => {
-        if (!!sessionData?.error) {
-            // Sign out here
-            signOut({
-                // todo: add the callbackUrl
-                ...privatePaths.includes(pathname) && { callbackUrl: "/signin" },
-            });
-        }
-    }, [sessionData]);
+  useEffect(() => {
+    if (!!sessionData?.error) {
+      // Check if the current path is part of private paths
+      const isPrivatePath = privatePaths.includes(pathname);
 
-    return (
-        <>{children}</>
-    )
+      // Sign out user and redirect them to signin page if needed
+      signOut({
+        callbackUrl: isPrivatePath ? "/signin" : undefined, // Only add callbackUrl for private paths
+      });
+    }
+  }, [sessionData, pathname]);
+
+  return <>{children}</>;
 }

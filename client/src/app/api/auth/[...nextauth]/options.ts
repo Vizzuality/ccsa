@@ -48,34 +48,35 @@ export const authOptions: AuthOptions = {
           return p;
         }
       }, {});
-        const decoded = jwtDecode(token.apiToken);
 
-        const sessionToken = session.sessionToken ?? token;
+      const decoded = jwtDecode(token.apiToken);
 
-        if (sessionToken) {
-            const now = new Date().getTime();
-            const exp = (decoded.iat * 1000) + (SESSION_MAX_AGE * 1000);
+      const sessionToken = session.sessionToken ?? token;
 
-            if (now < exp) {
-                return ({
-                    ...session,
-                    user: sanitizedToken,
-                    apiToken: token.apiToken,
-                });
-            } else {
-                return ({
-                    ...session,
-                    user: sanitizedToken,
-                    error: "ExpiredTokenError",
-                });
-            }
-        }
+      if (sessionToken && decoded.iat) {
+        const now = new Date().getTime();
+        const exp = decoded.iat * 1000 + SESSION_MAX_AGE * 1000;
 
-        return ({
+        if (now < exp) {
+          return {
             ...session,
             user: sanitizedToken,
             apiToken: token.apiToken,
-        })
+          };
+        } else {
+          return {
+            ...session,
+            user: sanitizedToken,
+            error: "ExpiredTokenError",
+          };
+        }
+      }
+
+      return {
+        ...session,
+        user: sanitizedToken,
+        apiToken: token.apiToken,
+      };
     },
     async jwt({ token, user }) {
       if (typeof user !== "undefined") {
