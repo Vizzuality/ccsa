@@ -8,22 +8,21 @@ import { LuUser2 } from "react-icons/lu";
 
 import { cn } from "@/lib/classnames";
 
-import { useGetUsersMe } from "@/types/generated/users-permissions-users-roles";
-
 import { useSyncSearchParams } from "@/app/store";
 
 import CollaboratorsSvg from "@/svgs/collaborators.svg";
 import ExploreSVG from "@/svgs/explore.svg";
 import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
+import {useSession} from "next-auth/react";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
 
   const sp = useSyncSearchParams();
-  const { data: user } = useGetUsersMe();
+    const { data: session } = useSession();
 
-  const userNameWithoutSpaces = !user?.username?.includes(" ");
+  const userNameWithoutSpaces = !session?.user?.username?.includes(" ");
 
   return (
     <nav className="relative z-20 flex h-full w-20 shrink-0 flex-col justify-between border-r-2 border-gray-300/20 bg-white">
@@ -151,7 +150,7 @@ const Navigation = (): JSX.Element => {
           })}
         />
         <Link
-          href={!user ? "/signin" : "/dashboard"}
+          href={!session ? "/signin" : "/dashboard"}
           className={cn({
             "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
             "bg-[#FF7816]/10": pathname === "/collaborators",
@@ -173,7 +172,7 @@ const Navigation = (): JSX.Element => {
               "overflow-hidden truncate px-2": userNameWithoutSpaces,
             })}
           >
-            {user ? user?.username : "Log in"}
+            {session ? session.user.username : "Log in"}
           </span>
         </Link>
       </div>
