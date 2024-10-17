@@ -25,6 +25,7 @@ import PoweredBy from "@/containers/powered-by";
 import { metropolis, openSans } from "@/styles/fonts";
 
 import LayoutProviders from "./layout-providers";
+import SessionChecker from "@/components/session-checker";
 
 export const metadata: Metadata = {
   title: { template: "%s | CCSA", default: "CCSA" },
@@ -55,6 +56,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <Hydrate state={dehydratedState}>
         <html lang="en" className={`${openSans.variable} ${metropolis.variable}`}>
           <body>
+          <SessionChecker />
             {children}
 
             <div className="fixed bottom-0 left-1/2 z-10 -translate-x-1/2">
