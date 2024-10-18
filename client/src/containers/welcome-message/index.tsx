@@ -41,7 +41,7 @@ export default function WelcomeMessage() {
   const handleFullscreen = () => {
     setFullscreen(screenfull?.isFullscreen);
   };
-
+  
   useEffect(() => {
     if (screenfull.isEnabled) {
       screenfull.on("change", handleFullscreen);
