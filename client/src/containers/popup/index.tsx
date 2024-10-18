@@ -9,7 +9,8 @@ import { cn } from "@/lib/classnames";
 const Popup = ({
   visibleKey,
   children,
-}: PropsWithChildren<{ visibleKey: string | number | null }>): JSX.Element => {
+  className,
+}: PropsWithChildren<{ visibleKey: string | number | null; className?: string }>): JSX.Element => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen((prev) => !prev);
@@ -25,6 +26,7 @@ const Popup = ({
           true,
         "-translate-x-full": !open && visibleKey,
         "translate-x-0": open && visibleKey,
+        [className || ""]: !!className,
       })}
     >
       <div className="relative z-10 h-full max-h-screen w-full overflow-auto rounded-br-3xl bg-white">
