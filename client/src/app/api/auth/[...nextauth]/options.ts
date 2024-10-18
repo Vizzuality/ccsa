@@ -53,9 +53,11 @@ export const authOptions: AuthOptions = {
 
       const sessionToken = session.sessionToken ?? token;
 
-      if (sessionToken && decoded.iat) {
+      if (sessionToken) {
         const now = new Date().getTime();
-        const exp = decoded.iat * 1000 + SESSION_MAX_AGE * 1000;
+        const exp = decoded.iat
+          ? decoded.iat * 1000 + SESSION_MAX_AGE * 1000
+          : SESSION_MAX_AGE * 1000;
 
         if (now < exp) {
           return {
