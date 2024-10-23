@@ -82,9 +82,10 @@ export function uploadProjectsSuggestionCsv(
       },
       ...options,
     })
-    .then(({ data }) => {
-      console.info("Projects suggestions uploaded successfully:", data);
+    .then((response) => {
+      console.info("Projects suggestions uploaded successfully:", response.data);
       toast.success("Projects suggestions uploaded successfully");
+      return response;
     })
     .catch((err) => {
       toast.error(err.response.data.error.message);

@@ -53,9 +53,10 @@ export function uploadCollaboratorsCsv(
       },
       ...options,
     })
-    .then(({ data }) => {
-      console.info("Collaborators uploaded successfully:", data);
+    .then((response) => {
+      console.info("Collaborators uploaded successfully:", response.data);
       toast.success("Collaborators uploaded successfully");
+      return response;
     })
     .catch((err) => {
       toast.error(err.response.data.error.message);
@@ -82,9 +83,10 @@ export function uploadCollaboratorEditSuggestionsCsv(
       },
       ...options,
     })
-    .then(({ data }) => {
-      console.info("Collaborators suggestions uploaded successfully:", data);
+    .then((response) => {
+      console.info("Collaborators suggestions uploaded successfully:", response.data);
       toast.success("Collaborators suggestions uploaded successfully");
+      return response;
     })
     .catch((err) => {
       toast.error(err.response.data.error.message);

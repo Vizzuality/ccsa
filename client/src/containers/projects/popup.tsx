@@ -24,8 +24,12 @@ const ProjectPopup = () => {
         countries: {
           fields: ["name"],
         },
-        project_status: true,
-        project_type_of_funding: true,
+        status: {
+          fields: ["name"],
+        },
+        funding: {
+          fields: ["name"],
+        },
       },
     },
     {
@@ -39,6 +43,12 @@ const ProjectPopup = () => {
   const pillar = data?.data?.attributes?.pillar;
   const sdgs = data?.data?.attributes?.sdgs;
   const countries = data?.data?.attributes?.countries;
+  const projectStatus = data?.data?.attributes?.status?.data?.attributes?.name;
+  const projectTypeOfFunding = data?.data?.attributes?.funding?.data?.attributes?.name;
+  const organizationType = data?.data?.attributes?.organization_type?.data?.attributes?.name;
+  const sourceCountry = data?.data?.attributes?.source_country?.data?.attributes?.name;
+  const objective = data?.data?.attributes?.objective?.data?.attributes?.name;
+  const info = data?.data?.attributes?.info;
 
   const { format } = Intl.NumberFormat("en-US", {
     style: "currency",
@@ -79,14 +89,6 @@ const ProjectPopup = () => {
             </div>
           )}
 
-          {/* ACCOUNT */}
-          {!!data?.data?.attributes?.account && (
-            <div className="space-y-2.5">
-              <h3 className="text-xxs uppercase text-gray-500">Account</h3>
-              <div className="text-sm">{data?.data?.attributes?.account}</div>
-            </div>
-          )}
-
           {/* AMOUNT */}
           {!!data?.data?.attributes?.amount && (
             <div className="space-y-2.5">
@@ -110,6 +112,7 @@ const ProjectPopup = () => {
               </div>
             </div>
           )}
+
           {/* SDGS */}
           {!!sdgs?.data?.length && (
             <div className="space-y-2.5">
@@ -125,6 +128,62 @@ const ProjectPopup = () => {
                   );
                 })}
               </ul>
+            </div>
+          )}
+
+          {/* ACCOUNT */}
+          {!!data?.data?.attributes?.account && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Account</h3>
+              <div className="text-sm">{data?.data?.attributes?.account}</div>
+            </div>
+          )}
+
+          {/* STATUS */}
+          {!!projectStatus && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Status</h3>
+              <div className="text-sm">{projectStatus}</div>
+            </div>
+          )}
+
+          {/* Source Country */}
+          {!!sourceCountry && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Source Country</h3>
+              <div className="text-sm">{sourceCountry}</div>
+            </div>
+          )}
+
+          {/* Organization Type */}
+          {!!organizationType && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Organization Type</h3>
+              <div className="text-sm">{organizationType}</div>
+            </div>
+          )}
+
+          {/* INFO */}
+          {!!info && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Info</h3>
+              <div className="text-sm">{info}</div>
+            </div>
+          )}
+
+          {/* Objective */}
+          {!!objective && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Objective</h3>
+              <div className="text-sm">{objective}</div>
+            </div>
+          )}
+
+          {/* TYPE OF FUNDING */}
+          {!!projectTypeOfFunding && (
+            <div className="space-y-2.5">
+              <h3 className="text-xxs uppercase text-gray-500">Type of funding</h3>
+              <div className="text-sm">{projectTypeOfFunding}</div>
             </div>
           )}
         </section>

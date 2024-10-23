@@ -25,19 +25,10 @@
     "amount": {
       "type": "float"
     },
-    "status": {
-      "type": "string"
-    },
     "funding": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::types-of-funding.types-of-funding"
-    },
-    "source_country": {
-      "type": "string"
-    },
-    "organization_type": {
-      "type": "string"
     },
     "objective": {
       "type": "relation",
@@ -90,6 +81,21 @@
     },
     "reviewed_by": {
       "type": "string"
+    },
+    "source_country": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::world-country.world-country"
+    },
+    "organization_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::organization-type.organization-type"
+    },
+    "status": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::project-status.project-status"
     }
   }
 }

@@ -1312,9 +1312,6 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'manyToMany',
       'api::sdg.sdg'
     >;
-    status: Attribute.String;
-    source_country: Attribute.String;
-    organization_type: Attribute.String;
     objective: Attribute.Relation<
       'api::project.project',
       'oneToOne',
@@ -1330,6 +1327,21 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'api::project.project',
       'oneToOne',
       'api::types-of-funding.types-of-funding'
+    >;
+    organization_type: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::organization-type.organization-type'
+    >;
+    source_country: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::world-country.world-country'
+    >;
+    status: Attribute.Relation<
+      'api::project.project',
+      'oneToOne',
+      'api::project-status.project-status'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1366,14 +1378,11 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
     highlight: Attribute.RichText;
     account: Attribute.String;
     amount: Attribute.Float;
-    status: Attribute.String;
     funding: Attribute.Relation<
       'api::project-edit-suggestion.project-edit-suggestion',
       'oneToOne',
       'api::types-of-funding.types-of-funding'
     >;
-    source_country: Attribute.String;
-    organization_type: Attribute.String;
     objective: Attribute.Relation<
       'api::project-edit-suggestion.project-edit-suggestion',
       'oneToOne',
@@ -1410,6 +1419,21 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
     >;
     review_decision_details: Attribute.Text;
     reviewed_by: Attribute.String;
+    source_country: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'api::world-country.world-country'
+    >;
+    organization_type: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'api::organization-type.organization-type'
+    >;
+    status: Attribute.Relation<
+      'api::project-edit-suggestion.project-edit-suggestion',
+      'oneToOne',
+      'api::project-status.project-status'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
