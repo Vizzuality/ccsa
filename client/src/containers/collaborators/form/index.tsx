@@ -193,8 +193,8 @@ export default function CollaboratorForm() {
       }),
     link: z.string().refine(
       (value) => {
-        // Allow URLs starting with "www." or valid URLs starting with "http" or "https"
-        return /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/[^\s]*)?$/.test(value);
+        // This regex requires the URL to start with either http://, https://, or www.
+        return /^(https?:\/\/|www\.)[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/[^\s]*)?$/.test(value);
       },
       { message: "Please enter a valid URL" },
     ),

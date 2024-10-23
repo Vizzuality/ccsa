@@ -42,15 +42,6 @@
       "target": "api::sdg.sdg",
       "inversedBy": "projects"
     },
-    "status": {
-      "type": "string"
-    },
-    "source_country": {
-      "type": "string"
-    },
-    "organization_type": {
-      "type": "string"
-    },
     "objective": {
       "type": "relation",
       "relation": "oneToOne",
@@ -69,6 +60,21 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::types-of-funding.types-of-funding"
+    },
+    "organization_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::organization-type.organization-type"
+    },
+    "source_country": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::world-country.world-country"
+    },
+    "status": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::project-status.project-status"
     }
   }
 }

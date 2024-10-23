@@ -302,17 +302,17 @@ export default function ProjectForm() {
         message: "Please select a sdg",
       }),
     ),
-    status: z.string().min(1, {
+    status: z.coerce.number().min(1, {
       message: "Please enter status",
     }),
     funding: z.coerce.number().min(1, {
       message: "Please select type of funding",
     }),
-    organization_type: z.string().min(1, {
+    organization_type: z.coerce.number().min(1, {
       message: "Please enter organization type",
     }),
-    source_country: z.string().min(1, { message: "Please select a country" }),
-    objective: z.string().min(1, { message: "Please enter objective" }),
+    source_country: z.coerce.number().min(1, { message: "Please select a country" }),
+    objective: z.coerce.number().min(1, { message: "Please enter objective" }),
   });
 
   // TO - DO - add category from edit when API gets fixed
@@ -330,11 +330,11 @@ export default function ProjectForm() {
         countries:
           previousData?.countries?.data?.map(({ id }: { id?: number }) => id as number) || [],
         sdgs: previousData?.sdgs?.data?.map(({ id }: { id?: number }) => id as number) || [],
-        status: previousData?.status || "",
+        status: previousData?.status?.data?.id as number,
         funding: previousData?.funding?.data?.id as number,
-        organization_type: previousData?.organization_type || "",
-        source_country: previousData?.source_country || "",
-        objective: previousData?.objective as string,
+        organization_type: previousData?.organization_type?.data?.id as number,
+        source_country: previousData?.source_country?.data?.id as number,
+        objective: previousData?.objective?.data?.id as number,
       },
     }),
   });

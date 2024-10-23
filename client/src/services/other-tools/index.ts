@@ -54,9 +54,10 @@ export function uploadOtherToolsCsv(
       },
       ...options,
     })
-    .then(({ data }) => {
-      console.info("Tools uploaded successfully:", data);
+    .then((response) => {
+      console.info("Tools uploaded successfully:", response.data);
       toast.success("Tools uploaded successfully");
+      return response;
     })
     .catch((err) => {
       toast.error(err.response.data.error.message);
@@ -83,9 +84,10 @@ export function uploadToolEditSuggestionCsv(
       },
       ...options,
     })
-    .then(({ data }) => {
-      console.info("Tools suggestions uploaded successfully:", data);
+    .then((response) => {
+      console.info("Tools suggestions uploaded successfully:", response.data);
       toast.success("Tools suggestions uploaded successfully");
+      return response;
     })
     .catch((err) => {
       toast.error(err.response.data.error.message);
