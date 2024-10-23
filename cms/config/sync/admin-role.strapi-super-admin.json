@@ -995,13 +995,13 @@
           "account",
           "amount",
           "sdgs",
-          "status",
-          "source_country",
-          "organization_type",
           "objective",
           "info",
           "project_edit_suggestions",
-          "funding"
+          "funding",
+          "organization_type",
+          "source_country",
+          "status"
         ]
       },
       "conditions": []
@@ -1033,13 +1033,13 @@
           "account",
           "amount",
           "sdgs",
-          "status",
-          "source_country",
-          "organization_type",
           "objective",
           "info",
           "project_edit_suggestions",
-          "funding"
+          "funding",
+          "organization_type",
+          "source_country",
+          "status"
         ]
       },
       "conditions": []
@@ -1057,13 +1057,13 @@
           "account",
           "amount",
           "sdgs",
-          "status",
-          "source_country",
-          "organization_type",
           "objective",
           "info",
           "project_edit_suggestions",
-          "funding"
+          "funding",
+          "organization_type",
+          "source_country",
+          "status"
         ]
       },
       "conditions": []
