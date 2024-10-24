@@ -30,6 +30,15 @@ const ProjectPopup = () => {
         funding: {
           fields: ["name"],
         },
+        objective: {
+          fields: ["name"],
+        },
+        organization_type: {
+          fields: ["name"],
+        },
+        source_country: {
+          fields: ["name"],
+        },
       },
     },
     {
