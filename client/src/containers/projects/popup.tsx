@@ -31,7 +31,7 @@ const ProjectPopup = () => {
           fields: ["name"],
         },
         objective: {
-          fields: ["name"],
+          fields: ["type"],
         },
         organization_type: {
           fields: ["name"],
@@ -56,9 +56,8 @@ const ProjectPopup = () => {
   const projectTypeOfFunding = data?.data?.attributes?.funding?.data?.attributes?.name;
   const organizationType = data?.data?.attributes?.organization_type?.data?.attributes?.name;
   const sourceCountry = data?.data?.attributes?.source_country?.data?.attributes?.name;
-  const objective = data?.data?.attributes?.objective?.data?.attributes?.name;
+  const objective = data?.data?.attributes?.objective?.data?.attributes?.type;
   const info = data?.data?.attributes?.info;
-
   const { format } = Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
