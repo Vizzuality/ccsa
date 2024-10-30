@@ -54,7 +54,7 @@ const CountriesTable = () => {
     }
     return "-";
   };
-
+  console.info(TABLE_ROWS_DATA);
   return (
     <div className="w-full overflow-auto">
       {((!!TABLE_ROWS_DATA && !TABLE_ROWS_DATA.length) || !TABLE_ROWS_DATA) && (
