@@ -4,7 +4,8 @@
   "info": {
     "singularName": "resource",
     "pluralName": "resources",
-    "displayName": "Resource"
+    "displayName": "Resource",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,7 +18,8 @@
     },
     "link_url": {
       "type": "text",
-      "required": true
+      "required": true,
+      "regex": "/^(https?:\\/\\/|www\\.)[a-zA-Z0-9-]+\\.[a-zA-Z]{2,}(\\/[^\\s]*)?$/"
     },
     "description": {
       "type": "text"
