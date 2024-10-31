@@ -125,7 +125,7 @@ const useTableData = () => {
                 isDatasetValueProperty(value_type) &&
                 datasetValue?.attributes?.[value_type];
               const country = countriesData?.data?.find((c1) => c1.attributes?.iso3 === c);
-
+              console.log({ country, c, datasetValue, value });
               return {
                 iso3: c,
                 countryLink: country?.attributes?.link,
