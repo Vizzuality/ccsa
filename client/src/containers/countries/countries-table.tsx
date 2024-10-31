@@ -54,7 +54,7 @@ const CountriesTable = () => {
     }
     return "-";
   };
-  console.info(TABLE_ROWS_DATA);
+
   return (
     <div className="w-full overflow-auto">
       {((!!TABLE_ROWS_DATA && !TABLE_ROWS_DATA.length) || !TABLE_ROWS_DATA) && (
@@ -104,42 +104,48 @@ const CountriesTable = () => {
                       <td key={v.iso3} className="space-x-1 space-y-1.5 p-3">
                         {v.isResource ? (
                           v.resources?.length ? (
-                            v.resources?.map((r) => (
-                              <Popover key={r.link_title}>
-                                <PopoverTrigger className="whitespace-nowrap rounded border border-brand1/20 bg-brand1/10 px-2.5 py-[3px] text-xs leading-none text-brand1 data-[state='open']:bg-brand1 data-[state='open']:text-white">
-                                  {r.link_title}
-                                </PopoverTrigger>
-                                <PopoverPortal>
-                                  <PopoverContent
-                                    id={`popover-${t.name}`}
-                                    className="w-fit min-w-[240px] max-w-[500px] space-y-3 border-none bg-gray-700 text-white"
-                                  >
-                                    <PopoverArrow className="fill-gray-700" />
+                            v.resources?.map((r) => {
+                              if (!/^https?:\/\/|^www\./i.test(r.link_url)) {
+                                r.link_url = `https://${r.link_url}`;
+                              }
 
-                                    <div className="flex items-center justify-between font-open-sans">
-                                      <p className="text-xxs font-semibold uppercase leading-none text-gray-400">
-                                        {t.name}
-                                      </p>
-                                      <PopoverClose>
-                                        <LuX className="h-6 w-6 text-white" />
-                                      </PopoverClose>
-                                    </div>
-                                    <p className="border-b border-white/20 pb-3 text-xl">
-                                      {r.link_title}
-                                    </p>
-                                    <p className="text-xs">{r.description}</p>
-                                    <a
-                                      href={r.link_url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="flex items-center gap-2 py-1.5 text-xs text-brand2"
+                              return (
+                                <Popover key={r.link_title}>
+                                  <PopoverTrigger className="whitespace-nowrap rounded border border-brand1/20 bg-brand1/10 px-2.5 py-[3px] text-xs leading-none text-brand1 data-[state='open']:bg-brand1 data-[state='open']:text-white">
+                                    {r.link_title}
+                                  </PopoverTrigger>
+                                  <PopoverPortal>
+                                    <PopoverContent
+                                      id={`popover-${t.name}`}
+                                      className="w-fit min-w-[240px] max-w-[500px] space-y-3 border-none bg-gray-700 text-white"
                                     >
-                                      Learn more <LuExternalLink className="h-5 w-5" />
-                                    </a>
-                                  </PopoverContent>
-                                </PopoverPortal>
-                              </Popover>
-                            ))
+                                      <PopoverArrow className="fill-gray-700" />
+
+                                      <div className="flex items-center justify-between font-open-sans">
+                                        <p className="text-xxs font-semibold uppercase leading-none text-gray-400">
+                                          {t.name}
+                                        </p>
+                                        <PopoverClose>
+                                          <LuX className="h-6 w-6 text-white" />
+                                        </PopoverClose>
+                                      </div>
+                                      <p className="border-b border-white/20 pb-3 text-xl">
+                                        {r.link_title}
+                                      </p>
+                                      <p className="text-xs">{r.description}</p>
+                                      <a
+                                        href={r.link_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 py-1.5 text-xs text-brand2"
+                                      >
+                                        Learn more <LuExternalLink className="h-5 w-5" />
+                                      </a>
+                                    </PopoverContent>
+                                  </PopoverPortal>
+                                </Popover>
+                              );
+                            })
                           ) : (
                             "-"
                           )
