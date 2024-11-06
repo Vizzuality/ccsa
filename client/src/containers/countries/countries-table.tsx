@@ -106,9 +106,14 @@ const CountriesTable = () => {
                           v.resources?.length ? (
                             v.resources?.map((r) => {
                               if (!/^https?:\/\/|^www\./i.test(r.link_url)) {
+                                console.info("Invalid URL", r.link_url);
                                 r.link_url = `https://${r.link_url}`;
                               }
+                              const URL = !/^https?:\/\/|^www\./i.test(r.link_url)
+                                ? `https://${r.link_url}`
+                                : r.link_url;
 
+                              console.info("URL", URL, r.link_url);
                               return (
                                 <Popover key={r.link_title}>
                                   <PopoverTrigger className="whitespace-nowrap rounded border border-brand1/20 bg-brand1/10 px-2.5 py-[3px] text-xs leading-none text-brand1 data-[state='open']:bg-brand1 data-[state='open']:text-white">
