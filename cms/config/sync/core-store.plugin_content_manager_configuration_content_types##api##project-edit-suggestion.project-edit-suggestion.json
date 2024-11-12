@@ -76,20 +76,6 @@
           "sortable": true
         }
       },
-      "status": {
-        "edit": {
-          "label": "status",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "status",
-          "searchable": true,
-          "sortable": true
-        }
-      },
       "funding": {
         "edit": {
           "label": "funding",
@@ -101,34 +87,6 @@
         },
         "list": {
           "label": "funding",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "source_country": {
-        "edit": {
-          "label": "source_country",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "source_country",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "organization_type": {
-        "edit": {
-          "label": "organization_type",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "organization_type",
           "searchable": true,
           "sortable": true
         }
@@ -275,6 +233,51 @@
         },
         "list": {
           "label": "reviewed_by",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "source_country": {
+        "edit": {
+          "label": "source_country",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "code"
+        },
+        "list": {
+          "label": "source_country",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "organization_type": {
+        "edit": {
+          "label": "organization_type",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "organization_type",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "status": {
+        "edit": {
+          "label": "status",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true,
+          "mainField": "name"
+        },
+        "list": {
+          "label": "status",
           "searchable": true,
           "sortable": true
         }
