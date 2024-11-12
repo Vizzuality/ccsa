@@ -847,10 +847,7 @@
           "highlight",
           "account",
           "amount",
-          "status",
           "funding",
-          "source_country",
-          "organization_type",
           "objective",
           "info",
           "review_status",
@@ -860,7 +857,10 @@
           "sdgs",
           "project",
           "review_decision_details",
-          "reviewed_by"
+          "reviewed_by",
+          "source_country",
+          "organization_type",
+          "status"
         ]
       },
       "conditions": []
@@ -889,10 +889,7 @@
           "highlight",
           "account",
           "amount",
-          "status",
           "funding",
-          "source_country",
-          "organization_type",
           "objective",
           "info",
           "review_status",
@@ -902,7 +899,10 @@
           "sdgs",
           "project",
           "review_decision_details",
-          "reviewed_by"
+          "reviewed_by",
+          "source_country",
+          "organization_type",
+          "status"
         ]
       },
       "conditions": []
@@ -917,10 +917,7 @@
           "highlight",
           "account",
           "amount",
-          "status",
           "funding",
-          "source_country",
-          "organization_type",
           "objective",
           "info",
           "review_status",
@@ -930,7 +927,10 @@
           "sdgs",
           "project",
           "review_decision_details",
-          "reviewed_by"
+          "reviewed_by",
+          "source_country",
+          "organization_type",
+          "status"
         ]
       },
       "conditions": []

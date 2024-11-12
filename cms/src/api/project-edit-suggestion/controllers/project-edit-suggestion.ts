@@ -166,7 +166,7 @@ export default factories.createCoreController(
           importData,
           {
             headers: {
-              Authorization: `${ctx.req.rawHeaders[1] || ''}`,
+              Authorization: `${ctx.request.header.authorization || ''}`,
               'Content-Type': 'application/json',
             },
           }
