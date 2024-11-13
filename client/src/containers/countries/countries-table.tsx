@@ -105,9 +105,7 @@ const CountriesTable = () => {
                         {v.isResource ? (
                           v.resources?.length ? (
                             v.resources?.map((r) => {
-                              if (!/^https?:\/\/|^www\./i.test(r.link_url)) {
-                                r.link_url = `https://${r.link_url}`;
-                              }
+                              const URL = r.link_url.replace(/^(?!https?:\/\/)?/i, "https://");
 
                               return (
                                 <Popover key={r.link_title}>
@@ -134,7 +132,7 @@ const CountriesTable = () => {
                                       </p>
                                       <p className="text-xs">{r.description}</p>
                                       <a
-                                        href={r.link_url}
+                                        href={URL}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-2 py-1.5 text-xs text-brand2"
