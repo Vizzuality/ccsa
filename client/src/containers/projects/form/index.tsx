@@ -171,7 +171,7 @@ export default function ProjectForm() {
         select: (data) =>
           data?.data?.map((status) => ({
             label: status?.attributes?.name as string,
-            value: status?.attributes?.code as string,
+            value: status?.id as number,
           })),
       },
     },
@@ -195,7 +195,28 @@ export default function ProjectForm() {
   const { data: projectData } = useGetProjectsId(
     +id,
     {
-      populate: "*",
+      populate: {
+        pillar: true,
+        sdgs: true,
+        countries: {
+          fields: ["name"],
+        },
+        status: {
+          fields: ["name"],
+        },
+        funding: {
+          fields: ["name"],
+        },
+        objective: {
+          fields: ["type"],
+        },
+        organization_type: {
+          fields: ["name"],
+        },
+        source_country: {
+          fields: ["name"],
+        },
+      },
     },
     {
       query: {
@@ -285,6 +306,7 @@ export default function ProjectForm() {
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Please enter project's details" }),
+    description: z.string().min(1, { message: "Please enter project's description" }),
     info: z.string().optional(),
     pillar: z.coerce.number().min(1, {
       message: "Please select at least one pillar",
@@ -322,6 +344,7 @@ export default function ProjectForm() {
     ...(id && {
       values: {
         name: previousData?.name || "",
+        description: previousData?.highlight || "",
         info: previousData?.info || "",
         pillar:
           // previousData.updatedAt ||
@@ -507,6 +530,7 @@ export default function ProjectForm() {
       : getObjectDifferences(projectData?.data?.attributes, form.getValues());
 
   const suggestionStatus = projectsSuggestedData?.data?.attributes?.review_status;
+
   return (
     <>
       <DashboardFormControls
@@ -561,7 +585,7 @@ export default function ProjectForm() {
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <FormLabel className="text-xs font-semibold">
-                      Project detail<sup className="pl-0.5">*</sup>
+                      Name<sup className="pl-0.5">*</sup>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -572,6 +596,32 @@ export default function ProjectForm() {
                           "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
                         })}
                         placeholder="Name"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.5">
+                    <FormLabel className="text-xs font-semibold">
+                      Description<sup className="pl-0.5">*</sup>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        value={field.value}
+                        className={cn({
+                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
+                        })}
+                        placeholder="Description"
                         disabled={
                           ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
                         }
