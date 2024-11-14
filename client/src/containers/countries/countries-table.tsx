@@ -105,7 +105,10 @@ const CountriesTable = () => {
                         {v.isResource ? (
                           v.resources?.length ? (
                             v.resources?.map((r) => {
-                              const URL = r.link_url.replace(/^(?!https?:\/\/)?/i, "https://");
+                              const URL = r.link_url.replace(
+                                /^(?!https?:\/\/)(.*)$/i,
+                                "https://$1",
+                              );
 
                               return (
                                 <Popover key={r.link_title}>
