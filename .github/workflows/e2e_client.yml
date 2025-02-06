@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Node setup
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version-file: 'client/.nvmrc'
         cache: yarn
@@ -44,7 +44,7 @@ jobs:
         # Recommended: pass the GitHub token lets this action correctly
         # determine the unique run id necessary to re-run the checks
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: always()
       with:
         name: playwright-report
