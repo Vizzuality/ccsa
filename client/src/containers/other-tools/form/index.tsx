@@ -181,8 +181,14 @@ export default function ToolForm() {
         new RegExp(
           "^(https?:\\/\\/)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)+(\\/[a-zA-Z0-9-]*)*$",
         ),
-        { message: "Please enter a valid URL" },
-      ),
+        {
+          message: "Please, enter a valid URL.",
+        },
+      )
+      .max(255, {
+        message: "Website is limited to 255 characters.",
+      }),
+
     category: z
       .number()
       .optional()
