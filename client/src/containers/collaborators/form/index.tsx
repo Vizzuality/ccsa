@@ -191,13 +191,14 @@ export default function CollaboratorForm() {
       .refine((val) => !!val, {
         message: "Please select a relation type",
       }),
-    link: z.string().refine(
-      (value) => {
-        // This regex requires the URL to start with either http://, https://, or www.
-        return /^(https?:\/\/|www\.)[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/[^\s]*)?$/.test(value);
-      },
-      { message: "Please enter a valid URL" },
-    ),
+    link: z
+      .string()
+      .regex(
+        new RegExp(
+          "^(https?:\\/\\/)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)+(\\/[a-zA-Z0-9-]*)*$",
+        ),
+        { message: "Please enter a valid URL" },
+      ),
     image: z.number().min(1, { message: "Please ass image" }),
   });
 
