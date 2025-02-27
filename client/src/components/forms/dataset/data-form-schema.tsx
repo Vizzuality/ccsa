@@ -22,7 +22,19 @@ export const getFormSchema = (value_type: VALUE_TYPE, countries: string[]) => {
           .array(
             z.object({
               link_title: z.string().min(1, { message: "Please enter a title" }),
-              link_url: z.string().url({ message: "Please enter a valid URL" }),
+              link_url: z
+                .string()
+                .regex(
+                  new RegExp(
+                    "^(https?:\\/\\/)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)+(\\/[a-zA-Z0-9-]*)*$",
+                  ),
+                  {
+                    message: "Please, enter a valid URL.",
+                  },
+                )
+                .max(255, {
+                  message: "Website is limited to 255 characters.",
+                }),
               description: z.string().min(1, { message: "Please enter a description" }),
             }),
           )
