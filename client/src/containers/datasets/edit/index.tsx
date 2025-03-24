@@ -310,7 +310,7 @@ export default function EditDatasetForm() {
       {currentStep === 1 && (
         <DatasetSettingsForm
           id="edit-dataset-settings"
-          title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
+          title={`${previousData?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleSettingsSubmit}
           status={datasetEditData?.data?.attributes?.review_status}
@@ -319,7 +319,7 @@ export default function EditDatasetForm() {
       {currentStep === 2 && (
         <DatasetDataForm
           id="edit-dataset-data"
-          title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
+          title={`${previousData?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleDataSubmit}
           status={datasetEditData?.data?.attributes?.review_status}
@@ -328,7 +328,7 @@ export default function EditDatasetForm() {
       {currentStep === 3 && (
         <DatasetColorsForm
           id="edit-dataset-colors"
-          title={`${datasetData?.data?.attributes?.name} - Edit` || "Edit dataset"}
+          title={`${previousData?.name} - Edit` || "Edit dataset"}
           data={formValues}
           onSubmit={handleColorsSubmit}
           status={datasetEditData?.data?.attributes?.review_status}

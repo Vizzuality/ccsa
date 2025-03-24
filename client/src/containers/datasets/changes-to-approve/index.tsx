@@ -231,7 +231,6 @@ export default function FormToApprove() {
     } as Data;
   }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
 
-
   const PENDING_TO_APPROVE_DATA = useMemo(() => {
     datasetDataPendingToApprove?.data?.attributes || ({} as DatasetEditSuggestion);
 
@@ -277,7 +276,6 @@ export default function FormToApprove() {
   }, [datasetData, datasetValuesData, previousDataSource?.data?.attributes?.value_type]);
 
   const [formValues, setFormValues] = useState<Data>(PENDING_TO_APPROVE_DATA);
-
 
   const formSchema = z.object({
     message: z.string().min(1, { message: "Please provide a reason for the rejection" }),

@@ -279,7 +279,7 @@ export default function ProjectForm() {
       onSuccess: () => {
         console.info("Success deleting a project");
         toast.success("Success deleting a project");
-        push(`/dashboard`);
+        push(`/projects`);
       },
       onError: (error: Error) => {
         console.error("Error deleting a project:", error);
@@ -293,7 +293,7 @@ export default function ProjectForm() {
       onSuccess: () => {
         console.info("Success deleting a suggested project");
         toast.success("Success deleting a suggested project");
-        push(`/dashboard`);
+        push(`/projects`);
       },
       onError: (error: Error) => {
         console.error("Error deleting a project suggestion:", error);
@@ -636,9 +636,7 @@ export default function ProjectForm() {
                 name="info"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Info<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <FormLabel className="text-xs font-semibold">Info</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
