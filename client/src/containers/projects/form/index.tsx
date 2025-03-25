@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -32,8 +32,6 @@ import { useGetTypesOfFundings } from "@/types/generated/types-of-funding";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 import { useGetWorldCountries } from "@/types/generated/world-country";
 
-import { useSyncSearchParams } from "@/app/store";
-
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
 import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
@@ -62,8 +60,7 @@ import CSVImport from "@/components/new-dataset/step-description/csv-import";
 import { useGetObjectives } from "@/types/generated/objective";
 
 export default function ProjectForm() {
-  const { push } = useRouter();
-  const URLParams = useSyncSearchParams();
+  const { push, back } = useRouter();
   const params = useParams();
 
   const { id } = params;
@@ -77,6 +74,7 @@ export default function ProjectForm() {
 
   const ME_DATA = meData as UsersPermissionsUser & { role: UsersPermissionsRole };
 
+  // Hooks to populate dropdowns in the form
   const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS, {
     query: {
       select: (data) =>
@@ -279,7 +277,7 @@ export default function ProjectForm() {
       onSuccess: () => {
         console.info("Success deleting a project");
         toast.success("Success deleting a project");
-        push(`/dashboard`);
+        push(`/projects`);
       },
       onError: (error: Error) => {
         console.error("Error deleting a project:", error);
@@ -293,7 +291,7 @@ export default function ProjectForm() {
       onSuccess: () => {
         console.info("Success deleting a suggested project");
         toast.success("Success deleting a suggested project");
-        push(`/dashboard`);
+        push(`/projects`);
       },
       onError: (error: Error) => {
         console.error("Error deleting a project suggestion:", error);
@@ -363,7 +361,7 @@ export default function ProjectForm() {
   });
 
   const handleCancel = () => {
-    push(`/?${URLParams.toString()}`);
+    back();
   };
 
   const handleSubmit = useCallback(
@@ -636,9 +634,7 @@ export default function ProjectForm() {
                 name="info"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Info<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <FormLabel className="text-xs font-semibold">Info</FormLabel>
                     <FormControl>
                       <Input
                         {...field}

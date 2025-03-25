@@ -54,13 +54,14 @@ export function validateDatasetValuesCsv(
       ...options,
     })
     .then(({ data }) => {
-      console.info("Data uploaded successfully:", data);
-      toast.success("Data uploaded successfully:", data);
+      console.info("Data uploaded successfully", data);
+      toast.success("Data uploaded successfully");
+      return data;
     })
     .catch((err) => {
       console.error("There was an error uploading the file:", err.message);
-      toast.error("There was an error uploading the file:", err.response.data.error.message);
-      return err;
+      toast.error("There was an error uploading the file");
+      return err.message;
     });
 }
 

@@ -206,7 +206,7 @@ export default function DatasetColorsForm({
       onSuccess: (data) => {
         console.info("Success deleting dataset:", data);
         toast.success("Dataset deleted");
-        push(`/dashboard`);
+        push(`/`);
       },
       onError: (error) => {
         toast.error("Error deleting dataset");
@@ -220,7 +220,7 @@ export default function DatasetColorsForm({
       onSuccess: (data) => {
         console.info("Success deleting suggested dataset:", data);
         toast.success("Success deleting suggested dataset");
-        push(`/dashboard`);
+        push(`/`);
       },
       onError: (error) => {
         toast.error("Error deleting suggested dataset");
