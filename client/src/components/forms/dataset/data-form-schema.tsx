@@ -26,7 +26,7 @@ export const getFormSchema = (value_type: VALUE_TYPE, countries: string[]) => {
                 .string()
                 .regex(
                   new RegExp(
-                    "^(https?:\\/\\/)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)+(\\/[a-zA-Z0-9-]*)*$",
+                    "^(?=(https?://|www.))((https?://)?(www.)?)[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(/[^s]*)?$",
                   ),
                   {
                     message: "Please, enter a valid URL.",
