@@ -171,32 +171,6 @@ export const DashboardFormControls: FC<DashboardFormControls> = ({
             </Dialog>
           )}
 
-          {!isAdmin && !isNew && (
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button size="sm" variant="destructive-outline" className="space-x-2">
-                  <span>Delete</span>
-                  <LuTrash2 />
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently remove your data from our
-                    database.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction variant="destructive" onClick={handleDelete}>
-                    Delete
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          )}
-
           <Button form={id} size="sm" type="submit">
             {!isAdmin && "Continue"}
             {isAdmin && isNew && "Submit"}

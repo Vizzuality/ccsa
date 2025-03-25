@@ -29,8 +29,6 @@ import {
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams } from "@/app/store";
-
 import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
 import { Button } from "@/components/ui/button";
@@ -54,8 +52,20 @@ import {
 import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
 
+const relationshipOptions = [
+  {
+    label: "Collaborator",
+    value: "collaborator",
+  },
+  {
+    label: "Donor",
+    value: "donor",
+  },
+];
+
 export default function CollaboratorForm() {
   const [isChrome, setIsChrome] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<string | null>(null);
 
   useEffect(() => {
     // Detect if the user agent is Chrome only on the client side
@@ -64,8 +74,7 @@ export default function CollaboratorForm() {
     }
   }, []);
   const [imageId, setImageId] = useState<number | null>(null);
-  const { push } = useRouter();
-  const URLParams = useSyncSearchParams();
+  const { push, back } = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const params = useParams();
@@ -168,17 +177,6 @@ export default function CollaboratorForm() {
       },
     });
 
-  const relationshipOptions = [
-    {
-      label: "Collaborator",
-      value: "collaborator",
-    },
-    {
-      label: "Donor",
-      value: "donor",
-    },
-  ];
-
   const relationTypes = ["collaborator", "donor"] as const;
 
   const formSchema = z.object({
@@ -195,7 +193,7 @@ export default function CollaboratorForm() {
       .string()
       .regex(
         new RegExp(
-          "^(https?:\\/\\/)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)+(\\/[a-zA-Z0-9-]*)*$",
+          "^(?=(https?://|www.))((https?://)?(www.)?)[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(/[^s]*)?$",
         ),
         {
           message: "Please, enter a valid URL.",
@@ -204,7 +202,12 @@ export default function CollaboratorForm() {
       .max(255, {
         message: "Website is limited to 255 characters.",
       }),
-    image: z.number().min(1, { message: "Please ass image" }),
+    image: z
+      .number({ invalid_type_error: "Please add image" })
+      .nullable()
+      .refine((val) => val !== null, {
+        message: "Please add image",
+      }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -218,7 +221,7 @@ export default function CollaboratorForm() {
   });
 
   const handleCancel = () => {
-    push(`/?${URLParams.toString()}`);
+    back();
   };
 
   const handleSubmit = useCallback(
@@ -324,7 +327,7 @@ export default function CollaboratorForm() {
     }
   };
 
-  const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
+  const { getInputProps, getRootProps } = useDropzone({
     multiple: false,
     maxFiles: 1,
     maxSize: 50000000,
@@ -337,6 +340,7 @@ export default function CollaboratorForm() {
           .then((data) => {
             form.setValue("image", data[0].id);
             setImageId(data[0].id);
+            setUploadedFile(data?.[0].name);
             toast.success(`Image ${data?.[0].name} uploaded successfully`);
           })
           .catch((error) => {
@@ -344,12 +348,24 @@ export default function CollaboratorForm() {
             toast.error("Error uploading image");
           });
       }
+      setUploadedFile(files[0]?.name);
     },
     onDropRejected(error) {
       console.error("Error uploading image:", error[0]?.errors[0]?.message);
       toast.error("Error uploading image: " + error[0]?.errors[0]?.message);
     },
   });
+
+  const handleRemoveImage = useCallback(() => {
+    setImageId(null);
+    setUploadedFile(null);
+    form.resetField("image");
+    setImageId(null);
+    if (previousData?.image) {
+      previousData.image.data = undefined;
+    }
+    toast.success("Image removed successfully");
+  }, [setImageId, setUploadedFile, form, previousData]);
 
   const handleDelete = useCallback(() => {
     if (collaboratorData?.data?.id) {
@@ -499,76 +515,95 @@ export default function CollaboratorForm() {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="image"
-                render={({ field }) => (
-                  <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Logo image<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+              {!uploadedFile && (
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={({ field }) => (
+                    <FormItem className="space-y-1.5">
+                      <FormLabel className="text-xs font-semibold">
+                        Logo image<sup className="pl-0.5">*</sup>
+                      </FormLabel>
 
-                    <FormControl>
-                      <div
-                        {...getRootProps()}
-                        className={cn({
-                          "center cover m-auto !flex h-48 w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 bg-opacity-10 bg-cover py-6 text-xs placeholder:text-gray-300/95 hover:border-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
-                            true,
-                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
-                        })}
-                        style={{
-                          // env.NEXT_PUBLIC_API_URL
-                          backgroundImage: `url(${previousData?.image?.data?.attributes?.url})`,
-                        }}
-                      >
-                        <input
-                          {...getInputProps()}
-                          ref={fileInputRef}
-                          type="file"
-                          disabled={
-                            ME_DATA?.role?.type === "authenticated" &&
-                            suggestionStatus === "declined"
-                          }
-                          className="h-full w-full cursor-pointer"
-                          accept="image/*;capture=camera"
-                        />
+                      <FormControl>
+                        <div
+                          {...getRootProps()}
+                          className={cn({
+                            "center cover m-auto !flex h-48 w-full flex-col space-y-6 rounded-md border border-dashed border-gray-300 bg-opacity-10 bg-cover py-6 text-xs placeholder:text-gray-300/95 hover:border-primary hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50":
+                              true,
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
+                          })}
+                          style={{
+                            // env.NEXT_PUBLIC_API_URL
+                            backgroundImage: `url(${previousData?.image?.data?.attributes?.url})`,
+                          }}
+                        >
+                          <input
+                            {...getInputProps()}
+                            ref={fileInputRef}
+                            type="file"
+                            disabled={
+                              (ME_DATA?.role?.type === "authenticated" &&
+                                suggestionStatus === "declined") ||
+                              !!uploadedFile
+                            }
+                            className="h-full w-full cursor-pointer"
+                            accept="image/*;capture=camera"
+                          />
 
-                        <Image
-                          priority
-                          alt="file"
-                          width={58}
-                          height={58}
-                          src="/images/image-file.png"
-                          className="m-auto flex"
-                        />
-                        {!previousData?.image?.data?.attributes?.url && !isChrome && (
-                          <div className="flex flex-col space-y-2 text-center font-semibold">
-                            <div>
-                              Drag and drop here, or{" "}
-                              <button type="button" className="text-primary" onClick={handleClick}>
-                                browse
-                              </button>
+                          <Image
+                            priority
+                            alt="file"
+                            width={58}
+                            height={58}
+                            src="/images/image-file.png"
+                            className="m-auto flex"
+                          />
+                          {!previousData?.image?.data?.attributes?.url && !isChrome && (
+                            <div className="flex flex-col space-y-2 text-center font-semibold">
+                              <div>
+                                Drag and drop here, or{" "}
+                                <button
+                                  type="button"
+                                  className="text-primary"
+                                  onClick={handleClick}
+                                >
+                                  browse
+                                </button>
+                              </div>
+                              <p className="font-light">Supports: PNG, JPG, JPEG, GIF, WEBP</p>
                             </div>
-                            <p className="font-light">Supports: PNG, JPG, JPEG, GIF, WEBP</p>
-                          </div>
-                        )}
-                        {!previousData?.image?.data?.attributes?.url && isChrome && (
-                          <div className="flex flex-col space-y-2 text-center">
-                            <p className="font-semibold">
-                              Drag and drop here, or <span className="text-primary">browse</span>
-                            </p>
-                            <p className="font-light">Supports: PNG, JPG, JPEG, GIF, WEBP</p>
-                          </div>
-                        )}
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {!!acceptedFiles.length && (
-                <div className="flex flex-col space-y-2 rounded-sm bg-gray-100 py-2 text-center">
-                  <button className="text-xs">{acceptedFiles[0]?.name}</button>
+                          )}
+                          {!previousData?.image?.data?.attributes?.url && isChrome && (
+                            <div className="flex flex-col space-y-2 text-center">
+                              <p className="font-semibold">
+                                Drag and drop here, or <span className="text-primary">browse</span>
+                              </p>
+                              <p className="font-light">Supports: PNG, JPG, JPEG, GIF, WEBP</p>
+                            </div>
+                          )}
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+              {uploadedFile && (
+                <div className="space-y-2">
+                  <div className="flex w-full justify-between">
+                    <FormLabel className="text-xs font-semibold">Logo image</FormLabel>
+                    <button
+                      type="button"
+                      onClick={handleRemoveImage}
+                      className="text-xs font-semibold"
+                    >
+                      x
+                    </button>
+                  </div>
+                  <div className="flex flex-col space-y-2 rounded-sm bg-gray-100 py-2 text-center">
+                    <button className="text-xs">{uploadedFile}</button>
+                  </div>
                 </div>
               )}
             </fieldset>
