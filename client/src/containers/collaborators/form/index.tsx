@@ -551,14 +551,16 @@ export default function CollaboratorForm() {
                             accept="image/*;capture=camera"
                           />
 
-                          <Image
-                            priority
-                            alt="file"
-                            width={58}
-                            height={58}
-                            src="/images/image-file.png"
-                            className="m-auto flex"
-                          />
+                          {!previousData?.image?.data?.attributes?.url && (
+                            <Image
+                              priority
+                              alt="file"
+                              width={58}
+                              height={58}
+                              src="/images/image-file.png"
+                              className="m-auto flex"
+                            />
+                          )}
                           {!previousData?.image?.data?.attributes?.url && !isChrome && (
                             <div className="flex flex-col space-y-2 text-center font-semibold">
                               <div>
