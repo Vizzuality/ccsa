@@ -25,7 +25,6 @@ import {
 } from "@/types/generated/tool-edit-suggestion";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
-import { useSyncSearchParams } from "@/app/store";
 import CSVImport from "@/components/new-dataset/step-description/csv-import";
 import { GET_CATEGORIES_OPTIONS } from "@/constants/datasets";
 
@@ -53,8 +52,7 @@ import {
 import { updateOrCreateOtherTools } from "@/services/other-tools";
 
 export default function ToolForm() {
-  const { push } = useRouter();
-  const URLParams = useSyncSearchParams();
+  const { push, back } = useRouter();
 
   const params = useParams();
 
@@ -179,7 +177,7 @@ export default function ToolForm() {
       .string()
       .regex(
         new RegExp(
-          "^(https?:\\/\\/)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)+(\\/[a-zA-Z0-9-]*)*$",
+          "^(?=(https?://|www.))((https?://)?(www.)?)[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(/[^s]*)?$",
         ),
         {
           message: "Please, enter a valid URL.",
@@ -213,7 +211,7 @@ export default function ToolForm() {
   });
 
   const handleCancel = () => {
-    push(`/?${URLParams.toString()}`);
+    back();
   };
 
   const handleSubmit = useCallback(

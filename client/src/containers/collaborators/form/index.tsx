@@ -1,8 +1,8 @@
 "use client";
-import { useCallback, useState, useRef, useEffect, useMemo } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 
 import { useDropzone } from "react-dropzone";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import Image from "next/image";
@@ -28,8 +28,6 @@ import {
   CollaboratorEditSuggestionCollaboratorDataAttributesType,
 } from "@/types/generated/strapi.schemas";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
-
-import { useSyncSearchParams } from "@/app/store";
 
 import DashboardFormWrapper from "@/components/forms/dataset/wrapper";
 import DashboardFormControls from "@/components/new-dataset/form-controls";
@@ -67,7 +65,7 @@ const relationshipOptions = [
 
 export default function CollaboratorForm() {
   const [isChrome, setIsChrome] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<string | null>(null);
 
   useEffect(() => {
     // Detect if the user agent is Chrome only on the client side
@@ -76,8 +74,7 @@ export default function CollaboratorForm() {
     }
   }, []);
   const [imageId, setImageId] = useState<number | null>(null);
-  const { push } = useRouter();
-  const URLParams = useSyncSearchParams();
+  const { push, back } = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const params = useParams();
@@ -196,7 +193,7 @@ export default function CollaboratorForm() {
       .string()
       .regex(
         new RegExp(
-          "^(https?:\\/\\/)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)+(\\/[a-zA-Z0-9-]*)*$",
+          "^(?=(https?://|www.))((https?://)?(www.)?)[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(/[^s]*)?$",
         ),
         {
           message: "Please, enter a valid URL.",
@@ -224,7 +221,7 @@ export default function CollaboratorForm() {
   });
 
   const handleCancel = () => {
-    push(`/?${URLParams.toString()}`);
+    back();
   };
 
   const handleSubmit = useCallback(
@@ -330,7 +327,7 @@ export default function CollaboratorForm() {
     }
   };
 
-  const { getInputProps, getRootProps, acceptedFiles } = useDropzone({
+  const { getInputProps, getRootProps } = useDropzone({
     multiple: false,
     maxFiles: 1,
     maxSize: 50000000,
@@ -343,6 +340,7 @@ export default function CollaboratorForm() {
           .then((data) => {
             form.setValue("image", data[0].id);
             setImageId(data[0].id);
+            setUploadedFile(data?.[0].name);
             toast.success(`Image ${data?.[0].name} uploaded successfully`);
           })
           .catch((error) => {
@@ -350,7 +348,7 @@ export default function CollaboratorForm() {
             toast.error("Error uploading image");
           });
       }
-      setUploadedFile(files[0]);
+      setUploadedFile(files[0]?.name);
     },
     onDropRejected(error) {
       console.error("Error uploading image:", error[0]?.errors[0]?.message);
@@ -363,8 +361,11 @@ export default function CollaboratorForm() {
     setUploadedFile(null);
     form.resetField("image");
     setImageId(null);
+    if (previousData?.image) {
+      previousData.image.data = undefined;
+    }
     toast.success("Image removed successfully");
-  }, [setImageId, setUploadedFile, form]);
+  }, [setImageId, setUploadedFile, form, previousData]);
 
   const handleDelete = useCallback(() => {
     if (collaboratorData?.data?.id) {
@@ -588,7 +589,7 @@ export default function CollaboratorForm() {
                   )}
                 />
               )}
-              {!!uploadedFile && (
+              {uploadedFile && (
                 <div className="space-y-2">
                   <div className="flex w-full justify-between">
                     <FormLabel className="text-xs font-semibold">Logo image</FormLabel>
@@ -601,7 +602,7 @@ export default function CollaboratorForm() {
                     </button>
                   </div>
                   <div className="flex flex-col space-y-2 rounded-sm bg-gray-100 py-2 text-center">
-                    <button className="text-xs">{acceptedFiles[0]?.name}</button>
+                    <button className="text-xs">{uploadedFile}</button>
                   </div>
                 </div>
               )}
