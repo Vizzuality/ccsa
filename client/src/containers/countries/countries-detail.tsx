@@ -12,7 +12,7 @@ import CountryDownloadDialog from "@/containers/countries/download-dialog";
 import { MultiCombobox } from "@/containers/countries/multicombobox";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 
 import CountriesTable from "./countries-table";
 
@@ -66,6 +66,7 @@ const CountryDetail = ({ embed }: { embed?: boolean }) => {
                 <Button variant="primary-outline">Open Table detail</Button>
               </DialogTrigger>
               <DialogContent className="block max-w-[90svw] md:w-auto">
+                <DialogTitle className="sr-only">Country data</DialogTitle>
                 <CountryDataDialog />
               </DialogContent>
             </Dialog>

@@ -172,9 +172,16 @@ const FormMessageArray = React.forwardRef<
 
       if (!e) return children;
 
-      return getKeys(e)
+      const messages = getKeys(e)
         .map((k) => e[k]?.message)
-        .join(", ");
+        .filter(Boolean);
+
+      if (messages.length === 1) return `Please fix the following field: ${messages[0]}.`;
+      if (messages.length > 1) {
+        const last = messages.pop();
+        return `Please fix the following fields: ${messages.join(", ")} and ${last}.`;
+      }
+      return children;
     }
 
     return error ? String(error?.message) : children;

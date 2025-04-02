@@ -6,7 +6,7 @@ import { LuEye, LuEyeOff, LuDroplet, LuInfo, LuX } from "react-icons/lu";
 import { cn } from "@/lib/classnames";
 
 import { LegendItemToolbarProps } from "@/components/map/legend/types";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -129,6 +129,7 @@ export const LegendItemToolbar: React.FC<LegendItemToolbarProps> = ({
                 </TooltipContent>
 
                 <DialogContent onCloseAutoFocus={(e) => e.preventDefault()}>
+                  <DialogTitle className="sr-only">Info</DialogTitle>
                   {InfoContent}
                 </DialogContent>
               </Tooltip>

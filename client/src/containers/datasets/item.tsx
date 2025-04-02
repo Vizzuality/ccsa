@@ -9,7 +9,7 @@ import { DatasetListResponseDataItem } from "@/types/generated/strapi.schemas";
 
 import { datasetSearchAtom, useSyncDatasets, useSyncLayers } from "@/app/store";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SearchHighlight from "@/components/ui/search-highlight";
 import { Switch } from "@/components/ui/switch";
@@ -82,6 +82,7 @@ const DatasetsItem = ({ id, attributes }: DatasetListResponseDataItem) => {
           </DialogTrigger>
 
           <DialogContent>
+            <DialogTitle className="sr-only">Dataset</DialogTitle>
             <ScrollArea className="max-h-[80svh] p-6">
               <Markdown className="prose">{attributes?.description}</Markdown>
             </ScrollArea>
