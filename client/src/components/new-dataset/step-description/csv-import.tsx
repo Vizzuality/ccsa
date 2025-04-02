@@ -8,7 +8,7 @@ import { LuInfo } from "react-icons/lu";
 
 import { useRouter } from "next/navigation";
 
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 import { downloadCSV } from "@/lib/utils/csv";
 import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
@@ -150,6 +150,7 @@ export default function CSVImport({
           </DialogTrigger>
 
           <DialogContent>
+            <DialogTitle className="sr-only">Data</DialogTitle>
             <CSVInfoContent valueType={valueType} />
           </DialogContent>
         </Dialog>

@@ -51,6 +51,7 @@ import {
 
 import { updateOrCreateCollaborator } from "@/services/collaborators";
 import { uploadImage } from "@/services/datasets";
+import { URL_REGEX } from "@/lib/utils/url-validator";
 
 const relationshipOptions = [
   {
@@ -191,14 +192,9 @@ export default function CollaboratorForm() {
       }),
     link: z
       .string()
-      .regex(
-        new RegExp(
-          "^(?=(https?://|www.))((https?://)?(www.)?)[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(/[^s]*)?$",
-        ),
-        {
-          message: "Please, enter a valid URL.",
-        },
-      )
+      .regex(new RegExp(URL_REGEX), {
+        message: "Please, enter a valid URL.",
+      })
       .max(255, {
         message: "Website is limited to 255 characters.",
       }),
