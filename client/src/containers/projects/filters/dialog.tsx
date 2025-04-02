@@ -18,7 +18,7 @@ import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -90,6 +90,7 @@ const ProjectsFiltersDialog = () => {
       </DialogTrigger>
 
       <DialogContent>
+        <DialogTitle className="sr-only">Filters</DialogTitle>
         <div className="space-y-5 p-5">
           <h2 className="font-metropolis text-3xl tracking-tight">Filters</h2>
 

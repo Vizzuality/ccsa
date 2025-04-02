@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import type { VALUE_TYPE } from "./types";
+import { URL_REGEX } from "@/lib/utils/url-validator";
 
 export const getFormSchema = (value_type: VALUE_TYPE, countries: string[]) => {
   if (value_type === "number") {
@@ -21,21 +22,16 @@ export const getFormSchema = (value_type: VALUE_TYPE, countries: string[]) => {
         acc[`${country}`] = z
           .array(
             z.object({
-              link_title: z.string().min(1, { message: "Please enter a title" }),
+              link_title: z.string().min(1, { message: "title" }),
               link_url: z
                 .string()
-                .regex(
-                  new RegExp(
-                    "^(?=(https?://|www.))((https?://)?(www.)?)[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(/[^s]*)?$",
-                  ),
-                  {
-                    message: "Please, enter a valid URL.",
-                  },
-                )
+                .regex(new RegExp(URL_REGEX), {
+                  message: "URL",
+                })
                 .max(255, {
                   message: "Website is limited to 255 characters.",
                 }),
-              description: z.string().min(1, { message: "Please enter a description" }),
+              description: z.string().min(1, { message: "description" }),
             }),
           )
           .optional();

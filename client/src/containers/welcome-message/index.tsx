@@ -14,8 +14,7 @@ import { cn } from "@/lib/classnames";
 import { useGetWelcomeMessage } from "@/types/generated/welcome-message";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import isEmpty from "lodash-es/isEmpty";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 export default function WelcomeMessage() {
   const videoRef = useRef<ReactPlayer>(null);
@@ -41,7 +40,7 @@ export default function WelcomeMessage() {
   const handleFullscreen = () => {
     setFullscreen(screenfull?.isFullscreen);
   };
-  
+
   useEffect(() => {
     if (screenfull.isEnabled) {
       screenfull.on("change", handleFullscreen);
@@ -57,6 +56,7 @@ export default function WelcomeMessage() {
   return (
     <Dialog open={!cookies.welcome}>
       <DialogContent close={false} className="overflow-hidden border-none lg:max-w-[900px]">
+        <DialogTitle className="sr-only">Welcome message</DialogTitle>
         <div className="flex w-full flex-col overflow-hidden lg:flex-row">
           <div className="flex w-full flex-col items-center justify-center space-y-5 p-5 text-center lg:w-1/2 lg:space-y-10 lg:p-12">
             <header className="max-w-md space-y-2 lg:space-y-5">

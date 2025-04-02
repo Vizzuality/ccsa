@@ -50,6 +50,7 @@ import {
 } from "@/components/ui/select";
 
 import { updateOrCreateOtherTools } from "@/services/other-tools";
+import { URL_REGEX } from "@/lib/utils/url-validator";
 
 export default function ToolForm() {
   const { push, back } = useRouter();
@@ -175,14 +176,9 @@ export default function ToolForm() {
     name: z.string().min(1, { message: "Please enter tool name" }),
     link: z
       .string()
-      .regex(
-        new RegExp(
-          "^(?=(https?://|www.))((https?://)?(www.)?)[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(/[^s]*)?$",
-        ),
-        {
-          message: "Please, enter a valid URL.",
-        },
-      )
+      .regex(new RegExp(URL_REGEX), {
+        message: "Please, enter a valid URL.",
+      })
       .max(255, {
         message: "Website is limited to 255 characters.",
       }),
