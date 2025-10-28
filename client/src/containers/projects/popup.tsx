@@ -81,6 +81,7 @@ const ProjectPopup = () => {
   const countries = data?.data?.attributes?.countries;
   const projectStatus = data?.data?.attributes?.status?.data?.attributes?.name;
   const projectTypeOfFunding = data?.data?.attributes?.funding?.data?.attributes?.name;
+  const projectOtherFunding = data?.data?.attributes?.other_funding;
   const organizationType = data?.data?.attributes?.organization_type?.data?.attributes?.name;
   const sourceCountry = data?.data?.attributes?.source_country?.data?.attributes?.name;
   const objective = data?.data?.attributes?.objective?.data?.attributes?.type;
@@ -226,7 +227,12 @@ const ProjectPopup = () => {
                 title="Type of funding"
                 data={dataInfo?.data?.attributes?.funding}
               />
-              <div className="text-sm">{projectTypeOfFunding}</div>
+              <div className="text-sm">
+                {projectTypeOfFunding}
+                {projectTypeOfFunding === "Other" &&
+                  projectOtherFunding &&
+                  `: (${projectOtherFunding})`}
+              </div>
             </div>
           )}
         </section>
