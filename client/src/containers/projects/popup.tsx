@@ -235,6 +235,15 @@ const ProjectPopup = () => {
               </div>
             </div>
           )}
+
+          {/* VIDEO */}
+          {!!projectVideo && (
+            <div className="space-y-2.5">
+              <ProjectFieldHeader title="Video" data={dataInfo?.data?.attributes?.video_link} />
+              <Video url={data?.data?.attributes?.video_link} />
+              <div className="text-sm">{projectVideo}</div>
+            </div>
+          )}
         </section>
       </div>
     </Popup>
