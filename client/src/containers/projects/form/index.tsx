@@ -4,7 +4,7 @@ import Markdown from "react-markdown";
 
 import { useCallback } from "react";
 
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import Error from "next/error";
@@ -341,38 +341,53 @@ export default function ProjectForm() {
 
   const previousData = projectsSuggestedData?.data?.attributes || projectData?.data?.attributes;
 
-  const formSchema = z.object({
-    name: z.string().min(1, { message: "Please enter project's details" }),
-    description: z.string().min(1, { message: "Please enter project's description" }),
-    info: z.string().optional(),
-    pillar: z.coerce.number().min(1, {
-      message: "Please select at least one pillar",
-    }),
-    amount: z.coerce
-      .number()
-      .optional()
-      .refine((val) => typeof val !== "undefined", {
-        message: "Please enter amount",
-      }),
-    countries: z.array(z.number().min(1, { message: "Please select at least one country" })),
+  const otherFundingDisplay = typesOfFundingData?.find((type) => type.label === "Other")?.value;
 
-    sdgs: z.array(
-      z.number().min(1, {
-        message: "Please select a sdg",
+  const formSchema = z
+    .object({
+      name: z.string().min(1, { message: "Please enter project's details" }),
+      description: z.string().min(1, { message: "Please enter project's description" }),
+      info: z.string().optional(),
+      pillar: z.coerce.number().min(1, {
+        message: "Please select at least one pillar",
       }),
-    ),
-    status: z.coerce.number().min(1, {
-      message: "Please enter status",
-    }),
-    funding: z.coerce.number().min(1, {
-      message: "Please select type of funding",
-    }),
-    organization_type: z.coerce.number().min(1, {
-      message: "Please enter organization type",
-    }),
-    source_country: z.coerce.number().min(1, { message: "Please select a country" }),
-    objective: z.coerce.number().min(1, { message: "Please enter objective" }),
-  });
+      amount: z.coerce
+        .number()
+        .optional()
+        .refine((val) => typeof val !== "undefined", {
+          message: "Please enter amount",
+        }),
+      countries: z.array(z.number().min(1, { message: "Please select at least one country" })),
+
+      sdgs: z.array(
+        z.number().min(1, {
+          message: "Please select a sdg",
+        }),
+      ),
+      status: z.coerce.number().min(1, {
+        message: "Please enter status",
+      }),
+      funding: z.coerce.number().min(1, {
+        message: "Please select type of funding",
+      }),
+      other_funding: z.string().trim().optional(),
+      organization_type: z.coerce.number().min(1, {
+        message: "Please enter organization type",
+      }),
+      source_country: z.coerce.number().min(1, { message: "Please select a country" }),
+      objective: z.coerce.number().min(1, { message: "Please enter objective" }),
+    })
+    .superRefine((data, ctx) => {
+      if (data.funding === otherFundingDisplay) {
+        if (!data.other_funding || data.other_funding.length === 0) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Please specify funding",
+            path: ["other_funding"],
+          });
+        }
+      }
+    });
 
   // TO - DO - add category from edit when API gets fixed
   // projectsSuggestedData?.data?.attributes?.other_tools_category ||
@@ -398,6 +413,7 @@ export default function ProjectForm() {
       },
     }),
   });
+  const fundingType = useWatch({ control: form.control, name: "funding" });
 
   const handleCancel = () => {
     back();
@@ -898,6 +914,37 @@ export default function ProjectForm() {
                 )}
               />
 
+              {otherFundingDisplay === Number(fundingType) && (
+                <FormField
+                  control={form.control}
+                  name="other_funding"
+                  render={({ field }) => (
+                    <FormItem className="space-y-1.5">
+                      <FormLabel className="sr-only text-xs font-semibold">
+                        Type of funding<sup className="pl-0.5">*</sup>
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          value={field.value}
+                          className={cn({
+                            "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
+                            "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
+                          })}
+                          placeholder="Specify funding"
+                          disabled={
+                            ME_DATA?.role?.type === "authenticated" &&
+                            suggestionStatus === "declined"
+                          }
+                        />
+                      </FormControl>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
               <FormField
                 control={form.control}
                 name="organization_type"
@@ -937,6 +984,7 @@ export default function ProjectForm() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="source_country"

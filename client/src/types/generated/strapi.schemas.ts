@@ -3209,6 +3209,7 @@ export type SdgProjectsDataItemAttributes = {
   name?: string;
   objective?: SdgProjectsDataItemAttributesObjective;
   organization_type?: SdgProjectsDataItemAttributesOrganizationType;
+  other_funding?: string;
   pillar?: SdgProjectsDataItemAttributesPillar;
   project_edit_suggestions?: SdgProjectsDataItemAttributesProjectEditSuggestions;
   publishedAt?: string;
@@ -5697,6 +5698,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributes 
   name?: string;
   objective?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesObjective;
   organization_type?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesOrganizationType;
+  other_funding?: string;
   pillar?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesPillar;
   project_edit_suggestions?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesProjectEditSuggestions;
   publishedAt?: string;
@@ -7361,6 +7363,7 @@ export interface Project {
   name: string;
   objective?: ProjectObjective;
   organization_type?: ProjectOrganizationType;
+  other_funding?: string;
   pillar?: ProjectPillar;
   project_edit_suggestions?: ProjectProjectEditSuggestions;
   publishedAt?: string;
@@ -7475,6 +7478,7 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributes = {
   name?: string;
   objective?: ProjectPillarDataAttributesProjectsDataItemAttributesObjective;
   organization_type?: ProjectPillarDataAttributesProjectsDataItemAttributesOrganizationType;
+  other_funding?: string;
   pillar?: ProjectPillarDataAttributesProjectsDataItemAttributesPillar;
   project_edit_suggestions?: ProjectPillarDataAttributesProjectsDataItemAttributesProjectEditSuggestions;
   publishedAt?: string;
@@ -9094,6 +9098,7 @@ export type ProjectRequestData = {
   name: string;
   objective?: ProjectRequestDataObjective;
   organization_type?: ProjectRequestDataOrganizationType;
+  other_funding?: string;
   pillar?: ProjectRequestDataPillar;
   project_edit_suggestions?: ProjectRequestDataProjectEditSuggestionsItem[];
   sdgs?: ProjectRequestDataSdgsItem[];
@@ -9172,6 +9177,7 @@ export type PillarProjectsDataItemAttributes = {
   name?: string;
   objective?: PillarProjectsDataItemAttributesObjective;
   organization_type?: PillarProjectsDataItemAttributesOrganizationType;
+  other_funding?: string;
   pillar?: PillarProjectsDataItemAttributesPillar;
   project_edit_suggestions?: PillarProjectsDataItemAttributesProjectEditSuggestions;
   publishedAt?: string;

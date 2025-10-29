@@ -75,6 +75,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::project-status.project-status"
+    },
+    "other_funding": {
+      "type": "string"
     }
   }
 }

@@ -1343,6 +1343,7 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'oneToOne',
       'api::project-status.project-status'
     >;
+    other_funding: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
