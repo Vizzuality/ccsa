@@ -1452,6 +1452,51 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
   };
 }
 
+export interface ApiProjectFieldMetadataProjectFieldMetadata
+  extends Schema.SingleType {
+  collectionName: 'project_fields_metadata';
+  info: {
+    singularName: 'project-field-metadata';
+    pluralName: 'project-fields-metadata';
+    displayName: 'project field metadata';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.RichText;
+    countries: Attribute.RichText;
+    pillar: Attribute.RichText;
+    highlight: Attribute.RichText;
+    account: Attribute.RichText;
+    amount: Attribute.RichText;
+    sdgs: Attribute.RichText;
+    objective: Attribute.RichText;
+    info: Attribute.RichText;
+    funding: Attribute.RichText;
+    organization_type: Attribute.RichText;
+    source_country: Attribute.RichText;
+    status: Attribute.RichText;
+    description: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::project-field-metadata.project-field-metadata',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::project-field-metadata.project-field-metadata',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProjectStatusProjectStatus extends Schema.CollectionType {
   collectionName: 'project_statuses';
   info: {
@@ -1733,6 +1778,7 @@ declare module '@strapi/types' {
       'api::pillar.pillar': ApiPillarPillar;
       'api::project.project': ApiProjectProject;
       'api::project-edit-suggestion.project-edit-suggestion': ApiProjectEditSuggestionProjectEditSuggestion;
+      'api::project-field-metadata.project-field-metadata': ApiProjectFieldMetadataProjectFieldMetadata;
       'api::project-status.project-status': ApiProjectStatusProjectStatus;
       'api::resource.resource': ApiResourceResource;
       'api::sdg.sdg': ApiSdgSdg;

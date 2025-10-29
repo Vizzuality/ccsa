@@ -1,6 +1,8 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import Markdown from "react-markdown";
+
+import { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -54,10 +56,45 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
+import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+
+import { LuInfo } from "react-icons/lu";
+
+import { TooltipPortal } from "@radix-ui/react-tooltip";
 
 import { updateOrCreateProject } from "@/services/projects";
 import CSVImport from "@/components/new-dataset/step-description/csv-import";
 import { useGetObjectives } from "@/types/generated/objective";
+import { useGetProjectFieldMetadata } from "@/types/generated/project-field-metadata";
+
+const ProjectFieldLabel = ({
+  title,
+  data,
+  required = false,
+}: {
+  title: string;
+  data: string | undefined;
+  required?: boolean;
+}) => (
+  <FormLabel className="flex items-center text-xs font-semibold">
+    <span>
+      {title}
+      {required && <sup className="pl-0.5">*</sup>}
+    </span>
+    <Tooltip>
+      <TooltipTrigger>
+        <LuInfo className="h-4 w-4 pl-1 font-bold" />
+      </TooltipTrigger>
+
+      <TooltipPortal>
+        <TooltipContent side="right" align="center">
+          <Markdown className="prose text-xxs">{data}</Markdown>
+          <TooltipArrow className="fill-white" width={10} height={5} />
+        </TooltipContent>
+      </TooltipPortal>
+    </Tooltip>
+  </FormLabel>
+);
 
 export default function ProjectForm() {
   const { push, back } = useRouter();
@@ -222,6 +259,8 @@ export default function ProjectForm() {
       },
     },
   );
+
+  const { data: dataInfo } = useGetProjectFieldMetadata();
 
   const { data: projectsSuggestedData } = useGetProjectEditSuggestionsId(
     +id,
@@ -608,9 +647,11 @@ export default function ProjectForm() {
                 name="description"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Description<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <ProjectFieldLabel
+                      title="Description"
+                      data={dataInfo?.data?.attributes?.highlight}
+                      required
+                    />
                     <FormControl>
                       <Input
                         {...field}
@@ -634,7 +675,7 @@ export default function ProjectForm() {
                 name="info"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">Info</FormLabel>
+                    <ProjectFieldLabel title="Info" data={dataInfo?.data?.attributes?.info} />
                     <FormControl>
                       <Input
                         {...field}
@@ -660,9 +701,11 @@ export default function ProjectForm() {
                 render={({ field }) => {
                   return (
                     <FormItem className="space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">
-                        Pillar<sup className="pl-0.5">*</sup>
-                      </FormLabel>
+                      <ProjectFieldLabel
+                        title="Pillar"
+                        data={dataInfo?.data?.attributes?.pillar}
+                        required
+                      />
                       <Select value={field.value?.toString()} onValueChange={field.onChange}>
                         <SelectTrigger
                           className={cn({
@@ -696,9 +739,11 @@ export default function ProjectForm() {
                 name="amount"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Amount (USD)<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <ProjectFieldLabel
+                      title="Amount (USD)"
+                      data={dataInfo?.data?.attributes?.amount}
+                      required
+                    />
                     <FormControl>
                       <Input
                         {...field}
@@ -723,9 +768,11 @@ export default function ProjectForm() {
                 render={({ field }) => {
                   return (
                     <FormItem className="space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">
-                        Countries<sup className="pl-0.5">*</sup>
-                      </FormLabel>
+                      <ProjectFieldLabel
+                        title="Countries"
+                        data={dataInfo?.data?.attributes?.countries}
+                        required
+                      />
                       <FormControl>
                         <MultiCombobox
                           values={field.value}
@@ -749,9 +796,11 @@ export default function ProjectForm() {
                 render={({ field }) => {
                   return (
                     <FormItem className="space-y-1.5">
-                      <FormLabel className="text-xs font-semibold">
-                        SDG<sup className="pl-0.5">*</sup>
-                      </FormLabel>
+                      <ProjectFieldLabel
+                        title="SDG"
+                        data={dataInfo?.data?.attributes?.sdgs}
+                        required
+                      />
                       <FormControl>
                         <MultiCombobox
                           values={field.value}
@@ -774,9 +823,11 @@ export default function ProjectForm() {
                 name="status"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Status<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <ProjectFieldLabel
+                      title="Status"
+                      data={dataInfo?.data?.attributes?.status}
+                      required
+                    />
                     <FormControl>
                       <Select value={field.value?.toString()} onValueChange={field.onChange}>
                         <SelectTrigger
@@ -812,9 +863,11 @@ export default function ProjectForm() {
                 name="funding"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Type of funding<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <ProjectFieldLabel
+                      title="Type of funding"
+                      data={dataInfo?.data?.attributes?.funding}
+                      required
+                    />
                     <FormControl>
                       <Select value={field.value?.toString()} onValueChange={field.onChange}>
                         <SelectTrigger
@@ -850,9 +903,11 @@ export default function ProjectForm() {
                 name="organization_type"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Organization type<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <ProjectFieldLabel
+                      title="Organization type"
+                      data={dataInfo?.data?.attributes?.organization_type}
+                      required
+                    />
                     <FormControl>
                       <Select value={field.value?.toString()} onValueChange={field.onChange}>
                         <SelectTrigger
@@ -887,9 +942,11 @@ export default function ProjectForm() {
                 name="source_country"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Source country<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <ProjectFieldLabel
+                      title="Source country"
+                      data={dataInfo?.data?.attributes?.source_country}
+                      required
+                    />
                     <FormControl>
                       <Select value={field.value?.toString()} onValueChange={field.onChange}>
                         <SelectTrigger
@@ -925,9 +982,11 @@ export default function ProjectForm() {
                 name="objective"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Objective<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <ProjectFieldLabel
+                      title="Objective"
+                      data={dataInfo?.data?.attributes?.objective}
+                      required
+                    />
                     <FormControl>
                       <Select value={field.value?.toString()} onValueChange={field.onChange}>
                         <SelectTrigger

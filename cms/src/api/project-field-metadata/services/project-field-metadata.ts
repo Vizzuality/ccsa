@@ -1,0 +1,7 @@
+/**
+ * project-field-metadata service
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreService('api::project-field-metadata.project-field-metadata');
