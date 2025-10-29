@@ -1,0 +1,58 @@
+{
+  "kind": "singleType",
+  "collectionName": "project_fields_metadata",
+  "info": {
+    "singularName": "project-field-metadata",
+    "pluralName": "project-fields-metadata",
+    "displayName": "project field metadata",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "richtext"
+    },
+    "countries": {
+      "type": "richtext"
+    },
+    "pillar": {
+      "type": "richtext"
+    },
+    "highlight": {
+      "type": "richtext"
+    },
+    "account": {
+      "type": "richtext"
+    },
+    "amount": {
+      "type": "richtext"
+    },
+    "sdgs": {
+      "type": "richtext"
+    },
+    "objective": {
+      "type": "richtext"
+    },
+    "info": {
+      "type": "richtext"
+    },
+    "funding": {
+      "type": "richtext"
+    },
+    "organization_type": {
+      "type": "richtext"
+    },
+    "source_country": {
+      "type": "richtext"
+    },
+    "status": {
+      "type": "richtext"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}
