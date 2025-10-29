@@ -70,6 +70,18 @@ export function MultiCombobox() {
           <CommandInput placeholder="Search country..." className="h-9" />
           <CommandEmpty>No country found.</CommandEmpty>
           <CommandGroup>
+            {OPTIONS.length > comparisonCountries.length && (
+              <CommandItem
+                key="select-all"
+                value="Select All"
+                className="text-sm font-medium text-primary"
+                onSelect={() => {
+                  setComparisonCountries(OPTIONS.map((o) => o.value));
+                }}
+              >
+                Select All
+              </CommandItem>
+            )}
             <CommandItem
               key="clear"
               value="Clear"
