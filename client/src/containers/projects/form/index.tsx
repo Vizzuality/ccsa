@@ -376,6 +376,7 @@ export default function ProjectForm() {
       }),
       source_country: z.coerce.number().min(1, { message: "Please select a country" }),
       objective: z.coerce.number().min(1, { message: "Please enter objective" }),
+      video_link: z.string().optional(),
     })
     .superRefine((data, ctx) => {
       if (data.funding === otherFundingDisplay) {
@@ -410,6 +411,7 @@ export default function ProjectForm() {
         organization_type: previousData?.organization_type?.data?.id as number,
         source_country: previousData?.source_country?.data?.id as number,
         objective: previousData?.objective?.data?.id as number,
+        video_link: previousData?.video_link || "",
       },
     }),
   });
@@ -920,9 +922,11 @@ export default function ProjectForm() {
                   name="other_funding"
                   render={({ field }) => (
                     <FormItem className="space-y-1.5">
-                      <FormLabel className="sr-only text-xs font-semibold">
-                        Type of funding<sup className="pl-0.5">*</sup>
-                      </FormLabel>
+                      <ProjectFieldLabel
+                        title="Specify type of funding"
+                        data={dataInfo?.data?.attributes?.other_funding}
+                        required
+                      />
                       <FormControl>
                         <Input
                           {...field}
@@ -1059,6 +1063,34 @@ export default function ProjectForm() {
                           })}
                         </SelectContent>
                       </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="video_link"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.5">
+                    <ProjectFieldLabel
+                      title="Video link"
+                      data={dataInfo?.data?.attributes?.video_link}
+                    />
+                    <FormControl>
+                      <Input
+                        {...field}
+                        value={field.value}
+                        className={cn({
+                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
+                        })}
+                        placeholder="Video link"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
