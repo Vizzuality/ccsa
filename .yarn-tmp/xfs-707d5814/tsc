@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "/Users/maria/.nvm/versions/node/v22.20.0/bin/node" '/Users/maria/Documents/Projects/ccsa/client/node_modules/typescript/bin/tsc' "$@"

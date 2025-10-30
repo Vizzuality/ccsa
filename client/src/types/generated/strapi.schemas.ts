@@ -3218,6 +3218,7 @@ export type SdgProjectsDataItemAttributes = {
   status?: SdgProjectsDataItemAttributesStatus;
   updatedAt?: string;
   updatedBy?: SdgProjectsDataItemAttributesUpdatedBy;
+  video_link?: string;
 };
 
 export type SdgProjectsDataItem = {
@@ -5707,6 +5708,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributes 
   status?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesStatus;
   updatedAt?: string;
   updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesUpdatedBy;
+  video_link?: string;
 };
 
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItem = {
@@ -7372,6 +7374,7 @@ export interface Project {
   status?: ProjectStatusProperty;
   updatedAt?: string;
   updatedBy?: ProjectUpdatedBy;
+  video_link?: string;
 }
 
 export interface ProjectResponseDataObject {
@@ -7487,6 +7490,7 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributes = {
   status?: ProjectPillarDataAttributesProjectsDataItemAttributesStatus;
   updatedAt?: string;
   updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesUpdatedBy;
+  video_link?: string;
 };
 
 export type ProjectPillarDataAttributesProjectsDataItem = {
@@ -9104,6 +9108,7 @@ export type ProjectRequestData = {
   sdgs?: ProjectRequestDataSdgsItem[];
   source_country?: ProjectRequestDataSourceCountry;
   status?: ProjectRequestDataStatus;
+  video_link?: string;
 };
 
 export type PillarResponseMeta = { [key: string]: any };
@@ -9186,6 +9191,7 @@ export type PillarProjectsDataItemAttributes = {
   status?: PillarProjectsDataItemAttributesStatus;
   updatedAt?: string;
   updatedBy?: PillarProjectsDataItemAttributesUpdatedBy;
+  video_link?: string;
 };
 
 export type PillarProjectsDataItemAttributesStatusDataAttributes = { [key: string]: any };
