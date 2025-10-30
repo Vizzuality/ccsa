@@ -78,6 +78,9 @@
     },
     "other_funding": {
       "type": "string"
+    },
+    "video_link": {
+      "type": "string"
     }
   }
 }
