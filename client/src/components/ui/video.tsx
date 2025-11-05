@@ -7,14 +7,29 @@ type VideoProps = {
 };
 
 export function Video({ src, type = "video/mp4", classname, height, width }: VideoProps) {
-  // Youtube videos
-  const isYouTube = src.includes("youtube.com") || src.includes("youtu.be");
+  let isYouTube = false;
+  let embedSrc = src;
+
+  try {
+    const url = new URL(src);
+    const hostname = url.hostname.replace(/^www\./, "");
+
+    isYouTube = hostname === "youtube.com" || hostname === "youtu.be";
+
+    if (isYouTube) {
+      if (hostname === "youtube.com" && url.searchParams.has("v")) {
+        embedSrc = `https://youtube.com/embed/${url.searchParams.get("v")}`;
+      } else if (hostname === "youtu.be") {
+        embedSrc = `https://youtube.com/embed/${url.pathname.slice(1)}`;
+      } else {
+        embedSrc = src.replace("youtube.com/shorts/", "youtube.com/embed/");
+      }
+    }
+  } catch (err) {
+    console.error("Invalid URL:", err);
+  }
 
   if (isYouTube) {
-    const embedSrc = src
-      .replace("watch?v=", "embed/")
-      .replace("youtube.com/shorts/", "youtube.com/embed/");
-
     return (
       <iframe
         width={width}
