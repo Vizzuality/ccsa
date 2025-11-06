@@ -53,6 +53,12 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "video_link": {
+      "type": "richtext"
+    },
+    "other_funding": {
+      "type": "richtext"
     }
   }
 }

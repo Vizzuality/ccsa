@@ -1,5 +1,6 @@
 "use client";
 
+import { Video } from "@/components/ui/video";
 import Markdown from "react-markdown";
 
 import { cn } from "@/lib/classnames";
@@ -86,6 +87,8 @@ const ProjectPopup = () => {
   const sourceCountry = data?.data?.attributes?.source_country?.data?.attributes?.name;
   const objective = data?.data?.attributes?.objective?.data?.attributes?.type;
   const info = data?.data?.attributes?.info;
+  const videoLink = data?.data?.attributes?.video_link;
+
   const { format } = Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -233,6 +236,14 @@ const ProjectPopup = () => {
                   projectOtherFunding &&
                   `: (${projectOtherFunding})`}
               </div>
+            </div>
+          )}
+
+          {/* VIDEO */}
+          {!!videoLink && (
+            <div className="space-y-2.5">
+              <ProjectFieldHeader title="Video" data={dataInfo?.data?.attributes?.video_link} />
+              <Video src={videoLink} />
             </div>
           )}
         </section>

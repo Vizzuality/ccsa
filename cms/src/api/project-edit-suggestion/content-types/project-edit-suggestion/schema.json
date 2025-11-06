@@ -96,6 +96,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::project-status.project-status"
+    },
+    "video_link": {
+      "type": "string"
     }
   }
 }

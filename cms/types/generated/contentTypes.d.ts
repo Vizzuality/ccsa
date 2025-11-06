@@ -1344,6 +1344,7 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'api::project-status.project-status'
     >;
     other_funding: Attribute.String;
+    video_link: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1435,6 +1436,7 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
       'oneToOne',
       'api::project-status.project-status'
     >;
+    video_link: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1480,6 +1482,8 @@ export interface ApiProjectFieldMetadataProjectFieldMetadata
     source_country: Attribute.RichText;
     status: Attribute.RichText;
     description: Attribute.RichText;
+    video_link: Attribute.RichText;
+    other_funding: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
