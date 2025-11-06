@@ -17,6 +17,7 @@ export function Video({ src, type = "video/mp4", classname, height, width }: Vid
     isYouTube = hostname === "youtube.com" || hostname === "youtu.be";
 
     if (isYouTube) {
+      // v parameter for regular YouTube links
       if (hostname === "youtube.com" && url.searchParams.has("v")) {
         embedSrc = `https://youtube.com/embed/${url.searchParams.get("v")}`;
       } else if (hostname === "youtu.be") {
