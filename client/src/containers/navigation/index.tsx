@@ -4,8 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { LuUser2 } from "react-icons/lu";
-
+import { LuUser2, LuHelpingHand } from "react-icons/lu";
 import { cn } from "@/lib/classnames";
 
 import { useSyncSearchParams } from "@/app/store";
@@ -14,13 +13,15 @@ import CollaboratorsSvg from "@/svgs/collaborators.svg";
 import ExploreSVG from "@/svgs/explore.svg";
 import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
+
+import env from "@/env.mjs";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
 
   const sp = useSyncSearchParams();
-    const { data: session } = useSession();
+  const { data: session } = useSession();
 
   const userNameWithoutSpaces = !session?.user?.username?.includes(" ");
 
@@ -141,40 +142,62 @@ const Navigation = (): JSX.Element => {
           </Link>
         </li>
       </ul>
-      <div className="group relative py-5 text-center">
-        <div
-          className={cn({
-            "absolute left-0 top-0 h-full w-1 -translate-x-full bg-[#FF7816] transition-transform":
-              true,
-            "translate-x-0": pathname === "/collaborators",
-          })}
-        />
-        <Link
-          href={!session ? "/signin" : "/dashboard"}
-          className={cn({
-            "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
-            "bg-[#FF7816]/10": pathname === "/collaborators",
-            "text-gray-400 group-hover:text-gray-900": pathname !== "/collaborators",
-          })}
-        >
-          <LuUser2
-            title="Log in"
-            className={cn({
-              "mx-auto h-6 w-6 rounded-full border-2 border-gray-400 fill-none group-hover:border-gray-900":
-                true,
-              "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/collaborators",
-              "stroke-[#FF7816]": pathname === "/collaborators",
-            })}
-          />
-          <span
-            className={cn({
-              "w-full flex-wrap text-xxs": true,
-              "overflow-hidden truncate px-2": userNameWithoutSpaces,
-            })}
+      <div className="py-5">
+        <div className="group relative text-center">
+          {/* TO - DO - add href when client finishes with their donations page and get rid off the mailto  */}
+          {/* <Link
+            href=""
+            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
           >
-            {session ? session.user.username : "Log in"}
-          </span>
-        </Link>
+            <LuHelpingHand
+              title="Log in"
+              className={cn({
+                "mx-auto h-6 w-6 rounded-full  border-gray-400 fill-none stroke-gray-400 stroke-[0.5px] group-hover:border-gray-900 group-hover:stroke-gray-900 group-hover:stroke-[1px]":
+                  true,
+              })}
+            />
+            <span className="w-full flex-wrap text-xxs">Donations</span>
+          </Link> */}
+
+          <a
+            href={`mailto:maria.luena@vizzuality.com?subject=${encodeURIComponent(
+              "test",
+            )}&body=${encodeURIComponent("body test")}`}
+            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
+          >
+            <div
+              className={cn({
+                "absolute left-0 top-0 h-full w-1 -translate-x-full bg-brand1 transition-transform":
+                  true,
+                "translate-x-0": pathname === "/",
+              })}
+            />
+            <LuHelpingHand
+              title="Donations"
+              className="mx-auto h-6 w-6 rounded-full  border-gray-400 fill-none stroke-gray-400 stroke-[0.5px] group-hover:border-gray-900 group-hover:stroke-gray-900 group-hover:stroke-[1px]"
+            />
+            <span className="w-full flex-wrap text-xxs">Donations</span>
+          </a>
+        </div>
+        <div className="group relative text-center">
+          <Link
+            href={!session ? "/signin" : "/dashboard"}
+            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
+          >
+            <LuUser2
+              title="Log in"
+              className="mx-auto h-6 w-6 rounded-full  border-gray-400 fill-none stroke-gray-400 stroke-[0.5px] group-hover:border-gray-900 group-hover:stroke-gray-900 group-hover:stroke-[1px]"
+            />
+            <span
+              className={cn({
+                "w-full flex-wrap text-xxs": true,
+                "overflow-hidden truncate px-2": userNameWithoutSpaces,
+              })}
+            >
+              {session ? session.user.username : "Log in"}
+            </span>
+          </Link>
+        </div>
       </div>
     </nav>
   );
