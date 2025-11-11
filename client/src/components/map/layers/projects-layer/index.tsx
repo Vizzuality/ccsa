@@ -16,6 +16,8 @@ import { projectSearchAtom, useSyncCountries, useSyncPillars } from "@/app/store
 
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 
+import qs from "qs";
+
 export type ProjectsLayerProps = LayerProps & {
   config: Config;
   beforeId?: string;
@@ -34,6 +36,9 @@ const ProjectsLayer = ({ id, beforeId, config, onAdd, onRemove }: ProjectsLayerP
     {
       query: {
         keepPreviousData: true,
+      },
+      request: {
+        paramsSerializer: (params) => qs.stringify(params, { encodeValuesOnly: true }),
       },
     },
   );
