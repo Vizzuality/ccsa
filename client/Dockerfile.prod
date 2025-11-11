@@ -44,7 +44,10 @@ ENV NEXT_TELEMETRY_DISABLED 1
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+RUN adduser --system --uid 1001 --home /app nextjs
+ENV HOME=/app
+#Need to explicitly set a HOME folder because the entrypoint script uses yarn, and the packageManager will force to use
+#corepack to install yarn, but its cache folder is written in the HOME folder
 
 COPY --from=build --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=build --chown=nextjs:nodejs /app/entrypoint.sh ./entrypoint.sh

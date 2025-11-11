@@ -50,7 +50,10 @@ ENV NODE_ENV production
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 strapi
+RUN adduser --system --uid 1001 --home /app strapi
+ENV HOME=/app
+#Need to explicitly set a HOME folder because the entrypoint script uses yarn, and the packageManager will force to use
+#corepack to install yarn, but its cache folder is written in the HOME folder
 
 COPY --from=build --chown=strapi:nodejs /app ./
 
