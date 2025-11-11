@@ -26,7 +26,7 @@ const ProjectsFilters = () => {
       <div className="flex space-x-1">
         <Search
           defaultValue={projectsSearch}
-          placeholder="Search project by name"
+          placeholder="Search project by name or description"
           onChange={handleSearch}
         />
 

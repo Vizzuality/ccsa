@@ -21,11 +21,8 @@ export const GET_PROJECTS_OPTIONS = (
   filters: {
     ...(!!projectSearch && {
       $or: [
-        {
-          name: {
-            $containsi: projectSearch,
-          },
-        },
+        { name: { $containsi: projectSearch } },
+        { highlight: { $containsi: projectSearch } },
         // {
         //   countries: {
         //     name: {
