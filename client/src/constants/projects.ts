@@ -16,6 +16,9 @@ export const GET_PROJECTS_OPTIONS = (
     countries: {
       fields: ["id", "name", "iso3"],
     },
+    status: {
+      fields: ["maturity", "name"],
+    },
   },
   sort: "name:asc",
   filters: {

@@ -14,6 +14,7 @@ import { projectSearchAtom, useSyncProject } from "@/app/store";
 import { PROJECT_PILLARS } from "@/constants/projects";
 
 import SearchHighlight from "@/components/ui/search-highlight";
+import ProjectsStatusProgressBar from "./status-progress-bar";
 
 const ProjectsItem = (project: ProjectListResponseDataItem) => {
   const { id, attributes } = project;
@@ -23,7 +24,7 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
 
   if (!attributes) return null;
 
-  const { pillar, countries } = attributes;
+  const { pillar, countries, status: projectStatus, name } = attributes;
 
   const handleClick = () => {
     if (!id) return;
@@ -51,6 +52,9 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
           />
           <span className="block">{pillar?.data?.attributes?.name}</span>
         </h3>
+
+        <ProjectsStatusProgressBar {...projectStatus?.data?.attributes} />
+
         {status === "authenticated" && (
           <Link
             href={`/dashboard/projects/${id}`}
