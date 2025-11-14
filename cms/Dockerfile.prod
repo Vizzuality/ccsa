@@ -57,6 +57,7 @@ ENV HOME=/app
 
 COPY --from=build --chown=strapi:nodejs /app ./
 
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 RUN corepack enable
 
 USER strapi
