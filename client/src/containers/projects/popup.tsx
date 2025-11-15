@@ -7,7 +7,7 @@ import { cn } from "@/lib/classnames";
 
 import { useGetProjectsId } from "@/types/generated/project";
 
-import { useSyncProject } from "@/app/store";
+import { projectSearchAtom, useSyncProject } from "@/app/store";
 
 import { PROJECT_PILLARS } from "@/constants/projects";
 
@@ -19,6 +19,9 @@ import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@/compone
 import { LuInfo } from "react-icons/lu";
 
 import { TooltipPortal } from "@radix-ui/react-tooltip";
+import { useAtomValue } from "jotai";
+
+import { HighlightedMarkdown } from "@/components/ui/highlighted-markdown";
 
 const ProjectFieldHeader = ({ title, data }: { title: string; data: string | undefined }) => (
   <div className="flex items-center">
@@ -40,6 +43,7 @@ const ProjectFieldHeader = ({ title, data }: { title: string; data: string | und
 
 const ProjectPopup = () => {
   const [project] = useSyncProject();
+  const projectSearch = useAtomValue(projectSearchAtom);
 
   const { data } = useGetProjectsId(
     project as number,
@@ -112,7 +116,13 @@ const ProjectPopup = () => {
         {!!data?.data?.attributes?.highlight && (
           <section className="space-y-2.5 py-5">
             <ProjectFieldHeader title="Description" data={dataInfo?.data?.attributes?.highlight} />
-            <Markdown className="prose">{data?.data?.attributes?.highlight}</Markdown>
+
+            {projectSearch && (
+              <HighlightedMarkdown text={data?.data?.attributes?.highlight} query={projectSearch} />
+            )}
+            {!projectSearch && (
+              <Markdown className="text-sm">{data?.data?.attributes?.highlight}</Markdown>
+            )}
           </section>
         )}
 
