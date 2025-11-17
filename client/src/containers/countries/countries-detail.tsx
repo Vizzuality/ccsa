@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 
 import CountriesTable from "./countries-table";
+import CountriesPivotedTable from "./countries-pivoted-table";
 
 const CountryDetail = ({ embed }: { embed?: boolean }) => {
   const [country] = useSyncCountry();
@@ -58,7 +59,8 @@ const CountryDetail = ({ embed }: { embed?: boolean }) => {
             )}
           </div>
 
-          <CountriesTable />
+          <CountriesPivotedTable />
+          {/* <CountriesTable /> */}
 
           <div className="flex space-x-2.5">
             <Dialog>
