@@ -16,6 +16,9 @@ export const GET_PROJECTS_OPTIONS = (
     countries: {
       fields: ["id", "name", "iso3"],
     },
+    status: {
+      fields: ["maturity", "name"],
+    },
   },
   sort: "name:asc",
   filters: {
@@ -60,4 +63,9 @@ export const PROJECT_PILLARS: Record<string, { color: string; selectedColor: str
     color: "from-[#01B6DE] to-[#00BFB3] shadow-[#01B6DE]",
     selectedColor: "bg-[#01B6DE]/10 border-[#01B6DE]",
   },
+};
+
+export const GET_PROJECT_STATUSES_OPTIONS = {
+  "pagination[pageSize]": 100,
+  sort: "maturity:desc",
 };

@@ -3389,6 +3389,7 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
   {
     createdAt?: string;
     createdBy?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesCreatedBy;
+    maturity?: number;
     name?: string;
     publishedAt?: string;
     updatedAt?: string;
@@ -5065,6 +5066,7 @@ export interface ProjectStatusResponse {
 export interface ProjectStatus {
   createdAt?: string;
   createdBy?: ProjectStatusCreatedBy;
+  maturity?: number;
   name?: string;
   publishedAt?: string;
   updatedAt?: string;
@@ -5282,6 +5284,7 @@ export interface ProjectStatusListResponse {
 }
 
 export type ProjectStatusRequestData = {
+  maturity?: number;
   name?: string;
 };
 
@@ -5868,6 +5871,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
   {
     createdAt?: string;
     createdBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesCreatedBy;
+    maturity?: number;
     name?: string;
     publishedAt?: string;
     updatedAt?: string;
@@ -7682,6 +7686,7 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
   {
     createdAt?: string;
     createdBy?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesCreatedBy;
+    maturity?: number;
     name?: string;
     publishedAt?: string;
     updatedAt?: string;
@@ -9347,6 +9352,7 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
   {
     createdAt?: string;
     createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesCreatedBy;
+    maturity?: number;
     name?: string;
     publishedAt?: string;
     updatedAt?: string;

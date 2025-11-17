@@ -5,17 +5,21 @@ import { LuX } from "react-icons/lu";
 import { useGetCountries } from "@/types/generated/country";
 import { useGetPillars } from "@/types/generated/pillar";
 
-import { useSyncCountries, useSyncPillars } from "@/app/store";
+import { useSyncCountries, useSyncPillars, useSyncProjectStatus } from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
+import { GET_PROJECT_STATUSES_OPTIONS } from "@/constants/projects";
+import { useGetProjectStatuses } from "@/types/generated/project-status";
 
 const ProjectsSelected = () => {
   const [pillars, setPillars] = useSyncPillars();
   const [countries, setCountries] = useSyncCountries();
+  const [status, setStatus] = useSyncProjectStatus();
 
   const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS);
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
+  const { data: statusData } = useGetProjectStatuses(GET_PROJECT_STATUSES_OPTIONS);
 
   if (!pillars.length && !countries.length) return null;
 
@@ -59,6 +63,28 @@ const ProjectsSelected = () => {
                 className="ml-1.5 flex h-4 w-4 items-center justify-center rounded-full border border-green-500"
                 onClick={() => {
                   setCountries(countries.filter((ci) => ci !== c));
+                }}
+              >
+                <LuX className="h-2.5 w-2.5" />
+              </button>
+            </span>
+          );
+        })}
+
+        {status.map((s) => {
+          const statusItem = statusData?.data?.find((s1) => s1.attributes?.maturity === s);
+
+          return (
+            <span
+              key={s}
+              className="inline-flex items-center justify-center rounded-full border border-green-500 bg-green-50 px-2.5 py-1 text-xs"
+            >
+              <span>{statusItem?.attributes?.name}</span>
+              <button
+                type="button"
+                className="ml-1.5 flex h-4 w-4 items-center justify-center rounded-full border border-green-500"
+                onClick={() => {
+                  setStatus(status.filter((si) => si !== s));
                 }}
               >
                 <LuX className="h-2.5 w-2.5" />

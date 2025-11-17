@@ -14,6 +14,7 @@ import {
   pillarsParser,
   publicationStateParser,
   projectParser,
+  projectStatusParser,
   datasetStepParser,
 } from "@/app/parsers";
 
@@ -69,6 +70,10 @@ export const useSyncCountries = () => {
 
 export const useSyncPillars = () => {
   return useQueryState("pillars", pillarsParser);
+};
+
+export const useSyncProjectStatus = () => {
+  return useQueryState("project-status", projectStatusParser);
 };
 
 export const useSyncAvailableForFunding = () => {

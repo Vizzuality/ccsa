@@ -62,7 +62,7 @@ export function MultiCombobox({
       </PopoverTrigger>
       <PopoverContent className="popover-content-width-same-as-its-trigger p-0">
         <Command className="w-full">
-          <CommandInput placeholder="Search country..." className="h-9" />
+          <CommandInput placeholder={placeholder || "Search country..."} className="h-9" />
           <CommandEmpty>No country found.</CommandEmpty>
           <CommandGroup>
             <CommandItem
