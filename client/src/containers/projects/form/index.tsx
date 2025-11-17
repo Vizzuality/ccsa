@@ -81,18 +81,20 @@ const ProjectFieldLabel = ({
       {title}
       {required && <sup className="pl-0.5">*</sup>}
     </span>
-    <Tooltip>
-      <TooltipTrigger>
-        <LuInfo className="h-4 w-4 pl-1 font-bold" />
-      </TooltipTrigger>
+    {data && (
+      <Tooltip>
+        <TooltipTrigger>
+          <LuInfo className="h-4 w-4 pl-1 font-bold" />
+        </TooltipTrigger>
 
-      <TooltipPortal>
-        <TooltipContent side="right" align="center">
-          <Markdown className="prose text-xxs">{data}</Markdown>
-          <TooltipArrow className="fill-white" width={10} height={5} />
-        </TooltipContent>
-      </TooltipPortal>
-    </Tooltip>
+        <TooltipPortal>
+          <TooltipContent side="right" align="center">
+            <Markdown className="prose text-xxs">{data}</Markdown>
+            <TooltipArrow className="fill-white" width={10} height={5} />
+          </TooltipContent>
+        </TooltipPortal>
+      </Tooltip>
+    )}
   </FormLabel>
 );
 
@@ -633,7 +635,7 @@ export default function ProjectForm() {
             className="space-y-4"
             onSubmit={form.handleSubmit(handleSubmit)}
           >
-            <fieldset className="space-y-6">
+            <fieldset className="space-y-6 pb-6">
               <FormField
                 control={form.control}
                 name="name"

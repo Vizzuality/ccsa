@@ -64,3 +64,8 @@ export const PROJECT_PILLARS: Record<string, { color: string; selectedColor: str
     selectedColor: "bg-[#01B6DE]/10 border-[#01B6DE]",
   },
 };
+
+export const GET_PROJECT_STATUSES_OPTIONS = {
+  "pagination[pageSize]": 100,
+  sort: "maturity:desc",
+};

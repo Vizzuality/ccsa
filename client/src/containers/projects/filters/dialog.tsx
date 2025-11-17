@@ -11,7 +11,12 @@ import * as z from "zod";
 import { useGetCountries } from "@/types/generated/country";
 import { useGetPillars } from "@/types/generated/pillar";
 
-import { useSyncAvailableForFunding, useSyncCountries, useSyncPillars } from "@/app/store";
+import {
+  useSyncAvailableForFunding,
+  useSyncCountries,
+  useSyncPillars,
+  useSyncProjectStatus,
+} from "@/app/store";
 
 import { GET_COUNTRIES_OPTIONS } from "@/constants/countries";
 import { GET_PILLARS_OPTIONS } from "@/constants/pillars";
@@ -28,10 +33,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { MultiCombobox } from "@/components/ui/multicombobox";
+import { useGetProjectStatuses } from "@/types/generated/project-status";
 
 const FormSchema = z.object({
   pillars: z.array(z.number()),
   countries: z.array(z.string()).optional(),
+  status: z.array(z.number()).optional(),
   available_for_funding: z.boolean().optional(),
 });
 
@@ -41,12 +48,14 @@ const ProjectsFiltersDialog = () => {
   const [pillars, setPillars] = useSyncPillars();
   const [availableForFunding, setAvailableForFunding] = useSyncAvailableForFunding();
   const [countries, setCountries] = useSyncCountries();
+  const [status, setProjectStatus] = useSyncProjectStatus();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       pillars,
       countries: [],
+      status: [],
       available_for_funding: undefined,
     },
   });
@@ -58,10 +67,13 @@ const ProjectsFiltersDialog = () => {
 
     setAvailableForFunding(!!data.available_for_funding);
 
+    setProjectStatus(data.status ?? null);
+
     setOpen(false);
   }
   const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS);
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
+  const { data: statusData } = useGetProjectStatuses();
 
   const OPTIONS = useMemo(() => {
     if (!countriesData?.data) return [];
@@ -74,11 +86,23 @@ const ProjectsFiltersDialog = () => {
     });
   }, [countriesData]);
 
+  const OPTIONS_STATUS = useMemo(() => {
+    if (!statusData?.data) return [];
+
+    return statusData.data.map((c) => {
+      return {
+        value: c.attributes?.maturity ?? 0,
+        label: c.attributes?.name ?? "",
+      };
+    });
+  }, [statusData]);
+
   useMemo(() => {
     form.setValue("pillars", pillars);
     form.setValue("countries", countries ?? undefined);
     form.setValue("available_for_funding", availableForFunding ?? undefined);
-  }, [form, pillars, countries, availableForFunding]);
+    form.setValue("status", status ?? undefined);
+  }, [form, pillars, countries, availableForFunding, status]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -171,6 +195,26 @@ const ProjectsFiltersDialog = () => {
                         Only show projects available for funding
                       </FormLabel>
                     </div>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* PROJECT STATUS */}
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-base">Project Status</FormLabel>
+
+                    <MultiCombobox
+                      values={field.value}
+                      options={OPTIONS_STATUS}
+                      placeholder="Select project status"
+                      onChange={field.onChange}
+                    />
 
                     <FormMessage />
                   </FormItem>

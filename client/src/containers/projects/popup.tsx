@@ -22,6 +22,7 @@ import { TooltipPortal } from "@radix-ui/react-tooltip";
 import { useAtomValue } from "jotai";
 
 import { HighlightedMarkdown } from "@/components/ui/highlighted-markdown";
+import { ProgressBar } from "./status-progress-bar";
 
 const ProjectFieldHeader = ({ title, data }: { title: string; data: string | undefined }) => (
   <div className="flex items-center">
@@ -55,7 +56,7 @@ const ProjectPopup = () => {
           fields: ["name"],
         },
         status: {
-          fields: ["name"],
+          fields: ["name", "maturity"],
         },
         funding: {
           fields: ["name"],
@@ -84,7 +85,7 @@ const ProjectPopup = () => {
   const pillar = data?.data?.attributes?.pillar;
   const sdgs = data?.data?.attributes?.sdgs;
   const countries = data?.data?.attributes?.countries;
-  const projectStatus = data?.data?.attributes?.status?.data?.attributes?.name;
+  const projectStatus = data?.data?.attributes?.status?.data?.attributes;
   const projectTypeOfFunding = data?.data?.attributes?.funding?.data?.attributes?.name;
   const projectOtherFunding = data?.data?.attributes?.other_funding;
   const organizationType = data?.data?.attributes?.organization_type?.data?.attributes?.name;
@@ -190,10 +191,11 @@ const ProjectPopup = () => {
           )}
 
           {/* STATUS */}
-          {!!projectStatus && (
+          {!!projectStatus?.name && (
             <div className="space-y-2.5">
-              <ProjectFieldHeader title="Status" data={dataInfo?.data?.attributes?.status} />
-              <div className="text-sm">{projectStatus}</div>
+              <ProjectFieldHeader title="Status" data={projectStatus?.name} />
+              <ProgressBar maturity={projectStatus.maturity} />
+              <div className="text-sm">{projectStatus.name}</div>
             </div>
           )}
 
@@ -204,6 +206,7 @@ const ProjectPopup = () => {
                 title="Source Country"
                 data={dataInfo?.data?.attributes?.source_country}
               />
+              <div className="text-sm">{sourceCountry}</div>
             </div>
           )}
 
@@ -214,6 +217,7 @@ const ProjectPopup = () => {
                 title="Organization Type"
                 data={dataInfo?.data?.attributes?.organization_type}
               />
+              <div className="text-sm">{organizationType}</div>
             </div>
           )}
 

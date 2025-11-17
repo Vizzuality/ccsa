@@ -46,14 +46,14 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
         <h3 className="flex items-center text-xs">
           <div
             className={cn({
-              "mr-1.5 inline-block h-4 w-4 rounded-full bg-gradient-to-r shadow": true,
+              "mr-1.5 inline-block h-4 w-4 shrink-0 rounded-full bg-gradient-to-r shadow": true,
               [PROJECT_PILLARS[`${pillar?.data?.attributes?.name}`]?.color]: true,
             })}
           />
           <span className="block">{pillar?.data?.attributes?.name}</span>
         </h3>
 
-        <ProjectsStatusProgressBar {...projectStatus?.data?.attributes} />
+        {/* <ProjectsStatusProgressBar {...projectStatus?.data?.attributes} /> */}
 
         {status === "authenticated" && (
           <Link
