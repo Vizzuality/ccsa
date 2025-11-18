@@ -12,7 +12,12 @@ import { useGetCountries } from "@/types/generated/country";
 import { useGetProjects } from "@/types/generated/project";
 import { Config, LayerProps } from "@/types/layers";
 
-import { projectSearchAtom, useSyncCountries, useSyncPillars } from "@/app/store";
+import {
+  projectSearchAtom,
+  projectSortingAtom,
+  useSyncCountries,
+  useSyncPillars,
+} from "@/app/store";
 
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 

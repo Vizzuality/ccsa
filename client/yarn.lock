@@ -6439,7 +6439,7 @@ __metadata:
     react-dom: 18.2.0
     react-dropzone: ^14.2.3
     react-hook-form: ^7.48.2
-    react-icons: 4.11.0
+    react-icons: 5.5.0
     react-map-gl: 7.1.6
     react-markdown: ^9.0.0
     react-player: ^2.16.0
@@ -13107,12 +13107,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:4.11.0":
-  version: 4.11.0
-  resolution: "react-icons@npm:4.11.0"
+"react-icons@npm:5.5.0":
+  version: 5.5.0
+  resolution: "react-icons@npm:5.5.0"
   peerDependencies:
     react: "*"
-  checksum: 7b8b80bbe2dabcc54b6c2129b7761a04b19caebe24389adc7683478ef41212b9ca0b53c63abcc06b3c01b94c84855ec5142b4c357e19c4aaaad9a4db23a3c485
+  checksum: cbd74f4b7982e6e18d59798a6b578268c8eb0909d78d87bcf9b25f99b3e544fd189a76551cb5e770d17f154a60b668551aee108aaf8471309b23f7af3b2c5b07
   languageName: node
   linkType: hard
 

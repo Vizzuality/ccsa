@@ -3,48 +3,59 @@ export const GET_PROJECTS_OPTIONS = (
   filters: {
     pillars: number[];
     countries?: string[] | null;
+    status?: number[] | null;
   },
-) => ({
-  "pagination[pageSize]": 200,
-  populate: {
-    pillar: {
-      fields: ["id", "name"],
-    },
-    sdgs: {
-      fields: ["id", "name"],
-    },
-    countries: {
-      fields: ["id", "name", "iso3"],
-    },
-    status: {
-      fields: ["maturity", "name"],
-    },
-  },
-  sort: "name:asc",
-  filters: {
-    ...(!!projectSearch && {
-      $or: [
-        { name: { $containsi: projectSearch } },
-        { highlight: { $containsi: projectSearch } },
-        // {
-        //   countries: {
-        //     name: {
-        //       $containsi: projectSearch,
-        //     },
-        //   },
-        // },
-      ],
-    }),
-    ...(!!filters?.pillars?.length && {
-      pillar: filters?.pillars,
-    }),
-    ...(!!filters?.countries?.length && {
-      countries: {
-        iso3: filters?.countries,
+  projectSorting?: { field: "name" | "status"; order: "asc" | "desc" },
+) => {
+  const sortField =
+    projectSorting?.field === "status" ? "status.maturity" : projectSorting?.field ?? "name";
+
+  const sortOrder = projectSorting?.order ?? "asc";
+  return {
+    "pagination[pageSize]": 200,
+    populate: {
+      pillar: {
+        fields: ["id", "name"],
       },
-    }),
-  },
-});
+      sdgs: {
+        fields: ["id", "name"],
+      },
+      countries: {
+        fields: ["id", "name", "iso3"],
+      },
+      status: {
+        fields: ["maturity", "name"],
+      },
+    },
+    sort: `${sortField}:${sortOrder}`,
+    filters: {
+      ...(!!projectSearch && {
+        $or: [
+          { name: { $containsi: projectSearch } },
+          { highlight: { $containsi: projectSearch } },
+          // {
+          //   countries: {
+          //     name: {
+          //       $containsi: projectSearch,
+          //     },
+          //   },
+          // },
+        ],
+      }),
+      ...(!!filters?.pillars?.length && {
+        pillar: filters?.pillars,
+      }),
+      ...(!!filters?.countries?.length && {
+        countries: {
+          iso3: filters?.countries,
+        },
+      }),
+      ...(!!filters?.status?.length && {
+        status: filters?.status,
+      }),
+    },
+  };
+};
 
 export const PROJECT_PILLARS: Record<string, { color: string; selectedColor: string }> = {
   "30 x 30 Nature Based Solutions": {
