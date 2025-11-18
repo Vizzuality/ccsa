@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { LuUser2, LuHelpingHand } from "react-icons/lu";
+import { LuCircleUser } from "react-icons/lu";
 import { cn } from "@/lib/classnames";
+
+import { Button } from "@/components/ui/button";
 
 import { useSyncSearchParams } from "@/app/store";
 
@@ -14,8 +16,6 @@ import ExploreSVG from "@/svgs/explore.svg";
 import OtherToolsSvg from "@/svgs/other-tools.svg";
 import ProjectsSVG from "@/svgs/projects.svg";
 import { useSession } from "next-auth/react";
-
-import env from "@/env.mjs";
 
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
@@ -142,7 +142,27 @@ const Navigation = (): JSX.Element => {
           </Link>
         </li>
       </ul>
-      <div className="py-5">
+      <div className="border-t-2 border-gray-300/20 pt-3.5">
+        <div className="group relative text-center">
+          <Link
+            href={!session ? "/signin" : "/dashboard"}
+            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
+          >
+            <LuCircleUser
+              title="Log in"
+              className="mx-auto h-6 w-6 rounded-full stroke-[1.5px] group-hover:border-gray-900 group-hover:stroke-gray-900"
+            />
+            <span
+              className={cn({
+                "w-full flex-wrap text-xxs": true,
+                "overflow-hidden truncate px-2": userNameWithoutSpaces,
+              })}
+            >
+              {session ? session.user.username : "Log in"}
+            </span>
+          </Link>
+        </div>
+
         <div className="group relative text-center">
           {/* TO - DO - add href when client finishes with their donations page and get rid off the mailto  */}
           {/* <Link
@@ -160,43 +180,23 @@ const Navigation = (): JSX.Element => {
           </Link> */}
 
           <a
-            href={`mailto:maria.luena@vizzuality.com?subject=${encodeURIComponent(
-              "test",
-            )}&body=${encodeURIComponent("body test")}`}
+            href={`mailto:hello@caribbeanaccelerator.org?subject=${encodeURIComponent(
+              "Donation Inquiry",
+            )}&body=${encodeURIComponent(`Hello,
+
+I’m reaching out because I’m interested in supporting the project through a donation. 
+Could you please share more details about the available donation options?
+
+Thank you!`)}`}
             className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
           >
-            <div
-              className={cn({
-                "absolute left-0 top-0 h-full w-1 -translate-x-full bg-brand1 transition-transform":
-                  true,
-                "translate-x-0": pathname === "/",
-              })}
-            />
-            <LuHelpingHand
-              title="Donations"
-              className="mx-auto h-6 w-6 rounded-full  border-gray-400 fill-none stroke-gray-400 stroke-[0.5px] group-hover:border-gray-900 group-hover:stroke-gray-900 group-hover:stroke-[1px]"
-            />
-            <span className="w-full flex-wrap text-xxs">Donations</span>
-          </a>
-        </div>
-        <div className="group relative text-center">
-          <Link
-            href={!session ? "/signin" : "/dashboard"}
-            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
-          >
-            <LuUser2
-              title="Log in"
-              className="mx-auto h-6 w-6 rounded-full  border-gray-400 fill-none stroke-gray-400 stroke-[0.5px] group-hover:border-gray-900 group-hover:stroke-gray-900 group-hover:stroke-[1px]"
-            />
-            <span
-              className={cn({
-                "w-full flex-wrap text-xxs": true,
-                "overflow-hidden truncate px-2": userNameWithoutSpaces,
-              })}
+            <Button
+              className="rounded-3xl bg-gradient-to-r from-[#78D64B] to-[#0194C8] text-xs text-white shadow-[0_2px_0px_rgb(120,214,75)] hover:shadow-none"
+              size="sm"
             >
-              {session ? session.user.username : "Log in"}
-            </span>
-          </Link>
+              Donate
+            </Button>
+          </a>
         </div>
       </div>
     </nav>

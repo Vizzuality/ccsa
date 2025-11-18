@@ -16,6 +16,7 @@ import {
   projectParser,
   projectStatusParser,
   datasetStepParser,
+  projectStatusOrderParser,
 } from "@/app/parsers";
 
 import { Data, DatasetValuesCSV } from "@/components/forms/dataset/types";
@@ -147,6 +148,11 @@ export const useSyncSearchParams = () => {
 export const datasetSearchAtom = atom<string | undefined>(undefined);
 
 export const projectSearchAtom = atom<string | undefined>(undefined);
+
+export const projectSortingAtom = atom({
+  field: "name" as "name" | "status",
+  order: "asc" as "asc" | "desc",
+});
 
 export const layersInteractiveAtom = atom<(number | string)[]>([]);
 export const layersInteractiveIdsAtom = atom<(number | string)[]>([]);

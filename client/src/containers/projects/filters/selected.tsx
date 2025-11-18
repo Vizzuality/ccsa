@@ -21,7 +21,7 @@ const ProjectsSelected = () => {
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
   const { data: statusData } = useGetProjectStatuses(GET_PROJECT_STATUSES_OPTIONS);
 
-  if (!pillars.length && !countries.length) return null;
+  if (!pillars.length && !countries.length && !status.length) return null;
 
   return (
     <div className="space-y-2.5">

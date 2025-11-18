@@ -6,7 +6,13 @@ import { cn } from "@/lib/classnames";
 
 import { useGetProjects } from "@/types/generated/project";
 
-import { projectSearchAtom, useSyncCountries, useSyncPillars } from "@/app/store";
+import {
+  projectSearchAtom,
+  projectSortingAtom,
+  useSyncCountries,
+  useSyncPillars,
+  useSyncProjectStatus,
+} from "@/app/store";
 
 import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
 
@@ -14,17 +20,24 @@ import ProjectsItem from "@/containers/projects/item";
 
 const Projects = () => {
   const projectSearch = useAtomValue(projectSearchAtom);
+  const projectsSorting = useAtomValue(projectSortingAtom);
   const [pillars] = useSyncPillars();
   const [countries] = useSyncCountries();
+  const [status] = useSyncProjectStatus();
 
   const { data: projectsData } = useGetProjects(
-    GET_PROJECTS_OPTIONS(projectSearch, {
-      pillars,
-      countries,
-    }),
+    GET_PROJECTS_OPTIONS(
+      projectSearch,
+      {
+        pillars,
+        countries,
+        status,
+      },
+      projectsSorting,
+    ),
     {
       query: {
-        keepPreviousData: true,
+        keepPreviousData: false,
       },
     },
   );

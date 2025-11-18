@@ -3,11 +3,11 @@
 import { ProjectStatus } from "@/types/generated/strapi.schemas";
 
 export const ProgressBar = ({ maturity }: { maturity?: number }) => (
-  <div className="flex shrink-0 space-x-[0.9px] whitespace-nowrap">
+  <div className="flex shrink-0 space-x-[0.95px] whitespace-nowrap">
     {Array.from({ length: 6 }).map((_, index) => (
       <span
         key={index}
-        className={`inline-block h-[5px] w-7 first:rounded-l-full last:rounded-r-full ${
+        className={`inline-block h-[5px] w-7 shrink-0 whitespace-nowrap first:rounded-l-full  last:rounded-r-full ${
           maturity && index + 1 <= maturity ? "bg-brand2" : "bg-gray-200"
         }`}
       />
@@ -18,7 +18,7 @@ export const ProgressBar = ({ maturity }: { maturity?: number }) => (
 const ProjectsStatusProgressBar = (status: ProjectStatus) => {
   if (!status) return null;
   return (
-    <div className="mx-2 space-y-[5px]">
+    <div className="space-y-3.5">
       <ProgressBar maturity={status.maturity} />
       <div className="flex flex-col">
         <span className="text-xxs font-semibold uppercase tracking-wide">Projects status:</span>
