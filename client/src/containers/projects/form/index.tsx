@@ -82,14 +82,14 @@ const ProjectFieldLabel = ({
       {required && <sup className="pl-0.5">*</sup>}
     </span>
     {data && (
-      <Tooltip>
+      <Tooltip delayDuration={0}>
         <TooltipTrigger>
           <LuInfo className="h-4 w-4 pl-1 font-bold" />
         </TooltipTrigger>
 
         <TooltipPortal>
-          <TooltipContent side="right" align="center">
-            <Markdown className="prose text-xxs">{data}</Markdown>
+          <TooltipContent side="right" align="center" className="max-w-[230px]">
+            <Markdown className="prose text-xs">{data}</Markdown>
             <TooltipArrow className="fill-white" width={10} height={5} />
           </TooltipContent>
         </TooltipPortal>
@@ -641,9 +641,11 @@ export default function ProjectForm() {
                 name="name"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
-                    <FormLabel className="text-xs font-semibold">
-                      Name<sup className="pl-0.5">*</sup>
-                    </FormLabel>
+                    <ProjectFieldLabel
+                      title="Name"
+                      data={dataInfo?.data?.attributes?.name}
+                      required
+                    />
                     <FormControl>
                       <Input
                         {...field}
