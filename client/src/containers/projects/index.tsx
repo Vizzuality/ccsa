@@ -48,7 +48,10 @@ const Projects = () => {
         if (!p.id) return null;
 
         return (
-          <li key={p.id} className="col-span-1">
+          <li
+            key={p.id}
+            className="col-span-1 rounded-e-lg rounded-s-lg shadow-[0_4px_0_0_#EAEDF0] hover:bg-gray-100/50 hover:shadow-none"
+          >
             <ProjectsItem {...p} />
           </li>
         );

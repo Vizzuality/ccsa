@@ -47,6 +47,7 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  SelectIcon,
 } from "@/components/ui/select";
 
 import { updateOrCreateOtherTools } from "@/services/other-tools";
@@ -506,6 +507,7 @@ export default function ToolForm() {
                           }
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {categoriesData?.map(({ label, value }) => (

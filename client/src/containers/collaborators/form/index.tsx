@@ -47,6 +47,7 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  SelectIcon,
 } from "@/components/ui/select";
 
 import { updateOrCreateCollaborator } from "@/services/collaborators";
@@ -470,6 +471,7 @@ export default function CollaboratorForm() {
                           }
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {relationshipOptions?.map(({ label, value }) => (
