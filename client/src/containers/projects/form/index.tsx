@@ -55,6 +55,7 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  SelectIcon,
 } from "@/components/ui/select";
 import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -740,6 +741,7 @@ export default function ProjectForm() {
                           }
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {(pillarsData || []).map(({ label, value }) => {
@@ -863,6 +865,7 @@ export default function ProjectForm() {
                           }
                         >
                           <SelectValue placeholder="Project status" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {(typesOfProjectStatus || []).map(({ label, value }) => {
@@ -903,6 +906,7 @@ export default function ProjectForm() {
                           }
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {(typesOfFundingData || []).map(({ label, value }) => {
@@ -976,6 +980,7 @@ export default function ProjectForm() {
                           }
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {(organizationTypes || []).map(({ label, value }) => {
@@ -1016,6 +1021,7 @@ export default function ProjectForm() {
                           }
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {(worldCountries || []).map(({ label, value }) => {
@@ -1056,6 +1062,7 @@ export default function ProjectForm() {
                           }
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {(projectObjectives || []).map(({ label, value }) => {

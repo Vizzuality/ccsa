@@ -8,6 +8,7 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  SelectIcon,
 } from "@/components/ui/select";
 
 export interface LegendTreeCoverLossProps {
@@ -60,6 +61,7 @@ const LegendTreeCoverLoss: React.FC<LegendTreeCoverLossProps> = ({
         >
           <SelectTrigger id="tree-cover-loss-from" className="h-6 w-auto">
             <SelectValue />
+            <SelectIcon />
           </SelectTrigger>
           <SelectContent>
             {options.map(({ label, value }) => (
@@ -82,6 +84,7 @@ const LegendTreeCoverLoss: React.FC<LegendTreeCoverLossProps> = ({
         >
           <SelectTrigger id="tree-cover-loss-to" className="h-6 w-auto">
             <SelectValue />
+            <SelectIcon />
           </SelectTrigger>
           <SelectContent>
             {options.map(({ label, value }) => (

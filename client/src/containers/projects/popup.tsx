@@ -22,7 +22,7 @@ import { TooltipPortal } from "@radix-ui/react-tooltip";
 import { useAtomValue } from "jotai";
 
 import { HighlightedMarkdown } from "@/components/ui/highlighted-markdown";
-import { ProgressBar } from "./status-progress-bar";
+import { ProjectsStatusProgressBar } from "./status-progress-bar";
 
 const ProjectFieldHeader = ({ title, data }: { title: string; data: string | undefined }) => (
   <div className="flex items-center">
@@ -111,23 +111,31 @@ const ProjectPopup = () => {
         <h3 className="text-xxs uppercase">Project detail</h3>
         <h2 className="font-metropolis text-3xl">{data?.data?.attributes?.name}</h2>
       </header>
-
       <div className="divide-y divide-gray-200 px-10">
-        {/* HIGHLIGHT */}
-        {!!data?.data?.attributes?.highlight && (
-          <section className="space-y-2.5 py-5">
-            <ProjectFieldHeader title="Description" data={dataInfo?.data?.attributes?.highlight} />
-
-            {projectSearch && (
-              <HighlightedMarkdown text={data?.data?.attributes?.highlight} query={projectSearch} />
-            )}
-            {!projectSearch && (
-              <Markdown className="text-sm">{data?.data?.attributes?.highlight}</Markdown>
-            )}
-          </section>
-        )}
-
+        {/* STATUS */}
+        <div className="py-5">
+          <ProjectsStatusProgressBar {...projectStatus} />
+        </div>
         <section className="space-y-5 py-5">
+          {/* HIGHLIGHT */}
+          {!!data?.data?.attributes?.highlight && (
+            <div className="space-y-2.5">
+              <ProjectFieldHeader
+                title="Description"
+                data={dataInfo?.data?.attributes?.highlight}
+              />
+
+              {projectSearch && (
+                <HighlightedMarkdown
+                  text={data?.data?.attributes?.highlight}
+                  query={projectSearch}
+                />
+              )}
+              {!projectSearch && (
+                <Markdown className="text-sm">{data?.data?.attributes?.highlight}</Markdown>
+              )}
+            </div>
+          )}
           {/* PILLAR */}
           {!!pillar?.data?.attributes?.name && (
             <div className="space-y-2.5">
@@ -187,15 +195,6 @@ const ProjectPopup = () => {
             <div className="space-y-2.5">
               <ProjectFieldHeader title="Account" data={dataInfo?.data?.attributes?.account} />
               <div className="text-sm">{data?.data?.attributes?.account}</div>
-            </div>
-          )}
-
-          {/* STATUS */}
-          {!!projectStatus?.name && (
-            <div className="space-y-2.5">
-              <ProjectFieldHeader title="Status" data={projectStatus?.name} />
-              <ProgressBar maturity={projectStatus.maturity} />
-              <div className="text-sm">{projectStatus.name}</div>
             </div>
           )}
 

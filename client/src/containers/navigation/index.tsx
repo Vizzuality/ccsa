@@ -44,15 +44,16 @@ const Navigation = (): JSX.Element => {
           />
           <Link
             className={cn({
-              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
-              "bg-brand1/10": pathname === "/",
+              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors hover:bg-gray-100/50":
+                true,
+              "bg-brand1/10 hover:bg-brand1/20": pathname === "/",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/",
             })}
             href={`/?${decodeURIComponent(sp.toString())}`}
           >
             <ExploreSVG
               className={cn({
-                "h-6 w-6 fill-none ": true,
+                "h-6 w-6 fill-none stroke-[1.5px]": true,
                 "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/",
                 "stroke-brand1": pathname === "/",
               })}
@@ -71,15 +72,16 @@ const Navigation = (): JSX.Element => {
           />
           <Link
             className={cn({
-              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
-              "bg-brand2/10": pathname === "/projects",
+              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors hover:bg-gray-100/50":
+                true,
+              "bg-brand2/10 hover:bg-brand2/20": pathname === "/projects",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/projects",
             })}
             href={`/projects?${decodeURIComponent(sp.toString())}`}
           >
             <ProjectsSVG
               className={cn({
-                "h-6 w-6 fill-none ": true,
+                "h-6 w-6 fill-none stroke-[1.5px]": true,
                 "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/projects",
                 "stroke-brand2": pathname === "/projects",
               })}
@@ -98,15 +100,16 @@ const Navigation = (): JSX.Element => {
           />
           <Link
             className={cn({
-              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
-              "bg-[#E44491]/10": pathname === "/other-tools",
+              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors hover:bg-gray-100/50":
+                true,
+              "bg-[#E44491]/10 hover:bg-[#E44491]/20": pathname === "/other-tools",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/other-tools",
             })}
             href="/other-tools"
           >
             <OtherToolsSvg
               className={cn({
-                "h-6 w-6 fill-none ": true,
+                "h-6 w-6 fill-none stroke-[1.5px]": true,
                 "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/other-tools",
                 "stroke-[#E44491]": pathname === "/other-tools",
               })}
@@ -125,15 +128,16 @@ const Navigation = (): JSX.Element => {
           />
           <Link
             className={cn({
-              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors": true,
-              "bg-[#FF7816]/10": pathname === "/collaborators",
+              "flex flex-col items-center justify-center space-y-2 py-5 transition-colors hover:bg-gray-100/50":
+                true,
+              "bg-[#FF7816]/10 hover:bg-[#FF7816]/20": pathname === "/collaborators",
               "text-gray-400 group-hover:text-gray-900": pathname !== "/collaborators",
             })}
             href="/collaborators"
           >
             <CollaboratorsSvg
               className={cn({
-                "h-6 w-6 fill-none ": true,
+                "h-6 w-6 fill-none stroke-[1.5px]": true,
                 "stroke-gray-400 group-hover:stroke-gray-900": pathname !== "/collaborators",
                 "stroke-[#FF7816]": pathname === "/collaborators",
               })}
@@ -146,7 +150,7 @@ const Navigation = (): JSX.Element => {
         <div className="group relative text-center">
           <Link
             href={!session ? "/signin" : "/dashboard"}
-            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
+            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors hover:bg-gray-100/50"
           >
             <LuCircleUser
               title="Log in"

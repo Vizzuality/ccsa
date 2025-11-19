@@ -48,6 +48,8 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  SelectLabel,
+  SelectIcon,
 } from "@/components/ui/select";
 
 import { VALUE_TYPE_DICTIONARY } from "./constants";
@@ -265,6 +267,7 @@ export default function DatasetSettingsForm({
                           disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {valueTypesOptions?.map(({ label, value }) => (
@@ -297,6 +300,7 @@ export default function DatasetSettingsForm({
                           disabled={status === "declined" && ME_DATA?.role?.type !== "admin"}
                         >
                           <SelectValue placeholder="Select one" />
+                          <SelectIcon />
                         </SelectTrigger>
                         <SelectContent>
                           {categoriesData?.map(({ label, value }) => (
