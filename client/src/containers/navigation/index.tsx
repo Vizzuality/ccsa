@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { LuCircleUser } from "react-icons/lu";
 import { cn } from "@/lib/classnames";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 import { useSyncSearchParams } from "@/app/store";
 
@@ -146,7 +146,7 @@ const Navigation = (): JSX.Element => {
           </Link>
         </li>
       </ul>
-      <div className="border-t-2 border-gray-300/20 pt-3.5">
+      <div className="border-t-2 border-gray-300/20 pt-3.5 ">
         <div className="group relative text-center">
           <Link
             href={!session ? "/signin" : "/dashboard"}
@@ -167,40 +167,21 @@ const Navigation = (): JSX.Element => {
           </Link>
         </div>
 
-        <div className="group relative text-center">
-          {/* TO - DO - add href when client finishes with their donations page and get rid off the mailto  */}
-          {/* <Link
-            href=""
-            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
+        <div className="group relative py-5 text-center">
+          <Link
+            href="https://www.globalgiving.org/projects/building-a-climate-smart-zone-together/"
+            className={cn(
+              buttonVariants({
+                size: "sm",
+                className:
+                  "rounded-3xl bg-gradient-to-r from-[#78D64B] to-[#0194C8] text-xs text-white shadow-[0_2px_0px_rgb(120,214,75)] hover:shadow-none",
+              }),
+            )}
+            target="blank"
+            rel="noopener noreferrer"
           >
-            <LuHelpingHand
-              title="Log in"
-              className={cn({
-                "mx-auto h-6 w-6 rounded-full  border-gray-400 fill-none stroke-gray-400 stroke-[0.5px] group-hover:border-gray-900 group-hover:stroke-gray-900 group-hover:stroke-[1px]":
-                  true,
-              })}
-            />
-            <span className="w-full flex-wrap text-xxs">Donations</span>
-          </Link> */}
-
-          <a
-            href={`mailto:hello@caribbeanaccelerator.org?subject=${encodeURIComponent(
-              "Donation Inquiry",
-            )}&body=${encodeURIComponent(`Hello,
-
-I’m reaching out because I’m interested in supporting the project through a donation. 
-Could you please share more details about the available donation options?
-
-Thank you!`)}`}
-            className="flex flex-col items-center justify-center space-y-2 py-5 text-gray-400 transition-colors group-hover:text-gray-900"
-          >
-            <Button
-              className="rounded-3xl bg-gradient-to-r from-[#78D64B] to-[#0194C8] text-xs text-white shadow-[0_2px_0px_rgb(120,214,75)] hover:shadow-none"
-              size="sm"
-            >
-              Donate
-            </Button>
-          </a>
+            Donate
+          </Link>
         </div>
       </div>
     </nav>
