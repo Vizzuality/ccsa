@@ -174,7 +174,7 @@ const Navigation = (): JSX.Element => {
               buttonVariants({
                 size: "sm",
                 className:
-                  "rounded-3xl border bg-[linear-gradient(0deg,rgba(0,0,0,0.10)_0%,rgba(0,0,0,0.10)_100%),linear-gradient(90deg,#E10098_0%,#F9423A_50.48%,#FFD700_100%)] text-xs text-white hover:border-black hover:bg-[linear-gradient(0deg,rgba(0,0,0,0.20)_0%,rgba(0,0,0,0.20)_100%),linear-gradient(90deg,#E10098_0%,#F9423A_50.48%,#FFD700_100%)]",
+                  "rounded-3xl bg-[linear-gradient(0deg,rgba(0,0,0,0.20)_0%,rgba(0,0,0,0.20)_100%),linear-gradient(90deg,#E10098_0%,#F9423A_50.48%,#FFD700_100%)] text-xs font-bold text-white transition-[background] duration-200 ease-linear hover:bg-[linear-gradient(0deg,rgba(0,0,0,0.10)_0%,rgba(0,0,0,0.10)_100%),linear-gradient(90deg,#E10098_0%,#F9423A_50.48%,#FFD700_100%)]",
               }),
             )}
             target="blank"
