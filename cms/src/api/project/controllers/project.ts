@@ -55,7 +55,7 @@ export default factories.createCoreController("api::project.project", () => ({
         idField: "id",
       };
 
-      const token = ctx.request.header.authorization
+      const token = ctx.request.header.authorization;
 
       // Post the data to the import plugin
       const response = await axios.post(
@@ -81,6 +81,160 @@ export default factories.createCoreController("api::project.project", () => ({
       if (file && file.path) {
         fs.unlinkSync(file.path);
       }
+    }
+  },
+
+  async searchByNameWholeWord(ctx) {
+    try {
+      const qRaw = ctx.query.q;
+      const q = typeof qRaw === "string" ? qRaw.trim() : "";
+
+      const page = Math.max(parseInt(String(ctx.query.page ?? "1"), 10), 1);
+      const pageSize = Math.min(
+        Math.max(parseInt(String(ctx.query.pageSize ?? "200"), 10), 1),
+        200
+      );
+      const offset = (page - 1) * pageSize;
+
+      // --- Parse filters from query ---
+      const parseCsvNums = (v: any): number[] =>
+        String(v ?? "")
+          .split(",")
+          .map((x) => x.trim())
+          .filter(Boolean)
+          .map((x) => Number(x))
+          .filter((n) => Number.isFinite(n));
+
+      const parseCsvStr = (v: any): string[] =>
+        String(v ?? "")
+          .split(",")
+          .map((x) => x.trim())
+          .filter(Boolean);
+
+      const pillars = parseCsvNums(ctx.query.pillars);
+      const status = parseCsvNums(ctx.query.status);
+      const countries = parseCsvStr(ctx.query.countries);
+
+      const sortField = String(ctx.query.sortField ?? "name"); // "name" | "status"
+      const sortOrder =
+        String(ctx.query.sortOrder ?? "asc").toLowerCase() === "desc"
+          ? "desc"
+          : "asc";
+
+      // --- Build base where ---
+      const where: any = {};
+
+      if (pillars.length) where.pillar = { id: { $in: pillars } };
+      if (status.length) where.status = { id: { $in: status } };
+      if (countries.length) where.countries = { iso3: { $in: countries } };
+
+      // --- Populate (same as GET_PROJECTS_OPTIONS) ---
+      const populate = {
+        pillar: { select: ["id", "name"] },
+        sdgs: { select: ["id", "name"] },
+        countries: { select: ["id", "name", "iso3"] },
+        status: { select: ["maturity", "name"] },
+      };
+
+      // --- Sorting ---
+      // Note: status.maturity lives in populated relation; Strapi can sort by relation fields in many cases.
+      // If it doesn't in your setup, we will sort in JS as fallback (below).
+      const sort =
+        sortField === "status"
+          ? [{ status: { maturity: sortOrder } }]
+          : [{ name: sortOrder }];
+
+      // --- Case: empty q OR q too short -> return all with filters/sort/pagination ---
+      // (If you want "min 2 chars to search", keep this.)
+      if (!q || q.length < 2) {
+        const [projects, total] = await Promise.all([
+          strapi.db.query("api::project.project").findMany({
+            where,
+            populate,
+            orderBy: sort as any,
+            limit: pageSize,
+            offset,
+          }),
+          strapi.db.query("api::project.project").count({ where }),
+        ]);
+
+        return ctx.send({
+          data: projects.map((p: any) => {
+            const { id, ...attributes } = p;
+            return { id, attributes };
+          }),
+          meta: {
+            pagination: {
+              page,
+              pageSize,
+              pageCount: Math.ceil(total / pageSize),
+              total,
+            },
+          },
+        });
+      }
+
+      // --- Search flow ---
+      // 1) Pre-filter in DB using containsi on name/highlight (same as GET_PROJECTS_OPTIONS)
+      // to reduce candidates
+      const candidates = await strapi.db
+        .query("api::project.project")
+        .findMany({
+          where: {
+            ...where,
+            $or: [
+              { name: { $containsi: q } },
+              { highlight: { $containsi: q } },
+            ],
+          },
+          populate,
+          limit: 2000, // adjust if needed
+        });
+
+      // 2) Whole-word filter on NAME only (your requirements)
+      const rawTokens = q
+        .split(/\s+/)
+        .map((t) => t.trim())
+        .filter(Boolean);
+      const tokens = rawTokens.map((t) =>
+        t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      );
+      const wordRes = tokens.map((t) => new RegExp(`(^|\\W)${t}($|\\W)`, "i"));
+
+      const filtered = candidates.filter((p: any) => {
+        const name = String(p.name ?? "");
+        return wordRes.every((re) => re.test(name));
+      });
+
+      // 3) Sort fallback in JS (reliable)
+      const sorted = filtered.sort((a: any, b: any) => {
+        if (sortField === "status") {
+          const av = a?.status?.maturity ?? Number.NEGATIVE_INFINITY;
+          const bv = b?.status?.maturity ?? Number.NEGATIVE_INFINITY;
+          return sortOrder === "asc" ? av - bv : bv - av;
+        }
+        const av = String(a?.name ?? "");
+        const bv = String(b?.name ?? "");
+        return sortOrder === "asc"
+          ? av.localeCompare(bv)
+          : bv.localeCompare(av);
+      });
+
+      // 4) Pagination
+      const total = sorted.length;
+      const pageCount = Math.ceil(total / pageSize);
+      const pageItems = sorted.slice(offset, offset + pageSize);
+
+      return ctx.send({
+        data: pageItems.map((p: any) => {
+          const { id, ...attributes } = p;
+          return { id, attributes };
+        }),
+        meta: { pagination: { page, pageSize, pageCount, total } },
+      });
+    } catch (err: any) {
+      strapi.log.error("searchByNameWholeWord failed", err);
+      ctx.throw(500, err.message || "searchByNameWholeWord failed");
     }
   },
 }));

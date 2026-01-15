@@ -4,8 +4,6 @@ import { useAtomValue } from "jotai";
 
 import { cn } from "@/lib/classnames";
 
-import { useGetProjects } from "@/types/generated/project";
-
 import {
   projectSearchAtom,
   projectSortingAtom,
@@ -14,10 +12,9 @@ import {
   useSyncProjectStatus,
 } from "@/app/store";
 
-import { GET_PROJECTS_OPTIONS } from "@/constants/projects";
-
 import ProjectsItem from "@/containers/projects/item";
 
+import { useGetProjectsWholeWordSearch } from "@/services/projects";
 const Projects = () => {
   const projectSearch = useAtomValue(projectSearchAtom);
   const projectsSorting = useAtomValue(projectSortingAtom);
@@ -25,22 +22,16 @@ const Projects = () => {
   const [countries] = useSyncCountries();
   const [status] = useSyncProjectStatus();
 
-  const { data: projectsData } = useGetProjects(
-    GET_PROJECTS_OPTIONS(
-      projectSearch,
-      {
-        pillars,
-        countries,
-        status,
-      },
-      projectsSorting,
-    ),
-    {
-      query: {
-        keepPreviousData: false,
-      },
-    },
-  );
+  const { data: projectsData } = useGetProjectsWholeWordSearch({
+    q: projectSearch,
+    pillars,
+    countries,
+    status,
+    sortField: projectsSorting.field,
+    sortOrder: projectsSorting.order,
+    page: 1,
+    pageSize: 200,
+  });
 
   return (
     <ul className="grid grid-cols-1 space-y-1.5">
