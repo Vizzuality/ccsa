@@ -27,18 +27,20 @@ import { ProjectsStatusProgressBar } from "./status-progress-bar";
 const ProjectFieldHeader = ({ title, data }: { title: string; data: string | undefined }) => (
   <div className="flex items-center">
     <h3 className="text-xxs uppercase text-gray-500">{title}</h3>
-    <Tooltip>
-      <TooltipTrigger>
-        <LuInfo className="h-4 w-4 pl-1 font-bold text-gray-500" />
-      </TooltipTrigger>
+    {data && (
+      <Tooltip>
+        <TooltipTrigger>
+          <LuInfo className="h-4 w-4 pl-1 font-bold text-gray-500" />
+        </TooltipTrigger>
 
-      <TooltipPortal>
-        <TooltipContent side="right" align="center">
-          <Markdown className="prose text-xxs">{data}</Markdown>
-          <TooltipArrow className="fill-white" width={10} height={5} />
-        </TooltipContent>
-      </TooltipPortal>
-    </Tooltip>
+        <TooltipPortal>
+          <TooltipContent side="right" align="center">
+            <Markdown className="prose text-xxs">{data}</Markdown>
+            <TooltipArrow className="fill-white" width={10} height={5} />
+          </TooltipContent>
+        </TooltipPortal>
+      </Tooltip>
+    )}
   </div>
 );
 
