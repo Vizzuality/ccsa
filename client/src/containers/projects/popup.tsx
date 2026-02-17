@@ -58,7 +58,7 @@ const ProjectPopup = () => {
           fields: ["name"],
         },
         status: {
-          fields: ["name", "maturity"],
+          fields: ["name", "maturity", "state"],
         },
         funding: {
           fields: ["name"],

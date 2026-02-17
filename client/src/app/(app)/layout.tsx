@@ -1,6 +1,5 @@
 import { PropsWithChildren } from "react";
 
-import dynamic from "next/dynamic";
 import { headers } from "next/headers";
 
 import { Hydrate, dehydrate } from "@tanstack/react-query";
@@ -31,10 +30,10 @@ import Sidebar from "@/containers/sidebar";
 import LayoutProviders from "./layout-providers";
 import { getGetWelcomeMessageQueryOptions } from "@/types/generated/welcome-message";
 
-const WelcomeMessage = dynamic(() => import("@/containers/welcome-message"), { ssr: false });
+import WelcomeMessageWrapper from "@/containers/welcome-message/wrapper";
 
 export default async function AppLayout({ children }: PropsWithChildren) {
-  const url = new URL(headers().get("x-url")!);
+  const url = new URL((await headers()).get("x-url")!);
   const searchParams = url.searchParams;
 
   const queryClient = getQueryClient();
@@ -81,9 +80,11 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   // Prefetch collaborators
   await queryClient.prefetchQuery(getGetCollaboratorsQueryOptions());
 
-  await queryClient.prefetchQuery(getGetWelcomeMessageQueryOptions({
-    populate: ["video", "image"],
-  }));
+  await queryClient.prefetchQuery(
+    getGetWelcomeMessageQueryOptions({
+      populate: ["video", "image"],
+    }),
+  );
 
   const dehydratedState = dehydrate(queryClient);
 
@@ -96,7 +97,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
           <Map />
         </main>
 
-        <WelcomeMessage />
+        <WelcomeMessageWrapper />
       </Hydrate>
     </LayoutProviders>
   );

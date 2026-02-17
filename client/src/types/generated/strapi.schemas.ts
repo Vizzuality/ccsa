@@ -3389,9 +3389,10 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
   {
     createdAt?: string;
     createdBy?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesCreatedBy;
-    maturity?: number;
+    maturity?: string;
     name?: string;
     publishedAt?: string;
+    state?: number;
     updatedAt?: string;
     updatedBy?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesUpdatedBy;
   };
@@ -5066,9 +5067,10 @@ export interface ProjectStatusResponse {
 export interface ProjectStatus {
   createdAt?: string;
   createdBy?: ProjectStatusCreatedBy;
-  maturity?: number;
+  maturity?: string;
   name?: string;
   publishedAt?: string;
+  state?: number;
   updatedAt?: string;
   updatedBy?: ProjectStatusUpdatedBy;
 }
@@ -5284,8 +5286,9 @@ export interface ProjectStatusListResponse {
 }
 
 export type ProjectStatusRequestData = {
-  maturity?: number;
+  maturity?: string;
   name?: string;
+  state?: number;
 };
 
 export interface ProjectStatusRequest {
@@ -5871,9 +5874,10 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
   {
     createdAt?: string;
     createdBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesCreatedBy;
-    maturity?: number;
+    maturity?: string;
     name?: string;
     publishedAt?: string;
+    state?: number;
     updatedAt?: string;
     updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesUpdatedBy;
   };
@@ -7686,9 +7690,10 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
   {
     createdAt?: string;
     createdBy?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesCreatedBy;
-    maturity?: number;
+    maturity?: string;
     name?: string;
     publishedAt?: string;
+    state?: number;
     updatedAt?: string;
     updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesUpdatedBy;
   };
@@ -9352,9 +9357,10 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
   {
     createdAt?: string;
     createdBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesCreatedBy;
-    maturity?: number;
+    maturity?: string;
     name?: string;
     publishedAt?: string;
+    state?: number;
     updatedAt?: string;
     updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributesUpdatedBy;
   };

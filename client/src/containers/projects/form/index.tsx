@@ -231,7 +231,7 @@ export default function ProjectForm() {
   // if there is no id in the route, we are creating a new project, no need to look for
   // an existing one
   const { data: projectData } = useGetProjectsId(
-    +id,
+    Number(id),
     {
       populate: {
         pillar: true,
@@ -266,7 +266,7 @@ export default function ProjectForm() {
   const { data: dataInfo } = useGetProjectFieldMetadata();
 
   const { data: projectsSuggestedData } = useGetProjectEditSuggestionsId(
-    +id,
+    Number(id),
     {
       populate: "*",
     },
@@ -429,7 +429,7 @@ export default function ProjectForm() {
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id && !!projectsSuggestedData) {
           mutatePutProjectEditSuggestionId({
-            id: +id,
+            id: Number(id),
             data: {
               data: {
                 ...values,
@@ -463,7 +463,7 @@ export default function ProjectForm() {
                 ...(id && {
                   project: {
                     disconnect: [],
-                    connect: [+id],
+                    connect: [Number(id)],
                   },
                 }),
                 countries: {
@@ -507,12 +507,11 @@ export default function ProjectForm() {
           // to do review data + change sug status
         )
           .then(() => {
-            console.info("Success creating a new project esta entrando aqui");
             toast.success("Success creating a new project");
 
             if (projectsSuggestedData) {
               mutatePutProjectEditSuggestionId({
-                id: +id,
+                id: Number(id),
                 data: {
                   data: {
                     ...values,
@@ -574,7 +573,7 @@ export default function ProjectForm() {
 
   const handleDelete = useCallback(() => {
     if (projectData?.data?.id) {
-      mutateDeleteProjectsId({ id: +id });
+      mutateDeleteProjectsId({ id: Number(id) });
     } else if (projectsSuggestedData?.data?.id) {
       mutateDeleteProjectEditSuggestionId({
         id: projectsSuggestedData?.data?.id,

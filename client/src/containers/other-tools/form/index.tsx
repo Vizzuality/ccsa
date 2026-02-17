@@ -80,7 +80,7 @@ export default function ToolForm() {
   // if there is no id in the route, we are creating a new tool, no need to look for
   // an existing tool
   const { data: otherToolData } = useGetOtherToolsId(
-    +id,
+    Number(id),
     {
       populate: "*",
     },
@@ -92,7 +92,7 @@ export default function ToolForm() {
   );
 
   const { data: editSuggestionIdData } = useGetToolEditSuggestionsId(
-    +id,
+    Number(id),
     {
       populate: "*",
     },
@@ -247,8 +247,8 @@ export default function ToolForm() {
                 }),
                 ...(id && {
                   other_tool: {
-                    disconnect: [+id],
-                    connect: [+id],
+                    disconnect: [Number(id)],
+                    connect: [Number(id)],
                   },
                 }),
               },
@@ -301,8 +301,8 @@ export default function ToolForm() {
                       }),
                       ...(id && {
                         other_tool: {
-                          disconnect: [+id],
-                          connect: [+id],
+                          disconnect: [Number(id)],
+                          connect: [Number(id)],
                         },
                       }),
                     },
@@ -345,7 +345,7 @@ export default function ToolForm() {
 
   const handleDelete = useCallback(() => {
     if (otherToolData?.data?.id) {
-      mutateDeleteOtherToolsId({ id: +id });
+      mutateDeleteOtherToolsId({ id: Number(id) });
     } else if (editSuggestionIdData?.data?.id) {
       mutateDeleteToolSuggestionsId({ id: editSuggestionIdData?.data?.id });
     }

@@ -269,7 +269,9 @@ export default function DatasetColorsForm({
   };
 
   const handleDelete = useCallback(() => {
-    mutateDeleteDatasetsId({ id: +datasetId });
+    if (!!datasetId) {
+      mutateDeleteDatasetsId({ id: +datasetId });
+    }
   }, [mutateDeleteDatasetsId, datasetId]);
 
   const handleSubmit = useCallback(

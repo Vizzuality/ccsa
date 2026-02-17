@@ -103,7 +103,9 @@ export default function DatasetDataForm({
   const URLParams = useSyncSearchParams();
   const params = useParams();
   const { id: datasetId } = params;
-  const editedSuggestionData = useGetDatasetEditSuggestionsId(+datasetId);
+
+  const datasetIdNumber = Number(datasetId);
+  const editedSuggestionData = useGetDatasetEditSuggestionsId(datasetIdNumber);
 
   const { data: session } = useSession();
   const user = session?.user;
@@ -117,7 +119,7 @@ export default function DatasetDataForm({
   const { data: datasetValuesData } = useGetDatasetValues(
     {
       filters: {
-        dataset: datasetId,
+        dataset: datasetIdNumber,
       },
       "pagination[pageSize]": 300,
       populate: {
@@ -322,8 +324,8 @@ export default function DatasetDataForm({
   );
 
   const handleDelete = useCallback(() => {
-    mutateDeleteDatasetsId({ id: +datasetId });
-  }, [mutateDeleteDatasetsId, datasetId]);
+    mutateDeleteDatasetsId({ id: datasetIdNumber });
+  }, [mutateDeleteDatasetsId, datasetIdNumber]);
 
   const checkChanges = useCallback(
     (field: Field, index: number, param: ParamType) => {

@@ -8,9 +8,12 @@ export const GET_PROJECTS_OPTIONS = (
   projectSorting?: { field: "name" | "status"; order: "asc" | "desc" },
 ) => {
   const sortField =
-    projectSorting?.field === "status" ? "status.maturity" : projectSorting?.field ?? "name";
+    projectSorting?.field === "status"
+      ? { state: projectSorting?.order ?? "asc" }
+      : projectSorting?.field ?? "name";
 
   const sortOrder = projectSorting?.order ?? "asc";
+
   return {
     "pagination[pageSize]": 200,
     populate: {
@@ -24,7 +27,7 @@ export const GET_PROJECTS_OPTIONS = (
         fields: ["id", "name", "iso3"],
       },
       status: {
-        fields: ["maturity", "name"],
+        fields: ["maturity", "name", "state"],
       },
     },
     sort: `${sortField}:${sortOrder}`,
@@ -78,5 +81,5 @@ export const PROJECT_PILLARS: Record<string, { color: string; selectedColor: str
 
 export const GET_PROJECT_STATUSES_OPTIONS = {
   "pagination[pageSize]": 100,
-  sort: "maturity:desc",
+  sort: "state:asc",
 };
