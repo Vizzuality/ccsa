@@ -68,6 +68,8 @@ import CSVImport from "@/components/new-dataset/step-description/csv-import";
 import { useGetObjectives } from "@/types/generated/objective";
 import { useGetProjectFieldMetadata } from "@/types/generated/project-field-metadata";
 
+const currentYear = new Date().getFullYear();
+
 const ProjectFieldLabel = ({
   title,
   data,
@@ -242,6 +244,7 @@ export default function ProjectForm() {
         status: {
           fields: ["name"],
         },
+        year_established: true,
         funding: {
           fields: ["name"],
         },
@@ -370,6 +373,12 @@ export default function ProjectForm() {
       status: z.coerce.number().min(1, {
         message: "Please enter status",
       }),
+      year_established: z.coerce
+        .number()
+        .int()
+        .min(1900, "Year must be after 1900")
+        .max(currentYear, "Year cannot be in the future")
+        .optional(),
       funding: z.coerce.number().min(1, {
         message: "Please select type of funding",
       }),
@@ -410,6 +419,7 @@ export default function ProjectForm() {
           previousData?.countries?.data?.map(({ id }: { id?: number }) => id as number) || [],
         sdgs: previousData?.sdgs?.data?.map(({ id }: { id?: number }) => id as number) || [],
         status: previousData?.status?.data?.id as number,
+        year_established: (previousData as any)?.year_established as number,
         funding: previousData?.funding?.data?.id as number,
         organization_type: previousData?.organization_type?.data?.id as number,
         source_country: previousData?.source_country?.data?.id as number,
@@ -606,6 +616,7 @@ export default function ProjectForm() {
           valueType="project"
           values={{
             data: {
+              year_established: "",
               name: "",
               highlight: "",
               status: "",
@@ -840,6 +851,36 @@ export default function ProjectForm() {
                     </FormItem>
                   );
                 }}
+              />
+
+              <FormField
+                control={form.control}
+                name="year_established"
+                render={({ field }) => (
+                  <FormItem className="space-y-1.5">
+                    <ProjectFieldLabel
+                      title="Year established"
+                      data={dataInfo?.data?.attributes?.year_established}
+                      required
+                    />
+                    <FormControl>
+                      <Input
+                        {...field}
+                        value={field.value}
+                        className={cn({
+                          "border-none bg-gray-300/20 placeholder:text-gray-300/95": true,
+                          "bg-green-400 placeholder:text-gray-400": changes?.includes(field.name),
+                        })}
+                        placeholder="Specify year"
+                        disabled={
+                          ME_DATA?.role?.type === "authenticated" && suggestionStatus === "declined"
+                        }
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
               <FormField
                 control={form.control}

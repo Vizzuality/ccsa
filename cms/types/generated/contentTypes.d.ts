@@ -1345,6 +1345,7 @@ export interface ApiProjectProject extends Schema.CollectionType {
     >;
     other_funding: Attribute.String;
     video_link: Attribute.String;
+    year_established: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1515,7 +1516,8 @@ export interface ApiProjectStatusProjectStatus extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    maturity: Attribute.Integer;
+    maturity: Attribute.String;
+    state: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

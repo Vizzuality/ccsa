@@ -3219,6 +3219,7 @@ export type SdgProjectsDataItemAttributes = {
   updatedAt?: string;
   updatedBy?: SdgProjectsDataItemAttributesUpdatedBy;
   video_link?: string;
+  year_established?: number;
 };
 
 export type SdgProjectsDataItem = {
@@ -5349,6 +5350,7 @@ export interface ProjectFieldMetadata {
   updatedAt?: string;
   updatedBy?: ProjectFieldMetadataUpdatedBy;
   video_link?: string;
+  year_established?: string;
 }
 
 export type ProjectFieldMetadataCreatedByDataAttributesUpdatedByDataAttributes = {
@@ -5555,6 +5557,7 @@ export type ProjectFieldMetadataRequestData = {
   source_country?: string;
   status?: string;
   video_link?: string;
+  year_established?: string;
 };
 
 export interface ProjectFieldMetadataRequest {
@@ -5721,6 +5724,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributes 
   updatedAt?: string;
   updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesUpdatedBy;
   video_link?: string;
+  year_established?: number;
 };
 
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItem = {
@@ -7391,6 +7395,7 @@ export interface Project {
   updatedAt?: string;
   updatedBy?: ProjectUpdatedBy;
   video_link?: string;
+  year_established?: number;
 }
 
 export interface ProjectResponseDataObject {
@@ -7507,6 +7512,7 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributes = {
   updatedAt?: string;
   updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesUpdatedBy;
   video_link?: string;
+  year_established?: number;
 };
 
 export type ProjectPillarDataAttributesProjectsDataItem = {
@@ -9128,6 +9134,7 @@ export type ProjectRequestData = {
   source_country?: ProjectRequestDataSourceCountry;
   status?: ProjectRequestDataStatus;
   video_link?: string;
+  year_established?: number;
 };
 
 export type PillarResponseMeta = { [key: string]: any };
@@ -9211,6 +9218,7 @@ export type PillarProjectsDataItemAttributes = {
   updatedAt?: string;
   updatedBy?: PillarProjectsDataItemAttributesUpdatedBy;
   video_link?: string;
+  year_established?: number;
 };
 
 export type PillarProjectsDataItemAttributesStatusDataAttributes = { [key: string]: any };

@@ -33,7 +33,7 @@ const Projects = () => {
     page: 1,
     pageSize: 200,
   });
-  console.log(projectSearch);
+  console.log(projectSearch, projectsData);
   return (
     <ul className="grid grid-cols-1 space-y-1.5">
       {projectsData?.data?.map((p) => {
