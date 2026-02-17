@@ -203,6 +203,7 @@ export default function DatasetSettingsForm({
   );
 
   const handleDelete = useCallback(() => {
+    if (!datasetId) return;
     mutateDeleteDatasetsId({ id: +datasetId });
   }, [mutateDeleteDatasetsId, datasetId]);
 

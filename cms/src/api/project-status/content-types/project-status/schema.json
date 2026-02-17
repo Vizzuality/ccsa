@@ -16,6 +16,9 @@
       "type": "string"
     },
     "maturity": {
+      "type": "string"
+    },
+    "state": {
       "type": "integer"
     }
   }

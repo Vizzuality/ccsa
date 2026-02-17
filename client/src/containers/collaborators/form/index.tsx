@@ -95,7 +95,7 @@ export default function CollaboratorForm() {
   // if there is no id in the route, we are creating a new collaborator, no need to look for
   // an existing one
   const { data: collaboratorData } = useGetCollaboratorsId(
-    +id,
+    Number(id),
     {
       populate: "*",
     },
@@ -107,7 +107,7 @@ export default function CollaboratorForm() {
   );
 
   const { data: collaboratorSuggestedDataId } = useGetCollaboratorEditSuggestionsId(
-    +id,
+    Number(id),
     {
       populate: "*",
     },
@@ -226,7 +226,7 @@ export default function CollaboratorForm() {
       if (ME_DATA?.role?.type === "authenticated") {
         if (!!id && !!collaboratorSuggestedDataId) {
           mutatePutCollaboratorsEditSuggestionId({
-            id: +id,
+            id: Number(id),
             data: {
               data: {
                 review_status: "pending",
@@ -249,7 +249,7 @@ export default function CollaboratorForm() {
                 image: imageId as number,
                 ...(id && {
                   collaborator: {
-                    connect: [+id],
+                    connect: [Number(id)],
                     disconnect: [],
                   },
                 }),
@@ -284,7 +284,7 @@ export default function CollaboratorForm() {
                   image: imageId as number,
                   // @ts-expect-error TO-DO - fix types
                   collaborator: {
-                    connect: [+id],
+                    connect: [Number(id)],
                     disconnect: [],
                   },
                 },
@@ -312,6 +312,7 @@ export default function CollaboratorForm() {
 
   const handleReject = ({ message }: { message: string }) => {
     if (ME_DATA?.role?.type === "admin" && !!id) {
+      if (!id) return;
       mutatePutCollaboratorsEditSuggestionId({
         id: +id[0],
         data: {
@@ -366,9 +367,9 @@ export default function CollaboratorForm() {
 
   const handleDelete = useCallback(() => {
     if (collaboratorData?.data?.id) {
-      mutateDeleteCollaboratorId({ id: +id });
+      mutateDeleteCollaboratorId({ id: Number(id) });
     } else if (collaboratorSuggestedDataId?.data?.id) {
-      mutateDeleteCollaboratorEditSuggestionsId({ id: +id });
+      mutateDeleteCollaboratorEditSuggestionsId({ id: Number(id) });
     }
   }, [id, mutateDeleteCollaboratorId]);
 

@@ -58,8 +58,9 @@ const ProjectPopup = () => {
           fields: ["name"],
         },
         status: {
-          fields: ["name", "maturity"],
+          fields: ["name", "maturity", "state"],
         },
+        year_established: true,
         funding: {
           fields: ["name"],
         },
@@ -88,6 +89,7 @@ const ProjectPopup = () => {
   const sdgs = data?.data?.attributes?.sdgs;
   const countries = data?.data?.attributes?.countries;
   const projectStatus = data?.data?.attributes?.status?.data?.attributes;
+  const yearEstablished = data?.data?.attributes?.year_established;
   const projectTypeOfFunding = data?.data?.attributes?.funding?.data?.attributes?.name;
   const projectOtherFunding = data?.data?.attributes?.other_funding;
   const organizationType = data?.data?.attributes?.organization_type?.data?.attributes?.name;
@@ -116,7 +118,19 @@ const ProjectPopup = () => {
       <div className="divide-y divide-gray-200 px-10">
         {/* STATUS */}
         <div className="py-5">
+          {/* STATUS  - progress bar*/}
           <ProjectsStatusProgressBar {...projectStatus} />
+          {/* STATUS  - year established*/}
+          {!yearEstablished && (
+            <div className="space-y-3.5">
+              <div className="flex items-center space-x-1">
+                <span className="text-xxs font-semibold uppercase tracking-wide text-gray-500">
+                  Year established:
+                </span>
+                <span className="text-xs">{yearEstablished || "Not provided"}</span>
+              </div>
+            </div>
+          )}
         </div>
         <section className="space-y-5 py-5">
           {/* HIGHLIGHT */}

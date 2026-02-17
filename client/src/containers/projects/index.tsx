@@ -15,6 +15,7 @@ import {
 import ProjectsItem from "@/containers/projects/item";
 
 import { useGetProjectsWholeWordSearch } from "@/services/projects";
+
 const Projects = () => {
   const projectSearch = useAtomValue(projectSearchAtom);
   const projectsSorting = useAtomValue(projectSortingAtom);
@@ -32,7 +33,7 @@ const Projects = () => {
     page: 1,
     pageSize: 200,
   });
-
+  console.log(projectSearch, projectsData);
   return (
     <ul className="grid grid-cols-1 space-y-1.5">
       {projectsData?.data?.map((p) => {

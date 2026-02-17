@@ -211,7 +211,7 @@ export default function EditDatasetForm() {
                 ...(id &&
                   !datasetEditData && {
                     dataset: {
-                      connect: [+id],
+                      connect: [Number(id)],
                       disconnect: [],
                     },
                   }),
@@ -227,7 +227,7 @@ export default function EditDatasetForm() {
               : data?.settings?.category?.data?.id;
 
           mutatePutDatasetEditSuggestionId({
-            id: +id,
+            id: Number(id),
             data: {
               data: {
                 ...data.settings,
@@ -266,7 +266,7 @@ export default function EditDatasetForm() {
             toast.success("Success creating dataset");
             if (!!id && !!datasetEditData) {
               mutatePutDatasetEditSuggestionId({
-                id: +id,
+                id: Number(id),
                 data: {
                   data: {
                     ...data.settings,

@@ -28,7 +28,8 @@ import Map from "@/containers/map";
 import LayoutProviders from "./layout-providers";
 
 export default async function EmbedLayout({ children }: PropsWithChildren) {
-  const url = new URL(headers().get("x-url")!);
+  const headersList = await headers();
+  const url = new URL(headersList.get("x-url")!);
   const searchParams = url.searchParams;
 
   const queryClient = getQueryClient();
