@@ -91,9 +91,9 @@ const ProjectsFiltersDialog = () => {
   const OPTIONS_STATUS = useMemo(() => {
     if (!statusData?.data) return [];
     console.log(statusData?.data);
-    return orderBy(statusData.data, ["state"], "asc").map((c) => {
+    return orderBy(statusData.data, ["maturity"], "asc").map((c) => {
       return {
-        value: c.attributes?.state ?? 0,
+        value: c.attributes?.maturity ?? 0,
         label: c.attributes?.name ?? "",
       };
     });

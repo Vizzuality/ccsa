@@ -1517,8 +1517,7 @@ export interface ApiProjectStatusProjectStatus extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String;
-    maturity: Attribute.String;
-    state: Attribute.Integer;
+    maturity: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

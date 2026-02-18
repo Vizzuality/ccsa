@@ -72,7 +72,7 @@ const ProjectsSelected = () => {
         })}
 
         {status.map((s) => {
-          const statusItem = statusData?.data?.find((s1) => s1.attributes?.state === s);
+          const statusItem = statusData?.data?.find((s1) => s1.attributes?.maturity === s);
 
           return (
             <span

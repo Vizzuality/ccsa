@@ -17,7 +17,7 @@ const ProgressBar = ({ maturity }: { maturity?: number }) => (
 
 export const ProjectsStatusProgressBar = (status: ProjectStatus) => (
   <div className="space-y-3.5">
-    {status.maturity && <ProgressBar maturity={status.state} />}
+    {status.maturity && <ProgressBar maturity={status.maturity} />}
     <div className="flex items-center space-x-1">
       <span className="text-xxs font-semibold uppercase tracking-wide text-gray-500">
         Projects status:

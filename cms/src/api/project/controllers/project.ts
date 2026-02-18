@@ -133,7 +133,7 @@ export default factories.createCoreController("api::project.project", () => ({
         pillar: { select: ["id", "name"] },
         sdgs: { select: ["id", "name"] },
         countries: { select: ["id", "name", "iso3"] },
-        status: { select: ["maturity", "name", "state"] },
+        status: { select: ["maturity", "name"] },
       };
 
       // --- Sorting ---
@@ -141,7 +141,7 @@ export default factories.createCoreController("api::project.project", () => ({
       // If it doesn't in your setup, we will sort in JS as fallback (below).
       const sort =
         sortField === "status"
-          ? [{ status: { state: sortOrder } }]
+          ? [{ status: { maturity: sortOrder } }]
           : [{ name: sortOrder }];
 
       // --- Case: empty q OR q too short -> return all with filters/sort/pagination ---
