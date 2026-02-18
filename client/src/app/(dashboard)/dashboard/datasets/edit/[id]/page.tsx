@@ -30,8 +30,9 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default async function EditDatasetPage({ params }: { params: { id: number } }) {
-  const { id } = params;
+export default async function EditDatasetPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id: idString } = await params;
+  const id = parseInt(idString, 10);
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery(

@@ -30,6 +30,10 @@
     "strapi-plugin-config-sync": "^1.2.1",
     "strapi-plugin-import-export-entries": "^1.21.1"
   },
+  "devDependencies": {
+    "@types/csv-parse": "^1.2.2",
+    "@types/csv-stringify": "^3.1.0"
+  },
   "packageManager": "yarn@3.6.4",
   "engines": {
     "node": ">=16.0.0 <=20.x.x",
@@ -38,9 +42,5 @@
   "strapi": {
     "uuid": "d6c35ecd-a7d3-4e06-bbec-080329e0e5b8",
     "telemetryDisabled": true
-  },
-  "devDependencies": {
-    "@types/csv-parse": "^1.2.2",
-    "@types/csv-stringify": "^3.1.0"
   }
 }

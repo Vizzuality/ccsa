@@ -35,6 +35,8 @@ import {
 import { MultiCombobox } from "@/components/ui/multicombobox";
 import { useGetProjectStatuses } from "@/types/generated/project-status";
 
+import { orderBy } from "lodash-es";
+
 const FormSchema = z.object({
   pillars: z.array(z.number()),
   countries: z.array(z.string()).optional(),
@@ -88,8 +90,8 @@ const ProjectsFiltersDialog = () => {
 
   const OPTIONS_STATUS = useMemo(() => {
     if (!statusData?.data) return [];
-
-    return statusData.data.map((c) => {
+    console.log(statusData?.data);
+    return orderBy(statusData.data, ["maturity"], "asc").map((c) => {
       return {
         value: c.attributes?.maturity ?? 0,
         label: c.attributes?.name ?? "",

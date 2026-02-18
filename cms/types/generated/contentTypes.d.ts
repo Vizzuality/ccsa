@@ -1345,6 +1345,7 @@ export interface ApiProjectProject extends Schema.CollectionType {
     >;
     other_funding: Attribute.String;
     video_link: Attribute.String;
+    year_established: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1484,6 +1485,7 @@ export interface ApiProjectFieldMetadataProjectFieldMetadata
     description: Attribute.RichText;
     video_link: Attribute.RichText;
     other_funding: Attribute.RichText;
+    year_established: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

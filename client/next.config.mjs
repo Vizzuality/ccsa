@@ -5,26 +5,25 @@ const nextConfig = {
   images: {
     unoptimized: true,
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "api.mapbox.com",
-      },
-      {
-        protocol: "http",
-        hostname: "0.0.0.0",
-      },
-      {
-        protocol: "https",
-        hostname: "staging.ccsa.dev-vizzuality.com",
-      },
-      {
-        protocol: "https",
-        hostname: "map.caribbeanaccelerator.org",
-      },
+      { protocol: "https", hostname: "api.mapbox.com" },
+      { protocol: "http", hostname: "0.0.0.0" },
+      { protocol: "https", hostname: "staging.ccsa.dev-vizzuality.com" },
+      { protocol: "https", hostname: "map.caribbeanaccelerator.org" },
     ],
   },
+
+  // Turbopack config (replaces webpack rules when using --turbopack)
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
+      },
+    },
+  },
+
+  // Keep webpack config for non-turbopack builds (next build / dev w/o turbopack)
   webpack: (config) => {
-    // Fixes warning Critical dependency: the request of a dependency is an expression
     config.module = {
       ...config.module,
       exprContextCritical: false,

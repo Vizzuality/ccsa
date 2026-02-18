@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 
 import { cn } from "@/lib/classnames";
 
-import { ProjectListResponseDataItem } from "@/types/generated/strapi.schemas";
+import { ProjectListResponseDataItem, ProjectStatus } from "@/types/generated/strapi.schemas";
 
 import { projectSearchAtom, useSyncProject } from "@/app/store";
 
@@ -24,7 +24,7 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
 
   if (!attributes) return null;
 
-  const { pillar, countries, status: projectStatus, name } = attributes;
+  const { pillar, countries, status: projectStatus } = attributes;
 
   const handleClick = () => {
     if (!id) return;
@@ -68,7 +68,7 @@ const ProjectsItem = (project: ProjectListResponseDataItem) => {
           <SearchHighlight query={projectSearch}>{project?.attributes?.name}</SearchHighlight>
         </h2>
 
-        <ProjectsStatusProgressBar {...projectStatus?.data?.attributes} />
+        {!!projectStatus && <ProjectsStatusProgressBar {...(projectStatus as ProjectStatus)} />}
       </div>
       <div className="space-x-px text-xxs">
         {countries?.data

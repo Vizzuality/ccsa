@@ -175,24 +175,28 @@ export default factories.createCoreController("api::project.project", () => ({
       }
 
       // --- Search flow ---
-      // 1) Pre-filter in DB using containsi on name/highlight (same as GET_PROJECTS_OPTIONS)
-      // to reduce candidates
+      const qTrim = (q ?? "").trim();
+      if (!qTrim)
+        return ctx.send({
+          data: [],
+          meta: { pagination: { page, pageSize, pageCount: 0, total: 0 } },
+        });
+
+      const qLower = qTrim.toLowerCase();
+
+      // Get candidates with your base filters only (or keep your DB prefilter if you want)
       const candidates = await strapi.db
         .query("api::project.project")
         .findMany({
-          where: {
-            ...where,
-            $or: [
-              { name: { $containsi: q } },
-              { highlight: { $containsi: q } },
-            ],
-          },
+          where,
+          // make sure highlight is actually included:
+          select: ["id", "name", "highlight"],
           populate,
-          limit: 2000, // adjust if needed
+          limit: 2000,
         });
 
-      // 2) Whole-word filter on NAME only (your requirements)
-      const rawTokens = q
+      // 3) Whole-word filter on NAME only (your requirement)
+      const rawTokens = qTrim
         .split(/\s+/)
         .map((t) => t.trim())
         .filter(Boolean);
@@ -201,16 +205,22 @@ export default factories.createCoreController("api::project.project", () => ({
       );
       const wordRes = tokens.map((t) => new RegExp(`(^|\\W)${t}($|\\W)`, "i"));
 
-      const filtered = candidates.filter((p: any) => {
-        const name = String(p.name ?? "");
-        return wordRes.every((re) => re.test(name));
+      const filtered = candidates.filter((p) => {
+        const name = String(p?.name ?? "");
+        const highlight = String(p?.highlight ?? "");
+
+        const matchesHighlight = highlight.toLowerCase().includes(qLower);
+        const matchesNameWholeWord = wordRes.every((re) => re.test(name));
+
+        // ✅ keep if either matches
+        return matchesHighlight || matchesNameWholeWord;
       });
 
-      // 3) Sort fallback in JS (reliable)
-      const sorted = filtered.sort((a: any, b: any) => {
+      // 4) Sort fallback in JS (reliable)
+      const sorted = filtered.sort((a, b) => {
         if (sortField === "status") {
-          const av = a?.status?.maturity ?? Number.NEGATIVE_INFINITY;
-          const bv = b?.status?.maturity ?? Number.NEGATIVE_INFINITY;
+          const av = a?.status?.state ?? Number.NEGATIVE_INFINITY;
+          const bv = b?.status?.state ?? Number.NEGATIVE_INFINITY;
           return sortOrder === "asc" ? av - bv : bv - av;
         }
         const av = String(a?.name ?? "");
@@ -220,13 +230,13 @@ export default factories.createCoreController("api::project.project", () => ({
           : bv.localeCompare(av);
       });
 
-      // 4) Pagination
+      // 5) Pagination
       const total = sorted.length;
       const pageCount = Math.ceil(total / pageSize);
       const pageItems = sorted.slice(offset, offset + pageSize);
 
       return ctx.send({
-        data: pageItems.map((p: any) => {
+        data: pageItems.map((p) => {
           const { id, ...attributes } = p;
           return { id, attributes };
         }),

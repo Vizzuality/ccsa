@@ -35,8 +35,9 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default async function ChangesToApprovePage({ params }: { params: { id: number } }) {
-  const { id } = params;
+export default async function ChangesToApprovePage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const id = parseInt(params.id);
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery(
