@@ -59,6 +59,9 @@
     },
     "other_funding": {
       "type": "richtext"
+    },
+    "year_established": {
+      "type": "richtext"
     }
   }
 }

@@ -1485,6 +1485,7 @@ export interface ApiProjectFieldMetadataProjectFieldMetadata
     description: Attribute.RichText;
     video_link: Attribute.RichText;
     other_funding: Attribute.RichText;
+    year_established: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
