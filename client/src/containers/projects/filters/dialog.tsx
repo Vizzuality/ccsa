@@ -36,6 +36,7 @@ import { MultiCombobox } from "@/components/ui/multicombobox";
 import { useGetProjectStatuses } from "@/types/generated/project-status";
 
 import { orderBy } from "lodash-es";
+import { GET_PROJECT_STATUSES_OPTIONS } from "@/constants/projects";
 
 const FormSchema = z.object({
   pillars: z.array(z.number()),
@@ -75,7 +76,7 @@ const ProjectsFiltersDialog = () => {
   }
   const { data: pillarsData } = useGetPillars(GET_PILLARS_OPTIONS);
   const { data: countriesData } = useGetCountries(GET_COUNTRIES_OPTIONS);
-  const { data: statusData } = useGetProjectStatuses();
+  const { data: statusData } = useGetProjectStatuses(GET_PROJECT_STATUSES_OPTIONS);
 
   const OPTIONS = useMemo(() => {
     if (!countriesData?.data) return [];

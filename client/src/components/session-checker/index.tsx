@@ -3,7 +3,7 @@
 import { PropsWithChildren, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 
-import { privatePaths } from "@/middleware";
+import { privatePaths } from "@/proxy";
 import { usePathname } from "next/navigation";
 
 export default function SessionChecker({ children }: PropsWithChildren) {

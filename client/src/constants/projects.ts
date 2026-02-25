@@ -81,5 +81,5 @@ export const PROJECT_PILLARS: Record<string, { color: string; selectedColor: str
 
 export const GET_PROJECT_STATUSES_OPTIONS = {
   "pagination[pageSize]": 100,
-  sort: "state:asc",
+  sort: "maturity:asc",
 };

@@ -24,7 +24,7 @@ const authMiddleware = withAuth({
   },
 });
 
-export default function middleware(req: NextRequestWithAuth, ev: NextFetchEvent) {
+export default function proxy(req: NextRequestWithAuth, ev: NextFetchEvent) {
   const pathsPattern = privatePaths.join("|").replace(/\//g, "\\/");
   const privatePathnameRegex = RegExp(`^${pathsPattern}(?:\\/.*)?$`);
   const isPrivatePage = privatePathnameRegex.test(req.nextUrl.pathname);
