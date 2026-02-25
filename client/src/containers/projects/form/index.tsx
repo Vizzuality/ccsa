@@ -172,7 +172,7 @@ export default function ProjectForm() {
   const { data: typesOfProjectStatus } = useGetProjectStatuses(
     {
       "pagination[pageSize]": 100,
-      sort: "name:asc",
+      sort: "maturity:asc",
     },
     {
       query: {
@@ -188,7 +188,7 @@ export default function ProjectForm() {
   const { data: organizationTypes } = useGetOrganizationTypes(
     {
       "pagination[pageSize]": 100,
-      sort: "name:asc",
+      sort: "maturity:asc",
     },
     {
       query: {

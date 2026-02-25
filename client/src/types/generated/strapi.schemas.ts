@@ -5554,7 +5554,6 @@ export type ProjectFieldMetadataRequestData = {
   source_country?: string;
   status?: string;
   video_link?: string;
-  year_established?: string;
 };
 
 export interface ProjectFieldMetadataRequest {

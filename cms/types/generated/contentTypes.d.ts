@@ -1381,6 +1381,7 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
     highlight: Attribute.RichText;
     account: Attribute.String;
     amount: Attribute.Float;
+    year_established: Attribute.Float;
     funding: Attribute.Relation<
       'api::project-edit-suggestion.project-edit-suggestion',
       'oneToOne',

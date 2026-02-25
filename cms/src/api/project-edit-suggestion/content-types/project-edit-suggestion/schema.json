@@ -25,6 +25,9 @@
     "amount": {
       "type": "float"
     },
+    "year_established": {
+      "type": "float"
+    },
     "funding": {
       "type": "relation",
       "relation": "oneToOne",
@@ -40,11 +43,7 @@
     },
     "review_status": {
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "approved",
-        "declined"
-      ],
+      "enum": ["pending", "approved", "declined"],
       "default": "pending",
       "required": true
     },
