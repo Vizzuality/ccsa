@@ -225,6 +225,48 @@
           "sortable": true
         }
       },
+      "other_funding": {
+        "edit": {
+          "label": "other_funding",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "other_funding",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "video_link": {
+        "edit": {
+          "label": "video_link",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "video_link",
+          "searchable": true,
+          "sortable": true
+        }
+      },
+      "year_established": {
+        "edit": {
+          "label": "year_established",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "year_established",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -314,6 +356,10 @@
           {
             "name": "amount",
             "size": 4
+          },
+          {
+            "name": "year_established",
+            "size": 4
           }
         ],
         [
@@ -367,6 +413,16 @@
         [
           {
             "name": "funding",
+            "size": 6
+          },
+          {
+            "name": "other_funding",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "video_link",
             "size": 6
           }
         ]

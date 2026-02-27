@@ -847,6 +847,7 @@
           "highlight",
           "account",
           "amount",
+          "year_established",
           "funding",
           "objective",
           "info",
@@ -860,7 +861,8 @@
           "reviewed_by",
           "source_country",
           "organization_type",
-          "status"
+          "status",
+          "video_link"
         ]
       },
       "conditions": []
@@ -889,6 +891,7 @@
           "highlight",
           "account",
           "amount",
+          "year_established",
           "funding",
           "objective",
           "info",
@@ -902,7 +905,8 @@
           "reviewed_by",
           "source_country",
           "organization_type",
-          "status"
+          "status",
+          "video_link"
         ]
       },
       "conditions": []
@@ -917,6 +921,7 @@
           "highlight",
           "account",
           "amount",
+          "year_established",
           "funding",
           "objective",
           "info",
@@ -930,7 +935,103 @@
           "reviewed_by",
           "source_country",
           "organization_type",
-          "status"
+          "status",
+          "video_link"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.create",
+      "actionParameters": {},
+      "subject": "api::project-field-metadata.project-field-metadata",
+      "properties": {
+        "fields": [
+          "name",
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs",
+          "objective",
+          "info",
+          "funding",
+          "organization_type",
+          "source_country",
+          "status",
+          "description",
+          "video_link",
+          "other_funding",
+          "year_established"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.delete",
+      "actionParameters": {},
+      "subject": "api::project-field-metadata.project-field-metadata",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.publish",
+      "actionParameters": {},
+      "subject": "api::project-field-metadata.project-field-metadata",
+      "properties": {},
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.read",
+      "actionParameters": {},
+      "subject": "api::project-field-metadata.project-field-metadata",
+      "properties": {
+        "fields": [
+          "name",
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs",
+          "objective",
+          "info",
+          "funding",
+          "organization_type",
+          "source_country",
+          "status",
+          "description",
+          "video_link",
+          "other_funding",
+          "year_established"
+        ]
+      },
+      "conditions": []
+    },
+    {
+      "action": "plugin::content-manager.explorer.update",
+      "actionParameters": {},
+      "subject": "api::project-field-metadata.project-field-metadata",
+      "properties": {
+        "fields": [
+          "name",
+          "countries",
+          "pillar",
+          "highlight",
+          "account",
+          "amount",
+          "sdgs",
+          "objective",
+          "info",
+          "funding",
+          "organization_type",
+          "source_country",
+          "status",
+          "description",
+          "video_link",
+          "other_funding",
+          "year_established"
         ]
       },
       "conditions": []
@@ -941,7 +1042,8 @@
       "subject": "api::project-status.project-status",
       "properties": {
         "fields": [
-          "name"
+          "name",
+          "maturity"
         ]
       },
       "conditions": []
@@ -966,7 +1068,8 @@
       "subject": "api::project-status.project-status",
       "properties": {
         "fields": [
-          "name"
+          "name",
+          "maturity"
         ]
       },
       "conditions": []
@@ -977,7 +1080,8 @@
       "subject": "api::project-status.project-status",
       "properties": {
         "fields": [
-          "name"
+          "name",
+          "maturity"
         ]
       },
       "conditions": []
@@ -1001,7 +1105,10 @@
           "funding",
           "organization_type",
           "source_country",
-          "status"
+          "status",
+          "other_funding",
+          "video_link",
+          "year_established"
         ]
       },
       "conditions": []
@@ -1039,7 +1146,10 @@
           "funding",
           "organization_type",
           "source_country",
-          "status"
+          "status",
+          "other_funding",
+          "video_link",
+          "year_established"
         ]
       },
       "conditions": []
@@ -1063,7 +1173,10 @@
           "funding",
           "organization_type",
           "source_country",
-          "status"
+          "status",
+          "other_funding",
+          "video_link",
+          "year_established"
         ]
       },
       "conditions": []

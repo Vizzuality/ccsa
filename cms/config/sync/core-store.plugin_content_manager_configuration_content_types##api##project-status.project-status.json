@@ -34,6 +34,20 @@
           "sortable": true
         }
       },
+      "maturity": {
+        "edit": {
+          "label": "maturity",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "maturity",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -105,6 +119,10 @@
           {
             "name": "name",
             "size": 6
+          },
+          {
+            "name": "maturity",
+            "size": 4
           }
         ]
       ]
