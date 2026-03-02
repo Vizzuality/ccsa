@@ -188,7 +188,7 @@ export default function ProjectForm() {
   const { data: organizationTypes } = useGetOrganizationTypes(
     {
       "pagination[pageSize]": 100,
-      sort: "maturity:asc",
+      sort: "name:asc",
     },
     {
       query: {
@@ -860,7 +860,7 @@ export default function ProjectForm() {
                   <FormItem className="space-y-1.5">
                     <ProjectFieldLabel
                       title="Year established"
-                      data={dataInfo?.data?.attributes?.year_established}
+                      data={dataInfo?.data?.attributes?.year_established?.toString()}
                       required
                     />
                     <FormControl>
