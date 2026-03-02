@@ -76,7 +76,7 @@ const ProjectFieldLabel = ({
   required = false,
 }: {
   title: string;
-  data: string | undefined;
+  data: string | number | undefined;
   required?: boolean;
 }) => (
   <FormLabel className="flex items-center text-xs font-semibold">
