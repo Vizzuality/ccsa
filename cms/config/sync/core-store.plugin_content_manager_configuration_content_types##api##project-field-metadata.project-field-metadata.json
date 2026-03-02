@@ -1,14 +1,14 @@
 {
-  "key": "plugin_content_manager_configuration_content_types::api::project-edit-suggestion.project-edit-suggestion",
+  "key": "plugin_content_manager_configuration_content_types::api::project-field-metadata.project-field-metadata",
   "value": {
-    "uid": "api::project-edit-suggestion.project-edit-suggestion",
+    "uid": "api::project-field-metadata.project-field-metadata",
     "settings": {
       "bulkable": true,
       "filterable": true,
       "searchable": true,
       "pageSize": 10,
-      "mainField": "name",
-      "defaultSortBy": "name",
+      "mainField": "id",
+      "defaultSortBy": "id",
       "defaultSortOrder": "ASC"
     },
     "metadatas": {
@@ -30,8 +30,36 @@
         },
         "list": {
           "label": "name",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "countries": {
+        "edit": {
+          "label": "countries",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "countries",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "pillar": {
+        "edit": {
+          "label": "pillar",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "pillar",
+          "searchable": false,
+          "sortable": false
         }
       },
       "highlight": {
@@ -58,8 +86,8 @@
         },
         "list": {
           "label": "account",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
         }
       },
       "amount": {
@@ -72,37 +100,22 @@
         },
         "list": {
           "label": "amount",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
         }
       },
-      "year_established": {
+      "sdgs": {
         "edit": {
-          "label": "year_established",
+          "label": "sdgs",
           "description": "",
           "placeholder": "",
           "visible": true,
           "editable": true
         },
         "list": {
-          "label": "year_established",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "funding": {
-        "edit": {
-          "label": "funding",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "funding",
-          "searchable": true,
-          "sortable": true
+          "label": "sdgs",
+          "searchable": false,
+          "sortable": false
         }
       },
       "objective": {
@@ -111,13 +124,12 @@
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "type"
+          "editable": true
         },
         "list": {
           "label": "objective",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
         }
       },
       "info": {
@@ -130,140 +142,22 @@
         },
         "list": {
           "label": "info",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "review_status": {
-        "edit": {
-          "label": "review_status",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "review_status",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "author": {
-        "edit": {
-          "label": "author",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "username"
-        },
-        "list": {
-          "label": "author",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "countries": {
-        "edit": {
-          "label": "countries",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "countries",
           "searchable": false,
           "sortable": false
         }
       },
-      "pillar": {
+      "funding": {
         "edit": {
-          "label": "pillar",
+          "label": "funding",
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
-          "label": "pillar",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "sdgs": {
-        "edit": {
-          "label": "sdgs",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "sdgs",
+          "label": "funding",
           "searchable": false,
           "sortable": false
-        }
-      },
-      "project": {
-        "edit": {
-          "label": "project",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "name"
-        },
-        "list": {
-          "label": "project",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "review_decision_details": {
-        "edit": {
-          "label": "review_decision_details",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "review_decision_details",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "reviewed_by": {
-        "edit": {
-          "label": "reviewed_by",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true
-        },
-        "list": {
-          "label": "reviewed_by",
-          "searchable": true,
-          "sortable": true
-        }
-      },
-      "source_country": {
-        "edit": {
-          "label": "source_country",
-          "description": "",
-          "placeholder": "",
-          "visible": true,
-          "editable": true,
-          "mainField": "code"
-        },
-        "list": {
-          "label": "source_country",
-          "searchable": true,
-          "sortable": true
         }
       },
       "organization_type": {
@@ -272,13 +166,26 @@
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
           "label": "organization_type",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "source_country": {
+        "edit": {
+          "label": "source_country",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "source_country",
+          "searchable": false,
+          "sortable": false
         }
       },
       "status": {
@@ -287,13 +194,26 @@
           "description": "",
           "placeholder": "",
           "visible": true,
-          "editable": true,
-          "mainField": "name"
+          "editable": true
         },
         "list": {
           "label": "status",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "description": {
+        "edit": {
+          "label": "description",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "description",
+          "searchable": false,
+          "sortable": false
         }
       },
       "video_link": {
@@ -306,8 +226,36 @@
         },
         "list": {
           "label": "video_link",
-          "searchable": true,
-          "sortable": true
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "other_funding": {
+        "edit": {
+          "label": "other_funding",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "other_funding",
+          "searchable": false,
+          "sortable": false
+        }
+      },
+      "year_established": {
+        "edit": {
+          "label": "year_established",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "year_established",
+          "searchable": false,
+          "sortable": false
         }
       },
       "createdAt": {
@@ -372,15 +320,27 @@
     "layouts": {
       "list": [
         "id",
-        "name",
-        "account",
-        "amount"
+        "createdAt",
+        "updatedAt",
+        "createdBy"
       ],
       "edit": [
         [
           {
             "name": "name",
-            "size": 6
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "countries",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "pillar",
+            "size": 12
           }
         ],
         [
@@ -392,93 +352,79 @@
         [
           {
             "name": "account",
-            "size": 6
-          },
+            "size": 12
+          }
+        ],
+        [
           {
             "name": "amount",
-            "size": 4
+            "size": 12
           }
         ],
         [
           {
-            "name": "year_established",
-            "size": 4
-          }
-        ],
-        [
-          {
-            "name": "status",
-            "size": 6
-          },
-          {
-            "name": "funding",
-            "size": 6
-          }
-        ],
-        [
-          {
-            "name": "source_country",
-            "size": 6
-          },
-          {
-            "name": "organization_type",
-            "size": 6
+            "name": "sdgs",
+            "size": 12
           }
         ],
         [
           {
             "name": "objective",
-            "size": 6
-          },
+            "size": 12
+          }
+        ],
+        [
           {
             "name": "info",
-            "size": 6
+            "size": 12
           }
         ],
         [
           {
-            "name": "review_status",
-            "size": 6
+            "name": "funding",
+            "size": 12
           }
         ],
         [
           {
-            "name": "author",
-            "size": 6
-          },
-          {
-            "name": "countries",
-            "size": 6
+            "name": "organization_type",
+            "size": 12
           }
         ],
         [
           {
-            "name": "pillar",
-            "size": 6
-          },
-          {
-            "name": "sdgs",
-            "size": 6
+            "name": "source_country",
+            "size": 12
           }
         ],
         [
           {
-            "name": "project",
-            "size": 6
-          },
-          {
-            "name": "review_decision_details",
-            "size": 6
+            "name": "status",
+            "size": 12
           }
         ],
         [
           {
-            "name": "reviewed_by",
-            "size": 6
-          },
+            "name": "description",
+            "size": 12
+          }
+        ],
+        [
           {
             "name": "video_link",
-            "size": 6
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "other_funding",
+            "size": 12
+          }
+        ],
+        [
+          {
+            "name": "year_established",
+            "size": 12
           }
         ]
       ]

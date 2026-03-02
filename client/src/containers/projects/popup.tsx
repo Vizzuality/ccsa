@@ -121,7 +121,7 @@ const ProjectPopup = () => {
           {/* STATUS  - progress bar*/}
           <ProjectsStatusProgressBar {...projectStatus} />
           {/* STATUS  - year established*/}
-          {!yearEstablished && (
+          {yearEstablished && (
             <div className="space-y-3.5">
               <div className="flex items-center space-x-1">
                 <span className="text-xxs font-semibold uppercase tracking-wide text-gray-500">
