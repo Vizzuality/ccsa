@@ -76,7 +76,7 @@ const ProjectFieldLabel = ({
   required = false,
 }: {
   title: string;
-  data: string | number | undefined;
+  data: string | undefined;
   required?: boolean;
 }) => (
   <FormLabel className="flex items-center text-xs font-semibold">
@@ -860,7 +860,7 @@ export default function ProjectForm() {
                   <FormItem className="space-y-1.5">
                     <ProjectFieldLabel
                       title="Year established"
-                      data={dataInfo?.data?.attributes?.year_established}
+                      data={dataInfo?.data?.attributes?.year_established?.toString()}
                       required
                     />
                     <FormControl>
