@@ -188,7 +188,7 @@ export default function ProjectForm() {
   const { data: organizationTypes } = useGetOrganizationTypes(
     {
       "pagination[pageSize]": 100,
-      sort: "maturity:asc",
+      sort: "name:asc",
     },
     {
       query: {
