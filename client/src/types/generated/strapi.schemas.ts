@@ -3361,6 +3361,7 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
     updatedAt?: string;
     updatedBy?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
     video_link?: string;
+    year_established?: number;
   };
 
 export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItem = {
@@ -5347,7 +5348,7 @@ export interface ProjectFieldMetadata {
   updatedAt?: string;
   updatedBy?: ProjectFieldMetadataUpdatedBy;
   video_link?: string;
-  year_established?: string;
+  year_established?: number;
 }
 
 export type ProjectFieldMetadataCreatedByDataAttributesUpdatedByDataAttributes = {
@@ -5554,6 +5555,7 @@ export type ProjectFieldMetadataRequestData = {
   source_country?: string;
   status?: string;
   video_link?: string;
+  year_established?: number;
 };
 
 export interface ProjectFieldMetadataRequest {
@@ -5683,6 +5685,7 @@ export interface ProjectEditSuggestion {
   updatedAt?: string;
   updatedBy?: ProjectEditSuggestionUpdatedBy;
   video_link?: string;
+  year_established?: number;
 }
 
 export type ProjectEditSuggestionPillarDataAttributesUpdatedByDataAttributes = {
@@ -5857,6 +5860,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
     updatedAt?: string;
     updatedBy?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
     video_link?: string;
+    year_established?: number;
   };
 
 export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItem =
@@ -7359,6 +7363,7 @@ export type ProjectEditSuggestionRequestData = {
   source_country?: ProjectEditSuggestionRequestDataSourceCountry;
   status?: ProjectEditSuggestionRequestDataStatus;
   video_link?: string;
+  year_established?: number;
 };
 
 export type ProjectResponseMeta = { [key: string]: any };
@@ -7655,6 +7660,7 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
     updatedAt?: string;
     updatedBy?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
     video_link?: string;
+    year_established?: number;
   };
 
 export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItem =
@@ -9353,6 +9359,7 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
     updatedAt?: string;
     updatedBy?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesUpdatedBy;
     video_link?: string;
+    year_established?: number;
   };
 
 export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesStatusDataAttributes =
