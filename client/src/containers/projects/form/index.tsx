@@ -67,6 +67,7 @@ import { updateOrCreateProject } from "@/services/projects";
 import CSVImport from "@/components/new-dataset/step-description/csv-import";
 import { useGetObjectives } from "@/types/generated/objective";
 import { useGetProjectFieldMetadata } from "@/types/generated/project-field-metadata";
+import form from "@/containers/other-tools/form";
 
 const currentYear = new Date().getFullYear();
 
@@ -352,7 +353,7 @@ export default function ProjectForm() {
   const formSchema = z
     .object({
       name: z.string().min(1, { message: "Please enter project's details" }),
-      description: z.string().min(1, { message: "Please enter project's description" }),
+      highlight: z.string().min(1, { message: "Please enter project's description" }),
       info: z.string().optional(),
       pillar: z.coerce.number().min(1, {
         message: "Please select at least one pillar",
@@ -409,7 +410,7 @@ export default function ProjectForm() {
     ...(id && {
       values: {
         name: previousData?.name || "",
-        description: previousData?.highlight || "",
+        highlight: previousData?.highlight || "",
         info: previousData?.info || "",
         pillar:
           // previousData.updatedAt ||
@@ -677,7 +678,7 @@ export default function ProjectForm() {
               />
               <FormField
                 control={form.control}
-                name="description"
+                name="highlight"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <ProjectFieldLabel

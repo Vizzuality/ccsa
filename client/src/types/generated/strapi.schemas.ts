@@ -5348,7 +5348,7 @@ export interface ProjectFieldMetadata {
   updatedAt?: string;
   updatedBy?: ProjectFieldMetadataUpdatedBy;
   video_link?: string;
-  year_established?: number;
+  year_established?: string;
 }
 
 export type ProjectFieldMetadataCreatedByDataAttributesUpdatedByDataAttributes = {
@@ -5555,7 +5555,7 @@ export type ProjectFieldMetadataRequestData = {
   source_country?: string;
   status?: string;
   video_link?: string;
-  year_established?: number;
+  year_established?: string;
 };
 
 export interface ProjectFieldMetadataRequest {
