@@ -14,7 +14,7 @@ const csvTypeMapping: Record<string, string[]> = {
   project: [
     "name",
     "info",
-    "pillar",
+    "sector",
     "amount",
     "countries",
     "sdgs",

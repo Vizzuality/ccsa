@@ -9,7 +9,7 @@ export const PROJECTS_CSV_CONTENT = {
     "countries",
     "source_country",
     "sdgs",
-    "pillar",
+    "sector",
     "organization_type",
     "info",
     "funding",
