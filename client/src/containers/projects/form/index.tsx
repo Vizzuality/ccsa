@@ -67,7 +67,6 @@ import { updateOrCreateProject } from "@/services/projects";
 import CSVImport from "@/components/new-dataset/step-description/csv-import";
 import { useGetObjectives } from "@/types/generated/objective";
 import { useGetProjectFieldMetadata } from "@/types/generated/project-field-metadata";
-import form from "@/containers/other-tools/form";
 
 const currentYear = new Date().getFullYear();
 
@@ -356,7 +355,7 @@ export default function ProjectForm() {
       highlight: z.string().min(1, { message: "Please enter project's description" }),
       info: z.string().optional(),
       pillar: z.coerce.number().min(1, {
-        message: "Please select at least one pillar",
+        message: "Please select at least one sector",
       }),
       amount: z.coerce
         .number()
@@ -736,7 +735,7 @@ export default function ProjectForm() {
                   return (
                     <FormItem className="space-y-1.5">
                       <ProjectFieldLabel
-                        title="Pillar"
+                        title="Sector"
                         data={dataInfo?.data?.attributes?.pillar}
                         required
                       />

@@ -155,7 +155,7 @@ const ProjectPopup = () => {
           {/* PILLAR */}
           {!!pillar?.data?.attributes?.name && (
             <div className="space-y-2.5">
-              <ProjectFieldHeader title="Pillar" data={dataInfo?.data?.attributes?.pillar} />
+              <ProjectFieldHeader title="Sector" data={dataInfo?.data?.attributes?.pillar} />
 
               <div className="space-y-1 text-sm">
                 <p>{pillar?.data?.attributes?.name}:</p>
