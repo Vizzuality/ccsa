@@ -625,7 +625,7 @@ export default function ProjectForm() {
               countries: "",
               source_country: "",
               sdgs: "",
-              pillars: "",
+              sectors: "",
               organization_type: "",
               info: "", // If no info, keep it as an empty string
               funding: "", // If no funding, keep it as an empty string
