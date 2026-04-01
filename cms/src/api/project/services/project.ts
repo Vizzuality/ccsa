@@ -220,11 +220,12 @@ export default factories.createCoreService("api::project.project", {
         );
         const publishedAt = new Date().toISOString();
 
+        const { sector, ...rowWithoutSector } = row;
         const updatedRow: any = {
-          ...row,
+          ...rowWithoutSector,
           countries: countryIds,
           sdgs: sdgIds,
-          sector: pillarIds,
+          pillar: pillarIds,
           status,
           source_country: sourceCountry,
           objective,
