@@ -20,13 +20,13 @@ export default function ProjectsPage() {
 
             <div className="space-y-2.5">
               <p className="text-sm text-gray-700">
-                To start using this tool, select some datasets from the list below and click on the
-                map to see country details. Then, go to the country detail that will appear to
-                compare with other countries and download data.
+                To start using this tool, click on the map to explore country-specific projects, or
+                use the filters to compare initiatives across the region.
               </p>
 
               <p className="text-sm text-gray-700">
-                If you have any other questions email us at{" "}
+                If you would like additional information about any of the projects or are interested
+                in supporting them, please contact us at{" "}
                 <a
                   className="text-brand1"
                   href="mailto:hello@caribbeanaccelerator.org"
