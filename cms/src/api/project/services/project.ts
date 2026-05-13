@@ -159,10 +159,14 @@ export default factories.createCoreService("api::project.project", {
       "funding",
     ];
 
-    const records: ProjectRow[] = csv.parse(fileContent, {
-      columns: true,
-      skip_empty_lines: true,
-    });
+    const records: ProjectRow[] = csv
+      .parse(fileContent, {
+        columns: true,
+        skip_empty_lines: true,
+      })
+      .filter((row: any) =>
+        Object.values(row).some((v) => String(v ?? "").trim() !== "")
+      );
 
     if (records.length === 0) {
       throw new Error("CSV file is empty");
