@@ -64,7 +64,7 @@ async function findOrganizationTypeIdByName(name: string): Promise<number> {
 
 async function findFundingIdByName(name: string): Promise<number> {
   const result: any = await strapi.entityService.findMany(
-    "api::organization-type.organization-type",
+    "api::types-of-funding.types-of-funding",
     {
       filters: { name },
       fields: ["id"],
