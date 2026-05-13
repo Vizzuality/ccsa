@@ -15,10 +15,14 @@ export default factories.createCoreService('api::collaborator.collaborator', {
     const allowedColumns = ['name', 'link', 'type'];
     const allowedTypes = ['donor', 'collaborator'];
 
-    const records: any[] = csv.parse(fileContent, {
-      columns: true,
-      skip_empty_lines: true,
-    });
+    const records: any[] = csv
+      .parse(fileContent, {
+        columns: true,
+        skip_empty_lines: true,
+      })
+      .filter((row: any) =>
+        Object.values(row).some((v) => String(v ?? '').trim() !== '')
+      );
 
     if (records.length === 0) {
       throw new Error('CSV file is empty');
