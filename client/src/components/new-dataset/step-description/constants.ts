@@ -24,21 +24,10 @@ export const PROJECTS_CSV_CONTENT = {
 
 export const OTHER_TOOLS_CSV_CONTENT = {
   title: "Other Tools",
-  columns: ["name", "link", "category", "description"],
-  categories: [
-    "Biodiversity",
-    "Blue Economy",
-    "Climate Impacts",
-    "Conservation",
-    "Data",
-    "Energy",
-    "General",
-    "Trade",
-    "Vulnerability",
-  ],
+  columns: ["name", "description", "link", "other_tools_category"],
   examples: [
-    "Tool A, http://example.com, Data, A tool for data analysis and visualization.",
-    "Tool B, http://example2.com, Climate Impacts, A tool for assessing climate impacts.",
+    "Tool A, A tool for data analysis and visualization., http://example.com, Data",
+    "Tool B, A tool for assessing climate impacts., http://example2.com, Climate Impacts",
   ],
 };
 

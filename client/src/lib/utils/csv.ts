@@ -25,7 +25,7 @@ const csvTypeMapping: Record<string, string[]> = {
     "objective",
     "highlight",
   ],
-  "other-tools": ["name", "description", "link", "category"],
+  "other-tools": ["name", "description", "link", "other_tools_category"],
   collaborators: ["name", "type", "link"],
 };
 
