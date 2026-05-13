@@ -14,7 +14,7 @@ const csvTypeMapping: Record<string, string[]> = {
   project: [
     "name",
     "info",
-    "pillar",
+    "sector",
     "amount",
     "countries",
     "sdgs",
@@ -25,7 +25,7 @@ const csvTypeMapping: Record<string, string[]> = {
     "objective",
     "highlight",
   ],
-  "other-tools": ["name", "description", "link", "category"],
+  "other-tools": ["name", "description", "link", "other_tools_category"],
   collaborators: ["name", "type", "link"],
 };
 
@@ -42,9 +42,7 @@ function generateCSVContent(data: DataObject, type: CSVImportTypes): string {
   const headerRow = columns.join(",") + "\n";
 
   if (Object.keys(data).length === 0) {
-    // If no data, return header and a default row with empty values
-    const emptyRow = columns.map(() => "").join(",");
-    return headerRow + emptyRow;
+    return headerRow;
   }
 
   // Create the CSV rows from the data

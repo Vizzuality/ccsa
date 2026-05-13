@@ -24,6 +24,7 @@ export const countryParser = parseAsString;
 export const countriesComparisonParser = parseAsArrayOf(parseAsString).withDefault([]);
 
 export const projectParser = parseAsInteger;
+
 export const pillarsParser = parseAsArrayOf(parseAsInteger).withDefault([]);
 export const availableForFundingParser = parseAsBoolean.withDefault(false);
 export const projectStatusParser = parseAsArrayOf(parseAsInteger).withDefault([]);

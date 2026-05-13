@@ -18,6 +18,26 @@ export default function ProjectsPage() {
           <div className="space-y-5 px-5 pb-10 pt-[30px]">
             <h1 className="font-metropolis text-3xl tracking-tight text-gray-700">Projects</h1>
 
+            <div className="space-y-2.5">
+              <p className="text-sm text-gray-700">
+                To start using this tool, click on the map to explore country-specific projects, or
+                use the filters to compare initiatives across the region.
+              </p>
+
+              <p className="text-sm text-gray-700">
+                If you would like additional information about any of the projects or are interested
+                in supporting them, please contact us at{" "}
+                <a
+                  className="text-brand1"
+                  href="mailto:hello@caribbeanaccelerator.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  hello@caribbeanaccelerator.org
+                </a>
+              </p>
+            </div>
+
             <div className="space-y-5">
               <ProjectsFilters />
               <ProjectsHeader />

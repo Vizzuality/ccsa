@@ -188,7 +188,7 @@ export default function ProjectForm() {
   const { data: organizationTypes } = useGetOrganizationTypes(
     {
       "pagination[pageSize]": 100,
-      sort: "maturity:asc",
+      sort: "name:asc",
     },
     {
       query: {
@@ -352,10 +352,10 @@ export default function ProjectForm() {
   const formSchema = z
     .object({
       name: z.string().min(1, { message: "Please enter project's details" }),
-      description: z.string().min(1, { message: "Please enter project's description" }),
+      highlight: z.string().min(1, { message: "Please enter project's description" }),
       info: z.string().optional(),
       pillar: z.coerce.number().min(1, {
-        message: "Please select at least one pillar",
+        message: "Please select at least one sector",
       }),
       amount: z.coerce
         .number()
@@ -409,7 +409,7 @@ export default function ProjectForm() {
     ...(id && {
       values: {
         name: previousData?.name || "",
-        description: previousData?.highlight || "",
+        highlight: previousData?.highlight || "",
         info: previousData?.info || "",
         pillar:
           // previousData.updatedAt ||
@@ -625,7 +625,7 @@ export default function ProjectForm() {
               countries: "",
               source_country: "",
               sdgs: "",
-              pillars: "",
+              sectors: "",
               organization_type: "",
               info: "", // If no info, keep it as an empty string
               funding: "", // If no funding, keep it as an empty string
@@ -677,7 +677,7 @@ export default function ProjectForm() {
               />
               <FormField
                 control={form.control}
-                name="description"
+                name="highlight"
                 render={({ field }) => (
                   <FormItem className="space-y-1.5">
                     <ProjectFieldLabel
@@ -735,7 +735,7 @@ export default function ProjectForm() {
                   return (
                     <FormItem className="space-y-1.5">
                       <ProjectFieldLabel
-                        title="Pillar"
+                        title="Sector"
                         data={dataInfo?.data?.attributes?.pillar}
                         required
                       />
@@ -860,7 +860,7 @@ export default function ProjectForm() {
                   <FormItem className="space-y-1.5">
                     <ProjectFieldLabel
                       title="Year established"
-                      data={dataInfo?.data?.attributes?.year_established}
+                      data={dataInfo?.data?.attributes?.year_established?.toString()}
                       required
                     />
                     <FormControl>

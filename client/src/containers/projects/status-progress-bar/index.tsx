@@ -2,6 +2,13 @@
 
 import { ProjectStatus } from "@/types/generated/strapi.schemas";
 
+const MATURITY_COLORS: Record<number, string> = {
+  1: "#F9423A",
+  2: "#ECB500",
+  3: "#78D64B",
+  4: "#12CCAD",
+};
+
 const ProgressBar = ({ maturity }: { maturity?: number }) => (
   <div className="flex shrink-0 space-x-[0.95px] whitespace-nowrap">
     {Array.from({ length: 4 }).map((_, index) => (
@@ -10,6 +17,7 @@ const ProgressBar = ({ maturity }: { maturity?: number }) => (
         className={`inline-block h-[5px] w-7 shrink-0 whitespace-nowrap bg-brand2  first:rounded-l-full last:rounded-r-full ${
           maturity && index + 1 <= maturity ? "opacity-100" : "opacity-20"
         }`}
+        style={{ backgroundColor: MATURITY_COLORS[maturity || 1] }}
       />
     ))}
   </div>
