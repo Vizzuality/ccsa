@@ -68,7 +68,7 @@
     "pino": "8.15.1",
     "pino-http": "8.5.0",
     "pino-pretty": "10.2.0",
-    "postcss": "8.4.30",
+    "postcss": "8.4.31",
     "react": "18.2.0",
     "react-cookie": "^7.1.4",
     "react-dom": "18.2.0",
@@ -90,7 +90,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@playwright/test": "1.38.1",
+    "@playwright/test": "1.55.1",
     "@radix-ui/react-separator": "1.0.3",
     "@radix-ui/react-tabs": "1.0.4",
     "@tanstack/eslint-plugin-query": "4.34.1",

@@ -15,20 +15,24 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-documentation": "^4.15.0",
-    "@strapi/plugin-i18n": "4.15.0",
-    "@strapi/plugin-users-permissions": "4.15.0",
-    "@strapi/provider-email-amazon-ses": "4.15.0",
-    "@strapi/provider-upload-aws-s3": "4.15.0",
-    "@strapi/provider-upload-local": "4.15.0",
-    "@strapi/strapi": "4.15.0",
+    "@strapi/plugin-documentation": "^4.26.1",
+    "@strapi/plugin-i18n": "4.26.1",
+    "@strapi/plugin-users-permissions": "4.26.1",
+    "@strapi/provider-email-amazon-ses": "4.26.1",
+    "@strapi/provider-upload-aws-s3": "4.26.1",
+    "@strapi/provider-upload-local": "4.26.1",
+    "@strapi/strapi": "4.26.1",
     "csv-parse": "^5.5.6",
     "csv-parser": "^3.0.0",
     "csv-stringify": "^6.5.1",
     "json2csv": "^6.0.0-alpha.2",
     "pg": "8.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "5.3.4",
     "strapi-plugin-config-sync": "^1.2.1",
-    "strapi-plugin-import-export-entries": "^1.21.1"
+    "strapi-plugin-import-export-entries": "^1.21.1",
+    "styled-components": "5.3.3"
   },
   "devDependencies": {
     "@types/csv-parse": "^1.2.2",
