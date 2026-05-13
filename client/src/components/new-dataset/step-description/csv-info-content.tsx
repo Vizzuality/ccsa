@@ -121,6 +121,15 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
                 <code key={example}>{example}</code>
               ))}
             </div>
+            <p>
+              <span className="font-semibold">Note:</span> The following fields must match an
+              existing option from the dropdowns in the project form below:{" "}
+              <code>sector</code>, <code>countries</code>, <code>sdgs</code>, <code>status</code>,{" "}
+              <code>funding</code>, <code>organization_type</code>, <code>source_country</code>,{" "}
+              <code>objective</code>. Values are case-sensitive and must match exactly. Multi-value
+              fields (<code>countries</code>, <code>sdgs</code>, <code>sector</code>) are separated
+              with <code>;</code>.
+            </p>
           </div>
         </div>
       )}
