@@ -16,6 +16,12 @@ ENV NODE_ENV production
 
 WORKDIR /app
 
+# Set HOME so corepack writes its cache into /app/.cache instead of /root/.cache.
+# This way the cache is included in the COPY --from=build that follows in the runner stage,
+# and yarn never needs to download itself at container startup.
+ENV HOME=/app
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+
 COPY .yarn ./.yarn
 COPY config ./config
 COPY database ./database
@@ -32,7 +38,7 @@ COPY .env \
      yarn.lock \
      ./
 
-RUN corepack enable
+RUN corepack enable && corepack prepare yarn@3.6.4 --activate
 
 RUN yarn install
 
@@ -52,13 +58,18 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 --home /app strapi
 ENV HOME=/app
-#Need to explicitly set a HOME folder because the entrypoint script uses yarn, and the packageManager will force to use
-#corepack to install yarn, but its cache folder is written in the HOME folder
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+# HOME=/app makes corepack derive its cache path as /app/.cache/node/corepack/.
+# Combined with the build stage pre-populating that cache, yarn starts offline.
 
 COPY --from=build --chown=strapi:nodejs /app ./
 
-ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 RUN corepack enable
+
+# WORKDIR /app creates the directory as root:root mode 0755, and COPY --chown only
+# chowns the copied *contents*, not /app itself. Without this, the strapi user can
+# traverse /app but cannot create new entries in it (e.g. /app/.cache on first yarn run).
+RUN chown strapi:nodejs /app
 
 USER strapi
 
