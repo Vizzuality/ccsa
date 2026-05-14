@@ -1616,7 +1616,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/geo-layers@npm:8.9.32, @deck.gl/geo-layers@npm:^8.9.31":
+"@deck.gl/geo-layers@npm:8.9.32":
   version: 8.9.32
   resolution: "@deck.gl/geo-layers@npm:8.9.32"
   dependencies:
@@ -1662,7 +1662,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/json@npm:8.9.32, @deck.gl/json@npm:^8.9.31":
+"@deck.gl/json@npm:8.9.32":
   version: 8.9.32
   resolution: "@deck.gl/json@npm:8.9.32"
   dependencies:
@@ -1675,7 +1675,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/layers@npm:8.9.32, @deck.gl/layers@npm:^8.9.31":
+"@deck.gl/layers@npm:8.9.32":
   version: 8.9.32
   resolution: "@deck.gl/layers@npm:8.9.32"
   dependencies:
@@ -1696,7 +1696,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deck.gl/mapbox@npm:8.9.32, @deck.gl/mapbox@npm:^8.9.31":
+"@deck.gl/mapbox@npm:8.9.32":
   version: 8.9.32
   resolution: "@deck.gl/mapbox@npm:8.9.32"
   dependencies:
@@ -1749,7 +1749,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dnd-kit/core@npm:^6.0.8":
+"@dnd-kit/core@npm:6.0.8":
   version: 6.0.8
   resolution: "@dnd-kit/core@npm:6.0.8"
   dependencies:
@@ -1763,7 +1763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dnd-kit/modifiers@npm:^6.0.1":
+"@dnd-kit/modifiers@npm:6.0.1":
   version: 6.0.1
   resolution: "@dnd-kit/modifiers@npm:6.0.1"
   dependencies:
@@ -1776,7 +1776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dnd-kit/sortable@npm:^7.0.2":
+"@dnd-kit/sortable@npm:7.0.2":
   version: 7.0.2
   resolution: "@dnd-kit/sortable@npm:7.0.2"
   dependencies:
@@ -1789,7 +1789,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dnd-kit/utilities@npm:^3.2.0, @dnd-kit/utilities@npm:^3.2.1":
+"@dnd-kit/utilities@npm:3.2.1, @dnd-kit/utilities@npm:^3.2.0, @dnd-kit/utilities@npm:^3.2.1":
   version: 3.2.1
   resolution: "@dnd-kit/utilities@npm:3.2.1"
   dependencies:
@@ -1935,7 +1935,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hookform/resolvers@npm:^3.3.2":
+"@hookform/resolvers@npm:3.3.2":
   version: 3.3.2
   resolution: "@hookform/resolvers@npm:3.3.2"
   peerDependencies:
@@ -2819,7 +2819,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/third-parties@npm:^14.1.0":
+"@next/third-parties@npm:14.1.0":
   version: 14.1.0
   resolution: "@next/third-parties@npm:14.1.0"
   dependencies:
@@ -3085,7 +3085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-accordion@npm:^1.1.2":
+"@radix-ui/react-accordion@npm:1.1.2":
   version: 1.1.2
   resolution: "@radix-ui/react-accordion@npm:1.1.2"
   dependencies:
@@ -3113,7 +3113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-alert-dialog@npm:^1.1.1":
+"@radix-ui/react-alert-dialog@npm:1.1.1":
   version: 1.1.1
   resolution: "@radix-ui/react-alert-dialog@npm:1.1.1"
   dependencies:
@@ -3338,39 +3338,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-dialog@npm:1.1.1":
-  version: 1.1.1
-  resolution: "@radix-ui/react-dialog@npm:1.1.1"
-  dependencies:
-    "@radix-ui/primitive": 1.1.0
-    "@radix-ui/react-compose-refs": 1.1.0
-    "@radix-ui/react-context": 1.1.0
-    "@radix-ui/react-dismissable-layer": 1.1.0
-    "@radix-ui/react-focus-guards": 1.1.0
-    "@radix-ui/react-focus-scope": 1.1.0
-    "@radix-ui/react-id": 1.1.0
-    "@radix-ui/react-portal": 1.1.1
-    "@radix-ui/react-presence": 1.1.0
-    "@radix-ui/react-primitive": 2.0.0
-    "@radix-ui/react-slot": 1.1.0
-    "@radix-ui/react-use-controllable-state": 1.1.0
-    aria-hidden: ^1.1.1
-    react-remove-scroll: 2.5.7
-  peerDependencies:
-    "@types/react": "*"
-    "@types/react-dom": "*"
-    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-    "@types/react-dom":
-      optional: true
-  checksum: 5f270518b61e0b570a321f1db09ed95939969e9bff71fad02bce02126f047f5305d74ff79bb4e763677062db881b1e4ecd297b1556a917fed3d7a77cc0a7c235
-  languageName: node
-  linkType: hard
-
-"@radix-ui/react-dialog@npm:^1.0.5":
+"@radix-ui/react-dialog@npm:1.0.5":
   version: 1.0.5
   resolution: "@radix-ui/react-dialog@npm:1.0.5"
   dependencies:
@@ -3400,6 +3368,38 @@ __metadata:
     "@types/react-dom":
       optional: true
   checksum: 3d11ca31afb794a6dd286005ab7894cb0ce7bc2de5481de98900470b11d495256401306763de030f5e35aa545ff90d34632ffd54a1b29bf55afba813be4bb84a
+  languageName: node
+  linkType: hard
+
+"@radix-ui/react-dialog@npm:1.1.1":
+  version: 1.1.1
+  resolution: "@radix-ui/react-dialog@npm:1.1.1"
+  dependencies:
+    "@radix-ui/primitive": 1.1.0
+    "@radix-ui/react-compose-refs": 1.1.0
+    "@radix-ui/react-context": 1.1.0
+    "@radix-ui/react-dismissable-layer": 1.1.0
+    "@radix-ui/react-focus-guards": 1.1.0
+    "@radix-ui/react-focus-scope": 1.1.0
+    "@radix-ui/react-id": 1.1.0
+    "@radix-ui/react-portal": 1.1.1
+    "@radix-ui/react-presence": 1.1.0
+    "@radix-ui/react-primitive": 2.0.0
+    "@radix-ui/react-slot": 1.1.0
+    "@radix-ui/react-use-controllable-state": 1.1.0
+    aria-hidden: ^1.1.1
+    react-remove-scroll: 2.5.7
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: 5f270518b61e0b570a321f1db09ed95939969e9bff71fad02bce02126f047f5305d74ff79bb4e763677062db881b1e4ecd297b1556a917fed3d7a77cc0a7c235
   languageName: node
   linkType: hard
 
@@ -3622,7 +3622,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-label@npm:^2.0.2":
+"@radix-ui/react-label@npm:2.0.2":
   version: 2.0.2
   resolution: "@radix-ui/react-label@npm:2.0.2"
   dependencies:
@@ -3922,7 +3922,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-scroll-area@npm:^1.0.5":
+"@radix-ui/react-scroll-area@npm:1.0.5":
   version: 1.0.5
   resolution: "@radix-ui/react-scroll-area@npm:1.0.5"
   dependencies:
@@ -3950,7 +3950,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-select@npm:^2.0.0":
+"@radix-ui/react-select@npm:2.0.0":
   version: 2.0.0
   resolution: "@radix-ui/react-select@npm:2.0.0"
   dependencies:
@@ -4010,7 +4010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slider@npm:^1.1.2":
+"@radix-ui/react-slider@npm:1.1.2":
   version: 1.1.2
   resolution: "@radix-ui/react-slider@npm:1.1.2"
   dependencies:
@@ -4052,7 +4052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.0.2, @radix-ui/react-slot@npm:^1.0.2":
+"@radix-ui/react-slot@npm:1.0.2":
   version: 1.0.2
   resolution: "@radix-ui/react-slot@npm:1.0.2"
   dependencies:
@@ -4083,7 +4083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-switch@npm:^1.0.3":
+"@radix-ui/react-switch@npm:1.0.3":
   version: 1.0.3
   resolution: "@radix-ui/react-switch@npm:1.0.3"
   dependencies:
@@ -4917,7 +4917,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@svgr/webpack@npm:^8.1.0":
+"@svgr/webpack@npm:8.1.0":
   version: 8.1.0
   resolution: "@svgr/webpack@npm:8.1.0"
   dependencies:
@@ -4964,7 +4964,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/typography@npm:^0.5.10":
+"@tailwindcss/typography@npm:0.5.10":
   version: 0.5.10
   resolution: "@tailwindcss/typography@npm:0.5.10"
   dependencies:
@@ -5123,7 +5123,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chroma-js@npm:^2.4.4":
+"@types/chroma-js@npm:2.4.4":
   version: 2.4.4
   resolution: "@types/chroma-js@npm:2.4.4"
   checksum: 32d69cb4c071b3d18650b803a7858d5d14e6b59fc55deb540ea29d6172f3334cddf1823ab1221cb123077171db0510b48562bac2a5853dc71f60318c5ae250bb
@@ -5202,7 +5202,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/geojson@npm:*, @types/geojson@npm:^7946.0.12, @types/geojson@npm:^7946.0.7, @types/geojson@npm:^7946.0.8":
+"@types/geojson@npm:*, @types/geojson@npm:7946.0.12, @types/geojson@npm:^7946.0.7, @types/geojson@npm:^7946.0.8":
   version: 7946.0.12
   resolution: "@types/geojson@npm:7946.0.12"
   checksum: 435ac23d3b66d68d142312be059c4a707bb38927edfe68f38c8051667e72f1f50f02848be5e51b56811c1c85c2ad64b8b38fd3e4c7ab43a591922ebaf3fde641
@@ -5274,7 +5274,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash-es@npm:^4.17.10":
+"@types/lodash-es@npm:4.17.10":
   version: 4.17.10
   resolution: "@types/lodash-es@npm:4.17.10"
   dependencies:
@@ -5400,7 +5400,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-world-flags@npm:^1.4.5":
+"@types/react-world-flags@npm:1.4.5":
   version: 1.4.5
   resolution: "@types/react-world-flags@npm:1.4.5"
   dependencies:
@@ -5710,7 +5710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uiw/react-md-editor@npm:^4.0.4":
+"@uiw/react-md-editor@npm:4.0.4":
   version: 4.0.4
   resolution: "@uiw/react-md-editor@npm:4.0.4"
   dependencies:
@@ -5732,7 +5732,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vinhpd/react-simple-captcha@npm:^9.0.1":
+"@vinhpd/react-simple-captcha@npm:9.0.1":
   version: 9.0.1
   resolution: "@vinhpd/react-simple-captcha@npm:9.0.1"
   dependencies:
@@ -6620,77 +6620,77 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ccsa-client@workspace:."
   dependencies:
-    "@deck.gl/geo-layers": ^8.9.31
-    "@deck.gl/json": ^8.9.31
-    "@deck.gl/layers": ^8.9.31
-    "@deck.gl/mapbox": ^8.9.31
-    "@dnd-kit/core": ^6.0.8
-    "@dnd-kit/modifiers": ^6.0.1
-    "@dnd-kit/sortable": ^7.0.2
-    "@dnd-kit/utilities": ^3.2.1
-    "@hookform/resolvers": ^3.3.2
-    "@next/third-parties": ^14.1.0
+    "@deck.gl/geo-layers": 8.9.32
+    "@deck.gl/json": 8.9.32
+    "@deck.gl/layers": 8.9.32
+    "@deck.gl/mapbox": 8.9.32
+    "@dnd-kit/core": 6.0.8
+    "@dnd-kit/modifiers": 6.0.1
+    "@dnd-kit/sortable": 7.0.2
+    "@dnd-kit/utilities": 3.2.1
+    "@hookform/resolvers": 3.3.2
+    "@next/third-parties": 14.1.0
     "@playwright/test": 1.38.1
-    "@radix-ui/react-accordion": ^1.1.2
-    "@radix-ui/react-alert-dialog": ^1.1.1
+    "@radix-ui/react-accordion": 1.1.2
+    "@radix-ui/react-alert-dialog": 1.1.1
     "@radix-ui/react-checkbox": 1.0.4
-    "@radix-ui/react-dialog": ^1.0.5
-    "@radix-ui/react-label": ^2.0.2
+    "@radix-ui/react-dialog": 1.0.5
+    "@radix-ui/react-label": 2.0.2
     "@radix-ui/react-popover": 1.0.7
     "@radix-ui/react-radio-group": 1.1.3
-    "@radix-ui/react-scroll-area": ^1.0.5
-    "@radix-ui/react-select": ^2.0.0
+    "@radix-ui/react-scroll-area": 1.0.5
+    "@radix-ui/react-select": 2.0.0
     "@radix-ui/react-separator": 1.0.3
-    "@radix-ui/react-slider": ^1.1.2
-    "@radix-ui/react-slot": ^1.0.2
-    "@radix-ui/react-switch": ^1.0.3
+    "@radix-ui/react-slider": 1.1.2
+    "@radix-ui/react-slot": 1.0.2
+    "@radix-ui/react-switch": 1.0.3
     "@radix-ui/react-tabs": 1.0.4
     "@radix-ui/react-tooltip": 1.0.7
-    "@svgr/webpack": ^8.1.0
+    "@svgr/webpack": 8.1.0
     "@t3-oss/env-nextjs": 0.6.1
-    "@tailwindcss/typography": ^0.5.10
+    "@tailwindcss/typography": 0.5.10
     "@tanstack/eslint-plugin-query": 4.34.1
     "@tanstack/react-query": 4.35.3
     "@turf/centroid": 7.0.0-alpha.2
-    "@types/chroma-js": ^2.4.4
+    "@types/chroma-js": 2.4.4
     "@types/express": 4.17.18
-    "@types/geojson": ^7946.0.12
-    "@types/lodash-es": ^4.17.10
+    "@types/geojson": 7946.0.12
+    "@types/lodash-es": 4.17.10
     "@types/mapbox": 1.6.43
     "@types/node": 22
     "@types/react": 18.2.23
     "@types/react-dom": 18.2.8
-    "@types/react-world-flags": ^1.4.5
+    "@types/react-world-flags": 1.4.5
     "@typescript-eslint/eslint-plugin": 6.7.3
     "@typescript-eslint/parser": 6.7.3
-    "@uiw/react-md-editor": ^4.0.4
-    "@vinhpd/react-simple-captcha": ^9.0.1
+    "@uiw/react-md-editor": 4.0.4
+    "@vinhpd/react-simple-captcha": 9.0.1
     autoprefixer: 10.4.16
     axios: 1.16.0
     chroma-js: 2.6.0
     class-variance-authority: 0.7.0
     clsx: 2.0.0
-    cmdk: ^0.2.0
+    cmdk: 0.2.0
     date-fns: 3.6.0
-    deck.gl: ^8.9.31
-    eslint: ^9.8.0
+    deck.gl: 8.9.32
+    eslint: 9.8.0
     eslint-config-next: 13.5.3
     eslint-config-prettier: 9.0.0
     eslint-plugin-import: 2.29.1
     eslint-plugin-prettier: 5.0.0
-    eslint-plugin-simple-import-sort: ^12.1.1
+    eslint-plugin-simple-import-sort: 12.1.1
     export-to-csv: 1.2.1
     express: 4.20.0
-    glslify: ^7.1.1
+    glslify: 7.1.1
     husky: 8.0.3
-    jotai: ^2.5.0
+    jotai: 2.5.0
     jwt-decode: 4.0.0
     lodash-es: 4.18.1
     mapbox-gl: 2.15.0
     next: 16.2.6
     next-auth: 4.24.12
-    next-usequerystate: ^1.9.1
-    orval: ^6.19.0
+    next-usequerystate: 1.9.1
+    orval: 6.19.1
     pino: 8.15.1
     pino-http: 8.5.0
     pino-pretty: 10.2.0
@@ -6698,24 +6698,24 @@ __metadata:
     prettier: 3.0.3
     prettier-plugin-tailwindcss: 0.5.4
     react: 18.2.0
-    react-cookie: ^7.1.4
+    react-cookie: 7.1.4
     react-dom: 18.2.0
-    react-dropzone: ^14.2.3
-    react-hook-form: ^7.48.2
+    react-dropzone: 14.2.3
+    react-hook-form: 7.48.2
     react-icons: 5.5.0
     react-map-gl: 7.1.6
-    react-markdown: ^9.0.0
-    react-player: ^2.16.0
-    react-toastify: ^10.0.5
-    react-world-flags: ^1.6.0
-    rehype-sanitize: ^6.0.0
+    react-markdown: 9.0.0
+    react-player: 2.16.0
+    react-toastify: 10.0.5
+    react-world-flags: 1.6.0
+    rehype-sanitize: 6.0.0
     rooks: 7.14.1
-    screenfull: ^6.0.2
+    screenfull: 6.0.2
     tailwind-merge: 1.14.0
     tailwindcss: 3.3.3
     tailwindcss-animate: 1.0.7
     typescript: 5.2.2
-    zod: ^3.22.4
+    zod: 3.22.4
   languageName: unknown
   linkType: soft
 
@@ -6867,7 +6867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cmdk@npm:^0.2.0":
+"cmdk@npm:0.2.0":
   version: 0.2.0
   resolution: "cmdk@npm:0.2.0"
   dependencies:
@@ -7364,7 +7364,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deck.gl@npm:^8.9.31":
+"deck.gl@npm:8.9.32":
   version: 8.9.32
   resolution: "deck.gl@npm:8.9.32"
   dependencies:
@@ -8478,7 +8478,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-simple-import-sort@npm:^12.1.1":
+"eslint-plugin-simple-import-sort@npm:12.1.1":
   version: 12.1.1
   resolution: "eslint-plugin-simple-import-sort@npm:12.1.1"
   peerDependencies:
@@ -8511,7 +8511,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.8.0":
+"eslint@npm:9.8.0":
   version: 9.8.0
   resolution: "eslint@npm:9.8.0"
   dependencies:
@@ -9545,7 +9545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glslify@npm:^7.1.1":
+"glslify@npm:7.1.1":
   version: 7.1.1
   resolution: "glslify@npm:7.1.1"
   dependencies:
@@ -10701,7 +10701,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jotai@npm:^2.5.0":
+"jotai@npm:2.5.0":
   version: 2.5.0
   resolution: "jotai@npm:2.5.0"
   peerDependencies:
@@ -12165,7 +12165,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-usequerystate@npm:^1.9.1":
+"next-usequerystate@npm:1.9.1":
   version: 1.9.1
   resolution: "next-usequerystate@npm:1.9.1"
   dependencies:
@@ -12695,7 +12695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"orval@npm:^6.19.0":
+"orval@npm:6.19.1":
   version: 6.19.1
   resolution: "orval@npm:6.19.1"
   dependencies:
@@ -13477,7 +13477,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-cookie@npm:^7.1.4":
+"react-cookie@npm:7.1.4":
   version: 7.1.4
   resolution: "react-cookie@npm:7.1.4"
   dependencies:
@@ -13502,7 +13502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dropzone@npm:^14.2.3":
+"react-dropzone@npm:14.2.3":
   version: 14.2.3
   resolution: "react-dropzone@npm:14.2.3"
   dependencies:
@@ -13522,7 +13522,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.48.2":
+"react-hook-form@npm:7.48.2":
   version: 7.48.2
   resolution: "react-hook-form@npm:7.48.2"
   peerDependencies:
@@ -13578,7 +13578,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-markdown@npm:^9.0.0":
+"react-markdown@npm:9.0.0":
   version: 9.0.0
   resolution: "react-markdown@npm:9.0.0"
   dependencies:
@@ -13621,7 +13621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-player@npm:^2.16.0":
+"react-player@npm:2.16.0":
   version: 2.16.0
   resolution: "react-player@npm:2.16.0"
   dependencies:
@@ -13742,7 +13742,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-toastify@npm:^10.0.5":
+"react-toastify@npm:10.0.5":
   version: 10.0.5
   resolution: "react-toastify@npm:10.0.5"
   dependencies:
@@ -13754,7 +13754,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-world-flags@npm:^1.6.0":
+"react-world-flags@npm:1.6.0":
   version: 1.6.0
   resolution: "react-world-flags@npm:1.6.0"
   dependencies:
@@ -14035,7 +14035,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-sanitize@npm:^6.0.0":
+"rehype-sanitize@npm:6.0.0":
   version: 6.0.0
   resolution: "rehype-sanitize@npm:6.0.0"
   dependencies:
@@ -14403,7 +14403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"screenfull@npm:^6.0.2":
+"screenfull@npm:6.0.2":
   version: 6.0.2
   resolution: "screenfull@npm:6.0.2"
   checksum: 56a541da09241ae7c97115cc31245623c09230bcbebb93636871e955b545f26c7dcdb2299795234a0a21bff5d5401b7329b22609becf4c381a9e22347acf87ba
@@ -16310,7 +16310,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.4":
+"zod@npm:3.22.4":
   version: 3.22.4
   resolution: "zod@npm:3.22.4"
   checksum: 80bfd7f8039b24fddeb0718a2ec7c02aa9856e4838d6aa4864335a047b6b37a3273b191ef335bf0b2002e5c514ef261ffcda5a589fb084a48c336ffc4cdbab7f
