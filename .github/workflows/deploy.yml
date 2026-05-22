@@ -326,7 +326,7 @@ jobs:
           echo "    ports:" >> docker-compose.yml
           echo "      - 1337:1337" >> docker-compose.yml
           echo "  nginx:" >> docker-compose.yml
-          echo "    image: nginx" >> docker-compose.yml
+          echo "    image: nginx:1.28-alpine" >> docker-compose.yml
           echo "    restart: always" >> docker-compose.yml
           echo "    volumes:" >> docker-compose.yml
           echo "      - ./proxy/conf.d:/etc/nginx/conf.d" >> docker-compose.yml
@@ -352,3 +352,4 @@ jobs:
           region: ${{ vars.TF_AWS_REGION }}
           version_label: ${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
           deployment_package: infrastructure/source_bundle/deploy.zip
+          wait_for_environment_recovery: 180
