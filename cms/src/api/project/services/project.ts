@@ -7,164 +7,89 @@ import * as fs from "fs";
 import * as csv from "csv-parse/sync";
 import * as stringify from "csv-stringify/sync";
 
-interface ProjectRow {
-  countries: string;
-  sdgs: string;
-  pillar: string;
-  [key: string]: any;
+import {
+  ALLOWED_CSV_COLUMNS,
+  COMMENT_PREFIX,
+  CsvColumn,
+  MULTI_VALUE_SEPARATOR,
+  PROJECT_CSV_COLUMNS,
+  REQUIRED_CSV_COLUMNS,
+} from "../csv/columns";
+
+type CsvRow = Record<string, string>;
+
+/**
+ * Removes the `#` guidance block that ships with the downloadable template.
+ * Only full lines are treated as comments, so a `#` inside a project name or
+ * description survives.
+ */
+function stripGuidanceLines(content: string): string {
+  return content
+    .split(/\r?\n/)
+    .filter((line) => !line.trimStart().startsWith(COMMENT_PREFIX))
+    .join("\n");
 }
 
-async function findProjectStatusIdByName(name: string): Promise<number> {
-  const result: any = await strapi.entityService.findMany(
-    "api::project-status.project-status",
-    {
-      filters: { name },
-      fields: ["id"],
-    }
-  );
+async function findIdByLookup(
+  column: CsvColumn,
+  value: string
+): Promise<number> {
+  const { uid, field, label } = column.lookup;
 
-  if (result.length === 0) {
-    throw new Error(`No project status found with the name "${name}"`);
-  }
-
-  return result[0].id;
-}
-
-async function findObjectiveIdByType(type: string): Promise<number> {
-  const result: any = await strapi.entityService.findMany(
-    "api::objective.objective",
-    {
-      filters: { type },
-      fields: ["id"],
-    }
-  );
-
-  if (result.length === 0) {
-    throw new Error(`No objective found with the name "${type}"`);
-  }
-
-  return result[0].id;
-}
-
-async function findOrganizationTypeIdByName(name: string): Promise<number> {
-  const result: any = await strapi.entityService.findMany(
-    "api::organization-type.organization-type",
-    {
-      filters: { name },
-      fields: ["id"],
-    }
-  );
-
-  if (result.length === 0) {
-    throw new Error(`No organization type found with the name "${name}"`);
-  }
-
-  return result[0].id;
-}
-
-async function findFundingIdByName(name: string): Promise<number> {
-  const result: any = await strapi.entityService.findMany(
-    "api::types-of-funding.types-of-funding",
-    {
-      filters: { name },
-      fields: ["id"],
-    }
-  );
-
-  if (result.length === 0) {
-    throw new Error(`No funding found with the name "${name}"`);
-  }
-
-  return result[0].id;
-}
-
-async function findWorldCountryIdByName(name: string): Promise<number> {
-  const result: any = await strapi.entityService.findMany(
-    "api::world-country.world-country",
-    {
-      filters: { name },
-      fields: ["id"],
-    }
-  );
-
-  if (result.length === 0) {
-    throw new Error(`No world country found with the name "${name}"`);
-  }
-
-  return result[0].id;
-}
-
-async function findCountryIdByName(name: string): Promise<number> {
-  const result: any = await strapi.entityService.findMany(
-    "api::country.country",
-    {
-      filters: { name },
-      fields: ["id"],
-    }
-  );
-
-  if (result.length === 0) {
-    throw new Error(`No country found with the name "${name}"`);
-  }
-
-  return result[0].id;
-}
-
-async function findSdgIdByName(name: string): Promise<number> {
-  const result: any = await strapi.entityService.findMany("api::sdg.sdg", {
-    filters: { name },
+  const result: any = await strapi.entityService.findMany(uid as any, {
+    filters: { [field]: value },
     fields: ["id"],
   });
 
   if (result.length === 0) {
-    throw new Error(`No SDG found with the name "${name}"`);
+    throw new Error(`No ${label} found with the name "${value}"`);
   }
 
   return result[0].id;
 }
 
-async function findPillarIdByName(name: string): Promise<number> {
-  const result: any = await strapi.entityService.findMany(
-    "api::pillar.pillar",
-    {
-      filters: { name },
-      fields: ["id"],
-    }
-  );
+/**
+ * Turns one CSV cell into the value the import plugin expects: an array of ids
+ * for relations, the trimmed string otherwise.
+ */
+async function resolveValue(
+  column: CsvColumn,
+  raw: string
+): Promise<string | number[]> {
+  const value = String(raw ?? "").trim();
 
-  if (result.length === 0) {
-    throw new Error(`No pillar found with the name "${name}"`);
+  if (!column.lookup) {
+    return value;
   }
 
-  return result[0].id;
+  if (!column.multiValue) {
+    return [await findIdByLookup(column, value)];
+  }
+
+  const names = value
+    .split(MULTI_VALUE_SEPARATOR)
+    .map((name) => name.trim())
+    .filter(Boolean);
+
+  return Promise.all(names.map((name) => findIdByLookup(column, name)));
 }
 
 export default factories.createCoreService("api::project.project", {
   async parseAndReplaceIds(file, author = null) {
-    // Read and parse the CSV file
-    const fileContent = fs.readFileSync(file.path, "utf8");
+    const fileContent = stripGuidanceLines(
+      fs.readFileSync(file.path, "utf8")
+    );
 
-    const allowedColumns = [
-      "name",
-      "highlight",
-      "status",
-      "objective",
-      "amount",
-      "countries",
-      "source_country",
-      "sdgs",
-      "sector",
-      "organization_type",
-      "info",
-      "funding",
-    ];
-
-    const records: ProjectRow[] = csv
+    const records: CsvRow[] = csv
       .parse(fileContent, {
         columns: true,
         skip_empty_lines: true,
+        // Excel writes a BOM, which would otherwise corrupt the first column name.
+        bom: true,
+        // Tolerates the `", "` spacing people copy out of the documentation.
+        trim: true,
       })
-      .filter((row: any) =>
+      .filter((row: CsvRow) =>
         Object.values(row).some((v) => String(v ?? "").trim() !== "")
       );
 
@@ -175,70 +100,48 @@ export default factories.createCoreService("api::project.project", {
     const csvColumns = Object.keys(records[0]);
 
     const invalidColumns = csvColumns.filter(
-      (col) => !allowedColumns.includes(col)
+      (col) => !ALLOWED_CSV_COLUMNS.includes(col)
     );
     if (invalidColumns.length > 0) {
       throw new Error(`Invalid columns detected: ${invalidColumns.join(", ")}`);
     }
 
-    const missingColumns = allowedColumns.filter(
+    const missingColumns = REQUIRED_CSV_COLUMNS.filter(
       (col) => !csvColumns.includes(col)
     );
-
     if (missingColumns.length > 0) {
       throw new Error(`Missing required columns: ${missingColumns.join(", ")}`);
     }
 
-    // Process each row
+    // Optional columns may be absent entirely, so older files still import.
+    const presentColumns = PROJECT_CSV_COLUMNS.filter((column) =>
+      csvColumns.includes(column.name)
+    );
+
     const updatedRecords = await Promise.all(
-      records.map(async (row: ProjectRow) => {
-        const countryNames = row.countries
-          .split(";")
-          .map((name) => name.trim());
-        const sdgNames = row.sdgs.split(";").map((name) => name.trim());
-        const pillarNames = row.sector.split(";").map((name) => name.trim());
-        const status = row.status
-          ? [await findProjectStatusIdByName(row.status)]
-          : [];
-        const sourceCountry = row.source_country
-          ? [await findWorldCountryIdByName(row.source_country)]
-          : [];
-        const objective = row.objective
-          ? [await findObjectiveIdByType(row.objective)]
-          : [];
-        const organizationType = row.organization_type
-          ? [await findOrganizationTypeIdByName(row.organization_type)]
-          : [];
-        const funding = row.funding
-          ? [await findFundingIdByName(row.funding)]
-          : [];
+      records.map(async (row: CsvRow, index: number) => {
+        const updatedRow: Record<string, any> = {};
 
-        const countryIds = await Promise.all(
-          countryNames.map((name) => findCountryIdByName(name))
-        );
-        const sdgIds = await Promise.all(
-          sdgNames.map((name) => findSdgIdByName(name))
-        );
-        const pillarIds = await Promise.all(
-          pillarNames.map((name) => findPillarIdByName(name))
-        );
-        const publishedAt = new Date().toISOString();
+        for (const column of presentColumns) {
+          const raw = String(row[column.name] ?? "").trim();
 
-        const { sector, ...rowWithoutSector } = row;
-        const updatedRow: any = {
-          ...rowWithoutSector,
-          countries: countryIds,
-          sdgs: sdgIds,
-          pillar: pillarIds,
-          status,
-          source_country: sourceCountry,
-          objective,
-          organization_type: organizationType,
-          funding,
-          publishedAt,
-        };
+          if (!raw) {
+            if (column.required) {
+              throw new Error(
+                `Row ${index + 1}: missing value for required column "${
+                  column.name
+                }"`
+              );
+            }
+            updatedRow[column.target] = "";
+            continue;
+          }
 
-        // Add author relation if provided
+          updatedRow[column.target] = await resolveValue(column, raw);
+        }
+
+        updatedRow.publishedAt = new Date().toISOString();
+
         if (author) {
           updatedRow.author = [author];
         }

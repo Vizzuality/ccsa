@@ -20,6 +20,15 @@ module.exports = {
     },
     {
       method: "GET",
+      path: "/projects/import-template",
+      handler: "project.downloadImportTemplate",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
+    {
+      method: "GET",
       path: "/projects/search-by-name",
       handler: "project.searchByNameWholeWord",
       config: {

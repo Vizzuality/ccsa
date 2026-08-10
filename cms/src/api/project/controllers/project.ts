@@ -6,7 +6,38 @@ import { factories } from "@strapi/strapi";
 import * as fs from "fs";
 import axios from "axios";
 
+import {
+  buildProjectImportGuide,
+  renderProjectImportTemplate,
+} from "../csv/template";
+
 export default factories.createCoreController("api::project.project", () => ({
+  /**
+   * Serves the project import template. `?format=json` returns the same guide as
+   * structured data, so the UI's help dialog and the downloadable file can never
+   * disagree.
+   */
+  async downloadImportTemplate(ctx) {
+    try {
+      const guide = await buildProjectImportGuide();
+
+      if (ctx.query.format === "json") {
+        return ctx.send({ data: guide });
+      }
+
+      ctx.set(
+        "Content-Disposition",
+        'attachment; filename="ccsa-project-import-template.csv"'
+      );
+      ctx.type = "text/csv; charset=utf-8";
+
+      return ctx.send(renderProjectImportTemplate(guide));
+    } catch (error: any) {
+      strapi.log.error("downloadImportTemplate failed", error);
+      ctx.throw(500, `Failed to build import template: ${error.message}`);
+    }
+  },
+
   async approveProjectSuggestion(ctx) {
     const data = ctx.request.body.data;
     let project;

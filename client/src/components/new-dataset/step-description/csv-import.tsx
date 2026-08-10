@@ -5,19 +5,25 @@ import { useDropzone } from "react-dropzone";
 import { useSetAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import { LuInfo } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 import { useRouter } from "next/navigation";
 
 import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
-import { downloadCSV } from "@/lib/utils/csv";
+import { downloadCSV, saveFile } from "@/lib/utils/csv";
 import { UsersPermissionsRole, UsersPermissionsUser } from "@/types/generated/strapi.schemas";
 import { datasetValuesJsonUploadedAtom } from "@/app/store";
 import { useGetUsersId } from "@/types/generated/users-permissions-users-roles";
 
 import { validateDatasetValuesCsv } from "@/services/datasets";
 
-import { uploadProjectsCsv, uploadProjectsSuggestionCsv } from "@/services/projects";
+import {
+  downloadProjectsCsvTemplate,
+  uploadProjectsCsv,
+  uploadProjectsSuggestionCsv,
+  useGetProjectsCsvGuide,
+} from "@/services/projects";
 import CSVInfoContent from "./csv-info-content";
 
 import type { CSVImportTypes } from "./types";
@@ -32,7 +38,7 @@ export default function CSVImport({
   values,
 }: {
   valueType: CSVImportTypes;
-  values: any;
+  values?: any;
 }) {
   const { push } = useRouter();
   const setDatasetValues = useSetAtom(datasetValuesJsonUploadedAtom);
@@ -124,9 +130,25 @@ export default function CSVImport({
     },
   });
 
-  const handleDownload = useCallback(() => {
-    downloadCSV(values?.data, valueType, "myData.csv");
-  }, [values?.data, valueType]);
+  const { data: projectsCsvGuide } = useGetProjectsCsvGuide(
+    valueType === "project" ? apiToken : undefined,
+  );
+
+  const handleDownload = useCallback(async () => {
+    if (valueType !== "project") {
+      downloadCSV(values?.data, valueType, "myData.csv");
+      return;
+    }
+
+    try {
+      const template = await downloadProjectsCsvTemplate({
+        Authorization: `Bearer ${apiToken}`,
+      });
+      saveFile(template, "ccsa-project-import-template.csv");
+    } catch (error) {
+      toast.error("There was a problem downloading the template");
+    }
+  }, [apiToken, values?.data, valueType]);
 
   return (
     <div className="flex justify-between text-xs font-light">
@@ -151,7 +173,7 @@ export default function CSVImport({
 
           <DialogContent>
             <DialogTitle className="sr-only">Data</DialogTitle>
-            <CSVInfoContent valueType={valueType} />
+            <CSVInfoContent valueType={valueType} projectsCsvGuide={projectsCsvGuide} />
           </DialogContent>
         </Dialog>
       </div>

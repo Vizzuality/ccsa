@@ -1381,7 +1381,7 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
     highlight: Attribute.RichText;
     account: Attribute.String;
     amount: Attribute.Float;
-    year_established: Attribute.Float;
+    year_established: Attribute.Integer;
     funding: Attribute.Relation<
       'api::project-edit-suggestion.project-edit-suggestion',
       'oneToOne',
@@ -1439,6 +1439,7 @@ export interface ApiProjectEditSuggestionProjectEditSuggestion
       'api::project-status.project-status'
     >;
     video_link: Attribute.String;
+    other_funding: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

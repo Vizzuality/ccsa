@@ -425,6 +425,7 @@ export default function ProjectForm() {
         source_country: previousData?.source_country?.data?.id as number,
         objective: previousData?.objective?.data?.id as number,
         video_link: previousData?.video_link || "",
+        other_funding: previousData?.other_funding || "",
       },
     }),
   });
@@ -612,26 +613,7 @@ export default function ProjectForm() {
       />
 
       <div className="py-10 sm:px-10 md:px-24 lg:px-32">
-        <CSVImport
-          valueType="project"
-          values={{
-            data: {
-              year_established: "",
-              name: "",
-              highlight: "",
-              status: "",
-              objective: "",
-              amount: "",
-              countries: "",
-              source_country: "",
-              sdgs: "",
-              sectors: "",
-              organization_type: "",
-              info: "", // If no info, keep it as an empty string
-              funding: "", // If no funding, keep it as an empty string
-            },
-          }}
-        />
+        <CSVImport valueType="project" />
       </div>
       <DashboardFormWrapper header={true} className="m-auto w-full max-w-sm">
         <p className="m-auto w-full max-w-sm">

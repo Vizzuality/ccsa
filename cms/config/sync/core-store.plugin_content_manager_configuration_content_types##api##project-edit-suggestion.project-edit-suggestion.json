@@ -310,6 +310,20 @@
           "sortable": true
         }
       },
+      "other_funding": {
+        "edit": {
+          "label": "other_funding",
+          "description": "",
+          "placeholder": "",
+          "visible": true,
+          "editable": true
+        },
+        "list": {
+          "label": "other_funding",
+          "searchable": true,
+          "sortable": true
+        }
+      },
       "createdAt": {
         "edit": {
           "label": "createdAt",
@@ -478,6 +492,12 @@
           },
           {
             "name": "video_link",
+            "size": 6
+          }
+        ],
+        [
+          {
+            "name": "other_funding",
             "size": 6
           }
         ]

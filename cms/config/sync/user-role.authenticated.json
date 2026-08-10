@@ -142,6 +142,9 @@
       "action": "api::project-status.project-status.findOne"
     },
     {
+      "action": "api::project.project.downloadImportTemplate"
+    },
+    {
       "action": "api::project.project.find"
     },
     {

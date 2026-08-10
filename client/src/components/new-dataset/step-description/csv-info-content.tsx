@@ -1,3 +1,5 @@
+import { ProjectCsvColumnGuide } from "@/services/projects";
+
 import { CSVImportTypes } from "./types";
 
 import {
@@ -7,7 +9,13 @@ import {
   LINK_CSV_CONTENT,
 } from "./constants";
 
-export default function CSVInfoContent({ valueType }: { valueType: CSVImportTypes }) {
+export default function CSVInfoContent({
+  valueType,
+  projectsCsvGuide,
+}: {
+  valueType: CSVImportTypes;
+  projectsCsvGuide?: ProjectCsvColumnGuide[];
+}) {
   return (
     <div className="space-y-5 p-5">
       <h3 className="font-bold">CSV Import Information</h3>
@@ -111,24 +119,61 @@ export default function CSVInfoContent({ valueType }: { valueType: CSVImportType
           <h4 className="font-metropolis tracking-tight">{PROJECTS_CSV_CONTENT.title}</h4>
           <div className="space-y-2.5">
             <p>
-              <span className="font-semibold">Columns:</span>{" "}
-              <code>{PROJECTS_CSV_CONTENT.columns.join(", ")}</code>.
+              Download the template below. It lists every column with its definition, whether it is
+              required, and the values it accepts. Guidance lines start with <code>#</code> and are
+              ignored on import, so you can leave them in place.
             </p>
-            <p className="font-semibold">Example:</p>
-            <div className="flex flex-col space-y-2 bg-gray-100 p-4">
-              <code>{PROJECTS_CSV_CONTENT.columns.join(", ")}</code>
-              {PROJECTS_CSV_CONTENT.examples.map((example) => (
-                <code key={example}>{example}</code>
-              ))}
-            </div>
+            {!projectsCsvGuide && <p>Loading the field list…</p>}
+            {projectsCsvGuide && (
+              <div className="max-h-80 overflow-y-auto">
+                <table className="w-full border-collapse text-left text-xs">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="py-1 pr-2 font-semibold">Column</th>
+                      <th className="py-1 pr-2 font-semibold">Required</th>
+                      <th className="py-1 pr-2 font-semibold">Description</th>
+                      <th className="py-1 font-semibold">Example</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {projectsCsvGuide.map((column) => (
+                      <tr key={column.name} className="border-b align-top">
+                        <td className="py-1 pr-2">
+                          <code>{column.name}</code>
+                        </td>
+                        <td className="py-1 pr-2">{column.required ? "Yes" : "No"}</td>
+                        <td className="py-1 pr-2">
+                          {column.description}
+                          {column.multiValue && (
+                            <>
+                              {" "}
+                              Separate several with <code>;</code>.
+                            </>
+                          )}
+                          {column.acceptedValues && (
+                            <>
+                              {" "}
+                              Accepted values: {column.acceptedValues.join("; ")}.
+                            </>
+                          )}
+                          {!column.acceptedValues && !!column.acceptedValuesCount && (
+                            <>
+                              {" "}
+                              Must match one of the {column.acceptedValuesCount} options in the
+                              project form&apos;s dropdown.
+                            </>
+                          )}
+                        </td>
+                        <td className="py-1">{column.example}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
             <p>
-              <span className="font-semibold">Note:</span> The following fields must match an
-              existing option from the dropdowns in the project form below:{" "}
-              <code>sector</code>, <code>countries</code>, <code>sdgs</code>, <code>status</code>,{" "}
-              <code>funding</code>, <code>organization_type</code>, <code>source_country</code>,{" "}
-              <code>objective</code>. Values are case-sensitive and must match exactly. Multi-value
-              fields (<code>countries</code>, <code>sdgs</code>, <code>sector</code>) are separated
-              with <code>;</code>.
+              <span className="font-semibold">Note:</span> values that must match a dropdown option
+              are case-sensitive and have to match exactly.
             </p>
           </div>
         </div>
