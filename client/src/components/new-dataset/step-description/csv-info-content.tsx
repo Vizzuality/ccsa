@@ -119,11 +119,11 @@ export default function CSVInfoContent({
           <h4 className="font-metropolis tracking-tight">{PROJECTS_CSV_CONTENT.title}</h4>
           <div className="space-y-2.5">
             <p>
-              Download the template below. It lists every column with its definition, whether it is
-              required, and the values it accepts. Guidance lines start with <code>#</code> and are
-              ignored on import, so you can leave them in place.
+              Use the <span className="font-semibold">Download template</span> link on this page. The
+              template lists every column with its definition, whether it is required, and the values
+              it accepts. Guidance lines start with <code>#</code> and are ignored on import, so you
+              can leave them in place.
             </p>
-            {!projectsCsvGuide && <p>Loading the field list…</p>}
             {projectsCsvGuide && (
               <div className="max-h-80 overflow-y-auto">
                 <table className="w-full border-collapse text-left text-xs">
@@ -228,8 +228,9 @@ export default function CSVInfoContent({
       )}
 
       <p className="note">
-        If you are not sure how to proceed, you can download a template on this page with all
-        available countries to fill in the values.
+        {valueType === "project"
+          ? "If you are not sure how to proceed, download the template on this page and fill in the values under its guidance rows."
+          : "If you are not sure how to proceed, you can download a template on this page with all available countries to fill in the values."}
       </p>
     </div>
   );
