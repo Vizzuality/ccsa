@@ -98,6 +98,9 @@
     },
     "video_link": {
       "type": "string"
+    },
+    "other_funding": {
+      "type": "string"
     }
   }
 }

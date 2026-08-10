@@ -256,6 +256,9 @@
       "action": "api::project.project.delete"
     },
     {
+      "action": "api::project.project.downloadImportTemplate"
+    },
+    {
       "action": "api::project.project.find"
     },
     {

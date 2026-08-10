@@ -3349,6 +3349,7 @@ export type SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggesti
     name?: string;
     objective?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesObjective;
     organization_type?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesOrganizationType;
+    other_funding?: string;
     pillar?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesPillar;
     project?: SdgProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesProject;
     publishedAt?: string;
@@ -5348,7 +5349,7 @@ export interface ProjectFieldMetadata {
   updatedAt?: string;
   updatedBy?: ProjectFieldMetadataUpdatedBy;
   video_link?: string;
-  year_established?: number;
+  year_established?: string;
 }
 
 export type ProjectFieldMetadataCreatedByDataAttributesUpdatedByDataAttributes = {
@@ -5555,7 +5556,7 @@ export type ProjectFieldMetadataRequestData = {
   source_country?: string;
   status?: string;
   video_link?: string;
-  year_established?: number;
+  year_established?: string;
 };
 
 export interface ProjectFieldMetadataRequest {
@@ -5673,6 +5674,7 @@ export interface ProjectEditSuggestion {
   name?: string;
   objective?: ProjectEditSuggestionObjective;
   organization_type?: ProjectEditSuggestionOrganizationType;
+  other_funding?: string;
   pillar?: ProjectEditSuggestionPillar;
   project?: ProjectEditSuggestionProject;
   publishedAt?: string;
@@ -5848,6 +5850,7 @@ export type ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesS
     name?: string;
     objective?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesObjective;
     organization_type?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesOrganizationType;
+    other_funding?: string;
     pillar?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesPillar;
     project?: ProjectEditSuggestionPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesProject;
     publishedAt?: string;
@@ -7354,6 +7357,7 @@ export type ProjectEditSuggestionRequestData = {
   name?: string;
   objective?: ProjectEditSuggestionRequestDataObjective;
   organization_type?: ProjectEditSuggestionRequestDataOrganizationType;
+  other_funding?: string;
   pillar?: ProjectEditSuggestionRequestDataPillar;
   project?: ProjectEditSuggestionRequestDataProject;
   review_decision_details?: string;
@@ -7648,6 +7652,7 @@ export type ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAtt
     name?: string;
     objective?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesObjective;
     organization_type?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesOrganizationType;
+    other_funding?: string;
     pillar?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesPillar;
     project?: ProjectPillarDataAttributesProjectsDataItemAttributesSdgsDataItemAttributesProjectEditSuggestionsDataItemAttributesProject;
     publishedAt?: string;
@@ -9347,6 +9352,7 @@ export type PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSugge
     name?: string;
     objective?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesObjective;
     organization_type?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesOrganizationType;
+    other_funding?: string;
     pillar?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesPillar;
     project?: PillarProjectsDataItemAttributesPillarDataAttributesProjectEditSuggestionsDataItemAttributesProject;
     publishedAt?: string;
